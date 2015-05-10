@@ -1,0 +1,24 @@
+@import url(http://fonts.googleapis.com/css?family=Lobster&subset=latin,cyrillic);
+@font-face {
+    font-family: fiveMinuts;
+    src: url("fonts/FiveMinutes.otf");
+}
+
+
+body{
+    font-family: 'Trebuchet MS', 'Lucida Grande', 'Lucida Sans Unicode', 'Lucida Sans', Tahoma, sans-serif;
+}
+
+.lobster{
+    font-family: 'Lobster', cursive;
+}
+
+.fiveMinuts{
+    font-family: 'fiveMinuts', bold;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+}
+
+.text-main{
+    color: #696360;
+}

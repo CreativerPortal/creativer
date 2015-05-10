@@ -1,0 +1,12 @@
+.early-message {
+    margin: auto;
+    font-size: 13px!important;
+}
+.early-message>span {
+    color: #ffffff;
+}
+.early_message {
+    background-position: 0 -71px;
+    width: 179px;
+    height: 31px;
+}

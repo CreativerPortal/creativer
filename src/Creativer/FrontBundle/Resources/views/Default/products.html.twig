@@ -1,0 +1,211 @@
+{% extends "CreativerFrontBundle::layout.html.twig" %}
+{% block title %}Регистрация{% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/css/pages/vendor.css">
+        <link rel="stylesheet" href="/css/pages/products.css">
+    {% endblock %}
+
+    {% block javascripts %}
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script src="/js/vendor.js"></script>
+    {% endblock %}
+
+{% block body %}
+
+    <div class="row slid padding-right_0">
+
+        <div class="col-sm-3 padding-left_0 ">
+            <div class="slid__products__top"></div>
+            <nav class="font_product fiveMinuts">
+                <ul>
+                    <li><a href="">Хедмейд-Бижютерия</a></li>
+                    <li><a href="">Одежда</a></li>
+                    <li ><a class="menu_action_black" href="">Обувь</a>
+                        <ul>
+                            <li><a href="">Женская</a>
+                                <ul>
+                                    <li><a href="">Босоножки</a></li>
+                                    <li><a href="">Туфли</a></li>
+                                </ul>
+                            </li>
+                            <li><a href="">Мужская</a>
+                                <ul>
+                                    <li><a href="">Туфли</a></li>
+                                    <li><a href="">Спортивная обувь</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </li>
+                    <li><a href="">Сумки-ремни</a></li>
+                    <li><a href="">Книги</a></li>
+                </ul>
+            </nav>
+            <div class="slid__products__bottom"></div>
+
+            <div class="row margin-left_15">
+                <img src="/src/reclama.png" alt="реклама" />
+            </div>
+
+            <div class="row margin-left_15 slid__news margin-top_40">
+                <article>
+                    <time class="slid__news__time" datetime="2015-02-14">14.02.2015</time>
+                    <h5 class="text-bold margin-bottom_5 margin-top_5">Заголовок новости</h5>
+                    <p>
+                        На дерибасовской хорошая погода, или на брайтон бич опять идут дожди</br>
+                        <a class="text-blue center-block text-right" href="#">Далее </a>
+                    </p>
+                </article>
+                <article>
+                    <time class="slid__news__time" datetime="2015-02-14">14.02.2015</time>
+                    <h5 class="text-bold margin-bottom_5 margin-top_5">Заголовок новости</h5>
+                    <p>
+                        На дерибасовской хорошая погода</br>
+                        <a class="text-blue center-block text-right" href="#">Далее </a>
+                    </p>
+                </article>
+                <a class="menu_action_still" href="">Ещё</a>
+            </div>
+
+            <form class="row  slid__get__news margin-top_40 margin-left_10">
+                <input type="text" class="slid__get__news__element" placeholder="Ваш E-mail">
+                <button class="slid__get__news__element-buttom " type="submit">Ok</button>
+            </form>
+
+        </div>
+
+        <div class="col-sm-9 fs_0-8">
+            <div class="row"><h2 class="lobster">Название страница</h2></div>
+            <div class="row">
+                <div class="col-sm-4 padding-left_0">
+                    Сортировать по:
+                    <select class="slid__order-by">
+                        <option>Дате добавления</option>
+                        <option>Дате добавления</option>
+                        <option>Дате добавления</option>
+                    </select>
+                </div>
+                <div class="col-sm-3 extended__search">
+                    <label for="search">Расширенный поиск</label>
+                    <input id="search" class="extended__search__element" type="checkbox" >
+                    <span></span>
+                </div>
+
+                <div class="col-sm-3 col-sm-offset-2 slid__pagination fiveMinuts">
+                    <a href="" class="slid__pagination__element_active">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                </div>
+            </div>
+
+            <div class="row slid__card slid__card__first">
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+            </div>
+
+            <div class="row slid__card">
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+            </div>
+
+            <div class="row slid__card">
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+                <div class="col-sm-3 padding-left_0">
+                    <img src="/src/img2.png" />
+                    <span class="slid__card__price">1.500.000</span>
+                    <div class="slid__card__name">Туфли</div>
+                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30">
+                    <a href="" class="slid__pagination__element_active">1</a>
+                    <a href="">2</a>
+                    <a href="">3</a>
+                    <a href="">4</a>
+                    <a href="">5</a>
+                    <a href="">6</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="banner-horizontal margin-top_40"><img src="/src/banner_list.png" /></div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+    </div>
+
+{% endblock %}

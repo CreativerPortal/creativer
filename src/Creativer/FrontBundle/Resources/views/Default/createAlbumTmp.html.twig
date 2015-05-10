@@ -1,0 +1,245 @@
+        <link rel="stylesheet" href="/css/button.css">
+        <link rel="stylesheet" href="/css/pages/album.css">
+
+
+        <div class="row slid  padding-right_0">
+
+            <h3 class="lobster">[[ user.username ]] [[ user.lastname ]]</h3>
+
+            <div class="col-sm-5 user padding-left_0">
+                <div class="row">
+                    <div class="col-sm-5 padding-left_0">
+                        <div class="user__avatar"><img src="[[ user.img ]]" /></div>
+                    </div>
+                    <div class="col-sm-7 user__text">
+                        <div class="row col-sm-12 margin-top_10 padding-left_0">
+                            <div class="text_info" ng-blur="saveField($event,'status')" obj="user" ng-bind="user.status" ></div>
+                            <span class="glyphicon glyphicon-pencil edit" edit-pain="status"></span>
+                        </div>
+                        <div class="row col-sm-12 margin-top_10 padding-left_0">
+                            <div class="text_info gelocation_icon" ng-blur="saveField($event,'position')" obj="user" ng-bind="user.position"></div>
+                            <span class="glyphicon glyphicon-pencil edit" edit-pain="position"></span>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="row margin-top_20">
+                    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-eye-open"></span></div>
+                    <div class="col-sm-2 user__text_bold padding-left_0">Просмотры</div>
+                    <div class="col-sm-3 col-md-offset-6 user__text_bold">423</div>
+                </div>
+
+                <div class="row margin-top_5">
+                    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+                    <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
+                    <div class="col-sm-3 col-md-offset-6 user__text_bold">23</div>
+                </div>
+
+                <div class="row margin-top_5">
+                    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
+                    <div class="col-sm-2 user__text_bold padding-left_0">Избранные</div>
+                    <div class="col-sm-3 col-md-offset-6 user__text_bold">1233</div>
+                </div>
+
+                <div class="row margin-top_40 col-sm-12 user__text">
+                    <div class="text-left user__text_bold">Информация:</div>
+                    <div class="text_info" ng-blur="saveField($event,'info')" obj="user" ng-bind="user.info"></div>
+                    <span class="glyphicon glyphicon-pencil edit" edit-pain="info"></span>
+                </div>
+
+                <div class="row margin-top_20 col-sm-12 user__text">
+                    <div class="text-left user__text_bold">Специализация:</div>
+                    <div class="text_info" ng-blur="saveField($event,'specialization')" obj="user" ng-bind="user.specialization"></div>
+                    <span class="glyphicon glyphicon-pencil edit" edit-pain="specialization"></span>
+                </div>
+
+                <div class="row margin-top_20 col-sm-12 user__text">
+                    <div class="text-left user__text_bold">Работал в:</div>
+                    <div class="text_info" ng-blur="saveField($event,'worked')" obj="user" ng-bind="user.worked"></div>
+                    <span class="glyphicon glyphicon-pencil edit" edit-pain="worked"></span>
+                </div>
+
+                <div class="row margin-top_20 col-sm-12 user__text">
+                    <div class="text-left user__text_bold">Ссылки:</div>
+                    <div class="text_info" ng-blur="saveField($event,'links')" obj="user" ng-bind="user.links"></div>
+                    <span class="glyphicon glyphicon-pencil edit" edit-pain="links"></span>
+                </div>
+
+                <div class="row margin-top_20 col-sm-12 user__text">
+                    <div class="text-left user__text_bold">Контакты:</div>
+                    <div class="text_info" ng-blur="saveField($event,'contacts')" obj="user" ng-bind="user.contacts"></div>
+                    <span class="glyphicon glyphicon-pencil edit"  edit-pain="contacts"></span>
+                </div>
+
+                <div class="row margin-top_20 col-sm-12 user__text">
+                    <div class="text-left user__text_bold">Присоединился:</div>
+                    <time class="text_info" >[[ user.date | date: "dd.MM.yyyy" ]]</time>
+                </div>
+            </div>
+
+            <div class="col-sm-7 album">
+                <input class="name_album lobster" ng-model="album.name" type="text" placeholder="Название Альбома">
+                <textarea class="description_album" ng-model="album.description" placeholder="Короткое описание альбома"></textarea>
+                <div ng-show="uploader.isHTML5" style="height: 105px;">
+                    <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+                        <div class="progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
+                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+
+                        <div class="text-center text-gray" ng-show="!uploader.progress" style="position: relative; top: -100px;">
+                            <span class="glyphicon glyphicon-inbox" style="font-size: 50px;"></span><br>
+                            <span class="text-bold fiveMinuts">Можете перетянуть изображения в этот блок</span>
+                        </div>
+
+                        <div class="text-center text-gray" ng-show="uploader.progress" style="position: relative; top: -100px;">
+                            <span class="fs_1-2 text-bold fiveMinuts text-bold">[[ uploader.progress ]]%</span><br>
+                            <span class="text-gray fiveMinuts text-bold">Пожалуйста подождите пока файлы загрузятся на CREATIVER</span><br>
+                            <div class="btn button_favorites button_gray_message text-center text-white" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
+                                <span>Остановить</span>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+
+
+                </div>
+
+                <label class="" for="uploadImg" style="font-weight: normal;">
+                    <div class="btn button_favorites early-message text-center"><span>Выбрать</span></div>
+                </label>
+
+                <input type="file" nv-file-select="" uploader="uploader" multiple id="uploadImg"  class="hidden" />
+
+                {#<ul>#}
+                    {#<li ng-repeat="item in uploader.queue">#}
+                        {#Name: <span ng-bind="item.file.name"></span><br/>#}
+                        {#<button ng-click="item.upload()">upload</button>#}
+                    {#</li>#}
+                {#</ul>#}
+
+
+                <button class="btn button_message early-message text-center right pointer" ng-click="uploader.uploadAll()">
+                    <span>Продолжить</span>
+                </button>
+
+
+                <div class="row margin-top_20" ng-model="res = uploader.queue.length/3">
+
+                <div class="col-sm-4">
+                    <div class=" upload__element" ng-repeat="item in uploader.queue.slice(0, res)">
+                        <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
+                            <input type="checkbox" class="hidden">
+                            <div class="edit__album__menu">
+                                <ul class="margin-top_20">
+                                    <li ng-click="item.remove()">Удалить</li>
+                                    <li>
+                                        <label>Обложкой<input type="radio" name="item.main" class="hidden" value="1" ng-model="item.main"></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </label>
+
+                        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 158 }" class="text-center thumb__upload"></div>
+                        {#<div type="button" class="btn-xs thumb__upload_delete" >#}
+                            {#<span class="glyphicon glyphicon-trash" style=""></span>#}
+                        {#</div>#}
+                        <input type="text" value="[[ item.file.name ]]" ng-model="item.file.name" ng-init="item.file.name=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;">
+                        <div class="text-center">
+                            {#<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>#}
+                            {#<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>#}
+                            {#<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>#}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class=" upload__element" ng-repeat="item in uploader.queue.slice(res, res*2)">
+                        <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
+                            <input type="checkbox" class="hidden">
+                            <div class="edit__album__menu">
+                                <ul class="margin-top_20">
+                                    <li ng-click="item.remove()">Удалить</li>
+                                    <li>
+                                        <label>Обложкой<input type="radio" name="item.main" class="hidden" value="1" ng-model="item.main"></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </label>
+
+                        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 158 }" class="text-center thumb__upload"></div>
+                        <input type="text" value="[[ item.file.name ]]" ng-model="item.file.name" ng-init="item.file.name=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;">
+                        <div class="text-center">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4">
+                    <div class=" upload__element" ng-repeat="item in uploader.queue.slice(res*2, res*3)">
+                        <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
+                            <input type="checkbox" class="hidden">
+                            <div class="edit__album__menu">
+                                <ul class="margin-top_20">
+                                    <li ng-click="item.remove()">Удалить</li>
+                                    <li>
+                                        <label>Обложкой<input type="radio" name="item.main" class="hidden" value="1" ng-model="item.main"></label>
+                                    </li>
+                                </ul>
+                            </div>
+                        </label>
+
+                        <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 158 }" class="text-center thumb__upload"></div>
+                        <input type="text" value="[[ item.file.name ]]" ng-model="item.file.name" ng-init="item.file.name=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;">
+                    </div>
+                </div>
+
+                </div>
+
+
+                {#<table class="table">#}
+                    {#<thead>#}
+                    {#<tr>#}
+                        {#<th width="50%">Name</th>#}
+                        {#<th ng-show="uploader.isHTML5">Size</th>#}
+                        {#<th ng-show="uploader.isHTML5">Progress</th>#}
+                        {#<th>Status</th>#}
+                        {#<th>Actions</th>#}
+                    {#</tr>#}
+                    {#</thead>#}
+                    {#<tbody>#}
+                    {#<tr ng-repeat="item in uploader.queue">#}
+                        {#<td>#}
+                            {#<strong>[[ item.file.name ]]</strong>#}
+
+                            {#<div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }"></div>#}
+
+                        {#</td>#}
+                        {#<td ng-show="uploader.isHTML5" nowrap>[[ item.file.size/1024/1024|number:2 ]] MB</td>#}
+                        {#<td ng-show="uploader.isHTML5">#}
+                            {#<div class="progress" style="margin-bottom: 0;">#}
+                                {#<div class="progress-bar" role="progressbar" ng-style="{ 'width': item.progress + '%' }"></div>#}
+                            {#</div>#}
+                        {#</td>#}
+                        {#<td class="text-center">#}
+                            {#<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>#}
+                            {#<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>#}
+                            {#<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>#}
+                        {#</td>#}
+                        {#<td nowrap>#}
+                            {#<button type="button" class="btn btn-danger btn-xs" ng-click="item.remove()">#}
+                                {#<span class="glyphicon glyphicon-trash"></span> Remove#}
+                            {#</button>#}
+                        {#</td>#}
+                    {#</tr>#}
+                    {#</tbody>#}
+                {#</table>#}
+            </div>
+
+        </div>
+
+
+

@@ -1,0 +1,17 @@
+creativer_front:
+    resource: "@CreativerFrontBundle/Resources/config/routing.yml"
+    prefix:   /
+
+creativer_api:
+    resource: "@CreativerApiBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
+person:
+    type: rest
+    resource: Creativer\ApiBundle\Controller\PersonController
+

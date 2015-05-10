@@ -1,0 +1,6 @@
+Creativer\FrontBundle\Entity\Register:
+    properties:
+        username:
+            - NotBlank: ~
+        email:
+            - Email: { message: "Некорректный email" }

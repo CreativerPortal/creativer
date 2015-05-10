@@ -1,0 +1,70 @@
+@import "../fonts.css";
+@import "../sprites.css";
+@import "../header.css";
+@import "../footer.css";
+@import "../helpers.css";
+
+body{
+    background-color: #eae9e3;
+}
+
+.wrapper{
+    width: 1045px;
+}
+
+
+.slid{
+    background-image: url("../../img/side_background.png");
+    -webkit-box-shadow: inset 0px -73px 82px 51px rgba(234,233,227,1);
+    -moz-box-shadow: inset 0px -73px 82px 51px rgba(234,233,227,1);
+    box-shadow: inset 0px -73px 82px 51px rgba(234,233,227,1);
+}
+
+.slid__slider{
+    position: absolute;
+    top:200px;
+    left: 50%;
+    margin-left: -115px;
+    width: 280px;
+    z-index: 1;
+    border: 1px dashed #786b5e;
+    border-radius: 20px 15px 20px 33px;
+    padding: 5px;
+}
+
+.slide__products{
+     width: 495px;
+     height: 699px;
+     position: relative;
+     background-image: url("../../img/main_product.png");
+ }
+
+.slide__services{
+    width: 495px;
+    height: 670px;
+    position: relative;
+    background-image: url("../../img/main_services.png");
+    background-position: -20px 0px;
+}
+
+.text-style{
+    color:#ffffff;
+    text-shadow: -2px -2px 2px #a37e60,
+    2px -2px 2px #a37e60,
+    -2px 2px 2px #a37e60,
+    2px 2px 2px #a37e60;
+    border-bottom: 1px dashed #ffffff;
+    border-radius: 0px 0px 3px 5px;
+}
+
+
+.text-style:hover{
+    color:#ffffff;
+    text-shadow: -2px -2px 2px #a37e60,
+    2px -2px 2px #a37e60,
+    -2px 2px 2px #a37e60,
+    2px 2px 2px #a37e60;
+    text-decoration: none;
+}
+
+

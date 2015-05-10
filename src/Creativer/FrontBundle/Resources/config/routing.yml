@@ -1,0 +1,38 @@
+logout:
+    path:     /logout
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:main }
+    methods:  [GET]
+creativer_front_registration:
+    path:     /registration
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:registration }
+creativer_front_main:
+    path:     /
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:main }
+security_check:
+    path:     /security_check
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:security_check }
+person:
+    path:     /person
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:layout_front }
+    methods:  [GET]
+#creativer_front_create_album:
+#    path:     /create_album
+#    host:     creativer.by.my
+#    defaults: { _controller: CreativerFrontBundle:Default:layout_front }
+#    methods:  [GET]
+creativer_front_create_albumTmp:
+    path:     /create_album
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:createAlbumTmp }
+    methods:  [GET]
+creativer_front_upload_album:
+    path:     /upload_album
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:uploadAlbum }
+    methods:  [POST]
+

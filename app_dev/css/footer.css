@@ -1,0 +1,16 @@
+.footer__menu{
+    margin-top: 20px;
+}
+
+.footer__menu ul{
+    text-align: center;
+    background-image: url("../img/footer_menu_background.png");
+    height: 57px;
+
+}
+
+.footer__menu ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 20px 15px 0px 15px;
+}

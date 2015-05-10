@@ -1,0 +1,21 @@
+{
+  "name": "creativer",
+  "version": "0.0.0",
+  "authors": [
+    "slaq777 <slaq@tut.by>"
+  ],
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests",
+    "app/vendor"
+  ],
+  "dependencies": {
+    "angular-bootstrap": "~0.12.1",
+    "bootstrap": "~3.3.2"
+  }
+}

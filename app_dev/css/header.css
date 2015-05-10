@@ -1,0 +1,72 @@
+input:focus,textarea:focus,select:focus{
+    outline: 2px solid #b29f81;
+}
+
+.header{
+    background-image: url("../img/header.png");
+    height: 163px;
+    background-repeat: no-repeat;
+    background-position: top 0px center;
+    padding-top: 10px;
+}
+
+.header__background{
+
+}
+
+.header__search{
+    width: 105px;
+    height: 20px;
+    background-color: #e9d0ae;
+    border-top: 1px solid #9b8166;
+    border-left: 1px solid #9b8166;
+    border-right: 1px solid #e4d1ae;
+    border-bottom: 1px solid #e4d1ae;
+    padding-left: 10px;
+    display: block;
+}
+
+
+.header__search-button{
+    background-color: transparent;
+    border: none;
+    width: 31px;
+    height: 36px;
+    float: right;
+}
+
+
+.header__search-border {
+    padding: 3px 1px 5px 2px;
+    border: 1px dashed white;
+    width: 112px;
+    height: 28px;
+    border-radius: 3px 3px 5px 6px;
+}
+
+.form-auth__buttom{
+    background-color: transparent;
+    border: transparent;
+    width: 25px;
+    height: 28px;
+    background-image: url("../img/sing_in.png");
+    background-repeat: no-repeat;
+}
+
+.form-auth__input{
+    width: 85px;
+    height: 20px;
+    background-color: #e9d0ae;
+    border-top: 1px solid #9b8166;
+    border-left: 1px solid #9b8166;
+    border-right: 1px solid #e4d1ae;
+    border-bottom: 1px solid #e4d1ae;
+    padding-left: 10px;
+    display: block;
+}
+
+
+::-webkit-input-placeholder {color:#4f4851;}
+::-moz-placeholder          {color:#4f4851;}/* Firefox 19+ */
+:-moz-placeholder           {color:#4f4851;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#4f4851;}

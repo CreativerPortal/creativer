@@ -1,0 +1,41 @@
+security:
+    encoders:
+        Creativer\FrontBundle\Entity\User:
+            algorithm: bcrypt
+
+    role_hierarchy:
+        ROLE_USER:       ROLE_USER
+        ROLE_SUPER_ADMIN: [ROLE_ADMIN, ROLE_ALLOWED_TO_SWITCH]
+
+    providers:
+        our_db_provider:
+            entity:
+                class: CreativerFrontBundle:User
+                property: username
+
+    firewalls:
+        secured_area:
+            pattern:    ^/
+            anonymous: ~
+            provider: our_db_provider
+            http_basic:
+                realm: "Secured Demo Area"
+            form_login:
+                check_path: /security_check
+                login_path: /index
+                username_parameter: username
+                password_parameter: password
+                always_use_default_target_path: true
+                default_target_path: /
+                target_path_parameter: _target_path
+                use_referer: false
+            logout:
+                path:   /logout
+                target: /index
+            #anonymous: ~
+            #http_basic:
+            #    realm: "Secured Demo Area"
+
+    access_control:
+#        - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
+        #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }

@@ -1,0 +1,132 @@
+@import "../fonts.css";
+@import "../sprites.css";
+@import "../header.css";
+@import "../footer.css";
+@import "../helpers.css";
+
+body{
+    background-color: #eae9e3;
+}
+
+.wrapper{
+    width: 1045px;
+}
+
+.slid{
+    padding: 0px 60px;
+}
+
+.slid__slider{
+    position: absolute;
+    top:200px;
+    left: 50%;
+    margin-left: -115px;
+    width: 280px;
+    z-index: 1;
+    border: 1px dashed #786b5e;
+    border-radius: 20px 15px 20px 33px;
+    padding: 5px;
+}
+
+
+.text-style{
+    color:#ffffff;
+    text-shadow: -2px -2px 2px #a37e60,
+    2px -2px 2px #a37e60,
+    -2px 2px 2px #a37e60,
+    2px 2px 2px #a37e60;
+    border-bottom: 1px dashed #ffffff;
+    border-radius: 0px 0px 3px 5px;
+}
+
+
+.text-style:hover{
+    color:#ffffff;
+    text-shadow: -2px -2px 2px #a37e60,
+    2px -2px 2px #a37e60,
+    -2px 2px 2px #a37e60,
+    2px 2px 2px #a37e60;
+    text-decoration: none;
+}
+
+.form-registration label, .form-registration__text{
+    font-weight: 100!important;
+    color: #7d7066;
+}
+
+.form-registration__text-blue{
+    color: #6096b9;
+}
+
+.form-registration__text-blue a{
+    text-decoration: underline;
+}
+
+.form-registration input{
+    background-color: #eae9e3;
+    border: 1px dashed #827972;
+}
+
+.form-registration .row{
+    margin-top: 5px;
+}
+
+.form-registration .condition{
+    display: block;
+    height: 20px;
+    width: 20px;
+    border: 1px dotted #827972;
+}
+
+.form-registration__submit{
+    padding: 2px 15px;
+    border: none;
+    color: #ffffff;
+    background-color: #5372a7;
+    border-radius: 5px 9px 6px 7px;
+}
+
+.form-registration__reset{
+    padding: 2px 15px;
+    border: none;
+    color: #ffffff;
+    background-color: #ec796d;
+    border-radius: 5px 9px 6px 7px;
+}
+
+.horizontal_line{
+    background-image: url("../../img/horizontal_line.png");
+    background-repeat: repeat-x;
+    background-position: 10px;
+    height: 10px;
+    padding-top: 40px;
+}
+
+.form-registration select{
+    width: 152px;
+    height: 24px;
+    background-color: #eae9e3;
+    border: 1px dashed #827972;
+}
+
+.form-registration textarea{
+    background-color: #eae9e3;
+    border: 1px dashed #827972;
+}
+
+.form-registration__element{
+    margin-top: 10px;
+}
+
+.form-registration__img{
+    display: inline-block;
+    background-color: #ec796d;
+    border-radius: 100px;
+    border: 5px solid #ffffff;
+    width: 60px;
+    height: 60px;
+}
+
+.upload_img span{
+    vertical-align: middle;
+}

@@ -1,0 +1,13 @@
+services:
+    my.handler.session_idle:
+        class: Creativer\FrontBundle\Handler\SessionIdleHandler
+        arguments: ["@session", "@security.context", "@router"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    my_service:
+        class: Creativer\FrontBundle\Services\ImageServices
+        arguments: ['@service_container']
+    your.twig.extension:
+            class: Creativer\FrontBundle\Twig\twigExtension
+            tags:
+                -  { name: twig.extension }

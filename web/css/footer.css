@@ -1,0 +1,20 @@
+.footer__menu{
+    margin-top: 20px;
+}
+
+.footer__menu ul{
+    text-align: center;
+    background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
+    height: 57px;
+
+}
+
+.footer__menu ul li{
+    list-style: none;
+    display: inline-block;
+    margin: 20px 15px 0px 15px;
+}
+
+.footer__menu ul li a{
+    color: #333;
+}

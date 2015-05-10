@@ -1,0 +1,224 @@
+@import "../fonts.css";
+@import "../sprites.css";
+@import "../header.css";
+@import "../footer.css";
+@import "../helpers.css";
+
+body{
+    background-color: #eae9e3;
+}
+
+.wrapper{
+    width: 1045px;
+}
+
+.slid{
+    padding: 0px 50px;
+}
+
+.slid__slider{
+    position: absolute;
+    top:200px;
+    left: 50%;
+    margin-left: -115px;
+    width: 280px;
+    z-index: 1;
+    border: 1px dashed #786b5e;
+    border-radius: 20px 15px 20px 33px;
+    padding: 5px;
+}
+
+
+.text-style{
+    color:#ffffff;
+    text-shadow: -2px -2px 2px #a37e60,
+    2px -2px 2px #a37e60,
+    -2px 2px 2px #a37e60,
+    2px 2px 2px #a37e60;
+    border-bottom: 1px dashed #ffffff;
+    border-radius: 0px 0px 3px 5px;
+}
+
+
+.text-style:hover{
+    color:#ffffff;
+    text-shadow: -2px -2px 2px #a37e60,
+    2px -2px 2px #a37e60,
+    -2px 2px 2px #a37e60,
+    2px 2px 2px #a37e60;
+    text-decoration: none;
+}
+
+
+.slid textarea{
+    background-color: #eae9e3;
+    border: 1px dashed #827972;
+}
+
+::-webkit-input-placeholder {color:#827972;}
+::-moz-placeholder          {color:#827972;}/* Firefox 19+ */
+:-moz-placeholder           {color:#827972;}/* Firefox 18- */
+:-ms-input-placeholder      {color:#827972;}
+
+
+.user{
+    background-image: url("/var/www/web/img/vertical_line.png");
+    background-repeat: no-repeat;
+    background-position: right;
+}
+
+.user__text{
+    font-weight: 100!important;
+    color: #7d7066;
+}
+
+.text_info{
+    white-space:pre;
+}
+
+.user__text_bold{
+    color: #696360;
+    font-weight: bold;
+}
+
+.user__text-gray{
+    color: #b3b3b2;
+}
+
+.user__text-blue {
+    color: #6096b9;
+}
+
+.user__avatar{
+    width: 125px;
+    height: 125px;
+    overflow: hidden;
+    border: 1px dashed #696360;
+    border-radius: 100px;
+}
+
+.user__avatar-mini{
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    border-radius: 100px;
+}
+
+.user__avatar-super-mini{
+    width: 60px;
+    height: 60px;
+    overflow: hidden;
+    border: 3px solid #ffffff;
+    border-radius: 100px;
+}
+
+.slid__comment__line {
+    height: 4px;
+    background-image: url("/var/www/web/img/line_comment.png");
+    background-repeat: repeat-x;
+    background-position: center bottom;
+}
+
+.user__avatar img, .user__avatar-mini img, .user__avatar-super-mini img{
+    width: 100%;
+}
+
+.edit{
+    position: absolute;
+    right: -5px;
+    top: -5px;
+    cursor: pointer;
+    color: #b3b3b2;
+}
+
+
+.gelocation_icon:before{
+    font-family: 'Glyphicons Halflings';
+    content: "\e062";
+}
+
+.icon-color{
+    color: #919190;
+}
+
+.album__element{
+    display: inline-block;
+    width: 165px;
+    height: 200px;
+    margin-left: 10px;
+    margin-top: 20px;
+    border-radius: 7px 14px 15px 14px;
+    padding: 6px 6px 12px 6px;
+    font-size: 0.89em;
+    position: relative;
+    color: #7d7066;
+    vertical-align: top;
+}
+
+.frame{
+    position: absolute;
+    width: 160px;
+    top: 5px;
+}
+
+.frame__img{
+    width: 153px;
+    height: 150px;
+    overflow: hidden;
+}
+
+.album_img{
+    margin-left: 4px;
+    margin-top: 2px;
+    min-width: 150px;
+    min-height: 150px;
+}
+
+.album__element-name{
+    padding-left: 6px;
+    font-stretch: condensed;
+    font-weight: 600;
+    letter-spacing: -0.1px;
+    position: absolute;
+    color: #7d7066;
+}
+
+.album__element-name:hover{
+    color: #7d7066;
+}
+
+.album__link{
+    position: absolute;
+    height: 150px;
+    width: 150px;
+    z-index: 2;
+}
+
+.album__element-block{
+    height: 55px;
+    position: relative;
+}
+
+.comment_time{
+    font-size: 0.8em;
+    color: #aea9a9;
+}
+
+.left-info{
+    width: 50px;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+.right-info{
+    width: 50px;
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
+
+
+
+

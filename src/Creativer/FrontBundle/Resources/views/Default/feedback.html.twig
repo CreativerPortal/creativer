@@ -1,0 +1,57 @@
+{% extends "CreativerFrontBundle::layout.html.twig" %}
+{% block title %}Регистрация{% endblock %}
+    {% block stylesheets %}
+        <link rel="stylesheet" href="/css/pages/vendor.css">
+        <link rel="stylesheet" href="/css/pages/feedback.css">
+    {% endblock %}
+
+    {% block javascripts %}
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+        <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <script src="/js/vendor.js"></script>
+    {% endblock %}
+
+{% block body %}
+
+    <div class="row slid">
+        <div class="row margin-top_50">
+            <div class="col-sm-5 slid_mai_box text-right">
+                <img src="/img/box_mail.png" alt="e-mail" />
+            </div>
+
+            <div class="col-sm-7">
+                <h3 class="lobster margin-top_0">Обратная связь</h3>
+                <div class="form-feedback">
+                    <form action="" class="form-feedback-form text-brown">
+                        <div class="row">
+                            <div class="col-sm-6"><label for="name" class="text-brown fs_0-9">Как к вам обращаться:</label></div>
+                            <div class="col-sm-5"><input id="name" type="text" /></div>
+                        </div>
+                        <div class="row margin-top_10">
+                            <div class="col-sm-6"><label for="telephone" class="text-brown fs_0-9">Телефон:</label></div>
+                            <div class="col-sm-5"><input id="telephone" type="text" /></div>
+                        </div>
+                        <div class="row margin-top_10">
+                            <div class="col-sm-6"><label for="password" class="text-brown fs_0-9">E-mail:</label></div>
+                            <div class="col-sm-5"><input id="password" type="email" /></div>
+                        </div>
+                        <div class="row margin-top_10">
+                            <div class="col-sm-10"><textarea cols="55" rows="5" class="text-brown fs_0-9" placeholder="Ваше сообщение"></textarea></div>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="margin-top_20 text-right col-sm-8">
+                    <button type="submit" class="form-registration__submit">Отправить</button>
+                    <button type="reset" class="form-registration__reset">Отменить</button>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,516 @@
+.button_action_05, .button_action_07, .button_action_09, .button_header_03, .button_header_05, .button_header_07, .button_header_09, .button_action_03{
+	background-image: url("/var/www/creativer/web/img/sprites_button.png") !important;
+	background-repeat: no-repeat;
+}
+
+.button_header_03{
+	background-position: -3px -134px ;
+	width: 89px;
+	height: 36px;
+	color: #ffffff;
+}
+
+.button_header_05{
+	background-position: -1px -91px ;
+	width: 100px;
+	height: 36px;
+	color:#ffffff;
+}
+
+.button_header_07{
+	background-position: 0 -45px ;
+	width: 103px;
+	height: 37px;
+	color:#ffffff;
+}
+
+.button_header_09{
+	background-position: -3px -1px ;
+	width: 128px;
+	height: 39px;
+	color:#ffffff;
+}
+
+.button_header_03:active{
+	background-position: -93px -133px ;
+	width: 89px;
+	height: 36px;
+	border: 0px;
+	box-shadow: none!important;
+}
+
+.button_header_05:active{
+	background-position: -101px -91px ;
+	width: 100px;
+	height: 36px;
+	border: 0px;
+	box-shadow: none!important;
+}
+
+.button_header_07:active{
+	background-position: -103px -46px ;
+	width: 103px;
+	height: 37px;
+	border: 0px;
+	box-shadow: none!important;
+}
+
+.button_header_09:active{
+	background-position: -131px 0;
+	width: 128px;
+	height: 39px;
+	border: 0px;
+	box-shadow: none!important;
+}
+
+
+.button_header_03:active span{
+	border-bottom: 0px!important;
+}
+
+.button_header_05:active span{
+	border-bottom: 0px!important;
+}
+
+.button_header_07:active span{
+	border-bottom: 0px!important;
+}
+
+.button_header_09:active span{
+	border-bottom: 0px!important;
+}
+
+
+.button_header_03:hover span{
+	color: #ffffff;
+	text-decoration: none;
+	border-bottom: 1px dashed #ffffff;
+}
+
+.button_header_05:hover span{
+	color:#ffffff;
+	text-decoration: none;
+	border-bottom: 1px dashed #ffffff;
+}
+
+.button_header_07:hover span{
+	color:#ffffff;
+	text-decoration: none;
+	border-bottom: 1px dashed #ffffff;
+}
+
+.button_header_09:hover span{
+	color:#ffffff;
+	text-decoration: none;
+	border-bottom: 1px dashed #ffffff;
+}
+
+/* -------- ???????? ?????? --------*/
+
+.accessories, .accessories_active, .bags_belts, .bijouterie, .bijouterie_active, .books, .books_active, .clothing, .clothing_active, .design, .design_active, .foto, .foto_active, .hairstyles, .hairstyles_active, .makeup, .makeup_active, .manicure, .manicure_active, .pictures_active, .shoes, .shoes_active, .sports_massage, .sports_massage_active, .tattoo, .tattoo_active, .toys_souvenirs, .toys_souvenirs_active, .pictures, .pictures_active{
+	background: url("/var/www/creativer/web/img/sprites.png") no-repeat;
+	position: absolute;
+}
+
+.accessories{
+	background-position: 0 -137px ;
+	width: 197px;
+	height: 198px;
+	top: 520px;
+	left: 205px;
+	z-index: 2;
+}
+
+.accessories:hover{
+	background-position: -198px -137px ;
+	width: 197px;
+	height: 198px;
+}
+
+.bags_belts{
+	background-position: -1px -336px ;
+	width: 108px;
+	height: 136px;
+	top: 415px;
+	left: 370px;
+}
+
+.bags_belts:hover{
+	background-position: -110px -336px ;
+	width: 108px;
+	height: 136px;
+	top: 415px;
+	left: 370px;
+}
+
+.bijouterie{
+	background-position: 0 -578px ;
+	width: 133px;
+	height: 141px;
+	top: 177px;
+	left: 5px;
+}
+
+.bijouterie:hover{
+	background-position: -134px -578px ;
+	width: 133px;
+	height: 141px;
+	top: 177px;
+	left: 5px;
+}
+
+.books{
+	background-position: 0 -473px ;
+	width: 140px;
+	height: 104px;
+	top: 84px;
+	left: 165px;
+}
+
+.books:hover{
+	background-position: -142px -473px ;
+	width: 140px;
+	height: 104px;
+	top: 84px;
+	left: 165px;
+}
+
+.clothing{
+	background-position: 0 -720px ;
+	width: 242px;
+	height: 481px;
+	top: 165px;
+	left: 135px
+}
+
+.clothing:hover{
+	background-position: -243px -720px ;
+	width: 242px;
+	height: 481px;
+	top: 165px;
+	left: 135px
+}
+
+.design{
+	background-position: 0 -2041px ;
+	width: 240px;
+	height: 249px;
+	top: 440px;
+	left:50px;
+	z-index: 2;
+}
+
+.design:hover{
+	background-position: -241px -2041px ;
+	width: 240px;
+	height: 249px;
+}
+
+.foto{
+	background-position: 0 -1875px ;
+	width: 190px;
+	height: 165px;
+	top: 390px;
+	left:250px;
+}
+
+.foto:hover{
+	background-position: -191px -1875px ;
+	width: 190px;
+	height: 165px;
+	top: 390px;
+	left: 250px;
+}
+
+.hairstyles{
+	background-position: 0 -2530px ;
+	width: 101px;
+	height: 119px;
+	top: 240px;
+	left: 160px;
+}
+
+.hairstyles:hover{
+	background-position: -102px -2530px ;
+	width: 101px;
+	height: 119px;
+	top: 240px;
+	left: 160px;
+}
+
+.makeup{
+	background-position: 0 -2394px ;
+	width: 176px;
+	height: 135px;
+	top: 240px;
+	left: 290px;
+}
+
+.makeup:hover{
+	background-position: -177px -2394px ;
+	width: 176px;
+	height: 135px;
+	top: 240px;
+	left: 290px;
+}
+
+.manicure{
+	background-position: 0 -2292px ;
+	width: 98px;
+	height: 101px;
+	top: 85px;
+	left: 210px;
+}
+
+.manicure:hover{
+	background-position: -99px -2292px ;
+	width: 98px;
+	height: 101px;
+	top: 85px;
+	left: 210px;
+}
+
+.shoes{
+	background-position: 0 -1394px ;
+	width: 232px;
+	height: 159px;
+	top: 555px;
+	left: -10px;
+}
+
+.shoes:hover{
+	background-position: -233px -1394px ;
+	width: 232px;
+	height: 159px;
+	top: 555px;
+	left: -10px;
+}
+
+.sports_massage{
+	background-position: 0 -1670px ;
+	width: 242px;
+	height: 204px;
+	top: 550px;
+	left: 190px;
+	z-index: 3;
+}
+
+.sports_massage:hover{
+	background-position: -243px -1670px ;
+	width: 242px;
+	height: 204px;
+}
+
+.tattoo{
+	background-position: 0 -1554px ;
+	width: 152px;
+	height: 110px;
+	top: 85px;
+	left: 308px;
+}
+
+.tattoo:hover{
+	background-position: -162px -1554px ;
+	width: 152px;
+	height: 110px;
+	top: 85px;
+	left: 308px;
+}
+
+.toys_souvenirs{
+	background-position: 0 0;
+	width: 167px;
+	height: 120px;
+	top: 60px;
+	left: 15px;
+	z-index: 2;
+}
+
+.toys_souvenirs:hover{
+	background-position: -176px 0;
+	width: 167px;
+	height: 120px;
+	top: 60px;
+	left: 15px;
+}
+
+.pictures{
+	background-position: 0 -1202px ;
+	width: 180px;
+	height: 191px;
+	top: 360px;
+	left: 48px;
+}
+
+.pictures:hover{
+	background-position: -181px -1202px ;
+	width: 180px;
+	height: 191px;
+	top: 360px;
+	left: 48px;
+}
+
+
+/* -------------    -------------- */
+
+.advert_button, .advert_button_2{
+	background: url("/var/www/creativer/web/img/sprites_advert.png") no-repeat;
+}
+
+.advert_button{
+	background-position: -174.99999237060547px 0;
+	width: 174px;
+	height: 45px;
+}
+
+.advert_button:hover{
+	background-position: 0 0;
+	width: 174px;
+	height: 45px;
+}
+
+
+
+/*--------- baraholka ---------*/
+.baraholka__filter__element{
+	background: url("/var/www/creativer/web/img/baraholka_button_sprite.png") no-repeat;
+}
+
+.baraholka__filter__element{
+	background-position: 0 0;
+	width: 72px;
+	height: 31px;
+}
+
+.baraholka__filter__element_active{
+	background-position: -73px 0;
+	width: 72px;
+	height: 31px;
+	color: #ffffff!important;
+}
+
+
+/* --------- buttom ------*/
+
+.menu_action_still, .left_button, .center_button, .right_button{
+	background: url("/var/www/creativer/web/img/sprites_buttoms.png") repeat-x;
+}
+
+
+.menu_action_still{
+	background-position: -73.98214340209961px 0;
+	display: block;
+	width: 67px;
+	height: 32px;
+	margin: auto;
+	text-align: center;
+	padding-top: 5px;
+	color: #ffffff !important;
+}
+
+.left_button{
+	background-position: -143.99106979370117px 0;
+	width: 51px;
+	height: 21px;
+}
+
+.center_button{
+	background-position: -194.0000114440918px 0;
+	width: 46px;
+	height: 21px;
+}
+
+.right_button{
+	background-position: -239.00001525878906px 0;
+	width: 55px;
+	height: 21px;
+}
+
+.false, .true{
+	background: url("/var/www/creativer/web/img/true_false.png") no-repeat;
+}
+
+.false{
+	background-position: -85.0000114440918px 0;
+	width: 70px;
+	height: 31px;
+	vertical-align: middle;
+	background-color: transparent;
+	border: none;
+	color: #ffffff;
+}
+
+.true{
+	background-position: 0 -0.000011444091796875px ;
+	width: 85px;
+	height: 31px;
+	vertical-align: middle;
+	background-color: transparent;
+	border: none;
+	color: #ffffff;
+}
+
+
+/*-------- message button ---------*/
+
+.button_favorites, .button_gray_message, .button_gray_message2, .button_message, .early_message{
+	background: url("/var/www/creativer/web/img/message_button.png") no-repeat;
+}
+
+
+.button_message{
+	background-position: 0 0;
+	width: 119px;
+	height: 27px;
+}
+
+.early_message{
+	background-position: 0 -71px ;
+	width: 179px;
+	height: 31px;
+}
+
+.button_favorites{
+	background-position: -119px 0;
+	width: 117px;
+	height: 27px;
+}
+
+.button_gray_message{
+	background-position: -79px -28px ;
+	width: 101px;
+	height: 31px;
+}
+
+.button_gray_message2{
+	background-position: 0 -29px ;
+	width: 79px;
+	height: 41px;
+}
+
+/*--------------- tail -----------------*/
+
+.tail2, .tail_message{
+	background: url("/var/www/creativer/web/img/tail_message.png") no-repeat;
+}
+.tail_message{
+	background-position: 0 0;
+	width: 24px;
+	height: 33px;
+}
+
+.tail2{
+	background-position: -24px 0;
+	width: 24px;
+	height: 33px;
+}
+
+
+
+
+
+
+
+
+
+
