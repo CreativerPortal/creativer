@@ -17,7 +17,8 @@ framework:
         #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_proxies: ~
-    session:         ~
+    session:
+        save_path: null
     fragments:       ~
     http_method_override: true
 
@@ -27,8 +28,9 @@ twig:
     strict_variables: "%kernel.debug%"
     cache: false
     globals:
-        img_album_thums: %path_img_album_thums%
-        img_album_original: %path_img_album_original%
+        path_img_avatar: "%path_img_avatar%"
+        path_img_album_thums: "%path_img_album_thums%"
+        path_img_album_original: "%path_img_album_original%"
 
 # Assetic Configuration
 assetic:
@@ -113,6 +115,6 @@ fos_rest:
         view_response_listener: true
 
 parameters:
-    path_img_avatar: "/home/"
-    path_img_album_thums: "/var/www/web/img/album/thums/"
-    path_img_album_original: "/var/www/web/img/album/original/"
+    path_img_avatar: "/home/avatar/"
+    path_img_album_thums: "/home/album/thums/"
+    path_img_album_original: "/home/album/original/"

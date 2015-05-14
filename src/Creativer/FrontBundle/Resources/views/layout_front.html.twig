@@ -20,7 +20,7 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-<div class="container wrapper">
+<div class="container wrapper" ng-model="id_user" ng-init="id_user={{ app.security.getToken().getUser().getId() }}">
 
 <header class="header">
 

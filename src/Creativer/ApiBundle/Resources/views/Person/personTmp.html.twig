@@ -16,7 +16,6 @@
                             <div class="text_info gelocation_icon" ng-blur="saveField($event,'position')" obj="user" ng-bind="user.position"></div>
                             <span class="glyphicon glyphicon-pencil edit" edit-pain="position"></span>
                         </div>
-
                     </div>
                 </div>
 
@@ -79,9 +78,9 @@
                 <div class="album__element" ng-repeat="album in user.albums">
                     <a href="#/album/[[album.id]]" class="album__link"></a>
                     <div class="frame__img">
-                        <img class="album_img" src="{{ img_album_thums }}[[ album.img ]]" />
+                        <img class="album_img" src="{{ path_img_album_thums }}[[ album.img ]]" />
                     </div>
-                    <img class="frame" src="/var/www/web/img/frame.png" />
+                    <img class="frame" src="/var/www/creativer/web/img/frame.png" />
                     <div class="album__element-block">
                         <a href="#/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
                         <div class="left-info user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">0</span></div>

@@ -185,6 +185,7 @@ class DefaultController extends Controller
                         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$userId));
                        // \Doctrine\Common\Util\Debug::dump($user);
                         $album = $em->getRepository("CreativerFrontBundle:Albums")->findBy(array('isActive' => 0, 'user' => $user[0]));
+
                         if(empty($album)){
                             $album = new Albums();
                             $album->setUser($user[0]);
@@ -254,10 +255,10 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle::layout_front.html.twig', array());
     }
 
-    public function albumAction(){
+    public function albumTmpAction(){
 
 
-        return $this->render('CreativerFrontBundle:Default:album.html.twig', array());
+        return $this->render('CreativerFrontBundle:Default:albumTmp.html.twig', array());
     }
 
     public function dialogueAction(){

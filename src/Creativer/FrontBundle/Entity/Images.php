@@ -25,7 +25,7 @@ class Images
     /**
      * @JMS\Expose
      * @JMS\Type("Images")
-     * @ORM\ManyToOne(targetEntity="Albums", inversedBy="album")
+     * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
      **/
     private $album;

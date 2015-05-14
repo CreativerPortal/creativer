@@ -1,0 +1,141 @@
+<link rel="stylesheet" href="/css/pages/album.css">
+<div class="row slid  padding-right_0">
+
+        <div class="row">
+            <h3 class="col-sm-5 lobster">[[ user.username ]] [[ user.lastname ]]</h3>
+            <h4 class="col-sm-6 lobster text-gray margin-top_30 margin-left_15">Альбом "[[ user.albums[id].name ]]"</h4>
+        </div>
+
+        <div class="col-sm-5 user padding-left_0">
+            <div class="row">
+                <div class="col-sm-5 padding-left_0">
+                    <div class="user__avatar"><img src="[[ user.img ]]" /></div>
+                </div>
+                <div class="col-sm-7 user__text">
+                    <div class="row col-sm-12 margin-top_10 padding-left_0">
+                        <div class="text_info" ng-blur="saveField($event,'status')" obj="user" ng-bind="user.status" ></div>
+                        <span class="glyphicon glyphicon-pencil edit" edit-pain="status"></span>
+                    </div>
+                    <div class="row col-sm-12 margin-top_10 padding-left_0">
+                        <div class="text_info gelocation_icon" ng-blur="saveField($event,'position')" obj="user" ng-bind="user.position"></div>
+                        <span class="glyphicon glyphicon-pencil edit" edit-pain="position"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-eye-open"></span></div>
+                <div class="col-sm-2 user__text_bold padding-left_0">Просмотры</div>
+                <div class="col-sm-3 col-md-offset-6 user__text_bold">423</div>
+            </div>
+
+            <div class="row margin-top_5">
+                <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+                <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
+                <div class="col-sm-3 col-md-offset-6 user__text_bold">23</div>
+            </div>
+
+            <div class="row margin-top_5">
+                <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
+                <div class="col-sm-2 user__text_bold padding-left_0">Избранные</div>
+                <div class="col-sm-3 col-md-offset-6 user__text_bold">1233</div>
+            </div>
+
+            <div class="row margin-top_40 col-sm-12 user__text">
+                <div class="text-left user__text_bold">Информация:</div>
+                <div class="text_info" ng-blur="saveField($event,'info')" obj="user" ng-bind="user.info"></div>
+                <span class="glyphicon glyphicon-pencil edit" edit-pain="info"></span>
+            </div>
+
+            <div class="row margin-top_20 col-sm-12 user__text">
+                <div class="text-left user__text_bold">Специализация:</div>
+                <div class="text_info" ng-blur="saveField($event,'specialization')" obj="user" ng-bind="user.specialization"></div>
+                <span class="glyphicon glyphicon-pencil edit" edit-pain="specialization"></span>
+            </div>
+
+            <div class="row margin-top_20 col-sm-12 user__text">
+                <div class="text-left user__text_bold">Работал в:</div>
+                <div class="text_info" ng-blur="saveField($event,'worked')" obj="user" ng-bind="user.worked"></div>
+                <span class="glyphicon glyphicon-pencil edit" edit-pain="worked"></span>
+            </div>
+
+            <div class="row margin-top_20 col-sm-12 user__text">
+                <div class="text-left user__text_bold">Ссылки:</div>
+                <div class="text_info" ng-blur="saveField($event,'links')" obj="user" ng-bind="user.links"></div>
+                <span class="glyphicon glyphicon-pencil edit" edit-pain="links"></span>
+            </div>
+
+            <div class="row margin-top_20 col-sm-12 user__text">
+                <div class="text-left user__text_bold">Контакты:</div>
+                <div class="text_info" ng-blur="saveField($event,'contacts')" obj="user" ng-bind="user.contacts"></div>
+                <span class="glyphicon glyphicon-pencil edit"  edit-pain="contacts"></span>
+            </div>
+
+            <div class="row margin-top_20 col-sm-12 user__text">
+                <div class="text-left user__text_bold">Присоединился:</div>
+                <time class="text_info" >[[ user.date | date: "dd.MM.yyyy" ]]</time>
+            </div>
+        </div>
+
+        <div class="col-sm-7 album" ng-model="res = user.albums[id].images.length/3" ng-init="res">
+            <div class="row album__cards">
+                <div class="col-sm-4 text-center">
+                    <div class="album__element__view" ng-repeat="image in user.albums[id].images.slice(0, res)">
+                        <div class="padding__1">
+                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
+                        </div>
+                        <div class="album__element__view__bottom">
+                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
+                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">435</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 text-center">
+                    <div class="album__element__view" ng-repeat="image in user.albums[id].images.slice(res, res*2)">
+                        <div class="padding__1">
+                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
+                        </div>
+                        <div class="album__element__view__bottom">
+                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
+                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">445</span></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-4 text-center">
+                    <div class="album__element__view" ng-repeat="image in user.albums[id].images.slice(res*2, res*3)">
+                        <div class="padding__1">
+                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
+                        </div>
+                        <div class="album__element__view__bottom">
+                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">123</span></div>
+                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">445</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="padding-bottom_30">
+                <h4 class="lobster text-gray margin-left_15" ng-init="count=3">Альбомы</h4>
+                <div class="album__element" ng-repeat="album in user.albums.slice(0, count)">
+                    <a href="#/album/[[album.id]]" class="album__link"></a>
+                    <div class="frame__img">
+                        <img class="album_img" src="{{ path_img_album_thums }}[[ album.img ]]" />
+                    </div>
+                    <img class="frame" src="/var/www/creativer/web/img/frame.png" />
+                    <div class="album__element-block">
+                        <a href="#/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
+                        <div class="left-info user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">0</span></div>
+                        <div class="right-info user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">67</span></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-top_30 text-center user__text pointer" ng-click="count = user.albums.length" ng-show="count == 3">
+                <span>Показать остальные</span> <span class="glyphicon glyphicon-menu-down"></span>
+            </div>
+
+        </div>
+
+    </div>

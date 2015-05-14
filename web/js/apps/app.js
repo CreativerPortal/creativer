@@ -102,7 +102,22 @@ app.directive('editPain', function () {
                 }
             }
         };
-    }]);
+}]).directive('height__auto', function() {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                var height = element.height();
+                console.log("qqqqqqqqqqqq" + height);
+                if (height < 700) {
+                    console.log("<<,");
+                    angular.element('.button__height').css('display', 'none');
+                } else {
+                    angular.element('.button__height').css('display', 'block');
+                }
+            }
+        }
+});
+
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');

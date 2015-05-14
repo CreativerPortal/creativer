@@ -124,34 +124,6 @@ body{
     overflow: hidden;
 }
 
-#photos-checkbox{
-    display: none;
-}
-
-#photos-checkbox:checked+.album__cards{
-    height: 50%;
-    animation-name: example;
-    animation-duration: 4s;
-    animation-delay: 2s;
-}
-
-#photos-checkbox:not(checked)+.album__cards{
-    height: 700px;
-}
-
-#photos-checkbox:not(checked) ~ .horizontal_line>.still_label:after{
-    font-family: 'Glyphicons Halflings';
-    content: "\e259";
-}
-
-#photos-checkbox:checked ~ .horizontal_line>.still_label:after{
-    font-family: 'Glyphicons Halflings';
-    content: "\e260";
-}
-
-.still_label{
-    cursor: pointer;
-}
 
 .album__element{
     display: inline-block;
@@ -160,7 +132,6 @@ body{
     margin-top: 10px;
     border-radius: 7px 14px 15px 14px;
     background-repeat: no-repeat;
-    background-color: #ffffff;
     padding: 6px 2px 12px 2px;
     font-size: 0.89em;
     position: relative;
@@ -264,9 +235,42 @@ input {
     right: -57px;
     top: 30px;
     z-index: 1;
-    background-image: url("../../var/www/web/img/menu_create_album.png");
+    background-image: url("/var/www/creativer/web/img/menu_create_album.png");
     padding-top: 20px;
     display: none;
+}
+
+.album__element__view img{
+    width: 100%;
+}
+
+.album__element__view{
+    margin-top: 10px;
+}
+
+.album__element__view__bottom{
+    position: relative;
+    height: 28px;
+    background-image: url("/var/www/creativer/web/img/album__element__bottom.png");
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+.padding__1{
+    margin-left: 1px;
+    border-radius: 8px 8px 0px 0px;
+    overflow: hidden;
+}
+
+.bottom__plus{
+    bottom: 6px!important;
+}
+
+.album__element__view__top{
+    outline: 1px solid transparent;
+    border-top: 1px dashed #aca994;
+    border-right: 1px dashed #aca994;
+    border-left: 1px dashed #aca994;
 }
 
 .edit__album__menu label{

@@ -158,22 +158,6 @@ class PersonController extends Controller
         $em->flush();
 
         return array('user' => $user);
-
-//        $encoders = array(new XmlEncoder(), new JsonEncoder());
-//        $normalizers = array(new GetSetMethodNormalizer());
-//        $serializer = new Serializer($normalizers, $encoders);
-//
-//        $json = $this->get("request")->getContent();
-//
-//        $dataPerson = $serializer->deserialize($json, 'Creativer\FrontBundle\Entity\User', 'json');
-//
-//        $user = $this->get('security.context')->getToken()->getUser();
-//        $id = $user->getId();
-//        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
-//
-//        $em = $this->getDoctrine()->getManager();
-//
-//        $dataPerson->setId($id);
     }
 
 

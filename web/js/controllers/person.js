@@ -1,11 +1,34 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
-    .controller('personCtrl',['$scope','personalService','$routeParams', 'FileUploader', function($scope,personalService,$routeParams, FileUploader) {
+    .controller('personCtrl',['$scope', '$rootScope', 'personalService','$routeParams', 'FileUploader', function($scope,$rootScope,personalService,$routeParams, FileUploader) {
 
-    personalService.getUser({ id: $routeParams.id }).success(function (data) {
-        console.log(data.user);
 
-        $scope.user = data.user;
-    });
+    if($rootScope.user === undefined) {
+        if($routeParams.id == undefined){
+            var id_user = $rootScope.id_user;
+        }else{
+            var id_user = $routeParams.id;
+        }
+        personalService.getUser({id: id_user}).success(function (data) {
+            $scope.user = $rootScope.user = data.user;
+
+            if($routeParams.id_album){
+                for(var key in $scope.user.albums){
+                    if($scope.user.albums[key].id == $routeParams.id_album){
+                            $scope.id = key;
+                    }
+                }
+            }
+        });
+    }
+    if($routeParams.id_album && $scope.user != undefined){
+        for(var key in $scope.user.albums){
+            if($scope.user.albums[key].id == $routeParams.id_album){
+                $scope.id = key;
+            }
+        }
+    }
+
+
 
     $scope.savePost = function(wall_id){
         personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {
