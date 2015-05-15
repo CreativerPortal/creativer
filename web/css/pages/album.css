@@ -60,70 +60,6 @@ body{
 :-ms-input-placeholder      {color:#827972;}
 
 
-.user{
-    background-image: url("../../img/vertical_line.png");
-    background-repeat: no-repeat;
-    background-position: right;
-}
-
-.user__text{
-    font-weight: 100!important;
-    color: #7d7066;
-}
-
-.user__text_bold{
-    color: #696360;
-    font-weight: bold;
-}
-
-.user__text-gray{
-    color: #b3b3b2;
-}
-
-.user__text-blue {
-    color: #6096b9;
-}
-
-.user__avatar{
-    width: 125px;
-    height: 125px;
-    overflow: hidden;
-    border: 1px dashed #696360;
-    border-radius: 100px;
-}
-
-.user__avatar-mini{
-    width: 70px;
-    height: 70px;
-    overflow: hidden;
-    border: 5px solid #ffffff;
-    border-radius: 100px;
-}
-
-.user__avatar img, .user__avatar-mini img{
-    width: 100%;
-}
-
-.edit{
-    position: absolute;
-    right: -5px;
-    top: -5px;
-    cursor: pointer;
-    color: #b3b3b2;
-}
-
-.icon-color{
-    color: #919190;
-}
-
-.album{
-    padding-right: 30px!important;
-}
-
-.album__cards{
-    overflow: hidden;
-}
-
 
 .album__element{
     display: inline-block;
@@ -161,8 +97,8 @@ body{
 
 
 .horizontal_line {
-    background-image: url("../../img/horizontal_line.png");
-    background-repeat: no-repeat;
+    background-image: url("/var/www/creativer/web/img/horizontal_line.png");
+    background-repeat-y: no-repeat;
     background-position: center bottom;
     height: 30px;
 }
@@ -301,3 +237,4 @@ input {
     width: 530px;
     padding-left: 10px;
 }
+

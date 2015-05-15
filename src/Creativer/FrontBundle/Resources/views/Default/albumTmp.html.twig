@@ -1,3 +1,8 @@
+<link rel="stylesheet" type="text/css" href="/css/vendor/component.css" />
+<script src="/js/classie.js"></script>
+<script src="/js/modalEffects.js"></script>
+<script src="/js/cssParser.js"></script>
+<script src="/js/css-filters-polyfill.js"></script>
 <link rel="stylesheet" href="/css/pages/album.css">
 <div class="row slid  padding-right_0">
 
@@ -139,3 +144,75 @@
         </div>
 
     </div>
+
+<table>
+    <tr><td>
+           <div style="position: fixed;
+                        top: 0px;
+                        left: 0px;
+                        height: 100%;
+                        width: 100%;
+                        background-image: url('/var/www/creativer/web/img/view_photo_background.png');
+                        z-index: 2;
+                        overflow-y: auto;
+                        text-align: center;
+                        ">
+
+               <div style="position: relative;">
+                   <div style="display: inline-block;
+                               margin:auto;
+                               text-align: center;
+                               margin-top: 25px;
+                                box-sizing: content-box;
+                                border-style: solid;
+                                border-width: 27px 51px 27px 53px;
+                                -moz-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
+                                -webkit-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
+                                -o-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
+                                border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 fill round;
+                                ">
+                <div style="background-color: #eae9e3; width: 100%; height: 100%;">
+                    <div><time class="text-gray ng-binding left">14.05.2015</time></div>
+                    <div>
+                        <img class="margin-top_10" style="max-width: 1000px;" src="{{ path_img_album_original }}/1431608268_4d47d9184ddb3d2b787e79d2f04d85f7.jpg" />
+                    </div>
+                    <div class="margin-top_10">
+                        <span class="text-blue pointer left" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span>
+                        <a class="text-blue glyphicon glyphicon-heart right" href=""></a>
+                    </div>
+                    <div class="horizontal_line"></div>
+
+                    <div class="row margin-top_10" style="width: 600px; margin: auto;">
+
+                        <div class="col-sm-10" >
+                            <div class="row">
+                                <div class="row col-sm-10 ng-scope">
+                                    <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
+                                    <div class="col-sm-2">
+                                        <div class="user__avatar-super-mini"><img src="/home/cre55527f4e06bf7.jpg"></div>
+                                    </div>
+                                    <div class="col-sm-10 padding-left_10">
+                                        <div class="row col-sm-12 user__text_bold text-left">slaq Михно</div>
+                                        <div class="row col-sm-12"><p class="user__text left">авиорл</p></div>
+                                        <div class="row col-sm-12 text-left"><time class="text-gray comment_time">14.05.2015 01:52</time></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <span class="left">Альбом:</span><br>
+                            <span class="text-blue left">[[ user.albums[id].name ]]</span><br>
+                            <nav class="margin-top_10">
+                                <span class="text-blue left">Увеличить</span><br>
+                                <span class="text-blue left">Удалить</span><br>
+                            </nav>
+                        </div>
+
+                    </div>
+                </div>
+
+                   </div>
+               </div>
+           </div>
+        </td></tr>
+</table>

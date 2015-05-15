@@ -110,7 +110,7 @@
                     <div class="col-sm-10 padding-left_0">
                         <div class="col-sm-6 user__text_bold padding-left_0">[[ post.username ]] [[ post.lastname ]]</div>
                         <div class="col-sm-6 text-right"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
-                        <p class="margin-top_30 user__text">[[post.text]]</p>
+                        <div class="user__text text-left col-sm-12 padding-left_0">[[post.text]]</div>
                         <div class="col-sm-6 padding-left_0 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
                         <div class="col-sm-6 text-right user__text-blue"><a class="text-blue" href="">Редактировать</a></div>
                     </div>
@@ -121,9 +121,9 @@
                             <div class="user__avatar-super-mini"><img src="[[ comment.img ]]"></div>
                         </div>
                         <div class="col-sm-10 padding-left_0">
-                            <div class="col-sm-6 user__text_bold padding-left_0">[[ comment.username ]] [[ comment.lastname ]]</div>
-                            <p class="margin-top_20 margin-left_10 user__text">[[comment.text]]</p>
-                            <time class="text-gray comment_time">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time>
+                            <div class="col-sm-12 user__text_bold">[[ comment.username ]] [[ comment.lastname ]]</div>
+                            <div class="user__text col-sm-12">[[comment.text]]</div>
+                            <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time>
 
                         </div>
                     </div>
@@ -142,6 +142,8 @@
 
 
         </div>
+
+
 
 
 

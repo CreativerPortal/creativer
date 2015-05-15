@@ -62,7 +62,7 @@ body{
 
 
 .user{
-    background-image: url("/var/www/web/img/vertical_line.png");
+    background-image: url("/var/www/creativer/web/img/vertical_line.png");
     background-repeat: no-repeat;
     background-position: right;
 }
@@ -115,7 +115,7 @@ body{
 
 .slid__comment__line {
     height: 4px;
-    background-image: url("/var/www/web/img/line_comment.png");
+    background-image: url("/var/www/creativer/web/img/line_comment.png");
     background-repeat: repeat-x;
     background-position: center bottom;
 }
