@@ -1,6 +1,7 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
     .controller('personCtrl',['$scope', '$rootScope', 'personalService','$routeParams', 'FileUploader', function($scope,$rootScope,personalService,$routeParams, FileUploader) {
 
+    // init controller
 
     if($rootScope.user === undefined) {
         if($routeParams.id == undefined){
@@ -28,7 +29,22 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
         }
     }
 
+    if($routeParams.id_album){
+        $scope.id_album = $routeParams.id_album;
+    }
+    if($routeParams.url_img){
+        $scope.url_img = $routeParams.url_img;
+    }
+    if($routeParams.key_img){
+        $scope.key_img = $routeParams.key_img;
+        $scope.next_key_img = parseInt($routeParams.key_img)+1;
+        $scope.previous = parseInt($routeParams.key_img)-1;
+    }
 
+    $scope.math = window.Math;
+
+
+    // end init controller
 
     $scope.savePost = function(wall_id){
         personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {

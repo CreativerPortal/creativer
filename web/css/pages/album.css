@@ -181,6 +181,7 @@ input {
 }
 
 .album__element__view{
+    display: block;
     margin-top: 10px;
 }
 
@@ -238,3 +239,79 @@ input {
     padding-left: 10px;
 }
 
+.comment .slid__comment__line:last-child{
+    display: none;
+}
+
+textarea {
+    background-color: #eae9e3;
+    border: 1px dashed #827972;
+    width: 455px;
+    overflow: hidden;
+    word-wrap: break-word;
+    resize: none;
+    height: 46px;
+}
+
+.background__viewer{
+    position: fixed; display: block;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 100%;
+    background-image: url('/var/www/creativer/web/img/view_photo_background.png');
+    z-index: 2;
+    overflow-y: auto;
+    text-align: center;
+}
+
+.background__viewer__link__previous{
+    z-index: 1;
+    display: block;
+    position:fixed;
+    top: 0px;
+    left: 0px;
+    height: 100%;
+    width: 50%;
+}
+
+.background__viewer__link__next{
+    z-index: 1;
+    display: block;
+    position:fixed;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    width: 50%;
+}
+
+.border__viewer{
+    display: inline-block;
+    position: relative;
+    z-index: 2;
+    margin:auto;
+    text-align: center;
+    margin-top: 25px;
+    box-sizing: content-box;
+    border-style: solid;
+    border-width: 27px 51px 27px 53px;
+    -moz-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
+    -webkit-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
+    -o-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
+    border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 fill round;
+}
+
+.border__viewer__wrapper{
+    background-color: #eae9e3;
+    width: 100%;
+    height: 100%;
+}
+
+.wrapper__comment{
+    width: 600px;
+    margin: auto;
+}
+
+.viewer__image{
+    max-width: 1000px;
+}

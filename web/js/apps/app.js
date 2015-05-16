@@ -11,7 +11,7 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'monospaced.elasti
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/album/:id_album/:id_img?', {
+        $routeProvider.when('/album/:id_album/:url_img?/:key_img?', {
             templateUrl: '/album_tmp',
             controller: 'personCtrl',
             reloadOnSearch: true

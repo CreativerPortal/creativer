@@ -184,3 +184,37 @@ div:focus{
 ::-moz-placeholder          {color:#4f4851;}/* Firefox 19+ */
 :-moz-placeholder           {color:#4f4851;}/* Firefox 18- */
 :-ms-input-placeholder      {color:#4f4851;}
+
+
+@keyframes spinner {
+    to {transform: rotate(360deg);}
+}
+
+@-webkit-keyframes spinner {
+    to {-webkit-transform: rotate(360deg);}
+}
+
+.spinner {
+    min-width: 38px;
+    min-height: 24px;
+}
+
+.spinner:before {
+    content: 'Loading?';
+    position: absolute;
+    top: 20%;
+    left: 14%;
+    width: 51px;
+    height: 51px;
+    margin-top: -10px;
+    margin-left: -10px;
+}
+
+.spinner:not(:required):before {
+    content: '';
+    border-radius: 120%;
+    border-top: 2px solid #AB4141;
+    border-right: 3px solid rgba(52, 61, 236, 0);
+    animation: spinner .6s linear infinite;
+    -webkit-animation: spinner 1.2s linear infinite;
+}

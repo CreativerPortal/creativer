@@ -63,7 +63,7 @@
         {% if is_granted('ROLE_USER') %}
             <div class="personal col-sm-1 col-sm-offset-7 padding-left_0">
                 <label class="still_label-person" for="checkbox-menu-person">
-                    <div class="user__avatar-mini-header">
+                    <div class="user__avatar-mini-header" ng-class="{spinner: !user}">
                         <img src="{{ app.user.img }} ">
                     </div>
                 </label>

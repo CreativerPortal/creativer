@@ -11,7 +11,7 @@ security:
         our_db_provider:
             entity:
                 class: CreativerFrontBundle:User
-                property: username
+                property: email
 
     firewalls:
         secured_area:
@@ -22,8 +22,8 @@ security:
                 realm: "Secured Demo Area"
             form_login:
                 check_path: /security_check
-                login_path: /index
-                username_parameter: username
+                login_path: /
+                username_parameter: email
                 password_parameter: password
                 always_use_default_target_path: true
                 default_target_path: /
@@ -31,7 +31,7 @@ security:
                 use_referer: false
             logout:
                 path:   /logout
-                target: /index
+                target: /
             #anonymous: ~
             #http_basic:
             #    realm: "Secured Demo Area"

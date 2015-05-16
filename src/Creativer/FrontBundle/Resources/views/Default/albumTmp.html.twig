@@ -4,7 +4,7 @@
 <script src="/js/cssParser.js"></script>
 <script src="/js/css-filters-polyfill.js"></script>
 <link rel="stylesheet" href="/css/pages/album.css">
-<div class="row slid  padding-right_0">
+ <div class="row slid  padding-right_0" ng-show="user">
 
         <div class="row">
             <h3 class="col-sm-5 lobster">[[ user.username ]] [[ user.lastname ]]</h3>
@@ -83,9 +83,9 @@
         </div>
 
         <div class="col-sm-7 album" ng-model="res = user.albums[id].images.length/3" ng-init="res">
-            <div class="row album__cards">
+            <div class="row album__cards" ng-model="k" ng-init="k=0">
                 <div class="col-sm-4 text-center">
-                    <div class="album__element__view" ng-repeat="image in user.albums[id].images.slice(0, res)">
+                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(0, res)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
@@ -93,11 +93,11 @@
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
                             <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">435</span></div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <div class="album__element__view" ng-repeat="image in user.albums[id].images.slice(res, res*2)">
+                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res)  ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res, res*2)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
@@ -105,11 +105,11 @@
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
                             <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">445</span></div>
                         </div>
-                    </div>
+                    </a>
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <div class="album__element__view" ng-repeat="image in user.albums[id].images.slice(res*2, res*3)">
+                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res*2, res*3)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
@@ -117,7 +117,7 @@
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">123</span></div>
                             <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">445</span></div>
                         </div>
-                    </div>
+                    </a>
                 </div>
             </div>
 
@@ -140,79 +140,71 @@
             <div class="row margin-top_30 text-center user__text pointer" ng-click="count = user.albums.length" ng-show="count == 3">
                 <span>Показать остальные</span> <span class="glyphicon glyphicon-menu-down"></span>
             </div>
-
         </div>
 
-    </div>
+            <div ng-show="url_img" class="background__viewer">
+                   <a href="#album/[[id_album]]/[[ user.albums[id].images[key_img-1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
 
-<table>
-    <tr><td>
-           <div style="position: fixed;
-                        top: 0px;
-                        left: 0px;
-                        height: 100%;
-                        width: 100%;
-                        background-image: url('/var/www/creativer/web/img/view_photo_background.png');
-                        z-index: 2;
-                        overflow-y: auto;
-                        text-align: center;
-                        ">
+                   </a>
+                   <div class="border__viewer">
+                       <div class="border__viewer__wrapper">
+                           <div class="row"><time class="text-gray ng-binding left">[[ user.albums[id].images[next_key_img].date  | date: "dd.MM.yyyy" ]]</time></div>
+                           <div class="row">
+                           <a href="#album/[[id_album]]/[[ user.albums[id].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" src="{{ path_img_album_original }}/[[url_img]]" /></a>
+                           </div>
+                           <div class="margin-top_10">
+                           <span class="text-blue pointer left" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span>
+                           <a class="text-blue glyphicon glyphicon-heart right" href=""></a>
+                           </div>
+                           <div class="horizontal_line"></div>
 
-               <div style="position: relative;">
-                   <div style="display: inline-block;
-                               margin:auto;
-                               text-align: center;
-                               margin-top: 25px;
-                                box-sizing: content-box;
-                                border-style: solid;
-                                border-width: 27px 51px 27px 53px;
-                                -moz-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
-                                -webkit-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
-                                -o-border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 round;
-                                border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 fill round;
-                                ">
-                <div style="background-color: #eae9e3; width: 100%; height: 100%;">
-                    <div><time class="text-gray ng-binding left">14.05.2015</time></div>
-                    <div>
-                        <img class="margin-top_10" style="max-width: 1000px;" src="{{ path_img_album_original }}/1431608268_4d47d9184ddb3d2b787e79d2f04d85f7.jpg" />
-                    </div>
-                    <div class="margin-top_10">
-                        <span class="text-blue pointer left" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span>
-                        <a class="text-blue glyphicon glyphicon-heart right" href=""></a>
-                    </div>
-                    <div class="horizontal_line"></div>
+                           <div class="row margin-top_10 wrapper__comment">
 
-                    <div class="row margin-top_10" style="width: 600px; margin: auto;">
-
-                        <div class="col-sm-10" >
-                            <div class="row">
-                                <div class="row col-sm-10 ng-scope">
-                                    <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
-                                    <div class="col-sm-2">
-                                        <div class="user__avatar-super-mini"><img src="/home/cre55527f4e06bf7.jpg"></div>
+                                <div class="col-sm-10" >
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-2">
+                                            <div class="user__avatar-super-mini"><img src="/home/cre55527f4e06bf7.jpg"></div>
+                                        </div>
+                                        <div class="col-sm-10 padding-left_10">
+                                            <div class="row col-sm-12 user__text_bold text-left">slaq Михно</div>
+                                            <div class="row col-sm-12"><p class="user__text left">авиорл</p></div>
+                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">14.05.2015 01:52</time></div>
+                                        </div>
+                                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                                     </div>
-                                    <div class="col-sm-10 padding-left_10">
-                                        <div class="row col-sm-12 user__text_bold text-left">slaq Михно</div>
-                                        <div class="row col-sm-12"><p class="user__text left">авиорл</p></div>
-                                        <div class="row col-sm-12 text-left"><time class="text-gray comment_time">14.05.2015 01:52</time></div>
+
+                                    <div class="row col-sm-12">
+                                        <div class="col-sm-2">
+                                            <div class="user__avatar-super-mini"><img src="/home/cre55527f4e06bf7.jpg"></div>
+                                        </div>
+                                        <div class="col-sm-10 padding-left_10">
+                                            <div class="row col-sm-12 user__text_bold text-left">slaq Михно</div>
+                                            <div class="row col-sm-12"><p class="user__text left">авиорл</p></div>
+                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">14.05.2015 01:52</time></div>
+                                        </div>
+                                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
+                                    </div>
+                                    <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Оставить комментарий" style="width: 455px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
+                                    <div ng-show="text_comment" class="margin-top_5 text-right">
+                                        <button class="true fs_0-9" ng-click="savePost(user.wall.id)">Отправить</button>
                                     </div>
                                 </div>
+                                <div class="col-sm-2">
+                                    <span class="left">Альбом:</span><br>
+                                    <span class="text-blue left">[[ user.albums[id].name ]]</span><br>
+                                    <nav class="margin-top_10">
+                                        <span class="text-blue left">Увеличить</span><br>
+                                        <span class="text-blue left">Удалить</span><br>
+                                    </nav>
+                                </div>
+
                             </div>
-                        </div>
-                        <div class="col-sm-2">
-                            <span class="left">Альбом:</span><br>
-                            <span class="text-blue left">[[ user.albums[id].name ]]</span><br>
-                            <nav class="margin-top_10">
-                                <span class="text-blue left">Увеличить</span><br>
-                                <span class="text-blue left">Удалить</span><br>
-                            </nav>
-                        </div>
-
-                    </div>
-                </div>
-
+                       </div>
                    </div>
-               </div>
-           </div>
-        </td></tr>
-</table>
+                   <a href="#album/[[id_album]]" class="right background__viewer__link__next">
+
+                   </a>
+            </div>
+
+
+ </div>
