@@ -155,3 +155,10 @@
 .text-underline{
     text-decoration: underline;
 }
+
+.album__element__view:hover {
+    -webkit-transform: rotate(-2deg);
+    -moz-transform: rotate(2deg);
+    transition: all 1s ease;
+    cursor: pointer;
+}

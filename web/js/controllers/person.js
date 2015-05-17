@@ -1,9 +1,9 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
-    .controller('personCtrl',['$scope', '$rootScope', 'personalService','$routeParams', 'FileUploader', function($scope,$rootScope,personalService,$routeParams, FileUploader) {
+    .controller('personCtrl',['$scope', '$rootScope', '$location', '$animate', 'personalService','$routeParams', 'FileUploader', function($scope,$rootScope,$location,$animate,personalService,$routeParams, FileUploader) {
 
     // init controller
 
-    if($rootScope.user === undefined) {
+    if($rootScope.user === undefined || $routeParams.id != $rootScope.id_user) {
         if($routeParams.id == undefined){
             var id_user = $rootScope.id_user;
         }else{
@@ -39,6 +39,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
         $scope.key_img = $routeParams.key_img;
         $scope.next_key_img = parseInt($routeParams.key_img)+1;
         $scope.previous = parseInt($routeParams.key_img)-1;
+        $animate.enabled(false);
+    }else{
+        $animate.enabled(true);
     }
 
     $scope.math = window.Math;
@@ -60,7 +63,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
     }
 
     $scope.saveField = function(event,field){
-        var text = angular.element(event.target).html();
+        var text = angular.element(event.target).val();
         var json = {};
         json[field] = text;
 
@@ -125,7 +128,8 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
         var name_album = $scope.album.name;
         var description_album = $scope.album.description;
         personalService.finishUpload({name:name_album,description:description_album}).success(function () {
-
+            $rootScope.user = undefined;
+            $location.path("/");
         });
         console.info('onCompleteAll');
     };

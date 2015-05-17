@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/css/pages/vendor.css">
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-route.min.js"></script>
+    <script src="/js/angular-animate.min.js"></script>
     <script src="/js/angular-resource.min.js"></script>
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -107,8 +108,9 @@
     {% endif %}
 
 </header>
-
-    <div ng-view></div>
+    <div class="view-animate-container">
+        <div ng-view class="view-animate"></div>
+    </div>
 
 <footer class="row footer">
     <nav class="footer__menu col-sm-12 fiveMinuts">

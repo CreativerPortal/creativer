@@ -5,15 +5,15 @@
             <div class="col-sm-5 user padding-left_0">
                 <div class="row">
                     <div class="col-sm-5 padding-left_0">
-                        <div class="user__avatar"><img src="[[ user.img ]]" /></div>
+                        <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
                     </div>
                     <div class="col-sm-7 user__text">
                         <div class="row col-sm-12 margin-top_10 padding-left_0">
-                            <div class="text_info" ng-blur="saveField($event,'status')" obj="user" ng-bind="user.status" ></div>
+                            <input class="text_info" ng-blur="saveField($event,'status')" obj="user" value="[[ user.status ]]" placeholder="Вы не указали свой статус." disabled>
                             <span class="glyphicon glyphicon-pencil edit" edit-pain="status"></span>
                         </div>
                         <div class="row col-sm-12 margin-top_10 padding-left_0">
-                            <div class="text_info gelocation_icon" ng-blur="saveField($event,'position')" obj="user" ng-bind="user.position"></div>
+                            <span class="gelocation_icon left"></span><input class="text_info gelocation_icon__text_info" ng-blur="saveField($event,'position')" obj="user" value="[[ user.position ]]" placeholder="Местоположение не обнаружено." disabled>
                             <span class="glyphicon glyphicon-pencil edit" edit-pain="position"></span>
                         </div>
                     </div>
@@ -22,48 +22,48 @@
                 <div class="row margin-top_20">
                     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-eye-open"></span></div>
                     <div class="col-sm-2 user__text_bold padding-left_0">Просмотры</div>
-                    <div class="col-sm-3 col-md-offset-6 user__text_bold">423</div>
+                    <div class="col-sm-3 col-md-offset-6 user__text_bold">0</div>
                 </div>
 
                 <div class="row margin-top_5">
                     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
                     <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
-                    <div class="col-sm-3 col-md-offset-6 user__text_bold">23</div>
+                    <div class="col-sm-3 col-md-offset-6 user__text_bold">0</div>
                 </div>
 
                 <div class="row margin-top_5">
                     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
                     <div class="col-sm-2 user__text_bold padding-left_0">Избранные</div>
-                    <div class="col-sm-3 col-md-offset-6 user__text_bold">1233</div>
+                    <div class="col-sm-3 col-md-offset-6 user__text_bold">0</div>
                 </div>
 
                 <div class="row margin-top_40 col-sm-12 user__text">
                     <div class="text-left user__text_bold">Информация:</div>
-                    <div class="text_info" ng-blur="saveField($event,'info')" obj="user" ng-bind="user.info"></div>
+                    <input class="text_info" ng-blur="saveField($event,'info')" obj="user" value="[[ user.info ]]" placeholder="Вы ещё не запонили это поле." disabled>
                     <span class="glyphicon glyphicon-pencil edit" edit-pain="info"></span>
                 </div>
 
                 <div class="row margin-top_20 col-sm-12 user__text">
                     <div class="text-left user__text_bold">Специализация:</div>
-                    <div class="text_info" ng-blur="saveField($event,'specialization')" obj="user" ng-bind="user.specialization"></div>
+                    <input class="text_info" ng-blur="saveField($event,'specialization')" obj="user" value="[[ user.specialization ]]" placeholder="Вы ещё не запонили это поле." disabled>
                     <span class="glyphicon glyphicon-pencil edit" edit-pain="specialization"></span>
                 </div>
 
                 <div class="row margin-top_20 col-sm-12 user__text">
                     <div class="text-left user__text_bold">Работал в:</div>
-                    <div class="text_info" ng-blur="saveField($event,'worked')" obj="user" ng-bind="user.worked"></div>
+                    <input class="text_info" ng-blur="saveField($event,'worked')" obj="user" value="[[ user.worked ]]" placeholder="Вы ещё не запонили это поле." disabled>
                     <span class="glyphicon glyphicon-pencil edit" edit-pain="worked"></span>
                 </div>
 
                 <div class="row margin-top_20 col-sm-12 user__text">
                     <div class="text-left user__text_bold">Ссылки:</div>
-                    <div class="text_info" ng-blur="saveField($event,'links')" obj="user" ng-bind="user.links"></div>
+                    <input class="text_info" ng-blur="saveField($event,'links')" obj="user" value="[[ user.links ]]" placeholder="Вы ещё не запонили это поле." disabled>
                     <span class="glyphicon glyphicon-pencil edit" edit-pain="links"></span>
                 </div>
 
                 <div class="row margin-top_20 col-sm-12 user__text">
                     <div class="text-left user__text_bold">Контакты:</div>
-                    <div class="text_info" ng-blur="saveField($event,'contacts')" obj="user" ng-bind="user.contacts"></div>
+                    <input class="text_info" ng-blur="saveField($event,'contacts')" obj="user" value="[[ user.contacts ]]" placeholder="Вы ещё не запонили это поле." disabled>
                     <span class="glyphicon glyphicon-pencil edit"  edit-pain="contacts"></span>
                 </div>
 
@@ -90,8 +90,12 @@
 
 
 
-                <div class="row margin-top_25 text-center user__text" >
-                    Ещё 10 альбомов <span class="glyphicon glyphicon-menu-down"></span>
+                <div class="row margin-top_25 text-center user__text" ng-show="user.albums.length > 0">
+                    Показать остальные альбомы <span class="glyphicon glyphicon-menu-down"></span>
+                </div>
+
+                <div class="row margin-top_25 text-center user__text" ng-show="user.albums.length == 0">
+                    Альбомов ещё нет, <a href="/app_dev.php/person#/create_album">создать альбом</a>
                 </div>
 
                 <h4 class="lobster margin-top_20 text-gray">Стена</h4>

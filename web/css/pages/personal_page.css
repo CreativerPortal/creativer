@@ -73,8 +73,31 @@ body{
 }
 
 .text_info{
-    white-space:pre;
+    float: left;
+    white-space: pre;
+    background: transparent;
+    border: none;
+    width: 100%;
 }
+
+.gelocation_icon__text_info{
+    width: 184px;
+}
+
+.text_info:focus{
+    border: 1px dashed gray;
+    border: 1px dashed #827972;
+    outline: none;
+}
+
+.text_info:disabled {
+    border: none;
+}
+
+.text_info::-webkit-input-placeholder {font-style: italic!important; color: #c3bec1;}
+.text_info::-moz-placeholder          {font-style: italic!important; color: #c3bec1;}/* Firefox 19+ */
+.text_info:-moz-placeholder           {font-style: italic!important; color: #c3bec1;}/* Firefox 18- */
+.text_info:-ms-input-placeholder      {font-style: italic!important; color: #c3bec1;}
 
 .user__text_bold{
     color: #696360;
@@ -126,8 +149,8 @@ body{
 
 .edit{
     position: absolute;
-    right: -5px;
-    top: -5px;
+    right: 0px;
+    top: 5px;
     cursor: pointer;
     color: #b3b3b2;
 }
@@ -218,6 +241,12 @@ body{
     bottom: 0px;
     right: 0px;
 }
+
+[contenteditable=false]:empty:before{
+    content: attr(placeholder);
+    display: block; /* For Firefox */
+}
+
 
 
 

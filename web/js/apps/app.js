@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'monospaced.elastic'])
+var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'monospaced.elastic', 'ngAnimate'])
     .config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider.when('/create_album', {
@@ -30,7 +30,7 @@ app.directive('editPain', function () {
         link: function(scope, element, attrs){
             element.on("click", function(el){
                var parent = el.target.parentNode.querySelector('.text_info');
-               parent.setAttribute('contentEditable', 'true');
+               parent.removeAttribute('disabled');
                parent.focus();
                parent.onkeypress = function(e){
                     if(e.keyCode==13){ //enter && shift

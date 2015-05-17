@@ -85,7 +85,7 @@
         <div class="col-sm-7 album" ng-model="res = user.albums[id].images.length/3" ng-init="res">
             <div class="row album__cards" ng-model="k" ng-init="k=0">
                 <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(0, res)">
+                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" contenteditable="true"  class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(0, res)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
@@ -97,7 +97,7 @@
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res)  ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res, res*2)">
+                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res) ]]" contenteditable="true"  class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res, res*2)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
@@ -109,7 +109,7 @@
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res*2, res*3)">
+                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" contenteditable="true"  class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res*2, res*3)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
@@ -150,7 +150,7 @@
                        <div class="border__viewer__wrapper">
                            <div class="row"><time class="text-gray ng-binding left">[[ user.albums[id].images[next_key_img].date  | date: "dd.MM.yyyy" ]]</time></div>
                            <div class="row">
-                           <a href="#album/[[id_album]]/[[ user.albums[id].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" src="{{ path_img_album_original }}/[[url_img]]" /></a>
+                                <a href="#album/[[id_album]]/[[ user.albums[id].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" src="{{ path_img_album_original }}/[[url_img]]" /></a>
                            </div>
                            <div class="margin-top_10">
                            <span class="text-blue pointer left" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span>
