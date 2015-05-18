@@ -1,3 +1,10 @@
+var app = angular.module('app', ['ngImgCrop'])
+
+app.config(function($interpolateProvider) {
+    $interpolateProvider.startSymbol('[[');
+    $interpolateProvider.endSymbol(']]');
+});
+
 app.controller('Ctrl', function($scope) {
         $scope.myImage='';
         $scope.myCroppedImage='';

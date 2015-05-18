@@ -126,6 +126,7 @@ body{
     overflow: hidden;
     border: 5px solid #ffffff;
     border-radius: 100px;
+    margin: auto;
 }
 
 .user__avatar-super-mini{

@@ -19,6 +19,28 @@ angular
                         data: data
                     });
                 },
+                getUserByAlbumId: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_user_by_album_id',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                addFavorits: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'add_favorits',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 saveField: function (data) {
                     return $http({
                         method: 'POST',

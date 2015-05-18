@@ -25,7 +25,7 @@ class Albums
     /**
      * @JMS\Expose
      * @JMS\Type("Albums")
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="albums")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      **/
     private $user;

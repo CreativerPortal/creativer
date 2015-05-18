@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'monospaced.elastic', 'ngAnimate'])
+var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'monospaced.elastic', 'ngAnimate'])
     .config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider.when('/create_album', {
@@ -6,14 +6,22 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'monospaced.elasti
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/:id', {
+        $routeProvider.when('/', {
             templateUrl: '/person_tmp',
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/:id', {
+            templateUrl: function ($stateParams){
+                var url = "/person_tmp/" + $stateParams.id;
+                return url;
+            },
             controller: 'personCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/album/:id_album/:url_img?/:key_img?', {
             templateUrl: '/album_tmp',
-            controller: 'personCtrl',
+            controller: 'albumCtrl',
             reloadOnSearch: true
         });
         $routeProvider.otherwise({

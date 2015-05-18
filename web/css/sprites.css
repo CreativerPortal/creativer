@@ -462,6 +462,8 @@
 	background-position: 0 0;
 	width: 119px;
 	height: 27px;
+	border: none;
+	color: #ffffff;
 }
 
 .early_message{
@@ -474,6 +476,8 @@
 	background-position: -119px 0;
 	width: 117px;
 	height: 27px;
+	border: none;
+	color: #ffffff;
 }
 
 .button_gray_message{

@@ -20,6 +20,11 @@ person:
     host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:layout_front }
     methods:  [GET]
+creativer_personTmp:
+    path:     /person_tmp/{id}
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:personTmp, id: null }
+    methods:  [GET]
 creativer_front_create_albumTmp:
     path:     /create_album
     host:     creativer.by.my

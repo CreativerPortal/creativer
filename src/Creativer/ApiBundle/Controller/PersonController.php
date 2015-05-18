@@ -21,16 +21,6 @@ use Symfony\Component\BrowserKit\Response;
 
 class PersonController extends Controller
 {
-    /**
-     * @return array
-     * @Get("/person_tmp")
-     * @View()
-     */
-    public function personTmpAction()
-    {
-
-        return array();
-    }
 
     /**
      * @return array
@@ -190,5 +180,47 @@ class PersonController extends Controller
             ->setFormat('json');
 
         return $this->get('fos_rest.view_handler')->handle($view);
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/get_user_by_album_id")
+     * @View()
+     */
+    public function getUserByAlbumIddAction()
+    {
+        $id = $this->get('request')->request->get('id');
+
+        $data = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->findBy(array('id'=>$id));
+
+        $user = $data[0]->getUser();
+
+        return array('user' => $user);
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/add_favorits")
+     * @View()
+     */
+    public function addFavoritsAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $data = json_decode($this->get("request")->getContent());
+
+        $newFriend = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($data->id);
+
+
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
+
+        $user->addMyFavorit($newFriend);
+
+        $em->flush();
+
+
+        return array('user' => $user);
     }
 }

@@ -56,7 +56,7 @@ class User implements UserInterface, \Serializable
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Albums")
-     * @ORM\OneToMany(targetEntity="Albums", mappedBy="user")
+     * @ORM\OneToMany(targetEntity="Albums", mappedBy="user", fetch="EAGER")
      **/
     private $albums;
 
@@ -112,6 +112,25 @@ class User implements UserInterface, \Serializable
     private $date;
 
     /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="myFavorits")
+     */
+    private $favoritsWithMe;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\User")
+     * @ORM\ManyToMany(targetEntity="User", inversedBy="favoritsWithMe")
+     * @ORM\JoinTable(name="favorits",
+     *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
+     *      inverseJoinColumns={@ORM\JoinColumn(name="favorit_user_id", referencedColumnName="id")}
+     *      )
+     */
+    private $myFavorits;
+
+
+    /**
      * @ORM\Column(name="is_active", type="boolean")
      */
     private $isActive;
@@ -139,6 +158,8 @@ class User implements UserInterface, \Serializable
         // $this->salt = md5(uniqid(null, true));
         $this->roles = new ArrayCollection();
         $this->date = new \DateTime();
+        $this->favoritsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myFavorits = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
 
@@ -573,5 +594,71 @@ class User implements UserInterface, \Serializable
     public function getWall()
     {
         return $this->wall;
+    }
+
+    /**
+     * Add favoritsWithMe
+     *
+     * @param \Creativer\FrontBundle\Entity\User $favoritsWithMe
+     * @return User
+     */
+    public function addFavoritsWithMe(\Creativer\FrontBundle\Entity\User $favoritsWithMe)
+    {
+        $this->favoritsWithMe[] = $favoritsWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove favoritsWithMe
+     *
+     * @param \Creativer\FrontBundle\Entity\User $favoritsWithMe
+     */
+    public function removeFavoritsWithMe(\Creativer\FrontBundle\Entity\User $favoritsWithMe)
+    {
+        $this->favoritsWithMe->removeElement($favoritsWithMe);
+    }
+
+    /**
+     * Get favoritsWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFavoritsWithMe()
+    {
+        return $this->favoritsWithMe;
+    }
+
+    /**
+     * Add myFavorits
+     *
+     * @param \Creativer\FrontBundle\Entity\User $myFavorits
+     * @return User
+     */
+    public function addMyFavorit(\Creativer\FrontBundle\Entity\User $myFavorits)
+    {
+        $this->myFavorits[] = $myFavorits;
+
+        return $this;
+    }
+
+    /**
+     * Remove myFavorits
+     *
+     * @param \Creativer\FrontBundle\Entity\User $myFavorits
+     */
+    public function removeMyFavorit(\Creativer\FrontBundle\Entity\User $myFavorits)
+    {
+        $this->myFavorits->removeElement($myFavorits);
+    }
+
+    /**
+     * Get myFavorits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMyFavorits()
+    {
+        return $this->myFavorits;
     }
 }
