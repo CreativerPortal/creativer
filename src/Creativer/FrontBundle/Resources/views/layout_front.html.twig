@@ -13,16 +13,22 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
     <link rel="stylesheet" href="/css/pages/vendor.css">
+    <link rel="stylesheet" type="text/css" href="/css/ng-img-crop.css">
+
     <script src="/js/angular.min.js"></script>
     <script src="/js/angular-route.min.js"></script>
     <script src="/js/angular-animate.min.js"></script>
     <script src="/js/angular-resource.min.js"></script>
+    <script src="/js/ng-img-crop.js"></script>
+
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
 <div class="container wrapper" ng-model="id_user" ng-init="id_user={{ app.security.getToken().getUser().getId() }}">
-
+<div ng-model="username" ng-init="username='{{ app.security.getToken().getUser().getUsername() }}'"></div>
+<div ng-model="lastname" ng-init="lastname='{{ app.security.getToken().getUser().getLastname() }}'"></div>
+<div ng-model="img" ng-init="img='{{ app.security.getToken().getUser().getAvatar().getImg() }}'"></div>
 <header class="header">
 
     <div class="row">
@@ -65,7 +71,7 @@
             <div class="personal col-sm-1 col-sm-offset-7 padding-left_0">
                 <label class="still_label-person" for="checkbox-menu-person">
                     <div class="user__avatar-mini-header" ng-class="{spinner: !user}">
-                        <img src="{{ app.user.img }} ">
+                        <img src="{{ app.user.avatar.img }} ">
                     </div>
                 </label>
 

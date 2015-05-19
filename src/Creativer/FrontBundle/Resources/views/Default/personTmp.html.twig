@@ -6,8 +6,13 @@
                 {% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
                     <div class="row">
                         <div class="col-sm-5 padding-left_0">
-                            <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
+                            <label class="user__avatar edit__avatar" modal >
+                                <img src="[[ user.avatar.img ]]" />
+                                <input type="file" id="fileInput" style="display: none;" />
+                            </label>
                         </div>
+
+
                         <div class="col-sm-7 user__text">
                             <div class="row col-sm-12 margin-top_10 padding-left_0">
                                 <input class="text_info" ng-blur="saveField($event,'status')" obj="user" value="[[ user.status ]]" placeholder="Вы не указали свой статус." disabled>
@@ -22,7 +27,7 @@
                 {% elseif(id != app.security.getToken().getUser().getId()) %}
                     <div class="row">
                         <div class="col-sm-5 padding-left_0">
-                            <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
+                            <div class="user__avatar"><img src="[[ user.avatar.img ]]" /></div>
                         </div>
                         <div class="col-sm-7 user__text">
                             <div class="row col-sm-12 margin-top_10 padding-left_0">
@@ -179,15 +184,15 @@
                 <h4 class="lobster margin-top_20 text-gray">Стена</h4>
 
                 <textarea msd-elastic class="text-gray" cols="73" rows="2" placeholder="Написать сообщение" ng-model="text_post"></textarea>
-                <div ng-show="text_post" class="margin-top_5 right">
-                    <button class="true fs_0-9" ng-click="savePost(user.wall.id)">Отправить</button>
+                <div ng-show="text_post" class="margin-top_5 text-right">
+                    <button class="true fs_0-9" ng-click="savePost(user.wall,user.wall.id,text_post)">Отправить</button>
                     <button class="false fs_0-9" ng-click="text_post=''">Отменить</button>
                 </div>
 
                 <div class="row margin-top_10" ng-repeat="post in user.wall.posts">
 
                     <div class="col-sm-2">
-                        <div class="user__avatar-mini"><img src="[[ post.img ]]"></div>
+                        <div class="user__avatar-mini"><img src="[[ post.avatar.img ]]"></div>
                     </div>
                     <div class="col-sm-10 padding-left_0">
                         <div class="col-sm-6 user__text_bold padding-left_0">[[ post.username ]] [[ post.lastname ]]</div>
@@ -200,7 +205,7 @@
                     <div class="row margin-left_60 col-sm-11" ng-repeat="comment in post.comments">
                         <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
-                            <div class="user__avatar-super-mini"><img src="[[ comment.img ]]"></div>
+                            <div class="user__avatar-super-mini"><img src="[[ comment.avatar.img ]]"></div>
                         </div>
                         <div class="col-sm-10 padding-left_0">
                             <div class="col-sm-12 user__text_bold">[[ comment.username ]] [[ comment.lastname ]]</div>
@@ -211,19 +216,57 @@
                     </div>
                     <div class="row margin-left_60 col-sm-11" ng-show="post.comments[0] || com">
                         <textarea msd-elastic class="text-gray margin-left_20 margin-top_10"  ng-model="text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px;"></textarea>
-                        <div ng-show="text_comment" class="margin-top_5 margin-left_20 right" style="margin-right: 15px;">
-                            <button class="true fs_0-9" ng-click="saveComment(post.id,text_comment)">Отправить</button>
+                        <div ng-show="text_comment" class="margin-top_5 margin-left_20 text-right" style="margin-right: 15px;">
+                            <button class="true fs_0-9" ng-click="saveComment(post,post.id,text_comment)">Отправить</button>
                             <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
                         </div>
                     </div>
 
                 </div>
 
+            </div>
+        </div>
 
+
+
+        <div ng-show="myImage" class="background__viewer-avatar">
+
+            <div class="border__viewer-avatar margin-top_100">
+                <div class="border__viewer__wrapper-avatar">
+
+                    <!-- Modal -->
+                    <div class="cropArea row" style="height: 340px;">
+
+
+                            <img-crop class="col-sm-9 border-avatar" image="myImage" result-image="myCroppedImage" result-image-size="120" style="max-height: 100%;"></img-crop>
+                            <div class="col-sm-3">
+                                <div class="row col-sm-offset-4 user__avatar padding-left_0 padding-right_0">
+                                    <img src="[[ myCroppedImage ]]">
+                                    <input type="file" id="fileInput" style="display: none;">
+                                </div>
+
+                                <div class="row user__avatar-mini padding-left_0 padding-right_0">
+                                    <img src="[[ myCroppedImage ]]">
+                                </div>
+                            </div>
+
+                    </div>
+
+                    <div class="row margin-top_10 right">
+                        <button type="submit" class="true" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
+                        <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
+                    </div>
+
+
+                </div>
             </div>
 
-
         </div>
+
+
+
+
+
 
 
 

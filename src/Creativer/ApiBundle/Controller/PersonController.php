@@ -17,6 +17,9 @@ use Creativer\FrontBundle\Entity\Wall;
 use Creativer\FrontBundle\Entity\Posts;
 use Creativer\FrontBundle\Entity\Comments;
 use Symfony\Component\BrowserKit\Response;
+use Symfony\Component\Filesystem\Filesystem;
+use Creativer\FrontBundle\Services\ImageServices;
+
 
 
 class PersonController extends Controller
@@ -34,7 +37,7 @@ class PersonController extends Controller
 
         $username = $this->get('security.context')->getToken()->getUser()->getUsername();
         $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();
-        $img = $this->get('security.context')->getToken()->getUser()->getImg();
+        $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
         $wall = $this->getDoctrine()->getRepository('CreativerFrontBundle:Wall')->findOneById($data->wall_id);
@@ -45,7 +48,7 @@ class PersonController extends Controller
 
         $post->setUsername($username)
             ->setLastname($lastname)
-            ->setImg($img)
+            ->setAvatar($avatar)
             ->setText($data->text)
             ->setWall($wall)
             ->setUserId($userId);
@@ -76,7 +79,7 @@ class PersonController extends Controller
 
         $username = $this->get('security.context')->getToken()->getUser()->getUsername();
         $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();
-        $img = $this->get('security.context')->getToken()->getUser()->getImg();
+        $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
         $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->findOneById($data->post_id);
@@ -86,7 +89,7 @@ class PersonController extends Controller
 
         $comment->setUsername($username)
             ->setLastname($lastname)
-            ->setImg($img)
+            ->setAvatar($avatar)
             ->setText($data->text)
             ->setPost($post)
             ->setUserId($userId);
@@ -251,6 +254,39 @@ class PersonController extends Controller
 
 
         return array('user' => $oldFriend);
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/update_avatar")
+     * @View()
+     */
+    public function updateAvatarAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $data = json_decode($this->get("request")->getContent());
+
+
+        $im = new ImageServices($this->container);
+        $img = $im->base64_to_jpeg($data->img);
+
+
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
+
+        if($img){
+            $fs = new Filesystem();
+            $fs->remove(array($user->getImg()));
+        }
+
+        $user->setImg($img);
+
+        $em->flush();
+
+
+        return array('user' => $user);
     }
 
 

@@ -52,6 +52,17 @@ angular
                         data: data
                     });
                 },
+                updateAvatar: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'update_avatar',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 saveField: function (data) {
                     return $http({
                         method: 'POST',

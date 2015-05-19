@@ -1,0 +1,47 @@
+<?php
+// src/AppBundle/Entity/Albums.php
+namespace Creativer\FrontBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="avatars")
+ */
+class Avatars
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Expose
+     */
+    private $url;
+
+    /**
+     * @JMS\Expose
+     * @var \DateTime $date
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+
+    }
+
+}

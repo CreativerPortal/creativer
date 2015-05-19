@@ -37,10 +37,12 @@ class User implements UserInterface, \Serializable
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
      * @JMS\Expose
+     * @ORM\OneToOne(targetEntity="Avatar")
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
      */
-    private $img;
+    private $avatar;
+
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -158,8 +160,8 @@ class User implements UserInterface, \Serializable
         // $this->salt = md5(uniqid(null, true));
         $this->roles = new ArrayCollection();
         $this->date = new \DateTime();
-        $this->$favoritsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->$myFavorits = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->favoritsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->myFavorits = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
 
@@ -173,10 +175,6 @@ class User implements UserInterface, \Serializable
         return $this->lastname;
     }
 
-    public function getImg()
-    {
-        return $this->img;
-    }
 
     public function getSalt()
     {
@@ -260,19 +258,7 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
-    /**
-     * Set img
-     *
-     * @param string $img
-     * @return User
-     */
-    public function setImg($img)
-    {
-        $this->img = $img;
-
-        return $this;
-    }
+    
 
     /**
      * Set password
@@ -594,5 +580,94 @@ class User implements UserInterface, \Serializable
     public function getWall()
     {
         return $this->wall;
+    }
+
+    /**
+     * Add favoritsWithMe
+     *
+     * @param \Creativer\FrontBundle\Entity\User $favoritsWithMe
+     * @return User
+     */
+    public function addFavoritsWithMe(\Creativer\FrontBundle\Entity\User $favoritsWithMe)
+    {
+        $this->favoritsWithMe[] = $favoritsWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove favoritsWithMe
+     *
+     * @param \Creativer\FrontBundle\Entity\User $favoritsWithMe
+     */
+    public function removeFavoritsWithMe(\Creativer\FrontBundle\Entity\User $favoritsWithMe)
+    {
+        $this->favoritsWithMe->removeElement($favoritsWithMe);
+    }
+
+    /**
+     * Get favoritsWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFavoritsWithMe()
+    {
+        return $this->favoritsWithMe;
+    }
+
+    /**
+     * Add myFavorits
+     *
+     * @param \Creativer\FrontBundle\Entity\User $myFavorits
+     * @return User
+     */
+    public function addMyFavorit(\Creativer\FrontBundle\Entity\User $myFavorits)
+    {
+        $this->myFavorits[] = $myFavorits;
+
+        return $this;
+    }
+
+    /**
+     * Remove myFavorits
+     *
+     * @param \Creativer\FrontBundle\Entity\User $myFavorits
+     */
+    public function removeMyFavorit(\Creativer\FrontBundle\Entity\User $myFavorits)
+    {
+        $this->myFavorits->removeElement($myFavorits);
+    }
+
+    /**
+     * Get myFavorits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMyFavorits()
+    {
+        return $this->myFavorits;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
+     * @return User
+     */
+    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \Creativer\FrontBundle\Entity\Avatars 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

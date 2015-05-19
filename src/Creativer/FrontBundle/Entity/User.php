@@ -37,10 +37,12 @@ class User implements UserInterface, \Serializable
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
      * @JMS\Expose
+     * @ORM\OneToOne(targetEntity="Avatar")
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
      */
-    private $img;
+    private $avatar;
+
 
     /**
      * @ORM\Column(type="string", length=64)
@@ -173,10 +175,6 @@ class User implements UserInterface, \Serializable
         return $this->lastname;
     }
 
-    public function getImg()
-    {
-        return $this->img;
-    }
 
     public function getSalt()
     {
@@ -260,19 +258,7 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-
-    /**
-     * Set img
-     *
-     * @param string $img
-     * @return User
-     */
-    public function setImg($img)
-    {
-        $this->img = $img;
-
-        return $this;
-    }
+    
 
     /**
      * Set password
@@ -660,5 +646,28 @@ class User implements UserInterface, \Serializable
     public function getMyFavorits()
     {
         return $this->myFavorits;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
+     * @return User
+     */
+    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \Creativer\FrontBundle\Entity\Avatars 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

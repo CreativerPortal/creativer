@@ -39,10 +39,12 @@ class Comments
     private $lastname;
 
     /**
-     * @ORM\Column(type="string", length=255)
      * @JMS\Expose
+     * @ORM\ManyToOne(targetEntity="Avatar")
+     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
      */
-    private $img;
+    private $avatar;
+
 
     /**
      * @var datetime $date
@@ -195,28 +197,6 @@ class Comments
         return $this->lastname;
     }
 
-    /**
-     * Set img
-     *
-     * @param string $img
-     * @return Comments
-     */
-    public function setImg($img)
-    {
-        $this->img = $img;
-
-        return $this;
-    }
-
-    /**
-     * Get img
-     *
-     * @return string 
-     */
-    public function getImg()
-    {
-        return $this->img;
-    }
 
     /**
      * Set date
@@ -239,5 +219,28 @@ class Comments
     public function getDate()
     {
         return $this->date;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
+     * @return Comments
+     */
+    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \Creativer\FrontBundle\Entity\Avatar
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 }

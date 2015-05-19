@@ -15,6 +15,7 @@ use Creativer\FrontBundle\Entity\Wall;
 use Creativer\FrontBundle\Entity\Role;
 use Creativer\FrontBundle\Entity\Images;
 use Creativer\FrontBundle\Entity\Albums;
+use Creativer\FrontBundle\Entity\Avatar;
 use Creativer\FrontBundle\Entity\Register;
 use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
@@ -85,13 +86,15 @@ class DefaultController extends Controller
 
             $factory = $this->get('security.encoder_factory');
             $user = new User();
+            $avatar = new Avatar();
             $wall = new Wall();
             $encoder = $factory->getEncoder($user);
             $password = $encoder->encodePassword($request->get('form')['password']['first'], $user->getSalt());
+            $avatar->setImg($img);
             $user->setUsername($request->get('form')['username']);
             $user->setLastname($request->get('form')['lastname']);
             $user->setEmail($request->get('form')['email']);
-            $user->setImg($img);
+            $user->setAvatar($avatar);
             $user->setPassword($password);
             $user->setWall($wall);
             $wall->setUser($user);
@@ -101,6 +104,7 @@ class DefaultController extends Controller
             $role = $em->getRepository('CreativerFrontBundle:Role')->findOneById(2);
             $user->addRole($role);
 
+            $em->persist($avatar);
             $em->persist($wall);
             $em->persist($user);
             $em->persist($role);

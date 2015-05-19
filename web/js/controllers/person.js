@@ -1,36 +1,7 @@
-angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
+angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngImgCrop'])
     .controller('personCtrl',['$scope', '$rootScope', '$location', '$animate', 'personalService','$routeParams', 'FileUploader', function($scope,$rootScope,$location,$animate,personalService,$routeParams, FileUploader) {
 
     // init controller
-
-    //if($rootScope.user === undefined || $routeParams.id != $rootScope.id_user || $routeParams.id != $scope.id) {
-    //    if($routeParams.id == undefined){
-    //        var id_user = $rootScope.id_user;
-    //    }else{
-    //        var id_user = $routeParams.id;
-    //    }
-    //    personalService.getUser({id: id_user}).success(function (data) {
-    //        $scope.user = $rootScope.user = data.user;
-    //
-    //        if($routeParams.id_album){
-    //            for(var key in $scope.user.albums){
-    //                if($scope.user.albums[key].id == $routeParams.id_album){
-    //                        $scope.id = key;
-    //                }
-    //            }
-    //        }
-    //    });
-    //}
-    //if($scope.user.favorits_with_me){
-    //    $scope.favorit = false;
-    //    for(key in $scope.user.favorits_with_me){
-    //        alert(2);
-    //        if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-    //            $scope.favorit = true;
-    //        }
-    //    }
-    //}
-
 
     if($routeParams.id !== undefined && !$scope.user) {
         personalService.getUser({id: $routeParams.id}).success(function (data) {
@@ -107,17 +78,23 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
     $scope.math = window.Math;
 
 
-    // end init controller
-
-    $scope.savePost = function(wall_id){
+    $scope.savePost = function(wall,wall_id, text){
+        var username = $rootScope.username;
+        var lastname = $rootScope.lastname;
+        var img = $rootScope.img;
+        wall.posts.unshift({id: 0, username:username, lastname:lastname, img:img, text: text});
         personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {
+            $scope.text_post = '';
             $scope.user = data.user;
         });
     }
 
-    $scope.saveComment = function(post_id, text){
+    $scope.saveComment = function(post, post_id, text){
+        var username = $rootScope.username;
+        var lastname = $rootScope.lastname;
+        var img = $rootScope.img;
+        post.comments.unshift({id: 0, username:username, lastname:lastname, img:img, text: text});
         personalService.saveComment({post_id:post_id,text:text,id: $routeParams.id}).success(function (data) {
-            console.log(data);
             $scope.user = data.user;
         });
     }
@@ -157,6 +134,12 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
                         break;
                     }
                 }
+        });
+    }
+
+    $scope.updateAvatar = function(image){
+        personalService.updateAvatar({img:image}).success(function (data) {
+            $scope.user = data.user;
         });
     }
 
@@ -237,6 +220,24 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
     };
 
     console.info('uploader', uploader);
+
+    // crop image
+
+        $scope.myImage=false;
+        $scope.myCroppedImage=false;
+
+        var handleFileSelect=function(evt) {
+            var file=evt.currentTarget.files[0];
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $scope.$apply(function($scope){
+                    $scope.myImage=evt.target.result;
+                });
+            };
+            reader.readAsDataURL(file);
+        };
+
+        angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
 
 }]);
 

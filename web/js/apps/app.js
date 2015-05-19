@@ -124,7 +124,6 @@ app.directive('editPain', function () {
             restrict: 'A',
             link: function (scope, element, attrs) {
                 var height = element.height();
-                console.log("qqqqqqqqqqqq" + height);
                 if (height < 700) {
                     console.log("<<,");
                     angular.element('.button__height').css('display', 'none');
@@ -133,6 +132,13 @@ app.directive('editPain', function () {
                 }
             }
         }
+}).directive('modal', function() {
+    return {
+        restrict: 'A',
+        link: function (scope, element, attrs) {
+            console.log("asda");
+        }
+    }
 });
 
 
