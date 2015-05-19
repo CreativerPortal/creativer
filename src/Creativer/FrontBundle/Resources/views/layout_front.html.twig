@@ -75,7 +75,7 @@
                     <ul class="margin-top_20">
                         <li><a href="{{ path('person') }}#/{{ app.user.id }}">Моя страница</a></li>
                         <li><a href="{{ path('person') }}#/create_album">Создать альбом</a></li>
-                        <li><a href="">Избранное</a></li>
+                        <li><a href="{{ path('person') }}#/favorit">Избранное</a></li>
                         <li><a href="">Настройки</a></li>
                         <li><a href="">Статистика</a></li>
                         <li><a href="">Счёт</a></li>
@@ -112,25 +112,6 @@
         <div ng-view class="view-animate"></div>
     </div>
 
-<footer class="row footer">
-    <nav class="footer__menu col-sm-12 fiveMinuts">
-        <ul>
-            <li><a href="#">Соцсеть</a></li>
-            <li><a href="">Барахолка</a></li>
-            <li><a href="#">События</a></li>
-            <li><a href="">Обратная связь</a></li>
-            <li><a href="#">Правовая информация</a></li>
-        </ul>
-    </nav>
-
-    <div class="row col-sm-12">
-        <div class="col-sm-6">
-            <div class="row  padding-5-15-5-15">&copy; 2015 Creativer. Все права защищены.</div>
-
-        </div>
-    </div>
-</footer>
-
 </div>
 
 {% if app.request.get('_route') == 'person' %}
@@ -146,9 +127,24 @@
     {% block javascripts %}{% endblock %}
 <script src="/js/apps/app.js"></script>
 <script src="/js/elastic.js"></script>
-
-
-
 </div>
+<footer class="footer wrapper">
+    <nav class="footer__menu col-sm-12 fiveMinuts">
+        <ul>
+            <li><a href="{{ path('person') }}#/">Соцсеть</a></li>
+            <li><a href="">Барахолка</a></li>
+            <li><a href="#">События</a></li>
+            <li><a href="">Обратная связь</a></li>
+            <li><a href="#">Правовая информация</a></li>
+        </ul>
+    </nav>
+
+    <div class="row col-sm-12">
+        <div class="col-sm-6">
+            <div class="row  padding-5-15-5-15">&copy; 2015 Creativer. Все права защищены.</div>
+
+        </div>
+    </div>
+</footer>
 </body>
 </html>

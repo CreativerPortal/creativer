@@ -21,11 +21,26 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
     //        }
     //    });
     //}
+    //if($scope.user.favorits_with_me){
+    //    $scope.favorit = false;
+    //    for(key in $scope.user.favorits_with_me){
+    //        alert(2);
+    //        if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+    //            $scope.favorit = true;
+    //        }
+    //    }
+    //}
 
 
     if($routeParams.id !== undefined && !$scope.user) {
         personalService.getUser({id: $routeParams.id}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
+            $scope.favorit = false;
+            for(key in $scope.user.favorits_with_me){
+                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                    $scope.favorit = true;
+                }
+            }
         })
     }else if($routeParams.id == undefined){
         personalService.getUser({id: $rootScope.id_user}).success(function (data) {
@@ -122,8 +137,34 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload'])
     $scope.addFavorits = function(id){
         personalService.addFavorits({id:id}).success(function (data) {
             $scope.user = data.user;
+                $scope.favorit = false;
+                for(key in $scope.user.favorits_with_me){
+                    if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                        $scope.favorit = true;
+                        break;
+                    }
+                }
         });
     }
+
+    $scope.removeFavorits = function(id){
+        personalService.removeFavorits({id:id}).success(function (data) {
+            $scope.user = data.user;
+                $scope.favorit = false;
+                for(key in $scope.user.favorits_with_me){
+                    if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                        $scope.favorit = true;
+                        break;
+                    }
+                }
+        });
+    }
+
+    $scope.$on('$routeChangeStart', function(next, current) {
+        if(current.params.id != undefined && current.params.id != next.targetScope.user.id){
+            $rootScope.user = $scope.user = undefined;
+        }
+    });
 
     // ALBUM
 

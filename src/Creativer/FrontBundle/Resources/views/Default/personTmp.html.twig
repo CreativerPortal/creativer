@@ -1,6 +1,6 @@
         <div class="row slid  padding-right_0" ng-show="user">
 
-            <h3 class="lobster">[[ user.username ]] [[ user.lastname ]]</h3>
+            <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
 
             <div class="col-sm-5 user padding-left_0">
                 {% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
@@ -38,7 +38,8 @@
                 {% if((id != app.security.getToken().getUser().getId()) or (id == null) ) %}
                     <div  class="margin-top_20">
                         <button class="button_message fs_0-9 margin-left_10" ng-click="savePost(user.wall.id)"><span class="glyphicon glyphicon-envelope"></span> Сообщение</button>
-                        <button class="button_favorites fs_0-9 margin-left_5" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span> Избоанное</button>
+                        <button class="button_favorites fs_0-9 margin-left_5" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span> Избранное</button>
+                        <button class="button_favorites fs_0-9 margin-left_5" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span> Избранное</button>
                     </div>
                 {%  endif %}
 
@@ -92,7 +93,7 @@
                     <div class="margin-top_20 col-sm-12 user__text">
                         <div class="row text-left user__text_bold">Избранные:</div>
 
-                        <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits">
+                        <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                             <div class="user__avatar-mini">
                                 <img src="[[ favorit.img ]]">
                             </div>
@@ -134,7 +135,7 @@
 
                     <div class="margin-top_20 col-sm-12 user__text">
                         <div class="row text-left user__text_bold">Избранные:</div>
-                        <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits">
+                        <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                             <div class="user__avatar-mini">
                                 <img src="[[ favorit.img ]]">
                             </div>
@@ -178,8 +179,8 @@
                 <h4 class="lobster margin-top_20 text-gray">Стена</h4>
 
                 <textarea msd-elastic class="text-gray" cols="73" rows="2" placeholder="Написать сообщение" ng-model="text_post"></textarea>
-                <div ng-show="text_post" class="margin-top_5">
-                    <button class="true fs_0-9" ng-click="savePost(user.wall.id)">Сохранить</button>
+                <div ng-show="text_post" class="margin-top_5 right">
+                    <button class="true fs_0-9" ng-click="savePost(user.wall.id)">Отправить</button>
                     <button class="false fs_0-9" ng-click="text_post=''">Отменить</button>
                 </div>
 
@@ -196,8 +197,8 @@
                         <div class="col-sm-6 text-right user__text-blue"><a class="text-blue" href="">Редактировать</a></div>
                     </div>
 
-                    <div class="row margin-left_60 col-sm-10" ng-repeat="comment in post.comments">
-                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
+                    <div class="row margin-left_60 col-sm-11" ng-repeat="comment in post.comments">
+                        <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
                             <div class="user__avatar-super-mini"><img src="[[ comment.img ]]"></div>
                         </div>
@@ -208,10 +209,10 @@
 
                         </div>
                     </div>
-                    <div class="row margin-left_60 col-sm-10" ng-show="post.comments[0] || com">
+                    <div class="row margin-left_60 col-sm-11" ng-show="post.comments[0] || com">
                         <textarea msd-elastic class="text-gray margin-left_20 margin-top_10"  ng-model="text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px;"></textarea>
-                        <div ng-show="text_comment" class="margin-top_5 margin-left_20">
-                            <button class="true fs_0-9" ng-click="saveComment(post.id,text_comment)">Сохранить</button>
+                        <div ng-show="text_comment" class="margin-top_5 margin-left_20 right" style="margin-right: 15px;">
+                            <button class="true fs_0-9" ng-click="saveComment(post.id,text_comment)">Отправить</button>
                             <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
                         </div>
                     </div>

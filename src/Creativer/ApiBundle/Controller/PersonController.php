@@ -221,6 +221,37 @@ class PersonController extends Controller
         $em->flush();
 
 
-        return array('user' => $user);
+        return array('user' => $newFriend);
     }
+
+
+
+    /**
+     * @return array
+     * @Post("/v1/remove_favorits")
+     * @View()
+     */
+    public function removeFavoritsAction()
+    {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $data = json_decode($this->get("request")->getContent());
+
+
+        $oldFriend = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($data->id);
+
+
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
+
+        $user->removeMyFavorit($oldFriend);
+
+        $em->flush();
+
+
+        return array('user' => $oldFriend);
+    }
+
+
 }

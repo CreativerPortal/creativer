@@ -8,6 +8,11 @@ body{
     background-color: #eae9e3;
 }
 
+.name__user a{
+    color: inherit;
+    text-decoration: none;
+}
+
 .wrapper{
     width: 1045px;
 }
@@ -120,6 +125,14 @@ body{
     border-radius: 100px;
 }
 
+.user__avatar-favorit{
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border: 1px dashed #696360;
+    border-radius: 100px;
+}
+
 .user__avatar-mini{
     width: 70px;
     height: 70px;
@@ -146,6 +159,15 @@ body{
 
 .user__avatar img, .user__avatar-mini img, .user__avatar-super-mini img{
     width: 100%;
+}
+
+.favorit__card{
+    color: inherit;
+    text-decoration: none;
+}
+
+.favorit__card:hover{
+    text-decoration: none;
 }
 
 .edit{

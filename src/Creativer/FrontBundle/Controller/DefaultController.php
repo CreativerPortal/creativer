@@ -265,6 +265,11 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:albumTmp.html.twig', array());
     }
 
+    public function favoritTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:favoritTmp.html.twig', array());
+    }
+
     public function dialogueAction(){
 
 

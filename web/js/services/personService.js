@@ -41,6 +41,17 @@ angular
                         data: data
                     });
                 },
+                removeFavorits: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_favorits',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 saveField: function (data) {
                     return $http({
                         method: 'POST',

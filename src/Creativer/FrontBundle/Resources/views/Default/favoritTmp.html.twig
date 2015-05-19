@@ -3,12 +3,11 @@
 <script src="/js/modalEffects.js"></script>
 <script src="/js/cssParser.js"></script>
 <script src="/js/css-filters-polyfill.js"></script>
-<link rel="stylesheet" href="/css/pages/album.css">
  <div class="row slid  padding-right_0" ng-show="user">
 
         <div class="row">
             <h3 class="col-sm-5 lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
-            <h4 class="col-sm-6 lobster text-gray margin-top_30 margin-left_15">Альбом "[[ user.albums[id].name ]]"</h4>
+            <h4 class="col-sm-6 lobster text-gray margin-top_30 margin-left_15">Избранные</h4>
         </div>
 
      <div class="col-sm-5 user padding-left_0">
@@ -92,7 +91,6 @@
              </div>
 
              <div class="margin-top_20 col-sm-12 user__text">
-                 <div class="row text-left user__text_bold">Избранные:</div>
                  <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                      <div class="user__avatar-mini">
                          <img src="[[ favorit.img ]]">
@@ -190,89 +188,17 @@
             </div>
 
             <div class="padding-bottom_30">
-                <h4 class="lobster text-gray margin-left_15" ng-init="count=3">Альбомы</h4>
-                <div class="album__element" ng-repeat="album in user.albums.slice(0, count)">
-                    <a href="#/album/[[album.id]]" class="album__link"></a>
-                    <div class="frame__img">
-                        <img class="album_img" src="{{ path_img_album_thums }}[[ album.img ]]" />
+                <a href="#/[[ favorit.id ]]" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
+                    <div class="user__avatar-favorit">
+                        <img src="[[ favorit.img ]]">
                     </div>
-                    <img class="frame" src="/var/www/creativer/web/img/frame.png" />
-                    <div class="album__element-block">
-                        <a href="#/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
-                        <div class="left-info user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">0</span></div>
-                        <div class="right-info user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">67</span></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row margin-top_30 text-center user__text pointer" ng-click="count = user.albums.length" ng-show="count == 3">
-                <span>Показать остальные</span> <span class="glyphicon glyphicon-menu-down"></span>
+                    <div class="text-center fs_0-9 lobster">[[ favorit.username ]]</div>
+                    <div class="text-center fs_0-9 lobster">[[ favorit.lastname ]]</div>
+                </a>
             </div>
         </div>
 
-            <div ng-show="url_img" class="background__viewer">
-                   <a href="#album/[[id_album]]/[[ user.albums[id].images[key_img-1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
 
-                   </a>
-                   <div class="border__viewer">
-                       <div class="border__viewer__wrapper">
-                           <div class="row"><time class="text-gray ng-binding left">[[ user.albums[id].images[next_key_img].date  | date: "dd.MM.yyyy" ]]</time></div>
-                           <div class="row">
-                                <a href="#album/[[id_album]]/[[ user.albums[id].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" src="{{ path_img_album_original }}/[[url_img]]" /></a>
-                           </div>
-                           <div class="margin-top_10">
-                           <span class="text-blue pointer left" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span>
-                           <a class="text-blue glyphicon glyphicon-heart right" href=""></a>
-                           </div>
-                           <div class="horizontal_line"></div>
-
-                           <div class="row margin-top_10 wrapper__comment">
-
-                                <div class="col-sm-10" >
-                                    <div class="row col-sm-12">
-                                        <div class="col-sm-2">
-                                            <div class="user__avatar-super-mini"><img src="/home/cre55527f4e06bf7.jpg"></div>
-                                        </div>
-                                        <div class="col-sm-10 padding-left_10">
-                                            <div class="row col-sm-12 user__text_bold text-left">slaq Михно</div>
-                                            <div class="row col-sm-12"><p class="user__text left">авиорл</p></div>
-                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">14.05.2015 01:52</time></div>
-                                        </div>
-                                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
-                                    </div>
-
-                                    <div class="row col-sm-12">
-                                        <div class="col-sm-2">
-                                            <div class="user__avatar-super-mini"><img src="/home/cre55527f4e06bf7.jpg"></div>
-                                        </div>
-                                        <div class="col-sm-10 padding-left_10">
-                                            <div class="row col-sm-12 user__text_bold text-left">slaq Михно</div>
-                                            <div class="row col-sm-12"><p class="user__text left">авиорл</p></div>
-                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">14.05.2015 01:52</time></div>
-                                        </div>
-                                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
-                                    </div>
-                                    <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Оставить комментарий" style="width: 455px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
-                                    <div ng-show="text_comment" class="margin-top_5 text-right">
-                                        <button class="true fs_0-9" ng-click="savePost(user.wall.id)">Отправить</button>
-                                    </div>
-                                </div>
-                                <div class="col-sm-2">
-                                    <span class="left">Альбом:</span><br>
-                                    <span class="text-blue left">[[ user.albums[id].name ]]</span><br>
-                                    <nav class="margin-top_10">
-                                        <span class="text-blue left">Увеличить</span><br>
-                                        <span class="text-blue left">Удалить</span><br>
-                                    </nav>
-                                </div>
-
-                            </div>
-                       </div>
-                   </div>
-                   <a href="#album/[[id_album]]" class="right background__viewer__link__next">
-
-                   </a>
-            </div>
 
 
  </div>

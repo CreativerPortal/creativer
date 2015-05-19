@@ -8,6 +8,15 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         });
         $routeProvider.when('/', {
             templateUrl: '/person_tmp',
+            templateUrl: function ($stateParams){
+                var url = "/person_tmp/" + $stateParams.id;
+                return url;
+            },
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/favorit', {
+            templateUrl: '/favorit_tmp',
             controller: 'personCtrl',
             reloadOnSearch: true
         });
