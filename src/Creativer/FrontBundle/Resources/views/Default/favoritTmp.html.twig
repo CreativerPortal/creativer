@@ -14,7 +14,7 @@
          {% if( (id == app.security.getToken().getUser().getId()) ) %}
              <div class="row">
                  <div class="col-sm-5 padding-left_0">
-                     <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
+                     <div class="user__avatar"><img src="[[ user.avatar.img ]]" /></div>
                  </div>
                  <div class="col-sm-7 user__text">
                      <div class="row col-sm-12 margin-top_10 padding-left_0">
@@ -30,7 +30,7 @@
          {% elseif(id != app.security.getToken().getUser().getId()) %}
              <div class="row">
                  <div class="col-sm-5 padding-left_0">
-                     <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
+                     <div class="user__avatar"><img src="[[ user.avatar.img ]]" /></div>
                  </div>
                  <div class="col-sm-7 user__text">
                      <div class="row col-sm-12 margin-top_10 padding-left_0">
@@ -93,7 +93,7 @@
              <div class="margin-top_20 col-sm-12 user__text">
                  <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                      <div class="user__avatar-mini">
-                         <img src="[[ favorit.img ]]">
+                         <img src="[[ favorit.avatar.img ]]">
                      </div>
                      <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
                      <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
@@ -134,7 +134,7 @@
                  <div class="row text-left user__text_bold">Избранные:</div>
                  <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                      <div class="user__avatar-mini">
-                         <img src="[[ favorit.img ]]">
+                         <img src="[[ favorit.avatar.img ]]">
                      </div>
                      <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
                      <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
@@ -149,48 +149,11 @@
      </div>
 
         <div class="col-sm-7 album" ng-model="res = user.albums[id].images.length/3" ng-init="res">
-            <div class="row album__cards" ng-model="k" ng-init="k=0">
-                <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(0, res)">
-                        <div class="padding__1">
-                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
-                        </div>
-                        <div class="album__element__view__bottom">
-                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
-                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">435</span></div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res, res*2)">
-                        <div class="padding__1">
-                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
-                        </div>
-                        <div class="album__element__view__bottom">
-                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
-                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">445</span></div>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res*2, res*3)">
-                        <div class="padding__1">
-                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
-                        </div>
-                        <div class="album__element__view__bottom">
-                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">123</span></div>
-                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">445</span></div>
-                        </div>
-                    </a>
-                </div>
-            </div>
 
             <div class="padding-bottom_30">
                 <a href="#/[[ favorit.id ]]" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
                     <div class="user__avatar-favorit">
-                        <img src="[[ favorit.img ]]">
+                        <img src="[[ favorit.avatar.img ]]">
                     </div>
                     <div class="text-center fs_0-9 lobster">[[ favorit.username ]]</div>
                     <div class="text-center fs_0-9 lobster">[[ favorit.lastname ]]</div>

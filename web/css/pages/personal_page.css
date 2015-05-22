@@ -341,15 +341,13 @@ body{
     color: #aea9a9;
 }
 
-.left-info{
-    width: 50px;
+.left-info__album{
     position: absolute;
     bottom: 0px;
     left: 0px;
 }
 
-.right-info{
-    width: 50px;
+.right-info__album{
     position: absolute;
     bottom: 0px;
     right: 0px;

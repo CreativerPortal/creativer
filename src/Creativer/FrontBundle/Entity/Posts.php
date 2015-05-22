@@ -76,7 +76,6 @@ class Posts
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Comments")
      * @ORM\OneToMany(targetEntity="Comments", mappedBy="post")
-     * @ORM\OrderBy({"id" = "DESC"})
      **/
     private $comments;
 

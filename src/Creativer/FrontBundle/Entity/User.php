@@ -21,6 +21,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\Groups({"idUserByIdImage"})
      */
     private $id;
 
@@ -40,6 +41,7 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @ORM\OneToOne(targetEntity="Avatar")
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     * @JMS\Groups({"getImageComments"})
      */
     private $avatar;
 

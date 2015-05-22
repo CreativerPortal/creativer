@@ -15,8 +15,12 @@
          {% if( (id == app.security.getToken().getUser().getId()) ) %}
              <div class="row">
                  <div class="col-sm-5 padding-left_0">
-                     <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
+                     <label class="user__avatar edit__avatar" >
+                         <img src="[[ user.avatar.img ]]" />
+                         <input type="file" id="fileInput" style="display: none;" />
+                     </label>
                  </div>
+
                  <div class="col-sm-7 user__text">
                      <div class="row col-sm-12 margin-top_10 padding-left_0">
                          <input class="text_info" ng-blur="saveField($event,'status')" obj="user" value="[[ user.status ]]" placeholder="Вы не указали свой статус." disabled>
@@ -31,7 +35,7 @@
          {% elseif(id != app.security.getToken().getUser().getId()) %}
              <div class="row">
                  <div class="col-sm-5 padding-left_0">
-                     <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
+                     <div class="user__avatar"><img src="[[ user.avatar.img ]]" /></div>
                  </div>
                  <div class="col-sm-7 user__text">
                      <div class="row col-sm-12 margin-top_10 padding-left_0">
@@ -95,7 +99,7 @@
                  <div class="row text-left user__text_bold">Избранные:</div>
                  <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                      <div class="user__avatar-mini">
-                         <img src="[[ favorit.img ]]">
+                         <img ng-src="[[ favorit.avatar.img ]]">
                      </div>
                      <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
                      <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
@@ -136,7 +140,7 @@
                  <div class="row text-left user__text_bold">Избранные:</div>
                  <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                      <div class="user__avatar-mini">
-                         <img src="[[ favorit.img ]]">
+                         <img ng-src="[[ favorit.avatar.img ]]">
                      </div>
                      <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
                      <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
@@ -150,12 +154,12 @@
          {% endif %}
      </div>
 
-        <div class="col-sm-7 album" ng-model="res = user.albums[id].images.length/3" ng-init="res">
-            <div class="row album__cards" ng-model="k" ng-init="k=0">
+        <div class="col-sm-7 album" ng-init="res = user.albums[id].images.length/3">
+            <div class="row album__cards" ng-init="k=0">
                 <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(0, res)">
+                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(0, res)">
                         <div class="padding__1">
-                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
+                            <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
@@ -165,9 +169,9 @@
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res, res*2)">
+                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res, res*2)">
                         <div class="padding__1">
-                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
+                            <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
@@ -177,9 +181,9 @@
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <a href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res*2, res*3)">
+                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res*2, res*3)">
                         <div class="padding__1">
-                            <div class="album__element__view__top"><img src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
+                            <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">123</span></div>
@@ -190,11 +194,12 @@
             </div>
 
             <div class="padding-bottom_30">
-                <h4 class="lobster text-gray margin-left_15" ng-init="count=3">Альбомы</h4>
-                <div class="album__element" ng-repeat="album in user.albums.slice(0, count)">
+                <h4 class="lobster text-gray margin-left_15" ng-init="count_albums=3">Альбомы</h4>
+                <div class="album__element" ng-repeat="album in user.albums.slice(0, count_albums)">
                     <a href="#/album/[[album.id]]" class="album__link"></a>
                     <div class="frame__img">
-                        <img class="album_img" src="{{ path_img_album_thums }}[[ album.img ]]" />
+                        <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.img ]]" />
+                        <img class="album_img" ng-show="!album.img" ng-src="{{ path_img_album_thums }}[[ album.images[0].name ]]" />
                     </div>
                     <img class="frame" src="/var/www/creativer/web/img/frame.png" />
                     <div class="album__element-block">
@@ -220,49 +225,39 @@
                            <div class="row">
                                 <a href="#album/[[id_album]]/[[ user.albums[id].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" src="{{ path_img_album_original }}/[[url_img]]" /></a>
                            </div>
-                           <div class="margin-top_10">
-                           <span class="text-blue pointer left" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span>
-                           <a class="text-blue glyphicon glyphicon-heart right" href=""></a>
+                           <div class="margin-top_10 row">
+                               <span class="left user__text">[[ user.albums[id].images[next_key_img].text ]]</span>
+                               <a class="text-blue glyphicon glyphicon-heart right" href=""></a>
                            </div>
+                           <div ng-show="delete" class="user__text">Вы уверены, что хотите удалить изображение? <span class="text-blue pointer margin-left_10" ng-click="deleteImage(user.albums[id].images[key_img].id,key_img,id)">Да</span> <span class="text-blue pointer margin-left_10" ng-click="delete = false">Нет</span></div>
                            <div class="horizontal_line"></div>
 
                            <div class="row margin-top_10 wrapper__comment">
 
                                 <div class="col-sm-10" >
-                                    <div class="row col-sm-12">
+                                    <div class="row col-sm-12" ng-repeat="comment in user.comments">
                                         <div class="col-sm-2">
-                                            <div class="user__avatar-super-mini"><img src="/home/cre55527f4e06bf7.jpg"></div>
+                                            <div class="user__avatar-super-mini"><img ng-src="[[ comment.avatar.img ]]"></div>
                                         </div>
                                         <div class="col-sm-10 padding-left_10">
-                                            <div class="row col-sm-12 user__text_bold text-left">slaq Михно</div>
-                                            <div class="row col-sm-12"><p class="user__text left">авиорл</p></div>
-                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">14.05.2015 01:52</time></div>
+                                            <div class="row col-sm-12 user__text_bold text-left">[[ comment.avatar.user.username ]] [[ comment.avatar.user.lastname ]]</div>
+                                            <div class="row col-sm-12"><p class="user__text left">[[ comment.text ]]</p></div>
+                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time></div>
                                         </div>
                                         <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                                     </div>
 
-                                    <div class="row col-sm-12">
-                                        <div class="col-sm-2">
-                                            <div class="user__avatar-super-mini"><img src="/home/cre55527f4e06bf7.jpg"></div>
-                                        </div>
-                                        <div class="col-sm-10 padding-left_10">
-                                            <div class="row col-sm-12 user__text_bold text-left">slaq Михно</div>
-                                            <div class="row col-sm-12"><p class="user__text left">авиорл</p></div>
-                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">14.05.2015 01:52</time></div>
-                                        </div>
-                                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
-                                    </div>
-                                    <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Оставить комментарий" style="width: 455px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
+                                    <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Оставить комментарий" style="width: 440px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
                                     <div ng-show="text_comment" class="margin-top_5 text-right">
-                                        <button class="true fs_0-9" ng-click="savePost(user.wall.id)">Отправить</button>
+                                        <button class="true fs_0-9" ng-click="saveImageComment(user.albums[id].images[key_img],text_comment)">Отправить</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <span class="left">Альбом:</span><br>
-                                    <span class="text-blue left">[[ user.albums[id].name ]]</span><br>
+                                    <span class="text-blue left text-left">[[ user.albums[id].name ]]</span><br>
                                     <nav class="margin-top_10">
                                         <span class="text-blue left">Увеличить</span><br>
-                                        <span class="text-blue left">Удалить</span><br>
+                                        <span class="text-blue left pointer" ng-click="delete = true">Удалить</span><br>
                                     </nav>
                                 </div>
 
@@ -273,6 +268,38 @@
 
                    </a>
             </div>
-
-
  </div>
+
+<div ng-show="myImage" class="background__viewer-avatar">
+
+    <div class="border__viewer-avatar margin-top_100">
+        <div class="border__viewer__wrapper-avatar">
+
+            <!-- Modal -->
+            <div class="cropArea row" style="height: 340px;">
+
+
+                <img-crop class="col-sm-9 border-avatar" image="myImage" result-image="myCroppedImage" result-image-size="120" style="max-height: 100%;"></img-crop>
+                <div class="col-sm-3">
+                    <div class="row col-sm-offset-4 user__avatar padding-left_0 padding-right_0">
+                        <img src="[[ myCroppedImage ]]">
+                        <input type="file" id="fileInput" style="display: none;">
+                    </div>
+
+                    <div class="row user__avatar-mini padding-left_0 padding-right_0">
+                        <img src="[[ myCroppedImage ]]">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="row margin-top_10 right">
+                <button type="submit" class="true" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
+                <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
+            </div>
+
+
+        </div>
+    </div>
+
+</div>

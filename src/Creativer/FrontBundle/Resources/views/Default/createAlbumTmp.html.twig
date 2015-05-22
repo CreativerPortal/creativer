@@ -10,8 +10,12 @@
                 {% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
                     <div class="row">
                         <div class="col-sm-5 padding-left_0">
-                            <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
+                            <label class="user__avatar edit__avatar" >
+                                <img src="[[ user.avatar.img ]]" />
+                                <input type="file" id="fileInput" style="display: none;" />
+                            </label>
                         </div>
+
                         <div class="col-sm-7 user__text">
                             <div class="row col-sm-12 margin-top_10 padding-left_0">
                                 <input class="text_info" ng-blur="saveField($event,'status')" obj="user" value="[[ user.status ]]" placeholder="Вы не указали свой статус." disabled>
@@ -26,7 +30,7 @@
                 {% elseif(id != app.security.getToken().getUser().getId()) %}
                     <div class="row">
                         <div class="col-sm-5 padding-left_0">
-                            <div class="user__avatar"><img contenteditable="true" src="[[ user.img ]]" /></div>
+                            <div class="user__avatar"><img src="[[ user.img ]]" /></div>
                         </div>
                         <div class="col-sm-7 user__text">
                             <div class="row col-sm-12 margin-top_10 padding-left_0">
@@ -178,8 +182,8 @@
                             <div class="edit__album__menu">
                                 <ul class="margin-top_20">
                                     <li ng-click="item.remove()">Удалить</li>
-                                    <li>
-                                        <label>Обложкой<input type="radio" name="item.main" class="hidden" value="1" ng-model="item.main"></label>
+                                    <li ng-model="item.main" ng-init="item.main = 0" ng-click="item.main = 1">
+                                        Обложкой
                                     </li>
                                 </ul>
                             </div>
@@ -205,8 +209,8 @@
                             <div class="edit__album__menu">
                                 <ul class="margin-top_20">
                                     <li ng-click="item.remove()">Удалить</li>
-                                    <li>
-                                        <label>Обложкой<input type="radio" name="item.main" class="hidden" value="1" ng-model="item.main"></label>
+                                    <li ng-model="item.main" ng-init="item.main = 0" ng-click="item.main = 1">
+                                        Обложкой
                                     </li>
                                 </ul>
                             </div>
@@ -226,8 +230,8 @@
                             <div class="edit__album__menu">
                                 <ul class="margin-top_20">
                                     <li ng-click="item.remove()">Удалить</li>
-                                    <li>
-                                        <label>Обложкой<input type="radio" name="item.main" class="hidden" value="1" ng-model="item.main"></label>
+                                    <li ng-model="item.main" ng-init="item.main = 0" ng-click="item.main = 1">
+                                        Обложкой
                                     </li>
                                 </ul>
                             </div>
@@ -282,5 +286,39 @@
 
         </div>
 
+
+        <div ng-show="myImage" class="background__viewer-avatar">
+
+            <div class="border__viewer-avatar margin-top_100">
+                <div class="border__viewer__wrapper-avatar">
+
+                    <!-- Modal -->
+                    <div class="cropArea row" style="height: 340px;">
+
+
+                        <img-crop class="col-sm-9 border-avatar" image="myImage" result-image="myCroppedImage" result-image-size="120" style="max-height: 100%;"></img-crop>
+                        <div class="col-sm-3">
+                            <div class="row col-sm-offset-4 user__avatar padding-left_0 padding-right_0">
+                                <img src="[[ myCroppedImage ]]">
+                                <input type="file" id="fileInput" style="display: none;">
+                            </div>
+
+                            <div class="row user__avatar-mini padding-left_0 padding-right_0">
+                                <img src="[[ myCroppedImage ]]">
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="row margin-top_10 right">
+                        <button type="submit" class="true" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
+                        <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
 
 

@@ -16,6 +16,36 @@ body{
     padding: 0px 50px;
 }
 
+.user__avatar img, .user__avatar-mini img, .user__avatar-super-mini img{
+    width: 100%;
+}
+
+.user__avatar{
+    width: 125px;
+    height: 125px;
+    overflow: hidden;
+    border: 1px dashed #696360;
+    border-radius: 100px;
+}
+
+.edit__avatar{
+    font-family: 'Glyphicons Halflings';
+}
+
+.edit__avatar:hover{
+    opacity: 0.8;
+    cursor: pointer;
+}
+
+.edit__avatar:hover:before {
+    content: "\e046";
+    position: absolute;
+    top: 49px;
+    left: 53px;
+    font-size: 1.5em;
+    color: #e9eae1;
+}
+
 .slid__slider{
     position: absolute;
     top:200px;

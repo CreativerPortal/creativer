@@ -16,6 +16,7 @@ use Creativer\FrontBundle\Entity\User;
 use Creativer\FrontBundle\Entity\Wall;
 use Creativer\FrontBundle\Entity\Posts;
 use Creativer\FrontBundle\Entity\Comments;
+use Creativer\FrontBundle\Entity\ImageComments;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Filesystem\Filesystem;
 use Creativer\FrontBundle\Services\ImageServices;
@@ -109,6 +110,53 @@ class PersonController extends Controller
 
     /**
      * @return array
+     * @Post("/v1/get_image_comments")
+     * @View(serializerGroups={"getImageComments"})
+     */
+    public function getImageCommentsAction()
+    {
+        $data = json_decode($this->get("request")->getContent());
+
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
+
+        return array('image_comments' => $image->getImageComments());
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/save_image_comments")
+     * @View(serializerGroups={"getImageComments"})
+     */
+    public function saveImageCommentsAction()
+    {
+        $data = json_decode($this->get("request")->getContent());
+
+
+        $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
+
+       // die(\Doctrine\Common\Util\Debug::dump($avatar));
+
+
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
+
+        $imageComment = new ImageComments();
+
+        $imageComment->setAvatar($avatar)
+            ->setImage($image)
+            ->setText($data->text);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($imageComment);
+        $em->flush();
+
+
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
+
+        return array('image_comments' => $image->getImageComments());
+    }
+
+    /**
+     * @return array
      * @Post("/v1/get_user")
      * @View()
      */
@@ -161,8 +209,8 @@ class PersonController extends Controller
     public function finishUploadAction()
     {
         $data = json_decode($this->get("request")->getContent());
-        $name = $data->name;
-        $description = $data->description;
+        $name = isset($data->name)?$data->name:'';
+        $description = isset($data->description)?$data->description:'';
 
         $em = $this->getDoctrine();
         $id = $this->get('security.context')->getToken()->getUser()->getId();
@@ -190,7 +238,7 @@ class PersonController extends Controller
      * @Post("/v1/get_user_by_album_id")
      * @View()
      */
-    public function getUserByAlbumIddAction()
+    public function getUserByAlbumIdAction()
     {
         $id = $this->get('request')->request->get('id');
 
@@ -199,6 +247,33 @@ class PersonController extends Controller
         $user = $data[0]->getUser();
 
         return array('user' => $user);
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/delete_image")
+     * @View(serializerGroups={"idUserByIdImage"})
+     */
+    public function delete_imageAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $image_id = $this->get('request')->request->get('image_id');
+
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findBy(array('id'=>$image_id))[0];
+
+
+        if($image->getName() && $id == $image->getAlbum()->getUser()->getId()){
+            $fs = new Filesystem();
+            $fs->remove(array($image->getName()));
+            $em->remove($image);
+        }
+
+        $em->flush();
+
+
+        return array('image' => $image);
     }
 
     /**
@@ -278,10 +353,10 @@ class PersonController extends Controller
 
         if($img){
             $fs = new Filesystem();
-            $fs->remove(array($user->getImg()));
+            $fs->remove(array($user->getAvatar()->getImg()));
         }
 
-        $user->setImg($img);
+        $user->getAvatar()->setImg($img);
 
         $em->flush();
 

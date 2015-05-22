@@ -12,7 +12,6 @@
                             </label>
                         </div>
 
-
                         <div class="col-sm-7 user__text">
                             <div class="row col-sm-12 margin-top_10 padding-left_0">
                                 <input class="text_info" ng-blur="saveField($event,'status')" obj="user" value="[[ user.status ]]" placeholder="Вы не указали свой статус." disabled>
@@ -100,7 +99,7 @@
 
                         <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                             <div class="user__avatar-mini">
-                                <img src="[[ favorit.img ]]">
+                                <img ng-src="[[ favorit.avatar.img ]]">
                             </div>
                             <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
                             <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
@@ -142,7 +141,7 @@
                         <div class="row text-left user__text_bold">Избранные:</div>
                         <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                             <div class="user__avatar-mini">
-                                <img src="[[ favorit.img ]]">
+                                <img ng-src="[[ favorit.avatar.img ]]">
                             </div>
                             <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
                             <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
@@ -156,24 +155,26 @@
                 {% endif %}
             </div>
 
-            <div class="col-sm-7 album">
+            <div class="col-sm-7 album" ng-init="count_albums=3">
                 <h4 class="lobster text-gray">Альбомы</h4>
-                <div class="album__element" ng-repeat="album in user.albums">
+                <div class="album__element" ng-repeat="album in user.albums.slice(0,count_albums)">
                     <a href="#/album/[[album.id]]" class="album__link"></a>
                     <div class="frame__img">
-                        <img class="album_img" src="{{ path_img_album_thums }}[[ album.img ]]" />
+                        <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.img ]]" />
+                        <img class="album_img" ng-show="!album.img" ng-src="{{ path_img_album_thums }}[[ album.images[0].name ]]" />
+
                     </div>
                     <img class="frame" src="/var/www/creativer/web/img/frame.png" />
                     <div class="album__element-block">
                         <a href="#/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
-                        <div class="left-info user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">0</span></div>
-                        <div class="right-info user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">67</span></div>
+                        <div class="left-info__album user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">0</span></div>
+                        <div class="right-info__album user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">67</span></div>
                     </div>
                 </div>
 
 
 
-                <div class="row margin-top_25 text-center user__text" ng-show="user.albums.length > 0">
+                <div class="row margin-top_25 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums < user.albums.length" ng-click="count_albums = user.albums.length">
                     Показать остальные альбомы <span class="glyphicon glyphicon-menu-down"></span>
                 </div>
 
@@ -192,7 +193,7 @@
                 <div class="row margin-top_10" ng-repeat="post in user.wall.posts">
 
                     <div class="col-sm-2">
-                        <div class="user__avatar-mini"><img src="[[ post.avatar.img ]]"></div>
+                        <div class="user__avatar-mini"><img ng-src="[[ post.avatar.img ]]"></div>
                     </div>
                     <div class="col-sm-10 padding-left_0">
                         <div class="col-sm-6 user__text_bold padding-left_0">[[ post.username ]] [[ post.lastname ]]</div>
@@ -205,7 +206,7 @@
                     <div class="row margin-left_60 col-sm-11" ng-repeat="comment in post.comments">
                         <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
-                            <div class="user__avatar-super-mini"><img src="[[ comment.avatar.img ]]"></div>
+                            <div class="user__avatar-super-mini"><img ng-src="[[ comment.avatar.img ]]"></div>
                         </div>
                         <div class="col-sm-10 padding-left_0">
                             <div class="col-sm-12 user__text_bold">[[ comment.username ]] [[ comment.lastname ]]</div>

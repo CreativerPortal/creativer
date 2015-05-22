@@ -5,6 +5,7 @@ namespace Creativer\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation\MaxDepth;
 
 
 
@@ -18,26 +19,39 @@ class Images
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Groups({"idUserByIdImage"})
      */
     private $id;
 
 
     /**
      * @JMS\Expose
-     * @JMS\Type("Images")
+     * @JMS\Type("Creativer\FrontBundle\Entity\Albums")
      * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
+     * @MaxDepth(2)
+     * @JMS\Groups({"idUserByIdImage"})
      **/
     private $album;
 
     /**
-     * @ORM\Column(type="string", length=255)
      * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
+     * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image")
+     * @JMS\Groups({"getImageComments"})
+     **/
+    private $image_comments;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments"})
      */
     private $name;
 
     /**
-     * @ORM\Column(type="text")
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"getImageComments"})
      */
     private $text;
 
@@ -47,6 +61,7 @@ class Images
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"getImageComments"})
      */
     private $date;
 
@@ -57,7 +72,7 @@ class Images
         $this->date = new \DateTime();
 
     }
-
+    
 
     /**
      * Get id
@@ -70,26 +85,26 @@ class Images
     }
 
     /**
-     * Set img
+     * Set name
      *
-     * @param string $img
+     * @param string $name
      * @return Images
      */
-    public function setImg($img)
+    public function setName($name)
     {
-        $this->img = $img;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get img
+     * Get name
      *
      * @return string 
      */
-    public function getImg()
+    public function getName()
     {
-        return $this->img;
+        return $this->name;
     }
 
     /**
@@ -108,7 +123,7 @@ class Images
     /**
      * Get text
      *
-     * @return string
+     * @return string 
      */
     public function getText()
     {
@@ -162,25 +177,35 @@ class Images
     }
 
     /**
-     * Set name
+     * Add image_comments
      *
-     * @param string $name
+     * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
      * @return Images
      */
-    public function setName($name)
+    public function addImageComment(\Creativer\FrontBundle\Entity\ImageComments $imageComments)
     {
-        $this->name = $name;
+        $this->image_comments[] = $imageComments;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Remove image_comments
      *
-     * @return string 
+     * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
      */
-    public function getName()
+    public function removeImageComment(\Creativer\FrontBundle\Entity\ImageComments $imageComments)
     {
-        return $this->name;
+        $this->image_comments->removeElement($imageComments);
+    }
+
+    /**
+     * Get image_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImageComments()
+    {
+        return $this->image_comments;
     }
 }

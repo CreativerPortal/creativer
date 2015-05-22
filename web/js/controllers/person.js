@@ -4,6 +4,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
     // init controller
 
     if($routeParams.id !== undefined && !$scope.user) {
+        $rootScope.user = $scope.user = null;
         personalService.getUser({id: $routeParams.id}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
             $scope.favorit = false;
@@ -14,18 +15,45 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
             }
         })
     }else if($routeParams.id == undefined){
+        $rootScope.user = $scope.user = null;
         personalService.getUser({id: $rootScope.id_user}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
+            $scope.favorit = false;
+            for(key in $scope.user.favorits_with_me){
+                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                    $scope.favorit = true;
+                }
+            }
         })
-    }else if($rootScope.id_user != $routeParams.id){
+    //}else if($rootScope.id_user != $routeParams.id){
+    //    $rootScope.user = $scope.user = null;
+    //    personalService.getUser({id: $routeParams.id}).success(function (data) {
+    //        $rootScope.user = $scope.user = data.user;
+    //        $scope.favorit = false;
+    //        for(key in $scope.user.favorits_with_me){
+    //            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+    //                $scope.favorit = true;
+    //            }
+    //        }
+    //    })
+    }else if($scope.user && $routeParams.id != $scope.user.id) {
+        $rootScope.user = $scope.user = null;
         personalService.getUser({id: $routeParams.id}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
+            $scope.favorit = false;
+            for(key in $scope.user.favorits_with_me){
+                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                    $scope.favorit = true;
+                }
+            }
         })
-    }else if($rootScope.user && $routeParams.id != $rootScope.user.id) {
-        $scope.user = null;
-        personalService.getUser({id: $routeParams.id}).success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-        })
+    }else if($scope.user){
+        $scope.favorit = false;
+        for(key in $scope.user.favorits_with_me){
+            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                $scope.favorit = true;
+            }
+        }
     }
 
 
@@ -82,7 +110,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
         var username = $rootScope.username;
         var lastname = $rootScope.lastname;
         var img = $rootScope.img;
-        wall.posts.unshift({id: 0, username:username, lastname:lastname, img:img, text: text});
+        wall.posts.unshift({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
         personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {
             $scope.text_post = '';
             $scope.user = data.user;
@@ -93,7 +121,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
         var username = $rootScope.username;
         var lastname = $rootScope.lastname;
         var img = $rootScope.img;
-        post.comments.unshift({id: 0, username:username, lastname:lastname, img:img, text: text});
+        post.comments.push({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
         personalService.saveComment({post_id:post_id,text:text,id: $routeParams.id}).success(function (data) {
             $scope.user = data.user;
         });
@@ -211,7 +239,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
 
     uploader.onBeforeUploadItem = function (item) {
         if(item.file.name == ''){
-            item.file.name = 'описание картинки';
+            item.file.name = ' ';
         }
         if(item.main == 1) {
             item.formData.push({main: 1});

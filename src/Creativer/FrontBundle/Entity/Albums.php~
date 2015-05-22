@@ -18,15 +18,17 @@ class Albums
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Groups({"idUserByIdImage"})
      */
     private $id;
 
 
     /**
      * @JMS\Expose
-     * @JMS\Type("Albums")
+     * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @JMS\Groups({"idUserByIdImage"})
      **/
     private $user;
 

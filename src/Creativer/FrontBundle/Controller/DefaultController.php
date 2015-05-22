@@ -4,6 +4,7 @@ namespace Creativer\FrontBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\BrowserKit\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -26,24 +27,6 @@ use Imagine\Image\ImageInterface;
 
 class DefaultController extends Controller
 {
-//    public function security_checkAction()
-//    {
-//        $request = $this->get('request');
-//        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneByEmail($request->get('email'));
-//
-//
-//        return $this->render('CreativerFrontBundle:Default:main.html.twig');
-//
-////        if(isset($user->getId) && $id = $user->getId()) {
-////            $url = $this->generateUrl('creativer_front_main', array('id_user' => $id));
-////            return new RedirectResponse($url);
-////        }else{
-////            $user = $this->get('security.context')->getToken()->getUser();
-////            return $this->render('CreativerFrontBundle:Default:personal.html.twig');
-////        }
-//
-//    }
-
 
     public function registrationAction()
     {
@@ -179,7 +162,6 @@ class DefaultController extends Controller
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
                 if (($image->getSize() < 2000000000)) {
                     $originalName = $image->getClientOriginalName();
-                    $name_array = explode('.', $originalName);
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
@@ -187,7 +169,7 @@ class DefaultController extends Controller
                         $userId = $this->get('security.context')->getToken()->getUser()->getId();
                         $em = $this->getDoctrine()->getEntityManager();
                         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$userId));
-                       // \Doctrine\Common\Util\Debug::dump($user);
+                        //die(\Doctrine\Common\Util\Debug::dump($image));
                         $album = $em->getRepository("CreativerFrontBundle:Albums")->findBy(array('isActive' => 0, 'user' => $user[0]));
 
                         if(empty($album)){
@@ -246,7 +228,8 @@ class DefaultController extends Controller
                 $status = 'failed';
                 $message = 'File Error';
             }
-            return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
+            $response = new Response();
+            return $response->setStatusCode(200);
         } else {
             return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
         }

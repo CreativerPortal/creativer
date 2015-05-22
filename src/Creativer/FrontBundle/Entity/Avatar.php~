@@ -28,6 +28,11 @@ class Avatar
     private $img;
 
     /**
+     * @ORM\OneToOne(targetEntity="User", mappedBy="avatar")
+     */
+    private $user;
+
+    /**
      * @JMS\Expose
      * @var \DateTime $date
      *
