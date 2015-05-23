@@ -25,10 +25,13 @@
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
-<div class="container wrapper" ng-model="id_user" ng-init="id_user={{ app.security.getToken().getUser().getId() }}">
-<div ng-model="username" ng-init="username='{{ app.security.getToken().getUser().getUsername() }}'"></div>
-<div ng-model="lastname" ng-init="lastname='{{ app.security.getToken().getUser().getLastname() }}'"></div>
-<div ng-model="img" ng-init="img='{{ app.security.getToken().getUser().getAvatar().getImg() }}'"></div>
+<div class="container wrapper" >
+{% if app.user %}
+    <div ng-model="id_user" ng-init="id_user={{ app.security.getToken().getUser().getId() }}"></div>
+    <div ng-model="username" ng-init="username='{{ app.security.getToken().getUser().getUsername() }}'"></div>
+    <div ng-model="lastname" ng-init="lastname='{{ app.security.getToken().getUser().getLastname() }}'"></div>
+    <div ng-model="img" ng-init="img='{{ app.security.getToken().getUser().getAvatar().getImg() }}'"></div>
+{% endif %}
 <header class="header">
 
     <div class="row">
@@ -67,8 +70,14 @@
             </div>
         </div>
 
+        <div class="col-sm-7">
+            <a href="{{ path('creativer_front_main') }}#/" class="logo">
+                <img src="/var/www/creativer/web/img/logo.png" />
+            </a>
+        </div>
+
         {% if is_granted('ROLE_USER') %}
-            <div class="personal col-sm-1 col-sm-offset-7 padding-left_0">
+            <div class="personal col-sm-1 padding-left_0">
                 <label class="still_label-person" for="checkbox-menu-person">
                     <div class="user__avatar-mini-header" ng-class="{spinner: !user}">
                         <img src="{{ app.user.avatar.img }} ">
@@ -121,18 +130,15 @@
 </div>
 
 {% if app.request.get('_route') == 'person' %}
-    <link rel="stylesheet" href="/css/pages/personal_page.css">
+{% else %}
+{% endif %}
     <script src="/js/angular-file-upload.js"></script>
     <script src="/js/services/personService.js"></script>
     <script src="/js/services/albumService.js"></script>
     <script src="/js/controllers/person.js"></script>
     <script src="/js/controllers/album.js"></script>
-{% else %}
-
-{% endif %}
-    {% block javascripts %}{% endblock %}
-<script src="/js/apps/app.js"></script>
-<script src="/js/elastic.js"></script>
+    <script src="/js/apps/app.js"></script>
+    <script src="/js/elastic.js"></script>
 </div>
 <footer class="footer wrapper">
     <nav class="footer__menu col-sm-12 fiveMinuts">

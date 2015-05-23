@@ -20,6 +20,8 @@ use Creativer\FrontBundle\Entity\ImageComments;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Filesystem\Filesystem;
 use Creativer\FrontBundle\Services\ImageServices;
+use JMS\Serializer\SerializationContext;
+use Symfony\Component\HttpFoundation\Response as Respon;
 
 
 
@@ -131,11 +133,9 @@ class PersonController extends Controller
     {
         $data = json_decode($this->get("request")->getContent());
 
-
         $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
 
        // die(\Doctrine\Common\Util\Debug::dump($avatar));
-
 
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
 
@@ -149,20 +149,17 @@ class PersonController extends Controller
         $em->persist($imageComment);
         $em->flush();
 
-
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
 
         return array('image_comments' => $image->getImageComments());
     }
 
     /**
-     * @return array
      * @Post("/v1/get_user")
-     * @View()
+     * @View(serializerGroups={"getUser"})
      */
     public function getUserAction()
     {
-        $serializer = $this->container->get('jms_serializer');
         if(!$this->get('request')->request->get('id'))
         {
             $id = $this->get('security.context')->getToken()->getUser()->getId();
@@ -170,8 +167,21 @@ class PersonController extends Controller
             $id = $this->get('request')->request->get('id');
         }
         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$id));
-        $json = $serializer->serialize($user, 'json');
-        return array('user' => $user[0]);
+
+        $user = array('user' => $user[0]);
+
+        $serializer = $this->container->get('jms_serializer');
+        $user = $serializer
+            ->serialize(
+                $user,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+            );
+
+        $response = new Respon($user);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
 

@@ -12,6 +12,7 @@ use JMS\Serializer\Annotation\MaxDepth;
 /**
  * @ORM\Entity
  * @ORM\Table(name="images")
+ * @JMS\ExclusionPolicy("all")
  */
 class Images
 {
@@ -19,7 +20,8 @@ class Images
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage"})
+     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Expose
      */
     private $id;
 
@@ -29,7 +31,7 @@ class Images
      * @JMS\Type("Creativer\FrontBundle\Entity\Albums")
      * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
-     * @MaxDepth(2)
+     * @JMS\MaxDepth(2)
      * @JMS\Groups({"idUserByIdImage"})
      **/
     private $album;
@@ -37,7 +39,7 @@ class Images
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
-     * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image")
+     * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image", cascade={"remove"})
      * @JMS\Groups({"getImageComments"})
      **/
     private $image_comments;
@@ -45,13 +47,21 @@ class Images
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getImageComments", "getUser"})
      */
     private $name;
 
     /**
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
+     */
+    private $views;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Expose
      */
     private $text;
 
@@ -61,7 +71,7 @@ class Images
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getImageComments", "getUser"})
      */
     private $date;
 
@@ -73,6 +83,7 @@ class Images
 
     }
     
+
 
     /**
      * Get id
@@ -105,6 +116,29 @@ class Images
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     * @return Images
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer 
+     */
+    public function getViews()
+    {
+        return $this->views;
     }
 
     /**

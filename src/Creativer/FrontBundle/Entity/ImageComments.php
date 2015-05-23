@@ -18,6 +18,7 @@ class ImageComments
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Groups({"getImageComments"})
+     * @JMS\Expose
      */
     private $id;
 
@@ -35,7 +36,7 @@ class ImageComments
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Images")
      * @ORM\ManyToOne(targetEntity="Images", inversedBy="image_comments")
-     * @ORM\JoinColumn(name="image_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="image_id", referencedColumnName="id", onDelete="CASCADE")
      * @JMS\Groups({"getImageComments"})
      **/
     private $image;
@@ -51,6 +52,7 @@ class ImageComments
     private $date;
 
     /**
+     * @JMS\Expose
      * @ORM\Column(type="text")
      * @JMS\Groups({"getImageComments"})
      */

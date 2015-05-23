@@ -24,6 +24,7 @@ class Wall
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Groups({"getUser"})
      * @JMS\Expose
      */
     private $id;
@@ -40,6 +41,7 @@ class Wall
      * @JMS\Type("Creativer\FrontBundle\Entity\Posts")
      * @ORM\OneToMany(targetEntity="Posts", mappedBy="wall")
      * @ORM\OrderBy({"id" = "DESC"})
+     * @JMS\Groups({"getUser"})
      **/
     private $posts;
 

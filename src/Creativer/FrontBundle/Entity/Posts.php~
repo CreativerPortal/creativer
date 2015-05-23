@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="posts")
+ * @JMS\ExclusionPolicy("all")
  */
 class Posts
 {
@@ -18,27 +19,32 @@ class Posts
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Groups({"getUser"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer", length=11)
+     * @JMS\Groups({"getUser"})
      */
     private $wall_id;
 
     /**
      * @ORM\Column(type="integer", length=11)
+     * @JMS\Groups({"getUser"})
      */
     private $user_id;
 
     /**
      * @ORM\Column(type="string", length=25)
+     * @JMS\Groups({"getUser"})
      * @JMS\Expose
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=25)
+     * @JMS\Groups({"getUser"})
      * @JMS\Expose
      */
     private $lastname;
@@ -47,26 +53,29 @@ class Posts
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="Avatar")
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     * @JMS\Groups({"getUser"})
      */
     private $avatar;
 
     /**
-     * @JMS\Expose
      * @var \DateTime $date
-     *
+     * @JMS\Expose
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"getUser"})
      */
     private $date;
 
     /**
      * @ORM\Column(type="text")
+     * @JMS\Groups({"getUser"})
+     * @JMS\Expose
      */
     private $text;
 
     /**
      * @JMS\Expose
-     * @JMS\Type("Wall")
+     * @JMS\Type("Creativer\FrontBundle\Entity\Wall")
      * @ORM\ManyToOne(targetEntity="Wall", inversedBy="posts")
      * @ORM\JoinColumn(name="wall_id", referencedColumnName="id")
      **/
@@ -76,6 +85,7 @@ class Posts
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Comments")
      * @ORM\OneToMany(targetEntity="Comments", mappedBy="post")
+     * @JMS\Groups({"getUser"})
      **/
     private $comments;
 

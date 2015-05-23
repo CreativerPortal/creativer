@@ -1,3 +1,5 @@
+        <link rel="stylesheet" href="/css/pages/personal_page.css">
+
         <div class="row slid  padding-right_0" ng-show="user">
 
             <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
@@ -60,7 +62,7 @@
                 <div class="row margin-top_5">
                     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
                     <div class="col-sm-4 user__text_bold padding-left_0">В избранных у</div>
-                    <div class="col-sm-3 col-md-offset-4 user__text_bold">0</div>
+                    <div class="col-sm-3 col-md-offset-4 user__text_bold">[[ user.favorits_with_me.length ]]</div>
                 </div>
 
                 {% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}

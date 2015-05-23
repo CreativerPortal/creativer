@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="comments")
+ * @JMS\ExclusionPolicy("all")
  */
 class Comments
 {
@@ -18,6 +19,8 @@ class Comments
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Groups({"getUser"})
+     * @JMS\Expose
      */
     private $id;
 
@@ -29,12 +32,14 @@ class Comments
     /**
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $lastname;
 
@@ -42,6 +47,7 @@ class Comments
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="Avatar")
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     * @JMS\Groups({"getUser"})
      */
     private $avatar;
 
@@ -51,11 +57,14 @@ class Comments
      * @JMS\Expose
      * @ORM\Column(name="date", type="datetime")
      * @Gedmo\Timestampable(on="create")
+     * @JMS\Groups({"getUser"})
      */
     private $date;
 
     /**
+     * @JMS\Expose
      * @ORM\Column(type="text")
+     * @JMS\Groups({"getUser"})
      */
     private $text;
 

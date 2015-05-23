@@ -15,13 +15,20 @@ input:focus,textarea:focus,select:focus{
 }
 
 .header{
-    background: url("/var/www/creativer/web/img/header.png");
+    background: url("/var/www/creativer/web/img/header_background_img.png");
     height: 163px;
     background-repeat: no-repeat;
     background-position: top 0px center;
     padding-top: 10px;
 }
 
+.logo{
+    display:block;
+    border: none;
+    position: absolute;
+    top: -55px;
+    left: 95px;
+}
 
 .header__search{
     width: 105px;

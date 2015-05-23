@@ -21,7 +21,7 @@
         "sensio/generator-bundle": "~2.3",
         "incenteev/composer-parameter-handler": "~2.0",
         "symfony/security": "2.3",
-        "jms/serializer-bundle": "@stable",
+        "jms/serializer-bundle": "dev-master",
         "friendsofsymfony/rest-bundle": "@stable",
         "symfony/serializer": "~2.6",
         "stof/doctrine-extensions-bundle": "@stable",

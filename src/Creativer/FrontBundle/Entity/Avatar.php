@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="avatar")
+ * @JMS\ExclusionPolicy("all")
  */
 class Avatar
 {
@@ -17,28 +18,28 @@ class Avatar
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Expose
      */
     private $id;
 
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments"})
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({"getImageComments", "getUser"})
      */
     private $img;
 
     /**
+     * @JMS\Expose
      * @ORM\OneToOne(targetEntity="User", mappedBy="avatar")
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getImageComments", "getUser"})
      */
     private $user;
 
     /**
-     * @JMS\Expose
      * @var \DateTime $date
-     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      * @JMS\Groups({"getImageComments"})

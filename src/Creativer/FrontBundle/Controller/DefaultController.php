@@ -242,6 +242,11 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle::layout_front.html.twig', array());
     }
 
+    public function mainTmpAction()
+    {
+        return $this->render('CreativerFrontBundle:Default:mainTmp.html.twig', array());
+    }
+
     public function personTmpAction($id)
     {
         return $this->render('CreativerFrontBundle:Default:personTmp.html.twig', array('id' => $id));

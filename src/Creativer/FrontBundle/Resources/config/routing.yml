@@ -10,15 +10,20 @@ creativer_front_registration:
 creativer_front_main:
     path:     /
     host:     creativer.by.my
-    defaults: { _controller: CreativerFrontBundle:Default:main }
+    defaults: { _controller: CreativerFrontBundle:Default:layout_front }
 security_check:
     path:     /security_check
     host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:security_check }
 person:
-    path:     /person
+    path:     /
     host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:layout_front }
+    methods:  [GET]
+creativer_mainTmp:
+    path:     /main_tmp
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:mainTmp }
     methods:  [GET]
 creativer_personTmp:
     path:     /person_tmp/{id}

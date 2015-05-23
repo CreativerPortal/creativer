@@ -7,6 +7,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use JMS\Serializer\Annotation\MaxDepth;
 
 
 /**
@@ -21,26 +22,29 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage"})
+     * @JMS\Groups({"idUserByIdImage", "getUser"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $lastname;
 
     /**
      * @JMS\Expose
-     * @ORM\OneToOne(targetEntity="Avatar")
+     * @ORM\OneToOne(targetEntity="Avatar", inversedBy="user")
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
+     * @JMS\Groups({"getImageComments", "getUser"})
      */
     private $avatar;
 
@@ -60,64 +64,81 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Albums")
      * @ORM\OneToMany(targetEntity="Albums", mappedBy="user", fetch="EAGER")
+     * @JMS\Groups({"getUser"})
      **/
     private $albums;
 
     /**
      * @ORM\Column(type="text",  nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $status;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $position;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $info;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $specialization;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $worked;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $links;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $contacts;
 
     /**
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
+     */
+    private $views;
+
+    /**
      * @JMS\Expose
      * @var \DateTime $date
-     *
+     * @JMS\Groups({"getUser"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
      */
     private $date;
 
     /**
-     * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToMany(targetEntity="User", mappedBy="myFavorits")
+     * @JMS\Groups({"getUser"})
+     * @MaxDepth(1)
+     * @JMS\Expose
      */
     private $favoritsWithMe;
 
@@ -129,6 +150,7 @@ class User implements UserInterface, \Serializable
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="favorit_user_id", referencedColumnName="id")}
      *      )
+     * @JMS\Groups({"getUser"})
      */
     private $myFavorits;
 
@@ -151,6 +173,8 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Wall")
      * @ORM\OneToOne(targetEntity="Wall", mappedBy="user")
+     * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(2)
      */
     private $wall;
 
@@ -224,6 +248,8 @@ class User implements UserInterface, \Serializable
     }
 
 
+   
+
     /**
      * Get id
      *
@@ -259,7 +285,6 @@ class User implements UserInterface, \Serializable
 
         return $this;
     }
-    
 
     /**
      * Set password
@@ -459,6 +484,29 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Set views
+     *
+     * @param integer $views
+     * @return User
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer 
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
      * Set date
      *
      * @param \DateTime $date
@@ -505,6 +553,29 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Set avatar
+     *
+     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
+     * @return User
+     */
+    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \Creativer\FrontBundle\Entity\Avatar 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
      * Add albums
      *
      * @param \Creativer\FrontBundle\Entity\Albums $albums
@@ -535,52 +606,6 @@ class User implements UserInterface, \Serializable
     public function getAlbums()
     {
         return $this->albums;
-    }
-
-    /**
-     * Add roles
-     *
-     * @param \Creativer\FrontBundle\Entity\Role $roles
-     * @return User
-     */
-    public function addRole(\Creativer\FrontBundle\Entity\Role $roles)
-    {
-        $this->roles[] = $roles;
-
-        return $this;
-    }
-
-    /**
-     * Remove roles
-     *
-     * @param \Creativer\FrontBundle\Entity\Role $roles
-     */
-    public function removeRole(\Creativer\FrontBundle\Entity\Role $roles)
-    {
-        $this->roles->removeElement($roles);
-    }
-
-    /**
-     * Set wall
-     *
-     * @param \Creativer\FrontBundle\Entity\Wall $wall
-     * @return User
-     */
-    public function setWall(\Creativer\FrontBundle\Entity\Wall $wall = null)
-    {
-        $this->wall = $wall;
-
-        return $this;
-    }
-
-    /**
-     * Get wall
-     *
-     * @return \Creativer\FrontBundle\Entity\Wall 
-     */
-    public function getWall()
-    {
-        return $this->wall;
     }
 
     /**
@@ -650,25 +675,48 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set avatar
+     * Add roles
      *
-     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
+     * @param \Creativer\FrontBundle\Entity\Role $roles
      * @return User
      */
-    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
+    public function addRole(\Creativer\FrontBundle\Entity\Role $roles)
     {
-        $this->avatar = $avatar;
+        $this->roles[] = $roles;
 
         return $this;
     }
 
     /**
-     * Get avatar
+     * Remove roles
      *
-     * @return \Creativer\FrontBundle\Entity\Avatars 
+     * @param \Creativer\FrontBundle\Entity\Role $roles
      */
-    public function getAvatar()
+    public function removeRole(\Creativer\FrontBundle\Entity\Role $roles)
     {
-        return $this->avatar;
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Set wall
+     *
+     * @param \Creativer\FrontBundle\Entity\Wall $wall
+     * @return User
+     */
+    public function setWall(\Creativer\FrontBundle\Entity\Wall $wall = null)
+    {
+        $this->wall = $wall;
+
+        return $this;
+    }
+
+    /**
+     * Get wall
+     *
+     * @return \Creativer\FrontBundle\Entity\Wall 
+     */
+    public function getWall()
+    {
+        return $this->wall;
     }
 }

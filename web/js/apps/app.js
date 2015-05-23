@@ -7,11 +7,7 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             reloadOnSearch: true
         });
         $routeProvider.when('/', {
-            templateUrl: '/person_tmp',
-            templateUrl: function ($stateParams){
-                var url = "/person_tmp/" + $stateParams.id;
-                return url;
-            },
+            templateUrl: '/main_tmp',
             controller: 'personCtrl',
             reloadOnSearch: true
         });

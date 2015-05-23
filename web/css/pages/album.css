@@ -125,6 +125,17 @@ body{
     right: 0px;
 }
 
+.left-info__album{
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+}
+
+.right-info__album{
+    position: absolute;
+    bottom: 0px;
+    right: 0px;
+}
 
 .horizontal_line {
     background-image: url("/var/www/creativer/web/img/horizontal_line.png");

@@ -49,8 +49,14 @@
                 </div>
             </div>
 
+            <div class="col-sm-7">
+                <a href="{{ path('person') }}" class="logo">
+                    <img src="/var/www/creativer/web/img/logo.png" />
+                </a>
+            </div>
+
             {% if is_granted('ROLE_USER') %}
-                <div class="personal col-sm-1 col-sm-offset-7 padding-left_0">
+                <div class="personal col-sm-1 padding-left_0">
                     <label class="still_label-person" for="checkbox-menu-person">
                         <div class="user__avatar-mini-header">
                             <img src="{{ app.user.avatar.img }} ">

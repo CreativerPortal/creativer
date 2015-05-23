@@ -11,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="albums")
+ * @JMS\ExclusionPolicy("all")
  */
 class Albums
 {
@@ -18,7 +19,8 @@ class Albums
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage"})
+     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Expose
      */
     private $id;
 
@@ -41,6 +43,8 @@ class Albums
 
     /**
      * @ORM\Column(type="text", nullable=true)
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $name;
 
@@ -49,6 +53,13 @@ class Albums
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
+     */
+    private $views;
 
     /**
      * @JMS\Expose
@@ -69,6 +80,7 @@ class Albums
      * @JMS\Type("Creativer\FrontBundle\Entity\Images")
      * @ORM\OneToMany(targetEntity="Images", mappedBy="album")
      * @ORM\OrderBy({"id" = "DESC"})
+     * @JMS\Groups({"getUser"})
      **/
     private $images;
 
@@ -82,6 +94,8 @@ class Albums
     }
 
 
+
+
     /**
      * Get id
      *
@@ -91,7 +105,6 @@ class Albums
     {
         return $this->id;
     }
-
 
     /**
      * Set img
@@ -114,109 +127,6 @@ class Albums
     public function getImg()
     {
         return $this->img;
-    }
-    
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return Albums
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime 
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Add images
-     *
-     * @param \Creativer\FrontBundle\Entity\Images $images
-     * @return Albums
-     */
-    public function addImage(\Creativer\FrontBundle\Entity\Images $images)
-    {
-        $this->images[] = $images;
-
-        return $this;
-    }
-
-    /**
-     * Remove images
-     *
-     * @param \Creativer\FrontBundle\Entity\Images $images
-     */
-    public function removeImage(\Creativer\FrontBundle\Entity\Images $images)
-    {
-        $this->images->removeElement($images);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getImages()
-    {
-        return $this->images;
-    }
-
-    /**
-     * Set user
-     *
-     * @param \Creativer\FrontBundle\Entity\User $user
-     * @return Albums
-     */
-    public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Creativer\FrontBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
-     * Set isActive
-     *
-     * @param integer $isActive
-     * @return Albums
-     */
-    public function setIsActive($isActive)
-    {
-        $this->isActive = $isActive;
-
-        return $this;
-    }
-
-    /**
-     * Get isActive
-     *
-     * @return integer 
-     */
-    public function getIsActive()
-    {
-        return $this->isActive;
     }
 
     /**
@@ -263,5 +173,130 @@ class Albums
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     * @return Albums
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer 
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Albums
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param integer $isActive
+     * @return Albums
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return integer 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Creativer\FrontBundle\Entity\User $user
+     * @return Albums
+     */
+    public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Creativer\FrontBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Add images
+     *
+     * @param \Creativer\FrontBundle\Entity\Images $images
+     * @return Albums
+     */
+    public function addImage(\Creativer\FrontBundle\Entity\Images $images)
+    {
+        $this->images[] = $images;
+
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \Creativer\FrontBundle\Entity\Images $images
+     */
+    public function removeImage(\Creativer\FrontBundle\Entity\Images $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
     }
 }
