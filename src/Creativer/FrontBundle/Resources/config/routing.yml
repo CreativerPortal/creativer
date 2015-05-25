@@ -25,6 +25,16 @@ creativer_mainTmp:
     host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:mainTmp }
     methods:  [GET]
+creativer_productsTmp:
+    path:     /products_tmp
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:productsTmp }
+    methods:  [GET]
+creativer_servicesTmp:
+    path:     /services_tmp
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:servicesTmp }
+    methods:  [GET]
 creativer_personTmp:
     path:     /person_tmp/{id}
     host:     creativer.by.my

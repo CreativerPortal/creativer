@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'monospaced.elastic', 'ngAnimate'])
+var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'monospaced.elastic', 'ngAnimate'])
     .config(['$routeProvider', function ($routeProvider) {
 
         $routeProvider.when('/create_album', {
@@ -9,6 +9,16 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         $routeProvider.when('/', {
             templateUrl: '/main_tmp',
             controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/products/:id_category', {
+            templateUrl: '/products_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/services/:id_category', {
+            templateUrl: '/services_tmp',
+            controller: 'catalogCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/favorit', {

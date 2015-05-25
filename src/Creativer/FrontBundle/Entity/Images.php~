@@ -84,4 +84,162 @@ class Images
     }
     
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Images
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     * @return Images
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer 
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Set text
+     *
+     * @param string $text
+     * @return Images
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string 
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Images
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set album
+     *
+     * @param \Creativer\FrontBundle\Entity\Albums $album
+     * @return Images
+     */
+    public function setAlbum(\Creativer\FrontBundle\Entity\Albums $album = null)
+    {
+        $this->album = $album;
+
+        return $this;
+    }
+
+    /**
+     * Get album
+     *
+     * @return \Creativer\FrontBundle\Entity\Albums 
+     */
+    public function getAlbum()
+    {
+        return $this->album;
+    }
+
+    /**
+     * Add image_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
+     * @return Images
+     */
+    public function addImageComment(\Creativer\FrontBundle\Entity\ImageComments $imageComments)
+    {
+        $this->image_comments[] = $imageComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove image_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
+     */
+    public function removeImageComment(\Creativer\FrontBundle\Entity\ImageComments $imageComments)
+    {
+        $this->image_comments->removeElement($imageComments);
+    }
+
+    /**
+     * Get image_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImageComments()
+    {
+        return $this->image_comments;
+    }
 }

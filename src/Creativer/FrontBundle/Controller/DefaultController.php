@@ -262,10 +262,15 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:favoritTmp.html.twig', array());
     }
 
-    public function dialogueAction(){
+    public function productsTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:productsTmp.html.twig', array());
+    }
+
+    public function servicesTmpAction(){
 
 
-        return $this->render('CreativerFrontBundle:Default:dialogue.html.twig', array());
+        return $this->render('CreativerFrontBundle:Default:servicesTmp.html.twig', array());
     }
 
     public function feedbackAction(){
@@ -278,12 +283,6 @@ class DefaultController extends Controller
 
 
         return $this->render('CreativerFrontBundle:Default:fleamarket.html.twig', array());
-    }
-
-    public function mainAction(){
-
-
-        return $this->render('CreativerFrontBundle:Default:main.html.twig', array());
     }
 
     public function messagesAction(){

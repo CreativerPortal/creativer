@@ -1,0 +1,68 @@
+<?php
+// src/AppBundle/Entity/Albums.php
+namespace Creativer\FrontBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Gedmo\Mapping\Annotation as Gedmo;
+
+
+
+/**
+ * @ORM\Entity
+ * @ORM\Table(name="categories")
+ * @JMS\ExclusionPolicy("all")
+ */
+class Categories
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Expose
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Expose
+     */
+    private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="Categories", mappedBy="parent")
+     * @JMS\Expose
+     */
+    private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Categories", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
+     * @JMS\Expose
+     */
+    private $parent;
+
+    /**
+     * @JMS\Expose
+     * @var \DateTime $date
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="integer", name="is_active")
+     */
+    private $isActive = 1;
+
+
+    public function __construct()
+    {
+        $this->children = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->date = new \DateTime();
+
+    }
+
+}
