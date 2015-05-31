@@ -11,12 +11,12 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/products/:id_category', {
+        $routeProvider.when('/products/:id_products?/:page?', {
             templateUrl: '/products_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/services/:id_category', {
+        $routeProvider.when('/services/:id_services?/:page?', {
             templateUrl: '/services_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true

@@ -120,3 +120,14 @@ parameters:
     path_img_avatar: "/home/avatar/"
     path_img_album_thums: "/home/album/thums/"
     path_img_album_original: "/home/album/original/"
+
+knp_paginator:
+    page_range: 4                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: date          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+    template:
+        pagination: KnpPaginatorBundle:Pagination:sliding.html.twig     # sliding pagination controls template
+        sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template

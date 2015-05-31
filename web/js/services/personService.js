@@ -108,6 +108,16 @@ angular
                         },
                         data: data
                     })
+                },
+
+                getAllCategories: function () {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_all_categories',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
                 }
 
             };

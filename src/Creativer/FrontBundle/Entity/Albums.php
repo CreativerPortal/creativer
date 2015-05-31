@@ -5,11 +5,12 @@ namespace Creativer\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\Table(name="albums")
  * @JMS\ExclusionPolicy("all")
  */
@@ -50,6 +51,7 @@ class Albums
 
 
     /**
+     * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
      */
     private $description;
@@ -60,6 +62,13 @@ class Albums
      * @JMS\Groups({"getUser"})
      */
     private $views;
+
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Categories", inversedBy="albums")
+     * @ORM\JoinTable(name="albums_categories")
+     */
+    private $categories;
 
     /**
      * @JMS\Expose
@@ -88,9 +97,9 @@ class Albums
 
     public function __construct()
     {
+        $this->categories = new ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
-
     }
 
 
@@ -265,6 +274,39 @@ class Albums
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Creativer\FrontBundle\Entity\Categories $categories
+     * @return Albums
+     */
+    public function addCategory(\Creativer\FrontBundle\Entity\Categories $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Creativer\FrontBundle\Entity\Categories $categories
+     */
+    public function removeCategory(\Creativer\FrontBundle\Entity\Categories $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 
     /**

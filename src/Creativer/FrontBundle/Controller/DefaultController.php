@@ -156,9 +156,9 @@ class DefaultController extends Controller
         if ($request->getMethod() == 'POST') {
             $image = $request->files->get('file');
             $main = $request->get('main');
-            $status = 'success';
-            $uploadedURL='';
-            $message='';
+            $price = $request->get('price');
+            $title = $request->get('title');
+
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
                 if (($image->getSize() < 2000000000)) {
                     $originalName = $image->getClientOriginalName();
@@ -187,9 +187,19 @@ class DefaultController extends Controller
 
                             $image->save($this->container->getParameter('path_img_album_original') . $image_name);
 
-                            $count = $image->getSize()->getWidth() / 158;
-                            $height = $image->getSize()->getHeight() / $count;
-                            $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
+                            $w = $image->getSize()->getWidth();
+                            $h = $image->getSize()->getHeight();
+
+                            if($w > $h){
+                                $count = $image->getSize()->getHeight() / 178;
+                                $width = $image->getSize()->getWidth() / $count;
+                                $image->resize(new Box($width, 178), ImageInterface::FILTER_LANCZOS);
+                            }else{
+                                $count = $image->getSize()->getWidth() / 158;
+                                $height = $image->getSize()->getHeight() / $count;
+                                $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
+                            }
+
                             $image->save($this->container->getParameter('path_img_album_thums') . $image_name);
 
 
@@ -200,7 +210,10 @@ class DefaultController extends Controller
                             $im = new Images();
                             $im->setAlbum($album);
                             $im->setName($image_name);
-                            $im->setText($originalName);
+                            if($price != null)
+                            $im->setPrice($price);
+                            if($title != null)
+                            $im->setText($title);
 
 
                             $em->persist($album);

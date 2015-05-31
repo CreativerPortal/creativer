@@ -1,5 +1,5 @@
 angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
-    .controller('albumCtrl',['$scope', '$rootScope', '$location', '$animate', 'albumService','$routeParams', 'FileUploader', function($scope,$rootScope,$location,$animate,albumService,$routeParams, FileUploader) {
+    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$animate', 'albumService','$routeParams', 'FileUploader', function($scope,$window,$rootScope,$location,$animate,albumService,$routeParams, FileUploader) {
 
 
     if($routeParams.id_album && $scope.user){
@@ -43,6 +43,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
     }
 
     $scope.math = window.Math;
+    $scope.height = $window.innerHeight-150;
 
 
     // get comments for image
@@ -77,6 +78,9 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
             $scope.user.comments = data.image_comments;
         });
     }
+
+    //////////////////////////////////////////////
+
 
 }]);
 

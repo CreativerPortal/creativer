@@ -54,6 +54,12 @@ class Images
     /**
      * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
      * @JMS\Expose
+     */
+    private $price;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Expose
      * @JMS\Groups({"getUser"})
      */
     private $views;
@@ -241,5 +247,28 @@ class Images
     public function getImageComments()
     {
         return $this->image_comments;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     * @return Images
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

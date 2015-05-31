@@ -5,11 +5,12 @@ namespace Creativer\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\Table(name="albums")
  * @JMS\ExclusionPolicy("all")
  */
@@ -61,6 +62,18 @@ class Albums
      */
     private $views;
 
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\Categories")
+     * @ORM\ManyToMany(targetEntity="Categories", inversedBy="albums")
+     * @ORM\JoinTable(name="albums_categories",
+     * joinColumns={@ORM\JoinColumn(name="albums_id", referencedColumnName="id")},
+     * inverseJoinColumns={@ORM\JoinColumn(name="categories_id", referencedColumnName="id")}
+     * )
+     */
+    private $categories;
+
     /**
      * @JMS\Expose
      * @var \DateTime $date
@@ -88,9 +101,9 @@ class Albums
 
     public function __construct()
     {
+        $this->categories = new ArrayCollection();
         $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
-
     }
 
 
@@ -265,6 +278,39 @@ class Albums
     public function getUser()
     {
         return $this->user;
+    }
+
+    /**
+     * Add categories
+     *
+     * @param \Creativer\FrontBundle\Entity\Categories $categories
+     * @return Albums
+     */
+    public function addCategory(\Creativer\FrontBundle\Entity\Categories $categories)
+    {
+        $this->categories[] = $categories;
+
+        return $this;
+    }
+
+    /**
+     * Remove categories
+     *
+     * @param \Creativer\FrontBundle\Entity\Categories $categories
+     */
+    public function removeCategory(\Creativer\FrontBundle\Entity\Categories $categories)
+    {
+        $this->categories->removeElement($categories);
+    }
+
+    /**
+     * Get categories
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getCategories()
+    {
+        return $this->categories;
     }
 
     /**

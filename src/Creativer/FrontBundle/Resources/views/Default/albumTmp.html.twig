@@ -225,7 +225,7 @@
                        <div class="border__viewer__wrapper">
                            <div class="row"><time class="text-gray ng-binding left">[[ user.albums[id].images[next_key_img].date  | date: "dd.MM.yyyy" ]]</time></div>
                            <div class="row">
-                                <a href="#album/[[id_album]]/[[ user.albums[id].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" src="{{ path_img_album_original }}/[[url_img]]" /></a>
+                                <a href="#album/[[id_album]]/[[ user.albums[id].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[url_img]]" /></a>
                            </div>
                            <div class="margin-top_10 row">
                                <span class="left user__text">[[ user.albums[id].images[next_key_img].text ]]</span>

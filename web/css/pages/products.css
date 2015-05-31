@@ -54,7 +54,7 @@ body{
     background-image: url("/var/www/creativer/web/img/shelf_products.png");
     background-repeat: no-repeat;
     width: 222px;
-    height: 120px;
+    height: 110px;
     background-position: 0px 0px;
     z-index: 10;
     position: relative;
@@ -66,7 +66,7 @@ body{
     background-position: top center;
     width: 232px;
     padding-left: 30px;
-    padding-top: 20px;
+    padding-top: 35px;
     margin-top: -40px;
 }
 
@@ -99,7 +99,7 @@ body{
     list-style: none;
 }
 
-.font_product>ul>li>ul>li:before {
+.font_product_dropdown:before {
     font-family: 'Glyphicons Halflings';
     content: " \e259  ";
     text-decoration: none;

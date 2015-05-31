@@ -5,11 +5,12 @@ namespace Creativer\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\Table(name="categories")
  * @JMS\ExclusionPolicy("all")
  */
@@ -45,6 +46,13 @@ class Categories
 
     /**
      * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\Albums")
+     * @ORM\ManyToMany(targetEntity="Albums", mappedBy="categories")
+     */
+    private $albums;
+
+    /**
+     * @JMS\Expose
      * @var \DateTime $date
      *
      * @Gedmo\Timestampable(on="create")
@@ -60,9 +68,179 @@ class Categories
 
     public function __construct()
     {
+//        $this->albums = new ArrayCollection();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
-
     }
 
+
+
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return Categories
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Categories
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param integer $isActive
+     * @return Categories
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return integer 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Add children
+     *
+     * @param \Creativer\FrontBundle\Entity\Categories $children
+     * @return Categories
+     */
+    public function addChild(\Creativer\FrontBundle\Entity\Categories $children)
+    {
+        $this->children[] = $children;
+
+        return $this;
+    }
+
+    /**
+     * Remove children
+     *
+     * @param \Creativer\FrontBundle\Entity\Categories $children
+     */
+    public function removeChild(\Creativer\FrontBundle\Entity\Categories $children)
+    {
+        $this->children->removeElement($children);
+    }
+
+    /**
+     * Get children
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * Set parent
+     *
+     * @param \Creativer\FrontBundle\Entity\Categories $parent
+     * @return Categories
+     */
+    public function setParent(\Creativer\FrontBundle\Entity\Categories $parent = null)
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
+    /**
+     * Get parent
+     *
+     * @return \Creativer\FrontBundle\Entity\Categories 
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * Add albums
+     *
+     * @param \Creativer\FrontBundle\Entity\Albums $albums
+     * @return Categories
+     */
+    public function addAlbum(\Creativer\FrontBundle\Entity\Albums $albums)
+    {
+        $this->albums[] = $albums;
+
+        return $this;
+    }
+
+    /**
+     * Remove albums
+     *
+     * @param \Creativer\FrontBundle\Entity\Albums $albums
+     */
+    public function removeAlbum(\Creativer\FrontBundle\Entity\Albums $albums)
+    {
+        $this->albums->removeElement($albums);
+    }
+
+    /**
+     * Get albums
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAlbums()
+    {
+        return $this->albums;
+    }
 }

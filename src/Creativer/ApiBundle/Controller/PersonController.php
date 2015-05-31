@@ -221,17 +221,24 @@ class PersonController extends Controller
         $data = json_decode($this->get("request")->getContent());
         $name = isset($data->name)?$data->name:'';
         $description = isset($data->description)?$data->description:'';
+        $selectCategories = isset($data->selectCategories)?$data->selectCategories:'';
 
         $em = $this->getDoctrine();
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $user = $em->getRepository("CreativerFrontBundle:User")->findBy(array('id' => $id));
         $album = $em->getRepository("CreativerFrontBundle:Albums")->findBy(array('user' => $user[0], 'isActive' => 0));
 
+        $categories = $em->getRepository("CreativerFrontBundle:Categories")->findBy(array('id' => $selectCategories));
+
+
         if(!empty($album)){
             $album = $album[0];
             $album->setIsActive(1);
             $album->setName($name);
             $album->setDescription($description);
+            foreach($categories as $cat){
+                $album->addCategory($cat);
+            }
             $em->getEntityManager()->flush($album);
         }
 

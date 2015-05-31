@@ -124,6 +124,10 @@
     padding-right: 0px!important;
 }
 
+.padding-right_5{
+    padding-right: 5px!important;
+}
+
 .padding-bottom_30{
     padding-bottom: 30px!important;
 }
@@ -154,6 +158,10 @@
 
 .text-underline{
     text-decoration: underline;
+}
+
+.overflow-hidden{
+    overflow: hidden!important;
 }
 
 .album__element__view:hover {

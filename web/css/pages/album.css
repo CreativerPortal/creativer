@@ -155,8 +155,7 @@ input {
 }
 
 .progress{
-    height: 100px;
-    margin-bottom: 10px!important;
+    height: 85px;
 }
 
 .upload__element{
@@ -355,4 +354,5 @@ textarea {
 
 .viewer__image{
     max-width: 1000px;
+    max-height: 830px;
 }

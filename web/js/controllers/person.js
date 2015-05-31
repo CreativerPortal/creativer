@@ -1,4 +1,4 @@
-angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngImgCrop'])
+angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
     .controller('personCtrl',['$scope', '$rootScope', '$location', '$animate', 'personalService','$routeParams', 'FileUploader', function($scope,$rootScope,$location,$animate,personalService,$routeParams, FileUploader) {
 
     // init controller
@@ -198,56 +198,66 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
     // CALLBACKS
 
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
-        console.info('onWhenAddingFileFailed', item, filter, options);
+       // console.info('onWhenAddingFileFailed', item, filter, options);
     };
     uploader.onAfterAddingFile = function(fileItem) {
-        console.info('onAfterAddingFile', fileItem);
+       // console.info('onAfterAddingFile', fileItem);
+        $scope.res = uploader.queue.length/3;
     };
     uploader.onAfterAddingAll = function(addedFileItems) {
-        console.info('onAfterAddingAll', addedFileItems);
+       // console.info('onAfterAddingAll', addedFileItems);
     };
     uploader.onBeforeUploadItem = function(item) {
-        console.info('onBeforeUploadItem', item);
+       // console.info('onBeforeUploadItem', item);
     };
     uploader.onProgressItem = function(fileItem, progress) {
-        console.info('onProgressItem', fileItem, progress);
+       // console.info('onProgressItem', fileItem, progress);
     };
     uploader.onProgressAll = function(progress) {
-        console.info('onProgressAll', progress);
+       // console.info('onProgressAll', progress);
     };
     uploader.onSuccessItem = function(fileItem, response, status, headers) {
-        console.info('onSuccessItem', fileItem, response, status, headers);
+       // console.info('onSuccessItem', fileItem, response, status, headers);
     };
     uploader.onErrorItem = function(fileItem, response, status, headers) {
-        console.info('onErrorItem', fileItem, response, status, headers);
+       // console.info('onErrorItem', fileItem, response, status, headers);
     };
     uploader.onCancelItem = function(fileItem, response, status, headers) {
-        console.info('onCancelItem', fileItem, response, status, headers);
+       // console.info('onCancelItem', fileItem, response, status, headers);
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
-        console.info('onCompleteItem', fileItem, response, status, headers);
+       // console.info('onCompleteItem', fileItem, response, status, headers);
     };
     uploader.onCompleteAll = function() {
-        var name_album = $scope.album.name;
-        var description_album = $scope.album.description;
-        personalService.finishUpload({name:name_album,description:description_album}).success(function () {
+        var name_album = $scope.album?$scope.album.name:null;
+        var description_album = $scope.album?$scope.album.description:null;
+        var selectCategories = [];
+        for(item in $scope.selectedItem){
+            selectCategories.push($scope.selectedItem[item].id);
+        }
+        personalService.finishUpload({name:name_album,selectCategories:selectCategories,description:description_album}).success(function () {
             $rootScope.user = undefined;
-            $location.path("/");
+            $location.path("/#/person");
         });
         console.info('onCompleteAll');
     };
 
     uploader.onBeforeUploadItem = function (item) {
-        if(item.file.name == ''){
-            item.file.name = ' ';
+        if(item.file.title != undefined) {
+            item.formData.push({title: item.file.title});
         }
+
+        if(item.file.price != undefined) {
+            item.formData.push({price: item.file.price});
+        }
+
         if(item.main == 1) {
             item.formData.push({main: 1});
         }
         uploader.uploadAll();
     };
 
-    console.info('uploader', uploader);
+   // console.info('uploader', uploader);
 
     // crop image
 
@@ -266,6 +276,43 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
         };
 
         angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+
+
+
+        ////////////////////////////////////////////////////
+
+
+        personalService.getAllCategories().success(function (data) {
+
+
+            $scope.data = data.categories;
+
+
+        $scope.selectOnly1Or2 = function(item, selectedItems) {
+            if (selectedItems  !== undefined && selectedItems.length >= 20) {
+                return false;
+            } else {
+                return true;
+            }
+        };
+
+        //    $scope.switchViewCallback = function(scopeObj) {
+        //
+        //    if (scopeObj.switchViewLabel == 'test2') {
+        //        scopeObj.switchViewLabel = 'test1';
+        //        scopeObj.inputModel = data1;
+        //        scopeObj.selectOnlyLeafs = true;
+        //    } else {
+        //        scopeObj.switchViewLabel = 'test2';
+        //        scopeObj.inputModel = data3;
+        //        scopeObj.selectOnlyLeafs = false;
+        //    }
+        //}
+
+        });
+
+
+
 
 }]);
 

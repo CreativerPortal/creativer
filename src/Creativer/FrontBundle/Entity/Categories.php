@@ -5,11 +5,12 @@ namespace Creativer\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity()
  * @ORM\Table(name="categories")
  * @JMS\ExclusionPolicy("all")
  */
@@ -44,6 +45,11 @@ class Categories
     private $parent;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Albums", mappedBy="categories")
+     */
+    private $albums;
+
+    /**
      * @JMS\Expose
      * @var \DateTime $date
      *
@@ -60,10 +66,12 @@ class Categories
 
     public function __construct()
     {
+        $this->albums = new ArrayCollection();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
-
     }
+
+
 
 
     /**
@@ -199,5 +207,38 @@ class Categories
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Add albums
+     *
+     * @param \Creativer\FrontBundle\Entity\Albums $albums
+     * @return Categories
+     */
+    public function addAlbum(\Creativer\FrontBundle\Entity\Albums $albums)
+    {
+        $this->albums[] = $albums;
+
+        return $this;
+    }
+
+    /**
+     * Remove albums
+     *
+     * @param \Creativer\FrontBundle\Entity\Albums $albums
+     */
+    public function removeAlbum(\Creativer\FrontBundle\Entity\Albums $albums)
+    {
+        $this->albums->removeElement($albums);
+    }
+
+    /**
+     * Get albums
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAlbums()
+    {
+        return $this->albums;
     }
 }

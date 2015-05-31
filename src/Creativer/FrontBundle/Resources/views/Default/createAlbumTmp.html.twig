@@ -131,8 +131,13 @@
 
             <div class="col-sm-7 album">
                 <input class="name_album lobster" ng-model="album.name" type="text" placeholder="Название Альбома">
+                <multi-select-tree data-input-model="data" multi-select="true"
+                                   data-output-model="selectedItem" data-default-label="  Выберите категорию альбома"
+                                   data-callback="selectOnly1Or2(item, selectedItems)"
+                                   data-select-only-leafs="true" data-switch-view-callback="switchViewCallback(scopeObj)">
+                </multi-select-tree>
                 <textarea class="description_album" ng-model="album.description" placeholder="Короткое описание альбома"></textarea>
-                <div ng-show="uploader.isHTML5" style="height: 105px;">
+                <div ng-show="uploader.isHTML5" style="height: 89px;">
                     <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
                         <div class="progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                             <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
@@ -146,9 +151,6 @@
                         <div class="text-center text-gray" ng-show="uploader.progress" style="position: relative; top: -100px;">
                             <span class="fs_1-2 text-bold fiveMinuts text-bold">[[ uploader.progress ]]%</span><br>
                             <span class="text-gray fiveMinuts text-bold">Пожалуйста подождите пока файлы загрузятся на CREATIVER</span><br>
-                            <div class="btn button_favorites button_gray_message text-center text-white" ng-click="uploader.cancelAll()" ng-disabled="!uploader.isUploading">
-                                <span>Остановить</span>
-                            </div>
                         </div>
 
                     </div>
@@ -156,11 +158,11 @@
 
                 </div>
 
-                <label class="" for="uploadImg" style="font-weight: normal;">
-                    <div class="btn button_favorites early-message text-center"><span>Выбрать</span></div>
+                <label class="" for="uploadImg" style="font-weight: normal;" ng-disabled="uploader.isUploading">
+                    <div ng-disabled="uploader.isUploading" class="btn button_favorites early-message text-center"><span>Выбрать</span></div>
                 </label>
 
-                <input type="file" nv-file-select="" uploader="uploader" multiple id="uploadImg"  class="hidden" />
+                <input type="file" nv-file-select="" uploader="uploader" multiple id="uploadImg"  class="hidden" ng-disabled="uploader.isUploading" />
 
                 {#<ul>#}
                     {#<li ng-repeat="item in uploader.queue">#}
@@ -169,13 +171,16 @@
                     {#</li>#}
                 {#</ul>#}
 
-
-                <button class="btn button_message early-message text-center right pointer" ng-click="uploader.uploadAll()">
+                <button type="button" class="btn button_message early-message text-center text-white right pointer" ng-click="uploader.uploadAll()" ng-disabled="uploader.isUploading">
                     <span>Продолжить</span>
                 </button>
 
+                {#<button type="button" class="btn button_favorites button_gray_message text-center text-white right pointer" ng-click="uploader.cancelAll()" ng-show="uploader.isUploading">#}
+                    {#<span>Остановить</span>#}
+                {#</button>#}
 
-                <div class="row margin-top_20" ng-model="res = uploader.queue.length/3">
+
+                <div class="row margin-top_20">
 
                 <div class="col-sm-4">
                     <div class=" upload__element" ng-repeat="item in uploader.queue.slice(0, res)">
@@ -184,7 +189,7 @@
                             <div class="edit__album__menu">
                                 <ul class="margin-top_20">
                                     <li ng-click="item.remove()">Удалить</li>
-                                    <li ng-model="item.main" ng-init="item.main = 0" ng-click="item.main = 1">
+                                    <li ng-init="item.main = 0" ng-click="item.main = 1">
                                         Обложкой
                                     </li>
                                 </ul>
@@ -195,7 +200,8 @@
                         {#<div type="button" class="btn-xs thumb__upload_delete" >#}
                             {#<span class="glyphicon glyphicon-trash" style=""></span>#}
                         {#</div>#}
-                        <input type="text" value="[[ item.file.name ]]" ng-model="item.file.name" ng-init="item.file.name=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;">
+                        <input type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;"><br>
+                        <input type="text" class="fiveMinuts" ng-model="item.file.price" ng-init="item.file.price=''" placeholder="цена в бел. руб." style="width: 100%; margin-top: -100px;" required="required">
                         <div class="text-center">
                             {#<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>#}
                             {#<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>#}
@@ -211,7 +217,7 @@
                             <div class="edit__album__menu">
                                 <ul class="margin-top_20">
                                     <li ng-click="item.remove()">Удалить</li>
-                                    <li ng-model="item.main" ng-init="item.main = 0" ng-click="item.main = 1">
+                                    <li ng-init="item.main = 0" ng-click="item.main = 1">
                                         Обложкой
                                     </li>
                                 </ul>
@@ -219,7 +225,8 @@
                         </label>
 
                         <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 158 }" class="text-center thumb__upload"></div>
-                        <input type="text" value="[[ item.file.name ]]" ng-model="item.file.name" ng-init="item.file.name=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;">
+                        <input type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;"><br>
+                        <input type="text" class="fiveMinuts" ng-model="item.file.price" ng-init="item.file.price=''" placeholder="цена в бел. руб." style="width: 100%; margin-top: -100px;" required="required">
                         <div class="text-center">
                         </div>
                     </div>
@@ -232,7 +239,7 @@
                             <div class="edit__album__menu">
                                 <ul class="margin-top_20">
                                     <li ng-click="item.remove()">Удалить</li>
-                                    <li ng-model="item.main" ng-init="item.main = 0" ng-click="item.main = 1">
+                                    <li ng-init="item.main = 0" ng-click="item.main = 1">
                                         Обложкой
                                     </li>
                                 </ul>
@@ -240,7 +247,8 @@
                         </label>
 
                         <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 158 }" class="text-center thumb__upload"></div>
-                        <input type="text" value="[[ item.file.name ]]" ng-model="item.file.name" ng-init="item.file.name=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;">
+                        <input type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%; margin-top: -100px;"><br>
+                        <input type="text" class="fiveMinuts" ng-model="item.file.price" ng-init="item.file.price=''" placeholder="цена в бел. руб." style="width: 100%; margin-top: -100px;" required="required">
                     </div>
                 </div>
 
