@@ -14,6 +14,12 @@
     <![endif]-->
     <link rel="stylesheet" href="/css/pages/vendor.css">
     <link rel="stylesheet" href="/css/ng-img-crop.css">
+    <link rel="stylesheet" href="/css/fonts.css">
+    <link rel="stylesheet" href="/css/sprites.css">
+    <link rel="stylesheet" href="/css/header.css">
+    <link rel="stylesheet" href="/css/footer.css">
+    <link rel="stylesheet" href="/css/helpers.css">
+
     <link rel="stylesheet" href="/css/vendor/angular-multi-select-tree-0.1.0.css">
 
     <script src="/js/angular.min.js"></script>
@@ -27,8 +33,8 @@
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
-<body>
-<div class="container wrapper" >
+<body ng-hide="$root.hid != true" class="ng-hide">
+<div class="container wrapper">
 {% if app.user %}
     <div ng-model="id_user" ng-init="id_user={{ app.security.getToken().getUser().getId() }}"></div>
     <div ng-model="username" ng-init="username='{{ app.security.getToken().getUser().getUsername() }}'"></div>
@@ -83,7 +89,7 @@
             <div class="personal col-sm-1 padding-left_0">
                 <label class="still_label-person" for="checkbox-menu-person">
                     <div class="user__avatar-mini-header" ng-class="{spinner: !user}">
-                        <img src="{{ app.user.avatar.img }} ">
+                        <img ng-src="[[ $root.avatar ]]" ng-init="$root.avatar = '{{app.user.avatar.img}}'">
                     </div>
                 </label>
 

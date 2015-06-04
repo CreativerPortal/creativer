@@ -45,8 +45,6 @@ class Categories
     private $parent;
 
     /**
-     * @JMS\Expose
-     * @JMS\Type("Creativer\FrontBundle\Entity\Albums")
      * @ORM\ManyToMany(targetEntity="Albums", mappedBy="categories")
      */
     private $albums;
@@ -68,7 +66,7 @@ class Categories
 
     public function __construct()
     {
-//        $this->albums = new ArrayCollection();
+        $this->albums = new ArrayCollection();
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
     }

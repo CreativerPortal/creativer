@@ -22,6 +22,7 @@ use Symfony\Component\Filesystem\Filesystem;
 use Creativer\FrontBundle\Services\ImageServices;
 use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\Response as Respon;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 
 
 
@@ -35,8 +36,15 @@ class PersonController extends Controller
      */
     public function savePostAction()
     {
-        $data = json_decode($this->get("request")->getContent());
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
 
+            return $response;
+        }
+
+        $data = json_decode($this->get("request")->getContent());
 
         $username = $this->get('security.context')->getToken()->getUser()->getUsername();
         $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();
@@ -379,6 +387,56 @@ class PersonController extends Controller
 
 
         return array('user' => $user);
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/like")
+     * @View()
+     */
+    public function likeAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+
+        $image_id = $this->get('request')->request->get('image_id');
+
+        $redis = $this->get('snc_redis.default');
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($image_id);
+
+        $album = $image->getAlbum();
+        $user = $album->getUser();
+
+        if($redis->sismember($image_id, $id)){
+            $redis->srem($image_id, $id);
+
+            $likes_album = $album->getLikes() - 1;
+            $album->setLikes($likes_album);
+
+            $likes_user = $user->getLikes() - 1;
+            $user->setLikes($likes_user);
+        }else{
+            $redis->sadd($image_id, $id);
+
+            $likes_album = $album->getLikes() + 1;
+            $album->setLikes($likes_album);
+
+            $likes_user = $user->getLikes() + 1;
+            $user->setLikes($likes_user);
+        }
+
+        $likes = count($redis->smembers($image_id));
+
+        $image->setLikes($likes);
+
+        $em->flush();
+
+
+        $response = new Respon(json_encode(array('likes' => $likes, 'likes_album' => $likes_album, 'likes_user' => $likes_user)), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
 

@@ -19,27 +19,31 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
         })
     }
 
-
-    if($routeParams.id_album && $scope.user != undefined){
-        for(var key in $scope.user.albums){
-            if($scope.user.albums[key].id == $routeParams.id_album){
-                $scope.id = key;
+    $scope.$watch('user', function() {
+        if($routeParams.id_album && $scope.user != undefined){
+            for(var key in $scope.user.albums){
+                if($scope.user.albums[key].id == $routeParams.id_album){
+                    $scope.album_key = key;
+                }
             }
         }
-    }
-    if($routeParams.id_album){
+    });
+
+
+        if($routeParams.id_album){
         $scope.id_album = $routeParams.id_album;
     }
     if($routeParams.url_img){
         $scope.url_img = $routeParams.url_img;
     }
-    if($routeParams.key_img){
-        $scope.key_img = $routeParams.key_img;
+    if($routeParams.key_img || $rootScope.key_img){
+        $rootScope.key_img = $routeParams.key_img;
         $scope.next_key_img = parseInt($routeParams.key_img)+1;
         $scope.previous = parseInt($routeParams.key_img)-1;
         $animate.enabled(false);
     }else{
         $animate.enabled(true);
+        $rootScope.key_img = undefined;
     }
 
     $scope.math = window.Math;
@@ -79,6 +83,13 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
         });
     }
 
+    $scope.like = function(id,album_key,image_key){
+        albumService.like({image_id:id}).success(function (data) {
+            $scope.user.albums[album_key].images[image_key].likes = data.likes;
+            $scope.user.likes = data.likes_user;
+            $scope.user.albums[album_key].likes = data.likes_album;
+        });
+    }
     //////////////////////////////////////////////
 
 

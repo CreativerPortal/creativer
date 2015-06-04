@@ -19,12 +19,14 @@ class Posts
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Expose
      * @JMS\Groups({"getUser"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer", length=11)
+     * @JMS\Expose
      * @JMS\Groups({"getUser"})
      */
     private $wall_id;

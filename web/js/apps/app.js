@@ -1,6 +1,5 @@
 var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'monospaced.elastic', 'ngAnimate'])
-    .config(['$routeProvider', function ($routeProvider) {
-
+    .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.when('/create_album', {
             templateUrl: '/create_album',
             controller: 'personCtrl',
@@ -42,8 +41,39 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         $routeProvider.otherwise({
             redirectTo: '/'
         });
+        $httpProvider.interceptors.push(function($q, $injector) {
+            return {
+                'request': function(config) {
+                    // request your $rootscope messaging should be here?
+                    return config;
+                },
 
+                'requestError': function(rejection) {
+                    // request error your $rootscope messagin should be here?
+                    return $q.reject(rejection);
+                },
+
+
+                'response': function(response) {
+                    // response your $rootscope messagin should be here?
+
+                    return response;
+                },
+
+                'responseError': function(rejection) {
+                    var status = rejection.status;
+
+                    if (status == 401) {
+                        window.location = "./";
+                        return;
+                    }
+                    return $q.reject(rejection);
+
+                }
+            };
+        });
     }]);
+
 
 app.directive('editPain', function () {
     return{
@@ -146,3 +176,8 @@ app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
+app.run(function($rootScope) {
+    $rootScope.$on('$viewContentLoaded', function() {
+        $rootScope.hid = true;
+    });
+});

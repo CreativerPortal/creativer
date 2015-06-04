@@ -69,6 +69,13 @@ class User implements UserInterface, \Serializable
     private $albums;
 
     /**
+     * @ORM\Column(type="integer", nullable=false)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getUser"})
+     */
+    private $likes = 0;
+
+    /**
      * @ORM\Column(type="text",  nullable=true)
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
@@ -166,6 +173,8 @@ class User implements UserInterface, \Serializable
      *      joinColumns={@ORM\JoinColumn(name="user_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      *      )
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $roles;
 
@@ -174,7 +183,7 @@ class User implements UserInterface, \Serializable
      * @JMS\Type("Creativer\FrontBundle\Entity\Wall")
      * @ORM\OneToOne(targetEntity="Wall", mappedBy="user")
      * @JMS\Groups({"getUser"})
-     * @JMS\MaxDepth(2)
+     * @JMS\MaxDepth(6)
      */
     private $wall;
 
@@ -718,5 +727,28 @@ class User implements UserInterface, \Serializable
     public function getWall()
     {
         return $this->wall;
+    }
+
+    /**
+     * Set likes
+     *
+     * @param integer $likes
+     * @return User
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    /**
+     * Get likes
+     *
+     * @return integer 
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 }

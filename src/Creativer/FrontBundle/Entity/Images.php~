@@ -52,13 +52,13 @@ class Images
     private $name;
 
     /**
-     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      * @JMS\Expose
      */
     private $price;
 
     /**
-     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
      */
@@ -70,6 +70,13 @@ class Images
      * @JMS\Expose
      */
     private $text;
+
+    /**
+     * @ORM\Column(type="integer", name="likes", nullable=false)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getUser"})
+     */
+    private $likes = 0;
 
     /**
      * @JMS\Expose
@@ -270,5 +277,28 @@ class Images
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Set likes
+     *
+     * @param integer $likes
+     * @return Images
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    /**
+     * Get likes
+     *
+     * @return integer 
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 }

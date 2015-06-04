@@ -220,7 +220,7 @@ class DefaultController extends Controller
                             $em->persist($im);
                             $em->flush();
                         } catch (\Imagine\Exception\Exception $e) {
-                            die("error upload image");
+                            die("error upload image ".$e);
                         }
 
 
@@ -300,6 +300,16 @@ class DefaultController extends Controller
 
     public function messagesAction(){
 
+
+        return $this->render('CreativerFrontBundle:Default:messages.html.twig', array());
+    }
+
+    public function redisAction(){
+
+        $redis = $this->get('snc_redis.default');
+
+
+        $redis->sadd(12, 'qwe');
 
         return $this->render('CreativerFrontBundle:Default:messages.html.twig', array());
     }

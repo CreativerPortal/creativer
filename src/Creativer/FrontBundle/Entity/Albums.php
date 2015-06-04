@@ -57,7 +57,7 @@ class Albums
     private $description;
 
     /**
-     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @ORM\Column(type="integer", nullable=true, options={"default":0})
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
      */
@@ -69,6 +69,13 @@ class Albums
      * @ORM\JoinTable(name="albums_categories")
      */
     private $categories;
+
+    /**
+     * @ORM\Column(type="integer", nullable=false)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getUser"})
+     */
+    private $likes = 0;
 
     /**
      * @JMS\Expose
@@ -340,5 +347,28 @@ class Albums
     public function getImages()
     {
         return $this->images;
+    }
+
+    /**
+     * Set likes
+     *
+     * @param integer $likes
+     * @return Albums
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    /**
+     * Get likes
+     *
+     * @return integer 
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 }

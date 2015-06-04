@@ -29,7 +29,9 @@
         "symfony/serializer": "~2.6",
         "stof/doctrine-extensions-bundle": "1.2.*@dev",
         "imagine/imagine": "0.6.2",
-        "knplabs/knp-paginator-bundle": "2.4.*@dev"
+        "knplabs/knp-paginator-bundle": "2.4.*@dev",
+        "snc/redis-bundle": "1.1.8",
+        "predis/predis": "0.8.*"
     },
     "scripts": {
         "post-install-cmd": [

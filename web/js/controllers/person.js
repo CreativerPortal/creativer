@@ -66,12 +66,16 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
         }
     if(!bool){
         personalService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-            $scope.user = data.user;
+            $scope.$apply(function () {
+                $scope.user = data.user;
+            });
         })
     }
     }else if($routeParams.id_album && !$scope.user){
         personalService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-            $scope.user = data.user;
+            $scope.$apply(function () {
+                $scope.user = data.user;
+            });
         })
     }
 
@@ -109,7 +113,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
     $scope.savePost = function(wall,wall_id, text){
         var username = $rootScope.username;
         var lastname = $rootScope.lastname;
-        var img = $rootScope.img;
+        var img = $rootScope.avatar;
         wall.posts.unshift({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
         personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {
             $scope.text_post = '';
@@ -168,6 +172,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
     $scope.updateAvatar = function(image){
         personalService.updateAvatar({img:image}).success(function (data) {
             $scope.user = data.user;
+            $rootScope.avatar = $scope.user.avatar.img;
         });
     }
 

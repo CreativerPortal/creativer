@@ -1,6 +1,4 @@
-﻿
-angular
-    .module('service.personal', [])
+﻿angular.module('service.personal', [])
     .factory('personalService', [
         '$http',
         function ($http) {
@@ -74,7 +72,6 @@ angular
                         data: data
                     });
                 },
-
                 savePost: function (data) {
                     return $http({
                         method: 'POST',
@@ -86,7 +83,6 @@ angular
                         data: data
                     });
                 },
-
                 saveComment: function (data) {
                     return $http({
                         method: 'POST',
@@ -98,7 +94,6 @@ angular
                         data: data
                     });
                 },
-
                 finishUpload: function (data) {
                     return $http({
                         method: 'POST',
@@ -109,7 +104,6 @@ angular
                         data: data
                     })
                 },
-
                 getAllCategories: function () {
                     return $http({
                         method: 'POST',
@@ -119,6 +113,5 @@ angular
                         }
                     })
                 }
-
             };
         }]);

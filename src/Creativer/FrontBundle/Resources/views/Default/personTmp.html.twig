@@ -8,7 +8,7 @@
                 {% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
                     <div class="row">
                         <div class="col-sm-5 padding-left_0">
-                            <label class="user__avatar edit__avatar" modal >
+                            <label class="user__avatar edit__avatar" >
                                 <img src="[[ user.avatar.img ]]" />
                                 <input type="file" id="fileInput" style="display: none;" />
                             </label>
@@ -41,7 +41,7 @@
                     </div>
                 {% endif %}
 
-                {% if((id != app.security.getToken().getUser().getId()) or (id == null) ) %}
+                {% if((id != app.security.getToken().getUser().getId()) or (id == null) ) and  is_granted('ROLE_USER') %}
                     <div  class="margin-top_20">
                         <button class="button_message fs_0-9 margin-left_10" ng-click="savePost(user.wall.id)"><span class="glyphicon glyphicon-envelope"></span> Сообщение</button>
                         <button class="button_favorites fs_0-9 margin-left_5" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span> Избранное</button>
@@ -57,7 +57,7 @@
                 <div class="row margin-top_5">
                     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
                     <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
-                    <div class="col-sm-3 col-md-offset-6 user__text_bold">0</div>
+                    <div class="col-sm-3 col-md-offset-6 user__text_bold">[[ user.likes ]]</div>
                 </div>
                 <div class="row margin-top_5">
                     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
@@ -170,7 +170,7 @@
                     <div class="album__element-block">
                         <a href="#/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
                         <div class="left-info__album user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">0</span></div>
-                        <div class="right-info__album user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">67</span></div>
+                        <div class="right-info__album user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ album.likes ]]</span></div>
                     </div>
                 </div>
 
@@ -181,12 +181,14 @@
                 </div>
 
                 <div class="row margin-top_25 text-center user__text" ng-show="user.albums.length == 0">
-                    Альбомов ещё нет, <a href="/app_dev.php/person#/create_album">создать альбом</a>
+                    Альбомов ещё нет, <a href="/app_dev.php/#/create_album">создать альбом</a>
                 </div>
 
                 <h4 class="lobster margin-top_20 text-gray">Стена</h4>
 
-                <textarea msd-elastic class="text-gray" cols="73" rows="2" placeholder="Написать сообщение" ng-model="text_post"></textarea>
+                {% if is_granted('ROLE_USER') %}
+                    <textarea msd-elastic="" class="text-gray" cols="73" rows="2" placeholder="Написать сообщение" ng-model="text_post" style="height: 50px;"></textarea>
+                {% endif %}
                 <div ng-show="text_post" class="margin-top_5 text-right">
                     <button class="true fs_0-9" ng-click="savePost(user.wall,user.wall.id,text_post)">Отправить</button>
                     <button class="false fs_0-9" ng-click="text_post=''">Отменить</button>
@@ -201,8 +203,10 @@
                         <div class="col-sm-6 user__text_bold padding-left_0">[[ post.username ]] [[ post.lastname ]]</div>
                         <div class="col-sm-6 text-right"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
                         <div class="user__text text-left col-sm-12 padding-left_0">[[post.text]]</div>
-                        <div class="col-sm-6 padding-left_0 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
-                        <div class="col-sm-6 text-right user__text-blue"><a class="text-blue" href="">Редактировать</a></div>
+                        {% if is_granted('ROLE_USER') %}
+                            <div class="col-sm-6 padding-left_0 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
+                            <div class="col-sm-6 text-right user__text-blue"><a class="text-blue" href="">Редактировать</a></div>
+                        {%  endif %}
                     </div>
 
                     <div class="row margin-left_60 col-sm-11" ng-repeat="comment in post.comments">
@@ -218,11 +222,13 @@
                         </div>
                     </div>
                     <div class="row margin-left_60 col-sm-11" ng-show="post.comments[0] || com">
-                        <textarea msd-elastic class="text-gray margin-left_20 margin-top_10"  ng-model="text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px;"></textarea>
-                        <div ng-show="text_comment" class="margin-top_5 margin-left_20 text-right" style="margin-right: 15px;">
-                            <button class="true fs_0-9" ng-click="saveComment(post,post.id,text_comment)">Отправить</button>
-                            <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
-                        </div>
+                        {% if is_granted('ROLE_USER') %}
+                            <textarea msd-elastic="" class="text-gray margin-left_20 margin-top_10"  ng-model="text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px;"></textarea>
+                            <div ng-show="text_comment" class="margin-top_5 margin-left_20 text-right" style="margin-right: 15px;">
+                                <button class="true fs_0-9" ng-click="saveComment(post,post.id,text_comment)">Отправить</button>
+                                <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
+                            </div>
+                        {%  endif %}
                     </div>
 
                 </div>

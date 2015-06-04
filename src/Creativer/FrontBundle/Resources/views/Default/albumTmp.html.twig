@@ -10,7 +10,7 @@
 
         <div class="row">
             <h3 class="col-sm-5 lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
-            <h4 class="col-sm-6 lobster text-gray margin-top_30 margin-left_15">Альбом "[[ user.albums[id].name ]]"</h4>
+            <h4 class="col-sm-6 lobster text-gray margin-top_30 margin-left_15">Альбом "[[ user.albums[album_key].name ]]"</h4>
         </div>
 
      <div class="col-sm-5 user padding-left_0">
@@ -58,7 +58,7 @@
          <div class="row margin-top_5">
              <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
              <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
-             <div class="col-sm-3 col-md-offset-6 user__text_bold">0</div>
+             <div class="col-sm-3 col-md-offset-6 user__text_bold">[[ user.likes ]]</div>
          </div>
          <div class="row margin-top_5">
              <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
@@ -99,6 +99,7 @@
 
              <div class="margin-top_20 col-sm-12 user__text">
                  <div class="row text-left user__text_bold">Избранные:</div>
+
                  <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
                      <div class="user__avatar-mini">
                          <img ng-src="[[ favorit.avatar.img ]]">
@@ -156,40 +157,40 @@
          {% endif %}
      </div>
 
-        <div class="col-sm-7 album" ng-init="res = user.albums[id].images.length/3">
+        <div class="col-sm-7 album" ng-if="album_key" ng-init="res = user.albums[album_key].images.length/3">
             <div class="row album__cards" ng-init="k=0">
                 <div class="col-sm-4 text-center">
-                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(0, res)">
+                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(0, res)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
-                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">435</span></div>
+                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ user.albums[album_key].images.slice(0, res)[key].likes ]]</span></div>
                         </div>
                     </a>
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res, res*2)">
+                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(res, res*2)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
-                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">445</span></div>
+                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ user.albums[album_key].images.slice(res, res*2)[key].likes ]]</span></div>
                         </div>
                     </a>
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[id].images.slice(res*2, res*3)">
+                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(res*2, res*3)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
                             <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">123</span></div>
-                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">445</span></div>
+                            <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ user.albums[album_key].images.slice(res*2, res*3)[key].likes ]]</span></div>
                         </div>
                     </a>
                 </div>
@@ -207,31 +208,31 @@
                     <div class="album__element-block">
                         <a href="#/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
                         <div class="left-info__album user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">0</span></div>
-                        <div class="right-info__album user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">67</span></div>
+                        <div class="right-info__album user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ album.likes ]]</span></div>
                     </div>
                 </div>
             </div>
 
             <div class="row margin-top_30 text-center user__text pointer" ng-click="count = user.albums.length" ng-show="count == 3">
-                <span>Показать остальные</span> <span class="glyphicon glyphicon-menu-down"></span>
+                <span>Показать все альбомы</span> <span class="glyphicon glyphicon-menu-down"></span>
             </div>
         </div>
 
             <div ng-show="url_img" class="background__viewer">
-                   <a href="#album/[[id_album]]/[[ user.albums[id].images[key_img-1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
+                   <a href="#album/[[id_album]]/[[ user.albums[album_key].images[key_img-1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
 
                    </a>
                    <div class="border__viewer">
                        <div class="border__viewer__wrapper">
-                           <div class="row"><time class="text-gray ng-binding left">[[ user.albums[id].images[next_key_img].date  | date: "dd.MM.yyyy" ]]</time></div>
+                           <div class="row"><time class="text-gray ng-binding left">[[ user.albums[album_key].images[album_key].date  | date: "dd.MM.yyyy" ]]</time></div>
                            <div class="row">
-                                <a href="#album/[[id_album]]/[[ user.albums[id].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[url_img]]" /></a>
+                                <a href="#album/[[id_album]]/[[ user.albums[album_key].images[next_key_img].name ]]/[[next_key_img]]"><img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[url_img]]" /></a>
                            </div>
                            <div class="margin-top_10 row">
-                               <span class="left user__text">[[ user.albums[id].images[next_key_img].text ]]</span>
-                               <a class="text-blue glyphicon glyphicon-heart right" href=""></a>
+                               <span class="left user__text">[[ user.albums[album_key].images[next_key_img].text ]]</span>
+                               <span class="text-blue glyphicon glyphicon-heart right pointer" ng-click="like(user.albums[album_key].images[key_img].id,album_key,key_img)">[[ user.albums[album_key].images[key_img].likes ]]</span>
                            </div>
-                           <div ng-show="delete" class="user__text">Вы уверены, что хотите удалить изображение? <span class="text-blue pointer margin-left_10" ng-click="deleteImage(user.albums[id].images[key_img].id,key_img,id)">Да</span> <span class="text-blue pointer margin-left_10" ng-click="delete = false">Нет</span></div>
+                           <div ng-show="delete" class="user__text">Вы уверены, что хотите удалить это изображение? <span class="text-blue pointer margin-left_10" ng-click="deleteImage(user.albums[album_key].images[key_img].id,key_img,album_key)">Да</span> <span class="text-blue pointer margin-left_10" ng-click="delete = false">Нет</span></div>
                            <div class="horizontal_line"></div>
 
                            <div class="row margin-top_10 wrapper__comment">
@@ -249,14 +250,14 @@
                                         <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                                     </div>
 
-                                    <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Оставить комментарий" style="width: 440px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
+                                    <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Написать комментарий" style="width: 440px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
                                     <div ng-show="text_comment" class="margin-top_5 text-right">
-                                        <button class="true fs_0-9" ng-click="saveImageComment(user.albums[id].images[key_img],text_comment)">Отправить</button>
+                                        <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)">Отправить</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
                                     <span class="left">Альбом:</span><br>
-                                    <span class="text-blue left text-left">[[ user.albums[id].name ]]</span><br>
+                                    <span class="text-blue left text-left">[[ user.albums[album_key].name ]]</span><br>
                                     <nav class="margin-top_10">
                                         <span class="text-blue left">Увеличить</span><br>
                                         <span class="text-blue left pointer" ng-click="delete = true">Удалить</span><br>
@@ -266,7 +267,7 @@
                             </div>
                        </div>
                    </div>
-                   <a href="#album/[[id_album]]" class="right background__viewer__link__next">
+                   <a href="#album/[[id_album]]" ng-click="closeImg()" class="right background__viewer__link__next">
 
                    </a>
             </div>

@@ -51,6 +51,17 @@ angular
                         },
                         data: data
                     });
+                },
+                like: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'like',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);
