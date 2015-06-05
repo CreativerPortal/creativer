@@ -66,7 +66,30 @@ class CatalogController extends Controller
      * @View()
      */
     public function getProductsAction(){
+        $id = $this->get('request')->request->get('id');
+        $category = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
+        $parent = $category[0]->getParent();
 
+        while($parent->getParent()){
+            $parent = $parent->getParent();
+        }
+
+        $parentId = $parent->getId();
+        $categories = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$parentId));
+        $categories = array('product' => $category, 'products' => $categories);
+
+        $serializer = $this->container->get('jms_serializer');
+        $categories = $serializer
+            ->serialize(
+                $categories,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+            );
+
+        $response = new Respon($categories);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**

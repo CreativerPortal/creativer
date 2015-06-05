@@ -85,7 +85,7 @@
                     <div class="col-sm-6  padding-left_0 padding-right_5 slid__card__img margin-top_25" ng-init="count = album.images.length">
                         <div class="col-sm-12 padding-left_0 padding-right_0 overflow-hidden">
                             <img ng-init="random = math.floor(math.random() * count);" src="/home/album/thums/[[ album.images[random].name ]]" />
-                            <span class="slid__card__price">[[ count ]]</span>
+                            <span class="slid__card__price">[[ album.images[random].price ]]</span>
                         </div>
                     </div>
                     <div class="col-sm-6 padding-left_0 slid__card__info margin-top_25">

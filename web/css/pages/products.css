@@ -209,9 +209,9 @@ body{
 .slid__card__price{
     padding-top: 4px;
     text-align: center;
-    position: relative;
+    position: absolute;
     display: block;
-    bottom: 25px;
+    top: 124px;
     left: 0px;
     width: 90px;
     height: 25px;
@@ -220,16 +220,16 @@ body{
     border: 1px dashed #bcb69b;
 }
 
-.slid__card__name{
+.image_product{
     position: relative;
-    bottom: 25px;
+}
+
+.slid__card__name{
     font-size: 1.2em;
     color:#64554a;
 }
 
 .slid__card__name_user{
-    position: relative;
-    bottom: 25px;
     font-size: 1.1em;
     color: #83abb7;
     font-style: italic;

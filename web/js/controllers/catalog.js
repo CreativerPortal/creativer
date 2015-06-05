@@ -3,9 +3,12 @@ angular.module('app.ctr.catalog', ['service.catalog', 'angularFileUpload'])
 
 
 
-    if($routeParams.id_products){
-
-    }else if(!$rootScope.services){
+    if($routeParams.id_products && !$rootScope.products){
+        catalogService.getProducts({id:$routeParams.id_products}).success(function (data) {
+            $rootScope.products = data.products[0].children;
+            $rootScope.product = data.product[0];
+        });
+    }else if($routeParams.id_services && !$rootScope.services){
         catalogService.getServices({id:$routeParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
@@ -20,7 +23,12 @@ angular.module('app.ctr.catalog', ['service.catalog', 'angularFileUpload'])
                         $rootScope.services[key].child = false;
                     }
                 }
-            }else if($rootScope.product && $rootScope.product.id){
+            }
+        });
+
+
+        $rootScope.$watch('product', function() {
+            if($rootScope.product && $rootScope.product.id){
                 $rootScope.product.id = $routeParams.id_products;
                 for(var key in $rootScope.products){
                     if($rootScope.products[key].child == true){
@@ -29,8 +37,6 @@ angular.module('app.ctr.catalog', ['service.catalog', 'angularFileUpload'])
                 }
             }
         });
-
-
 
 
         var id_category = $routeParams.id_services?$routeParams.id_services:$routeParams.id_products;
@@ -51,11 +57,11 @@ angular.module('app.ctr.catalog', ['service.catalog', 'angularFileUpload'])
                     $scope.pages.unshift($scope.pages[0]-1)
                     length = length - 1;
                 }else{
-                    $scope.pages.push($scope.pages[$scope.pages.length-1]+1);
+                    var p = parseInt($scope.pages[$scope.pages.length-1]) + 1;
+                    $scope.pages.push(p);
                     length = length - 1;
                 }
             }
-            console.log($scope.pages);
         })
 
 

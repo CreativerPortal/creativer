@@ -7,26 +7,22 @@
             <div class="slid__products__top"></div>
             <nav class="font_product fiveMinuts">
                 <ul>
-                    <li><a href="">Хедмейд-Бижютерия</a></li>
-                    <li><a href="">Одежда</a></li>
-                    <li ><a class="menu_action_black" href="">Обувь</a>
-                        <ul>
-                            <li><a href="">Женская</a>
-                                <ul>
-                                    <li><a href="">Босоножки</a></li>
-                                    <li><a href="">Туфли</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="">Мужская</a>
-                                <ul>
-                                    <li><a href="">Туфли</a></li>
-                                    <li><a href="">Спортивная обувь</a></li>
+                    <li ng-repeat="product_one in $root.products">
+                        <a ng-class="{menu_action_black: product_one.id == $root.product.id}" href="#/products/[[ product_one.id ]]">[[ product_one.name ]]</a>
+                        <ul ng-show="product_one.id == $root.product.id || product_one.child == true">
+                            <span ng-if="product_one.id == $root.product.id" ng-init="product_one.child=true"></span>
+                            <li ng-repeat="product_two in product_one.children">
+                                <a ng-class="{menu_action_black: product_two.id == $root.product.id, font_product_dropdown: product_two.children.length}" href="#/products/[[ product_two.id ]]">[[ product_two.name ]]</a>
+                                <ul ng-show="product_two.children.length || product_one.child == true">
+                                    <span ng-if="product_two.id == $root.product.id" ng-init="product_one.child=true"></span>
+                                    <li ng-repeat="product_three in product_two.children" >
+                                        <span ng-if="product_three.id == $root.product.id" ng-init="product_one.child=true"></span>
+                                        <a ng-class="{menu_action_black: product_three.id == $root.product.id}" href="#/products/[[ product_three.id ]]">[[ product_three.name ]]</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
                     </li>
-                    <li><a href="">Сумки-ремни</a></li>
-                    <li><a href="">Книги</a></li>
                 </ul>
             </nav>
             <div class="slid__products__bottom"></div>
@@ -68,9 +64,9 @@
                 <div class="col-sm-4 padding-left_0">
                     Сортировать по:
                     <select class="slid__order-by">
-                        <option>Дате добавления</option>
-                        <option>Дате добавления</option>
-                        <option>Дате добавления</option>
+                        <option>рейтингу</option>
+                        <option>кол-ву просмотров</option>
+                        <option>дате добавления</option>
                     </select>
                 </div>
                 <div class="col-sm-3 extended__search">
@@ -80,109 +76,43 @@
                 </div>
 
                 <div class="col-sm-3 col-sm-offset-2 slid__pagination fiveMinuts">
-                    <a href="" class="slid__pagination__element_active">1</a>
-                    <a href="">2</a>
-                    <a href="">3</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
+                    <a href="#/products/[[ product.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
+
             </div>
 
             <div class="row slid__card slid__card__first">
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
+
+                <div class="col-sm-3 padding-left_0" ng-repeat="album in albums.items" ng-init="count = album.images.length">
+                    <div style="  height: 150px; overflow: hidden; border: 1px dashed #c5c3b4; border-radius: 10px;">
+                        <img ng-init="random = math.floor(math.random() * count);" src="/home/album/thums/[[ album.images[random].name ]]" class="image_product"/>
+                        <style>
+                            @keyframes example {
+                                0% {left: 0px; top: 0px;}
+                                100% {left: -200px; top: -100px;}
+                            }
+
+                            /* The element to apply the animation to */
+                            .image_product {
+                                animation-name: example;
+                                animation-duration: 8s;
+                                animation-delay: 1s;
+                                animation-iteration-count: infinite;
+                                animation-direction: alternate;
+                            }
+                        </style>
+                        <span class="slid__card__price">[[ album.images[random].price ]]</span>
+                    </div>
+                    <div class="slid__card__name">[[ album.name ]]</div>
+                    <a class="slid__card__name_user" href="">[[ album.user.username ]] [[ album.user.lastname ]]</a>
                 </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
+
             </div>
 
-            <div class="row slid__card">
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-            </div>
-
-            <div class="row slid__card">
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-                <div class="col-sm-3 padding-left_0">
-                    <img src="/src/img2.png" />
-                    <span class="slid__card__price">1.500.000</span>
-                    <div class="slid__card__name">Туфли</div>
-                    <a class="slid__card__name_user" href="">Михно Вячеслав</a>
-                </div>
-            </div>
 
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30">
-                    <a href="" class="slid__pagination__element_active">1</a>
-                    <a href="">2</a>
-                    <a href="">3</a>
-                    <a href="">4</a>
-                    <a href="">5</a>
-                    <a href="">6</a>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-sm-7">
-                    <div class="banner-horizontal margin-top_40"><img src="/src/banner_list.png" /></div>
+                    <a href="#/products/[[ product.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>
         </div>
