@@ -112,7 +112,33 @@ app.directive('editPain', function () {
             })
         }
     }
-}).directive('ngThumb', ['$window', function($window) {
+}).directive('animationImage', function () {
+    return{
+        restrict: 'A',
+        // NB: no isolated scope!!
+        link: function (scope, element, attrs) {
+            // observe changes in attribute - could also be scope.$watch
+            attrs.$observe('img', function (value) {
+                var img = new Image();
+                img.src = value;
+                img.onload = function(){
+                    if(img.width > img.height){
+                        var rand = parseInt(Math.random() * (10 - 3) + 3);
+                        element.css('animation-duration', rand+'s');
+                        element.css('animation-name', 'horizontal');
+
+                    }else{
+                         var rand = parseInt(Math.random() * (10 - 3) + 3);
+                        element.css('animation-duration', rand+'s');
+                        element.css('animation-name', 'vertical');
+                    }
+                }
+            });
+        }
+    }
+
+
+    }).directive('ngThumb', ['$window', function($window) {
         var helper = {
             support: !!($window.FileReader && $window.CanvasRenderingContext2D),
             isFile: function(item) {

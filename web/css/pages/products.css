@@ -220,6 +220,30 @@ body{
     border: 1px dashed #bcb69b;
 }
 
+@keyframes horizontal {
+    0% {background-position: left;}
+    100% {background-position: right;}
+}
+
+@keyframes vertical {
+    0% {background-position: top;}
+    100% {background-position: bottom;}
+}
+
+.container_image_product{
+    height: 150px;
+    width: 162px;
+    overflow: hidden;
+    border: 1px dashed #c5c3b4;
+    border-radius: 10px;
+    animation-name: horizontal;
+    animation-duration: 6s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    position: relative;
+}
+
 .image_product{
     position: relative;
 }
