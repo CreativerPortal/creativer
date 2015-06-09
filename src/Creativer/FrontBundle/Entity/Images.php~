@@ -52,10 +52,10 @@ class Images
     private $name;
 
     /**
-     * @ORM\Column(type="integer", nullable=true, options={"default":0})
+     * @ORM\Column(type="integer", nullable=true)
      * @JMS\Expose
      */
-    private $price;
+    private $price = 0;
 
     /**
      * @ORM\Column(type="integer", nullable=true, options={"default":0})

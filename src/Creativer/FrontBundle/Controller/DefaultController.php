@@ -270,6 +270,17 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:albumTmp.html.twig', array());
     }
 
+    public function baraholkaTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:baraholkaTmp.html.twig', array());
+    }
+
+    public function fleamarketpostingTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:fleamarketpostingTmp.html.twig', array());
+    }
+
     public function favoritTmpAction(){
 
         return $this->render('CreativerFrontBundle:Default:favoritTmp.html.twig', array());

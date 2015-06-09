@@ -1,0 +1,168 @@
+    <link rel="stylesheet" href="/css/pages/fleamarketposting.css">
+    <div class="row slid">
+
+        <div class="col-sm-10 padding-left_0  lobster">
+            <div class="row">
+                <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Барахолка</h3></div>
+                <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
+                    <input placeholder="Поиск по барахолке">
+                    <button class="slid__slider-button"></button>
+                </div>
+                <div class="col-sm-3 slid__search__link margin-top_20">
+                    <a href="">Взглянуть шире</a>
+                </div>
+            </div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-2">Категория:</div>
+                <div class="col-sm-10">
+                    <div class="row baraholka__filter">
+                        <div class="baraholka__filter__element">
+                            <a href="">Куплю</a>
+                        </div>
+                        <div class="baraholka__filter__element">
+                            <a href="">Продам</a>
+                        </div>
+                        <div class="baraholka__filter__element">
+                            <a href="">Обмен</a>
+                        </div>
+                        <div class="baraholka__filter__element">
+                            <a href="">Услуга</a>
+                        </div>
+                        <div class="baraholka__filter__element">
+                            <a href="">Аренда</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-2">Разделы:</div>
+                <div class="col-sm-10">
+                    <select name="f" class="selectForumId">
+                        <option value="0" selected="selected"></option>
+                        <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]">                                                                                                                                                                                                                                                                                                                                    <option value="2">GSM-телефоны</option>
+                            <option ng-repeat="child in children.children" value="[[ child.id ]]">[[ child.name ]]</option>
+                        </optgroup>
+                    </select>
+                </div>
+            </div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-2">Заголовок:</div>
+                <div class="col-sm-10">
+                    <input type="text" >
+                </div>
+            </div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-2">Местонахождения:</div>
+                <div class="col-sm-10">
+                    <select name="f" class="selectForumId">
+                        <option value="0" selected="selected">Минск</option>
+                        <option value="1">Брест</option>
+                        <option value="2">Витебск</option>
+                        <option value="3">Гродно</option>
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="horizontal_line"></div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-12">
+                    <h4>Подробно опишите товар или услугу</h4>
+                    <textarea class="margin-top_10"></textarea>
+                </div>
+            </div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-12">
+                    Краткое описание
+                    <textarea></textarea>
+                </div>
+            </div>
+
+            <div class="horizontal_line"></div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-12">
+                    <h4>Обязательно указывайте реальную цену</h4>
+                    <div>
+                        <input type="text" style="width: 100px;" > руб.
+                            <div class="margin-top_5">
+                                <label for="search">Торг уместен</label>
+                                <input id="search" class="extended__search__element" type="checkbox">
+                                <span></span>
+                            </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="horizontal_line"></div>
+
+            <div>
+                <label class="" for="uploadImg" style="font-weight: normal;" ng-disabled="uploader.isUploading">
+                    <div ng-disabled="uploader.isUploading" class="btn button_favorites early-message text-center"><span>Выбрать</span></div>
+                </label>
+            </div>
+
+            <input type="file" nv-file-select="" uploader="uploader" multiple id="uploadImg"  class="hidden" ng-disabled="uploader.isUploading" />
+
+            <div class="row">
+
+                <div class="col-sm-3 upload__element" ng-repeat="item in uploader.queue">
+                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
+                        <input type="checkbox" class="hidden">
+                        <div class="edit__album__menu">
+                            <ul class="margin-top_20">
+                                <li ng-click="item.remove()">Удалить</li>
+                                <li ng-init="item.main = 0" ng-click="item.main = 1">
+                                    Обложкой
+                                </li>
+                            </ul>
+                        </div>
+                    </label>
+
+                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 175 }" class="text-center thumb__upload"></div>
+
+                    {#<div class="text-center">#}
+                        {#<span ng-show="item.isSuccess"><i class="glyphicon glyphicon-ok"></i></span>#}
+                        {#<span ng-show="item.isCancel"><i class="glyphicon glyphicon-ban-circle"></i></span>#}
+                        {#<span ng-show="item.isError"><i class="glyphicon glyphicon-remove"></i></span>#}
+                    {#</div>#}
+                </div>
+            </div>
+
+            <div class="row">
+                <div ng-show="uploader.isHTML5" style="height: 30px;">
+                    <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+                        <div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
+                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        </div>
+                            <span ng-show="uploader.progress" class="text-gray fiveMinuts text-bold">Подождите пока файлы загрузятся на CREATIVER [[ uploader.progress ]]%</span><br>
+                    </div>
+                </div>
+
+                <button type="button" ng-show="uploader.queue.length" class="btn button_message early-message text-center text-white right pointer" ng-click="uploader.uploadAll()" >
+                    <span>Продолжить</span>
+                </button>
+            </div>
+
+        </div>
+
+        <div class="col-sm-2">
+
+            <div class="row">
+                <div class="margin-top_80">
+                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>

@@ -180,6 +180,10 @@
                     Показать остальные альбомы <span class="glyphicon glyphicon-menu-down"></span>
                 </div>
 
+                <div class="row margin-top_25 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums == user.albums.length" ng-click="count_albums = 3">
+                    Скрыть альбомы <span class="glyphicon glyphicon-menu-up"></span>
+                </div>
+
                 <div class="row margin-top_25 text-center user__text" ng-show="user.albums.length == 0">
                     Альбомов ещё нет, <a href="/app_dev.php/#/create_album">создать альбом</a>
                 </div>

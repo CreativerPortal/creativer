@@ -1,0 +1,42 @@
+    <link rel="stylesheet" href="/css/pages/flea_market.css">
+
+    <div class="row slid">
+
+        <div class="row">
+            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Барахолка</h3></div>
+            <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
+                <input placeholder="Поиск по барахолке">
+                <button class="slid__slider-button"></button>
+            </div>
+            <div class="col-sm-2 slid__search__link margin-top_20">
+                <a href="">Взглянуть шире</a>
+            </div>
+            <a href="#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+        </div>
+
+        <nav class="row slid__menu margin-top_20">
+            <div class="col-sm-2 padding-left_0">Регион <a href="" class="open">Минск</a></div>
+            <div class="col-sm-2"><a href="">Мои объявления</a></div>
+            <div class="col-sm-4"><a hfer="">Объявления, в которых я участвую</a></div>
+            <div class="col-sm-2"><a href="">Новое за 24 часа</a></div>
+        </nav>
+
+        <div class="row slid__list">
+            <div class="col-sm-6">
+                <div ng-repeat="children in baraholka.slice(0,baraholka.length/2)">
+                    <h4 class="lobster">[[ children.name ]]</h4>
+                    <a ng-repeat="child in children.children" href="#/baraholka/[[ child.id ]]">[[ child.name ]]</a>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div ng-repeat="children in baraholka.slice(baraholka.length/2,baraholka.length)">
+                    <h4 class="lobster">[[ children.name ]]</h4>
+                    <a ng-repeat="child in children.children" href="#/baraholka/[[ child.id ]]">[[ child.name ]]</a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="banner-horizontal margin-top_40"><img src="/src/banner_list.png" /></div>

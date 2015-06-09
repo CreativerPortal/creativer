@@ -213,7 +213,7 @@ body{
     text-align: center;
     position: absolute;
     display: block;
-    top: 152px;
+    top: 124px;
     width: 90px;
     height: 25px;
     background-color: #ffc018;
@@ -222,14 +222,42 @@ body{
 }
 
 .slid__card__name{
+    display: block;
     font-size: 1.2em;
     color:#64554a;
+    cursor: pointer;
 }
 
 .slid__card__name_user{
     font-size: 1.1em;
     color: #83abb7;
     font-style: italic;
+}
+
+@keyframes horizontal {
+    0% {background-position: left;}
+    100% {background-position: right;}
+}
+
+@keyframes vertical {
+    0% {background-position: top;}
+    100% {background-position: bottom;}
+}
+
+.container_image_product{
+    height: 150px;
+    width: 158px;
+    display: block;
+    overflow: hidden;
+    border-radius: 10px 0px 0px 10px;
+    animation-name: horizontal;
+    animation-duration: 6s;
+    animation-delay: 0s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+    position: relative;
+    color: inherit;
+    cursor: pointer;
 }
 
 .slid__card__name_user:hover{
@@ -242,7 +270,7 @@ body{
     border-bottom: 1px dashed #c5c3b4;
     border-left: 1px dashed #c5c3b4;
     border-radius: 10px 0px 0px 10px;
-    height: 178px;
+    height: 150px;
     overflow: hidden;
 }
 
@@ -251,7 +279,7 @@ body{
     border-bottom: 1px dashed #c5c3b4;
     border-right: 1px dashed #c5c3b4;
     border-radius: 0px 10px 10px 0px;
-    height: 178px;
+    height: 150px;
 }
 
 .slid__news{

@@ -40,6 +40,16 @@ creativer_personTmp:
     host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:personTmp, id: null }
     methods:  [GET]
+creativer_baraholkaTmp:
+    path:     /baraholka_tmp
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:baraholkaTmp }
+    methods:  [GET]
+creativer_fleamarketpostingTmp:
+    path:     /fleamarketposting_tmp
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:fleamarketpostingTmp }
+    methods:  [GET]
 creativer_front_create_albumTmp:
     path:     /create_album
     host:     creativer.by.my

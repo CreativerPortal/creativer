@@ -213,9 +213,14 @@
                 </div>
             </div>
 
-            <div class="row margin-top_30 text-center user__text pointer" ng-click="count = user.albums.length" ng-show="count == 3">
+            <div class="row margin-top_30 text-center user__text pointer" ng-click="count_albums = user.albums.length" ng-show="count_albums == 3">
                 <span>Показать все альбомы</span> <span class="glyphicon glyphicon-menu-down"></span>
             </div>
+
+            <div class="row margin-top_30 text-center user__text pointer" ng-click="count_albums = 3" ng-show="count_albums > 3">
+                <span>Скрыть все альбомы</span> <span class="glyphicon glyphicon-menu-up"></span>
+            </div>
+
         </div>
 
             <div ng-show="url_img" class="background__viewer">

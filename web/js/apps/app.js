@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'monospaced.elastic', 'ngAnimate'])
+var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'monospaced.elastic', 'ngAnimate'])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.when('/create_album', {
             templateUrl: '/create_album',
@@ -23,6 +23,16 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         $routeProvider.when('/favorit', {
             templateUrl: '/favorit_tmp',
             controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/baraholka', {
+            templateUrl: '/baraholka_tmp',
+            controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/fleamarketposting', {
+            templateUrl: '/fleamarketposting_tmp',
+            controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/:id', {
@@ -123,14 +133,17 @@ app.directive('editPain', function () {
                 img.src = value;
                 img.onload = function(){
                     if(img.width > img.height){
-                        var rand = parseInt(Math.random() * (10 - 3) + 3);
-                        element.css('animation-duration', rand+'s');
+                        var rand_duration = parseInt(Math.random() * (10 - 5) + 5);
+                        var rand_delay = parseInt(Math.random() * (4 - 1) + 1);
+                        element.css('animation-duration', rand_duration+'s');
                         element.css('animation-name', 'horizontal');
-
+                        element.css('animation-delay', rand_delay);
                     }else{
-                         var rand = parseInt(Math.random() * (10 - 3) + 3);
-                        element.css('animation-duration', rand+'s');
+                        var rand_duration = parseInt(Math.random() * (10 - 5) + 5);
+                        var rand_delay = parseInt(Math.random() * (4 - 1) + 1);
+                        element.css('animation-duration', rand_duration+'s');
                         element.css('animation-name', 'vertical');
+                        element.css('animation-delay', rand_delay);
                     }
                 }
             });

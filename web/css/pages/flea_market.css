@@ -78,7 +78,7 @@ body{
     height: 27px;
     background-color: transparent;
     border: none;
-    background-image: url("../../img/to_search.png");
+    background-image: url("/var/www/creativer/web/img/to_search.png");
 }
 
 
@@ -97,7 +97,7 @@ body{
 }
 
 .slid__menu{
-    background-image: url("../../img/footer_menu_background.png");
+    background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
     height: 57px;
 }
 

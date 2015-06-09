@@ -84,13 +84,13 @@
                 <div class="col-sm-6" ng-repeat="album in albums.items">
                     <div class="col-sm-6  padding-left_0 padding-right_5 slid__card__img margin-top_25" ng-init="count = album.images.length">
                         <div class="col-sm-12 padding-left_0 padding-right_0 overflow-hidden">
-                            <img ng-init="random = math.floor(math.random() * count);" src="/home/album/thums/[[ album.images[random].name ]]" />
-                            <span class="slid__card__price">[[ album.images[random].price ]]</span>
+                            <a animation-image href="#/album/[[ album.id ]]/[[ album.images[random].name ]]/[[ random ]]" img="/home/album/thums/[[ album.images[random].name ]]" ng-init="random = math.floor(math.random() * count);" style='background:url("/home/album/thums/[[ album.images[random].name ]]") top left no-repeat;' class="container_image_product" >                            </a>
+                            <span class="slid__card__price">[[ album.images[random].price ]] руб.</span>
                         </div>
                     </div>
                     <div class="col-sm-6 padding-left_0 slid__card__info margin-top_25">
-                        <div class="slid__card__name text-bold">[[ album.name ]]</div>
-                        <a class="slid__card__name_user" href="">[[ album.user.username ]] [[ album.user.lastname ]]</a>
+                        <a href="#/album/[[ album.id ]]" class="slid__card__name text-bold">[[ album.name ]]</a>
+                        <a href="#/[[ album.user.id ]]" class="slid__card__name_user">[[ album.user.username ]] [[ album.user.lastname ]]</a>
                         <p class="text-gray margin-top_15">[[ album.description ]]</p>
                     </div>
                 </div>

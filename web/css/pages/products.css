@@ -233,6 +233,7 @@ body{
 .container_image_product{
     height: 150px;
     width: 162px;
+    display: block;
     overflow: hidden;
     border: 1px dashed #c5c3b4;
     border-radius: 10px;
@@ -242,15 +243,24 @@ body{
     animation-iteration-count: infinite;
     animation-direction: alternate;
     position: relative;
+    color: inherit;
+    cursor: pointer;
 }
 
 .image_product{
     position: relative;
 }
 
+.slid__card__name:hover{
+    text-decoration: none;
+    color: inherit;
+}
+
 .slid__card__name{
+    display: block;
     font-size: 1.2em;
     color:#64554a;
+    cursor: pointer;
 }
 
 .slid__card__name_user{
