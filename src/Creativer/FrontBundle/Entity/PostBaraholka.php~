@@ -1,0 +1,102 @@
+<?php
+// src/AppBundle/Entity/Albums.php
+namespace Creativer\FrontBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="post_baraholka")
+ * @JMS\ExclusionPolicy("all")
+ */
+class PostBaraholka
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Expose
+     */
+    private $id;
+
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     **/
+    private $user;
+
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Expose
+     */
+    private $img;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Expose
+     */
+    private $name;
+
+
+    /**
+     * @JMS\Expose
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $description;
+
+
+    /**
+     * @JMS\Expose
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $full_description;
+
+
+    /**
+     * @JMS\Expose
+     * @var \DateTime $date
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="integer", name="is_active")
+     */
+    private $isActive = 0;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
+     * @ORM\ManyToOne(targetEntity="CategoriesBaraholka", inversedBy="post_baraholka")
+     * @ORM\JoinColumn(name="categories_baraholka_id", referencedColumnName="id")
+     **/
+    private $categories_baraholka;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
+     * @ORM\OneToMany(targetEntity="ImagesBaraholka", mappedBy="post_baraholka")
+     * @ORM\OrderBy({"id" = "DESC"})
+     **/
+    private $images_baraholka;
+
+
+
+    public function __construct()
+    {
+        $this->categories_baraholka = new ArrayCollection();
+        $this->date = new \DateTime();
+    }
+    
+}

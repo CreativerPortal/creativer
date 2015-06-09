@@ -11,7 +11,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="categories")
+ * @ORM\Table(name="categories_baraholka")
  * @JMS\ExclusionPolicy("all")
  */
 class CategoriesBaraholka
@@ -31,14 +31,23 @@ class CategoriesBaraholka
      */
     private $name;
 
+
     /**
-     * @ORM\OneToMany(targetEntity="Categories", mappedBy="parent")
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\CategoriesBaraholka")
+     * @ORM\OneToMany(targetEntity="PostBaraholka", mappedBy="categories_baraholka")
+     * @ORM\OrderBy({"id" = "DESC"})
+     **/
+    private $post_baraholka;
+
+    /**
+     * @ORM\OneToMany(targetEntity="CategoriesBaraholka", mappedBy="parent")
      * @JMS\Expose
      */
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="Categories", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="CategoriesBaraholka", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @JMS\Expose
      */
@@ -64,5 +73,6 @@ class CategoriesBaraholka
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
     }
+
 
 }

@@ -250,6 +250,106 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
     }
 
+    public function createPostBaraholkaAction(){
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $image = $request->files->get('file');
+            $main = $request->get('main');
+            $price = $request->get('price');
+            $title = $request->get('title');
+
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 2000000000)) {
+                    $originalName = $image->getClientOriginalName();
+                    $file_type = $image->getMimeType();
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+                        //Start Uploading File
+                        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+                        $em = $this->getDoctrine()->getEntityManager();
+                        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$userId));
+                        //die(\Doctrine\Common\Util\Debug::dump($image));
+                        $album = $em->getRepository("CreativerFrontBundle:Albums")->findBy(array('isActive' => 0, 'user' => $user[0]));
+
+                        if(empty($album)){
+                            $album = new Albums();
+                            $album->setUser($user[0]);
+                        }else{
+                            $album = $album[0];
+                        }
+
+                        try {
+                            $imagine = new \Imagine\Imagick\Imagine();
+                            $image_name = time() . "_" . md5($originalName) . '.jpg';
+
+                            $image = $imagine->open($image->getPathname());
+
+                            $image->save($this->container->getParameter('path_img_album_original') . $image_name);
+
+                            $w = $image->getSize()->getWidth();
+                            $h = $image->getSize()->getHeight();
+
+                            if($w > $h){
+                                $count = $image->getSize()->getHeight() / 178;
+                                $width = $image->getSize()->getWidth() / $count;
+                                $image->resize(new Box($width, 178), ImageInterface::FILTER_LANCZOS);
+                            }else{
+                                $count = $image->getSize()->getWidth() / 158;
+                                $height = $image->getSize()->getHeight() / $count;
+                                $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
+                            }
+
+                            $image->save($this->container->getParameter('path_img_album_thums') . $image_name);
+
+
+                            if($main == 1){
+                                $album->setImg($image_name);
+                            }
+
+                            $im = new Images();
+                            $im->setAlbum($album);
+                            $im->setName($image_name);
+                            if($price != null)
+                                $im->setPrice($price);
+                            if($title != null)
+                                $im->setText($title);
+
+
+                            $em->persist($album);
+                            $em->persist($im);
+                            $em->flush();
+                        } catch (\Imagine\Exception\Exception $e) {
+                            die("error upload image ".$e);
+                        }
+
+
+//                        $document = new Document();
+//                        $document->setFile($image);
+//                        $document->setSubDirectory('uploads');
+//                        $document->processFile();
+//                        $uploadedURL=$uploadedURL = $document->getUploadDirectory() . DIRECTORY_SEPARATOR . $document->getSubDirectory() . DIRECTORY_SEPARATOR . $image->getBasename();
+                    } else {
+                        $status = 'failed';
+                        $message = 'Invalid File Type';
+                    }
+                } else {
+                    $status = 'failed';
+                    $message = 'Size exceeds limit';
+                }
+            } else {
+                $status = 'failed';
+                $message = 'File Error';
+            }
+            $response = new Response();
+            return $response->setStatusCode(200);
+        } else {
+            return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
+        }
+
+        return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
+    }
+
     public function layout_frontAction(){
 
         return $this->render('CreativerFrontBundle::layout_front.html.twig', array());

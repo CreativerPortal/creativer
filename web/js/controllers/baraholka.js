@@ -4,7 +4,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload'])
         $scope.uploader = new FileUploader();
 
         var uploader = $scope.uploader = new FileUploader({
-            url: 'upload_album'
+            url: 'create_post_baraholka'
         });
 
         // FILTERS

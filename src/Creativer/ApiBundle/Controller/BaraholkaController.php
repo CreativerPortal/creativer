@@ -34,7 +34,7 @@ class BaraholkaController extends Controller
      */
     public function getCategoriesBaraholkaAction()
     {
-        $categoriesBaraholka = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoryBaraholka')->find(1000);
+        $categoriesBaraholka = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find(1000);
 
         $categories = array('baraholka' => $categoriesBaraholka);
 

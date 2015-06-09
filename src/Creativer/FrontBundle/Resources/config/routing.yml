@@ -70,4 +70,8 @@ creativer_front_upload_album:
     host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:uploadAlbum }
     methods:  [POST]
-
+creativer_create_post_baraholka:
+    path:     /create_post_baraholka
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:createPostBaraholka }
+    methods:  [POST]
