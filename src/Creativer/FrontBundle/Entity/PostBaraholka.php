@@ -92,10 +92,22 @@ class PostBaraholka
     private $images_baraholka;
 
 
+    /**
+     * @ORM\ManyToOne(targetEntity="PostCategory", inversedBy="post_baraholka")
+     * @ORM\JoinColumn(name="post_category_id", referencedColumnName="id")
+     **/
+    private $post_category;
+
+
+    /**
+     * @ORM\ManyToOne(targetEntity="PostCity", inversedBy="post_baraholka")
+     * @ORM\JoinColumn(name="post_city_id", referencedColumnName="id")
+     **/
+    private $post_city;
+
 
     public function __construct()
     {
-        $this->categories_baraholka = new ArrayCollection();
         $this->date = new \DateTime();
     }
     
@@ -325,5 +337,51 @@ class PostBaraholka
     public function getImagesBaraholka()
     {
         return $this->images_baraholka;
+    }
+
+    /**
+     * Set post_category
+     *
+     * @param \Creativer\FrontBundle\Entity\PostCategory $postCategory
+     * @return PostBaraholka
+     */
+    public function setPostCategory(\Creativer\FrontBundle\Entity\PostCategory $postCategory = null)
+    {
+        $this->post_category = $postCategory;
+
+        return $this;
+    }
+
+    /**
+     * Get post_category
+     *
+     * @return \Creativer\FrontBundle\Entity\PostCategory 
+     */
+    public function getPostCategory()
+    {
+        return $this->post_category;
+    }
+
+    /**
+     * Set post_city
+     *
+     * @param \Creativer\FrontBundle\Entity\PostCity $postCity
+     * @return PostBaraholka
+     */
+    public function setPostCity(\Creativer\FrontBundle\Entity\PostCity $postCity = null)
+    {
+        $this->post_city = $postCity;
+
+        return $this;
+    }
+
+    /**
+     * Get post_city
+     *
+     * @return \Creativer\FrontBundle\Entity\PostCity 
+     */
+    public function getPostCity()
+    {
+        return $this->post_city;
     }
 }

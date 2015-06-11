@@ -51,27 +51,27 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload'])
             // console.info('onCompleteItem', fileItem, response, status, headers);
         };
         uploader.onCompleteAll = function() {
-            var name_album = $scope.album?$scope.album.name:null;
-            var description_album = $scope.album?$scope.album.description:null;
-            var selectCategories = [];
-            for(item in $scope.selectedItem){
-                selectCategories.push($scope.selectedItem[item].id);
-            }
-            personalService.finishUpload({name:name_album,selectCategories:selectCategories,description:description_album}).success(function () {
-                $rootScope.user = undefined;
-                $location.path("/#/person");
-            });
-            console.info('onCompleteAll');
+            //for(item in $scope.selectedItem){
+            //    selectCategories.push($scope.selectedItem[item].id);
+            //}
+            //personalService.finishUpload({name:name_album,selectCategories:selectCategories,description:description_album}).success(function () {
+            //    $rootScope.user = undefined;
+            //    $location.path("/#/person");
+            //});
+            //console.info('onCompleteAll');
         };
 
         uploader.onBeforeUploadItem = function (item) {
-            if(item.file.title != undefined) {
-                item.formData.push({title: item.file.title});
-            }
 
-            if(item.file.price != undefined) {
-                item.formData.push({price: item.file.price});
-            }
+            item.formData.push({post_id: $scope.post_id});
+            item.formData.push({post_category: $scope.post_category.id});
+            item.formData.push({section: $scope.section});
+            item.formData.push({title: $scope.title});
+            item.formData.push({city: $scope.city});
+            item.formData.push({description: $scope.description});
+            item.formData.push({full_description: $scope.full_description});
+            item.formData.push({full_price: $scope.price});
+
 
             if(item.main == 1) {
                 item.formData.push({main: 1});
@@ -80,9 +80,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload'])
         };
 
         // console.info('uploader', uploader);
-
         // crop image
-
         $scope.myImage=false;
         $scope.myCroppedImage=false;
 
@@ -99,9 +97,26 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload'])
 
         angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
 
+        $scope.createPostBaraholka = function(){
+            var data = {};
+            data.post_id = $scope.post_id;
+            data.post_category = $scope.post_category.id;
+            data.section = $scope.section;
+            data.title = $scope.title;
+            data.city = $scope.city;
+            data.description = $scope.description;
+            data.full_description = $scope.full_description;
+            data.full_price = $scope.price;
+            baraholkaService.createPostBaraholka(data).success(function (data) {
 
-        baraholkaService.getCategoriesBaraholka().success(function (data) {
+            });
+        }
+
+
+        baraholkaService.getDataBaraholka().success(function (data) {
             $scope.baraholka = data.baraholka.children;
+            $scope.post_category = data.post_category;
+            $scope.post_city = data.post_city;
         });
 
 }]);

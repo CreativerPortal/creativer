@@ -18,6 +18,7 @@ use Creativer\FrontBundle\Entity\Images;
 use Creativer\FrontBundle\Entity\Albums;
 use Creativer\FrontBundle\Entity\Avatar;
 use Creativer\FrontBundle\Entity\Register;
+use Creativer\FrontBundle\Entity\PostBaraholka;
 use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
 use Imagine\Imagick;
@@ -250,14 +251,85 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
     }
 
+
+    public function layout_frontAction(){
+
+        return $this->render('CreativerFrontBundle::layout_front.html.twig', array());
+    }
+
+    public function mainTmpAction()
+    {
+        return $this->render('CreativerFrontBundle:Default:mainTmp.html.twig', array());
+    }
+
+    public function personTmpAction($id)
+    {
+        return $this->render('CreativerFrontBundle:Default:personTmp.html.twig', array('id' => $id));
+    }
+
+    public function albumTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:albumTmp.html.twig', array());
+    }
+
+    public function baraholkaTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:baraholkaTmp.html.twig', array());
+    }
+
+    public function fleamarketpostingTmpAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $post_baraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->findBy(array('user'=>$user,'isActive'=>0));
+
+        if(!empty($post_baraholka)){
+            $post_baraholka = $post_baraholka[0];
+        }
+
+        if(empty($post_baraholka)){
+            $post_baraholka = new PostBaraholka();
+            $post_baraholka->setUser($user);
+            $em->persist($post_baraholka);
+            $em->flush();
+        }
+
+        //die(\Doctrine\Common\Util\Debug::dump($post_baraholka));
+        $post_id = $post_baraholka->getId();
+
+        return $this->render('CreativerFrontBundle:Default:fleamarketpostingTmp.html.twig', array('post_id' => $post_id));
+    }
+
     public function createPostBaraholkaAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
 
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $image = $request->files->get('file');
-            $main = $request->get('main');
-            $price = $request->get('price');
+            $post_id = $request->get('post_id');
+            $post_category = $request->get('post_category');
+            $section = $request->get('section');
             $title = $request->get('title');
+            $city = $request->get('city');
+            $description = $request->get('description');
+            $full_description = $request->get('full_description');
+            $full_price = $request->get('full_price');
+
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
                 if (($image->getSize() < 2000000000)) {
@@ -265,12 +337,19 @@ class DefaultController extends Controller
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
-                        //Start Uploading File
-                        $userId = $this->get('security.context')->getToken()->getUser()->getId();
                         $em = $this->getDoctrine()->getEntityManager();
-                        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$userId));
                         //die(\Doctrine\Common\Util\Debug::dump($image));
-                        $album = $em->getRepository("CreativerFrontBundle:Albums")->findBy(array('isActive' => 0, 'user' => $user[0]));
+                        $PostBaraholka = $em->getRepository("CreativerFrontBundle:PostBaraholka")->find(array('id' => $post_id, 'user' => $user));
+
+                        $PostCategory = $em->getRepository("CreativerFrontBundle:PostCategory")->find($post_category);
+                        $PostCity = $em->getRepository("CreativerFrontBundle:PostCity")->find($city);
+                        $CategoriesBaraholka = $em->getRepository("CreativerFrontBundle:CategoriesBaraholka")->find($section);
+
+
+
+                        $PostBaraholka->set
+
+                        die(\Doctrine\Common\Util\Debug::dump($PostBaraholka));
 
                         if(empty($album)){
                             $album = new Albums();
@@ -343,42 +422,9 @@ class DefaultController extends Controller
             }
             $response = new Response();
             return $response->setStatusCode(200);
-        } else {
-            return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
         }
 
-        return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
-    }
 
-    public function layout_frontAction(){
-
-        return $this->render('CreativerFrontBundle::layout_front.html.twig', array());
-    }
-
-    public function mainTmpAction()
-    {
-        return $this->render('CreativerFrontBundle:Default:mainTmp.html.twig', array());
-    }
-
-    public function personTmpAction($id)
-    {
-        return $this->render('CreativerFrontBundle:Default:personTmp.html.twig', array('id' => $id));
-    }
-
-    public function albumTmpAction(){
-
-        return $this->render('CreativerFrontBundle:Default:albumTmp.html.twig', array());
-    }
-
-    public function baraholkaTmpAction(){
-
-        return $this->render('CreativerFrontBundle:Default:baraholkaTmp.html.twig', array());
-    }
-
-    public function fleamarketpostingTmpAction(){
-
-
-        return $this->render('CreativerFrontBundle:Default:fleamarketpostingTmp.html.twig', array());
     }
 
     public function favoritTmpAction(){

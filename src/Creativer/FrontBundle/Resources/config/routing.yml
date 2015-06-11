@@ -50,6 +50,11 @@ creativer_fleamarketpostingTmp:
     host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:fleamarketpostingTmp }
     methods:  [GET]
+creativer_createPostBaraholka:
+    path:     /createPostBaraholka
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:createPostBaraholka }
+    methods:  [POST]
 creativer_front_create_albumTmp:
     path:     /create_album
     host:     creativer.by.my

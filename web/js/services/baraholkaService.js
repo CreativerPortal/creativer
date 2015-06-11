@@ -8,10 +8,22 @@ angular
             var url = '/app_dev.php/v1/';
 
             return {
-                getCategoriesBaraholka: function (data) {
+                getDataBaraholka: function (data) {
                     return $http({
                         method: 'POST',
-                        url: url + 'get_categories_baraholka',
+                        url: url + 'get_data_baraholka',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                createPostBaraholka: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: 'create_post_baraholka',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

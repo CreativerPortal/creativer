@@ -1,7 +1,7 @@
     <link rel="stylesheet" href="/css/pages/fleamarketposting.css">
-    <div class="row slid">
+    <div class="row slid" ng-init="post_id = {{ post_id }}">
 
-        <div class="col-sm-10 padding-left_0">
+        <form class="col-sm-10 padding-left_0" name="baraholka_form">
             <div class="row">
                 <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Барахолка</h3></div>
                 <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
@@ -17,53 +17,49 @@
                 <div class="col-sm-2">Категория:</div>
                 <div class="col-sm-10">
                     <div class="row baraholka__filter">
-                        <div class="baraholka__filter__element">
-                            <a href="">Куплю</a>
-                        </div>
-                        <div class="baraholka__filter__element">
-                            <a href="">Продам</a>
-                        </div>
-                        <div class="baraholka__filter__element">
-                            <a href="">Обмен</a>
-                        </div>
-                        <div class="baraholka__filter__element">
-                            <a href="">Услуга</a>
-                        </div>
-                        <div class="baraholka__filter__element">
-                            <a href="">Аренда</a>
+                        <div class="wrapper__filter__element" ng-repeat="p_category in post_category">
+                            <label>
+                                <input type="radio" name="post_category" ng-model="post_category.id" value="[[ p_category.id ]]" required="">
+                                <div class="baraholka__filter__element">
+                                    [[ p_category.name ]]
+                                </div>
+                            </label>
                         </div>
                     </div>
+                    <span class="text-danger" ng-show="submitted && baraholka_form.post_category.$error.required">Категория не выбрана</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Разделы:</div>
                 <div class="col-sm-10">
-                    <select name="f" class="selectForumId">
-                        <option value="0" selected="selected"></option>
+
+                    {#<select name="section" class="selectForumId" ng-model="section" ng-options="children.id as children.name for children in baraholka">#}
+                    {#</select>#}
+
+                    <select name="section" class="selectForumId" ng-model="section" ng-pattern="/^[1-9]+/" required>
                         <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]">                                                                                                                                                                                                                                                                                                                                    <option value="2">GSM-телефоны</option>
                             <option ng-repeat="child in children.children" value="[[ child.id ]]">[[ child.name ]]</option>
                         </optgroup>
                     </select>
+                    <br/>
+                    <span class="text-danger" ng-show="submitted && baraholka_form.section.$error.required">Раздел не выбран</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Заголовок:</div>
                 <div class="col-sm-10">
-                    <input type="text" >
+                    <input type="text" name="tit" ng-model="title" ng-required="true" required="">
+                    <span class="text-danger" ng-show="submitted && baraholka_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Местонахождения:</div>
                 <div class="col-sm-10">
-                    <select name="f" class="selectForumId">
-                        <option value="0" selected="selected">Минск</option>
-                        <option value="1">Брест</option>
-                        <option value="2">Витебск</option>
-                        <option value="3">Гродно</option>
-
+                    <select name="city" class="selectForumId" ng-model="city">
+                        <option value="[[ p_city.id ]]" ng-repeat="p_city in post_city">[[ p_city.name ]]</option>
                     </select>
                 </div>
             </div>
@@ -73,14 +69,15 @@
             <div class="row margin-top_20">
                 <div class="col-sm-12">
                     <h4>Подробно опишите товар или услугу</h4>
-                    <textarea class="margin-top_10"></textarea>
+                    <textarea class="margin-top_10" ng-model="full_description" name="full_description"></textarea>
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-12">
                     Краткое описание
-                    <textarea></textarea>
+                    <textarea ng-model="description" name="description" required=""></textarea>
+                    <span class="text-danger" ng-show="submitted && baraholka_form.description.$error.required">Краткое описание не может быть пустым</span>
                 </div>
             </div>
 
@@ -90,8 +87,11 @@
                 <div class="col-sm-12">
                     <h4>Обязательно указывайте реальную цену</h4>
                     <div>
-                        <input type="text" style="width: 100px;" > руб.
-                            <div class="margin-top_5">
+                        <input type="number" ng-model="price" name="price" style="width: 100px;" required=""> руб.<br/>
+
+                        <span class="text-danger" ng-show="submitted && baraholka_form.price.$error.required">Цена не указана</span>
+
+                        <div class="margin-top_5">
                                 <label for="search">Торг уместен</label>
                                 <input id="search" class="extended__search__element" type="checkbox">
                                 <span></span>
@@ -145,12 +145,26 @@
                     </div>
                 </div>
 
-                <button type="button" ng-show="uploader.queue.length" class="btn button_message early-message text-center text-white right pointer" ng-click="uploader.uploadAll()" >
+
+            </div>
+
+            <div class="horizontal_line"></div>
+
+            <div class="bg-warning text-center">
+                    <h5 class="text-danger">Увеличьте продажи: оплатите выделение объявления через банкомат, инфокиоск, интернет-банкинг!</h5>
+                    Варианты выделения всего от 3000 рублей. Заметное объявление — активные продажи! <a href="/price.php" target="_blank">Посмотреть цены</a>
+            </div>
+
+            <div class="row text-center">
+                <button type="button" ng-show="!uploader.queue.length" class="btn button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && createPostBaraholka()" >
+                    <span>Продолжить</span>
+                </button>
+                <button type="button" ng-show="uploader.queue.length" class="btn button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && uploader.uploadAll()" >
                     <span>Продолжить</span>
                 </button>
             </div>
 
-        </div>
+        </form>
 
         <div class="col-sm-2">
 

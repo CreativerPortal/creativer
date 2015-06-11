@@ -29,14 +29,17 @@ use Symfony\Component\HttpFoundation\Request;
 class BaraholkaController extends Controller
 {
     /**
-     * @Post("/v1/get_categories_baraholka")
+     * @Post("/v1/get_data_baraholka")
      * @View()
      */
     public function getCategoriesBaraholkaAction()
     {
         $categoriesBaraholka = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find(1000);
+        $postCity = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostCity')->findAll();
+        $postCategory = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostCategory')->findAll();
 
-        $categories = array('baraholka' => $categoriesBaraholka);
+
+        $categories = array('baraholka' => $categoriesBaraholka, 'post_city' => $postCity, 'post_category' => $postCategory);
 
         $serializer = $this->container->get('jms_serializer');
         $categories = $serializer
