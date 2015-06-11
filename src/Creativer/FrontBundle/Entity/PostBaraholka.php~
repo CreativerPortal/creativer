@@ -60,6 +60,12 @@ class PostBaraholka
      */
     private $full_description;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @JMS\Expose
+     */
+    private $price = 0;
+
 
     /**
      * @JMS\Expose

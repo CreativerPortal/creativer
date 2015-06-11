@@ -60,6 +60,12 @@ class PostBaraholka
      */
     private $full_description;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     * @JMS\Expose
+     */
+    private $price = 0;
+
 
     /**
      * @JMS\Expose
@@ -383,5 +389,28 @@ class PostBaraholka
     public function getPostCity()
     {
         return $this->post_city;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     * @return PostBaraholka
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
     }
 }

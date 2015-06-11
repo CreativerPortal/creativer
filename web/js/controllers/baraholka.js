@@ -113,11 +113,47 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload'])
         }
 
 
-        baraholkaService.getDataBaraholka().success(function (data) {
-            $scope.baraholka = data.baraholka.children;
-            $scope.post_category = data.post_category;
-            $scope.post_city = data.post_city;
-        });
+        if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
+            baraholkaService.getDataBaraholka().success(function (data) {
+                $scope.baraholka = data.baraholka.children;
+                $scope.post_category = data.post_category;
+                $scope.post_city = data.post_city;
+            });
+        }
+
+
+        if($routeParams.id_category){
+            $scope.posts_category = $routeParams.id_category;
+            baraholkaService.getPostsByCategory({"category_id": $routeParams.id_category,page:$routeParams.page}).success(function (data) {
+                $scope.posts = data.posts.items;
+                $scope.posts_page = data.posts;
+
+
+                $scope.pages = [];
+                $scope.pages[0] = $scope.posts_page.currentPageNumber;
+                $scope.currentPage = $scope.posts_page.currentPageNumber;
+                var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
+                length--;
+                while(length > 0){
+                    if($scope.pages[0] > 1){
+                        $scope.pages.unshift($scope.pages[0]-1)
+                        length = length - 1;
+                    }else{
+                        var p = parseInt($scope.pages[$scope.pages.length-1]) + 1;
+                        $scope.pages.push(p);
+                        length = length - 1;
+                    }
+                }
+            });
+        }
+
+
+        if($routeParams.id_post){
+            baraholkaService.getPostById({"post_id": $routeParams.id_post}).success(function (data) {
+                $scope.post = data.post;
+            });
+        }
+
 
 }]);
 

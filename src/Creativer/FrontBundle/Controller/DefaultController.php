@@ -19,6 +19,10 @@ use Creativer\FrontBundle\Entity\Albums;
 use Creativer\FrontBundle\Entity\Avatar;
 use Creativer\FrontBundle\Entity\Register;
 use Creativer\FrontBundle\Entity\PostBaraholka;
+use Creativer\FrontBundle\Entity\ImagesBaraholka;
+use Creativer\FrontBundle\Entity\PostCategory;
+use Creativer\FrontBundle\Entity\PostCity;
+
 use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
 use Imagine\Imagick;
@@ -307,6 +311,32 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:fleamarketpostingTmp.html.twig', array('post_id' => $post_id));
     }
 
+    public function viewforumTmpAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        return $this->render('CreativerFrontBundle:Default:viewforumTmp.html.twig', array());
+    }
+
+    public function viewtopicTmpAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        return $this->render('CreativerFrontBundle:Default:viewtopicTmp.html.twig', array());
+    }
+
     public function createPostBaraholkaAction(){
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -324,11 +354,32 @@ class DefaultController extends Controller
             $post_id = $request->get('post_id');
             $post_category = $request->get('post_category');
             $section = $request->get('section');
-            $title = $request->get('title');
+            $name = $request->get('title');
             $city = $request->get('city');
             $description = $request->get('description');
             $full_description = $request->get('full_description');
             $full_price = $request->get('full_price');
+            $main = $request->get('main');
+
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $PostBaraholka = $em->getRepository("CreativerFrontBundle:PostBaraholka")->find(array('id' => $post_id, 'user' => $user));
+
+            $PostCategory = $em->getRepository("CreativerFrontBundle:PostCategory")->find($post_category);
+            $PostCity = $em->getRepository("CreativerFrontBundle:PostCity")->find($city);
+            $CategoriesBaraholka = $em->getRepository("CreativerFrontBundle:CategoriesBaraholka")->find($section);
+
+           // die(\Doctrine\Common\Util\Debug::dump($CategoriesBaraholka));
+
+            $PostBaraholka->setCategoriesBaraholka($CategoriesBaraholka);
+            $PostBaraholka->setPostCategory($PostCategory);
+            $PostBaraholka->setPostCity($PostCity);
+            $PostBaraholka->setName($name);
+            $PostBaraholka->setDescription($description);
+            $PostBaraholka->setFullDescription($full_description);
+            $PostBaraholka->setPrice($full_price);
+            $PostBaraholka->setIsActive(1);
+
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
@@ -337,26 +388,7 @@ class DefaultController extends Controller
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
-                        $em = $this->getDoctrine()->getEntityManager();
                         //die(\Doctrine\Common\Util\Debug::dump($image));
-                        $PostBaraholka = $em->getRepository("CreativerFrontBundle:PostBaraholka")->find(array('id' => $post_id, 'user' => $user));
-
-                        $PostCategory = $em->getRepository("CreativerFrontBundle:PostCategory")->find($post_category);
-                        $PostCity = $em->getRepository("CreativerFrontBundle:PostCity")->find($city);
-                        $CategoriesBaraholka = $em->getRepository("CreativerFrontBundle:CategoriesBaraholka")->find($section);
-
-
-
-                        $PostBaraholka->set
-
-                        die(\Doctrine\Common\Util\Debug::dump($PostBaraholka));
-
-                        if(empty($album)){
-                            $album = new Albums();
-                            $album->setUser($user[0]);
-                        }else{
-                            $album = $album[0];
-                        }
 
                         try {
                             $imagine = new \Imagine\Imagick\Imagine();
@@ -364,7 +396,7 @@ class DefaultController extends Controller
 
                             $image = $imagine->open($image->getPathname());
 
-                            $image->save($this->container->getParameter('path_img_album_original') . $image_name);
+                            $image->save($this->container->getParameter('path_img_baraholka_original') . $image_name);
 
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
@@ -379,35 +411,25 @@ class DefaultController extends Controller
                                 $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
                             }
 
-                            $image->save($this->container->getParameter('path_img_album_thums') . $image_name);
+                            $image->save($this->container->getParameter('path_img_baraholka_thums') . $image_name);
 
 
                             if($main == 1){
-                                $album->setImg($image_name);
+                                $PostBaraholka->setImg($image_name);
                             }
 
-                            $im = new Images();
-                            $im->setAlbum($album);
+                            $im = new ImagesBaraholka();
+                            $im->setPostBaraholka($PostBaraholka);
                             $im->setName($image_name);
-                            if($price != null)
-                                $im->setPrice($price);
-                            if($title != null)
-                                $im->setText($title);
 
-
-                            $em->persist($album);
                             $em->persist($im);
-                            $em->flush();
+
+
                         } catch (\Imagine\Exception\Exception $e) {
                             die("error upload image ".$e);
                         }
 
 
-//                        $document = new Document();
-//                        $document->setFile($image);
-//                        $document->setSubDirectory('uploads');
-//                        $document->processFile();
-//                        $uploadedURL=$uploadedURL = $document->getUploadDirectory() . DIRECTORY_SEPARATOR . $document->getSubDirectory() . DIRECTORY_SEPARATOR . $image->getBasename();
                     } else {
                         $status = 'failed';
                         $message = 'Invalid File Type';
@@ -420,6 +442,10 @@ class DefaultController extends Controller
                 $status = 'failed';
                 $message = 'File Error';
             }
+
+
+            $em->persist($PostBaraholka);
+            $em->flush();
             $response = new Response();
             return $response->setStatusCode(200);
         }

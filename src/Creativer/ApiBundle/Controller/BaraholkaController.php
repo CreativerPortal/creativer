@@ -54,4 +54,55 @@ class BaraholkaController extends Controller
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+
+    /**
+     * @Post("/v1/get_posts_by_category")
+     * @View()
+     */
+    public function getPostsByCategoryAction()
+    {
+        $category_id = $this->get('request')->request->get('category_id');
+        $categoriesBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find($category_id);
+
+        $page = $this->get('request')->request->get('page')?$this->get('request')->request->get('page'):1;
+
+
+
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
+            ->createQueryBuilder('e')
+            ->join('e.categories_baraholka', 'cat')
+            ->where('cat IN (:items)')
+            ->setParameter('items', $category_id)
+            ->getQuery();
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $page,
+            6
+        );
+
+        $posts = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
+            'numItemsPerPage' => $pagination->getItemNumberPerPage(),
+            'items' => $pagination->getItems(),
+            'totalCount' => $pagination->getTotalItemCount());
+
+        $posts = array('posts' => $posts);
+
+        //die(\Doctrine\Common\Util\Debug::dump($pagination));
+
+        $serializer = $this->container->get('jms_serializer');
+        $posts = $serializer
+            ->serialize(
+                $posts,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+            );
+
+        $response = new Respon($posts);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
 }

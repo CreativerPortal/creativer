@@ -30,6 +30,16 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
+        $routeProvider.when('/viewforum/:id_category/:page?', {
+            templateUrl: '/viewforum_tmp',
+            controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/viewtopic/:id_post', {
+            templateUrl: '/viewtopic_tmp',
+            controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
         $routeProvider.when('/fleamarketposting', {
             templateUrl: '/fleamarketposting_tmp',
             controller: 'baraholkaCtrl',
@@ -215,8 +225,12 @@ app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-app.run(function($rootScope) {
+app.run(function($rootScope, $templateCache) {
     $rootScope.$on('$viewContentLoaded', function() {
         $rootScope.hid = true;
+    });
+
+    $rootScope.$on('$routeChangeStart', function(event, next, current) {
+        $templateCache.remove('/fleamarketposting_tmp');
     });
 });

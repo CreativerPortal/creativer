@@ -154,6 +154,32 @@ class CatalogController extends Controller
     }
 
     /**
+     * @Post("/v1/get_post_by_id")
+     * @View()
+     */
+    public function getPostByIdAction()
+    {
+        $post_id = $this->get('request')->request->get('post_id');
+
+        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($post_id);
+
+        $post = array('post' => $post);
+
+        $serializer = $this->container->get('jms_serializer');
+        $categories = $serializer
+            ->serialize(
+                $post,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+            );
+
+        $response = new Respon($categories);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
      * @Post("/v1/get_all_categories")
      * @View()
      */

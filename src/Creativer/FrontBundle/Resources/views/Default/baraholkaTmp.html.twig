@@ -25,13 +25,13 @@
             <div class="col-sm-6">
                 <div ng-repeat="children in baraholka.slice(0,baraholka.length/2)">
                     <h4 class="lobster">[[ children.name ]]</h4>
-                    <a ng-repeat="child in children.children" href="#/baraholka/[[ child.id ]]">[[ child.name ]]</a>
+                    <a ng-repeat="child in children.children" href="#/viewforum/[[ child.id ]]">[[ child.name ]]</a>
                 </div>
             </div>
             <div class="col-sm-6">
                 <div ng-repeat="children in baraholka.slice(baraholka.length/2,baraholka.length)">
                     <h4 class="lobster">[[ children.name ]]</h4>
-                    <a ng-repeat="child in children.children" href="#/baraholka/[[ child.id ]]">[[ child.name ]]</a>
+                    <a ng-repeat="child in children.children" href="#/viewforum/[[ child.id ]]">[[ child.name ]]</a>
                 </div>
             </div>
         </div>

@@ -43,4 +43,70 @@ class PostCategory
     }
     
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set name
+     *
+     * @param string $name
+     * @return PostCategory
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * Get name
+     *
+     * @return string 
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * Add post_baraholka
+     *
+     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
+     * @return PostCategory
+     */
+    public function addPostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka)
+    {
+        $this->post_baraholka[] = $postBaraholka;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_baraholka
+     *
+     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
+     */
+    public function removePostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka)
+    {
+        $this->post_baraholka->removeElement($postBaraholka);
+    }
+
+    /**
+     * Get post_baraholka
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostBaraholka()
+    {
+        return $this->post_baraholka;
+    }
 }

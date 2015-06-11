@@ -1,0 +1,105 @@
+    <link rel="stylesheet" href="/css/pages/viewforum.css">
+
+
+    <div class="row slid">
+
+        <div class="col-sm-10 padding-left_0">
+            <div class="row">
+                <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Барахолка</h3></div>
+                <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
+                    <input placeholder="Поиск по барахолке">
+                    <button class="slid__slider-button"></button>
+                </div>
+                <div class="col-sm-3 slid__search__link margin-top_20">
+                    <a href="">Взглянуть шире</a>
+                </div>
+            </div>
+
+            <nav class="row slid__menu margin-top_20">
+                <div class="col-sm-2 padding-left_0">Регион <a href="" class="open">Минск</a></div>
+                <div class="col-sm-3 text-right padding-left_0"><a href="">Мои объявления</a></div>
+                <div class="col-sm-4 text-left padding-left_0"><a hfer="">Объявления, в которых я участвую</a></div>
+                <div class="col-sm-3 padding-left_0"><a href="">Новое за 24 часа</a></div>
+            </nav>
+
+            <div class="row forum padding-left_0">
+                <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Украшения</h3></div>
+                <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
+                    <input placeholder="Поиск в разделе">
+                    <button class="slid__slider-button"></button>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30">
+                    <a href="#/viewforum/[[ posts_category ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                </div>
+            </div>
+
+            <div class="row baraholka__filter margin-top_20">
+                <div class="baraholka__filter__element baraholka__filter__element_active">
+                    <a href="">Все</a>
+                </div>
+                <div class="baraholka__filter__element">
+                    <a href="">Куплю</a>
+                </div>
+                <div class="baraholka__filter__element">
+                    <a href="">Продам</a>
+                </div>
+                <div class="baraholka__filter__element">
+                    <a href="">Обмен</a>
+                </div>
+                <div class="baraholka__filter__element">
+                    <a href="">Услуга</a>
+                </div>
+                <div class="baraholka__filter__element">
+                    <a href="">Аренда</a>
+                </div>
+                <div class="baraholka__filter__element">
+                    <a href="">Закрыто</a>
+                </div>
+            </div>
+
+            <table class="baraholka__table margin-top_25 padding-left_0">
+                <tr ng-repeat="post in posts">
+                    <td class="baraholka__table__left">
+                        <div class="col-sm-2 padding-left_0"><img ng-src="{{ path_img_baraholka_thums }}/[[ post.img ]]" /></div>
+                        <div class="col-sm-10 padding-left_0">
+                            <div class="baraholka__table__label">
+                                продам
+                            </div>
+                            <a href="#/viewtopic/[[ post.id ]]" class="text-blue">[[ post.name ]]</a>
+                            <p class="text-gray">[[ post.description ]]</p>
+                            <div class="col-sm-9 padding-left_0"><a href="#/[[ post.user.id ]]" class="text-blue">[[ post.user.username ]] [[ post.user.lastname ]]</a></div>
+                        </div>
+                    </td>
+                    <td class="baraholka__table__right"><span>[[ post.price ]]</span></td>
+                </tr>
+            </table>
+
+            <div class="row">
+                <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30">
+                    <a href="#/viewforum/[[ posts_category ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-sm-2">
+            <a href="" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+
+            <div class="row">
+                <div class="margin-top_80">
+                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>

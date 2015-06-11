@@ -171,6 +171,11 @@ body{
     width: 80%;
 }
 
+.baraholka__table__left img{
+    max-height: 72px;
+    max-width: 84px;
+}
+
 .baraholka__table__right{
     width: 20%;
     vertical-align: middle;
