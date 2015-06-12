@@ -136,13 +136,17 @@ body{
 }
 
 .baraholka__filter__element{
-    float: left;
-    margin-left: 5px;
-    column-rule: #77a2bf;
-    text-align: center;
-    vertical-align: middle;
-    line-height: 2em;
-    color: #77a2bf;
+     float: left;
+     margin-left: 5px;
+     column-rule: #77a2bf;
+     text-align: center;
+     vertical-align: middle;
+     line-height: 2em;
+     color: #77a2bf;
+ }
+
+.baraholka__filter__element_active{
+    background-position: -73px 0;
 }
 
 .baraholka__filter__element a{

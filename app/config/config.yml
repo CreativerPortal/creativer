@@ -33,6 +33,8 @@ twig:
         path_img_avatar: "%path_img_avatar%"
         path_img_album_thums: "%path_img_album_thums%"
         path_img_album_original: "%path_img_album_original%"
+        path_img_baraholka_thums: "%path_img_baraholka_thums%"
+        path_img_baraholka_original: "%path_img_baraholka_original%"
 
 # Assetic Configuration
 assetic:

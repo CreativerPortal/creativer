@@ -99,6 +99,7 @@ class PostBaraholka
 
 
     /**
+     * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="PostCategory", inversedBy="post_baraholka")
      * @ORM\JoinColumn(name="post_category_id", referencedColumnName="id")
      **/
@@ -106,10 +107,19 @@ class PostBaraholka
 
 
     /**
+     * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="PostCity", inversedBy="post_baraholka")
      * @ORM\JoinColumn(name="post_city_id", referencedColumnName="id")
      **/
     private $post_city;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
+     * @ORM\OneToMany(targetEntity="PostComments", mappedBy="post_baraholka")
+     * @JMS\Groups({"getUser"})
+     **/
+    private $post_comments;
 
 
     public function __construct()
@@ -412,5 +422,38 @@ class PostBaraholka
     public function getPrice()
     {
         return $this->price;
+    }
+
+    /**
+     * Add post_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\PostComments $postComments
+     * @return PostBaraholka
+     */
+    public function addPostComment(\Creativer\FrontBundle\Entity\PostComments $postComments)
+    {
+        $this->post_comments[] = $postComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\PostComments $postComments
+     */
+    public function removePostComment(\Creativer\FrontBundle\Entity\PostComments $postComments)
+    {
+        $this->post_comments->removeElement($postComments);
+    }
+
+    /**
+     * Get post_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostComments()
+    {
+        return $this->post_comments;
     }
 }

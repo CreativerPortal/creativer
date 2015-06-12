@@ -54,7 +54,19 @@ angular
                         },
                         data: data
                     });
-                }
+                },
+
+                saveComment: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'save_post_comment',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
 
             };
         }]);

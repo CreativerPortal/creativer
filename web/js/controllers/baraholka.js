@@ -112,6 +112,15 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload'])
             });
         }
 
+        $scope.saveComment = function(text){
+            var username = $rootScope.username;
+            var lastname = $rootScope.lastname;
+            var img = $rootScope.img;
+            $scope.post.post_comments.push({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
+            baraholkaService.saveComment({post_id:$scope.post.id,text:text}).success(function (data) {
+                $scope.user = data.user;
+            });
+        }
 
         if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
             baraholkaService.getDataBaraholka().success(function (data) {

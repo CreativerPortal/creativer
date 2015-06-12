@@ -15,7 +15,7 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Creativer\FrontBundle\Entity\User;
 use Creativer\FrontBundle\Entity\Wall;
 use Creativer\FrontBundle\Entity\Posts;
-use Creativer\FrontBundle\Entity\Comments;
+use Creativer\FrontBundle\Entity\PostComments;
 use Creativer\FrontBundle\Entity\ImageComments;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Filesystem\Filesystem;
@@ -104,5 +104,45 @@ class BaraholkaController extends Controller
         $response->headers->set('Content-Type', 'application/json');
         return $response;
 
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/save_post_comment")
+     * @View()
+     */
+    public function savePostCommentAction()
+    {
+        $data = json_decode($this->get("request")->getContent());
+
+
+        $username = $this->get('security.context')->getToken()->getUser()->getUsername();
+        $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();
+        $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->findOneById($data->post_id);
+
+
+        $comment = new PostComments();
+
+        $comment->setUsername($username)
+            ->setLastname($lastname)
+            ->setAvatar($avatar)
+            ->setText($data->text)
+            ->setPostBaraholka($post)
+            ->setUserId($userId);
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($comment);
+        $em->flush();
+
+        $serializer = $this->container->get('jms_serializer');
+        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->findOneById($data->post_id);
+
+
+        return array('post' => $post);
     }
 }

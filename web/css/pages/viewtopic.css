@@ -162,3 +162,7 @@ textarea {
 .user__avatar{
     width: 60px;
 }
+
+.img-barholka{
+    max-width: 600px;
+}

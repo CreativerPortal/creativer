@@ -22,7 +22,7 @@
                 <div class="col-sm-3 padding-left_0"><a href="">Новое за 24 часа</a></div>
             </nav>
 
-            <div class="row"><a class="text-blue text-italic" href="#">Вернуться к объявлениям</a></div>
+            <div class="row"><a class="text-blue text-italic" href="#/viewforum/[[ post.categories_baraholka.id ]]">Вернуться к объявлениям</a></div>
             <div class="row"><h2 class="lobster margin-left_0">[[ post.name ]]</h2></div>
             <div class="row">
                 <div class="col-sm-6 padding-left_0 fs_0-8"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
@@ -39,47 +39,35 @@
                 <article class="col-sm-10 slid_article">
                     <p class="text-gray">
                         [[ post.full_description ]]
-                        <img ng-repeat="img in post.images_baraholka" src="{{ path_img_baraholka_original }}/[[ img.name ]]" />
+                        <div class="text-center">
+                            <img class="img-barholka" ng-repeat="img in post.images_baraholka" ng-src="{{ path_img_baraholka_original }}/[[ img.name ]]" />
+                        </div>
                     </p>
                 </article>
             </div>
 
             <div class="row margin-top_30 text-right padding-5-15-5-15">
-                <textarea class="text-gray right" cols="97" rows="3" placeholder="Комментировать"></textarea>
-                <button class="true fs_0-9 margin-top_15">Сохранить</button>
-                <button class="false fs_0-9 margin-top_15">Отменить</button>
+                 {% if is_granted('ROLE_USER') %}
+                    <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 70px; width: 687px"></textarea>
+                    <div ng-show="text_comment" class="margin-top_15 margin-left_20 text-right">
+                        <button class="true fs_0-9" ng-click="saveComment(text_comment)">Отправить</button>
+                        <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
+                    </div>
+                {%  endif %}
             </div>
 
 
-            <div class="row slid__comment">
+            <div class="row slid__comment margin-top_20" ng-repeat="comment in post.post_comments">
                 <div class="col-sm-11 col-sm-offset-1 padding-left_0">
 
                     <div class="user__avatar left">
-                        <div class="user__avatar-mini-2"><img src="/src/avatar.jpg"></div>
+                        <div class="user__avatar-mini-2"><img src="[[ comment.avatar.img ]]"></div>
                     </div>
 
                     <div>
-                        <div class="text-blue"><a href="">Михно Вячеслав</a></div>
-                        <div class="margin-top_5"><p>Татьяна, сколько стоит мастеркласс?</p></div>
-                        <div class="margin-left_60 text-gray fs_0-8 left"><time datetime="2014:12:12">22 июн 2014 21:15</time></div>
-                        <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div>
-                    </div>
-
-                    <div class="col-sm-12 slid__comment__line"></div>
-                </div>
-            </div>
-
-            <div class="row slid__comment margin-top_20">
-                <div class="col-sm-11 col-sm-offset-1 padding-left_0">
-
-                    <div class="user__avatar left">
-                        <div class="user__avatar-mini-2"><img src="/src/avatar.jpg"></div>
-                    </div>
-
-                    <div>
-                        <div class="text-blue"><a href="">Михно Вячеслав</a></div>
-                        <div class="margin-top_5"><p>Татьяна, сколько стоит мастеркласс?</p></div>
-                        <div class="margin-left_60 text-gray fs_0-8 left"><time datetime="2014:12:12">22 июн 2014 21:15</time></div>
+                        <div class="text-blue"><a href="">[[ comment.username ]] [[ comment.lastname ]]</a></div>
+                        <div class="margin-top_5"><p>[[ comment.text ]]</p></div>
+                        <div class="margin-left_60 text-gray fs_0-8 left"><time datetime="2014:12:12">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time></div>
                         <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div>
                     </div>
 
@@ -91,7 +79,7 @@
         </div>
 
         <div class="col-sm-2">
-            <a href="" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+            <a href="{{ path('creativer_front_main') }}#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
 
             <div class="row">
                 <div class="margin-top_80">
