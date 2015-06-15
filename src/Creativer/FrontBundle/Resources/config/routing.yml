@@ -71,9 +71,9 @@ creativer_front_create_albumTmp:
     defaults: { _controller: CreativerFrontBundle:Default:createAlbumTmp }
     methods:  [GET]
 creativer_front_albumTmp:
-    path:     /album_tmp
+    path:     /album_tmp/{id_album}
     host:     creativer.by.my
-    defaults: { _controller: CreativerFrontBundle:Default:albumTmp }
+    defaults: { _controller: CreativerFrontBundle:Default:albumTmp, id_album: null }
     methods:  [GET]
 creativer_front_favoritTmp:
     path:     /favorit_tmp

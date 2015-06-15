@@ -1,0 +1,157 @@
+{% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
+    <div class="row">
+        <div class="col-sm-4 padding-left_0">
+            <div class="user__avatar-border">
+                <label class="user__avatar edit__avatar">
+                    <img src="[[ user.avatar.img ]]" />
+                    <input type="file" id="fileInput" style="display: none;" />
+                </label>
+            </div>
+        </div>
+
+        <div class="col-sm-8 user__text">
+            <div class="row col-sm-12 padding-left_0">
+                <input class="text_info margin-top_20" ng-blur="saveField($event,'status')" obj="user" value="[[ user.status ]]" placeholder="Статус" disabled>
+                <span class="glyphicon glyphicon-pencil edit" edit-pain="status"></span>
+            </div>
+            <div class="row col-sm-12 padding-left_0">
+                <div class="margin-top_20">
+                    <span class="left gelocation_icon"></span>
+                    <input class="text_info gelocation_icon__text_info" ng-blur="saveField($event,'position')" obj="user" value="[[ user.position ]]" placeholder="Местоположение" disabled>
+                </div>
+                <span class="glyphicon glyphicon-pencil edit" edit-pain="position"></span>
+            </div>
+        </div>
+    </div>
+{% elseif(id != app.security.getToken().getUser().getId()) %}
+    <div class="row">
+        <div class="col-sm-5 padding-left_0">
+            <div class="user__avatar-border">
+                <div class="user__avatar"><img src="[[ user.avatar.img ]]" /></div>
+            </div>
+        </div>
+        <div class="col-sm-7 user__text">
+            <div class="row col-sm-12 margin-top_10 padding-left_0">
+                <div class="text_info gelocation_icon__text_info" >[[ user.status ]]</div>
+            </div>
+            <div class="row col-sm-12 margin-top_10 padding-left_0">
+                <div class="text_info gelocation_icon__text_info" >[[ user.position ]]</div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% if((id != app.security.getToken().getUser().getId()) or (id == null) ) and  is_granted('ROLE_USER') %}
+    <div  class="margin-top_20">
+        <button class="button_message fs_0-9 margin-left_10" ng-click="savePost(user.wall.id)"><span class="glyphicon glyphicon-envelope"></span> Сообщение</button>
+        <button class="button_favorites fs_0-9 margin-left_5" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span> Избранное</button>
+        <button class="button_favorites fs_0-9 margin-left_5" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span> Избранное</button>
+    </div>
+{%  endif %}
+
+<div class="row margin-top_20">
+    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-eye-open"></span></div>
+    <div class="col-sm-2 user__text_bold padding-left_0">Просмотры</div>
+    <div class="col-sm-3 col-md-offset-6 user__text_bold">0</div>
+</div>
+<div class="row margin-top_5">
+    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+    <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
+    <div class="col-sm-3 col-md-offset-6 user__text_bold">[[ user.likes ]]</div>
+</div>
+<div class="row margin-top_5">
+    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
+    <div class="col-sm-4 user__text_bold padding-left_0">В избранных у</div>
+    <div class="col-sm-3 col-md-offset-4 user__text_bold">[[ user.favorits_with_me.length ]]</div>
+</div>
+
+{% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
+    <div class="row margin-top_40 col-sm-12 user__text">
+        <div class="text-left user__text_bold">Информация:</div>
+        <input class="text_info" ng-blur="saveField($event,'info')" obj="user" value="[[ user.info ]]" placeholder="Вы ещё не запонили это поле." disabled>
+        <span class="glyphicon glyphicon-pencil edit" edit-pain="info"></span>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text">
+        <div class="text-left user__text_bold">Специализация:</div>
+        <input class="text_info" ng-blur="saveField($event,'specialization')" obj="user" value="[[ user.specialization ]]" placeholder="Вы ещё не запонили это поле." disabled>
+        <span class="glyphicon glyphicon-pencil edit" edit-pain="specialization"></span>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text">
+        <div class="text-left user__text_bold">Работал в:</div>
+        <input class="text_info" ng-blur="saveField($event,'worked')" obj="user" value="[[ user.worked ]]" placeholder="Вы ещё не запонили это поле." disabled>
+        <span class="glyphicon glyphicon-pencil edit" edit-pain="worked"></span>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text">
+        <div class="text-left user__text_bold">Ссылки:</div>
+        <input class="text_info" ng-blur="saveField($event,'links')" obj="user" value="[[ user.links ]]" placeholder="Вы ещё не запонили это поле." disabled>
+        <span class="glyphicon glyphicon-pencil edit" edit-pain="links"></span>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text">
+        <div class="text-left user__text_bold">Контакты:</div>
+        <input class="text_info" ng-blur="saveField($event,'contacts')" obj="user" value="[[ user.contacts ]]" placeholder="Вы ещё не запонили это поле." disabled>
+        <span class="glyphicon glyphicon-pencil edit"  edit-pain="contacts"></span>
+    </div>
+
+    <div class="margin-top_20 col-sm-12 user__text">
+        <div class="row text-left user__text_bold">Избранные:</div>
+
+        <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
+            <div class="user__avatar-mini">
+                <img ng-src="[[ favorit.avatar.img ]]">
+            </div>
+            <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
+            <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
+        </a>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text">
+        <div class="text-left user__text_bold">Присоединился:</div>
+        <time class="text_info" >[[ user.date | date: "dd.MM.yyyy" ]]</time>
+    </div>
+
+{% elseif(id != app.security.getToken().getUser().getId()) %}
+    <div class="row margin-top_40 col-sm-12 user__text" ng-show="user.info">
+        <div class="text-left user__text_bold">Информация:</div>
+        <div class="">[[ user.info ]]</div>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text" ng-show="user.specialization">
+        <div class="text-left user__text_bold">Специализация:</div>
+        <div class="text_info">[[ user.specialization ]]</div>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text" ng-show="user.worked">
+        <div class="text-left user__text_bold">Работал в:</div>
+        <div class="text_info">[[ user.worked ]]</div>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text" ng-show="user.links">
+        <div class="text-left user__text_bold">Ссылки:</div>
+        <div class="text_info">[[ user.links ]]</div>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text" ng-show="user.contacts">
+        <div class="text-left user__text_bold">Контакты:</div>
+        <div class="text_info">[[ user.contacts ]]</div>
+    </div>
+
+    <div class="margin-top_20 col-sm-12 user__text">
+        <div class="row text-left user__text_bold">Избранные:</div>
+        <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
+            <div class="user__avatar-mini">
+                <img ng-src="[[ favorit.avatar.img ]]">
+            </div>
+            <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
+            <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
+        </a>
+    </div>
+
+    <div class="row margin-top_20 col-sm-12 user__text">
+        <div class="text-left user__text_bold">Присоединился:</div>
+        <time class="text_info" >[[ user.date | date: "dd.MM.yyyy" ]]</time>
+    </div>
+{% endif %}

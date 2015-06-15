@@ -21,6 +21,8 @@ framework:
         save_path: null
         gc_maxlifetime: 2592000   # Seconds after which data will be seen
         cookie_lifetime: 2592000   #time in seconds
+        gc_probability: 1
+        gc_divisor: 1
     fragments:       ~
     http_method_override: true
 

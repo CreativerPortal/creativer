@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=1045">
     <title>{% block title %}Welcome!{% endblock %}</title>
     {% block stylesheets %}{% endblock %}
+    <script src="/js/angular.min.js"></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
 <body>
@@ -18,7 +19,7 @@
                 <a href="" class="btn button_header_03 text-left">
                     <span>Соцсеть</span>
                 </a>
-                <a href="" class="btn button_header_05 right">
+                <a href="{{ path('creativer_front_main') }}#/baraholka" class="btn button_header_05 right">
                     <span>Барахолка</span>
                 </a>
             </div>
@@ -114,8 +115,8 @@
 <footer class="footer wrapper">
     <nav class="footer__menu col-sm-12 fiveMinuts">
         <ul>
-            <li><a href="{{ path('person') }}#/">Соцсеть</a></li>
-            <li><a href="">Барахолка</a></li>
+            <li><a href="{{ path('creativer_front_main') }}#/">Соцсеть</a></li>
+            <li><a href="{{ path('creativer_front_main') }}#/baraholka">Барахолка</a></li>
             <li><a href="#">События</a></li>
             <li><a href="">Обратная связь</a></li>
             <li><a href="#">Правовая информация</a></li>

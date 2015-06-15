@@ -80,12 +80,15 @@ body{
 }
 
 .gelocation_icon__text_info{
-    width: 184px;
+    width: 220px;
+}
+
+.text_info{
+    border: 1px dashed transparent;
 }
 
 .text_info:focus{
-    border: 1px dashed gray;
-    border: 1px dashed #827972;
+    border: 1px dashed #827972!important;
     outline: none;
 }
 
@@ -111,11 +114,18 @@ body{
     color: #6096b9;
 }
 
-.user__avatar{
-    width: 125px;
-    height: 125px;
-    overflow: hidden;
+.user__avatar-border{
     border: 1px dashed #696360;
+    width: 128px;
+    height: 128px;
+    border-radius: 100px;
+    padding: 3px;
+}
+
+.user__avatar{
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
     border-radius: 100px;
 }
 

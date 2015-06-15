@@ -14,14 +14,6 @@ body{
     width: 100%;
 }
 
-.user__avatar{
-    width: 125px;
-    height: 125px;
-    overflow: hidden;
-    border: 1px dashed #696360;
-    border-radius: 100px;
-}
-
 .edit__avatar{
     font-family: 'Glyphicons Halflings';
 }

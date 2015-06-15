@@ -17,12 +17,10 @@ use Creativer\FrontBundle\Entity\Role;
 use Creativer\FrontBundle\Entity\Images;
 use Creativer\FrontBundle\Entity\Albums;
 use Creativer\FrontBundle\Entity\Avatar;
-use Creativer\FrontBundle\Entity\Register;
 use Creativer\FrontBundle\Entity\PostBaraholka;
 use Creativer\FrontBundle\Entity\ImagesBaraholka;
 use Creativer\FrontBundle\Entity\PostCategory;
 use Creativer\FrontBundle\Entity\PostCity;
-
 use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
 use Imagine\Imagick;
@@ -37,18 +35,18 @@ class DefaultController extends Controller
     {
         $request = $this->get('request');
 
-        $register = new Register();
+        $form = $this->createFormBuilder(null, array(
+            'data_class' => 'Creativer\FrontBundle\Entity\User',
+                ))->add('username', 'text', array('required'=>false))
+                  ->add('lastname', 'text', array('required'=>false))
+                  ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'Ваш пароль не совпадает',))
+                  ->add('email', 'email', array('required'=>false))
+                  ->getForm();
 
-        $form = $this->createFormBuilder($register)
-            ->add('username', 'text')
-            ->add('lastname', 'text')
-            ->add('password', 'repeated', array('type' => 'password', 'invalid_message' => 'Ваш пароль не совпадает',))
-            ->add('email', 'email')
-            ->add('img', 'hidden')
-            ->getForm();
 
 
         if ($request->getMethod() == 'POST') {
+
             $form->handleRequest($request);
 
             foreach ($form as $child) {
@@ -58,6 +56,7 @@ class DefaultController extends Controller
                     }
                 }
             }
+
 
             if(isset($form->get('password')['first']->getErrors()[0]))
                 $errors[] = $form->get('password')['first']->getErrors()[0]->getMessage();
@@ -89,7 +88,7 @@ class DefaultController extends Controller
 
 
             $em = $this->getDoctrine()->getManager();
-            $role = $em->getRepository('CreativerFrontBundle:Role')->findOneById(2);
+            $role = $em->getRepository('CreativerFrontBundle:Role')->findOneByName('USER');
             $user->addRole($role);
 
             $em->persist($avatar);
@@ -152,7 +151,9 @@ class DefaultController extends Controller
 
     public function createAlbumTmpAction(){
 
-        return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig',  array('id' => $userId));
     }
 
     public function uploadAlbumAction(){
@@ -271,9 +272,15 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:personTmp.html.twig', array('id' => $id));
     }
 
-    public function albumTmpAction(){
+    public function albumTmpAction($id_album){
 
-        return $this->render('CreativerFrontBundle:Default:albumTmp.html.twig', array());
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $album = $em->getRepository("CreativerFrontBundle:Albums")->find($id_album);
+
+        $user_id = $album->getUser()->getId();
+
+        return $this->render('CreativerFrontBundle:Default:albumTmp.html.twig', array('id' => $user_id));
     }
 
     public function baraholkaTmpAction(){
@@ -455,7 +462,9 @@ class DefaultController extends Controller
 
     public function favoritTmpAction(){
 
-        return $this->render('CreativerFrontBundle:Default:favoritTmp.html.twig', array());
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        return $this->render('CreativerFrontBundle:Default:favoritTmp.html.twig', array('id' => $userId));
     }
 
     public function productsTmpAction(){
@@ -479,6 +488,12 @@ class DefaultController extends Controller
 
 
         return $this->render('CreativerFrontBundle:Default:fleamarket.html.twig', array());
+    }
+
+    public function userInfoTmpAction($id){
+
+
+        return $this->render('CreativerFrontBundle:Default:userInfoTmp.html.twig', array('id' => $id));
     }
 
     public function messagesAction(){

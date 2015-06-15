@@ -54,7 +54,10 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             reloadOnSearch: true
         });
         $routeProvider.when('/album/:id_album/:url_img?/:key_img?', {
-            templateUrl: '/album_tmp',
+            templateUrl: function ($stateParams){
+                var url = "/album_tmp/" + $stateParams.id_album;
+                return url;
+            },
             controller: 'albumCtrl',
             reloadOnSearch: true
         });

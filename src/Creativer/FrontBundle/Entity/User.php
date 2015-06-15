@@ -8,12 +8,15 @@ use Doctrine\Common\Collections\ArrayCollection;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
 use JMS\Serializer\Annotation\MaxDepth;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 
 /**
  * @ORM\Entity
  * @ORM\Table(name="app_users")
  * @JMS\ExclusionPolicy("all")
+ * @UniqueEntity(fields="email", message="Такой email уже существует")
  */
 class User implements UserInterface, \Serializable
 {
@@ -30,6 +33,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
+     * @Assert\NotBlank(message="Имя пользователя не может быть пустым")
      */
     private $username;
 
@@ -37,6 +41,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
+     * @Assert\NotBlank(message="Фамилия пользователя не может быть пустым")
      */
     private $lastname;
 
@@ -51,12 +56,15 @@ class User implements UserInterface, \Serializable
 
     /**
      * @ORM\Column(type="string", length=64)
+     * @Assert\NotBlank(message="Пароль не может быть пустым")
      */
     private $password;
 
     /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @JMS\Expose
+     * @Assert\NotBlank(message="Email не может быть пустым")
+     * @Assert\Email()
      */
     private $email;
 

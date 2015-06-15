@@ -81,7 +81,7 @@
 				} else if (window.ActiveXObject) {
 					var xmlHttpCheck = new ActiveXObject("Microsoft.XMLHTTP");
 				}
-				xmlHttpCheck.open('GET', window.polyfilter_scriptpath + 'htc/sepia.htc', true);
+				//xmlHttpCheck.open('GET', window.polyfilter_scriptpath + 'htc/sepia.htc', true);
 				xmlHttpCheck.onreadystatechange = function(){
 					if(xmlHttp.readyState == 4 && xmlHttp.status != 200){
 						alert('The configured path \r\rvar polyfilter_scriptpath = "' + window.polyfilter_scriptpath + '"\r\rseems wrong!\r\rConfigure the polyfill\'s correct absolute(!) script path before referencing the css-filters-polyfill.js, like so:\r\rvar polyfilter_scriptpath = "/js/css-filters-polyfill/";\r\rLeaving IE dead in the water is no option. You damn Mac user... ;)');

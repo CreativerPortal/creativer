@@ -270,3 +270,8 @@ div:focus{
     display: block;
     opacity:0;
 }
+
+a:focus{
+    color: #ffffff!important;
+    text-decoration: none;
+}
