@@ -135,7 +135,7 @@ app.directive('editPain', function () {
             })
         }
     }
-}).directive('animationImage', function () {
+    }).directive('animationImage', function () {
     return{
         restrict: 'A',
         // NB: no isolated scope!!
@@ -161,10 +161,7 @@ app.directive('editPain', function () {
                 }
             });
         }
-    }
-
-
-    }).directive('ngThumb', ['$window', function($window) {
+    }}).directive('ngThumb', ['$window', function($window) {
         var helper = {
             support: !!($window.FileReader && $window.CanvasRenderingContext2D),
             isFile: function(item) {
@@ -207,20 +204,66 @@ app.directive('editPain', function () {
                 }
             }
         };
-}]).directive('height__auto', function() {
+    }]).directive('ngThumbperson', ['$window', '$rootScope', function($window, $rootScope) {
+        var helper = {
+            support: !!($window.FileReader && $window.CanvasRenderingContext2D),
+            isFile: function(item) {
+                return angular.isObject(item) && item instanceof $window.File;
+            },
+            isImage: function(file) {
+                var type =  '|' + file.type.slice(file.type.lastIndexOf('/') + 1) + '|';
+                return '|jpg|png|jpeg|bmp|gif|'.indexOf(type) !== -1;
+            }
+        };
+
         return {
             restrict: 'A',
-            link: function (scope, element, attrs) {
-                var height = element.height();
-                if (height < 700) {
-                    console.log("<<,");
-                    angular.element('.button__height').css('display', 'none');
-                } else {
-                    angular.element('.button__height').css('display', 'block');
+            template: '<canvas/>',
+            link: function(scope, element, attributes) {
+                if (!helper.support) return;
+
+                var params = scope.$eval(attributes.ngThumbperson);
+
+                if (!helper.isFile(params.file)) return;
+                if (!helper.isImage(params.file)) return;
+
+                var reader = new FileReader();
+
+                reader.onload = onLoadFile;
+                reader.readAsDataURL(params.file);
+
+
+                function onLoadFile(event) {
+                    var img = new Image();
+                    img.onload = onLoadImage;
+                    img.src = event.target.result;
+                }
+
+
+                //var canvas = element.find('canvas');
+                //$rootScope.canvas.push(canvas);
+
+
+
+                function onLoadImage() {
+                    $rootScope.images.push(this);
                 }
             }
-        }
-});
+        };
+    }]).directive('height__auto', function() {
+            return {
+                restrict: 'A',
+                link: function (scope, element, attrs) {
+                    var height = element.height();
+                    if (height < 700) {
+                        console.log("<<,");
+                        angular.element('.button__height').css('display', 'none');
+                    } else {
+                        angular.element('.button__height').css('display', 'block');
+                    }
+                }
+            }
+    });
 
 
 app.config(function($interpolateProvider) {

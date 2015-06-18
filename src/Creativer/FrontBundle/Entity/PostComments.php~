@@ -84,4 +84,175 @@ class PostComments
     }
 
    
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set user_id
+     *
+     * @param integer $userId
+     * @return PostComments
+     */
+    public function setUserId($userId)
+    {
+        $this->user_id = $userId;
+
+        return $this;
+    }
+
+    /**
+     * Get user_id
+     *
+     * @return integer 
+     */
+    public function getUserId()
+    {
+        return $this->user_id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return PostComments
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Get username
+     *
+     * @return string 
+     */
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     * @return PostComments
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Get lastname
+     *
+     * @return string 
+     */
+    public function getLastname()
+    {
+        return $this->lastname;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return PostComments
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set text
+     *
+     * @param string $text
+     * @return PostComments
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string 
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
+     * @return PostComments
+     */
+    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return \Creativer\FrontBundle\Entity\Avatar 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set post_baraholka
+     *
+     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
+     * @return PostComments
+     */
+    public function setPostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka = null)
+    {
+        $this->post_baraholka = $postBaraholka;
+
+        return $this;
+    }
+
+    /**
+     * Get post_baraholka
+     *
+     * @return \Creativer\FrontBundle\Entity\PostBaraholka 
+     */
+    public function getPostBaraholka()
+    {
+        return $this->post_baraholka;
+    }
 }

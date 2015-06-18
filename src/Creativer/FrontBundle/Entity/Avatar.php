@@ -34,7 +34,9 @@ class Avatar
     /**
      * @JMS\Expose
      * @ORM\OneToOne(targetEntity="User", mappedBy="avatar")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\MaxDepth(2)
      */
     private $user;
 
@@ -53,7 +55,7 @@ class Avatar
 
     }
 
-
+    
 
     /**
      * Get id

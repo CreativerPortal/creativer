@@ -85,6 +85,8 @@ class DefaultController extends Controller
             $user->setPassword($password);
             $user->setWall($wall);
             $wall->setUser($user);
+            $avatar->setUser($user);
+
 
 
             $em = $this->getDoctrine()->getManager();

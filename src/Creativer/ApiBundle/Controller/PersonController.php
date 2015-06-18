@@ -303,6 +303,28 @@ class PersonController extends Controller
 
     /**
      * @return array
+     * @Post("/v1/remove_post")
+     * @View()
+     */
+    public function removePostAction()
+    {
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $post_id = $this->get('request')->request->get('post_id');
+
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Post')->find($post_id);
+
+
+
+        $em->flush();
+
+
+        return array('image' => $image);
+    }
+
+    /**
+     * @return array
      * @Post("/v1/add_favorits")
      * @View()
      */

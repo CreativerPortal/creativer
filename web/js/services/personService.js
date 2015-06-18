@@ -61,6 +61,17 @@
                         data: data
                     });
                 },
+                removePost: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_post',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 saveField: function (data) {
                     return $http({
                         method: 'POST',

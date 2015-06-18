@@ -191,7 +191,7 @@ class User implements UserInterface, \Serializable
      * @JMS\Type("Creativer\FrontBundle\Entity\Wall")
      * @ORM\OneToOne(targetEntity="Wall", mappedBy="user")
      * @JMS\Groups({"getUser"})
-     * @JMS\MaxDepth(6)
+     * @JMS\MaxDepth(8)
      */
     private $wall;
 
