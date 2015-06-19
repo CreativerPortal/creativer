@@ -4,6 +4,9 @@ services:
         arguments: ["@session", "@security.context", "@router", %session_max_idle_time%]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    session_handler_redis:
+        class: Creativer\FrontBundle\Handler\NativeRedisSessionHandler
+        arguments:    ["%session_handler_redis_save_path%"]
     my_service:
         class: Creativer\FrontBundle\Services\ImageServices
         arguments: ['@service_container']

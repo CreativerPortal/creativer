@@ -18,11 +18,9 @@ framework:
     default_locale:  "%locale%"
     trusted_proxies: ~
     session:
-        save_path: null
         gc_maxlifetime: 2592000   # Seconds after which data will be seen
         cookie_lifetime: 2592000   #time in seconds
-        gc_probability: 1
-        gc_divisor: 1
+        handler_id: session_handler_redis
     fragments:       ~
     http_method_override: true
 
@@ -72,6 +70,8 @@ doctrine:
         entity_managers:
             default:
                 auto_mapping: true
+                metadata_cache_driver: redis
+                query_cache_driver: redis
                 mappings:
                     gedmo_translatable:
                         type: annotation
@@ -127,6 +127,7 @@ parameters:
     path_img_baraholka_thums: "/home/baraholka/thums/"
     path_img_baraholka_original: "/home/baraholka/original/"
     session_max_idle_time: 1800
+    session_handler_redis_save_path: "tcp://localhost:6379"
 
 knp_paginator:
     page_range: 4                      # default page range used in pagination control
@@ -145,3 +146,26 @@ snc_redis:
             type: predis
             alias: default
             dsn: redis://localhost
+        session:
+            type: predis
+            alias: session
+            dsn: redis://localhost
+        doctrine:
+            type: predis
+            alias: doctrine
+            dsn: redis://localhost
+    session:
+        client: session
+        prefix: session:main
+        use_as_default: true
+    doctrine:
+        metadata_cache:
+            client: doctrine
+            entity_manager: default          # the name of your entity_manager connection
+            document_manager: default        # the name of your document_manager connection
+        result_cache:
+            client: doctrine
+            entity_manager: [default, read]  # you may specify multiple entity_managers
+        query_cache:
+            client: doctrine
+            entity_manager: default

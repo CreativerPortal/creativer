@@ -1,5 +1,4 @@
 <?php
-// src/AppBundle/Entity/User.php
 namespace Creativer\FrontBundle\Handler;
 
 use Symfony\Component\HttpKernel\HttpKernelInterface;
