@@ -9,8 +9,10 @@ framework:
     validation:      { enable_annotations: true }
 
 web_profiler:
-    toolbar: true
+    toolbar:              true
+    position:             bottom
     intercept_redirects: false
+    excluded_ajax_paths:  ^/bundles|^/_wdt
 
 monolog:
     handlers:

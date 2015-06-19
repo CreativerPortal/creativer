@@ -25,10 +25,6 @@ security:
                 login_path: /
                 username_parameter: email
                 password_parameter: password
-                always_use_default_target_path: true
-                default_target_path: /
-                target_path_parameter: _target_path
-                use_referer: false
             logout:
                 path:   /logout
                 target: /

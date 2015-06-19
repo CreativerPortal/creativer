@@ -126,6 +126,7 @@ parameters:
     path_img_album_original: "/home/album/original/"
     path_img_baraholka_thums: "/home/baraholka/thums/"
     path_img_baraholka_original: "/home/baraholka/original/"
+    session_max_idle_time: 1800
 
 knp_paginator:
     page_range: 4                      # default page range used in pagination control

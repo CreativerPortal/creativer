@@ -30,7 +30,7 @@ class CreativerFrontExtension extends Extension
 
     protected function loadValidationConfiguration(ContainerBuilder $container)
     {
-        $yamlMappingFiles = $container->getParameter('validator.mapping.loader.yaml_files_loader.mapping_files');
+        //$yamlMappingFiles = $container->getParameter('validator.mapping.loader.yaml_files_loader.mapping_files');
         $yamlMappingFiles[] = __DIR__.'/../Resources/config/validation.yml';
 
         $container->setParameter('validator.mapping.loader.yaml_files_loader.mapping_files', $yamlMappingFiles);

@@ -24,7 +24,7 @@ class AppKernel extends Kernel
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Snc\RedisBundle\SncRedisBundle(),
-    );
+        );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
             $bundles[] = new Acme\DemoBundle\AcmeDemoBundle();
@@ -39,5 +39,23 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
+    }
+
+    public function getCacheDir()
+    {
+        if ($this->environment == 'dev' || $this->environment == 'prod') {
+            return '/tmp/cache/' . $this->environment;
+        } else {
+            return parent::getCacheDir();
+        }
+    }
+
+    public function getLogDir()
+    {
+        if ($this->environment == 'dev' || $this->environment == 'prod') {
+            return '/tmp/logs/' . $this->environment;
+        } else {
+            return parent::getLogDir();
+        }
     }
 }
