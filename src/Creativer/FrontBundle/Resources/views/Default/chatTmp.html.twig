@@ -1,0 +1,130 @@
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/pages/chat.css">
+    <link rel="stylesheet" href="/css/pages/personal_page.css">
+
+
+    <div class="row slid  padding-right_0" ng-show="user">
+
+        <div class="row">
+            <h3 class="col-sm-5 lobster">Вячеслав Михно</h3>
+            <div class="col-sm-7 margin-top_10">
+                <div class="row">
+
+                    <div class="col-sm-5">
+                        <h4 class="lobster text-gray margin-left_15 left">Диалог</h4><span class="lobster text-gray">&nbsp с</span>
+                        <a class=" fs_0-8 text-underline slid__back-link margin-left_5 text-blue" href="">Marina Kruk</a>
+                    </div>
+
+                    <div class="col-sm-6 col-sm-offset-1">
+                        <a class="text-blue fs_0-9 text-underline slid__back-link margin-left_5 " href="">На мою страницу</a>
+                        <a class="text-blue fs_0-9 text-underline slid__back-link  margin-left_10" href="">Вернуться на страницу</a>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="col-sm-5 user padding-left_0">
+            {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
+        </div>
+
+        <div class="col-sm-7 album">
+
+            <div class="row">
+                <div class="col-sm-2">
+                    <div class="user__avatar-mini"><img src="/src/avatar.jpg"></div>
+                </div>
+
+                <div class="col-sm-7 message-textareas padding-right_0">
+                    <textarea cols="43" rows="5" placeholder=" Введите текст..." class="search__message "></textarea>
+                    <div class="tail_message"></div>
+
+                </div>
+
+                <div class="col-sm-2 ">
+                    <div class="user__avatar-mini left "><img src="/src/avatar.jpg"></div>
+                </div>
+            </div>
+
+            <div class="row horizontal_line">
+                <div class="col-sm-offset-2 col-sm-3">
+                    <span class="glyphicon glyphicon-picture text-blue margin-left_5"></span>
+                    <span class="glyphicon glyphicon-paperclip text-blue margin-left_10"></span>
+                    <span class="glyphicon glyphicon-menu-down text-blue fs_0-8"></span>
+                </div>
+                <div class="col-sm-3 col-sm-offset-2">
+                    <button class="true fs_0-9">Отправить</button>
+                </div>
+
+            </div>
+
+            <div class="row margin-top_15">
+                <div class="col-sm-2">
+                    <div class="user__avatar-mini"><img src="/src/avatar.jpg"></div>
+                </div>
+                <div class="col-sm-10 padding-left_0">
+                    <div class="row">
+                        <div class=" col-sm-6 text-left"><a class="text-blue" href="">Михно Вячеслав</a></div>
+                        <div class="col-sm-5 text-right fs_0-8"><time>2014 июн 12</time></div>
+                    </div>
+                    <div class="text-gray">
+                        <p class="fs_0-8">Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию игрушек из дерева своими руками. В основе серии Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию ...</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row margin-top_15">
+                <div class="col-sm-2">
+                    <div class="user__avatar-mini"><img src="/src/avatar.jpg"></div>
+                </div>
+                <div class="col-sm-10 padding-left_0">
+                    <div class="row">
+                        <div class=" col-sm-6 text-left"><a class="text-blue" href="">Михно Вячеслав</a></div>
+                        <div class="col-sm-5 text-right fs_0-8"><time>2014 июн 12</time></div>
+                    </div>
+                    <div class="text-gray">
+                        <p class="fs_0-8">Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию игрушек из дерева своими руками. В основе серии Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию ...</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row margin-top_15">
+                <div class="col-sm-2">
+                    <div class="user__avatar-mini"><img src="/src/avatar.jpg"></div>
+                </div>
+                <div class="col-sm-10 padding-left_0">
+                    <div class="row">
+                        <div class=" col-sm-6 text-left"><a class="text-blue" href="">Михно Вячеслав</a></div>
+                        <div class="col-sm-5 text-right fs_0-8"><time>2014 июн 12</time></div>
+                    </div>
+                    <div class="text-gray">
+                        <p class="fs_0-8">Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию игрушек из дерева своими руками. В основе серии Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию ...</p>
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="row margin-left_30 margin-top_10">
+                <div class="col-sm-5 early_message early-message text-center  margin-left_30">
+                    <span>Ранние сообщения</span>
+                </div>
+
+                <div class="col-sm-5 slid__all__folder button_gray_message text-center fs_0-8 right">
+                    <span class="glyphicon glyphicon-folder-open"></span>&nbsp; Папки &nbsp;<span class="glyphicon glyphicon-menu-down"></span>
+                </div>
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+{% endblock %}
