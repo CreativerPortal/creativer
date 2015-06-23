@@ -3,6 +3,7 @@
     <link rel="stylesheet" href="/css/pages/personal_page.css">
 
 
+
     <div class="row slid  padding-right_0" ng-show="user">
 
         <div class="row">
@@ -12,7 +13,7 @@
 
                     <div class="col-sm-5">
                         <h4 class="lobster text-gray margin-left_15 left">Диалог</h4><span class="lobster text-gray">&nbsp с</span>
-                        <a class=" fs_0-8 text-underline slid__back-link margin-left_5 text-blue" href="">Marina Kruk</a>
+                        <a class=" fs_0-8 text-underline slid__back-link margin-left_5 text-blue" href="#/[[ chat_user.id ]]">[[ chat_user.username ]] [[ chat_user.lastname ]]</a>
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-1">
@@ -34,17 +35,17 @@
 
             <div class="row">
                 <div class="col-sm-2">
-                    <div class="user__avatar-mini"><img src="/src/avatar.jpg"></div>
+                    <div class="user__avatar-mini"><img ng-src="[[ user.avatar.img ]]"></div>
                 </div>
 
                 <div class="col-sm-7 message-textareas padding-right_0">
-                    <textarea cols="43" rows="5" placeholder=" Введите текст..." class="search__message "></textarea>
+                    <textarea cols="43" rows="5" placeholder=" Введите текст..." class="search__message " ng-init="text_message" ng-model="text_message"></textarea>
                     <div class="tail_message"></div>
 
                 </div>
 
                 <div class="col-sm-2 ">
-                    <div class="user__avatar-mini left "><img src="/src/avatar.jpg"></div>
+                    <div class="user__avatar-mini left "><img ng-src="[[ chat_user.avatar.img ]]"></div>
                 </div>
             </div>
 
@@ -55,61 +56,36 @@
                     <span class="glyphicon glyphicon-menu-down text-blue fs_0-8"></span>
                 </div>
                 <div class="col-sm-3 col-sm-offset-2">
-                    <button class="true fs_0-9">Отправить</button>
+                    <button class="true fs_0-9" ng-click="send_message(text_message)">Отправить</button>
                 </div>
 
             </div>
 
-            <div class="row margin-top_15">
+            <div class="row margin-top_15" ng-repeat="message in messages">
                 <div class="col-sm-2">
-                    <div class="user__avatar-mini"><img src="/src/avatar.jpg"></div>
+                    <div class="user__avatar-mini">
+                        <img ng-if="user.id == message.id_user" ng-src="[[ user.avatar.img ]]">
+                        <img ng-if="chat_user.id == message.id_user" ng-src="[[ chat_user.avatar.img ]]">
+                    </div>
                 </div>
                 <div class="col-sm-10 padding-left_0">
                     <div class="row">
-                        <div class=" col-sm-6 text-left"><a class="text-blue" href="">Михно Вячеслав</a></div>
-                        <div class="col-sm-5 text-right fs_0-8"><time>2014 июн 12</time></div>
+                        <div class=" col-sm-6 text-left">
+                            <a ng-if="user.id == message.id_user" ng-href="#/[[ user.id ]]" class="text-blue" href="">[[ user.username ]] [[ user.lastname ]]</a>
+                            <a ng-if="chat_user.id == message.id_user" ng-href="#/[[ chat_user.id ]]" class="text-blue" href="">[[ chat_user.username ]] [[ chat_user.lastname ]]</a>
+                        </div>
+
+                        <div class="col-sm-6 text-right fs_0-8"><time>2014 июн 12</time></div>
                     </div>
                     <div class="text-gray">
-                        <p class="fs_0-8">Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию игрушек из дерева своими руками. В основе серии Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию ...</p>
+                        <p ng-if="user.id == message.id_user" class="fs_0-8">[[ message.text ]]</p>
+                        <p ng-if="chat_user.id == message.id_user" class="fs_0-8">[[ message.text ]]</p>
                     </div>
 
                 </div>
 
             </div>
 
-            <div class="row margin-top_15">
-                <div class="col-sm-2">
-                    <div class="user__avatar-mini"><img src="/src/avatar.jpg"></div>
-                </div>
-                <div class="col-sm-10 padding-left_0">
-                    <div class="row">
-                        <div class=" col-sm-6 text-left"><a class="text-blue" href="">Михно Вячеслав</a></div>
-                        <div class="col-sm-5 text-right fs_0-8"><time>2014 июн 12</time></div>
-                    </div>
-                    <div class="text-gray">
-                        <p class="fs_0-8">Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию игрушек из дерева своими руками. В основе серии Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию ...</p>
-                    </div>
-
-                </div>
-
-            </div>
-
-            <div class="row margin-top_15">
-                <div class="col-sm-2">
-                    <div class="user__avatar-mini"><img src="/src/avatar.jpg"></div>
-                </div>
-                <div class="col-sm-10 padding-left_0">
-                    <div class="row">
-                        <div class=" col-sm-6 text-left"><a class="text-blue" href="">Михно Вячеслав</a></div>
-                        <div class="col-sm-5 text-right fs_0-8"><time>2014 июн 12</time></div>
-                    </div>
-                    <div class="text-gray">
-                        <p class="fs_0-8">Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию игрушек из дерева своими руками. В основе серии Ребятушки, в четверг 28 июля начинается цикл мастерклассов по созданию ...</p>
-                    </div>
-
-                </div>
-
-            </div>
 
             <div class="row margin-left_30 margin-top_10">
                 <div class="col-sm-5 early_message early-message text-center  margin-left_30">
@@ -127,4 +103,3 @@
 
     </div>
 
-{% endblock %}

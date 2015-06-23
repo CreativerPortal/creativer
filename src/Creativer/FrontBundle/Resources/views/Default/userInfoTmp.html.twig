@@ -43,7 +43,7 @@
 
 {% if((id != app.security.getToken().getUser().getId()) or (id == null) ) and  is_granted('ROLE_USER') %}
     <div  class="margin-top_20">
-        <button class="button_message fs_0-9 margin-left_10" ng-click="savePost(user.wall.id)"><span class="glyphicon glyphicon-envelope"></span> Сообщение</button>
+        <button class="button_message fs_0-9 margin-left_10"><a href="#/chat/[[ user.id ]]"><span class="glyphicon glyphicon-envelope"></span> Сообщение</a></button>
         <button class="button_favorites fs_0-9 margin-left_5" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span> Избранное</button>
         <button class="button_favorites fs_0-9 margin-left_5" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span> Избранное</button>
     </div>

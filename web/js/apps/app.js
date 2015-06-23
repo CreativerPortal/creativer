@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'monospaced.elastic', 'ngAnimate'])
+var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'monospaced.elastic', 'ngAnimate'])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.when('/create_album', {
             templateUrl: '/create_album',
@@ -8,6 +8,11 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         $routeProvider.when('/', {
             templateUrl: '/main_tmp',
             controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/feedback', {
+            templateUrl: '/feedback_tmp',
+            controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/products/:id_products?/:page?', {
@@ -43,6 +48,16 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         $routeProvider.when('/fleamarketposting', {
             templateUrl: '/fleamarketposting_tmp',
             controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/messages', {
+            templateUrl: '/messages_tmp',
+            controller: 'messagesCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/chat/:id_user_chat', {
+            templateUrl: '/chat_tmp',
+            controller: 'messagesCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/:id', {
@@ -279,4 +294,5 @@ app.run(function($rootScope, $templateCache) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
         $templateCache.remove('/fleamarketposting_tmp');
     });
+
 });

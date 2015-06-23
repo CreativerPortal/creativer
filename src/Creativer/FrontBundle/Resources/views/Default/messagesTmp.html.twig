@@ -1,8 +1,10 @@
     <link rel="stylesheet" href="/css/button.css">
     <link rel="stylesheet" href="/css/pages/messages.css">
+    <link rel="stylesheet" href="/css/pages/personal_page.css">
 
 
-    <div class="row slid  padding-right_0">
+
+    <div class="row slid  padding-right_0" ng-show="user">
 
         <div class="row">
             <h3 class="col-sm-5 lobster">Вячеслав Михно</h3>
@@ -20,81 +22,7 @@
         </div>
 
         <div class="col-sm-5 user padding-left_0">
-            <div class="row">
-                <div class="col-sm-5 padding-left_0">
-                    <div class="user__avatar"><img src="/src/avatar.jpg" /></div>
-                </div>
-                <div class="col-sm-7 user__text">
-                    <div class="row col-sm-12 margin-top_10 padding-left_0">
-                        Иллюстрация, веб-дизайн, деиские книги, игры
-                        <span class="glyphicon glyphicon-pencil edit"></span>
-                    </div>
-                    <div class="row col-sm-12 margin-top_10 padding-left_0">
-                        <span class="glyphicon glyphicon-map-marker" aria-hidden="true"></span>
-                        Минск, Беларусь <br>
-                        https://vk.com/slaqyui
-                        <span class="glyphicon glyphicon-pencil edit"></span>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="row margin-top_20">
-                <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-eye-open"></span></div>
-                <div class="col-sm-2 user__text_bold padding-left_0">Просмотры</div>
-                <div class="col-sm-3 col-md-offset-6 user__text_bold">423</div>
-            </div>
-
-            <div class="row margin-top_5">
-                <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
-                <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
-                <div class="col-sm-3 col-md-offset-6 user__text_bold">23</div>
-            </div>
-
-            <div class="row margin-top_5">
-                <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
-                <div class="col-sm-2 user__text_bold padding-left_0">Избранные</div>
-                <div class="col-sm-3 col-md-offset-6 user__text_bold">1233</div>
-            </div>
-
-            <div class="row margin-top_40 col-sm-12 user__text">
-                <div class="text-left user__text_bold">Информация:</div>
-                Коротко о себе, чем занимаюсь, что люблю, как работаю, чем увлечена, чем отличаюсь.
-                <span class="glyphicon glyphicon-pencil edit"></span>
-            </div>
-
-            <div class="row margin-top_20 col-sm-12 user__text">
-                <div class="text-left user__text_bold">Специализация:</div>
-                Иллюстрация, веб-дизайн.
-                <span class="glyphicon glyphicon-pencil edit"></span>
-            </div>
-
-            <div class="row margin-top_20 col-sm-12 user__text">
-                <div class="text-left user__text_bold">Работал в:</div>
-                Иллюстрация, веб-дизайн.
-                <span class="glyphicon glyphicon-pencil edit"></span>
-            </div>
-
-            <div class="row margin-top_20 col-sm-12 user__text">
-                <div class="text-left user__text_bold">Ссылки:</div>
-                Flickr
-                Tumblr
-                Throadlos
-                <span class="glyphicon glyphicon-pencil edit"></span>
-            </div>
-
-            <div class="row margin-top_20 col-sm-12 user__text">
-                <div class="text-left user__text_bold">Контакты:</div>
-                E-mail: slaq@tut.by <br/>
-                Телефон: +375 29 3733666 <br/>
-                <span class="glyphicon glyphicon-pencil edit"></span>
-            </div>
-
-            <div class="row margin-top_20 col-sm-12 user__text">
-                <div class="text-left user__text_bold">Присоединился:</div>
-                <time>21.06.2014</time>
-                <span class="glyphicon glyphicon-pencil edit"></span>
-            </div>
+            {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
         </div>
 
         <div class="col-sm-7 album">

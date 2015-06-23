@@ -9,14 +9,14 @@ body{
 
 
 .wrapper{
-    background-image: url("../../img/side_background.png") !important;
+    background-image: url("/var/www/creativer/web/img/side_background.png") !important;
     -webkit-box-shadow: inset 0px -73px 82px 51px rgba(234,233,227,1);
     -moz-box-shadow: inset 0px -73px 82px 51px rgba(234,233,227,1);
     box-shadow: inset 0px -73px 82px 51px rgba(234,233,227,1);
 }
 
 .form-feedback{
-    background-image: url("../../img/border_mail.png");
+    background-image: url("/var/www/creativer/web/img/border_mail.png");
     width: 402px;
     height: 251px;
     background-position: left;
@@ -58,7 +58,7 @@ label{
 }
 
 textarea{
-    width: 346px;
+    width: 354px;
 }
 
 input, textarea{

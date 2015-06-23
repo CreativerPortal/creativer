@@ -1,5 +1,5 @@
-angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
-    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$animate', 'albumService','$routeParams', 'FileUploader', function($scope,$window,$rootScope,$location,$animate,albumService,$routeParams, FileUploader) {
+angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFileUpload'])
+    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$animate', 'albumService', 'personalService', '$routeParams', 'FileUploader', function($scope,$window,$rootScope,$location,$animate,albumService,personalService,$routeParams, FileUploader) {
 
 
     if($routeParams.id_album && $scope.user){
@@ -8,16 +8,39 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
             if($scope.user.albums[key].id == $routeParams.id_album)
                 bool = true;
         }
-    if(!bool){
-        albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-        })
-    }
+        for(key in $scope.user.favorits_with_me){
+            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                $scope.favorit = true;
+            }else{
+                $scope.favorit = false;
+            }
+        }
+        if(!bool){
+            albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
+                $rootScope.user = $scope.user = data.user;
+                for(key in $scope.user.favorits_with_me){
+                    if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                        $scope.favorit = true;
+                    }else{
+                        $scope.favorit = false;
+                    }
+                }
+            })
+        }
     }else if($routeParams.id_album && !$scope.user){
         albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
+            for(key in $scope.user.favorits_with_me){
+                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                    $scope.favorit = true;
+                }else{
+                    $scope.favorit = false;
+                }
+            }
         })
     }
+
+
 
     $scope.$watch('user', function() {
         if($routeParams.id_album && $scope.user != undefined){
@@ -30,7 +53,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
     });
 
 
-        if($routeParams.id_album){
+    if($routeParams.id_album){
         $scope.id_album = $routeParams.id_album;
     }
     if($routeParams.url_img){
@@ -90,7 +113,34 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload'])
             $scope.user.albums[album_key].likes = data.likes_album;
         });
     }
-    //////////////////////////////////////////////
+
+    $scope.addFavorits = function(id){
+        personalService.addFavorits({id:id}).success(function (data) {
+            $rootScope.user = $scope.user = data.user;
+            $scope.$apply();
+            $scope.favorit = false;
+            for(key in $scope.user.favorits_with_me){
+                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                    $scope.favorit = true;
+                    break;
+                }
+            }
+        });
+    }
+
+    $scope.removeFavorits = function(id){
+        personalService.removeFavorits({id:id}).success(function (data) {
+            $rootScope.user = $scope.user = data.user;
+            $scope.$apply();
+            $scope.favorit = false;
+            for(key in $scope.user.favorits_with_me){
+                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                    $scope.favorit = true;
+                    break;
+                }
+            }
+        });
+    }
 
 
 }]);

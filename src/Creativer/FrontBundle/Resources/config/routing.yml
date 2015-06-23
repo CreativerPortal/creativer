@@ -60,6 +60,21 @@ creativer_viewtopicTmp:
     host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:viewtopicTmp }
     methods:  [GET]
+creativer_messagesTmp:
+    path:     /messages_tmp
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:messagesTmp }
+    methods:  [GET]
+creativer_chatTmp:
+    path:     /chat_tmp
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:chatTmp }
+    methods:  [GET]
+creativer_feedbackTmp:
+    path:     /feedback_tmp
+    host:     creativer.by.my
+    defaults: { _controller: CreativerFrontBundle:Default:feedbackTmp }
+    methods:  [GET]
 creativer_createPostBaraholka:
     path:     /createPostBaraholka
     host:     creativer.by.my

@@ -460,6 +460,11 @@
 	color: #ffffff;
 }
 
+.button_message a{
+	color: white;
+	text-decoration: none;
+}
+
 .early_message{
 	background-position: 0 -71px ;
 	width: 179px;

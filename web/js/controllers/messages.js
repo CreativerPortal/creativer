@@ -1,11 +1,10 @@
-angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
-    .controller('personCtrl',['$scope', '$rootScope', '$location', '$animate', 'personalService','$routeParams', 'FileUploader', function($scope,$rootScope,$location,$animate,personalService,$routeParams, FileUploader) {
+angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
+    .controller('messagesCtrl',['$scope', '$rootScope', '$location', '$animate', 'messagesService','$routeParams', 'FileUploader', 'socket', function($scope,$rootScope,$location,$animate,messagesService,$routeParams, FileUploader, socket) {
 
-    // init controller
 
-    if($routeParams.id !== undefined && !$scope.user || $scope.user == undefined) {
-        $rootScope.user = $scope.user = null;
-        personalService.getUser({id: $routeParams.id}).success(function (data) {
+    if(($scope.user && $scope.user.id != $scope.id_user) || !$scope.user){
+        $scope.user = undefined;
+        messagesService.getUser().success(function (data) {
             $rootScope.user = $scope.user = data.user;
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
@@ -14,172 +13,35 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
                 }
             }
         })
-    //}else if($routeParams.id == undefined){
-    //    $rootScope.user = $scope.user = null;
-    //    personalService.getUser({id: $rootScope.id_user}).success(function (data) {
-    //        $rootScope.user = $scope.user = data.user;
-    //        $scope.favorit = false;
-    //        for(key in $scope.user.favorits_with_me){
-    //            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-    //                $scope.favorit = true;
-    //            }
-    //        }
-    //    })
-    }else if($rootScope.id_user && $rootScope.user.id && $rootScope.id_user != $rootScope.user.id){
-        $rootScope.user = $scope.user = null;
-        personalService.getUser({id: $routeParams.id}).success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-            $scope.favorit = false;
-            for(key in $scope.user.favorits_with_me){
-                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                    $scope.favorit = true;
-                }
-            }
+
+        messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
+            $scope.chat_user = data.user;
+
         })
-    }else if($scope.user && $routeParams.id  && $routeParams.id != $scope.user.id) {
-        $rootScope.user = $scope.user = null;
-        personalService.getUser({id: $routeParams.id}).success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-            $scope.favorit = false;
-            for(key in $scope.user.favorits_with_me){
-                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                    $scope.favorit = true;
-                }
-            }
-        })
-    }else if($scope.user){
-        $scope.favorit = false;
-        for(key in $scope.user.favorits_with_me){
-            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                $scope.favorit = true;
-            }
+    }
+
+    $scope.$watchGroup(['user','chat_user'], function() {
+        if($scope.chat_user && $scope.user){
+            $scope.ids = [$scope.chat_user.id,$scope.user.id];
+            $scope.ids = $scope.ids.sort();
+            socket.emit("history",$scope.ids);
         }
-    }
+    });
+
+    socket.on("history", function(data) {
+        $scope.messages = data.messages;
+    });
 
 
 
-    if($routeParams.id_album && $scope.user){
-        var bool = false;
-        for(key in $scope.user.albums){
-            if($scope.user.albums[key].id == $routeParams.id_album)
-                bool = true;
+    socket.on('message', function(data){
+        $scope.messages.push(data)
+    });
+
+    $scope.send_message = function(text){
+        if(text != '' && $scope.ids && $scope.user){
+            socket.emit('message', {ids: $scope.ids, id_user: $scope.user.id, text: text});
         }
-    if(!bool){
-        personalService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-            $scope.$apply(function () {
-                $scope.user = data.user;
-            });
-        })
-    }
-    }else if($routeParams.id_album && !$scope.user){
-        personalService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-            $scope.$apply(function () {
-                $scope.user = data.user;
-            });
-        })
-    }
-
-
-
-
-
-
-
-    if($routeParams.id_album && $scope.user != undefined){
-        for(var key in $scope.user.albums){
-            if($scope.user.albums[key].id == $routeParams.id_album){
-                $scope.id = key;
-            }
-        }
-    }
-    if($routeParams.id_album){
-        $scope.id_album = $routeParams.id_album;
-    }
-    if($routeParams.url_img){
-        $scope.url_img = $routeParams.url_img;
-    }
-    if($routeParams.key_img){
-        $scope.key_img = $routeParams.key_img;
-        $scope.next_key_img = parseInt($routeParams.key_img)+1;
-        $scope.previous = parseInt($routeParams.key_img)-1;
-        $animate.enabled(false);
-    }else{
-        $animate.enabled(true);
-    }
-
-    $scope.math = window.Math;
-
-
-    $scope.savePost = function(wall,wall_id, text){
-        var username = $rootScope.username;
-        var lastname = $rootScope.lastname;
-        var img = $rootScope.avatar;
-        wall.posts.unshift({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
-        personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {
-            $scope.text_post = '';
-            $scope.user = data.user;
-        });
-    }
-
-    $scope.saveComment = function(post, post_id, text){
-        var username = $rootScope.username;
-        var lastname = $rootScope.lastname;
-        var img = $rootScope.img;
-        post.comments.push({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
-        personalService.saveComment({post_id:post_id,text:text,id: $routeParams.id}).success(function (data) {
-            $scope.user = data.user;
-        });
-    }
-
-    $scope.saveField = function(event,field){
-        var text = angular.element(event.target).val();
-        var json = {};
-        json[field] = text;
-
-        var result = JSON.stringify(json, '', 1);
-
-        personalService.saveField(result).success(function (data) {
-            $scope.user = data.user;
-        });
-    }
-
-    $scope.addFavorits = function(id){
-        personalService.addFavorits({id:id}).success(function (data) {
-            $scope.user = data.user;
-                $scope.favorit = false;
-                for(key in $scope.user.favorits_with_me){
-                    if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                        $scope.favorit = true;
-                        break;
-                    }
-                }
-        });
-    }
-
-    $scope.removeFavorits = function(id){
-        personalService.removeFavorits({id:id}).success(function (data) {
-            $scope.user = data.user;
-                $scope.favorit = false;
-                for(key in $scope.user.favorits_with_me){
-                    if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                        $scope.favorit = true;
-                        break;
-                    }
-                }
-        });
-    }
-
-    $scope.updateAvatar = function(image){
-        personalService.updateAvatar({img:image}).success(function (data) {
-            $scope.user = data.user;
-            $rootScope.avatar = $scope.user.avatar.img;
-        });
-    }
-
-    $scope.removePost = function(post_id){
-        personalService.removePost({post_id:post_id}).success(function (data) {
-
-        });
     }
 
     $scope.$on('$routeChangeStart', function(next, current) {
@@ -301,7 +163,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
         for(item in $scope.selectedItem){
             selectCategories.push($scope.selectedItem[item].id);
         }
-        personalService.finishUpload({name:name_album,selectCategories:selectCategories,description:description_album}).success(function () {
+        messagesService.finishUpload({name:name_album,selectCategories:selectCategories,description:description_album}).success(function () {
             $rootScope.user = undefined;
             $location.path("/#/person");
         });
@@ -344,42 +206,5 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
         angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
 
 
-
-        ////////////////////////////////////////////////////
-
-
-        personalService.getAllCategories().success(function (data) {
-
-
-            $scope.data = data.categories;
-
-
-        $scope.selectOnly1Or2 = function(item, selectedItems) {
-            if (selectedItems  !== undefined && selectedItems.length >= 20) {
-                return false;
-            } else {
-                return true;
-            }
-        };
-
-        //    $scope.switchViewCallback = function(scopeObj) {
-        //
-        //    if (scopeObj.switchViewLabel == 'test2') {
-        //        scopeObj.switchViewLabel = 'test1';
-        //        scopeObj.inputModel = data1;
-        //        scopeObj.selectOnlyLeafs = true;
-        //    } else {
-        //        scopeObj.switchViewLabel = 'test2';
-        //        scopeObj.inputModel = data3;
-        //        scopeObj.selectOnlyLeafs = false;
-        //    }
-        //}
-
-        });
-
-
-
-
-}]);
-
+    }]);
 

@@ -2,6 +2,7 @@
 .vagrant
 .gitattributes
 node_modules
+/chat/node_modules
 app_dev/vendor
 puphpet
 Vagrantfile

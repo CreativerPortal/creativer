@@ -18,7 +18,6 @@ framework:
     default_locale:  "%locale%"
     trusted_proxies: ~
     session:
-        gc_maxlifetime: 2592000   # Seconds after which data will be seen
         cookie_lifetime: 2592000   #time in seconds
         handler_id: session_handler_redis
     fragments:       ~

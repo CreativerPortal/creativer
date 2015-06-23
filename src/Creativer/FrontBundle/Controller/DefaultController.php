@@ -480,6 +480,20 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:servicesTmp.html.twig', array());
     }
 
+    public function messagesTmpAction(){
+
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        return $this->render('CreativerFrontBundle:Default:messagesTmp.html.twig', array('id' => $userId));
+    }
+
+    public function chatTmpAction(){
+
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        return $this->render('CreativerFrontBundle:Default:chatTmp.html.twig', array('id' => $userId));
+    }
+
     public function feedbackAction(){
 
 
@@ -492,16 +506,16 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:fleamarket.html.twig', array());
     }
 
+    public function feedbackTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:feedbackTmp.html.twig', array());
+    }
+
     public function userInfoTmpAction($id){
 
 
         return $this->render('CreativerFrontBundle:Default:userInfoTmp.html.twig', array('id' => $id));
-    }
-
-    public function messagesAction(){
-
-
-        return $this->render('CreativerFrontBundle:Default:messages.html.twig', array());
     }
 
     public function redisAction(){

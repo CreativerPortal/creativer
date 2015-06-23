@@ -84,13 +84,6 @@ body{
     color: #6096b9;
 }
 
-.user__avatar{
-    width: 125px;
-    height: 125px;
-    overflow: hidden;
-    border: 1px dashed #696360;
-    border-radius: 100px;
-}
 
 .user__avatar-mini{
     width: 70px;

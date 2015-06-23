@@ -14,17 +14,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
                 }
             }
         })
-    //}else if($routeParams.id == undefined){
-    //    $rootScope.user = $scope.user = null;
-    //    personalService.getUser({id: $rootScope.id_user}).success(function (data) {
-    //        $rootScope.user = $scope.user = data.user;
-    //        $scope.favorit = false;
-    //        for(key in $scope.user.favorits_with_me){
-    //            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-    //                $scope.favorit = true;
-    //            }
-    //        }
-    //    })
     }else if($rootScope.id_user && $rootScope.user.id && $rootScope.id_user != $rootScope.user.id){
         $rootScope.user = $scope.user = null;
         personalService.getUser({id: $routeParams.id}).success(function (data) {
