@@ -19,6 +19,7 @@ framework:
     trusted_proxies: ~
     session:
         cookie_lifetime: 2592000   #time in seconds
+        gc_maxlifetime: 1592000
         handler_id: session_handler_redis
     fragments:       ~
     http_method_override: true

@@ -19,10 +19,9 @@ security:
             anonymous: ~
             provider: our_db_provider
             remember_me:
-                key:      "%secret%"
+                key: divine_office_hub_1234567
                 lifetime: 31536000
                 always_remember_me: true
-                remember_me_parameter: _remember_me
                 path: /
                 domain: ~
             http_basic:

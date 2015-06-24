@@ -24,18 +24,19 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'angul
         if($scope.chat_user && $scope.user){
             $scope.ids = [$scope.chat_user.id,$scope.user.id];
             $scope.ids = $scope.ids.sort();
-            socket.emit("history",$scope.ids);
+            socket.emit("history",{id_user:$scope.user.id, ids:$scope.ids});
         }
     });
 
     socket.on("history", function(data) {
+        console.log(data);
         $scope.messages = data.messages;
     });
 
 
 
     socket.on('message', function(data){
-        $scope.messages.push(data)
+        $scope.messages.unshift({id_user: data.id_user, text: data.text});
     });
 
     $scope.send_message = function(text){

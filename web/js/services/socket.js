@@ -1,6 +1,6 @@
 angular.module('service.socket', [])
     .factory('socket', function ($rootScope) {
-        var socket = io.connect("creativer.by.my:3000");
+        var socket = io.connect("creativer.by.my:3000",{query: 'id_user='+$rootScope.id_user});
         return {
             on: function (eventName, callback) {
                 socket.on(eventName, function () {
