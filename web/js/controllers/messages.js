@@ -1,5 +1,5 @@
 angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
-    .controller('messagesCtrl',['$scope', '$rootScope', '$location', '$animate', 'messagesService','$routeParams', 'FileUploader', 'socket', function($scope,$rootScope,$location,$animate,messagesService,$routeParams, FileUploader, socket) {
+    .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$animate', 'messagesService','$routeParams', 'FileUploader', 'socket', function($window, $scope,$rootScope,$location,$animate,messagesService,$routeParams, FileUploader, socket) {
 
 
     if(($scope.user && $scope.user.id != $scope.id_user) || !$scope.user){
@@ -29,14 +29,13 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'angul
     });
 
     socket.on("history", function(data) {
-        console.log(data);
-        $scope.messages = data.messages;
+        $scope.messages = data;
+        console.log($scope.messages);
     });
 
 
-
     socket.on('message', function(data){
-        $scope.messages.unshift({id_user: data.id_user, text: data.text});
+        $scope.messages.unshift({id_user: data.id_user, text: data.text, date: data.date});
     });
 
     $scope.send_message = function(text){
@@ -44,6 +43,17 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'angul
             socket.emit('message', {ids: $scope.ids, id_user: $scope.user.id, text: text});
         }
     }
+
+
+    $window.onfocus = function(){
+        console.log("focused");
+        socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
+    }
+
+    socket.on("new message", function(data) {
+        $rootScope.new_messages = data;
+        console.log($rootScope.new_messages);
+    });
 
     $scope.$on('$routeChangeStart', function(next, current) {
         if(current.params.id != undefined && current.params.id != next.targetScope.user.id){

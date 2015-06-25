@@ -75,7 +75,7 @@
                             <a ng-if="chat_user.id == message.id_user" ng-href="#/[[ chat_user.id ]]" class="text-blue" href="">[[ chat_user.username ]] [[ chat_user.lastname ]]</a>
                         </div>
 
-                        <div class="col-sm-6 text-right fs_0-8"><time>2014 июн 12</time></div>
+                        <div class="col-sm-6 text-right fs_0-8"><time>[[ message.date | date: "dd.MM.yyyy" ]]</time></div>
                     </div>
                     <div class="text-gray">
                         <p ng-if="user.id == message.id_user" class="fs_0-8">[[ message.text ]]</p>
