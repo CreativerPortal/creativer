@@ -1,9 +1,9 @@
 services:
-    my.handler.session_idle:
-        class: Creativer\FrontBundle\Handler\SessionIdleHandler
-        arguments: ["@session", "@security.context", "@router", %session_max_idle_time%]
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+#    my.handler.session_idle:
+#        class: Creativer\FrontBundle\Handler\SessionIdleHandler
+#        arguments: ["@session", "@security.context", "@router", %session_max_idle_time%]
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
     session_handler_redis:
         class: Creativer\FrontBundle\Handler\NativeRedisSessionHandler
         arguments:    ["%session_handler_redis_save_path%"]

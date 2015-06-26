@@ -43,6 +43,13 @@
     <div ng-model="lastname" ng-init="lastname='{{ app.security.getToken().getUser().getLastname() }}'"></div>
     <div ng-model="img" ng-init="img='{{ app.security.getToken().getUser().getAvatar().getImg() }}'"></div>
 {% endif %}
+
+    <style>
+        html{
+            zoom:0.8;
+        }
+    </style>
+
 <header class="header">
 
     <div class="row">
@@ -148,6 +155,7 @@
 {% else %}
 {% endif %}
     <script src="/js/services/socket.js"></script>
+    <script src="/js/services/chatService.js"></script>
     <script src="/js/angular-file-upload.js"></script>
     <script src="/js/services/personService.js"></script>
     <script src="/js/services/albumService.js"></script>

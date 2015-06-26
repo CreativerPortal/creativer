@@ -1,5 +1,5 @@
-angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
-    .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$animate', 'messagesService','$routeParams', 'FileUploader', 'socket', function($window, $scope,$rootScope,$location,$animate,messagesService,$routeParams, FileUploader, socket) {
+angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'service.chat', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
+    .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', 'messagesService','$routeParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,messagesService,$routeParams, FileUploader, socket, chat) {
 
 
     if(($scope.user && $scope.user.id != $scope.id_user) || !$scope.user){
@@ -30,12 +30,15 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'angul
 
     socket.on("history", function(data) {
         $scope.messages = data;
-        console.log($scope.messages);
     });
 
 
     socket.on('message', function(data){
-        $scope.messages.unshift({id_user: data.id_user, text: data.text, date: data.date});
+        if(data.reviewed == true){
+            $scope.messages.unshift({id_user: data.id_user, text: data.text, date: data.date});
+        }else{
+            $rootScope.new_messages.push(data);
+        }
     });
 
     $scope.send_message = function(text){
@@ -47,13 +50,36 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'angul
 
     $window.onfocus = function(){
         console.log("focused");
-        socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
+        for(var key in $rootScope.new_messages){
+            if($scope.user && $rootScope.new_messages[key].id_recipient == $scope.user.id){
+                console.log("равны 2");
+                socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
+            }
+        }
     }
 
-    socket.on("new message", function(data) {
-        $rootScope.new_messages = data;
-        console.log($rootScope.new_messages);
+
+    socket.on('reviewed', function(data){
+        for(var key in $rootScope.new_messages){
+            console.log($rootScope.new_messages);
+            console.log("////////");
+            console.log(data);
+            if($rootScope.new_messages[key].id_user == data.id_user){
+                $scope.messages.unshift($rootScope.new_messages[key]);
+                $rootScope.new_messages = $rootScope.new_messages.slice(key,1);
+            }
+        }
     });
+
+    //$scope.$watchGroup(['user','new_messages'], function() {
+    //    for(var key in $rootScope.new_messages){
+    //        if($scope.user && $rootScope.new_messages && $rootScope.new_messages[key].id_recipient == $scope.user.id){
+    //            console.log("равны 1");
+    //            socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
+    //        }
+    //    }
+    //});
+
 
     $scope.$on('$routeChangeStart', function(next, current) {
         if(current.params.id != undefined && current.params.id != next.targetScope.user.id){

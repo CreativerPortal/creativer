@@ -1,5 +1,5 @@
-angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload'])
-    .controller('baraholkaCtrl',['$scope', '$rootScope', '$location', '$animate', 'baraholkaService','$routeParams', 'FileUploader', function($scope,$rootScope,$location,$animate,baraholkaService,$routeParams, FileUploader) {
+angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.chat'])
+    .controller('baraholkaCtrl',['$scope', '$rootScope', '$location', 'baraholkaService','$routeParams', 'FileUploader', 'chat', function($scope,$rootScope,$location,baraholkaService,$routeParams, FileUploader, chat) {
 
         $scope.uploader = new FileUploader();
 
@@ -96,6 +96,8 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload'])
         };
 
         angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+
+        chat.init();
 
         $scope.createPostBaraholka = function(){
             var data = {};

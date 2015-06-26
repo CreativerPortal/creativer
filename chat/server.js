@@ -28,8 +28,6 @@ io.on('connection', function(socket){
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
             var id_users = data.ids.sort();
-
-
             collection.find({id_users:id_users}).sort({_id: -1}).limit(10).toArray(function (err, result) {
                 if (err) {
                     console.log(err);
@@ -86,8 +84,25 @@ io.on('connection', function(socket){
     socket.on('reviewed', function (data) {
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
-            console.log('good');
-            collection.update({ id_users: data.ids, messages: {$elemMatch: {reviewed: false}} }, { $set: { "messages.$.reviewed": true } }, false, true);
+            var id_users = data.ids.sort();
+            for(key in data.ids){
+                if(data.ids[0] != data.id_user){
+                    var id_recipient = data.ids[0];
+                }else{
+                    var id_recipient = data.ids[1];
+                }
+            }
+            collection.update({id_users: id_users},{ $set: {reviewed: true}}, { multi: true }, function(err, result) {
+                if (err){
+                    console.log('bad');
+                }else{
+                    socket.emit('reviewed', {id_user: id_recipient});
+                    var id = parseInt(socket.handshake.query.id_user);
+                    collection.find({ id_users: {$in: [id]}, reviewed: false}).toArray(function (err, result) {
+                        socket.emit('new message', result);
+                    })
+                }
+            });
 
         });
 
@@ -96,7 +111,9 @@ io.on('connection', function(socket){
     mongo.connect(db_connect, function (err, db) {
         var collection = db.collection('messages');
         var id = parseInt(socket.handshake.query.id_user);
-        collection.find({ id_users: {$in: [id]}, reviewed: false}).toArray(function (err, result) {
+        console.log(id);
+
+        collection.find({ id_users: {$in: [id]}, reviewed: false}).sort({_id: -1}).toArray(function (err, result) {
             socket.emit('new message', result);
         })
     })

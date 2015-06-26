@@ -1,6 +1,13 @@
-angular.module('app.ctr.catalog', ['service.catalog', 'angularFileUpload'])
-    .controller('catalogCtrl',['$scope', '$rootScope', '$location', '$animate', 'catalogService','$routeParams', 'FileUploader', function($scope,$rootScope,$location,$animate,catalogService,$routeParams, FileUploader) {
+angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.socket', 'service.chat', 'angularFileUpload'])
+    .controller('catalogCtrl',['$scope', '$rootScope', '$location', 'catalogService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($scope,$rootScope,$location,catalogService,personalService,$routeParams, FileUploader, socket, chat) {
 
+    if(!$rootScope.my_user){
+        personalService.getUser().success(function (data) {
+            $rootScope.user = $scope.user = $rootScope.my_user = data.user;
+        })
+    }else{
+        $scope.user = $rootScope.my_user;
+    }
 
 
     if($routeParams.id_products && !$rootScope.products){
@@ -65,8 +72,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'angularFileUpload'])
         })
 
 
-    $animate.enabled(false);
-
+    chat.init();
 
     $scope.math = window.Math;
 

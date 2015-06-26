@@ -7,7 +7,7 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         });
         $routeProvider.when('/', {
             templateUrl: '/main_tmp',
-            controller: 'personCtrl',
+            controller: 'catalogCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/feedback', {
@@ -122,7 +122,7 @@ app.directive('editPain', function () {
             element.on("click", function(el){
                var parent = el.target.parentNode.querySelector('.text_info');
                parent.removeAttribute('disabled');
-               parent.focus();
+               parent.focus();        chat.init();
                parent.onkeypress = function(e){
                     if(e.keyCode==13){ //enter && shift
 
@@ -286,7 +286,7 @@ app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-app.run(function($rootScope, $templateCache) {
+app.run(function($rootScope, $templateCache, $animate) {
     $rootScope.$on('$viewContentLoaded', function() {
         $rootScope.hid = true;
     });
@@ -294,5 +294,7 @@ app.run(function($rootScope, $templateCache) {
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
         $templateCache.remove('/fleamarketposting_tmp');
     });
+
+    $animate.enabled(false);
 
 });

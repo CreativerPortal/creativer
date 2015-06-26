@@ -1,5 +1,5 @@
-angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFileUpload'])
-    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$animate', 'albumService', 'personalService', '$routeParams', 'FileUploader', function($scope,$window,$rootScope,$location,$animate,albumService,personalService,$routeParams, FileUploader) {
+angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFileUpload', 'service.chat'])
+    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'chat', function($scope,$window,$rootScope,$location,albumService,personalService,$routeParams, FileUploader, chat) {
 
 
     if($routeParams.id_album && $scope.user){
@@ -63,9 +63,7 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
         $rootScope.key_img = $routeParams.key_img;
         $scope.next_key_img = parseInt($routeParams.key_img)+1;
         $scope.previous = parseInt($routeParams.key_img)-1;
-        $animate.enabled(false);
     }else{
-        $animate.enabled(true);
         $rootScope.key_img = undefined;
     }
 
@@ -84,8 +82,9 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
         }
     });
 
+    chat.init();
 
-    // end init controller
+        // end init controller
 
 
     $scope.deleteImage = function(image_id,key_img,key_album){

@@ -1,5 +1,5 @@
-angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
-    .controller('personCtrl',['$scope', '$rootScope', '$location', '$animate', 'personalService','$routeParams', 'FileUploader', function($scope,$rootScope,$location,$animate,personalService,$routeParams, FileUploader) {
+angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
+    .controller('personCtrl',['$scope', '$rootScope', '$location', 'personalService','$routeParams', 'FileUploader', 'chat', function($scope,$rootScope,$location,personalService,$routeParams, FileUploader, chat) {
 
     // init controller
 
@@ -71,9 +71,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
 
 
 
-
-
-
     if($routeParams.id_album && $scope.user != undefined){
         for(var key in $scope.user.albums){
             if($scope.user.albums[key].id == $routeParams.id_album){
@@ -91,12 +88,11 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
         $scope.key_img = $routeParams.key_img;
         $scope.next_key_img = parseInt($routeParams.key_img)+1;
         $scope.previous = parseInt($routeParams.key_img)-1;
-        $animate.enabled(false);
-    }else{
-        $animate.enabled(true);
     }
 
-    $scope.math = window.Math;
+
+        chat.init();
+        $scope.math = window.Math;
 
 
     $scope.savePost = function(wall,wall_id, text){
