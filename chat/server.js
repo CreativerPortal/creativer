@@ -2,8 +2,16 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongo = require('mongodb').MongoClient;
+var mysql = require('mysql');
 
 db_connect = "mongodb://127.0.0.1:27017/local";
+
+var connection = mysql.createConnection({
+    host:     'localhost',
+    user:     'slaq',
+    password: 'slaku777',
+    database: 'creativer'
+});
 
 app.get('/', function(req, res){
     res.sendfile('index.html');
@@ -24,6 +32,36 @@ io.on('connection', function(socket){
     }
 
 
+    socket.on('all messages', function (data) {
+        mongo.connect(db_connect, function (err, db) {
+            var collection = db.collection('messages');
+            var id_user = data.id_user;
+            collection.aggregate([ {$match: {id_users: {$in: [id_user]}}}, {$group: {_id: { id_users: "$id_users" }, text: { $last: "$text" }, sender: { $last: "$sender" }}} ], function (err, result) {
+                if (err) {
+                    console.log(err);
+                } else {
+                    var senders = [];
+                    for(var key in result){
+                        senders.push(result[key].sender);
+                    }
+                    connection.connect(function(err) {});
+                    var queryText = "SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ senders.join(',') +")";
+
+                        connection.query(queryText, sends, function(err, rows) {
+                            console.log(rows);
+                            socket.emit('all messages', result);
+                        }
+                    );
+
+                }
+                //Close connection
+                db.close();
+            });
+
+        });
+    })
+
+
     socket.on('history', function (data) {
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
@@ -42,6 +80,8 @@ io.on('connection', function(socket){
 
         });
     })
+
+
 
 
     socket.on('disconnect', function(){
@@ -111,8 +151,6 @@ io.on('connection', function(socket){
     mongo.connect(db_connect, function (err, db) {
         var collection = db.collection('messages');
         var id = parseInt(socket.handshake.query.id_user);
-        console.log(id);
-
         collection.find({ id_users: {$in: [id]}, reviewed: false}).sort({_id: -1}).toArray(function (err, result) {
             socket.emit('new message', result);
         })
