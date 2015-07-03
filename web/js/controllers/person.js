@@ -1,5 +1,5 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
-    .controller('personCtrl',['$scope', '$rootScope', '$location', 'personalService','$routeParams', 'FileUploader', 'chat', function($scope,$rootScope,$location,personalService,$routeParams, FileUploader, chat) {
+    .controller('personCtrl',['$scope', '$rootScope', '$timeout', '$location', 'personalService','$routeParams', 'FileUploader', 'chat', function($scope,$rootScope,$timeout,$location,personalService,$routeParams, FileUploader, chat) {
 
     // init controller
 
@@ -155,9 +155,12 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
     }
 
     $scope.updateAvatar = function(image){
+        $scope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {
             $scope.user = data.user;
             $rootScope.avatar = $scope.user.avatar.img;
+            $scope.myImage = false;
+            $scope.loader = false;
         });
     }
 
@@ -312,25 +315,25 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
 
     // crop image
 
-        $scope.myImage=false;
-        $scope.myCroppedImage=false;
+    $scope.myImage=false;
+    $scope.myCroppedImage=false;
 
-        var handleFileSelect=function(evt) {
-            var file=evt.currentTarget.files[0];
-            var reader = new FileReader();
-            reader.onload = function (evt) {
-                $scope.$apply(function($scope){
-                    $scope.myImage=evt.target.result;
-                });
-            };
-            reader.readAsDataURL(file);
+    var handleFileSelect=function(evt) {
+        var file=evt.currentTarget.files[0];
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            $scope.$apply(function($scope){
+                $scope.myImage=evt.target.result;
+            });
         };
+        reader.readAsDataURL(file);
+    };
 
-        angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+    $timeout(function(){
+        angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+    }, 2000);
 
-
-
-        ////////////////////////////////////////////////////
+    ////////////////////////////////////////////////////
 
 
         personalService.getAllCategories().success(function (data) {

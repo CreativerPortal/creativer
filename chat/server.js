@@ -36,19 +36,33 @@ io.on('connection', function(socket){
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
             var id_user = data.id_user;
-            collection.aggregate([ {$match: {id_users: {$in: [id_user]}}}, {$group: {_id: { id_users: "$id_users" }, text: { $last: "$text" }, sender: { $last: "$sender" }}} ], function (err, result) {
+            collection.aggregate([ {$match: {id_users: {$in: [id_user]}}}, {$group: {_id: { id_users: "$id_users" }, text: { $last: "$text" }, sender: { $last: "$sender" }, reviewed: { $last: "$reviewed" }, date: { $last: "$date" }}} ], function (err, result) {
                 if (err) {
                     console.log(err);
                 } else {
-                    var senders = [];
+                    var companion = [];
                     for(var key in result){
-                        senders.push(result[key].sender);
+                        if(result[key]._id.id_users[0] != data.id_user){
+                            companion.push(result[key]._id.id_users[0]);
+                            result[key].other_user = result[key]._id.id_users[0];
+                        }else{
+                            companion.push(result[key]._id.id_users[1]);
+                            result[key].other_user = result[key]._id.id_users[1];
+                        }
                     }
-                    connection.connect(function(err) {});
-                    var queryText = "SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ senders.join(',') +")";
 
-                        connection.query(queryText, sends, function(err, rows) {
-                            console.log(rows);
+                    connection.connect(function(err) {});
+                    var queryText = "SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")";
+                        connection.query(queryText, companion, function(err, rows) {
+                            for(var row_key in result){
+                                for(var r_key in  rows){
+                                    if(result[row_key].other_user == rows[r_key].id){
+                                        result[row_key].username = rows[r_key].username;
+                                        result[row_key].lastname = rows[r_key].lastname;
+                                        result[row_key].img = rows[r_key].img;
+                                    }
+                                }
+                            }
                             socket.emit('all messages', result);
                         }
                     );
@@ -63,6 +77,7 @@ io.on('connection', function(socket){
 
 
     socket.on('history', function (data) {
+        console.log('history');
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
             var id_users = data.ids.sort();
@@ -96,25 +111,25 @@ io.on('connection', function(socket){
     socket.on('message', function (data) {
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
-            for(key in data.ids){
-                if(data.ids[0] != data.id_user){
-                    var id_recipient = data.ids[0];
-                }else{
-                    var id_recipient = data.ids[1];
-                }
+            if(data.ids[0] != data.sender){
+                var receiver = data.ids[0];
+            }else{
+                var receiver = data.ids[1];
             }
             data.date = new Date();
-            collection.insert({ id_users: data.ids, id_user: data.id_user, id_recipient:id_recipient, text: data.text, reviewed: false, date: data.date }, function (err, o) {
+            collection.insert({ id_users: data.ids, sender: data.sender, receiver: receiver, text: data.text, reviewed: false, date: data.date }, function (err, result) {
                 if (err) { console.warn(err.message); }
-                else { console.log("chat message inserted into db: " + data); }
-            });
+                else {
+                    console.log(result.ops);
+                    for(var key in data.ids){
+                        var id = data.ids[key];
+                        for(var k in sockets[id]){
+                            sockets[id][k].emit('message', result.ops);
+                        }
+                    }
 
-            for(var key in data.ids){
-                var id = data.ids[key];
-                for(var k in sockets[id]){
-                    sockets[id][k].emit('message', data);
                 }
-            }
+            });
 
         });
 

@@ -1,9 +1,26 @@
-angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'service.chat', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
-    .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', 'messagesService','$routeParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,messagesService,$routeParams, FileUploader, socket, chat) {
+angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'service.chat', 'service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
+    .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$routeParams, FileUploader, socket, chat) {
 
 
-    if(($scope.user && $scope.user.id != $scope.id_user) || !$scope.user){
-        $scope.user = undefined;
+    //if(($scope.user && $scope.user.id != $scope.id_user) || !$scope.user){
+    //    $scope.user = undefined;
+    //    messagesService.getUser().success(function (data) {
+    //        $rootScope.user = $scope.user = data.user;
+    //        $scope.favorit = false;
+    //        for(key in $scope.user.favorits_with_me){
+    //            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+    //                $scope.favorit = true;
+    //            }
+    //        }
+    //    })
+    //
+    //    messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
+    //        $scope.companion = data.user;
+    //
+    //    })
+    //}
+
+
         messagesService.getUser().success(function (data) {
             $rootScope.user = $scope.user = data.user;
             $scope.favorit = false;
@@ -15,36 +32,69 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         })
 
         messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
-            $scope.chat_user = data.user;
+            $scope.companion = data.user;
 
         })
-    }
 
-    $scope.$watchGroup(['user','chat_user'], function() {
-        if($scope.chat_user && $scope.user){
-            $scope.ids = [$scope.chat_user.id,$scope.user.id];
+
+    $scope.$watchGroup(['user','companion'], function() {
+
+        if($scope.companion && $scope.user){
+            $scope.ids = [$scope.companion.id,$scope.user.id];
             $scope.ids = $scope.ids.sort();
             socket.emit("history",{id_user:$scope.user.id, ids:$scope.ids});
         }
+
+        if($scope.id_user_chat == undefined && $scope.user != undefined){
+            socket.emit('all messages', {id_user:$scope.user.id});
+        }
     });
 
-    socket.on("history", function(data) {
-        $scope.messages = data;
-    });
+    if(!$routeParams.id_user_chat){
+        socket.on("all messages", function(data) {
+            $scope.messages = data;
+        });
+    }else{
+        socket.on("history", function(data) {
+            $scope.messages = data;
+        });
+    }
+
 
 
     socket.on('message', function(data){
-        if(data.reviewed == true){
-            $scope.messages.unshift({id_user: data.id_user, text: data.text, date: data.date});
+        var data = data[0];
+        if(data.reviewed == false && ($routeParams.id_user_chat == data.sender || $routeParams.id_user_chat == data.receiver)){
+            console.log({id_user: data.sender, text: data.text, date: data.date});
+            $scope.messages.unshift({sender: data.sender, text: data.text, date: data.date});
         }else{
             $rootScope.new_messages.push(data);
         }
     });
 
+    $scope.uncheck = function (event) {
+        if ($scope.previous_checked == event.target.value){
+            $scope.checked = false
+            $scope.previous_checked = undefined;
+        }else{
+            $scope.previous_checked = $scope.checked;
+        }
+    }
+
     $scope.send_message = function(text){
         if(text != '' && $scope.ids && $scope.user){
-            socket.emit('message', {ids: $scope.ids, id_user: $scope.user.id, text: text});
+            socket.emit('message', {ids: $scope.ids, sender: $scope.user.id, text: text});
         }
+    }
+
+    $scope.updateAvatar = function(image){
+        $scope.loader = true;
+        personalService.updateAvatar({img:image}).success(function (data) {
+            $scope.user = $rootScope.user = data.user;
+            $rootScope.avatar = $scope.user.avatar.img;
+            $scope.myImage = false;
+            $scope.loader = false;
+        });
     }
 
 
@@ -58,6 +108,9 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         }
     }
 
+    $scope.go = function ( path ) {
+        $location.path( path );
+    };
 
     socket.on('reviewed', function(data){
         for(var key in $rootScope.new_messages){
@@ -226,21 +279,25 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     // crop image
 
-        $scope.myImage=false;
-        $scope.myCroppedImage=false;
+    $scope.myImage=false;
+    $scope.myCroppedImage=false;
 
-        var handleFileSelect=function(evt) {
-            var file=evt.currentTarget.files[0];
-            var reader = new FileReader();
-            reader.onload = function (evt) {
-                $scope.$apply(function($scope){
-                    $scope.myImage=evt.target.result;
-                });
-            };
-            reader.readAsDataURL(file);
+    var handleFileSelect=function(evt) {
+        var file=evt.currentTarget.files[0];
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            $scope.$apply(function($scope){
+                $scope.myImage=evt.target.result;
+            });
         };
+        reader.readAsDataURL(file);
+    };
 
-        angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+    $timeout(function(){
+        angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+    }, 2000);
+
+    ////////////////////////////////////////////////////
 
 
     }]);

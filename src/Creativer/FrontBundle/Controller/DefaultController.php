@@ -153,6 +153,13 @@ class DefaultController extends Controller
 
     public function createAlbumTmpAction(){
 
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
         return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig',  array('id' => $userId));
@@ -258,7 +265,6 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
     }
 
-
     public function layout_frontAction(){
 
         return $this->render('CreativerFrontBundle::layout_front.html.twig', array());
@@ -324,24 +330,12 @@ class DefaultController extends Controller
 
         $user = $this->get('security.context')->getToken()->getUser();
 
-        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
-            $response = new Response(null, 401);
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        }
-
         return $this->render('CreativerFrontBundle:Default:viewforumTmp.html.twig', array());
     }
 
     public function viewtopicTmpAction(){
 
         $user = $this->get('security.context')->getToken()->getUser();
-
-        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
-            $response = new Response(null, 401);
-            $response->headers->set('Content-Type', 'application/json');
-            return $response;
-        }
 
         return $this->render('CreativerFrontBundle:Default:viewtopicTmp.html.twig', array());
     }
@@ -482,6 +476,13 @@ class DefaultController extends Controller
 
     public function messagesTmpAction(){
 
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
         return $this->render('CreativerFrontBundle:Default:messagesTmp.html.twig', array('id' => $userId));
@@ -489,15 +490,16 @@ class DefaultController extends Controller
 
     public function chatTmpAction(){
 
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
         return $this->render('CreativerFrontBundle:Default:chatTmp.html.twig', array('id' => $userId));
-    }
-
-    public function feedbackAction(){
-
-
-        return $this->render('CreativerFrontBundle:Default:feedback.html.twig', array());
     }
 
     public function fleamarketAction(){
@@ -518,14 +520,5 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:userInfoTmp.html.twig', array('id' => $id));
     }
 
-    public function redisAction(){
-
-        $redis = $this->get('snc_redis.default');
-
-
-        $redis->sadd(12, 'qwe');
-
-        return $this->render('CreativerFrontBundle:Default:messages.html.twig', array());
-    }
 
 }

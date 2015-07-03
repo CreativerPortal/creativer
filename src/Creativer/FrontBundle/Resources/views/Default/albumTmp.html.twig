@@ -25,7 +25,7 @@
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
-                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
+                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>[[ user.albums[album_key].images.slice(0, res)[key].views || 0 ]]</span></div>
                             <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ user.albums[album_key].images.slice(0, res)[key].likes ]]</span></div>
                         </div>
                     </a>
@@ -37,7 +37,7 @@
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
-                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>123</span></div>
+                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span>[[ user.albums[album_key].images.slice(res, res*2)[key].views || 0 ]]</span></div>
                             <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ user.albums[album_key].images.slice(res, res*2)[key].likes ]]</span></div>
                         </div>
                     </a>
@@ -49,7 +49,7 @@
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" /></div>
                         </div>
                         <div class="album__element__view__bottom">
-                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">123</span></div>
+                            <div class="left-info bottom__plus user__text-gray margin-left_10 fs_0-8"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">[[ user.albums[album_key].images.slice(res*2, res*3)[key].views || 0 ]]</span></div>
                             <div class="right-info bottom__plus user__text-gray margin-right_10 fs_0-8"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ user.albums[album_key].images.slice(res*2, res*3)[key].likes ]]</span></div>
                         </div>
                     </a>
@@ -67,7 +67,7 @@
                     <img class="frame" src="/var/www/creativer/web/img/frame.png" />
                     <div class="album__element-block">
                         <a href="#/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
-                        <div class="left-info__album user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">0</span></div>
+                        <div class="left-info__album user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">[[ album.views || 0 ]]</span></div>
                         <div class="right-info__album user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ album.likes ]]</span></div>
                     </div>
                 </div>
@@ -95,7 +95,9 @@
                            </div>
                            <div class="margin-top_10 row">
                                <span class="left user__text">[[ user.albums[album_key].images[next_key_img].text ]]</span>
-                               <span class="text-blue glyphicon glyphicon-heart right pointer" ng-click="like(user.albums[album_key].images[key_img].id,album_key,key_img)">[[ user.albums[album_key].images[key_img].likes ]]</span>
+                               <span class="text-blue glyphicon glyphicon-heart right pointer" ng-click="like(user.albums[album_key].images[key_img].id,album_key,key_img)">
+                                   <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px">[[ user.albums[album_key].images[key_img].likes ]]</span>
+                               </span>
                            </div>
                            <div ng-show="delete" class="user__text">Вы уверены, что хотите удалить это изображение? <span class="text-blue pointer margin-left_10" ng-click="deleteImage(user.albums[album_key].images[key_img].id,key_img,album_key)">Да</span> <span class="text-blue pointer margin-left_10" ng-click="delete = false">Нет</span></div>
                            <div class="horizontal_line"></div>
@@ -138,36 +140,29 @@
             </div>
  </div>
 
-<div ng-show="myImage" class="background__viewer-avatar">
 
+<div ng-show="myImage" class="background__viewer-avatar" style="zoom: reset;">
     <div class="border__viewer-avatar margin-top_100">
         <div class="border__viewer__wrapper-avatar">
-
             <!-- Modal -->
             <div class="cropArea row" style="height: 340px;">
-
-
-                <img-crop class="col-sm-9 border-avatar" image="myImage" result-image="myCroppedImage" result-image-size="120" style="max-height: 100%;"></img-crop>
-                <div class="col-sm-3">
-                    <div class="row col-sm-offset-4 user__avatar padding-left_0 padding-right_0">
-                        <img src="[[ myCroppedImage ]]">
-                        <input type="file" id="fileInput" style="display: none;">
+                <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;"></img-crop>
+                <div class="col-sm-3" style="height: auto; display: block; position: static;">
+                    <div class="user__avatar-border col-sm-offset-4">
+                        <div class="user__avatar">
+                            <img src="[[ myCroppedImage ]]">
+                        </div>
                     </div>
-
-                    <div class="row user__avatar-mini padding-left_0 padding-right_0">
+                    <div class="user__avatar-mini" style="margin-left: 60px;">
                         <img src="[[ myCroppedImage ]]">
+                    </div>
+                    <div class="row right" style="position: absolute; bottom: 0px;">
+                        <div class=""></div>
+                        <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
+                        <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
                     </div>
                 </div>
-
             </div>
-
-            <div class="row margin-top_10 right">
-                <button type="submit" class="true" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
-                <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
-            </div>
-
-
         </div>
     </div>
-
 </div>

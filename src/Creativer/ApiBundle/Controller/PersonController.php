@@ -40,7 +40,6 @@ class PersonController extends Controller
             $array = array('success' => false);
             $response = new Respon(json_encode($array), 401);
             $response->headers->set('Content-Type', 'application/json');
-
             return $response;
         }
 
@@ -85,6 +84,14 @@ class PersonController extends Controller
      */
     public function saveCommentAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
         $data = json_decode($this->get("request")->getContent());
 
 
@@ -126,7 +133,6 @@ class PersonController extends Controller
     public function getImageCommentsAction()
     {
         $data = json_decode($this->get("request")->getContent());
-
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
 
         return array('image_comments' => $image->getImageComments());
@@ -139,12 +145,17 @@ class PersonController extends Controller
      */
     public function saveImageCommentsAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
         $data = json_decode($this->get("request")->getContent());
-
         $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
-
        // die(\Doctrine\Common\Util\Debug::dump($avatar));
-
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
 
         $imageComment = new ImageComments();
@@ -168,6 +179,7 @@ class PersonController extends Controller
      */
     public function getUserAction()
     {
+
         if(!$this->get('request')->request->get('id'))
         {
             $id = $this->get('security.context')->getToken()->getUser()->getId();
@@ -187,6 +199,7 @@ class PersonController extends Controller
                     ->enableMaxDepthChecks()
             );
 
+
         $response = new Respon($user);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
@@ -200,11 +213,16 @@ class PersonController extends Controller
      */
     public function saveFieldAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
 
         $em = $this->getDoctrine()->getManager();
-
         $metadata = $em->getMetadataFactory()->getMetadataFor('Creativer\FrontBundle\Entity\User');
-
         $field = json_decode($this->get("request")->getContent());
 
         $id = $this->get('security.context')->getToken()->getUser()->getId();
@@ -226,6 +244,14 @@ class PersonController extends Controller
      */
     public function finishUploadAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
         $data = json_decode($this->get("request")->getContent());
         $name = isset($data->name)?$data->name:'';
         $description = isset($data->description)?$data->description:'';
@@ -266,9 +292,7 @@ class PersonController extends Controller
     public function getUserByAlbumIdAction()
     {
         $id = $this->get('request')->request->get('id');
-
         $data = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->findBy(array('id'=>$id));
-
         $user = $data[0]->getUser();
 
         return array('user' => $user);
@@ -281,10 +305,16 @@ class PersonController extends Controller
      */
     public function delete_imageAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
         $em = $this->getDoctrine()->getEntityManager();
-
         $image_id = $this->get('request')->request->get('image_id');
-
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findBy(array('id'=>$image_id))[0];
 
@@ -308,10 +338,16 @@ class PersonController extends Controller
      */
     public function removePostAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
         $em = $this->getDoctrine()->getEntityManager();
-
         $post_id = $this->get('request')->request->get('post_id');
-
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Post')->find($post_id);
 
@@ -330,13 +366,17 @@ class PersonController extends Controller
      */
     public function addFavoritsAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
 
         $em = $this->getDoctrine()->getManager();
-
         $data = json_decode($this->get("request")->getContent());
-
         $newFriend = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($data->id);
-
 
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
@@ -358,14 +398,17 @@ class PersonController extends Controller
      */
     public function removeFavoritsAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
 
         $em = $this->getDoctrine()->getManager();
-
         $data = json_decode($this->get("request")->getContent());
-
-
         $oldFriend = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($data->id);
-
 
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
@@ -373,7 +416,6 @@ class PersonController extends Controller
         $user->removeMyFavorit($oldFriend);
 
         $em->flush();
-
 
         return array('user' => $oldFriend);
     }
@@ -385,15 +427,18 @@ class PersonController extends Controller
      */
     public function updateAvatarAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
 
         $em = $this->getDoctrine()->getManager();
-
         $data = json_decode($this->get("request")->getContent());
-
-
         $im = new ImageServices($this->container);
         $img = $im->base64_to_jpeg($data->img);
-
 
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
@@ -418,13 +463,18 @@ class PersonController extends Controller
      */
     public function likeAction()
     {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
         $em = $this->getDoctrine()->getManager();
-
         $image_id = $this->get('request')->request->get('image_id');
-
         $redis = $this->get('snc_redis.default');
         $id = $this->get('security.context')->getToken()->getUser()->getId();
-
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($image_id);
 
         $album = $image->getAlbum();
@@ -449,16 +499,44 @@ class PersonController extends Controller
         }
 
         $likes = count($redis->smembers($image_id));
-
         $image->setLikes($likes);
-
         $em->flush();
-
 
         $response = new Respon(json_encode(array('likes' => $likes, 'likes_album' => $likes_album, 'likes_user' => $likes_user)), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/image_previews")
+     * @View()
+     */
+    public function imagePreviewsAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $image_previews = $this->get('request')->request->get('image_previews');
+        foreach($image_previews as $key => $value){
+            $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($key);
+
+            if($album){
+                $count = count($image_previews[$key]);
+                $viewsAlbum = $album->getViews() + $count;
+                $album->setViews($viewsAlbum);
+                $user = $album->getUser();
+                $viewsUser = $user->getViews()+$count;
+                $user->setViews($viewsUser);
+
+                foreach($value as $v) {
+                    $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->find($v);
+                    $viewsImage = $image->getViews() + 1;
+                    $image->setViews($viewsImage);
+                }
+            }
+        }
+        $em->flush();
     }
 
 

@@ -110,8 +110,6 @@ class Albums
     }
 
 
-
-
     /**
      * Get id
      *
@@ -212,6 +210,29 @@ class Albums
     public function getViews()
     {
         return $this->views;
+    }
+
+    /**
+     * Set likes
+     *
+     * @param integer $likes
+     * @return Albums
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    /**
+     * Get likes
+     *
+     * @return integer 
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 
     /**
@@ -347,28 +368,5 @@ class Albums
     public function getImages()
     {
         return $this->images;
-    }
-
-    /**
-     * Set likes
-     *
-     * @param integer $likes
-     * @return Albums
-     */
-    public function setLikes($likes)
-    {
-        $this->likes = $likes;
-
-        return $this;
-    }
-
-    /**
-     * Get likes
-     *
-     * @return integer 
-     */
-    public function getLikes()
-    {
-        return $this->likes;
     }
 }

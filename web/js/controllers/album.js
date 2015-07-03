@@ -1,5 +1,5 @@
-angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFileUpload', 'service.chat'])
-    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'chat', function($scope,$window,$rootScope,$location,albumService,personalService,$routeParams, FileUploader, chat) {
+angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFileUpload', 'service.chat', 'ngImgCrop',])
+    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$timeout', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'chat', function($scope,$window,$rootScope,$location,$timeout,albumService,personalService,$routeParams, FileUploader, chat) {
 
 
     if($routeParams.id_album && $scope.user){
@@ -49,6 +49,30 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
                     $scope.album_key = key;
                 }
             }
+
+            // get comments for images
+            if($routeParams.key_img && $scope.user){
+                $scope.user.comments = null;
+                albumService.getImageComments({image_id:$scope.user.albums[$scope.album_key].images[$routeParams.key_img].id}).success(function (data) {
+                    $scope.user.comments = data.image_comments;
+                });
+            }
+
+            if(!$rootScope.image_previews){
+                $rootScope.image_previews = [];
+            }
+
+            if($routeParams.id_album && $routeParams.key_img && ($scope.user.id != $rootScope.id_user)){
+                if(!$rootScope.image_previews[$routeParams.id_album]){
+                    $rootScope.image_previews[$routeParams.id_album] = [];
+                }
+                if($rootScope.image_previews.indexOf($scope.user.albums[$scope.album_key].images[$routeParams.key_img].id) == -1){
+                    $rootScope.image_previews[$routeParams.id_album].push($scope.user.albums[$scope.album_key].images[$routeParams.key_img].id);
+                }
+            }
+
+            console.log($rootScope.image_previews);
+
         }
     });
 
@@ -71,24 +95,18 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
     $scope.height = $window.innerHeight-150;
 
 
-    // get comments for image
-    $scope.$watch('user', function() {
-        if($routeParams.key_img && $scope.user){
-            $scope.user.comments = null;
-            albumService.getImageComments({image_id:$scope.user.albums[$scope.id].images[$routeParams.key_img].id}).success(function (data) {
-                    $scope.user.comments = data.image_comments;
-                //console.log($scope.user);
-            });
-        }
-    });
-
     chat.init();
 
         // end init controller
 
 
-    $scope.deleteImage = function(image_id,key_img,key_album){
+    $scope.closeImg = function(){
+        albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
+            $rootScope.image_previews = [];
+        });
+    }
 
+    $scope.deleteImage = function(image_id,key_img,key_album){
         albumService.deleteImage({image_id:image_id}).success(function (data) {
             $scope.user.albums[key_album].images.splice(key_img,1);
             $location.path("/album/"+$routeParams.id_album+'/'+$scope.user.albums[key_album].images[key_img].name+'/'+key_img);
@@ -140,6 +158,38 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
             }
         });
     }
+
+    $scope.updateAvatar = function(image){
+        $scope.loader = true;
+        personalService.updateAvatar({img:image}).success(function (data) {
+            $scope.user = data.user;
+            $rootScope.avatar = $scope.user.avatar.img;
+            $scope.myImage = false;
+            $scope.loader = false;
+        });
+    }
+
+    // crop image
+
+    $scope.myImage=false;
+    $scope.myCroppedImage=false;
+
+    var handleFileSelect=function(evt) {
+        var file=evt.currentTarget.files[0];
+        var reader = new FileReader();
+        reader.onload = function (evt) {
+            $scope.$apply(function($scope){
+                $scope.myImage=evt.target.result;
+            });
+        };
+        reader.readAsDataURL(file);
+    };
+
+    $timeout(function(){
+        angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
+    }, 2000);
+
+    ////////////////////////////////////////////////////
 
 
 }]);

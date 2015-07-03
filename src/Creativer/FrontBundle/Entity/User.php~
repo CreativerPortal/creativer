@@ -77,6 +77,14 @@ class User implements UserInterface, \Serializable
     private $albums;
 
     /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\Folders")
+     * @ORM\OneToMany(targetEntity="Folders", mappedBy="user", fetch="EAGER")
+     * @JMS\Groups({"getUser"})
+     **/
+    private $folders;
+
+    /**
      * @ORM\Column(type="integer", nullable=false)
      * @JMS\Expose
      * @JMS\Groups({"getImageComments", "getUser"})
@@ -264,8 +272,7 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
-
-   
+    
 
     /**
      * Get id
@@ -337,6 +344,29 @@ class User implements UserInterface, \Serializable
     public function getEmail()
     {
         return $this->email;
+    }
+
+    /**
+     * Set likes
+     *
+     * @param integer $likes
+     * @return User
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    /**
+     * Get likes
+     *
+     * @return integer 
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 
     /**
@@ -626,6 +656,39 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Add folders
+     *
+     * @param \Creativer\FrontBundle\Entity\Folders $folders
+     * @return User
+     */
+    public function addFolder(\Creativer\FrontBundle\Entity\Folders $folders)
+    {
+        $this->folders[] = $folders;
+
+        return $this;
+    }
+
+    /**
+     * Remove folders
+     *
+     * @param \Creativer\FrontBundle\Entity\Folders $folders
+     */
+    public function removeFolder(\Creativer\FrontBundle\Entity\Folders $folders)
+    {
+        $this->folders->removeElement($folders);
+    }
+
+    /**
+     * Get folders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
+
+    /**
      * Add favoritsWithMe
      *
      * @param \Creativer\FrontBundle\Entity\User $favoritsWithMe
@@ -735,28 +798,5 @@ class User implements UserInterface, \Serializable
     public function getWall()
     {
         return $this->wall;
-    }
-
-    /**
-     * Set likes
-     *
-     * @param integer $likes
-     * @return User
-     */
-    public function setLikes($likes)
-    {
-        $this->likes = $likes;
-
-        return $this;
-    }
-
-    /**
-     * Get likes
-     *
-     * @return integer 
-     */
-    public function getLikes()
-    {
-        return $this->likes;
     }
 }

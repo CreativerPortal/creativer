@@ -43,26 +43,33 @@
 
 {% if((id != app.security.getToken().getUser().getId()) or (id == null) ) and  is_granted('ROLE_USER') %}
     <div  class="margin-top_20">
-        <button class="button_message fs_0-9 margin-left_10"><a href="#/chat/[[ user.id ]]"><span class="glyphicon glyphicon-envelope"></span> Сообщение</a></button>
-        <button class="button_favorites fs_0-9 margin-left_5" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span> Избранное</button>
-        <button class="button_favorites fs_0-9 margin-left_5" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span> Избранное</button>
+        <a href="#/chat/[[ user.id ]]" class="button_message-link fs_0-9 margin-left_10">
+            <span class="glyphicon glyphicon-envelope"></span>
+            Сообщение
+        </a>
+        <button class="button_favorites fs_0-9 margin-left_5" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span>
+            Избранное
+        </button>
+        <button class="button_favorites fs_0-9 margin-left_5" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span>
+            Избранное
+        </button>
     </div>
 {%  endif %}
 
 <div class="row margin-top_20">
     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-eye-open"></span></div>
     <div class="col-sm-2 user__text_bold padding-left_0">Просмотры</div>
-    <div class="col-sm-3 col-md-offset-6 user__text_bold">0</div>
+    <div class="col-sm-3 col-sm-offset-6 user__text_bold">[[ user.views || 0 ]]</div>
 </div>
 <div class="row margin-top_5">
     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
     <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
-    <div class="col-sm-3 col-md-offset-6 user__text_bold">[[ user.likes ]]</div>
+    <div class="col-sm-3 col-sm-offset-6 user__text_bold">[[ user.likes ]]</div>
 </div>
 <div class="row margin-top_5">
     <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
     <div class="col-sm-4 user__text_bold padding-left_0">В избранных у</div>
-    <div class="col-sm-3 col-md-offset-4 user__text_bold">[[ user.favorits_with_me.length ]]</div>
+    <div class="col-sm-3 col-sm-offset-4 user__text_bold">[[ user.favorits_with_me.length ]]</div>
 </div>
 
 {% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}

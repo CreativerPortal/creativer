@@ -7,13 +7,13 @@
     <div class="row slid  padding-right_0" ng-show="user">
 
         <div class="row">
-            <h3 class="col-sm-5 lobster">Вячеслав Михно</h3>
+            <h3 class="col-sm-5 lobster">[[ user.username ]] [[ user.lastname ]]</h3>
             <div class="col-sm-7 margin-top_10">
                 <div class="row">
 
                     <div class="col-sm-5">
                         <h4 class="lobster text-gray margin-left_15 left">Диалог</h4><span class="lobster text-gray">&nbsp с</span>
-                        <a class=" fs_0-8 text-underline slid__back-link margin-left_5 text-blue" href="#/[[ chat_user.id ]]">[[ chat_user.username ]] [[ chat_user.lastname ]]</a>
+                        <a class=" fs_0-8 text-underline slid__back-link margin-left_5 text-blue" href="#/[[ companion.id ]]">[[ companion.username ]] [[ companion.lastname ]]</a>
                     </div>
 
                     <div class="col-sm-6 col-sm-offset-1">
@@ -39,13 +39,13 @@
                 </div>
 
                 <div class="col-sm-7 message-textareas padding-right_0">
-                    <textarea cols="42" rows="5" placeholder=" Введите текст..." class="search__message " ng-init="text_message" ng-model="text_message"></textarea>
+                    <textarea style="width: 320px;" rows="5" placeholder=" Введите текст..." class="search__message " ng-init="text_message" ng-model="text_message"></textarea>
                     <div class="tail_message"></div>
 
                 </div>
 
                 <div class="col-sm-2 ">
-                    <div class="user__avatar-mini left "><img ng-src="[[ chat_user.avatar.img ]]"></div>
+                    <div class="user__avatar-mini left "><img ng-src="[[ companion.avatar.img ]]"></div>
                 </div>
             </div>
 
@@ -64,22 +64,22 @@
             <div class="row margin-top_15" ng-repeat="message in messages">
                 <div class="col-sm-2">
                     <div class="user__avatar-mini">
-                        <img ng-if="user.id == message.id_user" ng-src="[[ user.avatar.img ]]">
-                        <img ng-if="chat_user.id == message.id_user" ng-src="[[ chat_user.avatar.img ]]">
+                        <img ng-if="user.id == message.sender" ng-src="[[ user.avatar.img ]]">
+                        <img ng-if="companion.id == message.sender" ng-src="[[ companion.avatar.img ]]">
                     </div>
                 </div>
                 <div class="col-sm-10 padding-left_0">
                     <div class="row">
                         <div class=" col-sm-6 text-left">
-                            <a ng-if="user.id == message.id_user" ng-href="#/[[ user.id ]]" class="text-blue" href="">[[ user.username ]] [[ user.lastname ]]</a>
-                            <a ng-if="chat_user.id == message.id_user" ng-href="#/[[ chat_user.id ]]" class="text-blue" href="">[[ chat_user.username ]] [[ chat_user.lastname ]]</a>
+                            <a ng-if="user.id == message.sender" ng-href="#/[[ user.id ]]" class="text-blue" href="">[[ user.username ]] [[ user.lastname ]]</a>
+                            <a ng-if="companion.id == message.sender" ng-href="#/[[ companion.id ]]" class="text-blue" href="">[[ companion.username ]] [[ companion.lastname ]]</a>
                         </div>
 
                         <div class="col-sm-6 text-right fs_0-8"><time>[[ message.date | date: "dd.MM.yyyy" ]]</time></div>
                     </div>
                     <div class="text-gray">
-                        <p ng-if="user.id == message.id_user" class="fs_0-8">[[ message.text ]]</p>
-                        <p ng-if="chat_user.id == message.id_user" class="fs_0-8">[[ message.text ]]</p>
+                        <p ng-if="user.id == message.sender" class="fs_0-8">[[ message.text ]]</p>
+                        <p ng-if="companion.id == message.sender" class="fs_0-8">[[ message.text ]]</p>
                     </div>
 
                 </div>
@@ -96,10 +96,32 @@
                     <span class="glyphicon glyphicon-folder-open"></span>&nbsp; Папки &nbsp;<span class="glyphicon glyphicon-menu-down"></span>
                 </div>
             </div>
-
         </div>
+    </div>
 
-
-
+    <div ng-show="myImage" class="background__viewer-avatar" style="zoom: reset;">
+        <div class="border__viewer-avatar margin-top_100">
+            <div class="border__viewer__wrapper-avatar">
+                <!-- Modal -->
+                <div class="cropArea row" style="height: 340px;">
+                    <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;  background-image: url('/var/www/creativer/web/img/vertical_line')"></img-crop>
+                    <div class="col-sm-3" style="height: auto; display: block; position: static;">
+                        <div class="user__avatar-border col-sm-offset-4">
+                            <div class="user__avatar">
+                                <img src="[[ myCroppedImage ]]">
+                            </div>
+                        </div>
+                        <div class="user__avatar-mini" style="margin-left: 60px;">
+                            <img src="[[ myCroppedImage ]]">
+                        </div>
+                        <div class="row right" style="position: absolute; bottom: 0px;">
+                            <div class=""></div>
+                            <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
+                            <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 

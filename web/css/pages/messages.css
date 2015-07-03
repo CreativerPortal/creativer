@@ -61,7 +61,7 @@ body{
 
 
 .user{
-    background-image: url("../../img/vertical_line.png");
+    background-image: url("/var/www/creativer/web/img/vertical_line.png");
     background-repeat: no-repeat;
     background-position: right;
 }
@@ -121,15 +121,16 @@ body{
     margin-right: 5px;
     color: #ffffff;
     vertical-align: middle;
-    line-height: 1.6em;
+    line-height: 1.1em;
+    padding-top: 6px;
 }
 
 
 .horizontal_line {
-    background-image: url("../../img/line_message.png");
+    background-image: url("/var/www/creativer/web/img/line_message.png");
     background-repeat: no-repeat;
     background-position: center bottom;
-
+    min-height: 90px;
 }
 
 .early-message{
@@ -150,5 +151,83 @@ body{
     border-radius: 100px;
 }
 
+.chat__link{
+    display: block;
+}
 
+.background__text{
+    background-color: #b6dafa;
+}
+
+.background__text-reviewed{
+    height: 60px;
+}
+
+.folder{
+    position: absolute;
+    top: -99999px;
+    left: -99999px;
+}
+
+.folders__menu{
+    list-style: none;
+    position: relative;
+    top: -10px;
+}
+
+
+.folders__menu__top-down{
+    background-image: url('/var/www/creativer/web/img/top_background_folders.png');
+    width: 137px;
+    height: 62px;
+}
+
+.folders__menu__body{
+    width: 137px;
+    background-color: #c8c6bd;
+    border-left: 1px dashed #a3a3a3;
+    border-right: 1px dashed #a3a3a3;
+    border-bottom: 1px dashed #a3a3a3;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: -10px;
+    padding-bottom: 10px;
+}
+
+.text__create__folder{
+    width: 110px;
+    border: 1px dashed #a3a3a3;
+    background-color: #f5f5f5;
+}
+
+.folders__main{
+    position: absolute;
+    top: -99999px;
+    left: -99999px;
+}
+
+.folders__menu__main{
+    display: none;
+}
+
+.folders__main:checked + .folders__menu__main{
+    display: block;
+    position: absolute;
+    z-index: 100;
+    top: 40px;
+    left: -15px;
+}
+
+
+.folders__menu-down{
+    display: none;
+}
+
+.folder:checked + .folders__menu-down{
+    display: block;
+    position: absolute;
+    z-index: 100;
+    top: 40px;
+    left: -15px;
+}
 

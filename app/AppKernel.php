@@ -41,21 +41,21 @@ class AppKernel extends Kernel
         $loader->load($this->getRootDir().'/config/config_'.$this->getEnvironment().'.yml');
     }
 
-    public function getCacheDir()
-    {
-        if ($this->environment == 'dev' || $this->environment == 'prod') {
-            return '/tmp/cache/' . $this->environment;
-        } else {
-            return parent::getCacheDir();
-        }
-    }
-
-    public function getLogDir()
-    {
-        if ($this->environment == 'dev' || $this->environment == 'prod') {
-            return '/tmp/logs/' . $this->environment;
-        } else {
-            return parent::getLogDir();
-        }
-    }
+//    public function getCacheDir()
+//    {
+//        if ($this->environment == 'dev' || $this->environment == 'prod') {
+//            return '/tmp/cache/' . $this->environment;
+//        } else {
+//            return parent::getCacheDir();
+//        }
+//    }
+//
+//    public function getLogDir()
+//    {
+//        if ($this->environment == 'dev' || $this->environment == 'prod') {
+//            return '/tmp/logs/' . $this->environment;
+//        } else {
+//            return parent::getLogDir();
+//        }
+//    }
 }

@@ -52,6 +52,7 @@ body{
 .slid textarea{
     background-color: #eae9e3;
     border: 1px dashed #827972;
+    width: 530px;
 }
 
 ::-webkit-input-placeholder {color:#827972;}
@@ -222,10 +223,6 @@ body{
     border-image: url('/var/www/creativer/web/img/border_view_photo.png') 27 51 27 71 fill round;
 }
 
-.border-avatar{
-    border: 1px dashed rgb(187, 187, 187);
-}
-
 .border__viewer__wrapper-avatar{
     background-color: #eae9e3;
     width: 100%;
@@ -245,6 +242,7 @@ body{
 
 .slid__comment__line {
     height: 4px;
+    margin-bottom: 5px;
     background-image: url("/var/www/creativer/web/img/line_comment.png");
     background-repeat: repeat-x;
     background-position: center bottom;

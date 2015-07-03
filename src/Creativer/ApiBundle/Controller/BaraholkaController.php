@@ -114,8 +114,14 @@ class BaraholkaController extends Controller
      */
     public function savePostCommentAction()
     {
-        $data = json_decode($this->get("request")->getContent());
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
 
+            return $response;
+        }
+        $data = json_decode($this->get("request")->getContent());
 
         $username = $this->get('security.context')->getToken()->getUser()->getUsername();
         $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();

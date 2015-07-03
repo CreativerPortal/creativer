@@ -4,21 +4,22 @@ namespace Creativer\FrontBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use JMS\Serializer\Annotation as JMS;
 use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
 
 
 
 /**
- * @ORM\Entity
- * @ORM\Table(name="avatar")
+ * @ORM\Entity()
+ * @ORM\Table(name="folders")
  * @JMS\ExclusionPolicy("all")
  */
-class Avatar
+class Folders
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Groups({"getUser"})
      * @JMS\Expose
      */
     private $id;
@@ -26,25 +27,32 @@ class Avatar
 
     /**
      * @JMS\Expose
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Type("Creativer\FrontBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="folders", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @JMS\Groups({"getUser"})
+     **/
+    private $user;
+
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
-    private $img;
+    private $name;
+
+    /**
+     * @ORM\Column(type="integer", name="is_active")
+     */
+    private $isActive = 1;
 
     /**
      * @JMS\Expose
-     * @ORM\OneToOne(targetEntity="User", mappedBy="avatar")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"getImageComments", "getUser"})
-     * @JMS\MaxDepth(2)
-     */
-    private $user;
-
-    /**
      * @var \DateTime $date
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getImageComments"})
      */
     private $date;
 
@@ -52,10 +60,8 @@ class Avatar
     public function __construct()
     {
         $this->date = new \DateTime();
-
     }
 
-    
 
     /**
      * Get id
@@ -68,33 +74,56 @@ class Avatar
     }
 
     /**
-     * Set img
+     * Set name
      *
-     * @param string $img
-     * @return Avatar
+     * @param string $name
+     * @return Folders
      */
-    public function setImg($img)
+    public function setName($name)
     {
-        $this->img = $img;
+        $this->name = $name;
 
         return $this;
     }
 
     /**
-     * Get img
+     * Get name
      *
      * @return string 
      */
-    public function getImg()
+    public function getName()
     {
-        return $this->img;
+        return $this->name;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param integer $isActive
+     * @return Folders
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return integer 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
     }
 
     /**
      * Set date
      *
      * @param \DateTime $date
-     * @return Avatar
+     * @return Folders
      */
     public function setDate($date)
     {
@@ -117,7 +146,7 @@ class Avatar
      * Set user
      *
      * @param \Creativer\FrontBundle\Entity\User $user
-     * @return Avatar
+     * @return Folders
      */
     public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
     {

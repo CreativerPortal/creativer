@@ -62,6 +62,17 @@ angular
                         },
                         data: data
                     });
+                },
+                imagePreviews: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'image_previews',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);
