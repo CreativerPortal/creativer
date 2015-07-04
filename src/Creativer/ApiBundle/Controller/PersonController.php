@@ -521,7 +521,7 @@ class PersonController extends Controller
         foreach($image_previews as $key => $value){
             $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($key);
 
-            if($album){
+            if($album && $value){
                 $count = count($image_previews[$key]);
                 $viewsAlbum = $album->getViews() + $count;
                 $album->setViews($viewsAlbum);

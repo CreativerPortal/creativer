@@ -47,10 +47,10 @@
             <span class="glyphicon glyphicon-envelope"></span>
             Сообщение
         </a>
-        <button class="button_favorites fs_0-9 margin-left_5" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span>
+        <button class="button_favorites fs_0-9 margin-left_5" ng-class="{'loader':loader}" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span>
             Избранное
         </button>
-        <button class="button_favorites fs_0-9 margin-left_5" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span>
+        <button class="button_favorites fs_0-9 margin-left_5" ng-class="{'loader':loader}" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span>
             Избранное
         </button>
     </div>

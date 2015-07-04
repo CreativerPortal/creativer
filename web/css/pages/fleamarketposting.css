@@ -222,13 +222,14 @@ input[type=radio]:checked ~ .baraholka__filter__element {
 }
 
 .edit__album {
-    position: absolute;
-    right: 6px;
-    top: 5px;
+    position: relative;
+    right: 0%;
+    top: 30px;
     color: #FFFFFF;
     background-color: #80abe0;
     padding: 5px;
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .edit__album input:checked ~ .edit__album__menu {
@@ -244,6 +245,12 @@ input[type=radio]:checked ~ .baraholka__filter__element {
     background-image: url("/var/www/creativer/web/img/menu_create_album.png");
     padding-top: 20px;
     display: none;
+}
+
+.edit__album__menu li{
+    list-style: none;
+    cursor: pointer;
+    margin-top: 5px;
 }
 
 select{

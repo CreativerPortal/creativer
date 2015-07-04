@@ -191,18 +191,18 @@
     text-indent: -9999em;
 }
 .loader:before {
-    left: 3.4em;
+    left: 30%;
     -webkit-animation-delay: -0.36s;
     animation-delay: -0.36s;
 }
 .loader:after {
-    left: 6.8em;
+    right: 30%;
 }
 .loader:before,
 .loader:after {
     content: '';
     position: absolute;
-    top: -8px;
+    top: -12px;
 }
 @-webkit-keyframes load7 {
     0%,

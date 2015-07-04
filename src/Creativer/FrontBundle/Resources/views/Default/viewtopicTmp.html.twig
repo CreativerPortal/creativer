@@ -16,10 +16,36 @@
             </div>
 
             <nav class="row slid__menu margin-top_20">
-                <div class="col-sm-2 padding-left_0">Регион <a href="" class="open">Минск</a></div>
-                <div class="col-sm-3 text-right padding-left_0"><a href="">Мои объявления</a></div>
-                <div class="col-sm-4 text-left padding-left_0"><a hfer="">Объявления, в которых я участвую</a></div>
-                <div class="col-sm-3 padding-left_0"><a href="">Новое за 24 часа</a></div>
+                <div class="col-sm-3 padding-left_0 padding-right_0" style="width: 21%;">
+                    <span>Регион</span>
+                    <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Беларусь' ]]</span></label>
+                    <input type="checkbox" class="cities-checkbox" id="all_cities">
+                    <div class="cities__menu__main">
+                        <div class="cities__background-top"></div>
+                        <div class="cities__background-body">
+                            <ul class="text-white cities__menu fs_1-1 padding-left_0 text-center">
+                                <li ng-repeat="city in post_city">
+                                    <label>[[ city.name ]]
+                                        <input type="radio" class="city-radio" name="city" ng-value="[[ city ]]" ng-model="$root.city" ng-click="uncheck($root.city.id)" />
+                                    </label>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-sm-2 padding-left_0" style="width: 19%;">
+                    <input type="checkbox" class="baraholka__checkbox" id="my_singboard" ng-model="$root.my_singboard">
+                    <label class="text-blue baraholka__label" for="my_singboard">Мои объявления</label>
+                </div>
+                <div class="col-sm-4 padding-right_0 padding-left_0">
+                    <input type="checkbox" class="baraholka__checkbox" id="singboard_participate" ng-model="$root.singboard_participate">
+                    <label class="text-blue baraholka__label" for="singboard_participate">Объявления, в которых я участвую</label>
+                </div>
+                <div class="col-sm-3">
+                    <input type="checkbox" class="baraholka__checkbox" id="new24" ng-model="$root.new24">
+                    <label class="text-blue baraholka__label" for="new24">Новое за 24 часа</label>
+                </div>
             </nav>
 
             <div class="row"><a class="text-blue text-italic" href="#/viewforum/[[ post.categories_baraholka.id ]]">Вернуться к объявлениям</a></div>
@@ -30,7 +56,7 @@
             </div>
 
             <div class="row margin-top_25">
-                <div class="col-sm-2 padding-left_0"><a href="">
+                <div class="col-sm-2 padding-left_0"><a href="#/[[ post.user.id ]]">
                         [[ post.user.username ]] [[ post.user.lastname ]]
                         <div class="user__avatar-mini margin-top_10">
                             <img src="[[ post.user.avatar.img ]]">
@@ -40,7 +66,7 @@
                     <p class="text-gray">
                         [[ post.full_description ]]
                         <div class="text-center">
-                            <img class="img-barholka" ng-repeat="img in post.images_baraholka" ng-src="{{ path_img_baraholka_original }}/[[ img.name ]]" />
+                            <div ng-repeat="img in post.images_baraholka"><img class="img-barholka" ng-src="{{ path_img_baraholka_original }}/[[ img.name ]]" /></div>
                         </div>
                     </p>
                 </article>
@@ -83,9 +109,9 @@
 
             <div class="row">
                 <div class="margin-top_80">
-                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/src/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
                 </div>
 
             </div>

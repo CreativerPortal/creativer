@@ -99,6 +99,15 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         chat.init();
 
+        $scope.uncheck = function (id) {
+            if ($rootScope.previous_checked == id){
+                $rootScope.city = false;
+                $rootScope.previous_checked = undefined;
+            }else{
+                $rootScope.previous_checked = id;
+            }
+        }
+
         $scope.createPostBaraholka = function(){
             var data = {};
             data.post_id = $scope.post_id;
@@ -133,30 +142,41 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         }
 
 
-        if($routeParams.id_category){
-            $scope.posts_category = $routeParams.id_category;
-            baraholkaService.getPostsByCategory({"category_id": $routeParams.id_category,page:$routeParams.page}).success(function (data) {
-                $scope.posts = data.posts.items;
-                $scope.posts_page = data.posts;
+        $rootScope.$watchGroup(['city','my_singboard', 'singboard_participate', 'new24', 'post_category_id'], function() {
+
+            if($routeParams.id_category){
+                $scope.posts_category = $routeParams.id_category;
+                baraholkaService.getPostsByCategory({category_id: $routeParams.id_category,page:$routeParams.page,
+                    city:$rootScope.city,
+                    my_singboard:$rootScope.my_singboard,
+                    singboard_participate:$rootScope.singboard_participate,
+                    new24:$rootScope.new24,
+                    post_category_id: $rootScope.post_category_id
+                }).success(function (data) {
+                    $scope.posts = data.posts.items;
+                    $scope.posts_page = data.posts;
 
 
-                $scope.pages = [];
-                $scope.pages[0] = $scope.posts_page.currentPageNumber;
-                $scope.currentPage = $scope.posts_page.currentPageNumber;
-                var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
-                length--;
-                while(length > 0){
-                    if($scope.pages[0] > 1){
-                        $scope.pages.unshift($scope.pages[0]-1)
-                        length = length - 1;
-                    }else{
-                        var p = parseInt($scope.pages[$scope.pages.length-1]) + 1;
-                        $scope.pages.push(p);
-                        length = length - 1;
+                    $scope.pages = [];
+                    $scope.pages[0] = $scope.posts_page.currentPageNumber;
+                    $scope.currentPage = $scope.posts_page.currentPageNumber;
+                    var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
+                    length--;
+                    while(length > 0){
+                        if($scope.pages[0] > 1){
+                            $scope.pages.unshift($scope.pages[0]-1)
+                            length = length - 1;
+                        }else{
+                            var p = parseInt($scope.pages[$scope.pages.length-1]) + 1;
+                            $scope.pages.push(p);
+                            length = length - 1;
+                        }
                     }
-                }
-            });
-        }
+                });
+            }
+
+        });
+
 
 
         if($routeParams.id_post){

@@ -15,10 +15,37 @@
         </div>
 
         <nav class="row slid__menu margin-top_20">
-            <div class="col-sm-2 padding-left_0">Регион <a href="" class="open">Минск</a></div>
-            <div class="col-sm-2"><a href="">Мои объявления</a></div>
-            <div class="col-sm-4"><a hfer="">Объявления, в которых я участвую</a></div>
-            <div class="col-sm-2"><a href="">Новое за 24 часа</a></div>
+            <div class="col-sm-2 padding-left_0">
+                <span>Регион</span>
+                <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ checked.name || 'Беларусь' ]]</span></label>
+                <input type="checkbox" class="cities-checkbox" id="all_cities">
+                <div class="cities__menu__main">
+                    <div class="cities__background-top"></div>
+                    <div class="cities__background-body">
+                        <ul class="text-white cities__menu fs_1-1 padding-left_0 text-center">
+                            <li ng-repeat="city in post_city">
+                                <label>[[ city.name ]]
+                                    <input type="radio" class="city-radio" name="city" ng-value="[[ city ]]" ng-model="$root.checked" ng-click="uncheck(checked.id)" />
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-2">
+                <input type="checkbox" class="baraholka__checkbox" id="my_singboard" ng-model="$root.my_singboard">
+                <label class="text-blue baraholka__label" for="my_singboard">Мои объявления</label>
+            </div>
+            <div class="col-sm-4">
+                <input type="checkbox" class="baraholka__checkbox" id="singboard_participate" ng-model="$root.singboard_participate">
+                <label class="text-blue baraholka__label" for="singboard_participate">Объявления, в которых я участвую</label>
+            </div>
+            <div class="col-sm-2">
+                <input type="checkbox" class="baraholka__checkbox" id="new24" ng-model="$root.new24">
+                <label class="text-blue baraholka__label" for="new24">Новое за 24 часа</label>
+            </div>
         </nav>
 
         <div class="row slid__list">
@@ -39,4 +66,4 @@
     </div>
 
 
-    <div class="banner-horizontal margin-top_40"><img src="/src/banner_list.png" /></div>
+    <div class="banner-horizontal margin-top_40 text-center"><img src="/var/www/creativer/web/banner/banner_list.png" /></div>

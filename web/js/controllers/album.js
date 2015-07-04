@@ -132,7 +132,9 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
     }
 
     $scope.addFavorits = function(id){
+        $scope.loader = true;
         personalService.addFavorits({id:id}).success(function (data) {
+            $scope.loader = false;
             $rootScope.user = $scope.user = data.user;
             $scope.$apply();
             $scope.favorit = false;
@@ -146,7 +148,9 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
     }
 
     $scope.removeFavorits = function(id){
+        $scope.loader = true;
         personalService.removeFavorits({id:id}).success(function (data) {
+            $scope.loader = false;
             $rootScope.user = $scope.user = data.user;
             $scope.$apply();
             $scope.favorit = false;

@@ -88,8 +88,7 @@ body{
 }
 
 .slid__menu{
-    font-size: 0.9em;
-    background-image: url("../../img/footer_menu_background.png");
+    background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
     height: 57px;
 }
 
@@ -104,7 +103,7 @@ body{
     height: 27px;
     background-color: transparent;
     border: none;
-    background-image: url("../../img/to_search.png");
+    background-image: url("/var/www/creativer/web/img/to_search.png");
 }
 
 textarea {
@@ -154,7 +153,7 @@ textarea {
 
 .slid__comment__line{
     height: 4px;
-    background-image: url("../../img/line_comment.png");
+    background-image: url("/var/www/creativer/web/img/line_comment.png");
     background-repeat: repeat-x;
     background-position: center bottom;
 }
@@ -165,4 +164,82 @@ textarea {
 
 .img-barholka{
     max-width: 600px;
+}
+
+
+.city-radio{
+    display: none;
+}
+
+.slid__menu{
+    background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
+    height: 57px;
+}
+
+.slid__menu label{
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.baraholka__checkbox + label{
+    line-height: 4em;
+}
+
+.slid__menu input[type=checkbox]{
+    display: none;
+}
+
+.baraholka__checkbox:checked + .baraholka__label{
+    color: #000000!important;
+}
+
+.cities__select{
+    line-height: 3.8em;
+    width: 85px;
+}
+
+.cities-checkbox{
+    position: absolute;
+    top: -99999px;
+    left: -99999px;
+}
+
+.cities__background-top{
+    background-image: url('/var/www/creativer/web/img/top_background_folders.png');
+    width: 137px;
+    height: 62px;
+}
+
+.cities__background-body{
+    width: 137px;
+    background-color: #c8c6bd;
+    border-left: 1px dashed #a3a3a3;
+    border-right: 1px dashed #a3a3a3;
+    border-bottom: 1px dashed #a3a3a3;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: -10px;
+    padding-bottom: 10px;
+}
+
+.cities__menu{
+    list-style: none;
+    position: relative;
+
+}
+
+.cities__menu label{
+    height: 12px;
+}
+
+.cities__menu__main{
+    display: none;
+}
+
+.cities-checkbox:checked + .cities__menu__main{
+    display: block;
+    position: absolute;
+    z-index: 100;
+    top: 37px;
+    right: 0%;
 }

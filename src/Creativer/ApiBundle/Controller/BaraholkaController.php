@@ -62,18 +62,57 @@ class BaraholkaController extends Controller
     public function getPostsByCategoryAction()
     {
         $category_id = $this->get('request')->request->get('category_id');
+        $city = $this->get('request')->request->get('city');
+        $my_singboard = $this->get('request')->request->get('my_singboard');
+        $new24 = $this->get('request')->request->get('new24');
+        $post_category_id = $this->get('request')->request->get('post_category_id');
+        $singboard_participate = $this->get('request')->request->get('singboard_participate');
+
+
+
         $categoriesBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find($category_id);
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
 
         $page = $this->get('request')->request->get('page')?$this->get('request')->request->get('page'):1;
-
 
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
             ->createQueryBuilder('e')
             ->join('e.categories_baraholka', 'cat')
             ->where('cat IN (:items)')
-            ->setParameter('items', $category_id)
-            ->getQuery();
+            ->setParameter('items', $category_id);
+
+        if($city > 0){
+            $query->join('e.post_city', 'city')
+                ->andWhere('city = :city_id')
+                ->setParameter('city_id', $city);
+        }
+        if($post_category_id > 0){
+            $query->join('e.post_category', 'type')
+                ->andWhere('type = :type_id')
+                ->setParameter('type_id', $post_category_id);
+        }
+        if($new24 == true){
+            $query->andWhere('e.date >= :dat')
+                ->setParameter('dat', new \DateTime('-24 hours'));
+        }
+        if($my_singboard == true and $singboard_participate == true and $userId){
+            $query->join('e.post_comments', 'ps')
+                ->andWhere('ps.user_id = :id')
+                ->setParameter('id', $userId);
+        }else if($my_singboard == true and $userId){
+            $query->join('e.user', 'u')
+                ->andWhere('u = :id')
+                ->setParameter('id', $userId);
+        }else if($singboard_participate == true and $userId){
+            $query->join('e.post_comments', 'ps')
+                ->andWhere('ps.user_id = :idd')
+                ->setParameter('idd', $userId);
+        }
+
+        $query = $query->getQuery();
+
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(

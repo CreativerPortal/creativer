@@ -78,7 +78,7 @@ body{
     height: 27px;
     background-color: transparent;
     border: none;
-    background-image: url("../../img/to_search.png");
+    background-image: url("/var/www/creativer/web/img/to_search.png");
 }
 
 
@@ -94,17 +94,6 @@ body{
 .advert_button:hover{
     text-decoration: none;
     color: #ffffff;
-}
-
-.slid__menu{
-    font-size: 0.9em;
-    background-image: url("../../img/footer_menu_background.png");
-    height: 57px;
-}
-
-.slid__menu a{
-    vertical-align: middle;
-    line-height: 4;
 }
 
 .slid__pagination a{
@@ -135,15 +124,33 @@ body{
     color: #ffffff;
 }
 
+.wrapper__filter__element {
+    float: left;
+    color: #77a2bf;
+}
+
 .baraholka__filter__element{
-     float: left;
-     margin-left: 5px;
-     column-rule: #77a2bf;
-     text-align: center;
-     vertical-align: middle;
-     line-height: 2em;
-     color: #77a2bf;
- }
+    cursor: pointer;
+}
+
+.baraholka__filter__element{
+    float: left;
+    margin-left: 5px;
+    column-rule: #77a2bf;
+    text-align: center;
+    vertical-align: middle;
+    line-height: 2em;
+    color: #77a2bf;
+}
+
+input[type=radio]{
+    display: none;
+}
+
+input[type=radio]:checked ~ .baraholka__filter__element {
+    background-position: -73px 0;
+    color: #ffffff;
+}
 
 .baraholka__filter__element_active{
     background-position: -73px 0;
@@ -211,4 +218,110 @@ body{
     vertical-align: bottom;
     letter-spacing: -10px;
     text-decoration: none;
+}
+
+
+.open:hover{
+    text-decoration: none;
+}
+
+.open:after{
+    font-family: 'Glyphicons Halflings';
+    content: " \e259";
+    vertical-align: bottom;
+    letter-spacing: -10px;
+    text-decoration: none;
+}
+
+.slid__list a{
+    color: #6096b9;
+    text-decoration: none;
+}
+
+.slid__list a:after {
+    content: '\A';
+    white-space: pre;
+}
+
+.slid__list a:before {
+    content: '    ';
+    white-space: pre;
+}
+
+
+.city-radio{
+    display: none;
+}
+
+.slid__menu{
+    background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
+    height: 57px;
+}
+
+.slid__menu label{
+    vertical-align: middle;
+    cursor: pointer;
+}
+
+.baraholka__checkbox + label{
+    line-height: 4em;
+}
+
+.slid__menu input[type=checkbox]{
+    display: none;
+}
+
+.baraholka__checkbox:checked + .baraholka__label{
+    color: #000000!important;
+}
+
+.cities__select{
+    line-height: 3.8em;
+    width: 85px;
+}
+
+.cities-checkbox{
+    position: absolute;
+    top: -99999px;
+    left: -99999px;
+}
+
+.cities__background-top{
+    background-image: url('/var/www/creativer/web/img/top_background_folders.png');
+    width: 137px;
+    height: 62px;
+}
+
+.cities__background-body{
+    width: 137px;
+    background-color: #c8c6bd;
+    border-left: 1px dashed #a3a3a3;
+    border-right: 1px dashed #a3a3a3;
+    border-bottom: 1px dashed #a3a3a3;
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+    margin-top: -10px;
+    padding-bottom: 10px;
+}
+
+.cities__menu{
+    list-style: none;
+    position: relative;
+
+}
+
+.cities__menu label{
+    height: 12px;
+}
+
+.cities__menu__main{
+    display: none;
+}
+
+.cities-checkbox:checked + .cities__menu__main{
+    display: block;
+    position: absolute;
+    z-index: 100;
+    top: 37px;
+    right: 0%;
 }
