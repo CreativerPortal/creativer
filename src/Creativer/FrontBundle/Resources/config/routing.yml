@@ -1,107 +1,85 @@
 logout:
     path:     /logout
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:main }
     methods:  [GET]
 creativer_front_registration:
     path:     /registration
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:registration }
 creativer_front_main:
     path:     /
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:layout_front }
 security_check:
     path:     /security_check
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:security_check }
 person:
     path:     /
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:layout_front }
     methods:  [GET]
 creativer_mainTmp:
     path:     /main_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:mainTmp }
     methods:  [GET]
 creativer_productsTmp:
     path:     /products_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:productsTmp }
     methods:  [GET]
 creativer_servicesTmp:
     path:     /services_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:servicesTmp }
     methods:  [GET]
 creativer_personTmp:
     path:     /person_tmp/{id}
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:personTmp, id: null }
     methods:  [GET]
 creativer_baraholkaTmp:
     path:     /baraholka_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:baraholkaTmp }
     methods:  [GET]
 creativer_fleamarketpostingTmp:
     path:     /fleamarketposting_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:fleamarketpostingTmp }
     methods:  [GET]
 creativer_viewforumTmp:
     path:     /viewforum_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:viewforumTmp }
     methods:  [GET]
 creativer_viewtopicTmp:
     path:     /viewtopic_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:viewtopicTmp }
     methods:  [GET]
 creativer_messagesTmp:
     path:     /messages_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:messagesTmp }
     methods:  [GET]
 creativer_chatTmp:
     path:     /chat_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:chatTmp }
     methods:  [GET]
 creativer_feedbackTmp:
     path:     /feedback_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:feedbackTmp }
     methods:  [GET]
 creativer_createPostBaraholka:
     path:     /createPostBaraholka
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:createPostBaraholka }
     methods:  [POST]
 creativer_front_create_albumTmp:
     path:     /create_album
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:createAlbumTmp }
     methods:  [GET]
 creativer_front_albumTmp:
     path:     /album_tmp/{id_album}
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:albumTmp, id_album: null }
     methods:  [GET]
 creativer_front_favoritTmp:
     path:     /favorit_tmp
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:favoritTmp }
     methods:  [GET]
 creativer_front_upload_album:
     path:     /upload_album
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:uploadAlbum }
     methods:  [POST]
 creativer_create_post_baraholka:
     path:     /create_post_baraholka
-    host:     creativer.by.my
     defaults: { _controller: CreativerFrontBundle:Default:createPostBaraholka }
     methods:  [POST]
