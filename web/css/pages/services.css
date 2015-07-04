@@ -245,13 +245,25 @@ body{
 }
 
 .container_image_product{
+    -ms-animation-play-state:paused;
+    -o-animation-play-state:paused;
+    -moz-animation-play-state:paused;
+    -webkit-animation-play-state:paused;
+    animation-play-state: paused;
+}
+
+.container_image_product:hover{
+    -webkit-animation:pulse 1.5s alternate infinite;
+}
+
+.container_image_product{
     height: 150px;
     width: 158px;
     display: block;
     overflow: hidden;
     border-radius: 10px 0px 0px 10px;
     animation-name: horizontal;
-    animation-duration: 6s;
+    animation-duration: 1.5s;
     animation-delay: 0s;
     animation-iteration-count: infinite;
     animation-direction: alternate;

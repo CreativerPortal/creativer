@@ -156,7 +156,6 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                     $scope.posts = data.posts.items;
                     $scope.posts_page = data.posts;
 
-
                     $scope.pages = [];
                     $scope.pages[0] = $scope.posts_page.currentPageNumber;
                     $scope.currentPage = $scope.posts_page.currentPageNumber;
@@ -172,6 +171,9 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                             length = length - 1;
                         }
                     }
+                }).error(function(data) {
+                    $scope.posts = null;
+                    $scope.posts_page = null;
                 });
             }
 

@@ -126,7 +126,7 @@ class CatalogController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $page,
-            4
+            16
         );
 
         $albums = array('currentPageNumber' => $pagination->getCurrentPageNumber(),

@@ -161,17 +161,9 @@ app.directive('editPain', function () {
                 img.src = value;
                 img.onload = function(){
                     if(img.width > img.height){
-                        var rand_duration = parseInt(Math.random() * (10 - 5) + 5);
-                        var rand_delay = parseInt(Math.random() * (4 - 1) + 1);
-                        element.css('animation-duration', rand_duration+'s');
                         element.css('animation-name', 'horizontal');
-                        element.css('animation-delay', rand_delay);
                     }else{
-                        var rand_duration = parseInt(Math.random() * (10 - 5) + 5);
-                        var rand_delay = parseInt(Math.random() * (4 - 1) + 1);
-                        element.css('animation-duration', rand_duration+'s');
                         element.css('animation-name', 'vertical');
-                        element.css('animation-delay', rand_delay);
                     }
                 }
             });

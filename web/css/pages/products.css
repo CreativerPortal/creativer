@@ -231,6 +231,18 @@ body{
 }
 
 .container_image_product{
+    -ms-animation-play-state:paused;
+    -o-animation-play-state:paused;
+    -moz-animation-play-state:paused;
+    -webkit-animation-play-state:paused;
+    animation-play-state: paused;
+}
+
+.container_image_product:hover{
+    -webkit-animation:pulse 1.5s alternate infinite;
+}
+
+.container_image_product{
     height: 150px;
     width: 162px;
     display: block;
@@ -238,8 +250,8 @@ body{
     border: 1px dashed #c5c3b4;
     border-radius: 10px;
     animation-name: horizontal;
-    animation-duration: 6s;
-    animation-delay: 0s;
+    animation-duration: 1s;
+    animation-delay: 1s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
     position: relative;

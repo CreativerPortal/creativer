@@ -98,8 +98,9 @@ class BaraholkaController extends Controller
                 ->setParameter('dat', new \DateTime('-24 hours'));
         }
         if($my_singboard == true and $singboard_participate == true and $userId){
-            $query->join('e.post_comments', 'ps')
-                ->andWhere('ps.user_id = :id')
+            $query->leftJoin('e.user', 'u')
+                ->leftJoin('e.post_comments', 'pc')
+                ->andWhere('u.id = :id or pc.user_id = :id')
                 ->setParameter('id', $userId);
         }else if($my_singboard == true and $userId){
             $query->join('e.user', 'u')
