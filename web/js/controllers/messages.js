@@ -2,39 +2,20 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$routeParams, FileUploader, socket, chat) {
 
 
-    //if(($scope.user && $scope.user.id != $scope.id_user) || !$scope.user){
-    //    $scope.user = undefined;
-    //    messagesService.getUser().success(function (data) {
-    //        $rootScope.user = $scope.user = data.user;
-    //        $scope.favorit = false;
-    //        for(key in $scope.user.favorits_with_me){
-    //            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-    //                $scope.favorit = true;
-    //            }
-    //        }
-    //    })
-    //
-    //    messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
-    //        $scope.companion = data.user;
-    //
-    //    })
-    //}
-
-
-        messagesService.getUser().success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-            $scope.favorit = false;
-            for(key in $scope.user.favorits_with_me){
-                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                    $scope.favorit = true;
-                }
+    messagesService.getUser().success(function (data) {
+        $rootScope.user = $scope.user = data.user;
+        $scope.favorit = false;
+        for(key in $scope.user.favorits_with_me){
+            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                $scope.favorit = true;
             }
-        })
+        }
+    })
 
-        messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
-            $scope.companion = data.user;
+    messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
+        $scope.companion = data.user;
 
-        })
+    })
 
 
     $scope.$watchGroup(['user','companion'], function() {

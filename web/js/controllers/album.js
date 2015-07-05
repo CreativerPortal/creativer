@@ -2,12 +2,9 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
     .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$timeout', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'chat', function($scope,$window,$rootScope,$location,$timeout,albumService,personalService,$routeParams, FileUploader, chat) {
 
 
-    if($routeParams.id_album && $scope.user){
-        var bool = false;
-        for(key in $scope.user.albums){
-            if($scope.user.albums[key].id == $routeParams.id_album)
-                bool = true;
-        }
+
+    albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
+        $rootScope.user = $scope.user = data.user;
         for(key in $scope.user.favorits_with_me){
             if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
                 $scope.favorit = true;
@@ -15,31 +12,7 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
                 $scope.favorit = false;
             }
         }
-        if(!bool){
-            albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-                $rootScope.user = $scope.user = data.user;
-                for(key in $scope.user.favorits_with_me){
-                    if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                        $scope.favorit = true;
-                    }else{
-                        $scope.favorit = false;
-                    }
-                }
-            })
-        }
-    }else if($routeParams.id_album && !$scope.user){
-        albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-            for(key in $scope.user.favorits_with_me){
-                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                    $scope.favorit = true;
-                }else{
-                    $scope.favorit = false;
-                }
-            }
-        })
-    }
-
+    })
 
 
     $scope.$watch('user', function() {

@@ -3,8 +3,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
 
     // init controller
 
-    if($routeParams.id !== undefined && !$scope.user || $scope.user == undefined) {
-        $rootScope.user = $scope.user = null;
+    if($routeParams.id){
         personalService.getUser({id: $routeParams.id}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
             $scope.favorit = false;
@@ -14,53 +13,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
                 }
             }
         })
-    }else if($rootScope.id_user && $rootScope.user.id && $rootScope.id_user != $rootScope.user.id){
-        $rootScope.user = $scope.user = null;
-        personalService.getUser({id: $routeParams.id}).success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-            $scope.favorit = false;
-            for(key in $scope.user.favorits_with_me){
-                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                    $scope.favorit = true;
-                }
-            }
-        })
-    }else if($scope.user && $routeParams.id  && $routeParams.id != $scope.user.id) {
-        $rootScope.user = $scope.user = null;
-        personalService.getUser({id: $routeParams.id}).success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-            $scope.favorit = false;
-            for(key in $scope.user.favorits_with_me){
-                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                    $scope.favorit = true;
-                }
-            }
-        })
-    }else if($scope.user){
-        $scope.favorit = false;
-        for(key in $scope.user.favorits_with_me){
-            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                $scope.favorit = true;
-            }
-        }
     }
 
-
-
-    if($routeParams.id_album && $scope.user){
-        var bool = false;
-        for(key in $scope.user.albums){
-            if($scope.user.albums[key].id == $routeParams.id_album)
-                bool = true;
-        }
-    if(!bool){
-        personalService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-            $scope.$apply(function () {
-                $scope.user = data.user;
-            });
-        })
-    }
-    }else if($routeParams.id_album && !$scope.user){
+   if($routeParams.id_album && !$scope.user){
         personalService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
             $scope.$apply(function () {
                 $scope.user = data.user;
@@ -69,15 +24,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
     }
 
 
-
-
-    if($routeParams.id_album && $scope.user != undefined){
-        for(var key in $scope.user.albums){
-            if($scope.user.albums[key].id == $routeParams.id_album){
-                $scope.id = key;
-            }
-        }
-    }
     if($routeParams.id_album){
         $scope.id_album = $routeParams.id_album;
     }
