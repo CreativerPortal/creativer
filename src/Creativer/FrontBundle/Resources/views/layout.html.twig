@@ -8,6 +8,10 @@
     {% block stylesheets %}{% endblock %}
     <script src="/js/angular.min.js"></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    {% if is_mobile_view() %}
+    {% else %}
+        <link rel="stylesheet" href="/css/screens.css">
+    {% endif %}
 </head>
 <body>
 <div class="container wrapper">
