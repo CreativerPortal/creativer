@@ -169,3 +169,9 @@ snc_redis:
         query_cache:
             client: doctrine
             entity_manager: default
+
+mobile_detect:
+    redirect:
+        mobile: ~
+        tablet: ~
+    switch_device_view: ~

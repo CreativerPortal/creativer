@@ -20,6 +20,10 @@
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/helpers.css">
 
+    {% if is_mobile_view() == false %}
+        <link rel="stylesheet" href="/css/screens.css">
+    {% endif %}
+
     <link rel="stylesheet" href="/css/vendor/angular-multi-select-tree-0.1.0.css">
 
     <script src="/js/angular.min.js"></script>
@@ -126,6 +130,11 @@
         {% endif %}
 
     </div>
+    {% if is_mobile_view() %}
+        МОБИЛА
+    {% else %}
+        НЕ МОБИЛА
+    {% endif %}
 
     {% if is_granted('ROLE_USER') %}
     {% else %}

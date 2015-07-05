@@ -1,0 +1,11 @@
+@media screen and (max-width: 1370px) {
+    html{
+        zoom: 0.75!important;
+        font-size: 1.2em!important;
+    }
+    .header{
+        height: 160px!important;
+        padding-top: 16px!important;
+        margin-top: -12px!important;
+    }
+}
