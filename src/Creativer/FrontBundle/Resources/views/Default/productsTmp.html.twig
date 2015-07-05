@@ -75,7 +75,7 @@
                     <span></span>
                 </div>
 
-                <div class="col-sm-3 col-sm-offset-2 slid__pagination fiveMinuts">
+                <div class="col-sm-3 col-sm-offset-2 slid__pagination fiveMinuts" ng-show="pages.length > 1">
                     <a href="#/products/[[ product.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
 
@@ -83,7 +83,7 @@
 
             <div class="row slid__card slid__card__first">
 
-                <div class="col-sm-3 padding-left_0" ng-repeat="album in albums.items" ng-init="count = album.images.length">
+                <div ng-show="albums.items.length >= 1" class="col-sm-3 padding-left_0" ng-repeat="album in albums.items" ng-init="count = album.images.length">
                     <a href="#/album/[[ album.id ]]/[[ album.images[random].name ]]/[[ random ]]" animation-image img="/home/album/thums/[[ album.images[random].name ]]" ng-init="random = math.floor(math.random() * count);" style='background:url("/home/album/thums/[[ album.images[random].name ]]") top left no-repeat;' class="container_image_product" >
                         <span class="slid__card__price">[[ album.images[random].price ]] руб.</span>
                     </a>
@@ -91,11 +91,13 @@
                     <a href="#/[[ album.user.id ]]" class="slid__card__name_user">[[ album.user.username ]] [[ album.user.lastname ]]</a>
                 </div>
 
+                <div ng-show="albums.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">ПУСТО</div>
+
             </div>
 
 
             <div class="row">
-                <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30">
+                <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages.length > 1">
                     <a href="#/products/[[ product.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>

@@ -23,8 +23,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     }
 
         $rootScope.$watch('service', function() {
+            $rootScope.service.id = $routeParams.id_services;
             if($rootScope.service && $rootScope.service.id){
-                $rootScope.service.id = $routeParams.id_services;
                 for(var key in $rootScope.services){
                     if($rootScope.services[key].child == true){
                         $rootScope.services[key].child = false;
@@ -35,8 +35,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
         $rootScope.$watch('product', function() {
+            $rootScope.product.id = $routeParams.id_products;
             if($rootScope.product && $rootScope.product.id){
-                $rootScope.product.id = $routeParams.id_products;
                 for(var key in $rootScope.products){
                     if($rootScope.products[key].child == true){
                         $rootScope.products[key].child = false;
@@ -81,7 +81,6 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
     $scope.deleteImage = function(image_id,key_img,key_album){
-
         albumService.deleteImage({image_id:image_id}).success(function (data) {
             $scope.user.albums[key_album].images.splice(key_img,1);
             $location.path("/album/"+$routeParams.id_album+'/'+$scope.user.albums[key_album].images[key_img].name+'/'+key_img);

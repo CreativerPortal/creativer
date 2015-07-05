@@ -252,6 +252,11 @@ body{
     animation-play-state: paused;
 }
 
+.empty_catalog{
+    margin-top: 100px;
+    font-size: 6.2em;
+}
+
 .container_image_product:hover{
     -webkit-animation:pulse 1.5s alternate infinite;
 }

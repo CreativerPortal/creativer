@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=1045">
+    <meta name="viewport" content="width=device-width">
     <title>{% block title %}Welcome!{% endblock %}</title>
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -44,11 +44,6 @@
     <div ng-model="img" ng-init="img='{{ app.security.getToken().getUser().getAvatar().getImg() }}'"></div>
 {% endif %}
 
-    <style>
-        html{
-            zoom:0.8;
-        }
-    </style>
 
 <header class="header">
 
