@@ -62,10 +62,15 @@
             <div class="row">
                 <div class="col-sm-4 padding-left_0">
                     Сортировать по:
-                    <select class="slid__order-by">
-                        <option>рейтингу</option>
-                        <option>кол-ву просмотров</option>
-                        <option>дате добавления</option>
+                    <select class="slid__order-by" ng-model="$root.filterCondition">
+                        <option ng-selected="[[ filter.value == $root.filterCondition ]]"
+                                ng-repeat="filter in filters"
+                                value="[[ filter.value ]]">
+                            {{operator.displayName}}
+                        </option>
+                        <option value="likes" ng-selected="$root.filter == 'likes'">рейтингу</option>
+                        <option value="views">кол-ву просмотров</option>
+                        <option value="date">дате добавления</option>
                     </select>
                 </div>
                 <div class="col-sm-3 extended__search">
@@ -81,21 +86,21 @@
 
             <div class="row slid__card slid__card__first">
 
-                <div class="col-sm-6" ng-repeat="album in albums.items" ng-init="count = album.images.length">
-                    <div class="col-sm-6  padding-left_0 padding-right_5 slid__card__img margin-top_25" ng-init="count = album.images.length">
+                <div class="col-sm-6" ng-repeat="item in items.items" ng-init="count = item.images.length">
+                    <div class="col-sm-6  padding-left_0 padding-right_5 slid__card__img margin-top_25" ng-init="count = item.images.length">
                         <div class="col-sm-12 padding-left_0 padding-right_0 overflow-hidden">
-                            <a animation-image href="#/album/[[ album.id ]]/[[ album.images[random].name ]]/[[ random ]]" img="/home/album/thums/[[ album.images[random].name ]]" ng-init="random = math.floor(math.random() * count);" style='background:url("/home/album/thums/[[ album.images[random].name ]]") top left no-repeat;' class="container_image_product" >                            </a>
-                            <span class="slid__card__price">[[ album.images[random].price ]] руб.</span>
+                            <a animation-image href="#/album/[[ item.id ]]/[[ item.images[random].name ]]/[[ random ]]" img="/home/album/thums/[[ item.images[random].name ]]" ng-init="random = math.floor(math.random() * count);" style='background:url("/home/album/thums/[[ item.images[random].name ]]") top left no-repeat;' class="container_image_product" >                            </a>
+                            <span class="slid__card__price">[[ item.images[random].price ]] руб.</span>
                         </div>
                     </div>
                     <div class="col-sm-6 padding-left_0 slid__card__info margin-top_25">
-                        <a href="#/album/[[ album.id ]]" class="slid__card__name text-bold">[[ album.name ]]</a>
-                        <a href="#/[[ album.user.id ]]" class="slid__card__name_user">[[ album.user.username ]] [[ album.user.lastname ]]</a>
-                        <p class="text-gray margin-top_15">[[ album.description ]]</p>
+                        <a href="#/album/[[ item.id ]]" class="slid__card__name text-bold">[[ item.name ]]</a>
+                        <a href="#/[[ item.user.id ]]" class="slid__card__name_user">[[ item.user.username ]] [[ item.user.lastname ]]</a>
+                        <p class="text-gray margin-top_15">[[ item.description ]]</p>
                     </div>
                 </div>
 
-                <div ng-show="albums.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">ПУСТО</div>
+                <div ng-show="items.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">ПУСТО</div>
 
 
             </div>

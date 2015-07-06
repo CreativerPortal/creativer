@@ -23,6 +23,15 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
                 }
             }
 
+            if(!$routeParams.key_img && $routeParams.url_img){
+                for(var key_img in $scope.user.albums[$scope.album_key].images){
+                    if($routeParams.url_img == $scope.user.albums[$scope.album_key].images[key_img].name){
+                        $location.replace();
+                        $location.path("/album/"+$routeParams.id_album+'/'+$scope.user.albums[$scope.album_key].images[key_img].name+'/'+key_img);
+                    }
+                }
+            }
+
             // get comments for images
             if($routeParams.key_img && $scope.user){
                 $scope.user.comments = null;
@@ -60,7 +69,8 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
         $rootScope.key_img = $routeParams.key_img;
         $scope.next_key_img = parseInt($routeParams.key_img)+1;
         $scope.previous = parseInt($routeParams.key_img)-1;
-    }else{
+    }
+    else{
         $rootScope.key_img = undefined;
     }
 

@@ -22,6 +22,17 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         });
     }
 
+
+        $scope.operators = [
+            {value: 'likes', displayName: '????????'},
+            {value: 'views', displayName: '???-?? ??????????'},
+            {value: 'date', displayName: '???? ??????????'},
+        ];
+        if(!$rootScope.filterCondition){
+            $rootScope.filterCondition = 'likes';
+        }
+
+
         $rootScope.$watch('service', function() {
             $rootScope.service.id = $routeParams.id_services;
             if($rootScope.service && $rootScope.service.id){
@@ -45,31 +56,66 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             }
         });
 
-
-        var id_category = $routeParams.id_services?$routeParams.id_services:$routeParams.id_products;
-
         $routeParams.page = $routeParams.page?$routeParams.page:1;
 
-        catalogService.getCatalogAlbums({id:id_category,page:$routeParams.page}).success(function (data) {
-            $scope.albums = data.albums;
+        if($routeParams.id_services){
+            $rootScope.$watch('filterCondition', function() {
+                catalogService.getCatalogServiceAlbums({
+                    id: $routeParams.id_services,
+                    page: $routeParams.page,
+                    filter: $rootScope.filterCondition
+                }).success(function (data) {
+                    $scope.items = data.services;
 
-            $scope.pages = [];
-            $scope.pages[0] = $scope.albums.currentPageNumber;
-            $scope.currentPage = $scope.albums.currentPageNumber;
-            var length = ($scope.albums.totalCount/$scope.albums.numItemsPerPage<5)?$scope.albums.totalCount/$scope.albums.numItemsPerPage:5;
-            length--;
-            while(length > 0){
-                console.log(length);
-                if($scope.pages[0] > 1){
-                    $scope.pages.unshift($scope.pages[0]-1)
-                    length = length - 1;
-                }else{
-                    var p = parseInt($scope.pages[$scope.pages.length-1]) + 1;
-                    $scope.pages.push(p);
-                    length = length - 1;
-                }
-            }
-        })
+                    $scope.pages = [];
+                    $scope.pages[0] = $scope.items.currentPageNumber;
+                    $scope.currentPage = $scope.items.currentPageNumber;
+                    var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
+                    length--;
+                    while (length > 0) {
+                        console.log(length);
+                        if ($scope.pages[0] > 1) {
+                            $scope.pages.unshift($scope.pages[0] - 1)
+                            length = length - 1;
+                        } else {
+                            var p = parseInt($scope.pages[$scope.pages.length - 1]) + 1;
+                            $scope.pages.push(p);
+                            length = length - 1;
+                        }
+                    }
+                })
+            })
+        }
+
+        if($routeParams.id_products){
+            $rootScope.$watch('filterCondition', function() {
+                catalogService.getCatalogProductAlbums({
+                    id: $routeParams.id_products,
+                    page: $routeParams.page,
+                    filter: $rootScope.filterCondition
+                }).success(function (data) {
+                    $scope.items = data.products;
+
+                    $scope.pages = [];
+                    $scope.pages[0] = $scope.items.currentPageNumber;
+                    $scope.currentPage = $scope.items.currentPageNumber;
+                    var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
+                    length--;
+                    while (length > 0) {
+                        console.log(length);
+                        if ($scope.pages[0] > 1) {
+                            $scope.pages.unshift($scope.pages[0] - 1)
+                            length = length - 1;
+                        } else {
+                            var p = parseInt($scope.pages[$scope.pages.length - 1]) + 1;
+                            $scope.pages.push(p);
+                            length = length - 1;
+                        }
+                    }
+                })
+            })
+        }
+
 
 
     chat.init();

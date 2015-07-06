@@ -13,14 +13,39 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
                 }
             }
         })
+    }else{
+        personalService.getUser({id: $rootScope.id_user}).success(function (data) {
+            $rootScope.user = $scope.user = data.user;
+            $scope.favorit = false;
+            for(key in $scope.user.favorits_with_me){
+                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                    $scope.favorit = true;
+                }
+            }
+        })
     }
 
-   if($routeParams.id_album && !$scope.user){
+    if($routeParams.id_album && !$scope.user){
         personalService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
             $scope.$apply(function () {
                 $scope.user = data.user;
             });
         })
+    }
+
+    if(!$rootScope.data){
+        personalService.getAllCategories().success(function (data) {
+            $rootScope.data = $scope.data = data.categories;
+            $scope.selectOnly1Or2 = function(item, selectedItems) {
+                if (selectedItems  !== undefined && selectedItems.length >= 20) {
+                    return false;
+                } else {
+                    return true;
+                }
+            };
+        });
+    }else{
+        $scope.data = $rootScope.data;
     }
 
 
@@ -157,6 +182,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
        // $scope.res = uploader.queue.length/3;
        // fileItem._file.width = '10px';
         //var canvas = document.querySelectorAll('canvas');
+        $scope.res = uploader.queue.length/3;
     };
     uploader.onAfterAddingAll = function(addedFileItems,key) {
         // console.info('onAfterAddingAll', addedFileItems);
@@ -282,40 +308,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
     $timeout(function(){
         angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
     }, 2000);
-
-    ////////////////////////////////////////////////////
-
-
-        personalService.getAllCategories().success(function (data) {
-
-
-            $scope.data = data.categories;
-
-
-        $scope.selectOnly1Or2 = function(item, selectedItems) {
-            if (selectedItems  !== undefined && selectedItems.length >= 20) {
-                return false;
-            } else {
-                return true;
-            }
-        };
-
-        //    $scope.switchViewCallback = function(scopeObj) {
-        //
-        //    if (scopeObj.switchViewLabel == 'test2') {
-        //        scopeObj.switchViewLabel = 'test1';
-        //        scopeObj.inputModel = data1;
-        //        scopeObj.selectOnlyLeafs = true;
-        //    } else {
-        //        scopeObj.switchViewLabel = 'test2';
-        //        scopeObj.inputModel = data3;
-        //        scopeObj.selectOnlyLeafs = false;
-        //    }
-        //}
-
-        });
-
-
 
 
 }]);

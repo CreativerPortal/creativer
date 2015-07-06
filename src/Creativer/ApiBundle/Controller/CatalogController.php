@@ -93,13 +93,89 @@ class CatalogController extends Controller
     }
 
     /**
-     * @Post("/v1/get_catatalog_albums")
+     * @Post("/v1/get_catalog_product_albums")
      * @View()
      */
-    public function getCatalogAlbumsAction(){
+    public function getCatalogProductAlbumsAction(){
 
         $id = $this->get('request')->request->get('id');
         $page = $this->get('request')->request->get('page')?$this->get('request')->request->get('page'):1;
+        $filter = $this->get('request')->request->get('filter')?$this->get('request')->request->get('filter'):'likes';
+
+        $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
+
+        $i = 0;
+        while(isset($items[$i])){
+            if(!$items[$i]->getChildren()->isEmpty()){
+                $childs = $items[$i]->getChildren();
+
+                foreach($childs as $k => $v) {
+                    array_push($items, $childs[$k]);
+                }
+            }
+            $i++;
+        }
+
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')
+            ->createQueryBuilder('e')
+            ->join('e.album', 'alb')
+            ->join('alb.categories', 'cat')
+            ->where('cat IN (:items)')
+            ->setParameter('items', $items);
+
+            if($filter == 'likes'){
+                $query->orderBy('e.likes', 'DESC');
+            }elseif($filter == 'views'){
+                $query->orderBy('e.views', 'DESC');
+            }elseif($filter == 'date'){
+                $query->orderBy('e.date', 'DESC');
+            }
+
+        $query = $query->getQuery();
+
+
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $query,
+            $page,
+            16
+        );
+
+        $products = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
+            'numItemsPerPage' => $pagination->getItemNumberPerPage(),
+            'items' => $pagination->getItems(),
+            'totalCount' => $pagination->getTotalItemCount());
+
+        $products = array('products' => $products);
+
+        //die(\Doctrine\Common\Util\Debug::dump($pagination));
+
+        $serializer = $this->container->get('jms_serializer');
+        $products = $serializer
+            ->serialize(
+                $products,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+            );
+
+        $response = new Respon($products);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+    }
+
+
+    /**
+     * @Post("/v1/get_catalog_service_albums")
+     * @View()
+     */
+    public function getCatalogServiceAlbumsAction(){
+
+        $id = $this->get('request')->request->get('id');
+        $page = $this->get('request')->request->get('page')?$this->get('request')->request->get('page'):1;
+        $filter = $this->get('request')->request->get('filter')?$this->get('request')->request->get('filter'):'likes';
+
 
         $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
 
@@ -119,39 +195,49 @@ class CatalogController extends Controller
             ->createQueryBuilder('e')
             ->join('e.categories', 'cat')
             ->where('cat IN (:items)')
-            ->setParameter('items', $items)
-            ->getQuery();
+            ->setParameter('items', $items);
+
+            if($filter == 'likes'){
+                $query->orderBy('e.likes', 'DESC');
+            }elseif($filter == 'views'){
+                $query->orderBy('e.views', 'DESC');
+            }elseif($filter == 'date'){
+                $query->orderBy('e.date', 'DESC');
+            }
+
+        $query = $query->getQuery();
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $page,
-            16
+            8
         );
 
-        $albums = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
+        $services = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
             'totalCount' => $pagination->getTotalItemCount());
 
-        $albums = array('albums' => $albums);
+        $services = array('services' => $services);
 
         //die(\Doctrine\Common\Util\Debug::dump($pagination));
 
         $serializer = $this->container->get('jms_serializer');
-        $albums = $serializer
+        $services = $serializer
             ->serialize(
-                $albums,
+                $services,
                 'json',
                 SerializationContext::create()
                     ->enableMaxDepthChecks()
             );
 
-        $response = new Respon($albums);
+        $response = new Respon($services);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
 
     }
+
 
     /**
      * @Post("/v1/get_post_by_id")

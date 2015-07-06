@@ -30,10 +30,21 @@ angular
                         data: data
                     });
                 },
-                getCatalogAlbums: function (data) {
+                getCatalogServiceAlbums: function (data) {
                     return $http({
                         method: 'POST',
-                        url: url + 'get_catatalog_albums',
+                        url: url + 'get_catalog_service_albums',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                getCatalogProductAlbums: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_catalog_product_albums',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

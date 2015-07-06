@@ -250,8 +250,8 @@ body{
     border: 1px dashed #c5c3b4;
     border-radius: 10px;
     animation-name: horizontal;
-    animation-duration: 1s;
-    animation-delay: 1s;
+    animation-duration: 1.5s;
+    animation-delay: 0s;
     animation-iteration-count: infinite;
     animation-direction: alternate;
     position: relative;
