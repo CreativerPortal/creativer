@@ -29,8 +29,22 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         uploader.onAfterAddingAll = function(addedFileItems) {
             // console.info('onAfterAddingAll', addedFileItems);
         };
-        uploader.onBeforeUploadItem = function(item) {
-            // console.info('onBeforeUploadItem', item);
+        uploader.onBeforeUploadItem = function (item) {
+
+            item.formData.push({post_id: $scope.post_id});
+            item.formData.push({post_category: $scope.post_category.id});
+            item.formData.push({section: $scope.section});
+            item.formData.push({title: $scope.title});
+            item.formData.push({city: $scope.city});
+            item.formData.push({description: $scope.description});
+            item.formData.push({full_description: $scope.full_description});
+            item.formData.push({full_price: $scope.price});
+            item.formData.push({auction: $scope.auction});
+
+            if(item.main == 1) {
+                item.formData.push({main: 1});
+            }
+            uploader.uploadAll();
         };
         uploader.onProgressItem = function(fileItem, progress) {
             // console.info('onProgressItem', fileItem, progress);
@@ -48,7 +62,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             // console.info('onCancelItem', fileItem, response, status, headers);
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            // console.info('onCompleteItem', fileItem, response, status, headers);
+            $scope.id_post_baraholka = response.id;
         };
         uploader.onCompleteAll = function() {
             //for(item in $scope.selectedItem){
@@ -59,25 +73,9 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             //    $location.path("/#/person");
             //});
             //console.info('onCompleteAll');
+            $location.path("/viewtopic/"+$scope.id_post_baraholka);
         };
 
-        uploader.onBeforeUploadItem = function (item) {
-
-            item.formData.push({post_id: $scope.post_id});
-            item.formData.push({post_category: $scope.post_category.id});
-            item.formData.push({section: $scope.section});
-            item.formData.push({title: $scope.title});
-            item.formData.push({city: $scope.city});
-            item.formData.push({description: $scope.description});
-            item.formData.push({full_description: $scope.full_description});
-            item.formData.push({full_price: $scope.price});
-
-
-            if(item.main == 1) {
-                item.formData.push({main: 1});
-            }
-            uploader.uploadAll();
-        };
 
         // console.info('uploader', uploader);
         // crop image
@@ -118,6 +116,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             data.description = $scope.description;
             data.full_description = $scope.full_description;
             data.full_price = $scope.price;
+            data.auction = $scope.auction;
             baraholkaService.createPostBaraholka(data).success(function (data) {
 
             });

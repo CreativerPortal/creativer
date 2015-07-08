@@ -67,6 +67,10 @@ creativer_front_create_albumTmp:
     path:     /create_album
     defaults: { _controller: CreativerFrontBundle:Default:createAlbumTmp }
     methods:  [GET]
+creativer_front_edit_albumTmp:
+    path:     /edit_album
+    defaults: { _controller: CreativerFrontBundle:Default:editAlbumTmp }
+    methods:  [GET]
 creativer_front_albumTmp:
     path:     /album_tmp/{id_album}
     defaults: { _controller: CreativerFrontBundle:Default:albumTmp, id_album: null }

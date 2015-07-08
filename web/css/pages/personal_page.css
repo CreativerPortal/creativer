@@ -338,6 +338,12 @@ body{
     position: relative;
 }
 
+.album__element:hover .edit__album{
+    display: block;
+    text-decoration: none;
+    color: white;
+}
+
 .comment_time{
     font-size: 0.8em;
     color: #aea9a9;
@@ -366,6 +372,21 @@ body{
 
 .one_post:hover .edit_post{
     display: block;
+}
+
+.edit__album {
+    position: absolute;
+    right: 9px;
+    top: 11px;
+    z-index: 3;
+    color: #FFFFFF;
+    background-color: #80abe0;
+    padding: 5px;
+    border-radius: 20px;
+    display: none;
+    opacity: 0.5;
+    text-decoration: none;
+    color: white;
 }
 
 .edit__album__menu{

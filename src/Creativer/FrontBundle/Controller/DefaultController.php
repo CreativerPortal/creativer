@@ -25,6 +25,8 @@ use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
 use Imagine\Imagick;
 use Imagine\Image\ImageInterface;
+use Symfony\Component\HttpFoundation\Response as Respon;
+
 
 
 
@@ -163,6 +165,20 @@ class DefaultController extends Controller
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
         return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig',  array('id' => $userId));
+    }
+
+    public function editAlbumTmpAction(){
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        return $this->render('CreativerFrontBundle:Default:editAlbumTmp.html.twig',  array('id' => $userId));
     }
 
     public function uploadAlbumAction(){
@@ -363,6 +379,12 @@ class DefaultController extends Controller
             $full_description = $request->get('full_description');
             $full_price = $request->get('full_price');
             $main = $request->get('main');
+            if($request->get('auction') == 'true'){
+                $auction = 1;
+            }else{
+                $auction = 0;
+            }
+
 
 
             $em = $this->getDoctrine()->getEntityManager();
@@ -382,6 +404,8 @@ class DefaultController extends Controller
             $PostBaraholka->setFullDescription($full_description);
             $PostBaraholka->setPrice($full_price);
             $PostBaraholka->setIsActive(1);
+            $PostBaraholka->setAuction($auction);
+
 
 
 
@@ -449,8 +473,11 @@ class DefaultController extends Controller
 
             $em->persist($PostBaraholka);
             $em->flush();
-            $response = new Response();
-            return $response->setStatusCode(200);
+            $id = $PostBaraholka->getId();
+            $array = array('id' => $id);
+            $response = new Respon(json_encode($array), 200);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
         }
 
 

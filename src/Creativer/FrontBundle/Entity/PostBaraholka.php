@@ -68,6 +68,12 @@ class PostBaraholka
 
 
     /**
+     * @ORM\Column(type="integer", name="auction")
+     * @JMS\Expose
+     */
+    private $auction = 0;
+
+    /**
      * @JMS\Expose
      * @var \DateTime $date
      *
@@ -455,5 +461,28 @@ class PostBaraholka
     public function getPostComments()
     {
         return $this->post_comments;
+    }
+
+    /**
+     * Set auction
+     *
+     * @param integer $auction
+     * @return PostBaraholka
+     */
+    public function setAuction($auction)
+    {
+        $this->auction = $auction;
+
+        return $this;
+    }
+
+    /**
+     * Get auction
+     *
+     * @return integer 
+     */
+    public function getAuction()
+    {
+        return $this->auction;
     }
 }

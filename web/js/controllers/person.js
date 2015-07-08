@@ -233,7 +233,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
                 }
             }
 
-        }, 1000)
+        }, 2500)
 
     };
     uploader.onBeforeUploadItem = function(item) {

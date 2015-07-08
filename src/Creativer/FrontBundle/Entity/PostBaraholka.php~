@@ -68,6 +68,12 @@ class PostBaraholka
 
 
     /**
+     * @ORM\Column(type="integer", name="auction")
+     * @JMS\Expose
+     */
+    private $auction = 0;
+
+    /**
      * @JMS\Expose
      * @var \DateTime $date
      *

@@ -38,7 +38,7 @@
                     {#</select>#}
 
                     <select name="section" class="selectForumId" ng-model="section" ng-pattern="/^[1-9]+/" required>
-                        <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]">                                                                                                                                                                                                                                                                                                                                    <option value="2">GSM-телефоны</option>
+                        <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]">
                             <option ng-repeat="child in children.children" value="[[ child.id ]]">[[ child.name ]]</option>
                         </optgroup>
                     </select>
@@ -93,7 +93,7 @@
 
                         <div class="margin-top_5">
                                 <label for="search">Торг уместен</label>
-                                <input id="search" class="extended__search__element" type="checkbox">
+                                <input id="search" class="extended__search__element" ng-model="auction" type="checkbox">
                                 <span></span>
                             </div>
                     </div>
@@ -104,7 +104,7 @@
 
             <div class="margin-top_10">
                 <label class="" for="uploadImg" style="font-weight: normal;" ng-disabled="uploader.isUploading">
-                    <div ng-disabled="uploader.isUploading" class="btn button_favorites early-message text-center"><span>Выбрать</span></div> <span class="lobster">jpg, png, gif не более 10Mb</span>
+                    <div ng-disabled="uploader.isUploading" class="button_favorites early-message text-center pointer left"><span class="middle">Выбрать</span></div> <span class="margin-left_10">jpg, png, gif не более 10Mb</span>
                 </label>
             </div>
 
@@ -141,14 +141,14 @@
                         <div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                             <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
-                            <span ng-show="uploader.progress" class="text-gray fiveMinuts text-bold">Подождите пока файлы загрузятся на CREATIVER [[ uploader.progress ]]%</span><br>
+                            <div ng-show="uploader.progress" class="text-gray fiveMinuts text-bold margin-top_minus_10">Подождите пока файлы загрузятся на CREATIVER [[ uploader.progress ]]%</div><br>
                     </div>
                 </div>
 
 
             </div>
 
-            <div class="horizontal_line"></div>
+            <div class="horizontal_line margin-top_15"></div>
 
             <div class="bg-warning text-center">
                     <h5 class="text-danger">Увеличьте продажи: оплатите выделение объявления через банкомат, инфокиоск, интернет-банкинг!</h5>
@@ -156,11 +156,11 @@
             </div>
 
             <div class="row text-center">
-                <button type="button" ng-show="!uploader.queue.length" class="btn button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && createPostBaraholka()" >
-                    <span>Продолжить</span>
+                <button type="button" ng-show="!uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && createPostBaraholka()" >
+                    Продолжить
                 </button>
-                <button type="button" ng-show="uploader.queue.length" class="btn button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && uploader.uploadAll()" >
-                    <span>Продолжить</span>
+                <button type="button" ng-show="uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && uploader.uploadAll()" >
+                    Продолжить
                 </button>
             </div>
 

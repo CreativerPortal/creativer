@@ -58,7 +58,7 @@
 
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30">
-                    <a href="#/viewforum/[[ posts_category ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a href="#/viewforum/[[ posts_category ]]/[[ page ]]" ng-show="pages.length > 1" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>
 
@@ -97,13 +97,16 @@
                             <div class="col-sm-9 padding-left_0"><a href="#/[[ post.user.id ]]" class="text-blue">[[ post.user.username ]] [[ post.user.lastname ]]</a></div>
                         </div>
                     </td>
-                    <td class="baraholka__table__right"><span>[[ post.price ]]</span></td>
+                    <td class="baraholka__table__right">
+                        <span>[[ post.price ]] руб.</span><br>
+                        <span ng-if="post.auction" class="fs_1-1 text-danger">ТОРГ</span>
+                    </td>
                 </tr>
             </table>
 
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30">
-                    <a href="#/viewforum/[[ posts_category ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a href="#/viewforum/[[ posts_category ]]/[[ page ]]" ng-show="pages.length > 1" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>
 

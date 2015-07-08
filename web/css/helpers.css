@@ -1,4 +1,14 @@
+button{
+    color: white;
+}
 
+button:hover{
+    color: white;
+}
+
+.middle{
+    vertical-align: middle;
+}
 
 .hidden{
     display: none;
@@ -25,6 +35,10 @@
 }
 .left{
     float: left;
+}
+
+.margin-right_minus_10{
+    margin-right: -10px!important;
 }
 
 .margin-right_10{

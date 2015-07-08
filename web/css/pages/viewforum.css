@@ -193,9 +193,6 @@ input[type=radio]:checked ~ .baraholka__filter__element {
     text-align: center;
 }
 
-.baraholka__table__right span:after{
-    content: " руб.";
-}
 
 .baraholka__table__label{
     width: 50px;
