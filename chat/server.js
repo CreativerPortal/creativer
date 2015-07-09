@@ -190,7 +190,7 @@ io.on('connection', function(socket){
 
 });
 
-http.listen(3000, "192.168.56.101");
+http.listen(3000);
 
 
 
