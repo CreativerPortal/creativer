@@ -17,12 +17,12 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     })
 
-
     $scope.$watchGroup(['user','companion'], function() {
 
         if($scope.companion && $scope.user){
             $scope.ids = [$scope.companion.id,$scope.user.id];
             $scope.ids = $scope.ids.sort();
+            socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
             socket.emit("history",{id_user:$scope.user.id, ids:$scope.ids});
         }
 
@@ -37,21 +37,10 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         });
     }else{
         socket.on("history", function(data) {
-            $scope.messages = data;
+            $rootScope.messages = data;
         });
     }
 
-
-
-    socket.on('message', function(data){
-        var data = data[0];
-        if(data.reviewed == false && ($routeParams.id_user_chat == data.sender || $routeParams.id_user_chat == data.receiver)){
-            console.log({id_user: data.sender, text: data.text, date: data.date});
-            $scope.messages.unshift({sender: data.sender, text: data.text, date: data.date});
-        }else{
-            $rootScope.new_messages.push(data);
-        }
-    });
 
     $scope.uncheck = function (event) {
         if ($scope.previous_checked == event.target.value){
@@ -68,7 +57,9 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         }
     }
 
-    $scope.updateAvatar = function(image){
+        chat.init();
+
+        $scope.updateAvatar = function(image){
         $scope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {
             $scope.user = $rootScope.user = data.user;
@@ -80,13 +71,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
 
     $window.onfocus = function(){
-        console.log("focused");
-        for(var key in $rootScope.new_messages){
-            if($scope.user && $rootScope.new_messages[key].id_recipient == $scope.user.id){
-                console.log("равны 2");
-                socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
-            }
-        }
+        socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
     }
 
     $scope.go = function ( path ) {
@@ -94,15 +79,14 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     };
 
     socket.on('reviewed', function(data){
-        for(var key in $rootScope.new_messages){
-            console.log($rootScope.new_messages);
-            console.log("////////");
-            console.log(data);
-            if($rootScope.new_messages[key].id_user == data.id_user){
-                $scope.messages.unshift($rootScope.new_messages[key]);
-                $rootScope.new_messages = $rootScope.new_messages.slice(key,1);
-            }
-        }
+
+        //for(var key in $rootScope.new_messages){
+        //    $rootScope.new_messages
+        //    if($rootScope.new_messages[key].id_user == data.id_user){
+        //        $scope.messages.unshift($rootScope.new_messages[key]);
+        //        $rootScope.new_messages = $rootScope.new_messages.slice(key,1);
+        //    }
+        //}
     });
 
     //$scope.$watchGroup(['user','new_messages'], function() {

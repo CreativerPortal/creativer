@@ -1,5 +1,5 @@
-angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFileUpload', 'service.chat', 'ngImgCrop',])
-    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$timeout', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'chat', function($scope,$window,$rootScope,$location,$timeout,albumService,personalService,$routeParams, FileUploader, chat) {
+angular.module('app.ctr.album', ['service.album', 'service.personal', 'service.socket', 'angularFileUpload', 'service.chat', 'ngImgCrop',])
+    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$timeout', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($scope,$window,$rootScope,$location,$timeout,albumService,personalService,$routeParams, FileUploader, socket, chat) {
 
 
 
@@ -79,6 +79,10 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'angularFi
 
 
     chat.init();
+        socket.emit("new message",{id_user: $scope.id_user})
+        $window.onfocus = function(){
+        socket.emit("new message",{id_user: $scope.id_user})
+    }
 
         // end init controller
 

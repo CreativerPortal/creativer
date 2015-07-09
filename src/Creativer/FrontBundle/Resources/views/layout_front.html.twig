@@ -97,7 +97,7 @@
 
         {% if is_granted('ROLE_USER') %}
             <div class="messages col-sm-2 margin-top_10 margin-left_30 text-center">
-                <img class="margin-left_25" ng-src="/var/www/creativer/web/img/message_ico.png" alt="сообщения"/>
+                <img class="margin-left_25" ng-class="{background__envelope: $root.new_messages.length }" ng-src="/var/www/creativer/web/img/message_ico.png" alt="сообщения"/>
                     <span class="text-white fiveMinuts margin-left_5" >([[ $root.new_messages.length ]])</span><br>
                 <span class="text-white fiveMinuts">Сообщения</span>
             </div>

@@ -51,42 +51,44 @@
                     <div class="col-sm-2">
 
                     </div>
-                    <div class="col-sm-6 padding-left_3">
+                    <div class="col-sm-5 padding-left_3">
                         <a class="text-blue padding-left_0 chat__link" href="#/[[ message.sender ]]">[[ message.username ]] [[ message.lastname ]]</a>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="text-left margin-left_20 fs_0-8"><time>[[ message.date | date: "dd.MM.yyyy" ]]</time></div>
+                    <div class="col-sm-4 margin-left_25">
+                        <div class="text-left fs_0-8"><time>[[ message.date | date: "dd.MM.yyyy" ]]</time></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="user__avatar-mini" style="margin-top: -10px;"><img ng-src="[[ message.img ]]" /></div>
                     </div>
-                    <div class="col-sm-8">
+                    <div class="col-sm-7">
 
                             <div class="row text-gray pointer">
-                                <div class="col-sm-12 fs_0-8 padding-left_3 background__text-reviewed" ng-class="{background__text: message.reviewed == false && message.sender != user.id}" ng-click="go('chat/'+[[ message.other_user ]])">
+                                <div class="col-sm-12 fs_0-8 padding-left_3 padding-right_0 background__text-reviewed" ng-class="{background__text: message.reviewed == false && message.sender != user.id}" ng-click="go('chat/'+[[ message.other_user ]])">
                                     [[ message.text ]]
                                 </div>
                             </div>
                     </div>
-                    <div class="col-sm-2 padding-left_0 padding-right_0 text-center">
-                        <label class="slid__one__folder button_gray_message2 right text-center fs_0-9 pointer" for="[[ message.sender ]]">
-                            <span class="glyphicon glyphicon-folder-open"></span> &nbsp<span class="glyphicon glyphicon-menu-down"></span><br>
-                            папки
-                        </label>
-                        <input type="radio" ng-model="$parent.checked" value="[[ message.sender ]]" class="folder" id="[[ message.sender ]]"  ng-click="uncheck($event)" />
-                        <div class="folders__menu-down">
-                            <div class="folders__menu__top-down"></div>
-                            <div class="folders__menu__body">
-                                <ul class="text-white folders__menu fs_1-1 padding-left_0">
-                                    <li ng-repeat="folder in user.folders">[[ folder.name ]]</li>
-                                </ul>
-                                <input class="text__create__folder" type="text" />
-                                <button class="true fs_0-9 margin-top_5">Создать</button>
+                    <div class="col-sm-3 padding-left_0 padding-right_0 text-center">
+                        <div class="col-sm-10 padding-right_0">
+                            <label class="slid__one__folder button_gray_message2 right text-center fs_0-9 pointer" for="[[ message.sender ]]">
+                                <span class="glyphicon glyphicon-folder-open"></span> &nbsp<span class="glyphicon glyphicon-menu-down"></span><br>
+                                папки
+                            </label>
+                            <input type="radio" ng-model="$parent.checked" value="[[ message.sender ]]" class="folder" id="[[ message.sender ]]"  ng-click="uncheck($event)" />
+                            <div class="folders__menu-down">
+                                <div class="folders__menu__top-down"></div>
+                                <div class="folders__menu__body">
+                                    <ul class="text-white folders__menu fs_1-1 padding-left_0">
+                                        <li ng-repeat="folder in user.folders">[[ folder.name ]]</li>
+                                    </ul>
+                                    <input class="text__create__folder" type="text" />
+                                    <button class="true fs_0-9 margin-top_5">Создать</button>
+                                </div>
                             </div>
+                            {#<span class="text-blue text-underline fs_0-9">Удалить</span>#}
                         </div>
-                        <span class="text-blue text-underline fs_0-9">Удалить</span>
                     </div>
                 </div>
             </div>

@@ -1,5 +1,5 @@
-angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
-    .controller('personCtrl',['$scope', '$rootScope', '$timeout', '$location', 'personalService','$routeParams', 'FileUploader', 'chat', function($scope,$rootScope,$timeout,$location,personalService,$routeParams, FileUploader, chat) {
+angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
+    .controller('personCtrl',['$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$routeParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$timeout,$location,personalService,$routeParams, FileUploader, socket, chat) {
 
     // init controller
 
@@ -62,8 +62,12 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'ngIm
     }
 
 
-        chat.init();
-        $scope.math = window.Math;
+    chat.init();
+    socket.emit("new message",{id_user: $scope.id_user})
+    $window.onfocus = function(){
+        socket.emit("new message",{id_user: $scope.id_user})
+    }
+    $scope.math = window.Math;
 
 
     $scope.savePost = function(wall,wall_id, text){

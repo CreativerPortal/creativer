@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="col-sm-7 message-textareas padding-right_0">
-                    <textarea style="width: 320px;" rows="5" placeholder=" Введите текст..." class="search__message " ng-init="text_message" ng-model="text_message"></textarea>
+                    <textarea style="width: 320px;" rows="5" placeholder=" Введите текст..." class="search__message " ng-init="text_message" ng-model="$root.text_message"></textarea>
                     <div class="tail_message"></div>
 
                 </div>
@@ -61,7 +61,7 @@
 
             </div>
 
-            <div class="row margin-top_15" ng-repeat="message in messages">
+            <div class="row margin-top_15" ng-repeat="message in $root.messages">
                 <div class="col-sm-2">
                     <div class="user__avatar-mini">
                         <img ng-if="user.id == message.sender" ng-src="[[ user.avatar.img ]]">
@@ -104,7 +104,7 @@
             <div class="border__viewer__wrapper-avatar">
                 <!-- Modal -->
                 <div class="cropArea row" style="height: 340px;">
-                    <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;  background-image: url('/var/www/creativer/web/img/vertical_line')"></img-crop>
+                    <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;  background-image: url('/var/www/creativer/web/img/vertical_line.png')"></img-crop>
                     <div class="col-sm-3" style="height: auto; display: block; position: static;">
                         <div class="user__avatar-border col-sm-offset-4">
                             <div class="user__avatar">

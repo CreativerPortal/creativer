@@ -103,7 +103,7 @@ body{
 
 .tail_message{
     float: left;
-    margin-left: -33px;
+    margin-left: -32px;
     margin-top: 55px;
     position: relative;
     z-index: 1;

@@ -1,5 +1,5 @@
-angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.chat'])
-    .controller('baraholkaCtrl',['$scope', '$rootScope', '$location', 'baraholkaService','$routeParams', 'FileUploader', 'chat', function($scope,$rootScope,$location,baraholkaService,$routeParams, FileUploader, chat) {
+angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.socket', 'service.chat'])
+    .controller('baraholkaCtrl',['$window', '$scope', '$rootScope', '$location', 'baraholkaService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,baraholkaService,$routeParams, FileUploader, socket, chat) {
 
         $scope.uploader = new FileUploader();
 
@@ -96,6 +96,10 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
 
         chat.init();
+        socket.emit("new message",{id_user: $scope.id_user})
+        $window.onfocus = function(){
+            socket.emit("new message",{id_user: $scope.id_user})
+        }
 
         $scope.uncheck = function (id) {
             if ($rootScope.previous_checked == id){

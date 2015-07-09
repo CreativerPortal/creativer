@@ -111,7 +111,7 @@ body{
 
 
 .slid__all__folder{
-    margin-right: 35px;
+    margin-right: 24px;
     color: #ffffff;
     vertical-align: middle;
     line-height: 2.5em;
@@ -228,6 +228,6 @@ body{
     position: absolute;
     z-index: 100;
     top: 40px;
-    left: -15px;
+    left: 20px;
 }
 

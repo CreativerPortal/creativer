@@ -6,6 +6,10 @@ button:hover{
     color: white;
 }
 
+.background__envelope{
+    background-color: #b6dafa;
+}
+
 .middle{
     vertical-align: middle;
 }

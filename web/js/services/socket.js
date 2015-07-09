@@ -19,6 +19,14 @@ angular.module('service.socket', [])
                         }
                     });
                 })
+            },
+            removeListener: function (eventName, callback) {
+                socket.removeListener(eventName, function () {
+                    var args = arguments;
+                    $rootScope.$apply(function () {
+                        callback.apply(socket, args);
+                    });
+                });
             }
         };
 });

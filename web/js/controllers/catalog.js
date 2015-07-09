@@ -1,5 +1,5 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.socket', 'service.chat', 'angularFileUpload'])
-    .controller('catalogCtrl',['$scope', '$rootScope', '$location', 'catalogService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($scope,$rootScope,$location,catalogService,personalService,$routeParams, FileUploader, socket, chat) {
+    .controller('catalogCtrl',['$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,catalogService,personalService,$routeParams, FileUploader, socket, chat) {
 
     if(!$rootScope.my_user){
         personalService.getUser().success(function (data) {
@@ -24,9 +24,9 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
         $scope.operators = [
-            {value: 'likes', displayName: '????????'},
-            {value: 'views', displayName: '???-?? ??????????'},
-            {value: 'date', displayName: '???? ??????????'},
+            {value: 'likes', displayName: 'рейтингу'},
+            {value: 'views', displayName: 'кол-во просмотров'},
+            {value: 'date', displayName: 'дате добавления'},
         ];
         if(!$rootScope.filterCondition){
             $rootScope.filterCondition = 'likes';
@@ -34,6 +34,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
         $rootScope.$watch('service', function() {
+            if($rootScope.service)
             $rootScope.service.id = $routeParams.id_services;
             if($rootScope.service && $rootScope.service.id){
                 for(var key in $rootScope.services){
@@ -46,6 +47,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
         $rootScope.$watch('product', function() {
+            if($rootScope.product)
             $rootScope.product.id = $routeParams.id_products;
             if($rootScope.product && $rootScope.product.id){
                 for(var key in $rootScope.products){
@@ -119,8 +121,14 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
     chat.init();
+    socket.emit("new message",{id_user: $scope.id_user})
+    $window.onfocus = function(){
+        socket.emit("new message",{id_user: $scope.id_user})
+    }
+
 
     $scope.math = window.Math;
+
 
 
     // end init controller
