@@ -376,20 +376,18 @@ body{
 
 .edit__album {
     position: absolute;
-    right: 9px;
-    top: 11px;
+    right: 2px;
+    top: 4px;
     z-index: 3;
     color: #FFFFFF;
     background-color: #80abe0;
     padding: 5px;
     border-radius: 20px;
-    display: none;
-    opacity: 0.5;
     text-decoration: none;
     color: white;
 }
 
-.edit__album__menu{
+.add__files__menu{
     position: absolute;
     height: 130px;
     width: 139px;
@@ -401,16 +399,16 @@ body{
     display: none;
 }
 
-.edit__album__menu label{
+.add__files__menu label{
     font-weight: normal!important;
     cursor: pointer;
 }
 
-.edit__album input:checked ~ .edit__album__menu{
+.add__files input:checked ~ .add__files__menu{
     display: block;
 }
 
-.edit__album__menu li{
+.add__files__menu li{
     margin-top: 5px;
     list-style: none;
     cursor: pointer;

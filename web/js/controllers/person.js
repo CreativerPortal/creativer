@@ -261,6 +261,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
        // console.info('onCompleteItem', fileItem, response, status, headers);
+        $scope.id_post_baraholka = response.id;
     };
     uploader.onCompleteAll = function() {
         var name_album = $scope.album?$scope.album.name:null;
@@ -271,9 +272,8 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }
         personalService.finishUpload({name:name_album,selectCategories:selectCategories,description:description_album}).success(function () {
             $rootScope.user = undefined;
-            $location.path("/#/person");
+            $location.path("/album/"+$scope.id_post_baraholka);
         });
-        console.info('onCompleteAll');
     };
 
     uploader.onBeforeUploadItem = function (item) {

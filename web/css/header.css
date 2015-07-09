@@ -10,8 +10,6 @@ html, body{
 
 .container{
     box-sizing: border-box;
-    min-height: 100%;
-    padding-bottom: 85px;
 }
 
 input:focus,textarea:focus,select:focus{

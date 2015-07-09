@@ -21,7 +21,7 @@ angular.module('multi-select-tree').run(['$templateCache', function($templateCac
     "                 <button type=\"button\" ng-click=\"switchCurrentView($event);\" class=\"helper-button\">{{switchViewLabel}}</button>\n" +
     "             </div>\n" +
     "            <div class=\"line\">\n" +
-    "                <input placeholder=\"Search...\" type=\"text\" ng-model=\"filterKeyword\" ng-click=\"onFilterClicked($event)\"\n" +
+    "                <input placeholder=\"Найти категорию ...\" type=\"text\" ng-model=\"filterKeyword\" ng-click=\"onFilterClicked($event)\"\n" +
     "                       class=\"input-filter\">\n" +
     "                <span class=\"clear-button\" ng-click=\"clearFilter($event)\"><span class=\"item-close\"></span></span>\n" +
     "            </div>\n" +
@@ -40,11 +40,11 @@ angular.module('multi-select-tree').run(['$templateCache', function($templateCac
   $templateCache.put('src/tree-item.tpl.html',
     "<li>\n" +
     "    <div class=\"item-container\" ng-class=\"{active: item.isActive, selected: item.selected}\"\n" +
-    "         ng-click=\"clickSelectItem(item, $event)\" ng-mouseover=\"onMouseOver(item, $event)\">\n" +
+    "         ng-click=\"clickSelectItem(item, $event); onExpandClicked(item, $event)\" ng-mouseover=\"onMouseOver(item, $event)\">\n" +
     "        <span ng-if=\"showExpand(item)\" class=\"expand\" ng-class=\"{'expand-opened': item.isExpanded}\"\n" +
-    "              ng-click=\"onExpandClicked(item, $event)\"></span>\n" +
+    "              ></span>\n" +
     "\n" +
-    "        <div class=\"item-details\"><input class=\"tree-checkbox\" type=\"checkbox\" ng-if=\"showCheckbox()\"\n" +
+    "        <div class=\"item-details\"><input class=\"tree-checkbox\" style=\"display: none;\" type=\"checkbox\" ng-if=\"showCheckbox()\"\n" +
     "                                         ng-checked=\"item.selected\"/>{{item.name}}\n" +
     "        </div>\n" +
     "    </div>\n" +

@@ -324,3 +324,11 @@ input[type="checkbox"]{
     vertical-align: middle;
     background-color: #e9724c;
 }
+
+button{
+    color: white;
+}
+
+button:hover{
+    color: white;
+}

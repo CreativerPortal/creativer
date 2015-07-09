@@ -272,8 +272,13 @@ class DefaultController extends Controller
                 $status = 'failed';
                 $message = 'File Error';
             }
-            $response = new Response();
-            return $response->setStatusCode(200);
+            $em->persist($album);
+            $em->flush();
+            $id = $album->getId();
+            $array = array('id' => $id);
+            $response = new Respon(json_encode($array), 200);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
         } else {
             return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
         }

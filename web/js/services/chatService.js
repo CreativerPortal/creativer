@@ -12,6 +12,12 @@ angular.module('service.chat', ['service.socket'])
             $rootScope.messages = [];
         }
 
+        function soundClick() {
+            var audio = new Audio(); // ??????? ????? ??????? Audio
+            audio.src = '/sound/drop.wav'; // ????????? ???? ? ????? "?????"
+            audio.autoplay = true; // ????????????? ?????????
+        }
+
         socket.on('message', function(data){
             var data = data[0];
             $rootScope.ids = [$routeParams.id_user_chat, $rootScope.id_user];
@@ -25,6 +31,7 @@ angular.module('service.chat', ['service.socket'])
                     socket.emit('reviewed', {ids: $rootScope.ids, id_user: $rootScope.id_user});
                 }
             }else{
+                soundClick();
                 $rootScope.new_messages.push(data);
             }
         });
