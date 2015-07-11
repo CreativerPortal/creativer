@@ -96,10 +96,41 @@
         </div>
 
         {% if is_granted('ROLE_USER') %}
-            <div class="messages col-sm-2 margin-top_10 margin-left_30 text-center">
+            <div class="messages col-sm-2 margin-top_10 margin-left_30 text-center pointer">
                 <img class="margin-left_25" ng-class="{background__envelope: $root.new_messages.length }" ng-src="/var/www/creativer/web/img/message_ico.png" alt="сообщения"/>
                     <span class="text-white fiveMinuts margin-left_5" >([[ $root.new_messages.length ]])</span><br>
                 <span class="text-white fiveMinuts">Сообщения</span>
+                <div class="messages__curtain">
+                    <div class="messages__curtain-angle"></div>
+                    <div class="messages__curtain-body">
+                        <a href="#/messages" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10">Перейти в сообщения</a>
+                        <div class="row col-sm-10 col-sm-offset-1 horizontal_line margin-bottom_5"></div>
+                        <div class="row margin-top_10" ng-repeat="new_message in $root.new_messages">
+                            <div class="col-sm-3 col-sm-offset-1">
+                                <div class="user__avatar-mini text-left">
+                                    <img ng-src="[[ new_message.img ]]" class="text-left">
+                                </div>
+                            </div>
+                            <div class="col-sm-8 padding-left_0 padding-right_0">
+                                <div class="row">
+                                    <div class=" col-sm-6 text-left">
+                                        <a ng-href="#/[[ new_message.other_user ]]" class="text-blue">[[ new_message.username ]] [[ new_message.lastname ]]</a>
+                                    </div>
+                                </div>
+                                <a href="#/chat/[[ new_message.other_user ]]" class="row col-sm-12">
+                                    <div class="row col-sm-12 text-gray">
+                                        <p class="fs_0-8 left">[[ new_message.text ]]</p>
+                                    </div>
+                                    <div class="row text-gray">
+                                        <div class="col-sm-10 text-right fs_0-8"><time>[[ new_message.date | date: "dd.MM.yyyy" ]]</time></div>
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="row col-sm-10 col-sm-offset-1 horizontal_line"></div>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div class="personal col-sm-1 padding-left_0">
                 <label class="still_label-person" for="checkbox-menu-person">

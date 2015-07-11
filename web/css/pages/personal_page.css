@@ -138,14 +138,6 @@ body{
     border-radius: 100px;
 }
 
-.user__avatar-mini{
-    width: 70px;
-    height: 70px;
-    overflow: hidden;
-    border: 5px solid #ffffff;
-    border-radius: 100px;
-    margin: auto;
-}
 
 .user__avatar-super-mini{
     width: 60px;
@@ -248,9 +240,6 @@ body{
     background-position: center bottom;
 }
 
-.user__avatar img, .user__avatar-mini img, .user__avatar-super-mini img{
-    width: 100%;
-}
 
 .favorit__card{
     color: inherit;

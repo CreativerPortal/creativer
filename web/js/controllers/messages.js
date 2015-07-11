@@ -52,9 +52,15 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     }
 
     $scope.send_message = function(text){
-        if(text != '' && $scope.ids && $scope.user){
+        if(text != undefined && $scope.ids && $scope.user){
             socket.emit('message', {ids: $scope.ids, sender: $scope.user.id, text: text});
         }
+    }
+
+    $scope.review = function(mes){
+        $timeout( function(){
+            mes.reviewed = true;
+        }, 1000);
     }
 
         chat.init();
@@ -71,7 +77,12 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
 
     $window.onfocus = function(){
+        $scope.focus = true;
         socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
+    };
+
+    $window.onblur = function(){
+        $scope.focus = false;
     }
 
     $scope.go = function ( path ) {

@@ -130,7 +130,7 @@ body{
     background-image: url("/var/www/creativer/web/img/line_message.png");
     background-repeat: no-repeat;
     background-position: center bottom;
-    min-height: 90px;
+    /*min-height: 90px;*/
 }
 
 .early-message{
@@ -230,4 +230,3 @@ body{
     top: 40px;
     left: 20px;
 }
-

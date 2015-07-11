@@ -153,13 +153,6 @@ body{
 }
 
 
-.horizontal_line {
-    background-image: url("/var/www/creativer/web/img/line_message.png");
-    background-repeat: no-repeat;
-    background-position: center bottom;
-    padding-bottom: 10px;
-}
-
 .early-message>span{
     color: #ffffff;
     vertical-align: middle;
@@ -174,5 +167,22 @@ body{
     border-radius: 100px;
 }
 
+.new__messages{
+    background-color: #b6dafa;
+}
 
+.old__messages {
+    -webkit-animation:my_animation 2s 1;
+    -moz-animation:my_animation 2s 1;
+    -o-animation:my_animation 2s 1;
+    animation:my_animation 2s 1;
+}
 
+@keyframes my_animation {
+    from {
+        background-color: #b6dafa;
+    }
+    to {
+        background-color:inherit!important;
+    }
+}

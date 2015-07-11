@@ -56,12 +56,13 @@
                     <span class="glyphicon glyphicon-menu-down text-blue fs_0-8"></span>
                 </div>
                 <div class="col-sm-3 col-sm-offset-2 padding-left_0">
-                    <button class="true fs_0-9" ng-click="send_message(text_message)">Отправить</button>
+                    <button class="true fs_0-9" ng-click="send_message(text_message)" ng-disabled="!user && !companion">Отправить</button>
                 </div>
 
             </div>
 
-            <div class="row margin-top_15" ng-repeat="message in $root.messages">
+            <div class="row margin-top_15" ng-class="{'old__messages': !message.reviewed && (message.sender != user.id) && focus, 'new__messages': !message.reviewed  && (message.sender != user.id) && !focus}" ng-repeat="message in $root.messages">
+                <span ng-if="focus && !message.reviewed" ng-init="review(message)"></span>
                 <div class="col-sm-2">
                     <div class="user__avatar-mini">
                         <img ng-if="user.id == message.sender" ng-src="[[ user.avatar.img ]]">
@@ -81,9 +82,7 @@
                         <p ng-if="user.id == message.sender" class="fs_0-8">[[ message.text ]]</p>
                         <p ng-if="companion.id == message.sender" class="fs_0-8">[[ message.text ]]</p>
                     </div>
-
                 </div>
-
             </div>
 
 

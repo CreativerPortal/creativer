@@ -1,12 +1,5 @@
 angular.module('service.chat', ['service.socket'])
-    .factory('chat', ['$rootScope', 'socket', '$routeParams', function ($rootScope,socket,$routeParams) {
-
-        //socket.on('message', function(data){
-        //    var data = data[0];
-        //    if(!$routeParams.id_user_chat && ($scope.user.id == data.receiver)){
-        //        $rootScope.new_messages.push(data);
-        //    }
-        //});
+    .factory('chat', ['$rootScope', 'socket', '$routeParams', '$timeout', function ($rootScope,socket,$routeParams,$timeout) {
 
         if(!$rootScope.messages){
             $rootScope.messages = [];
@@ -24,8 +17,10 @@ angular.module('service.chat', ['service.socket'])
             $rootScope.ids = $rootScope.ids.sort();
             if(data.reviewed == false && ($routeParams.id_user_chat == data.sender || $routeParams.id_user_chat == data.receiver)){
                 $rootScope.messages.unshift({sender: data.sender, text: data.text, date: data.date});
+
+
                 if($rootScope.id_user == data.sender){
-                    $rootScope.text_message = '';
+                    $rootScope.text_message = null;
                 }else{
                     console.log($rootScope.ids);
                     socket.emit('reviewed', {ids: $rootScope.ids, id_user: $rootScope.id_user});

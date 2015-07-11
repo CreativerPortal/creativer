@@ -109,6 +109,19 @@ input:focus,textarea:focus,select:focus{
     width: 100%;
 }
 
+.user__avatar-mini{
+    width: 70px;
+    height: 70px;
+    overflow: hidden;
+    border: 5px solid #ffffff;
+    border-radius: 100px;
+    margin: auto;
+}
+
+.user__avatar img, .user__avatar-mini img, .user__avatar-super-mini img{
+    width: 100%;
+}
+
 .still_label-person{
     position: relative;
     z-index: 2;
@@ -272,10 +285,7 @@ div:focus{
 .view-animate.ng-enter {
     opacity:0;
 }
-/*.view-animate.ng-enter.ng-enter-active {*/
-    /*display: block;*/
-    /*opacity:0;*/
-/*}*/
+
 
 .view-animate.ng-leave{
     display: block;
@@ -290,4 +300,39 @@ div:focus{
 a:focus{
     color: #ffffff!important;
     text-decoration: none;
+}
+
+.messages:hover .messages__curtain{
+    display: block;
+}
+
+.messages__curtain{
+    position: absolute;
+    z-index: 3;
+    left: -88px;
+    width: 350px;
+    max-height: 300px;
+    display: none;
+}
+
+.messages__curtain-angle{
+    font-size: 0px; line-height: 0%; width: 0px;
+    border-bottom: 20px solid #eae9e3;
+    border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    margin: auto;
+}
+
+.messages__curtain-body{
+    background-color: #eae9e3;
+    width: 100%;
+    max-height: 300px;
+    overflow-x: hidden;
+}
+
+.horizontal_line {
+    background-image: url("/var/www/creativer/web/img/line_message.png");
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    padding-bottom: 10px;
 }
