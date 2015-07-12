@@ -5,7 +5,7 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/edit_album/:id_album', {
+        $routeProvider.when('/edit_album/:id_album_edit', {
             templateUrl: '/edit_album',
             controller: 'personCtrl',
             reloadOnSearch: true

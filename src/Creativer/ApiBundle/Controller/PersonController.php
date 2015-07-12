@@ -127,21 +127,21 @@ class PersonController extends Controller
 
     /**
      * @return array
-     * @Post("/v1/get_image_comments")
-     * @View(serializerGroups={"getImageComments"})
+     * @Post("/v1/get_album_comments")
+     * @View(serializerGroups={"getAlbumComments"})
      */
-    public function getImageCommentsAction()
+    public function getAlbumCommentsAction()
     {
         $data = json_decode($this->get("request")->getContent());
-        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
+        $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->findOneById($data->id_album);
 
-        return array('image_comments' => $image->getImageComments());
+        return array('images' => $album->getImages());
     }
 
     /**
      * @return array
      * @Post("/v1/save_image_comments")
-     * @View(serializerGroups={"getImageComments"})
+     * @View(serializerGroups={"getAlbumComments"})
      */
     public function saveImageCommentsAction()
     {

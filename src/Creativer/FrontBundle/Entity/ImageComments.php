@@ -17,7 +17,7 @@ class ImageComments
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getAlbumComments"})
      * @JMS\Expose
      */
     private $id;
@@ -27,7 +27,7 @@ class ImageComments
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="Avatar")
      * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getAlbumComments"})
      */
     private $avatar;
 
@@ -37,7 +37,7 @@ class ImageComments
      * @JMS\Type("Creativer\FrontBundle\Entity\Images")
      * @ORM\ManyToOne(targetEntity="Images", inversedBy="image_comments")
      * @ORM\JoinColumn(name="image_id", referencedColumnName="id", onDelete="CASCADE")
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getAlbumComments"})
      **/
     private $image;
 
@@ -47,14 +47,14 @@ class ImageComments
      * @JMS\Expose
      * @ORM\Column(name="date", type="datetime")
      * @Gedmo\Timestampable(on="create")
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getAlbumComments"})
      */
     private $date;
 
     /**
      * @JMS\Expose
      * @ORM\Column(type="text")
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getAlbumComments"})
      */
     private $text;
 

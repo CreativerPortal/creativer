@@ -20,7 +20,7 @@ class Images
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumComments"})
      * @JMS\Expose
      */
     private $id;
@@ -40,7 +40,7 @@ class Images
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
      * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image", cascade={"remove"})
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getAlbumComments"})
      **/
     private $image_comments;
 

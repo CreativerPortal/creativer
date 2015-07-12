@@ -19,10 +19,10 @@ angular
                         data: data
                     });
                 },
-                getImageComments: function (data) {
+                getAlbumComments: function (data) {
                     return $http({
                         method: 'POST',
-                        url: url + 'get_image_comments',
+                        url: url + 'get_album_comments',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

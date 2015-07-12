@@ -2,17 +2,48 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'service.s
     .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$timeout', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($scope,$window,$rootScope,$location,$timeout,albumService,personalService,$routeParams, FileUploader, socket, chat) {
 
 
-
-    albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
-        $rootScope.user = $scope.user = data.user;
-        for(key in $scope.user.favorits_with_me){
-            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                $scope.favorit = true;
-            }else{
-                $scope.favorit = false;
+    if($routeParams.id_album && $scope.user) {
+        var exists_album = false;
+        for(var key in $scope.user.albums){
+            if($routeParams.id_album == $scope.user.albums[key].id){
+                exists_album = true;
             }
         }
-    })
+        if(!exists_album){
+            albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
+                $rootScope.user = $scope.user = data.user;
+                for (key in $scope.user.favorits_with_me) {
+                    if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
+                        $scope.favorit = true;
+                    } else {
+                        $scope.favorit = false;
+                    }
+                }
+            });
+        }
+    }else{
+        albumService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
+            $rootScope.user = $scope.user = data.user;
+            for (key in $scope.user.favorits_with_me) {
+                if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
+                    $scope.favorit = true;
+                } else {
+                    $scope.favorit = false;
+                }
+            }
+
+            albumService.getAlbumComments({id_album:$routeParams.id_album}).success(function (data) {
+                $scope.user.albums[$routeParams.id_album].images = data.images;
+            });
+        });
+    }
+
+    //if($routeParams.id_album_edit) {
+    //    albumService.getAlbumById({id_album: $routeParams.id_album_edit}).success(function (data) {
+    //        $scope.user.albums[key_album].images.splice(key_img, 1);
+    //        $location.path("/album/" + $routeParams.id_album + '/' + $scope.user.albums[key_album].images[key_img].name + '/' + key_img);
+    //    });
+    //}
 
 
     $scope.$watch('user', function() {
@@ -32,13 +63,6 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'service.s
                 }
             }
 
-            // get comments for images
-            if($routeParams.key_img && $scope.user){
-                $scope.user.comments = null;
-                albumService.getImageComments({image_id:$scope.user.albums[$scope.album_key].images[$routeParams.key_img].id}).success(function (data) {
-                    $scope.user.comments = data.image_comments;
-                });
-            }
 
             if(!$rootScope.image_previews){
                 $rootScope.image_previews = [];
@@ -100,13 +124,14 @@ angular.module('app.ctr.album', ['service.album', 'service.personal', 'service.s
         });
     }
 
+
     $scope.saveImageComment = function(image,text){
         var username = $rootScope.username;
         var lastname = $rootScope.lastname;
         var img = $rootScope.img;
-        image.image_comments.push({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
+        image.image_comments.push({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text ,date: new Date()});
         albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
-            $scope.user.comments = data.image_comments;
+            $scope.text_comment = undefined;
         });
     }
 

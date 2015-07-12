@@ -73,7 +73,7 @@ class Albums
     /**
      * @ORM\Column(type="integer", nullable=false)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Groups({"getAlbumComments", "getUser"})
      */
     private $likes = 0;
 
@@ -96,7 +96,7 @@ class Albums
      * @JMS\Type("Creativer\FrontBundle\Entity\Images")
      * @ORM\OneToMany(targetEntity="Images", mappedBy="album")
      * @ORM\OrderBy({"id" = "DESC"})
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getAlbumComments", "getUser"})
      **/
     private $images;
 
