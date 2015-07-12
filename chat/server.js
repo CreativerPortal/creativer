@@ -82,7 +82,6 @@ io.on('connection', function(socket){
 
 
     socket.on('history', function (data) {
-        console.log('history');
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
             var id_users = data.ids.sort();
@@ -90,18 +89,34 @@ io.on('connection', function(socket){
                 if (err) {
                     console.log(err);
                 } else if (result.length) {
-                    socket.emit('history', result);
+                    var users = [];
+                    users.push(id_users[0]);
+                    users.push(id_users[1]);
+                    connection.connect(function(err) {
+                        var queryText = "SELECT u.id, u.username, u.lastname, a.img, a.date FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ users.join(',') +")";
+                        connection.query(queryText, users, function(err, rows) {
+                            for(var key in rows){
+                                if(rows[key].id != data.id_user){
+                                    users = rows[key];
+                                }
+                            }
+                            var res = {
+                                messages: result,
+                                companion: users
+                            };
+                            console.log(res);
+                            socket.emit('history', res);
+                            }
+                        );
+                    });
                 } else {
                     console.log('No document(s) found with defined "find" criteria!');
                 }
-                //Close connection
                 db.close();
             });
 
         });
-    })
-
-
+    });
 
 
     socket.on('disconnect', function(){
@@ -153,7 +168,6 @@ io.on('connection', function(socket){
 
     });
 
-
     socket.on('reviewed', function (data) {
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
@@ -202,23 +216,23 @@ io.on('connection', function(socket){
                         }
                     }
 
-                    connection.connect(function(err) {});
-                    console.log("SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")");
-                    var queryText = "SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")";
-                    connection.query(queryText, companion, function(err, rows) {
-                            for(var row_key in result){
-                                for(var r_key in  rows){
-                                    if(result[row_key].other_user == rows[r_key].id){
-                                        result[row_key].username = rows[r_key].username;
-                                        result[row_key].lastname = rows[r_key].lastname;
-                                        result[row_key].img = rows[r_key].img;
+                    connection.connect(function(err) {
+                        console.log("SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")");
+                        var queryText = "SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")";
+                        connection.query(queryText, companion, function(err, rows) {
+                                for(var row_key in result){
+                                    for(var r_key in  rows){
+                                        if(result[row_key].other_user == rows[r_key].id){
+                                            result[row_key].username = rows[r_key].username;
+                                            result[row_key].lastname = rows[r_key].lastname;
+                                            result[row_key].img = rows[r_key].img;
+                                        }
                                     }
                                 }
+                                socket.emit('new message', result);
                             }
-                            socket.emit('new message', result);
-                        }
-                    );
-
+                        );
+                    });
                 }
             })
         });

@@ -12,15 +12,15 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         }
     })
 
-    messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
-        $scope.companion = data.user;
+    //messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
+    //    $scope.companion = data.user;
+    //})
 
-    })
+    $scope.$watch('user', function() {
 
-    $scope.$watchGroup(['user','companion'], function() {
-
-        if($scope.companion && $scope.user){
-            $scope.ids = [$scope.companion.id,$scope.user.id];
+        if($routeParams.id_user_chat && $scope.user){
+            var id_user_chat = parseInt($routeParams.id_user_chat);
+            $scope.ids = [id_user_chat,$scope.user.id];
             $scope.ids = $scope.ids.sort();
             socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
             socket.emit("history",{id_user:$scope.user.id, ids:$scope.ids});
@@ -37,7 +37,9 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         });
     }else{
         socket.on("history", function(data) {
-            $rootScope.messages = data;
+            console.log(data);
+            $rootScope.messages = data.messages;
+            $scope.companion = data.companion;
         });
     }
 
