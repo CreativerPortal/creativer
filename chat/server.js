@@ -97,12 +97,12 @@ io.on('connection', function(socket){
                         connection.query(queryText, users, function(err, rows) {
                             for(var key in rows){
                                 if(rows[key].id != data.id_user){
-                                    users = rows[key];
+                                    var comp = rows[key];
                                 }
                             }
                             var res = {
                                 messages: result,
-                                companion: users
+                                companion: comp
                             };
                             console.log(res);
                             socket.emit('history', res);
