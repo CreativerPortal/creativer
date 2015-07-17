@@ -20,7 +20,7 @@
             <div class="padding-bottom_30">
                 <a href="#/[[ favorit.id ]]" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
                     <div class="user__avatar-favorit">
-                        <img ng-src="[[ favorit.avatar.img ]]">
+                        <img ng-src="[[ favorit.avatar ]]">
                     </div>
                     <div class="text-center fs_0-9 lobster">[[ favorit.username ]]</div>
                     <div class="text-center fs_0-9 lobster">[[ favorit.lastname ]]</div>
@@ -29,29 +29,3 @@
         </div>
 
  </div>
-
-<div ng-show="myImage" class="background__viewer-avatar" style="zoom: reset;">
-    <div class="border__viewer-avatar margin-top_100">
-        <div class="border__viewer__wrapper-avatar">
-            <!-- Modal -->
-            <div class="cropArea row" style="height: 340px;">
-                <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;"></img-crop>
-                <div class="col-sm-3" style="height: auto; display: block; position: static;">
-                    <div class="user__avatar-border col-sm-offset-4">
-                        <div class="user__avatar">
-                            <img src="[[ myCroppedImage ]]">
-                        </div>
-                    </div>
-                    <div class="user__avatar-mini" style="margin-left: 60px;">
-                        <img src="[[ myCroppedImage ]]">
-                    </div>
-                    <div class="row right" style="position: absolute; bottom: 0px;">
-                        <div class=""></div>
-                        <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
-                        <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

@@ -529,6 +529,17 @@
 	height: 33px;
 }
 
+.add_photo{
+	background: url("/var/www/creativer/web/img/add_photo.png") no-repeat;
+}
+
+.add_photo{
+	background-position: 0 0;
+	width: 155px;
+	height: 31px;
+	color: white;
+}
+
 
 
 

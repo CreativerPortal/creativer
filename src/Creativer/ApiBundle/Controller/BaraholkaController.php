@@ -165,7 +165,6 @@ class BaraholkaController extends Controller
 
         $username = $this->get('security.context')->getToken()->getUser()->getUsername();
         $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();
-        $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
         $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->findOneById($data->post_id);
@@ -175,7 +174,6 @@ class BaraholkaController extends Controller
 
         $comment->setUsername($username)
             ->setLastname($lastname)
-            ->setAvatar($avatar)
             ->setText($data->text)
             ->setPostBaraholka($post)
             ->setUserId($userId);

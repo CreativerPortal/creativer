@@ -9,6 +9,7 @@
             </div>
 
             <div class="col-sm-7 album" ng-init="count_albums=3">
+                <a ng-if="user.id == $root.id_user" href="/app_dev.php/#/create_album" class="add_photo btn button_message early-message text-center text-white right pointer margin-right_10"><span class="glyphicon glyphicon-picture"></span>  <span class="fs_0-9">Создать альбом</span></a>
                 <h4 class="lobster text-gray">Альбомы</h4>
                 <div class="album__element" ng-repeat="album in user.albums.slice(0,count_albums)">
 
@@ -32,11 +33,11 @@
 
 
 
-                <div class="row margin-top_25 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums < user.albums.length" ng-click="count_albums = user.albums.length">
+                <div class="row margin-top_40 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums < user.albums.length" ng-click="count_albums = user.albums.length">
                     Показать остальные альбомы <span class="glyphicon glyphicon-menu-down"></span>
                 </div>
 
-                <div class="row margin-top_25 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums == user.albums.length" ng-click="count_albums = 3">
+                <div class="row margin-top_40 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums == user.albums.length" ng-click="count_albums = 3">
                     Скрыть альбомы <span class="glyphicon glyphicon-menu-up"></span>
                 </div>
 
@@ -51,11 +52,11 @@
 
                 <h4 class="lobster margin-top_20 text-gray">Стена</h4>
 
-                <div ng-click="attache = true">
+                <div ng-click="attache = true" style="width: 550px;">
                     {% if is_granted('ROLE_USER') %}
                         <textarea msd-elastic="" class="text-gray" cols="73" rows="2" placeholder="Написать сообщение" ng-blur="focus = false" ng-focus="focus = true" ng-model="text_post" style="height: 50px;"></textarea>
                     {% endif %}
-                    <div class="row padding-5-15-5-15">
+                    <div class="row col-sm-12 padding-right_0">
                         <div class=" upload__element" ng-repeat="(key, item) in uploader.queue">
                             <span class="glyphicon glyphicon-remove close_image ng-isolate-scope" ng-click="item.remove(); uploader.onAfterAddingAll('undefibed',key)"></span>
                             <div style="float: left" ng-show="uploader.isHTML5" ng-thumbperson="{ file: item._file, height: 100 }" class="text-center thumb__upload padding-right_5">
@@ -64,8 +65,8 @@
                     </div>
                     <div class="row">
                         <div class="col-sm-6">
-                            <div class="margin-left_5" ng-show="focus || text_post || attache">
-                                <label class="text-blue glyphicon glyphicon-paperclip add__files ng-isolate-scope"><span class="text-blue glyphicon glyphicon-menu-down ng-isolate-scope"></span>
+                            <div class="margin-left_5" ng-show="text_post || attache">
+                                <label class="text-blue glyphicon glyphicon-paperclip add__files ng-isolate-scope pointer">
                                     <input type="checkbox" class="hidden">
                                     <div class="add__files__menu text-white">
                                         <ul class="margin-top_10 padding-left_0 margin-left_30">
@@ -84,7 +85,7 @@
                             <input type="file" nv-file-select="" uploader="uploader" multiple id="uploadImg"  class="hidden" ng-disabled="uploader.isUploading" />
                         </div>
                         <div class="col-sm-6">
-                            <div ng-show="text_post" class="margin-top_5 text-right">
+                            <div ng-show="text_post" class="text-right col-sm-12">
                                 <button class="true fs_0-9" ng-click="savePost(user.wall,user.wall.id,text_post)">Отправить</button>
                                 <button class="false fs_0-9" ng-click="text_post=''">Отменить</button>
                             </div>
@@ -95,11 +96,14 @@
                 <div class="row margin-top_10 one_post" ng-init="post.remove_post = false" ng-repeat="post in user.wall.posts">
 
                     <div class="col-sm-2">
-                        <div class="user__avatar-mini"><img ng-src="[[ post.avatar.img ]]"></div>
+                        <div class="user__avatar-mini">
+                            <img ng-if="post.user.avatar" ng-src="[[ post.user.avatar ]]">
+                            <img ng-if="!post.user.avatar" ng-src="[[ user.avatar ]]">
+                        </div>
                     </div>
                     <div class="col-sm-10 padding-left_0">
-                        <div ng-if="!post.avatar.user" class="col-sm-6 user__text_bold padding-left_0">[[ user.username ]] [[ user.lastname ]]</div>
-                        <a href="#/[[ post.avatar.user.id ]]" ng-if="post.avatar.user" class="pointer col-sm-6 user__text_bold padding-left_0">[[ post.avatar.user.username ]] [[ post.avatar.user.lastname ]]</a>
+                        <div ng-if="!post.user" class="col-sm-6 user__text_bold padding-left_0">[[ user.username ]] [[ user.lastname ]]</div>
+                        <a href="#/[[ post.user.id ]]" ng-if="post.user" class="pointer col-sm-6 user__text_bold padding-left_0">[[ post.user.username ]] [[ post.user.lastname ]]</a>
                         {% if is_granted('ROLE_USER') %}
                             <div ng-if="((user.id == id_user && !post.avatar.user) || (post.avatar.user.id == id_user)) && post.remove_post == false" class="col-sm-6 text-right edit_post">
                                 <span class="text-gray glyphicon glyphicon-pencil pointer"></span>
@@ -131,10 +135,14 @@
                     <div class="row margin-left_60 col-sm-11" ng-repeat="comment in post.comments">
                         <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
-                            <div class="user__avatar-super-mini"><img ng-src="[[ comment.avatar.img ]]"></div>
+                            <div class="user__avatar-super-mini">
+                                <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
+                                <img ng-if="!comment.user" ng-src="[[ user.avatar ]]">
+                            </div>
                         </div>
                         <div class="col-sm-10 padding-left_0">
-                            <div class="col-sm-12 user__text_bold">[[ comment.username ]] [[ comment.lastname ]]</div>
+                            <div class="col-sm-12 user__text_bold" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</div>
+                            <div class="col-sm-12 user__text_bold" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</div>
                             <div class="user__text col-sm-12">[[comment.text]]</div>
                             <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time>
 
@@ -155,33 +163,6 @@
 
         </div>
 
-
-
-        <div ng-show="myImage" class="background__viewer-avatar" style="zoom: reset;">
-            <div class="border__viewer-avatar margin-top_100">
-                <div class="border__viewer__wrapper-avatar">
-                    <!-- Modal -->
-                    <div class="cropArea row" style="height: 340px;">
-                        <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;"></img-crop>
-                        <div class="col-sm-3" style="height: auto; display: block; position: static;">
-                            <div class="user__avatar-border col-sm-offset-4">
-                                <div class="user__avatar">
-                                    <img src="[[ myCroppedImage ]]">
-                                </div>
-                            </div>
-                            <div class="user__avatar-mini" style="margin-left: 60px;">
-                                <img src="[[ myCroppedImage ]]">
-                            </div>
-                            <div class="row right" style="position: absolute; bottom: 0px;">
-                                <div class=""></div>
-                                <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
-                                <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
 

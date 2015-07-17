@@ -19,6 +19,17 @@ angular
                         data: data
                     });
                 },
+                getAlbumById: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_album_by_id',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 getAlbumComments: function (data) {
                     return $http({
                         method: 'POST',

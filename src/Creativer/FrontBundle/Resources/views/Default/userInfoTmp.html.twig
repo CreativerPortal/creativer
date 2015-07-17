@@ -2,9 +2,8 @@
     <div class="row">
         <div class="col-sm-4 padding-left_0">
             <div class="user__avatar-border">
-                <label class="user__avatar edit__avatar">
-                    <img src="[[ user.avatar.img ]]" />
-                    <input type="file" id="fileInput" style="display: none;" />
+                <label class="user__avatar edit__avatar" for="fileInput">
+                    <img src="[[ user.avatar ]]" />
                 </label>
             </div>
         </div>
@@ -27,7 +26,7 @@
     <div class="row">
         <div class="col-sm-5 padding-left_0">
             <div class="user__avatar-border">
-                <div class="user__avatar"><img src="[[ user.avatar.img ]]" /></div>
+                <div class="user__avatar"><img src="[[ user.avatar ]]" /></div>
             </div>
         </div>
         <div class="col-sm-7 user__text">
@@ -74,7 +73,7 @@
 
 {% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
     <div class="row margin-top_40 col-sm-12 user__text">
-        <div class="text-left user__text_bold">Информация:</div>
+        <div class="text-left user__text_bold">О себе:</div>
         <input class="text_info" ng-blur="saveField($event,'info')" obj="user" value="[[ user.info ]]" placeholder="Вы ещё не запонили это поле." disabled>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="info"></span>
     </div>
@@ -108,7 +107,7 @@
 
         <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
             <div class="user__avatar-mini">
-                <img ng-src="[[ favorit.avatar.img ]]">
+                <img ng-src="[[ favorit.avatar ]]">
             </div>
             <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
             <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>
@@ -150,7 +149,7 @@
         <div class="row text-left user__text_bold">Избранные:</div>
         <a href="#/[[ favorit.id ]]" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
             <div class="user__avatar-mini">
-                <img ng-src="[[ favorit.avatar.img ]]">
+                <img ng-src="[[ favorit.avatar ]]">
             </div>
             <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
             <div class="text-center fs_0-8 lobster">[[ favorit.lastname ]]</div>

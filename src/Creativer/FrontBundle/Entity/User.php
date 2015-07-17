@@ -46,9 +46,8 @@ class User implements UserInterface, \Serializable
     private $lastname;
 
     /**
+     * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @ORM\OneToOne(targetEntity="Avatar", inversedBy="user")
-     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
      * @JMS\Groups({"getImageComments", "getUser"})
      */
     private $avatar;
@@ -75,6 +74,30 @@ class User implements UserInterface, \Serializable
      * @JMS\Groups({"getUser"})
      **/
     private $albums;
+
+    /**
+     * @JMS\Type("Creativer\FrontBundle\Entity\Posts")
+     * @ORM\OneToMany(targetEntity="Posts", mappedBy="user", fetch="EAGER")
+     **/
+    private $posts;
+
+    /**
+     * @JMS\Type("Creativer\FrontBundle\Entity\Comments")
+     * @ORM\OneToMany(targetEntity="Comments", mappedBy="user", fetch="EAGER")
+     **/
+    private $comments;
+
+    /**
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostComments")
+     * @ORM\OneToMany(targetEntity="PostComments", mappedBy="user", fetch="EAGER")
+     **/
+    private $post_comments;
+
+    /**
+     * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
+     * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="user", fetch="EAGER")
+     **/
+    private $image_comments;
 
     /**
      * @JMS\Expose
@@ -272,7 +295,6 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
-    
 
     /**
      * Get id
@@ -308,6 +330,29 @@ class User implements UserInterface, \Serializable
         $this->lastname = $lastname;
 
         return $this;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
     }
 
     /**
@@ -600,29 +645,6 @@ class User implements UserInterface, \Serializable
     }
 
     /**
-     * Set avatar
-     *
-     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
-     * @return User
-     */
-    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    /**
-     * Get avatar
-     *
-     * @return \Creativer\FrontBundle\Entity\Avatar 
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
-    }
-
-    /**
      * Add albums
      *
      * @param \Creativer\FrontBundle\Entity\Albums $albums
@@ -653,6 +675,138 @@ class User implements UserInterface, \Serializable
     public function getAlbums()
     {
         return $this->albums;
+    }
+
+    /**
+     * Add posts
+     *
+     * @param \Creativer\FrontBundle\Entity\Posts $posts
+     * @return User
+     */
+    public function addPost(\Creativer\FrontBundle\Entity\Posts $posts)
+    {
+        $this->posts[] = $posts;
+
+        return $this;
+    }
+
+    /**
+     * Remove posts
+     *
+     * @param \Creativer\FrontBundle\Entity\Posts $posts
+     */
+    public function removePost(\Creativer\FrontBundle\Entity\Posts $posts)
+    {
+        $this->posts->removeElement($posts);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Creativer\FrontBundle\Entity\Comments $comments
+     * @return User
+     */
+    public function addComment(\Creativer\FrontBundle\Entity\Comments $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Creativer\FrontBundle\Entity\Comments $comments
+     */
+    public function removeComment(\Creativer\FrontBundle\Entity\Comments $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add post_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\PostComments $postComments
+     * @return User
+     */
+    public function addPostComment(\Creativer\FrontBundle\Entity\PostComments $postComments)
+    {
+        $this->post_comments[] = $postComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\PostComments $postComments
+     */
+    public function removePostComment(\Creativer\FrontBundle\Entity\PostComments $postComments)
+    {
+        $this->post_comments->removeElement($postComments);
+    }
+
+    /**
+     * Get post_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostComments()
+    {
+        return $this->post_comments;
+    }
+
+    /**
+     * Add image_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
+     * @return User
+     */
+    public function addImageComment(\Creativer\FrontBundle\Entity\ImageComments $imageComments)
+    {
+        $this->image_comments[] = $imageComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove image_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
+     */
+    public function removeImageComment(\Creativer\FrontBundle\Entity\ImageComments $imageComments)
+    {
+        $this->image_comments->removeElement($imageComments);
+    }
+
+    /**
+     * Get image_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImageComments()
+    {
+        return $this->image_comments;
     }
 
     /**

@@ -22,15 +22,14 @@ class ImageComments
      */
     private $id;
 
-
     /**
      * @JMS\Expose
-     * @ORM\ManyToOne(targetEntity="Avatar")
-     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
-     * @JMS\Groups({"getAlbumComments"})
-     */
-    private $avatar;
-
+     * @JMS\Type("Creativer\FrontBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="image_comments", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById"})
+     **/
+    private $user;
 
     /**
      * @JMS\Expose
@@ -63,6 +62,7 @@ class ImageComments
     {
         $this->date = new \DateTime();
     }
+
 
 
     /**
@@ -122,26 +122,26 @@ class ImageComments
     }
 
     /**
-     * Set avatar
+     * Set user
      *
-     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
+     * @param \Creativer\FrontBundle\Entity\User $user
      * @return ImageComments
      */
-    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
+    public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
     {
-        $this->avatar = $avatar;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get avatar
+     * Get user
      *
-     * @return \Creativer\FrontBundle\Entity\Avatar 
+     * @return \Creativer\FrontBundle\Entity\User 
      */
-    public function getAvatar()
+    public function getUser()
     {
-        return $this->avatar;
+        return $this->user;
     }
 
     /**

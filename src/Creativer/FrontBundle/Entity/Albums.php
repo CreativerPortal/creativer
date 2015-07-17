@@ -20,7 +20,7 @@ class Albums
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById"})
      * @JMS\Expose
      */
     private $id;
@@ -31,7 +31,7 @@ class Albums
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"idUserByIdImage"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById"})
      **/
     private $user;
 
@@ -45,7 +45,7 @@ class Albums
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getAlbumById"})
      */
     private $name;
 
@@ -53,6 +53,7 @@ class Albums
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"getAlbumById"})
      */
     private $description;
 
@@ -67,6 +68,8 @@ class Albums
     /**
      * @ORM\ManyToMany(targetEntity="Categories", inversedBy="albums")
      * @ORM\JoinTable(name="albums_categories")
+     * @JMS\Expose
+     * @JMS\Groups({"getAlbumById"})
      */
     private $categories;
 
@@ -96,7 +99,7 @@ class Albums
      * @JMS\Type("Creativer\FrontBundle\Entity\Images")
      * @ORM\OneToMany(targetEntity="Images", mappedBy="album")
      * @ORM\OrderBy({"id" = "DESC"})
-     * @JMS\Groups({"getAlbumComments", "getUser"})
+     * @JMS\Groups({"getAlbumComments", "getUser", "getAlbumById"})
      **/
     private $images;
 

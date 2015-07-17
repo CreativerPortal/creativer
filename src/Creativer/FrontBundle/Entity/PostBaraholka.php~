@@ -462,4 +462,27 @@ class PostBaraholka
     {
         return $this->post_comments;
     }
+
+    /**
+     * Set auction
+     *
+     * @param integer $auction
+     * @return PostBaraholka
+     */
+    public function setAuction($auction)
+    {
+        $this->auction = $auction;
+
+        return $this;
+    }
+
+    /**
+     * Get auction
+     *
+     * @return integer 
+     */
+    public function getAuction()
+    {
+        return $this->auction;
+    }
 }

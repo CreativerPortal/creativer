@@ -20,7 +20,7 @@ class Images
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumComments", "getAlbumById"})
      * @JMS\Expose
      */
     private $id;
@@ -32,7 +32,7 @@ class Images
      * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
      * @JMS\MaxDepth(2)
-     * @JMS\Groups({"idUserByIdImage"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById"})
      **/
     private $album;
 
@@ -40,20 +40,22 @@ class Images
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
      * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image", cascade={"remove"})
-     * @JMS\Groups({"getImageComments"})
+     * @JMS\Groups({"getAlbumComments"})
      **/
     private $image_comments;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getAlbumById"})
+
      */
     private $price = 0;
 
@@ -66,7 +68,7 @@ class Images
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById"})
      * @JMS\Expose
      */
     private $text;
@@ -132,6 +134,29 @@ class Images
     }
 
     /**
+     * Set price
+     *
+     * @param integer $price
+     * @return Images
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
      * Set views
      *
      * @param integer $views
@@ -175,6 +200,29 @@ class Images
     public function getText()
     {
         return $this->text;
+    }
+
+    /**
+     * Set likes
+     *
+     * @param integer $likes
+     * @return Images
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    /**
+     * Get likes
+     *
+     * @return integer 
+     */
+    public function getLikes()
+    {
+        return $this->likes;
     }
 
     /**
@@ -254,51 +302,5 @@ class Images
     public function getImageComments()
     {
         return $this->image_comments;
-    }
-
-    /**
-     * Set price
-     *
-     * @param integer $price
-     * @return Images
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return integer 
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
-     * Set likes
-     *
-     * @param integer $likes
-     * @return Images
-     */
-    public function setLikes($likes)
-    {
-        $this->likes = $likes;
-
-        return $this;
-    }
-
-    /**
-     * Get likes
-     *
-     * @return integer 
-     */
-    public function getLikes()
-    {
-        return $this->likes;
     }
 }

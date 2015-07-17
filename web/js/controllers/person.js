@@ -71,10 +71,16 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
 
     $scope.savePost = function(wall,wall_id, text){
-        var username = $rootScope.username;
-        var lastname = $rootScope.lastname;
-        var img = $rootScope.avatar;
-        wall.posts.unshift({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
+        var user = {
+            user: {
+                id: 0,
+                username: $rootScope.username,
+                lastname: $rootScope.lastname,
+                avatar: $rootScope.avatar
+            },
+            text: text
+        }
+        wall.posts.unshift(user);
         personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {
             $scope.text_post = '';
             $scope.user = data.user;
@@ -82,10 +88,16 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }
 
     $scope.saveComment = function(post, post_id, text){
-        var username = $rootScope.username;
-        var lastname = $rootScope.lastname;
-        var img = $rootScope.img;
-        post.comments.push({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
+        var user = {
+            user: {
+                id: 0,
+                username: $rootScope.username,
+                lastname: $rootScope.lastname,
+                avatar: $rootScope.avatar
+            },
+            text: text
+        }
+        post.comments.push(user);
         personalService.saveComment({post_id:post_id,text:text,id: $routeParams.id}).success(function (data) {
             $scope.user = data.user;
         });
@@ -133,13 +145,13 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
-    $scope.updateAvatar = function(image){
-        $scope.loader = true;
+    $rootScope.updateAvatar = function(image){
+        $rootScope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {
             $scope.user = data.user;
             $rootScope.avatar = $scope.user.avatar.img;
-            $scope.myImage = false;
-            $scope.loader = false;
+            $rootScope.myImage = false;
+            $rootScope.loader = false;
         });
     }
 
@@ -156,8 +168,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     });
 
     // ALBUM
-
-    $scope.uploader = new FileUploader();
 
     var uploader = $scope.uploader = new FileUploader({
         url: 'upload_album'
@@ -182,10 +192,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
        // console.info('onWhenAddingFileFailed', item, filter, options);
     };
     uploader.onAfterAddingFile = function(fileItem) {
-       // console.info('onAfterAddingFile', fileItem);
-       // $scope.res = uploader.queue.length/3;
-       // fileItem._file.width = '10px';
-        //var canvas = document.querySelectorAll('canvas');
         $scope.res = uploader.queue.length/3;
     };
     uploader.onAfterAddingAll = function(addedFileItems,key) {
@@ -264,54 +270,12 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.id_post_baraholka = response.id;
     };
     uploader.onCompleteAll = function() {
-        var name_album = $scope.album?$scope.album.name:null;
-        var description_album = $scope.album?$scope.album.description:null;
-        var selectCategories = [];
-        for(item in $scope.selectedItem){
-            selectCategories.push($scope.selectedItem[item].id);
-        }
-        personalService.finishUpload({name:name_album,selectCategories:selectCategories,description:description_album}).success(function () {
-            $rootScope.user = undefined;
-            $location.path("/album/"+$scope.id_post_baraholka);
-        });
+
     };
 
     uploader.onBeforeUploadItem = function (item) {
-        if(item.file.title != undefined) {
-            item.formData.push({title: item.file.title});
-        }
-
-        if(item.file.price != undefined) {
-            item.formData.push({price: item.file.price});
-        }
-
-        if(item.main == 1) {
-            item.formData.push({main: 1});
-        }
         uploader.uploadAll();
     };
-
-   // console.info('uploader', uploader);
-
-    // crop image
-
-    $scope.myImage=false;
-    $scope.myCroppedImage=false;
-
-    var handleFileSelect=function(evt) {
-        var file=evt.currentTarget.files[0];
-        var reader = new FileReader();
-        reader.onload = function (evt) {
-            $scope.$apply(function($scope){
-                $scope.myImage=evt.target.result;
-            });
-        };
-        reader.readAsDataURL(file);
-    };
-
-    $timeout(function(){
-        angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
-    }, 2000);
 
 
 }]);

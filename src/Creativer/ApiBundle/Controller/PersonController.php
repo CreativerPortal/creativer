@@ -44,11 +44,7 @@ class PersonController extends Controller
         }
 
         $data = json_decode($this->get("request")->getContent());
-
-        $username = $this->get('security.context')->getToken()->getUser()->getUsername();
-        $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();
-        $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
-        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $wall = $this->getDoctrine()->getRepository('CreativerFrontBundle:Wall')->findOneById($data->wall_id);
 
@@ -56,12 +52,9 @@ class PersonController extends Controller
         $post = new Posts();
 
 
-        $post->setUsername($username)
-            ->setLastname($lastname)
-            ->setAvatar($avatar)
+        $post->setUser($user)
             ->setText($data->text)
-            ->setWall($wall)
-            ->setUserId($userId);
+            ->setWall($wall);
 
 
 
@@ -95,22 +88,16 @@ class PersonController extends Controller
         $data = json_decode($this->get("request")->getContent());
 
 
-        $username = $this->get('security.context')->getToken()->getUser()->getUsername();
-        $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();
-        $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
-        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->findOneById($data->post_id);
 
 
         $comment = new Comments();
 
-        $comment->setUsername($username)
-            ->setLastname($lastname)
-            ->setAvatar($avatar)
-            ->setText($data->text)
+        $comment->setText($data->text)
             ->setPost($post)
-            ->setUserId($userId);
+            ->setUser($user);
 
 
         $em = $this->getDoctrine()->getManager();
@@ -140,6 +127,19 @@ class PersonController extends Controller
 
     /**
      * @return array
+     * @Post("/v1/get_album_by_id")
+     * @View(serializerGroups={"getAlbumById"})
+     */
+    public function getAlbumByIdAction()
+    {
+        $data = json_decode($this->get("request")->getContent());
+        $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->findOneById($data->id_album);
+
+        return array('album' => $album);
+    }
+
+    /**
+     * @return array
      * @Post("/v1/save_image_comments")
      * @View(serializerGroups={"getAlbumComments"})
      */
@@ -154,13 +154,13 @@ class PersonController extends Controller
         }
 
         $data = json_decode($this->get("request")->getContent());
-        $avatar = $this->get('security.context')->getToken()->getUser()->getAvatar();
+        $user = $this->get('security.context')->getToken()->getUser();
        // die(\Doctrine\Common\Util\Debug::dump($avatar));
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
 
         $imageComment = new ImageComments();
 
-        $imageComment->setAvatar($avatar)
+        $imageComment->setUser($user)
             ->setImage($image)
             ->setText($data->text);
 
@@ -292,8 +292,8 @@ class PersonController extends Controller
     public function getUserByAlbumIdAction()
     {
         $id = $this->get('request')->request->get('id');
-        $data = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->findBy(array('id'=>$id));
-        $user = $data[0]->getUser();
+        $data = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($id);
+        $user = $data->getUser();
 
         return array('user' => $user);
     }
@@ -445,10 +445,10 @@ class PersonController extends Controller
 
         if($img){
             $fs = new Filesystem();
-            $fs->remove(array($user->getAvatar()->getImg()));
+            $fs->remove(array($user->getAvatar()));
         }
 
-        $user->getAvatar()->setImg($img);
+        $user->setAvatar($img);
 
         $em->flush();
 

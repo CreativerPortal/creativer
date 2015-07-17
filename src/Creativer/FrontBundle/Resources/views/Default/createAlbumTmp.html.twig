@@ -21,7 +21,7 @@
                     </multi-select-tree>
                     <textarea class="description_album" ng-model="album.description" placeholder="Короткое описание альбома"></textarea>
                     <div ng-show="uploader.isHTML5" style="height: 89px;">
-                        <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+                        <div nv-file-drop="" uploader="uploader" options="{ url: '/upload_album' }">
                             <div class="progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                                 <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                             </div>
@@ -80,7 +80,7 @@
                             </label>
 
                             <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 158 }" class="text-center thumb__upload"></div>
-                            <textarea type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                            <textarea value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                             {#<input type="text" class="fiveMinuts" ng-model="item.file.price" ng-init="item.file.price=''" placeholder="цена в бел. руб." style="width: 100%; margin-top: -100px;" required="required">#}
                             <div class="text-center">
                             </div>
@@ -102,7 +102,7 @@
                             </label>
 
                             <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 158 }" class="text-center thumb__upload"></div>
-                            <textarea type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                            <textarea value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                             {#<input type="text" class="fiveMinuts" ng-model="item.file.price" ng-init="item.file.price=''" placeholder="цена в бел. руб." style="width: 100%; margin-top: -100px;" required="required">#}
                             <div class="text-center">
                             </div>
@@ -124,7 +124,7 @@
                             </label>
 
                             <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, width: 158 }" class="text-center thumb__upload"></div>
-                            <textarea type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                            <textarea value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                             {#<input type="text" class="fiveMinuts" ng-model="item.file.price" ng-init="item.file.price=''" placeholder="цена в бел. руб." style="width: 100%; margin-top: -100px;" required="required">#}
                         </div>
                     </div>
@@ -133,33 +133,6 @@
 
                 </div>
 
-            </div>
-
-
-            <div ng-show="myImage" class="background__viewer-avatar" style="zoom: reset;">
-                <div class="border__viewer-avatar margin-top_100">
-                    <div class="border__viewer__wrapper-avatar">
-                        <!-- Modal -->
-                        <div class="cropArea row" style="height: 340px;">
-                            <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;"></img-crop>
-                            <div class="col-sm-3" style="height: auto; display: block; position: static;">
-                                <div class="user__avatar-border col-sm-offset-4">
-                                    <div class="user__avatar">
-                                        <img src="[[ myCroppedImage ]]">
-                                    </div>
-                                </div>
-                                <div class="user__avatar-mini" style="margin-left: 60px;">
-                                    <img src="[[ myCroppedImage ]]">
-                                </div>
-                                <div class="row right" style="position: absolute; bottom: 0px;">
-                                    <div class=""></div>
-                                    <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
-                                    <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
         {% endif %}

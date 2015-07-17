@@ -20,7 +20,7 @@ class Categories
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById"})
      * @JMS\Expose
      */
     private $id;
@@ -28,12 +28,14 @@ class Categories
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
+     * @JMS\Groups({"getAlbumById"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity="Categories", mappedBy="parent")
      * @JMS\Expose
+     * @JMS\Groups({"getAlbumById"})
      */
     private $children;
 
@@ -41,11 +43,13 @@ class Categories
      * @ORM\ManyToOne(targetEntity="Categories", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @JMS\Expose
+     * @JMS\Groups({"getAlbumById"})
      */
     private $parent;
 
     /**
      * @ORM\ManyToMany(targetEntity="Albums", mappedBy="categories")
+     * @JMS\Groups({"getAlbumById"})
      */
     private $albums;
 

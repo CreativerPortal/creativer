@@ -1,13 +1,13 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'monospaced.elastic', 'ngAnimate'])
+var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.album.create', 'monospaced.elastic', 'ngAnimate', 'ngImgCrop'])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.when('/create_album', {
             templateUrl: '/create_album',
-            controller: 'personCtrl',
+            controller: 'createAlbumCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/edit_album/:id_album_edit', {
             templateUrl: '/edit_album',
-            controller: 'personCtrl',
+            controller: 'albumCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/', {
@@ -127,7 +127,8 @@ app.directive('editPain', function () {
             element.on("click", function(el){
                var parent = el.target.parentNode.querySelector('.text_info');
                parent.removeAttribute('disabled');
-               parent.focus();        chat.init();
+               parent.focus();
+               chat.init();
                parent.onkeypress = function(e){
                     if(e.keyCode==13){ //enter && shift
 
@@ -283,7 +284,7 @@ app.config(function($interpolateProvider) {
     $interpolateProvider.endSymbol(']]');
 });
 
-app.run(function($rootScope, $templateCache, $animate) {
+app.run(function($rootScope, $templateCache, $animate, $timeout) {
     $rootScope.$on('$viewContentLoaded', function() {
         $rootScope.hid = true;
     });
@@ -293,5 +294,21 @@ app.run(function($rootScope, $templateCache, $animate) {
     });
 
     $animate.enabled(false);
+
+    $rootScope.myImage=false;
+    $rootScope.myCroppedImage=false;
+
+    $timeout(function(){
+        angular.element(document.querySelector('#fileInput')).on('change', function(evt) {
+            var file=evt.currentTarget.files[0];
+            var reader = new FileReader();
+            reader.onload = function (evt) {
+                $rootScope.$apply(function($rootScope){
+                    $rootScope.myImage=evt.target.result;
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    }, 2000);
 
 });

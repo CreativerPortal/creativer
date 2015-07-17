@@ -32,41 +32,23 @@ class Posts
     private $wall_id;
 
     /**
-     * @ORM\Column(type="integer", length=11)
-     * @JMS\Groups({"getUser"})
-     */
-    private $user_id;
-
-    /**
-     * @ORM\Column(type="string", length=25)
-     * @JMS\Groups({"getUser"})
      * @JMS\Expose
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=25)
+     * @JMS\Type("Creativer\FrontBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="posts", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @JMS\Groups({"getUser"})
-     * @JMS\Expose
-     */
-    private $lastname;
+     **/
+    private $user;
 
     /**
      * @JMS\Expose
-     * @ORM\ManyToOne(targetEntity="Avatar")
-     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
-     * @JMS\Groups({"getUser"})
-     */
-    private $avatar;
-
-    /**
      * @var \DateTime $date
-     * @JMS\Expose
+     *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getUser"})
      */
     private $date;
+
 
     /**
      * @ORM\Column(type="text")
@@ -90,6 +72,15 @@ class Posts
      * @JMS\Groups({"getUser"})
      **/
     private $comments;
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -126,26 +117,26 @@ class Posts
     }
 
     /**
-     * Set user_id
+     * Set date
      *
-     * @param integer $userId
+     * @param \DateTime $date
      * @return Posts
      */
-    public function setUserId($userId)
+    public function setDate($date)
     {
-        $this->user_id = $userId;
+        $this->date = $date;
 
         return $this;
     }
 
     /**
-     * Get user_id
+     * Get date
      *
-     * @return integer 
+     * @return \DateTime 
      */
-    public function getUserId()
+    public function getDate()
     {
-        return $this->user_id;
+        return $this->date;
     }
 
     /**
@@ -172,6 +163,29 @@ class Posts
     }
 
     /**
+     * Set user
+     *
+     * @param \Creativer\FrontBundle\Entity\User $user
+     * @return Posts
+     */
+    public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Creativer\FrontBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
      * Set wall
      *
      * @param \Creativer\FrontBundle\Entity\Wall $wall
@@ -192,15 +206,6 @@ class Posts
     public function getWall()
     {
         return $this->wall;
-    }
-    /**
-     * Constructor
-     */
-    public function __construct()
-    {
-        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->date = new \DateTime();
-
     }
 
     /**
@@ -234,98 +239,5 @@ class Posts
     public function getComments()
     {
         return $this->comments;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return Posts
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     * @return Posts
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
-    }
-
-
-    /**
-     * Set date
-     *
-     * @param \DateTime $date
-     * @return Posts
-     */
-    public function setDate($date)
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
-    /**
-     * Get date
-     *
-     * @return \DateTime
-     */
-    public function getDate()
-    {
-        return $this->date;
-    }
-
-    /**
-     * Set avatar
-     *
-     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
-     * @return Posts
-     */
-    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
-    {
-        $this->avatar = $avatar;
-
-        return $this;
-    }
-
-    /**
-     * Get avatar
-     *
-     * @return \Creativer\FrontBundle\Entity\Avatar
-     */
-    public function getAvatar()
-    {
-        return $this->avatar;
     }
 }

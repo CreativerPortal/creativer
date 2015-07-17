@@ -128,6 +128,7 @@ parameters:
     path_img_baraholka_original: "/home/baraholka/original/"
     session_max_idle_time: 1800
     session_handler_redis_save_path: "tcp://localhost:6379"
+    jms_serializer.doctrine_proxy_subscriber.class: Creativer\ApiBundle\Event\DoctrineProxySubscriber
 
 knp_paginator:
     page_range: 4                      # default page range used in pagination control

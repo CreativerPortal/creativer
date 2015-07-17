@@ -272,14 +272,85 @@ class CatalogController extends Controller
     public function getAllCategoriesAction()
     {
 
-        $categories = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('parent' => null));
+        //$categories = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('parent' => null));
+
+
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
+            ->createQueryBuilder('e')
+            ->addSelect('children')
+            ->leftJoin('e.children', 'children')
+            ->addSelect('twoChildren')
+            ->leftJoin('children.children', 'twoChildren')
+            ->addSelect('treeChildren')
+            ->leftJoin('twoChildren.children', 'treeChildren')
+            ->addSelect('fourChildren')
+            ->leftJoin('treeChildren.children', 'fourChildren')
+            ->where('e.parent IS NULL');
+        $categories = $query->getQuery()->getResult();
+
 
         $categories = array('categories' => $categories);
+
 
         $serializer = $this->container->get('jms_serializer');
         $categories = $serializer
             ->serialize(
                 $categories,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+            );
+
+        $response = new Respon($categories);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Post("/v1/get_all_categories_with_album_categories")
+     * @View()
+     */
+    public function getAllCategoriesWithAlbumCategoriesAction()
+    {
+        $post_id = $this->get('request')->request->get('post_id');
+
+
+//        $ids = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')
+//            ->createQueryBuilder('e')
+//            ->select("cat.id, 'true' as selected")
+//            ->leftJoin('e.categories', 'cat')
+//            ->where('e.id = 1')
+//            ->getQuery()
+//            ->getResult();
+//        die(var_dump($ids));
+
+
+//        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
+//            ->createQueryBuilder('e')
+//            ->leftJoin("(select categories.*, 'true' as selected from albums
+//                        left join albums_categories on albums.id = albums_categories.albums_id
+//                        left join categories on categories.id = albums_categories.categories_id
+//                        where albums.id = 1)", 'cat_true on categories.id = cat_true.id')
+//            ->getQuery()
+//            ->getResult();
+
+
+        //die(var_dump($query));
+        //die(\Doctrine\Common\Util\Debug::dump($query));
+
+
+        $ids = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
+            ->createQueryBuilder('e')
+            ->getQuery()
+            ->getScalarResult();
+
+        die(var_dump($ids));
+
+
+        $serializer = $this->container->get('jms_serializer');
+        $categories = $serializer
+            ->serialize(
+                $query,
                 'json',
                 SerializationContext::create()
                     ->enableMaxDepthChecks()

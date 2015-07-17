@@ -25,32 +25,13 @@ class PostComments
     private $id;
 
     /**
-     * @ORM\Column(type="integer", length=11)
-     */
-    private $user_id;
-
-    /**
-     * @ORM\Column(type="string", length=25)
      * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\User")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="post_comments", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @JMS\Groups({"getUser"})
-     */
-    private $username;
-
-    /**
-     * @ORM\Column(type="string", length=25)
-     * @JMS\Expose
-     * @JMS\Groups({"getUser"})
-     */
-    private $lastname;
-
-    /**
-     * @JMS\Expose
-     * @ORM\ManyToOne(targetEntity="Avatar")
-     * @ORM\JoinColumn(name="avatar_id", referencedColumnName="id")
-     * @JMS\Groups({"getUser"})
-     */
-    private $avatar;
-
+     **/
+    private $user;
 
     /**
      * @var datetime $date
@@ -70,7 +51,7 @@ class PostComments
 
     /**
      * @JMS\Expose
-     * @JMS\Type("Creativer\FrontBundle\Entity\PostComments")
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
      * @ORM\ManyToOne(targetEntity="PostBaraholka", inversedBy="post_comments")
      * @ORM\JoinColumn(name="post_baraholka_id", referencedColumnName="id")
      */
@@ -83,7 +64,7 @@ class PostComments
         $this->date = new \DateTime();
     }
 
-   
+
 
     /**
      * Get id
@@ -93,75 +74,6 @@ class PostComments
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * Set user_id
-     *
-     * @param integer $userId
-     * @return PostComments
-     */
-    public function setUserId($userId)
-    {
-        $this->user_id = $userId;
-
-        return $this;
-    }
-
-    /**
-     * Get user_id
-     *
-     * @return integer 
-     */
-    public function getUserId()
-    {
-        return $this->user_id;
-    }
-
-    /**
-     * Set username
-     *
-     * @param string $username
-     * @return PostComments
-     */
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get username
-     *
-     * @return string 
-     */
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set lastname
-     *
-     * @param string $lastname
-     * @return PostComments
-     */
-    public function setLastname($lastname)
-    {
-        $this->lastname = $lastname;
-
-        return $this;
-    }
-
-    /**
-     * Get lastname
-     *
-     * @return string 
-     */
-    public function getLastname()
-    {
-        return $this->lastname;
     }
 
     /**
@@ -211,26 +123,26 @@ class PostComments
     }
 
     /**
-     * Set avatar
+     * Set user
      *
-     * @param \Creativer\FrontBundle\Entity\Avatar $avatar
+     * @param \Creativer\FrontBundle\Entity\User $user
      * @return PostComments
      */
-    public function setAvatar(\Creativer\FrontBundle\Entity\Avatar $avatar = null)
+    public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
     {
-        $this->avatar = $avatar;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get avatar
+     * Get user
      *
-     * @return \Creativer\FrontBundle\Entity\Avatar 
+     * @return \Creativer\FrontBundle\Entity\User 
      */
-    public function getAvatar()
+    public function getUser()
     {
-        return $this->avatar;
+        return $this->user;
     }
 
     /**

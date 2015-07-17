@@ -123,6 +123,15 @@
                             'Content-Type': 'application/json'
                         }
                     })
+                },
+                getAllCategoriesWithAlbumCategories: function () {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_all_categories_with_album_categories',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        }
+                    })
                 }
             };
         }]);

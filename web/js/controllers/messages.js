@@ -67,13 +67,13 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
         chat.init();
 
-        $scope.updateAvatar = function(image){
-        $scope.loader = true;
+    $rootScope.updateAvatar = function(image){
+        $rootScope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {
             $scope.user = $rootScope.user = data.user;
             $rootScope.avatar = $scope.user.avatar.img;
-            $scope.myImage = false;
-            $scope.loader = false;
+            $rootScope.myImage = false;
+            $rootScope.loader = false;
         });
     }
 
@@ -252,30 +252,6 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         }
         uploader.uploadAll();
     };
-
-   // console.info('uploader', uploader);
-
-    // crop image
-
-    $scope.myImage=false;
-    $scope.myCroppedImage=false;
-
-    var handleFileSelect=function(evt) {
-        var file=evt.currentTarget.files[0];
-        var reader = new FileReader();
-        reader.onload = function (evt) {
-            $scope.$apply(function($scope){
-                $scope.myImage=evt.target.result;
-            });
-        };
-        reader.readAsDataURL(file);
-    };
-
-    $timeout(function(){
-        angular.element(document.querySelector('#fileInput')).on('change', handleFileSelect);
-    }, 2000);
-
-    ////////////////////////////////////////////////////
 
 
     }]);
