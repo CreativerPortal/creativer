@@ -20,7 +20,7 @@ class CategoriesBaraholka
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getCategoriesBaraholka"})
      * @JMS\Expose
      */
     private $id;
@@ -28,6 +28,7 @@ class CategoriesBaraholka
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
+     * @JMS\Groups({"getCategoriesBaraholka"})
      */
     private $name;
 
@@ -43,6 +44,7 @@ class CategoriesBaraholka
     /**
      * @ORM\OneToMany(targetEntity="CategoriesBaraholka", mappedBy="parent")
      * @JMS\Expose
+     * @JMS\Groups({"getCategoriesBaraholka"})
      */
     private $children;
 
@@ -50,6 +52,7 @@ class CategoriesBaraholka
      * @ORM\ManyToOne(targetEntity="CategoriesBaraholka", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @JMS\Expose
+     * @JMS\Groups({"getCategoriesBaraholka"})
      */
     private $parent;
 
@@ -73,7 +76,6 @@ class CategoriesBaraholka
         $this->children = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
     }
-
 
 
     /**

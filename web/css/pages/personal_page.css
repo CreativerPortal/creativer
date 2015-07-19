@@ -376,6 +376,26 @@ body{
     color: white;
 }
 
+.album__element:hover .edit__album-person{
+    display: block;
+    color: white;
+    text-decoration: none;
+}
+
+.edit__album-person{
+    position: absolute;
+    right: 8px;
+    top: 8px;
+    z-index: 2;
+    color: #FFFFFF;
+    background-color: #80abe0;
+    padding: 5px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+    display: none;
+}
+
 .add__files__menu{
     position: absolute;
     height: 130px;

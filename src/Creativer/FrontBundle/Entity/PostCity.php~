@@ -21,12 +21,14 @@ class PostCity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\Groups({"getCategoriesBaraholka"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getCategoriesBaraholka"})
      */
     private $name;
 
@@ -41,7 +43,6 @@ class PostCity
         $this->date = new \DateTime();
         $this->post_baraholka = new \Doctrine\Common\Collections\ArrayCollection();
     }
-    
 
 
     /**

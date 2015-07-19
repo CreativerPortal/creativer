@@ -37,14 +37,22 @@ class CatalogController extends Controller
     {
         $id = $this->get('request')->request->get('id');
         $category = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
-        $parent = $category[0]->getParent();
+        $parentId = $this->container->getParameter('category_services');
 
-        while($parent->getParent()){
-            $parent = $parent->getParent();
-        }
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
+            ->createQueryBuilder('e')
+            ->addSelect('children')
+            ->leftJoin('e.children', 'children')
+            ->addSelect('twoChildren')
+            ->leftJoin('children.children', 'twoChildren')
+            ->addSelect('treeChildren')
+            ->leftJoin('twoChildren.children', 'treeChildren')
+            ->addSelect('fourChildren')
+            ->leftJoin('treeChildren.children', 'fourChildren')
+            ->where('e.id = :parent')
+            ->setParameter('parent', $parentId);
+        $categories = $query->getQuery()->getResult();
 
-        $parentId = $parent->getId();
-        $categories = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$parentId));
         $categories = array('service' => $category, 'services' => $categories);
 
         $serializer = $this->container->get('jms_serializer');
@@ -68,14 +76,22 @@ class CatalogController extends Controller
     public function getProductsAction(){
         $id = $this->get('request')->request->get('id');
         $category = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
-        $parent = $category[0]->getParent();
+        $parentId = $this->container->getParameter('category_products');
 
-        while($parent->getParent()){
-            $parent = $parent->getParent();
-        }
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
+            ->createQueryBuilder('e')
+            ->addSelect('children')
+            ->leftJoin('e.children', 'children')
+            ->addSelect('twoChildren')
+            ->leftJoin('children.children', 'twoChildren')
+            ->addSelect('treeChildren')
+            ->leftJoin('twoChildren.children', 'treeChildren')
+            ->addSelect('fourChildren')
+            ->leftJoin('treeChildren.children', 'fourChildren')
+            ->where('e.id = :parent')
+            ->setParameter('parent', $parentId);
+        $categories = $query->getQuery()->getResult();
 
-        $parentId = $parent->getId();
-        $categories = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$parentId));
         $categories = array('product' => $category, 'products' => $categories);
 
         $serializer = $this->container->get('jms_serializer');
@@ -93,8 +109,9 @@ class CatalogController extends Controller
     }
 
     /**
+     * @return array
      * @Post("/v1/get_catalog_product_albums")
-     * @View()
+     * @View(serializerGroups={"getCatalogProductAlbums"})
      */
     public function getCatalogProductAlbumsAction(){
 
@@ -118,9 +135,12 @@ class CatalogController extends Controller
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')
             ->createQueryBuilder('e')
-            ->join('e.album', 'alb')
-            ->join('alb.categories', 'cat')
+            ->select('cat.id as id_cat', 'e.id','e.name','alb.id as id_album','alb.name as name_album','usr.id as id_user','usr.username','usr.lastname')
+            ->leftJoin('e.album', 'alb')
+            ->leftJoin('alb.user', 'usr')
+            ->leftJoin('alb.categories', 'cat')
             ->where('cat IN (:items)')
+            ->groupBy('e.id')
             ->setParameter('items', $items);
 
             if($filter == 'likes'){
@@ -138,7 +158,7 @@ class CatalogController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $page,
-            16
+            24
         );
 
         $products = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
@@ -211,7 +231,7 @@ class CatalogController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $page,
-            8
+            12
         );
 
         $services = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
@@ -238,32 +258,6 @@ class CatalogController extends Controller
 
     }
 
-
-    /**
-     * @Post("/v1/get_post_by_id")
-     * @View()
-     */
-    public function getPostByIdAction()
-    {
-        $post_id = $this->get('request')->request->get('post_id');
-
-        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($post_id);
-
-        $post = array('post' => $post);
-
-        $serializer = $this->container->get('jms_serializer');
-        $categories = $serializer
-            ->serialize(
-                $post,
-                'json',
-                SerializationContext::create()
-                    ->enableMaxDepthChecks()
-            );
-
-        $response = new Respon($categories);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
-    }
 
     /**
      * @Post("/v1/get_all_categories")

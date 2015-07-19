@@ -21,18 +21,23 @@ class PostCategory
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\Groups({"getCategoriesBaraholka", "getPostsByCategory"})
      */
     private $id;
 
     /**
-     * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @ORM\Column(type="string", length=255)
+     * @JMS\Groups({"getCategoriesBaraholka", "getPostsByCategory"})
      */
     private $name;
 
 
     /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostCategory")
      * @ORM\OneToMany(targetEntity="PostBaraholka", mappedBy="post_category")
+     * @JMS\Groups({"getPostsByCategory"})
      **/
     private $post_baraholka;
 

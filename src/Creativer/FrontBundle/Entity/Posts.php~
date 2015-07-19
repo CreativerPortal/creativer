@@ -82,4 +82,162 @@ class Posts
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set wall_id
+     *
+     * @param integer $wallId
+     * @return Posts
+     */
+    public function setWallId($wallId)
+    {
+        $this->wall_id = $wallId;
+
+        return $this;
+    }
+
+    /**
+     * Get wall_id
+     *
+     * @return integer 
+     */
+    public function getWallId()
+    {
+        return $this->wall_id;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return Posts
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set text
+     *
+     * @param string $text
+     * @return Posts
+     */
+    public function setText($text)
+    {
+        $this->text = $text;
+
+        return $this;
+    }
+
+    /**
+     * Get text
+     *
+     * @return string 
+     */
+    public function getText()
+    {
+        return $this->text;
+    }
+
+    /**
+     * Set user
+     *
+     * @param \Creativer\FrontBundle\Entity\User $user
+     * @return Posts
+     */
+    public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get user
+     *
+     * @return \Creativer\FrontBundle\Entity\User 
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * Set wall
+     *
+     * @param \Creativer\FrontBundle\Entity\Wall $wall
+     * @return Posts
+     */
+    public function setWall(\Creativer\FrontBundle\Entity\Wall $wall = null)
+    {
+        $this->wall = $wall;
+
+        return $this;
+    }
+
+    /**
+     * Get wall
+     *
+     * @return \Creativer\FrontBundle\Entity\Wall 
+     */
+    public function getWall()
+    {
+        return $this->wall;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Creativer\FrontBundle\Entity\Comments $comments
+     * @return Posts
+     */
+    public function addComment(\Creativer\FrontBundle\Entity\Comments $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Creativer\FrontBundle\Entity\Comments $comments
+     */
+    public function removeComment(\Creativer\FrontBundle\Entity\Comments $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
 }

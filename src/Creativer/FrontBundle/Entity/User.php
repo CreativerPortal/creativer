@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getUser"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById"})
      */
     private $id;
 
@@ -34,6 +34,8 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
      * @Assert\NotBlank(message="Имя пользователя не может быть пустым")
+     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById"})
+
      */
     private $username;
 
@@ -42,13 +44,14 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
      * @Assert\NotBlank(message="Фамилия пользователя не может быть пустым")
+     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Groups({"getImageComments", "getUser", "getPostsByCategory", "getPostById"})
      */
     private $avatar;
 

@@ -117,6 +117,9 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     }
     if($routeParams.url_img){
         $scope.url_img = $routeParams.url_img;
+        $rootScope.overflow = true;
+    }else{
+        $rootScope.overflow = false;
     }
     if($routeParams.key_img || $rootScope.key_img){
         $rootScope.key_img = $routeParams.key_img;
@@ -155,10 +158,17 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
 
     $scope.saveImageComment = function(image,text){
-        var username = $rootScope.username;
-        var lastname = $rootScope.lastname;
-        var img = $rootScope.img;
-        image.image_comments.push({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text ,date: new Date()});
+        var user = {
+            user: {
+                id: 0,
+                username: $rootScope.username,
+                lastname: $rootScope.lastname,
+                avatar: $rootScope.avatar
+            },
+            text: text,
+            date: new Date()
+        }
+        image.image_comments.push(user);
         albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
             $scope.text_comment = undefined;
         });

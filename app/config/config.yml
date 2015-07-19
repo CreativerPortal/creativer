@@ -129,6 +129,8 @@ parameters:
     session_max_idle_time: 1800
     session_handler_redis_save_path: "tcp://localhost:6379"
     jms_serializer.doctrine_proxy_subscriber.class: Creativer\ApiBundle\Event\DoctrineProxySubscriber
+    category_products: 1000
+    category_services: 1001
 
 knp_paginator:
     page_range: 4                      # default page range used in pagination control

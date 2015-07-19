@@ -342,3 +342,7 @@ a:focus{
     background-position: center bottom;
     padding-bottom: 10px;
 }
+
+.overflow{
+    overflow-y: hidden;
+}

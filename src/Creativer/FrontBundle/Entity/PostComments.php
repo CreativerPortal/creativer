@@ -19,17 +19,17 @@ class PostComments
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPostById", "getPostById"})
      * @JMS\Expose
      */
-    private $id;
+private $id;
 
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="post_comments", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPostById"})
      **/
     private $user;
 
@@ -38,14 +38,14 @@ class PostComments
      * @JMS\Expose
      * @ORM\Column(name="date", type="datetime")
      * @Gedmo\Timestampable(on="create")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPostById", "getPostById"})
      */
     private $date;
 
     /**
      * @JMS\Expose
      * @ORM\Column(type="text")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPostById", "getPostById"})
      */
     private $text;
 

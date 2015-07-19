@@ -20,7 +20,7 @@ class Albums
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums"})
      * @JMS\Expose
      */
     private $id;
@@ -31,7 +31,7 @@ class Albums
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"idUserByIdImage", "getAlbumById"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums"})
      **/
     private $user;
 
@@ -45,7 +45,7 @@ class Albums
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser", "getAlbumById"})
+     * @JMS\Groups({"getUser", "getAlbumById", "getCatalogProductAlbums"})
      */
     private $name;
 

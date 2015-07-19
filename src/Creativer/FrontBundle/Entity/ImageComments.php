@@ -10,6 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * @ORM\Entity
  * @ORM\Table(name="image_comments")
+ * @JMS\ExclusionPolicy("all")
  */
 class ImageComments
 {
@@ -27,7 +28,7 @@ class ImageComments
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="image_comments", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"idUserByIdImage", "getAlbumById"})
+     * @JMS\Groups({"getAlbumComments", "getAlbumById"})
      **/
     private $user;
 

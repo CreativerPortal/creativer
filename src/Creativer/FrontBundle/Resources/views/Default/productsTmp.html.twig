@@ -10,13 +10,13 @@
                     <li ng-repeat="product_one in $root.products">
                         <a ng-class="{menu_action_black: product_one.id == $root.product.id}" href="#/products/[[ product_one.id ]]">[[ product_one.name ]]</a>
                         <ul ng-show="product_one.id == $root.product.id || product_one.child == true">
-                            <span ng-if="product_one.id == $root.product.id" ng-init="product_one.child=true"></span>
+                            <span ng-if="product_one.id == $root.product.id" ng-init="product_one.child=true; $root.product.name=product_one.name;"></span>
                             <li ng-repeat="product_two in product_one.children">
                                 <a ng-class="{menu_action_black: product_two.id == $root.product.id, font_product_dropdown: product_two.children.length}" href="#/products/[[ product_two.id ]]">[[ product_two.name ]]</a>
                                 <ul ng-show="product_two.children.length || product_one.child == true">
-                                    <span ng-if="product_two.id == $root.product.id" ng-init="product_one.child=true"></span>
+                                    <span ng-if="product_two.id == $root.product.id" ng-init="product_one.child=true; $root.product.name=product_two.name;"></span>
                                     <li ng-repeat="product_three in product_two.children" >
-                                        <span ng-if="product_three.id == $root.product.id" ng-init="product_one.child=true"></span>
+                                        <span ng-if="product_three.id == $root.product.id" ng-init="product_one.child=true; $root.product.name=product_three.name;"></span>
                                         <a ng-class="{menu_action_black: product_three.id == $root.product.id}" href="#/products/[[ product_three.id ]]">[[ product_three.name ]]</a>
                                     </li>
                                 </ul>
@@ -59,7 +59,7 @@
         </div>
 
         <div class="col-sm-9 fs_0-8">
-            <div class="row"><h2 class="lobster">Название страница</h2></div>
+            <div class="row"><h2 class="lobster">[[ $root.product.name ]]</h2></div>
             <div class="row">
                 <div class="col-sm-4 padding-left_0">
                     Сортировать по:
@@ -89,11 +89,11 @@
             <div class="row slid__card slid__card__first">
 
                 <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0" ng-repeat="item in items.items">
-                    <a href="#/album/[[ item.album.id ]]/[[ item.name ]]" animation-image img="/home/album/thums/[[ item.name ]]" style='background:url("/home/album/thums/[[ item.name ]]") top left no-repeat;' class="container_image_product" >
-                        <span class="slid__card__price">[[ item.price ]] руб.</span>
+                    <a href="#/album/[[ item.id_album ]]/[[ item.name ]]" animation-image img="/home/album/thums/[[ item.name ]]" style='background:url("/home/album/thums/[[ item.name ]]") top left no-repeat;' class="container_image_product" >
+                        {#<span class="slid__card__price">[[ item.price ]] руб.</span>#}
                     </a>
-                    <a href="#/album/[[ item.album.id ]]" class="slid__card__name">[[ item.album.name ]]</a>
-                    <a href="#/[[ item.album.user.id ]]" class="slid__card__name_user">[[ item.album.user.username ]] [[ item.album.user.lastname ]]</a>
+                    <a href="#/album/[[ item.id_album ]]" class="slid__card__name">[[ item.name_album ]]</a>
+                    <a href="#/[[ item.id_user ]]" class="slid__card__name_user">[[ item.username ]] [[ item.lastname ]]</a>
                 </div>
 
                 <div ng-show="items.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">ПУСТО</div>

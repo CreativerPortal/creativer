@@ -42,7 +42,7 @@
 
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
 </head>
-<body ng-hide="$root.hid != true" class="ng-hide">
+<body ng-hide="$root.hid != true" class="ng-hide" ng-class="{'overflow': $root.overflow}">
 <div class="container wrapper">
 {% if app.user %}
     <div ng-model="id_user" ng-init="id_user={{ app.security.getToken().getUser().getId() }}"></div>

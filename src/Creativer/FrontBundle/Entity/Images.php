@@ -20,7 +20,7 @@ class Images
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumComments", "getAlbumById"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumComments", "getAlbumById", "getCatalogProductAlbums"})
      * @JMS\Expose
      */
     private $id;
@@ -32,7 +32,7 @@ class Images
      * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
      * @JMS\MaxDepth(2)
-     * @JMS\Groups({"idUserByIdImage", "getAlbumById"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums"})
      **/
     private $album;
 
@@ -47,7 +47,7 @@ class Images
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById"})
+     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums"})
      */
     private $name;
 
@@ -68,7 +68,7 @@ class Images
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById"})
+     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums"})
      * @JMS\Expose
      */
     private $text;
@@ -86,7 +86,7 @@ class Images
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Groups({"getImageComments", "getUser", "getCatalogProductAlbums"})
      */
     private $date;
 

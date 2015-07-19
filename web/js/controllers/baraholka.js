@@ -127,21 +127,36 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         }
 
         $scope.saveComment = function(text){
-            var username = $rootScope.username;
-            var lastname = $rootScope.lastname;
-            var img = $rootScope.img;
-            $scope.post.post_comments.push({id: 0, username:username, lastname:lastname, avatar: {img:img}, text: text});
+            $scope.loader = true;
+            var user = {
+                user: {
+                    username: $rootScope.username,
+                    lastname: $rootScope.lastname,
+                    avatar: $rootScope.img
+                },
+                text: text,
+                date: new Date()
+            }
+            $scope.post.post_comments.push(user);
             baraholkaService.saveComment({post_id:$scope.post.id,text:text}).success(function (data) {
                 $scope.user = data.user;
+                $scope.text_comment = undefined;
+                $scope.loader = false;
             });
         }
 
         if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
-            baraholkaService.getDataBaraholka().success(function (data) {
-                $scope.baraholka = data.baraholka.children;
-                $scope.post_category = data.post_category;
-                $scope.post_city = data.post_city;
-            });
+            if($rootScope.baraholka && $rootScope.post_category && $rootScope.post_city){
+                $scope.baraholka = $rootScope.baraholka;
+                $scope.post_category = $rootScope.post_category;
+                $scope.post_city = $rootScope.post_city;
+            }else{
+                baraholkaService.getDataBaraholka().success(function (data) {
+                    $rootScope.baraholka = $scope.baraholka = data.baraholka.children;
+                    $rootScope.post_category = $scope.post_category = data.post_category;
+                    $rootScope.post_city = $scope.post_city = data.post_city;
+                });
+            }
         }
 
 

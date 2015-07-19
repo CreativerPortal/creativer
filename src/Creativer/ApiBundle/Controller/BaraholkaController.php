@@ -34,7 +34,23 @@ class BaraholkaController extends Controller
      */
     public function getCategoriesBaraholkaAction()
     {
-        $categoriesBaraholka = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find(1000);
+        //$categoriesBaraholka = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find(1000);
+
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')
+            ->createQueryBuilder('e')
+            ->addSelect('children')
+            ->leftJoin('e.children', 'children')
+            ->addSelect('twoChildren')
+            ->leftJoin('children.children', 'twoChildren')
+            ->addSelect('treeChildren')
+            ->leftJoin('twoChildren.children', 'treeChildren')
+            ->addSelect('fourChildren')
+            ->leftJoin('treeChildren.children', 'fourChildren')
+            ->where('e.id = :id')
+            ->setParameter('id', 1000);
+        $categoriesBaraholka = $query->getQuery()->getResult()[0];
+
+
         $postCity = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostCity')->findAll();
         $postCategory = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostCategory')->findAll();
 
@@ -47,7 +63,7 @@ class BaraholkaController extends Controller
                 $categories,
                 'json',
                 SerializationContext::create()
-                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getCategoriesBaraholka'))
             );
 
         $response = new Respon($categories);
@@ -65,12 +81,10 @@ class BaraholkaController extends Controller
         $city = $this->get('request')->request->get('city');
         $my_singboard = $this->get('request')->request->get('my_singboard');
         $new24 = $this->get('request')->request->get('new24');
-        $post_category_id = $this->get('request')->request->get('post_category_id');
+        $post_category_id = $this->get('request')->request->get('post_category_id')?$this->get('request')->request->get('post_category_id'):0;
         $singboard_participate = $this->get('request')->request->get('singboard_participate');
 
 
-
-        $categoriesBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find($category_id);
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
 
@@ -79,19 +93,20 @@ class BaraholkaController extends Controller
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
             ->createQueryBuilder('e')
-            ->join('e.categories_baraholka', 'cat')
+            ->leftJoin('e.post_category', 'post_categ')
+            ->leftJoin('e.categories_baraholka', 'cat')
+            ->leftJoin('e.images_baraholka', 'images')
             ->where('cat IN (:items)')
             ->setParameter('items', $category_id);
 
-        if($city > 0){
+        if($city > 0 and $city != false){
             $query->join('e.post_city', 'city')
                 ->andWhere('city = :city_id')
-                ->setParameter('city_id', $city);
+                ->setParameter('city_id', $city['id']);
         }
         if($post_category_id > 0){
-            $query->join('e.post_category', 'type')
-                ->andWhere('type = :type_id')
-                ->setParameter('type_id', $post_category_id);
+            $query->andWhere('post_categ = :post_categ_id')
+                ->setParameter('post_categ_id', $post_category_id);
         }
         if($new24 == true){
             $query->andWhere('e.date >= :dat')
@@ -100,19 +115,24 @@ class BaraholkaController extends Controller
         if($my_singboard == true and $singboard_participate == true and $userId){
             $query->leftJoin('e.user', 'u')
                 ->leftJoin('e.post_comments', 'pc')
-                ->andWhere('u.id = :id or pc.user_id = :id')
+                ->leftJoin('pc.user', 'userre')
+                ->andWhere('u.id = :id or userre.id = :id')
                 ->setParameter('id', $userId);
         }else if($my_singboard == true and $userId){
-            $query->join('e.user', 'u')
+            $query->leftJoin('e.user', 'u')
                 ->andWhere('u = :id')
                 ->setParameter('id', $userId);
         }else if($singboard_participate == true and $userId){
-            $query->join('e.post_comments', 'ps')
-                ->andWhere('ps.user_id = :idd')
+            $query->leftJoin('e.post_comments', 'ps')
+                ->leftJoin('ps.user', 'userr')
+                ->andWhere('userr.id = :idd')
                 ->setParameter('idd', $userId);
+        }else{
+            $query->leftJoin('e.user', 'u');
         }
 
         $query = $query->getQuery();
+
 
 
         $paginator  = $this->get('knp_paginator');
@@ -137,13 +157,46 @@ class BaraholkaController extends Controller
                 $posts,
                 'json',
                 SerializationContext::create()
-                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getPostsByCategory'))
             );
 
         $response = new Respon($posts);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
 
+    }
+
+
+    /**
+     * @Post("/v1/get_post_by_id")
+     * @View()
+     */
+    public function getPostByIdAction()
+    {
+        $post_id = $this->get('request')->request->get('post_id');
+
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
+            ->createQueryBuilder('e')
+            ->where('e.id = :id')
+            ->setParameter('id', $post_id)
+            ->getQuery()
+            ->getResult()[0];
+
+
+        $post = array('post' => $query);
+
+        $serializer = $this->container->get('jms_serializer');
+        $categories = $serializer
+            ->serialize(
+                $post,
+                'json',
+                SerializationContext::create()
+                    ->setGroups(array('getPostById'))
+            );
+
+        $response = new Respon($categories);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
 
@@ -163,30 +216,26 @@ class BaraholkaController extends Controller
         }
         $data = json_decode($this->get("request")->getContent());
 
-        $username = $this->get('security.context')->getToken()->getUser()->getUsername();
-        $lastname = $this->get('security.context')->getToken()->getUser()->getLastname();
-        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+        $user = $this->get('security.context')->getToken()->getUser();
 
         $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->findOneById($data->post_id);
 
 
         $comment = new PostComments();
 
-        $comment->setUsername($username)
-            ->setLastname($lastname)
-            ->setText($data->text)
+        $comment->setText($data->text)
             ->setPostBaraholka($post)
-            ->setUserId($userId);
+            ->setUser($user);
 
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($comment);
         $em->flush();
 
-        $serializer = $this->container->get('jms_serializer');
-        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->findOneById($data->post_id);
+        $view = \FOS\RestBundle\View\View::create()
+            ->setStatusCode(200)
+            ->setFormat('json');
 
-
-        return array('post' => $post);
+        return $this->get('fos_rest.view_handler')->handle($view);
     }
 }

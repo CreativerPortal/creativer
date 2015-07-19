@@ -21,6 +21,7 @@ class PostBaraholka
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      */
     private $id;
 
@@ -30,6 +31,7 @@ class PostBaraholka
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
     private $user;
 
@@ -43,6 +45,7 @@ class PostBaraholka
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      */
     private $name;
 
@@ -50,6 +53,7 @@ class PostBaraholka
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"getPostsByCategory"})
      */
     private $description;
 
@@ -57,12 +61,14 @@ class PostBaraholka
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      */
     private $full_description;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      */
     private $price = 0;
 
@@ -79,6 +85,7 @@ class PostBaraholka
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      */
     private $date;
 
@@ -100,6 +107,7 @@ class PostBaraholka
      * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
      * @ORM\OneToMany(targetEntity="ImagesBaraholka", mappedBy="post_baraholka")
      * @ORM\OrderBy({"id" = "DESC"})
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
     private $images_baraholka;
 
@@ -108,6 +116,7 @@ class PostBaraholka
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="PostCategory", inversedBy="post_baraholka")
      * @ORM\JoinColumn(name="post_category_id", referencedColumnName="id")
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
     private $post_category;
 
@@ -116,6 +125,7 @@ class PostBaraholka
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="PostCity", inversedBy="post_baraholka")
      * @ORM\JoinColumn(name="post_city_id", referencedColumnName="id")
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
     private $post_city;
 
@@ -123,7 +133,7 @@ class PostBaraholka
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
      * @ORM\OneToMany(targetEntity="PostComments", mappedBy="post_baraholka")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPostById"})
      **/
     private $post_comments;
 
@@ -133,6 +143,7 @@ class PostBaraholka
         $this->date = new \DateTime();
     }
     
+
 
     /**
      * Get id
@@ -234,6 +245,52 @@ class PostBaraholka
     public function getFullDescription()
     {
         return $this->full_description;
+    }
+
+    /**
+     * Set price
+     *
+     * @param integer $price
+     * @return PostBaraholka
+     */
+    public function setPrice($price)
+    {
+        $this->price = $price;
+
+        return $this;
+    }
+
+    /**
+     * Get price
+     *
+     * @return integer 
+     */
+    public function getPrice()
+    {
+        return $this->price;
+    }
+
+    /**
+     * Set auction
+     *
+     * @param integer $auction
+     * @return PostBaraholka
+     */
+    public function setAuction($auction)
+    {
+        $this->auction = $auction;
+
+        return $this;
+    }
+
+    /**
+     * Get auction
+     *
+     * @return integer 
+     */
+    public function getAuction()
+    {
+        return $this->auction;
     }
 
     /**
@@ -408,29 +465,6 @@ class PostBaraholka
     }
 
     /**
-     * Set price
-     *
-     * @param integer $price
-     * @return PostBaraholka
-     */
-    public function setPrice($price)
-    {
-        $this->price = $price;
-
-        return $this;
-    }
-
-    /**
-     * Get price
-     *
-     * @return integer 
-     */
-    public function getPrice()
-    {
-        return $this->price;
-    }
-
-    /**
      * Add post_comments
      *
      * @param \Creativer\FrontBundle\Entity\PostComments $postComments
@@ -461,28 +495,5 @@ class PostBaraholka
     public function getPostComments()
     {
         return $this->post_comments;
-    }
-
-    /**
-     * Set auction
-     *
-     * @param integer $auction
-     * @return PostBaraholka
-     */
-    public function setAuction($auction)
-    {
-        $this->auction = $auction;
-
-        return $this;
-    }
-
-    /**
-     * Get auction
-     *
-     * @return integer 
-     */
-    public function getAuction()
-    {
-        return $this->auction;
     }
 }
