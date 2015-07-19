@@ -71,7 +71,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         $rootScope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {
             $scope.user = $rootScope.user = data.user;
-            $rootScope.avatar = $scope.user.avatar.img;
+            $rootScope.avatar = $scope.user.avatar;
             $rootScope.myImage = false;
             $rootScope.loader = false;
         });

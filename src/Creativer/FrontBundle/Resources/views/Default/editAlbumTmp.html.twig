@@ -42,7 +42,7 @@
 
                                     <div>
                                         <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" style="width: 100%" />
-                                        <textarea type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                                        <textarea ng-blur="editUpdateImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +63,7 @@
 
                                     <div>
                                         <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" style="width: 100%" />
-                                        <textarea type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                                        <textarea ng-blur="editUpdateImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +84,7 @@
 
                                     <div>
                                         <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]"  style="width: 100%" />
-                                        <textarea type="text" value="[[ item.file.title ]]" ng-model="item.file.title" ng-init="item.file.title=''" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                                        <textarea ng-blur="editUpdateImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>
                             </div>

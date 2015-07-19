@@ -130,7 +130,7 @@
 
                                     <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Написать комментарий" style="width: 440px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
                                     <div ng-show="text_comment" class="margin-top_5 text-right">
-                                        <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)">Отправить</button>
+                                        <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)" ng-class="{'loader':loader}">Отправить</button>
                                     </div>
                                 </div>
                                 <div class="col-sm-2">
@@ -150,30 +150,3 @@
                    </a>
             </div>
  </div>
-
-
-<div ng-show="myImage" class="background__viewer-avatar" style="zoom: reset;">
-    <div class="border__viewer-avatar margin-top_100">
-        <div class="border__viewer__wrapper-avatar">
-            <!-- Modal -->
-            <div class="cropArea row" style="height: 340px;">
-                <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;"></img-crop>
-                <div class="col-sm-3" style="height: auto; display: block; position: static;">
-                    <div class="user__avatar-border col-sm-offset-4">
-                        <div class="user__avatar">
-                            <img src="[[ myCroppedImage ]]">
-                        </div>
-                    </div>
-                    <div class="user__avatar-mini" style="margin-left: 60px;">
-                        <img src="[[ myCroppedImage ]]">
-                    </div>
-                    <div class="row right" style="position: absolute; bottom: 0px;">
-                        <div class=""></div>
-                        <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="updateAvatar(myCroppedImage)">Отправить</button>
-                        <button type="reset" class="false" ng-click="myImage=''">Отменить</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>

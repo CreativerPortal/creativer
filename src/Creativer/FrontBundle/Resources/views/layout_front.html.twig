@@ -186,21 +186,21 @@
                 <div class="border__viewer__wrapper-avatar">
                     <!-- Modal -->
                     <div class="cropArea row" style="height: 340px;">
-                        <img-crop class="col-sm-9" image="myImage" result-image="myCroppedImage" result-image-size="120" style="height: 100%;"></img-crop>
-                        <div class="col-sm-3" style="height: auto; display: block; position: static;">
-                            <div class="user__avatar-border col-sm-offset-4">
+                        <img-crop image="myImage" result-image="myCroppedImage" result-image-size="220" style="height: 100%;"></img-crop>
+                        <div style="height: auto; display: block; position: static; width: 157px; float: right; margin: 8px;">
+                            <div class="user__avatar-border">
                                 <div class="user__avatar">
                                     <img src="[[ myCroppedImage ]]">
                                 </div>
                             </div>
-                            <div class="user__avatar-mini" style="margin-left: 60px;">
+                            <div class="user__avatar-mini" style="margin: inherit;">
                                 <img src="[[ myCroppedImage ]]">
                             </div>
-                            <div class="row right" style="position: absolute; bottom: 0px;">
-                                <div class=""></div>
-                                <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="$root.updateAvatar(myCroppedImage)">Отправить</button>
-                                <button type="reset" class="false" ng-click="$root.myImage=''">Отменить</button>
-                            </div>
+                        </div>
+                        <div class="row right" style="position: absolute; bottom: 10px; right: 25px;">
+                            <div class=""></div>
+                            <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="$root.updateAvatar(myCroppedImage)">Отправить</button>
+                            <button type="reset" class="false" ng-click="$root.myImage=''">Отменить</button>
                         </div>
                     </div>
                 </div>

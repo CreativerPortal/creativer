@@ -158,6 +158,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
 
     $scope.saveImageComment = function(image,text){
+        $scope.loader = true;
         var user = {
             user: {
                 id: 0,
@@ -171,6 +172,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
         image.image_comments.push(user);
         albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
             $scope.text_comment = undefined;
+            $scope.loader = false;
         });
     }
 
@@ -214,11 +216,15 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
         });
     }
 
+    $scope.editUpdateImage = function(id,text){
+        console.log(text);
+    }
+
     $rootScope.updateAvatar = function(image){
         $rootScope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {
             $scope.user = data.user;
-            $rootScope.avatar = $scope.user.avatar.img;
+            $rootScope.avatar = $scope.user.avatar;
             $rootScope.myImage = false;
             $rootScope.loader = false;
         });

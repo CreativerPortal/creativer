@@ -99,6 +99,7 @@ class PostBaraholka
      * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
      * @ORM\ManyToOne(targetEntity="CategoriesBaraholka", inversedBy="post_baraholka")
      * @ORM\JoinColumn(name="categories_baraholka_id", referencedColumnName="id")
+     * @JMS\Groups({"getPostById"})
      **/
     private $categories_baraholka;
 
