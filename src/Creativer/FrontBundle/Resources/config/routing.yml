@@ -83,6 +83,10 @@ creativer_front_upload_album:
     path:     /upload_album
     defaults: { _controller: CreativerFrontBundle:Default:uploadAlbum }
     methods:  [POST]
+creativer_front_upload_edit_album:
+    path:     /upload_edit_album
+    defaults: { _controller: CreativerFrontBundle:Default:uploadEditAlbum }
+    methods:  [POST]
 creativer_create_post_baraholka:
     path:     /create_post_baraholka
     defaults: { _controller: CreativerFrontBundle:Default:createPostBaraholka }

@@ -300,6 +300,96 @@ class PersonController extends Controller
 
     /**
      * @return array
+     * @Post("/v1/delete_album")
+     * @View()
+     */
+    public function deleteAlbumAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $id = $this->get('request')->request->get('id');
+
+        $path_img_album_thums = $this->container->getParameter('path_img_album_thums');
+        $path_img_album_original = $this->container->getParameter('path_img_album_original');
+
+
+        $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($id);
+        $images = $album->getImages();
+
+
+        $fs = new Filesystem();
+        foreach($images as $key=>$val){
+            if($val){
+                $fs->remove(array($path_img_album_thums.$val->getName()));
+                $fs->remove(array($path_img_album_original.$val->getName()));
+                $em->remove($val);
+            }
+        }
+
+        $em->remove($album);
+        $em->flush();
+
+
+        $array = array('success' => false);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/remove_image")
+     * @View()
+     */
+    public function removeImageAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $id = $this->get('request')->request->get('id');
+
+        $path_img_album_thums = $this->container->getParameter('path_img_album_thums');
+        $path_img_album_original = $this->container->getParameter('path_img_album_original');
+
+
+        $images = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->find($id);
+
+        $fs = new Filesystem();
+            if($images){
+                $fs->remove(array($path_img_album_thums.$images->getName()));
+                $fs->remove(array($path_img_album_original.$images->getName()));
+                $em->remove($images);
+            }
+
+        $em->remove($images);
+        $em->flush();
+
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+
+    /**
+     * @return array
      * @Post("/v1/delete_image")
      * @View(serializerGroups={"idUserByIdImage"})
      */

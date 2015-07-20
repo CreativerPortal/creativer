@@ -6,14 +6,33 @@
 
             <div class="row slid  padding-right_0" ng-show="user">
 
-                <h3 class="lobster">[[ user.username ]] [[ user.lastname ]]</h3>
+                <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
 
                 <div class="col-sm-5 user padding-left_0">
                     {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
                 </div>
 
                 <div class="col-sm-7 album">
-                    <button class="add_photo btn button_message early-message text-center text-white right pointer margin-right_10"><span class="glyphicon glyphicon-camera"></span>  <span class="fs_0-9">Добавить фото</span></button>
+                    <span class="text-blue pointer left" ng-if="edit_album.remove_post == false" ng-click="edit_album.remove_post = true">Удалить альбом</span>
+
+                    <div ng-if="edit_album.remove_post == true" class="col-sm-6 left padding-left_0">
+                        Вы действително хотите удалить альбом ?
+                        <span class="text-blue pointer" ng-click="deleteAlbum(edit_album.id)">Да</span> |
+                        <span ng-click="edit_album.remove_post = false" class="text-blue pointer">Нет</span>
+                    </div>
+
+
+                    <input type="file" nv-file-select="" uploader="uploader" multiple id="addImg" class="hidden" />
+                    <label for="addImg" class="right">
+                        <div class="add_photo btn button_message early-message text-center text-white right pointer margin-right_10" style="padding: 0px;">
+                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="position: relative; border-radius: 5px;" ng-style="{ 'width': uploader.progress + '%' }">
+
+                            </div>
+                            <span class="glyphicon glyphicon-camera" style="position: absolute; right: 137px; top: 7px;"></span>
+                            <span class="fs_0-9" style="position: absolute; right: 51px!important; top: 6px;">Добавить фото</span>
+                        </div>
+                    </label>
+
                     <input class="name_album lobster margin-top_10" ng-blur="editNameAlbum(edit_album.id,edit_album.name)" ng-model="edit_album.name" type="text" placeholder="Название Альбома">
                     <multi-select-tree data-input-model="data" multi-select="true"
                                        data-output-model="selectedItem" data-default-label="Выберите категорию альбома"
@@ -29,14 +48,12 @@
                             <div class="col-sm-4 text-center">
                                 <div ng-repeat="(key,image) in edit_album.images.slice(0, res)" class="upload__element">
 
-                                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
+                                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
                                         <input type="checkbox" class="hidden">
-                                        <div class="edit__album__menu">
-                                            <ul class="margin-top_20">
-                                                <li ng-click="item.remove()">удалить</li>
-                                                <li ng-init="item.main = 0" ng-click="item.main = 1">
-                                                    обложкой
-                                                </li>
+                                        <div class="edit__album__menu fs_1-2">
+                                            <ul class="margin-top_20 padding-left_0">
+                                                <li ng-click="removeImage(image.id)">удалить</li>
+                                                <li ng-click="mainImage(image.id)">обложкой</li>
                                             </ul>
                                         </div>
                                     </label>
@@ -50,14 +67,12 @@
 
                             <div class="col-sm-4 text-center ">
                                 <div ng-repeat="(key,image) in edit_album.images.slice(res, res*2)" class="upload__element">
-                                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
+                                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
                                         <input type="checkbox" class="hidden">
-                                        <div class="edit__album__menu">
-                                            <ul class="margin-top_20">
-                                                <li ng-click="item.remove()">удалить</li>
-                                                <li ng-init="item.main = 0" ng-click="item.main = 1">
-                                                    обложкой
-                                                </li>
+                                        <div class="edit__album__menu fs_1-2">
+                                            <ul class="margin-top_20 padding-left_0">
+                                                <li ng-click="removeImage(image.id)">удалить</li>
+                                                <li ng-click="mainImage(image.id)">обложкой</li>
                                             </ul>
                                         </div>
                                     </label>
@@ -71,14 +86,12 @@
 
                             <div class="col-sm-4 text-center ">
                                 <div ng-repeat="(key,image) in edit_album.images.slice(res*2, res*3)" class="upload__element">
-                                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
+                                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
                                         <input type="checkbox" class="hidden">
-                                        <div class="edit__album__menu">
-                                            <ul class="margin-top_20">
-                                                <li ng-click="item.remove()">удалить</li>
-                                                <li ng-init="item.main = 0" ng-click="item.main = 1">
-                                                    обложкой
-                                                </li>
+                                        <div class="edit__album__menu fs_1-2">
+                                            <ul class="margin-top_20 padding-left_0">
+                                                <li ng-click="removeImage(image.id)">удалить</li>
+                                                <li ng-click="mainImage(image.id)">обложкой</li>
                                             </ul>
                                         </div>
                                     </label>

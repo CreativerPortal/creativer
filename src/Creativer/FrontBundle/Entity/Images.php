@@ -20,7 +20,7 @@ class Images
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumComments", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumComments", "getAlbumById", "getCatalogProductAlbums", "uploadEditAlbum"})
      * @JMS\Expose
      */
     private $id;
@@ -47,14 +47,14 @@ class Images
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "uploadEditAlbum"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="integer", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"getAlbumById", "uploadEditAlbum"})
 
      */
     private $price = 0;
@@ -68,7 +68,7 @@ class Images
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "uploadEditAlbum"})
      * @JMS\Expose
      */
     private $text;

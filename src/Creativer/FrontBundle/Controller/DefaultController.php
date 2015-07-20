@@ -24,6 +24,7 @@ use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
 use Imagine\Imagick;
 use Imagine\Image\ImageInterface;
+use JMS\Serializer\SerializationContext;
 use Symfony\Component\HttpFoundation\Response as Respon;
 
 
@@ -248,12 +249,6 @@ class DefaultController extends Controller
                             die("error upload image ".$e);
                         }
 
-
-//                        $document = new Document();
-//                        $document->setFile($image);
-//                        $document->setSubDirectory('uploads');
-//                        $document->processFile();
-//                        $uploadedURL=$uploadedURL = $document->getUploadDirectory() . DIRECTORY_SEPARATOR . $document->getSubDirectory() . DIRECTORY_SEPARATOR . $image->getBasename();
                     } else {
                         $status = 'failed';
                         $message = 'Invalid File Type';
@@ -271,6 +266,93 @@ class DefaultController extends Controller
             $id = $album->getId();
             $array = array('id' => $id);
             $response = new Respon(json_encode($array), 200);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
+        }
+
+        return $this->render('CreativerFrontBundle:Default:createAlbumTmp.html.twig');
+    }
+
+    public function uploadEditAlbumAction(){
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $image = $request->files->get('file');
+            $id_album = $request->get('id_album');
+
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 2000000000)) {
+                    $originalName = $image->getClientOriginalName();
+                    $file_type = $image->getMimeType();
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+                        //Start Uploading File
+                        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+                        $em = $this->getDoctrine()->getEntityManager();
+                        //$user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$userId));
+                        $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($id_album);
+
+                        try {
+                            $imagine = new \Imagine\Imagick\Imagine();
+                            $image_name = time() . "_" . md5($originalName) . '.jpg';
+
+                            $image = $imagine->open($image->getPathname());
+                            $image->save($this->container->getParameter('path_img_album_original') . $image_name);
+
+                            $w = $image->getSize()->getWidth();
+                            $h = $image->getSize()->getHeight();
+
+                            if($w > $h){
+                                $count = $image->getSize()->getHeight() / 178;
+                                $width = $image->getSize()->getWidth() / $count;
+                                $image->resize(new Box($width, 178), ImageInterface::FILTER_LANCZOS);
+                            }else{
+                                $count = $image->getSize()->getWidth() / 158;
+                                $height = $image->getSize()->getHeight() / $count;
+                                $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
+                            }
+
+                            $image->save($this->container->getParameter('path_img_album_thums') . $image_name);
+
+                            $im = new Images();
+                            $im->setAlbum($album);
+                            $im->setName($image_name);
+                            $em->persist($album);
+                            $em->persist($im);
+                            $em->flush();
+
+                            $serializer = $this->container->get('jms_serializer');
+                            $categories = $serializer
+                                ->serialize(
+                                    $im,
+                                    'json',
+                                    SerializationContext::create()
+                                        ->setGroups(array('uploadEditAlbum'))
+                                );
+
+                            $response = new Respon($categories);
+                            $response->headers->set('Content-Type', 'application/json');
+                            return $response;
+                        } catch (\Imagine\Exception\Exception $e) {
+                            die("error upload image ".$e);
+                        }
+
+                    } else {
+                        $status = 'failed';
+                        $message = 'Invalid File Type';
+                    }
+                } else {
+                    $status = 'failed';
+                    $message = 'Size exceeds limit';
+                }
+            } else {
+                $status = 'failed';
+                $message = 'File Error';
+            }
+
+            $response = new Respon(null, 500);
             $response->headers->set('Content-Type', 'application/json');
             return $response;
         } else {

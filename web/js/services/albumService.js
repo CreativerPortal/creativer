@@ -128,6 +128,39 @@ angular
                         },
                         data: data
                     });
+                },
+                deleteAlbum: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'delete_album',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                removeImage: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_image',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                mainImage: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'main_image',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);
