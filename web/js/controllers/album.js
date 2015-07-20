@@ -216,9 +216,31 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
         });
     }
 
-    $scope.editUpdateImage = function(id,text){
-        console.log(text);
+    $scope.editTextImage = function(id,text){
+        albumService.editTextImage({id:id,text:text}).success(function (data) {
+        });
     }
+
+    $scope.editDescriptionAlbum = function(id,description){
+        albumService.editDescriptionAlbum({id:id,description:description}).success(function (data) {
+        });
+    }
+
+    $scope.editNameAlbum = function(id,name){
+        albumService.editNameAlbum({id:id,name:name}).success(function (data) {
+        });
+    }
+
+    $scope.$watch('selectedItem', function() {
+        if($scope.selectedItem){
+            var selectCategories = [];
+            for(item in $scope.selectedItem){
+                selectCategories.push($scope.selectedItem[item].id);
+            }
+            albumService.editCategoriesAlbum({id:$routeParams.id_album_edit,selectCategories:selectCategories}).success(function (data) {
+            });
+        }
+    })
 
     $rootScope.updateAvatar = function(image){
         $rootScope.loader = true;

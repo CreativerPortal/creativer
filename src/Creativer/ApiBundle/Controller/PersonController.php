@@ -540,4 +540,93 @@ class PersonController extends Controller
     }
 
 
+    /**
+     * @return array
+     * @Post("/v1/edit_text_image")
+     * @View()
+     */
+    public function editTextImageAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $text = $this->get('request')->request->get('text');
+
+        $em = $this->getDoctrine()->getManager();
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->find($id);
+
+        $image->setText($text);
+
+        $em->flush();
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/edit_description_album")
+     * @View()
+     */
+    public function editDescriptionAlbumAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $description = $this->get('request')->request->get('description');
+
+        $em = $this->getDoctrine()->getManager();
+        $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($id);
+
+        $album->setDescription($description);
+
+        $em->flush();
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_name_album")
+     * @View()
+     */
+    public function editNameAlbumAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $name = $this->get('request')->request->get('name');
+
+        $em = $this->getDoctrine()->getManager();
+        $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($id);
+
+        $album->setName($name);
+
+        $em->flush();
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_categories_album")
+     * @View()
+     */
+    public function editCategoriesAlbumAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $selectCategories = $this->get('request')->request->get('selectCategories');
+
+        $em = $this->getDoctrine()->getManager();
+        $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($id);
+
+        $oldCategories = $album->getCategories();
+
+        if(!empty($album)){
+            foreach($oldCategories as $cat){
+                $album->removeCategory($cat);
+            }
+        }
+
+        $categories = $em->getRepository("CreativerFrontBundle:Categories")->findBy(array('id' => $selectCategories));
+
+
+        if(!empty($album)){
+            foreach($categories as $cat){
+                $album->addCategory($cat);
+            }
+            $em->flush($album);
+        }
+
+    }
+
+
 }

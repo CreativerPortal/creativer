@@ -84,6 +84,50 @@ angular
                         },
                         data: data
                     });
+                },
+                editTextImage: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_text_image',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                editDescriptionAlbum: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_description_album',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                editNameAlbum: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_name_album',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                editCategoriesAlbum: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_categories_album',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);

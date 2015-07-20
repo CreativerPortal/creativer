@@ -14,13 +14,14 @@
 
                 <div class="col-sm-7 album">
                     <button class="add_photo btn button_message early-message text-center text-white right pointer margin-right_10"><span class="glyphicon glyphicon-camera"></span>  <span class="fs_0-9">Добавить фото</span></button>
-                    <input class="name_album lobster margin-top_10" ng-model="edit_album.name" type="text" placeholder="Название Альбома">
+                    <input class="name_album lobster margin-top_10" ng-blur="editNameAlbum(edit_album.id,edit_album.name)" ng-model="edit_album.name" type="text" placeholder="Название Альбома">
                     <multi-select-tree data-input-model="data" multi-select="true"
                                        data-output-model="selectedItem" data-default-label="Выберите категорию альбома"
                                        data-callback="selectOnly1Or2(item, selectedItems)"
-                                       data-select-only-leafs="true" data-switch-view-callback="switchViewCallback(scopeObj)">
+                                       data-select-only-leafs="true" data-switch-view-callback="switchViewCallback(scopeObj)"
+                                       ng-blur="editCategoriesAlbum()">
                     </multi-select-tree>
-                    <textarea class="description_album" ng-model="edit_album.description" placeholder="Короткое описание альбома"></textarea>
+                    <textarea class="description_album" ng-blur="editDescriptionAlbum(edit_album.id,edit_album.description)" ng-model="edit_album.description" placeholder="Короткое описание альбома"></textarea>
 
 
                     <div class="row margin-top_20">
@@ -42,7 +43,7 @@
 
                                     <div>
                                         <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" style="width: 100%" />
-                                        <textarea ng-blur="editUpdateImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                                        <textarea ng-blur="editTextImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>
                             </div>
@@ -63,7 +64,7 @@
 
                                     <div>
                                         <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" style="width: 100%" />
-                                        <textarea ng-blur="editUpdateImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                                        <textarea ng-blur="editTextImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>
                             </div>
@@ -84,7 +85,7 @@
 
                                     <div>
                                         <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]"  style="width: 100%" />
-                                        <textarea ng-blur="editUpdateImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
+                                        <textarea ng-blur="editTextImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>
                             </div>
