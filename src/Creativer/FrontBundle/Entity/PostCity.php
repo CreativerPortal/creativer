@@ -21,7 +21,7 @@ class PostCity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getCategoriesBaraholka"})
+     * @JMS\Groups({"getCategoriesBaraholka", "getPostById"})
      */
     private $id;
 

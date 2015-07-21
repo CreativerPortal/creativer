@@ -55,6 +55,11 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
+        $routeProvider.when('/edit_fleamarketposting/:id_fleamarketposting', {
+            templateUrl: '/edit_fleamarketposting_tmp',
+            controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
         $routeProvider.when('/messages', {
             templateUrl: '/messages_tmp',
             controller: 'messagesCtrl',

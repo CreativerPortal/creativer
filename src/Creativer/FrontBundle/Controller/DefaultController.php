@@ -423,6 +423,35 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:fleamarketpostingTmp.html.twig', array('post_id' => $post_id));
     }
 
+    public function editFleamarketpostingTmpAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $post_baraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->findBy(array('user'=>$user,'isActive'=>0));
+
+        if(!empty($post_baraholka)){
+            $post_baraholka = $post_baraholka[0];
+        }
+
+        if(empty($post_baraholka)){
+            $post_baraholka = new PostBaraholka();
+            $post_baraholka->setUser($user);
+            $em->persist($post_baraholka);
+            $em->flush();
+        }
+
+        $post_id = $post_baraholka->getId();
+
+        return $this->render('CreativerFrontBundle:Default:editFleamarketpostingTmp.html.twig', array('post_id' => $post_id));
+    }
+
     public function viewforumTmpAction(){
 
         $user = $this->get('security.context')->getToken()->getUser();

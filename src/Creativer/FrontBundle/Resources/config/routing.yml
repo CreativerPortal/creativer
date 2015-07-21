@@ -39,6 +39,10 @@ creativer_fleamarketpostingTmp:
     path:     /fleamarketposting_tmp
     defaults: { _controller: CreativerFrontBundle:Default:fleamarketpostingTmp }
     methods:  [GET]
+creativer_editFleamarketpostingTmp:
+    path:     /edit_fleamarketposting_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:editFleamarketpostingTmp }
+    methods:  [GET]
 creativer_viewforumTmp:
     path:     /viewforum_tmp
     defaults: { _controller: CreativerFrontBundle:Default:viewforumTmp }

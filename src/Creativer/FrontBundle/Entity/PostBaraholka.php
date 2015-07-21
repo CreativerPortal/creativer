@@ -53,7 +53,7 @@ class PostBaraholka
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getPostsByCategory"})
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      */
     private $description;
 
@@ -76,6 +76,7 @@ class PostBaraholka
     /**
      * @ORM\Column(type="integer", name="auction")
      * @JMS\Expose
+     * @JMS\Groups({"getPostById"})
      */
     private $auction = 0;
 

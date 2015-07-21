@@ -52,7 +52,7 @@
             <div class="row"><h2 class="lobster margin-left_0">[[ post.name ]]</h2></div>
             <div class="row">
                 <div class="col-sm-6 padding-left_0 fs_0-8"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
-                <div class="col-sm-6 text-blue fs_0-8 text-right"><a href="#">Редактировать</a></div>
+                <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="post.user.id == $root.id_user"><a href="#/edit_fleamarketposting/[[ post.id ]]">Редактировать</a></div>
             </div>
 
             <div class="row margin-top_25">
@@ -106,7 +106,7 @@
         </div>
 
         <div class="col-sm-2">
-            <a href="{{ path('creativer_front_main') }}#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+            <a href="#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
 
             <div class="row">
                 <div class="margin-top_80">

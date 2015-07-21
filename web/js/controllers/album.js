@@ -250,7 +250,6 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
     $scope.mainImage = function(id){
         albumService.mainImage({id:id}).success(function (data) {
-            $location.path("/"+$scope.user.id);
         });
     }
 

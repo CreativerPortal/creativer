@@ -387,13 +387,45 @@ class PersonController extends Controller
         return $response;
     }
 
+    /**
+     * @return array
+     * @Post("/v1/main_image")
+     * @View()
+     */
+    public function mainImageAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $id = $this->get('request')->request->get('id');
+
+
+        $images = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->find($id);
+        $album = $images->getAlbum();
+        $album->setImg($images->getName());
+
+
+        $em->flush();
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
 
     /**
      * @return array
      * @Post("/v1/delete_image")
      * @View(serializerGroups={"idUserByIdImage"})
      */
-    public function delete_imageAction()
+    public function deleteImageAction()
     {
         if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
             $array = array('success' => false);

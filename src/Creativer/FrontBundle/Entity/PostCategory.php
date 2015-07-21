@@ -21,7 +21,7 @@ class PostCategory
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getCategoriesBaraholka", "getPostsByCategory"})
+     * @JMS\Groups({"getCategoriesBaraholka", "getPostsByCategory", "getPostById"})
      */
     private $id;
 

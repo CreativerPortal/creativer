@@ -2,39 +2,6 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
     .controller('baraholkaCtrl',['$window', '$scope', '$rootScope', '$location', 'baraholkaService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,baraholkaService,$routeParams, FileUploader, socket, chat) {
 
 
-        if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
-            if($rootScope.baraholka && $rootScope.post_category && $rootScope.post_city){
-                $scope.baraholka = $rootScope.baraholka;
-                $scope.post_category = $rootScope.post_category;
-                $scope.post_city = $rootScope.post_city;
-            }else{
-                baraholkaService.getDataBaraholka().success(function (data) {
-                    $rootScope.baraholka = $scope.baraholka = data.baraholka.children;
-                    $rootScope.post_category = $scope.post_category = data.post_category;
-                    $rootScope.post_city = $scope.post_city = data.post_city;
-                });
-            }
-        }
-
-        if($routeParams.id_post){
-            baraholkaService.getPostById({"post_id": $routeParams.id_post}).success(function (data) {
-                $scope.post = data.post;
-            });
-        }else if($routeParams.id_fleamarketposting){
-            baraholkaService.getPostById({"post_id": $routeParams.id_fleamarketposting}).success(function (data) {
-                $scope.post = data.post;
-            });
-        }
-
-        $scope.uncheck = function (id) {
-            if ($rootScope.previous_checked == id){
-                $rootScope.city = false;
-                $rootScope.previous_checked = undefined;
-            }else{
-                $rootScope.previous_checked = id;
-            }
-        }
-
         $scope.createPostBaraholka = function(){
             var data = {};
             data.post_id = $scope.post_id;
@@ -68,6 +35,20 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 $scope.text_comment = undefined;
                 $scope.loader = false;
             });
+        }
+
+        if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
+            if($rootScope.baraholka && $rootScope.post_category && $rootScope.post_city){
+                $scope.baraholka = $rootScope.baraholka;
+                $scope.post_category = $rootScope.post_category;
+                $scope.post_city = $rootScope.post_city;
+            }else{
+                baraholkaService.getDataBaraholka().success(function (data) {
+                    $rootScope.baraholka = $scope.baraholka = data.baraholka.children;
+                    $rootScope.post_category = $scope.post_category = data.post_category;
+                    $rootScope.post_city = $scope.post_city = data.post_city;
+                });
+            }
         }
 
 
@@ -108,11 +89,23 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         });
 
-        // UPLOAD
 
+
+        if($routeParams.id_post){
+            baraholkaService.getPostById({"post_id": $routeParams.id_post}).success(function (data) {
+                $scope.post = data.post;
+            });
+        }else if($routeParams.id_post){
+
+        }
+
+
+        
         var uploader = $scope.uploader = new FileUploader({
             url: 'create_post_baraholka'
         });
+
+        // FILTERS
 
         uploader.filters.push({
             name: 'imageFilter',
@@ -173,10 +166,21 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             $location.path("/viewtopic/"+$scope.id_post_baraholka);
         };
 
+        angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+
         chat.init();
         socket.emit("new message",{id_user: $scope.id_user})
         $window.onfocus = function(){
             socket.emit("new message",{id_user: $scope.id_user})
+        }
+
+        $scope.uncheck = function (id) {
+            if ($rootScope.previous_checked == id){
+                $rootScope.city = false;
+                $rootScope.previous_checked = undefined;
+            }else{
+                $rootScope.previous_checked = id;
+            }
         }
 
 }]);
