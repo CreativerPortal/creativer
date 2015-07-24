@@ -257,14 +257,19 @@ app.directive('editPain', function () {
                     img.src = event.target.result;
                 }
 
-
-                //var canvas = element.find('canvas');
-                //$rootScope.canvas.push(canvas);
-
+                if(!$rootScope.count){
+                    $rootScope.count = 0;
+                }
 
 
                 function onLoadImage() {
                     $rootScope.images.push(this);
+                    $rootScope.count++;
+                    console.log($rootScope.count);
+                    console.log(angular.element(document.querySelectorAll('canvas')).length - 1);
+                    if((angular.element(document.querySelectorAll('canvas')).length - 1) == $rootScope.count){
+                        $rootScope.$emit("loadImageAll");
+                    }
                 }
             }
         };

@@ -12,7 +12,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 /**
  * @ORM\Entity()
  * @ORM\Table(name="post_category")
- * @JMS\ExclusionPolicy("all")
  */
 class PostCategory
 {
@@ -20,15 +19,13 @@ class PostCategory
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Expose
      * @JMS\Groups({"getCategoriesBaraholka", "getPostsByCategory", "getPostById"})
      */
     private $id;
 
     /**
-     * @JMS\Expose
-     * @ORM\Column(type="string", length=255)
-     * @JMS\Groups({"getCategoriesBaraholka", "getPostsByCategory"})
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"getCategoriesBaraholka", "getPostsByCategory", "getPostById"})
      */
     private $name;
 
@@ -37,7 +34,6 @@ class PostCategory
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\PostCategory")
      * @ORM\OneToMany(targetEntity="PostBaraholka", mappedBy="post_category")
-     * @JMS\Groups({"getPostsByCategory"})
      **/
     private $post_baraholka;
 

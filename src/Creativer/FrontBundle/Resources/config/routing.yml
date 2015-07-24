@@ -95,3 +95,7 @@ creativer_create_post_baraholka:
     path:     /create_post_baraholka
     defaults: { _controller: CreativerFrontBundle:Default:createPostBaraholka }
     methods:  [POST]
+creativer_edit_images_post_baraholka:
+    path:     /edit_images_post_baraholka
+    defaults: { _controller: CreativerFrontBundle:Default:editImagesPostBaraholka }
+    methods:  [POST]

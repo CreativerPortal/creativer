@@ -194,60 +194,68 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     uploader.onAfterAddingFile = function(fileItem) {
         $scope.res = uploader.queue.length/3;
     };
-    uploader.onAfterAddingAll = function(addedFileItems,key) {
-        // console.info('onAfterAddingAll', addedFileItems);
+    $rootScope.$on("loadImageAll", function(){
 
-        setTimeout(function() {
-            if(key != undefined){
-                $rootScope.images.splice(key,1);
-            }
             var count = angular.element(document.querySelectorAll('canvas')).length - 1;
             $rootScope.canvas = angular.element(document.querySelectorAll('canvas'));
 
             var width = 533;
-            var count_row = Math.ceil(count/4);
+            var count_row = Math.ceil(count / 4);
 
-            var count_images = count / count_row;
+            var count_images = Math.ceil(count / count_row);
             var images_row = [];
 
-            for(var i=0; i < count_row; i++){
-                if((count_row-1) == i){
+            for (var i = 0; i < count_row; i++) {
+                if ((count_row - 1) == i) {
                     var cm = Math.ceil(count_images);
                     var cm1 = Math.floor(count_images);
-                    var mass = $rootScope.images.slice(i*cm1,i*cm1+cm);
+                    var mass = $rootScope.images.slice(i * cm1, i * cm1 + cm);
                     images_row.push(mass);
-                }else{
+                } else {
                     var cm = Math.floor(count_images);
-                    var mass = $rootScope.images.slice(i*cm,i*cm+cm);
+                    var mass = $rootScope.images.slice(i * cm, i * cm + cm);
                     images_row.push(mass);  // количество картинок в строке
                 }
             }
 
-            var p=0;
-            for(var j=0; j<count_row; j++){
-                var delim = (width - images_row[j].length*4)*images_row[j][0].height;
-                var delit =images_row[j][0].width;
+            var p = 0;
+            for (var j = 0; j < count_row; j++) {
+                var delim = (width - images_row[j].length * 4) * images_row[j][0].height;
+                var delit = images_row[j][0].width;
 
-                for(var k=1; k < images_row[j].length; k++){
-                    delit=delit+images_row[j][k].width*(images_row[j][0].height/images_row[j][k].height);
+                for (var k = 1; k < images_row[j].length; k++) {
+                    delit = delit + images_row[j][k].width * (images_row[j][0].height / images_row[j][k].height);
                 }
 
-                var height = Math.floor(delim/delit);//высота строки
+                var height = Math.floor(delim / delit);//высота строки
 
-                for(var k=0; k < images_row[j].length; k++){
+                for (var k = 0; k < images_row[j].length; k++) {
                     var width_im = images_row[j][k].width / images_row[j][k].height * height;
-                    $rootScope.canvas[p].setAttribute('width', width_im );
-                    $rootScope.canvas[p].setAttribute('height', height );
+                    $rootScope.canvas[p].setAttribute('width', width_im);
+                    $rootScope.canvas[p].setAttribute('height', height);
                     $rootScope.canvas[p].getContext('2d').drawImage(images_row[j][k], 0, 0, width_im, height);
-                    p=p+1;
+                    p = p + 1;
                 }
             }
 
-        }, 2500)
+    });
 
+    $scope.removeImg = function(key){
+        if(key != undefined){
+            $rootScope.images.splice(key,1);
+        }
+        if($rootScope.count){
+            $rootScope.count = $rootScope.count - 1;
+        }
+        $timeout(function(){
+            $rootScope.$emit("loadImageAll");
+        }, 500)
+    };
+
+    uploader.onAfterAddingAll = function(addedFileItems,key) {
+        // console.info('onAfterAddingAll', addedFileItems);
     };
     uploader.onBeforeUploadItem = function(item) {
-
        // console.info('onBeforeUploadItem', item);
     };
     uploader.onProgressItem = function(fileItem, progress) {
@@ -270,7 +278,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.id_post_baraholka = response.id;
     };
     uploader.onCompleteAll = function() {
-
     };
 
     uploader.onBeforeUploadItem = function (item) {

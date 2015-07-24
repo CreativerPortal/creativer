@@ -53,7 +53,6 @@ class ImagesBaraholka
 
     public function __construct()
     {
-        $this->post_baraholka = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
     }
     

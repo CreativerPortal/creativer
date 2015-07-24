@@ -323,11 +323,11 @@ textarea {
     width: 50%;
 }
 
-.background__viewer__link__next:hover .close{
+.background__viewer__link__next:hover .close_img{
     opacity: 1;
 }
 
-.close{
+.close_img{
     position: absolute;
     right: 20px;
     top: 20px;

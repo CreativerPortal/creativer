@@ -593,6 +593,101 @@ class DefaultController extends Controller
 
     }
 
+    public function editImagesPostBaraholkaAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $image = $request->files->get('file');
+            $id = $request->get('id');
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $PostBaraholka = $em->getRepository("CreativerFrontBundle:PostBaraholka")->find(array('id' => $id, 'user' => $user));
+
+
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 2000000000)) {
+                    $originalName = $image->getClientOriginalName();
+                    $file_type = $image->getMimeType();
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+                        //die(\Doctrine\Common\Util\Debug::dump($image));
+                        try {
+                            $imagine = new \Imagine\Imagick\Imagine();
+                            $image_name = time() . "_" . md5($originalName) . '.jpg';
+
+                            $image = $imagine->open($image->getPathname());
+
+                            $image->save($this->container->getParameter('path_img_baraholka_original') . $image_name);
+
+                            $w = $image->getSize()->getWidth();
+                            $h = $image->getSize()->getHeight();
+
+                            if($w > $h){
+                                $count = $image->getSize()->getHeight() / 178;
+                                $width = $image->getSize()->getWidth() / $count;
+                                $image->resize(new Box($width, 178), ImageInterface::FILTER_LANCZOS);
+                            }else{
+                                $count = $image->getSize()->getWidth() / 158;
+                                $height = $image->getSize()->getHeight() / $count;
+                                $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
+                            }
+
+                            $image->save($this->container->getParameter('path_img_baraholka_thums') . $image_name);
+
+
+                            $im = new ImagesBaraholka();
+                            $im->setName($image_name);
+                            $PostBaraholka->addImagesBaraholka($im);
+                            $im->setPostBaraholka($PostBaraholka);
+                            $em->persist($im);
+                            $em->flush();
+
+
+                            $serializer = $this->container->get('jms_serializer');
+                            $categories = $serializer
+                                ->serialize(
+                                    $im,
+                                    'json'
+                                );
+
+                            $response = new Respon($categories);
+                            $response->headers->set('Content-Type', 'application/json');
+                            return $response;
+
+                        } catch (\Imagine\Exception\Exception $e) {
+                            die("error upload image ".$e);
+                        }
+
+
+                    } else {
+                        $status = 'failed';
+                        $message = 'Invalid File Type';
+                    }
+                } else {
+                    $status = 'failed';
+                    $message = 'Size exceeds limit';
+                }
+            } else {
+                $status = 'failed';
+                $message = 'File Error';
+            }
+
+            $response = new Respon(null, 200);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+
+    }
+
     public function favoritTmpAction(){
 
         $userId = $this->get('security.context')->getToken()->getUser()->getId();

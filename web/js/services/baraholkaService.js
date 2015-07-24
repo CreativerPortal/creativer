@@ -68,5 +68,125 @@ angular
                     });
                 },
 
+                checkPostCategory: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'check_post_category',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                checkCategoryBaraholka: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'check_category_baraholka',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editTitle: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_title',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editCity: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_city',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editFullDescription: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_full_description',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editDescription: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_description',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editPrice: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_price',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editAuction: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_auction',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                removeImageBaraholka: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_image_baraholka',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                mainImageBaraholka: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'main_image_baraholka',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                }
+
             };
         }]);

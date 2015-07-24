@@ -94,6 +94,7 @@ class BaraholkaController extends Controller
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
             ->createQueryBuilder('e')
             ->leftJoin('e.post_category', 'post_categ')
+            ->addSelect('post_categ')
             ->leftJoin('e.categories_baraholka', 'cat')
             ->leftJoin('e.images_baraholka', 'images')
             ->where('cat IN (:items)')
@@ -237,5 +238,372 @@ class BaraholkaController extends Controller
             ->setFormat('json');
 
         return $this->get('fos_rest.view_handler')->handle($view);
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/id_check_post_category")
+     * @View()
+     */
+    public function checkPostCategoryAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $id_check_post_category = $this->get('request')->request->get('id_check_post_category');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $postCategory = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostCategory')->find($id_check_post_category);
+        $postBaraholka->setPostCategory($postCategory);
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/check_category_baraholka")
+     * @View()
+     */
+    public function checkCategoryBaraholkaAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $id_check_category_baraholka = $this->get('request')->request->get('id_check_category_baraholka');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $categoriesBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find($id_check_category_baraholka);
+        $postBaraholka->setCategoriesBaraholka($categoriesBaraholka);
+
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_title")
+     * @View()
+     */
+    public function editTitleAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $title = $this->get('request')->request->get('title');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $postBaraholka->setName($title);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_city")
+     * @View()
+     */
+    public function editCityAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $city = $this->get('request')->request->get('city');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $postCity = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostCity')->find($city);
+        $postBaraholka->setPostCity($postCity);
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_full_description")
+     * @View()
+     */
+    public function editFullDescriptionAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $full_description = $this->get('request')->request->get('full_description');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $postBaraholka->setFullDescription($full_description);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_description")
+     * @View()
+     */
+    public function editDescriptionAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $description = $this->get('request')->request->get('description');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $postBaraholka->setDescription($description);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_price")
+     * @View()
+     */
+    public function editPriceAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $price = $this->get('request')->request->get('price');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $postBaraholka->setPrice($price);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_auction")
+     * @View()
+     */
+    public function editAuctionAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $auction = $this->get('request')->request->get('auction');
+
+        if($auction == 1){
+            $auction = 0;
+        }else{
+            $auction = 1;
+        }
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $postBaraholka->setAuction($auction);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/remove_image_baraholka")
+     * @View()
+     */
+    public function removeImageBaraholkaAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $id_image = $this->get('request')->request->get('id_image');
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:ImagesBaraholka')->find($id_image);
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($image);
+        $em->persist($postBaraholka);
+        $em->flush();
+
+        $path_img_baraholka_thums = $this->container->getParameter('path_img_baraholka_thums');
+        $path_img_baraholka_original = $this->container->getParameter('path_img_baraholka_original');
+
+        $fs = new Filesystem();
+
+        $fs->remove(array($path_img_baraholka_thums.$image->getName()));
+        $fs->remove(array($path_img_baraholka_original.$image->getName()));
+
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/main_image_baraholka")
+     * @View()
+     */
+    public function mainImageBaraholkaAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $id_image = $this->get('request')->request->get('id_image');
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:ImagesBaraholka')->find($id_image);
+
+        $postBaraholka->setImg($image->getName());
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($postBaraholka);
+        $em->flush();
+
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 }

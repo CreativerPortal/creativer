@@ -39,6 +39,7 @@ class PostBaraholka
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getPostsByCategory"})
      */
     private $img;
 
@@ -76,7 +77,7 @@ class PostBaraholka
     /**
      * @ORM\Column(type="integer", name="auction")
      * @JMS\Expose
-     * @JMS\Groups({"getPostById"})
+     * @JMS\Groups({"getPostById", "getPostsByCategory"})
      */
     private $auction = 0;
 
@@ -116,7 +117,8 @@ class PostBaraholka
 
     /**
      * @JMS\Expose
-     * @ORM\ManyToOne(targetEntity="PostCategory", inversedBy="post_baraholka")
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostCategory")
+     * @ORM\ManyToOne(targetEntity="PostCategory", inversedBy="post_baraholka", fetch="EAGER")
      * @ORM\JoinColumn(name="post_category_id", referencedColumnName="id")
      * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
@@ -142,6 +144,7 @@ class PostBaraholka
 
     public function __construct()
     {
+        $this->images_baraholka = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
     }
     

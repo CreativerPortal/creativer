@@ -26,6 +26,65 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             });
         }
 
+        $scope.checkPostCategory = function(id_check_post_category){
+            baraholkaService.checkPostCategory({"id": $scope.post.id, "id_check_post_category": id_check_post_category}).success(function (data) {
+            });
+        }
+
+        $scope.$watch("section", function(){
+            if($scope.section){
+                baraholkaService.checkCategoryBaraholka({"id": $scope.post.id, "id_check_category_baraholka": $scope.section}).success(function (data) {
+                });
+            }
+        })
+
+        $scope.$watch("city", function(){
+            if($scope.city){
+                baraholkaService.editCity({"id": $scope.post.id, "city": $scope.city}).success(function (data) {
+                });
+            }
+        })
+
+        $scope.editTitle = function(title){
+            baraholkaService.editTitle({"id": $scope.post.id, "title": title}).success(function (data) {
+            });
+        }
+
+        $scope.editFullDescription = function(full_description){
+            baraholkaService.editFullDescription({"id": $scope.post.id, "full_description": full_description}).success(function (data) {
+            });
+        }
+
+        $scope.editDescription = function(description){
+            baraholkaService.editDescription({"id": $scope.post.id, "description": description}).success(function (data) {
+            });
+        }
+
+        $scope.editPrice = function(price){
+            baraholkaService.editPrice({"id": $scope.post.id, "price": price}).success(function (data) {
+            });
+        }
+
+        $scope.editAuction = function(auction){
+            baraholkaService.editAuction({"id": $scope.post.id, "auction": auction}).success(function (data) {
+            });
+        }
+
+        $scope.removeImageBaraholka = function(id_image){
+            baraholkaService.removeImageBaraholka({"id": $scope.post.id, "id_image": id_image}).success(function (data) {
+                for(var key in $scope.post.images_baraholka){
+                    if($scope.post.images_baraholka[key].id == id_image){
+                        $scope.post.images_baraholka.splice(key,1);
+                    }
+                }
+            });
+        }
+
+        $scope.mainImageBaraholka = function(id_image){
+            baraholkaService.mainImageBaraholka({"id": $scope.post.id, "id_image": id_image}).success(function (data) {
+            });
+        }
+
         $scope.uncheck = function (id) {
             if ($rootScope.previous_checked == id){
                 $rootScope.city = false;
@@ -110,9 +169,16 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         // UPLOAD
 
-        var uploader = $scope.uploader = new FileUploader({
-            url: 'create_post_baraholka'
-        });
+        if($routeParams.id_fleamarketposting){
+            var uploader = $scope.uploader = new FileUploader({
+                url: 'edit_images_post_baraholka'
+            });
+        }else{
+            var uploader = $scope.uploader = new FileUploader({
+                url: 'create_post_baraholka'
+            });
+        }
+
 
         uploader.filters.push({
             name: 'imageFilter',
@@ -129,26 +195,32 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         };
         uploader.onAfterAddingFile = function(fileItem) {
             // console.info('onAfterAddingFile', fileItem);
+            if($routeParams.id_fleamarketposting){
+                fileItem.formData.push({id: $scope.post.id});
+                uploader.uploadAll();
+            }
             $scope.res = uploader.queue.length/3;
         };
-        uploader.onAfterAddingAll = function(addedFileItems) {
-            // console.info('onAfterAddingAll', addedFileItems);
-        };
+
         uploader.onBeforeUploadItem = function (item) {
 
-            item.formData.push({post_id: $scope.post_id});
-            item.formData.push({post_category: $scope.post_category.id});
-            item.formData.push({section: $scope.section});
-            item.formData.push({title: $scope.title});
-            item.formData.push({city: $scope.city});
-            item.formData.push({description: $scope.description});
-            item.formData.push({full_description: $scope.full_description});
-            item.formData.push({full_price: $scope.price});
-            item.formData.push({auction: $scope.auction});
+            if($routeParams.id_fleamarketposting){
+            }else{
+                item.formData.push({post_id: $scope.post_id});
+                item.formData.push({post_category: $scope.post_category.id});
+                item.formData.push({section: $scope.section});
+                item.formData.push({title: $scope.title});
+                item.formData.push({city: $scope.city});
+                item.formData.push({description: $scope.description});
+                item.formData.push({full_description: $scope.full_description});
+                item.formData.push({full_price: $scope.price});
+                item.formData.push({auction: $scope.auction});
 
-            if(item.main == 1) {
-                item.formData.push({main: 1});
+                if(item.main == 1) {
+                    item.formData.push({main: 1});
+                }
             }
+
             uploader.uploadAll();
         };
         uploader.onProgressItem = function(fileItem, progress) {
@@ -168,9 +240,14 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
             $scope.id_post_baraholka = response.id;
+            if($routeParams.id_fleamarketposting){
+                $scope.post.images_baraholka.push({"id": response.id, "name": response.name})
+            }
         };
-        uploader.onCompleteAll = function() {
-            $location.path("/viewtopic/"+$scope.id_post_baraholka);
+        uploader.onCompleteAll = function(fileItem, response, status, headers) {
+            if(!$routeParams.id_fleamarketposting) {
+                $location.path("/viewtopic/" + $scope.id_post_baraholka);
+            }
         };
 
         chat.init();

@@ -58,8 +58,8 @@
                     {% endif %}
                     <div class="row col-sm-12 padding-right_0">
                         <div class=" upload__element" ng-repeat="(key, item) in uploader.queue">
-                            <span class="glyphicon glyphicon-remove close_image ng-isolate-scope" ng-click="item.remove(); uploader.onAfterAddingAll('undefibed',key)"></span>
-                            <div style="float: left" ng-show="uploader.isHTML5" ng-thumbperson="{ file: item._file, height: 100 }" class="text-center thumb__upload padding-right_5">
+                            <span class="glyphicon glyphicon-remove close_image ng-isolate-scope" ng-click="removeImg(key); item.remove();"></span>
+                            <div ng-show="uploader.isHTML5" ng-thumbperson="{ file: item._file, height: 100 }" class="text-center thumb__upload padding-right_5 left">
                             </div>
                         </div>
                     </div>
