@@ -93,10 +93,6 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
     uploader.onAfterAddingAll = function(addedFileItems,key) {
         // console.info('onAfterAddingAll', addedFileItems);
     };
-    uploader.onBeforeUploadItem = function(item) {
-
-       // console.info('onBeforeUploadItem', item);
-    };
     uploader.onProgressItem = function(fileItem, progress) {
        // console.info('onProgressItem', fileItem, progress);
     };

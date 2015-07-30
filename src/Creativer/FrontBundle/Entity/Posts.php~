@@ -74,6 +74,14 @@ class Posts
     private $comments;
 
     /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostImages")
+     * @ORM\OneToMany(targetEntity="PostImages", mappedBy="post")
+     * @JMS\Groups({"getUser"})
+     **/
+    private $post_images;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -81,6 +89,7 @@ class Posts
         $this->date = new \DateTime();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
+
 
 
     /**
@@ -239,5 +248,38 @@ class Posts
     public function getComments()
     {
         return $this->comments;
+    }
+
+    /**
+     * Add post_images
+     *
+     * @param \Creativer\FrontBundle\Entity\PostImages $postImages
+     * @return Posts
+     */
+    public function addPostImage(\Creativer\FrontBundle\Entity\PostImages $postImages)
+    {
+        $this->post_images[] = $postImages;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_images
+     *
+     * @param \Creativer\FrontBundle\Entity\PostImages $postImages
+     */
+    public function removePostImage(\Creativer\FrontBundle\Entity\PostImages $postImages)
+    {
+        $this->post_images->removeElement($postImages);
+    }
+
+    /**
+     * Get post_images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostImages()
+    {
+        return $this->post_images;
     }
 }

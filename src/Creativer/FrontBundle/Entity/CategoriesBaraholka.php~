@@ -20,7 +20,7 @@ class CategoriesBaraholka
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getCategoriesBaraholka"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getCategoriesBaraholka", "getPostById"})
      * @JMS\Expose
      */
     private $id;

@@ -52,7 +52,7 @@ body{
 .slid textarea{
     background-color: #eae9e3;
     border: 1px dashed #827972;
-    width: 530px;
+    width: 535px;
 }
 
 ::-webkit-input-placeholder {color:#827972;}

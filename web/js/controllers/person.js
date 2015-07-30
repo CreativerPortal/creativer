@@ -71,19 +71,24 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
 
     $scope.savePost = function(wall,wall_id, text){
-        var user = {
-            user: {
-                id: 0,
-                username: $rootScope.username,
-                lastname: $rootScope.lastname,
-                avatar: $rootScope.avatar
-            },
-            text: text
-        }
-        wall.posts.unshift(user);
+        //var user = {
+        //    user: {
+        //        id: 0,
+        //        username: $rootScope.username,
+        //        lastname: $rootScope.lastname,
+        //        avatar: $rootScope.avatar
+        //    },
+        //    text: text
+        //}
+        //wall.posts.unshift(user);
+        $scope.loader = true;
         personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {
-            $scope.text_post = '';
-            $scope.user = data.user;
+            $scope.loader = false;
+            if(!uploader.queue.length){
+                $scope.text_post = '';
+            }
+            $scope.new_post_id = data.post.id;
+            uploader.uploadAll();
         });
     }
 
@@ -97,9 +102,11 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             },
             text: text
         }
+        $scope.loader = true;
         post.comments.push(user);
         personalService.saveComment({post_id:post_id,text:text,id: $routeParams.id}).success(function (data) {
             $scope.user = data.user;
+            $scope.loader = false;
         });
     }
 
@@ -145,6 +152,38 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
+    $scope.editPost = function(id){
+        $scope.editUploaderPost = new FileUploader({
+            url: 'save_post_images'
+        });
+
+        $scope.editUploaderPost.onAfterAddingFile = function(fileItem) {
+
+            fileItem.formData.push({post_id: id});
+
+            $scope.editUploaderPost.uploadAll();
+        };
+
+        $scope.editUploaderPost.onCompleteItem = function(fileItem, response, status, headers) {
+            var posts = $scope.user.wall.posts;
+
+            for(var key in posts){
+                if(posts[key].id == id){
+                    response.new = true;
+                    $scope.user.wall.posts[key].post_images.push(response);
+                    $scope.imaging($scope.user.wall.posts[key]);
+                }
+            }
+            $scope.id_post_baraholka = response.id;
+        };
+
+    }
+
+    $scope.editTextPost = function(id,text){
+        personalService.editTextPost({id: id, text: text}).success(function (data) {
+        });
+    }
+
     $rootScope.updateAvatar = function(image){
         $rootScope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {
@@ -155,9 +194,26 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
-    $scope.removePost = function(post_id){
+    $scope.removePost = function(post_id,key){
+        $scope.loader = true;
         personalService.removePost({post_id:post_id}).success(function (data) {
+            $scope.loader = false;
+            $scope.user.wall.posts.splice(key,1);
+        });
+    }
 
+    $scope.removeImgPost = function(img_id,post_id){
+        personalService.removeImgPost({img_id: img_id,post_id:post_id}).success(function (data) {
+            var posts = $scope.user.wall.posts;
+            for(var key in posts){
+                if(posts[key].id == post_id){
+                    for(var k in posts[key].post_images){
+                        if($scope.user.wall.posts[key].post_images[k].id == img_id)
+                        $scope.user.wall.posts[key].post_images.splice(k,1);
+                        $scope.imaging($scope.user.wall.posts[key]);
+                    }
+                }
+            }
         });
     }
 
@@ -169,9 +225,15 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     // ALBUM
 
-    var uploader = $scope.uploader = new FileUploader({
-        url: 'upload_album'
-    });
+    if($routeParams.id){
+        var uploader = $scope.uploader = new FileUploader({
+            url: 'save_post_images'
+        });
+    }else{
+        var uploader = $scope.uploader = new FileUploader({
+            url: 'upload_album'
+        });
+    }
 
     $rootScope.images = [];
     $rootScope.canvas = [];
@@ -195,11 +257,10 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.res = uploader.queue.length/3;
     };
     $rootScope.$on("loadImageAll", function(){
-
-            var count = angular.element(document.querySelectorAll('canvas')).length - 1;
+            var count = angular.element(document.querySelectorAll('.album canvas')).length;
             $rootScope.canvas = angular.element(document.querySelectorAll('canvas'));
 
-            var width = 533;
+            var width = 532;
             var count_row = Math.ceil(count / 4);
 
             var count_images = Math.ceil(count / count_row);
@@ -237,8 +298,51 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                     p = p + 1;
                 }
             }
-
     });
+
+    $scope.imaging = function(post){
+
+            var count = post.post_images.length;
+
+            var width = 455;
+            var count_row = Math.ceil(count / 4);
+
+            var count_images = Math.ceil(count / count_row);
+            var post_images_row = [];
+
+            for (var i = 0; i < count_row; i++) {
+                if ((count_row - 1) == i) {
+                    var cm = Math.ceil(count_images);
+                    var cm1 = Math.floor(count_images);
+                    var mass = post.post_images.slice(i * cm1, i * cm1 + cm);
+                    post_images_row.push(mass);
+                } else {
+                    var cm = Math.floor(count_images);
+                    var mass = post.post_images.slice(i * cm, i * cm + cm);
+                    post_images_row.push(mass);  // количество картинок в строке
+                }
+            }
+
+            var p = 0;
+            for (var j = 0; j < count_row; j++) {
+                var delim = (width - post_images_row[j].length * 4) * post_images_row[j][0].height;
+                var delit = post_images_row[j][0].width;
+
+                for (var k = 1; k < post_images_row[j].length; k++) {
+                    delit = delit + post_images_row[j][k].width * (post_images_row[j][0].height / post_images_row[j][k].height);
+                }
+
+                var height = Math.floor(delim / delit);//высота строки
+
+                for (var k = 0; k < post_images_row[j].length; k++) {
+                    var width_im = post_images_row[j][k].width / post_images_row[j][k].height * height;
+                    post.post_images[p].width = width_im;
+                    post.post_images[p].height = height;
+                    p = p + 1;
+                }
+            }
+
+    }
 
     $scope.removeImg = function(key){
         if(key != undefined){
@@ -254,9 +358,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     uploader.onAfterAddingAll = function(addedFileItems,key) {
         // console.info('onAfterAddingAll', addedFileItems);
-    };
-    uploader.onBeforeUploadItem = function(item) {
-       // console.info('onBeforeUploadItem', item);
     };
     uploader.onProgressItem = function(fileItem, progress) {
        // console.info('onProgressItem', fileItem, progress);
@@ -278,9 +379,25 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.id_post_baraholka = response.id;
     };
     uploader.onCompleteAll = function() {
+        if($routeParams.id){
+            uploader.queue = [];
+            $scope.text_post = '';
+            personalService.getUser({id: $routeParams.id}).success(function (data) {
+                $rootScope.user = $scope.user = data.user;
+                $scope.favorit = false;
+                for(key in $scope.user.favorits_with_me){
+                    if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                        $scope.favorit = true;
+                    }
+                }
+            })
+        }
     };
 
     uploader.onBeforeUploadItem = function (item) {
+        if($routeParams.id){
+            item.formData.push({post_id: $scope.new_post_id});
+        }
         uploader.uploadAll();
     };
 

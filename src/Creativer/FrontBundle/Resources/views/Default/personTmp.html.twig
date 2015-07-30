@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-sm-7 album" ng-init="count_albums=3">
-                <a ng-if="user.id == $root.id_user" href="/app_dev.php/#/create_album" class="add_photo btn button_message early-message text-center text-white right pointer margin-right_10"><span class="glyphicon glyphicon-picture"></span>  <span class="fs_0-9">Создать альбом</span></a>
+                <a ng-if="user.id == $root.id_user" href="/app_dev.php/#/create_album" class="add_photo btn button_message early-message text-center text-white right pointer margin-right_5"><span class="glyphicon glyphicon-picture"></span>  <span class="fs_0-9">Создать альбом</span></a>
                 <h4 class="lobster text-gray">Альбомы</h4>
                 <div class="album__element" ng-repeat="album in user.albums.slice(0,count_albums)">
 
@@ -63,6 +63,11 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row col-sm-12 padding-right_5" ng-show="uploader.progress">
+                        <div class="progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
+                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }">[[ uploader.progress ]] %</div>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-sm-6">
                             <div class="margin-left_5" ng-show="text_post || attache">
@@ -86,14 +91,14 @@
                         </div>
                         <div class="col-sm-6">
                             <div ng-show="text_post" class="text-right col-sm-12">
-                                <button class="true fs_0-9" ng-click="savePost(user.wall,user.wall.id,text_post)">Отправить</button>
+                                <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="savePost(user.wall,user.wall.id,text_post)">Отправить</button>
                                 <button class="false fs_0-9" ng-click="text_post=''">Отменить</button>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div class="row margin-top_10 one_post" ng-init="post.remove_post = false" ng-repeat="post in user.wall.posts">
+                <div class="row margin-top_10 one_post" ng-init="post.remove_post = false" ng-repeat="(key, post) in user.wall.posts">
 
                     <div class="col-sm-2">
                         <div class="user__avatar-mini">
@@ -101,16 +106,21 @@
                             <img ng-if="!post.user.avatar" ng-src="[[ user.avatar ]]">
                         </div>
                     </div>
-                    <div class="col-sm-10 padding-left_0">
+                    <div class="col-sm-10 padding-left_0" ng-init="edits=false">
                         <div ng-if="!post.user" class="col-sm-6 user__text_bold padding-left_0">[[ user.username ]] [[ user.lastname ]]</div>
                         <a href="#/[[ post.user.id ]]" ng-if="post.user" class="pointer col-sm-6 user__text_bold padding-left_0">[[ post.user.username ]] [[ post.user.lastname ]]</a>
                         {% if is_granted('ROLE_USER') %}
-                            <div ng-if="((user.id == id_user && !post.avatar.user) || (post.avatar.user.id == id_user)) && post.remove_post == false" class="col-sm-6 text-right edit_post">
-                                <span class="text-gray glyphicon glyphicon-pencil pointer"></span>
+                           <div ng-if="((user.id == id_user && !post.avatar.user) || (post.avatar.user.id == id_user)) && (post.remove_post == false)" ng-show="edits == false" class="col-sm-6 text-right edit_post">
+                                <span class="text-gray glyphicon glyphicon-pencil pointer" editer_post ng-click="editPost(post.id)"></span>
                                 <span ng-click="post.remove_post = true">
                                     <span class="text-gray glyphicon glyphicon-remove pointer"></span>
                                 </span>
+                           </div>
+
+                            <div ng-if="edits" class="col-sm-6 text-right">
+                                <span class="text-blue pointer" complete_edit>Завершить</span>
                             </div>
+
 
                             <div ng-if="(user.id == id_user && post.avatar.user) && post.remove_post == false"  class="col-sm-6 text-right edit_post">
                                 <span ng-click="post.remove_post = true">
@@ -120,17 +130,38 @@
 
                             <div ng-if="post.remove_post == true" class="col-sm-6 text-right">
                                 Удалить ?
-                                <span class="text-blue pointer" ng-click="removePost(post.id)">Да</span> |
+                                <span class="text-blue pointer" ng-click="removePost(post.id,key)">Да</span> |
                                 <span ng-click="post.remove_post = false" class="text-blue pointer">Нет</span>
                             </div>
                         {%  endif %}
+                        <div class="col-sm-12 margin-top_10 padding-left_0 padding-right_0" ng-if="post" ng-init="imaging(post)">
+                            <div class="left upload__element" ng-repeat="img in post.post_images">
+                                <img_post id_img="[[ img.id ]]" ng-if="img.new" remove_img_post></img_post>
+                                <img_post id_img="[[ img.id ]]"></img_post>
+                                <img src="{{ path_img_post_thums }}[[ img.name ]]" height="[[ img.height ]]" width="[[ img.width ]]" style="margin-right: 1px; margin-left: 1px; margin-bottom: 3px;">
+                            </div>
+                        </div>
+                        <div class="col-sm-10 padding-left_0">
+                            <p class="user__text text-left col-sm-12 padding-left_0 user__text__post" >[[post.text]]</p>
+                        </div>
 
-                        <div class="user__text text-left col-sm-12 padding-left_0">[[post.text]]</div>
-                        {% if is_granted('ROLE_USER') %}
-                            <div class="col-sm-6 padding-left_0 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
-                        {%  endif %}
-                        <div class="col-sm-6 text-right"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
+                        <div class="row">
+                            <div class="col-sm-10 col-sm-offset_2 attacher">
+                            </div>
+                        </div>
+
+                        <div class="row col-sm-12 padding-right_0 progress__wrapper" ng-show="editUploaderPost.progress">
+
+                        </div>
+
+                        <div class="row">
+                            {% if is_granted('ROLE_USER') %}
+                                <div class="col-sm-6 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
+                            {%  endif %}
+                            <div class="col-sm-6 text-right"><time class="comment_time padding-right_15">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
+                        </div>
                     </div>
+
 
                     <div class="row margin-left_60 col-sm-11" ng-repeat="comment in post.comments">
                         <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
@@ -152,7 +183,7 @@
                         {% if is_granted('ROLE_USER') %}
                             <textarea msd-elastic="" class="text-gray margin-left_20 margin-top_10"  ng-model="text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px;"></textarea>
                             <div ng-show="text_comment" class="margin-top_5 margin-left_20 text-right" style="margin-right: 15px;">
-                                <button class="true fs_0-9" ng-click="saveComment(post,post.id,text_comment)">Отправить</button>
+                                <button class="true fs_0-9" ng-class="{'loader': loader}" ng-click="saveComment(post,post.id,text_comment)">Отправить</button>
                                 <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
                             </div>
                         {%  endif %}

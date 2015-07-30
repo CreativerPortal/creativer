@@ -346,3 +346,8 @@ a:focus{
 .overflow{
     overflow-y: hidden;
 }
+
+p[contenteditable]{
+    border: 1px dashed #827972;
+    width: 448px;
+}

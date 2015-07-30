@@ -286,8 +286,145 @@ app.directive('editPain', function () {
                     }
                 }
             }
-    });
+    }).directive("contenteditable", function() {
+    return {
+        restrict: "A",
+        link: function(scope, element, attrs) {
 
+            function read() {
+                element.html(element.text());
+            }
+
+            element.bind("blur keyup change", function() {
+                scope.$apply(read);
+            });
+            element.bind("blur", function(){
+                scope.editTextPost(scope.post.id, element.text());
+            })
+        }
+    };
+}).directive("editerPost", function($compile) {
+    return {
+        restrict: "A",
+        scope: true,
+        link: function(scope, element, attrs, parentCtrl) {
+            element.bind("click", function(){
+                if(document.querySelectorAll("[attache-post]")[0]){
+                    document.querySelectorAll("[attache-post]")[0].innerHTML = '';
+                    document.querySelectorAll("[attache-post]")[0].removeAttribute("attache-post");
+                }
+                if(document.querySelectorAll("[contenteditable]")[0])
+                    document.querySelectorAll("[contenteditable]")[0].removeAttribute("contenteditable");
+                if(document.querySelectorAll("[progress-wrapper]")[0]){
+                    document.querySelectorAll("[progress-wrapper]")[0].innerHTML = '';
+                    document.querySelectorAll("[progress-wrapper]")[0].removeAttribute("progress-wrapper");
+                }
+                if(document.querySelectorAll("[remove_img_post]")[0]){
+                    var remove_img = document.querySelectorAll("[remove_img_post]");
+                    for(var key in remove_img){
+                        remove_img[key].innerHTML = "";
+                        remove_img[key].removeAttribute("remove_img_post");
+                    }
+                }
+
+                var text = element.parent().parent().find("p")[0];
+                var attache = angular.element(element.parent().parent()[0].querySelector('.attacher'))[0];
+                var progress = angular.element(element.parent().parent()[0].querySelector('.progress__wrapper'))[0];
+                var images = element.parent().parent().find("img_post");
+
+                attache.setAttribute('attache-post', '');
+                text.setAttribute('contenteditable', '');
+                progress.setAttribute('progress-wrapper', 'editUploaderPost');
+                $compile(attache)(scope);
+                $compile(text)(scope);
+                $compile(progress)(scope);
+                for(var key in images){
+                    if(!isNaN(key)){
+                        images[key].setAttribute('remove_img_post', '');
+                        $compile(images[key])(scope);
+                    }
+                }
+                scope.$parent.$parent.edits = true;
+                scope.$apply();
+
+            })
+        }
+    };
+}).directive('attachePost', function(){
+    return{
+        restrict: "A",
+        scope: true,
+        template: "<label class='text-blue glyphicon glyphicon-paperclip add__files ng-isolate-scope pointer'>" +
+        "<input type='checkbox' class='hidden'>" +
+        "<div class='add__files__menu text-white'>" +
+        "<ul class='margin-top_10 padding-left_0 margin-left_30'>" +
+        "<li>" +
+        "<label for='editUploaderPost'>" +
+        "Фото" +
+        "</label>" +
+        "</li>" +
+        "<li>Документ</li>" +
+        "<li>Видеозапись</li>" +
+        "<li>Аудиозапись</li>" +
+        "</ul>" +
+        "</div>" +
+        "</label>"+
+        "<input type='file' nv-file-select='' uploader='editUploaderPost' multiple id='editUploaderPost'  class='hidden' ng-disabled='editUploaderPost.isUploading' />",
+        link: function(scope, element, attrs){
+        }
+    }
+}).directive('removeImgPost', function(){
+    return{
+        restrict: "A",
+        scope: true,
+        template: "<span class='glyphicon glyphicon-remove close_image' ng-click='removeImgPost(id_img,id_post)'></span>",
+        link: function(scope, element, attrs){
+            scope.id_img = attrs.idImg;
+            scope.id_post = scope.post.id;
+        }
+    }
+}).directive('progressWrapper', function($compile){
+    return{
+        restrict: "A",
+        scope: true,
+        template: "<div class='progress' nv-file-over='' uploader='editUploaderPost' over-class='another-file-over-class' class='well my-drop-zone text-center'>" +
+                  "<div class='progress-bar progress-bar-warning progress-bar-striped' role='progressbar' style='width:"+"[[ editUploaderPost.progress ]]"+"%'>[[ editUploaderPost.progress ]] %</div>" +
+                  "</div>",
+        link: function(scope, element, attrs){
+        }
+    }
+}).directive('completeEdit', function($compile){
+    return{
+        restrict: "A",
+        scope: true,
+        link: function(scope, element, attrs){
+            element.bind("click", function() {
+                if(document.querySelectorAll("[attache-post]")[0]){
+                    document.querySelectorAll("[attache-post]")[0].innerHTML = '';
+                    document.querySelectorAll("[attache-post]")[0].removeAttribute("attache-post");
+                }
+                if(document.querySelectorAll("[contenteditable]")[0])
+                    document.querySelectorAll("[contenteditable]")[0].removeAttribute("contenteditable");
+                if(document.querySelectorAll("[progress-wrapper]")[0]){
+                    document.querySelectorAll("[progress-wrapper]")[0].innerHTML = '';
+                    document.querySelectorAll("[progress-wrapper]")[0].removeAttribute("progress-wrapper");
+                }
+                if(document.querySelectorAll("[remove_img_post]")[0]){
+                    var remove_img = document.querySelectorAll("[remove_img_post]");
+                    for(var key in remove_img){
+                        if(!isNaN(key)) {
+                            remove_img[key].innerHTML = "";
+                            remove_img[key].removeAttribute("remove_img_post");
+                        }
+                    }
+                }
+
+                scope.$parent.$parent.edits = false;
+                scope.$apply();
+            })
+        }
+    }
+});
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');

@@ -18,8 +18,10 @@ use Creativer\FrontBundle\Entity\Images;
 use Creativer\FrontBundle\Entity\Albums;
 use Creativer\FrontBundle\Entity\PostBaraholka;
 use Creativer\FrontBundle\Entity\ImagesBaraholka;
+use Creativer\FrontBundle\Entity\PostImages;
 use Creativer\FrontBundle\Entity\PostCategory;
 use Creativer\FrontBundle\Entity\PostCity;
+use Creativer\FrontBundle\Entity\Posts;
 use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
 use Imagine\Imagick;
@@ -685,7 +687,104 @@ class DefaultController extends Controller
             return $response;
         }
 
+    }
 
+    public function savePostImagesAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $image = $request->files->get('file');
+            $post_id = $request->get('post_id');
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $Post = $em->getRepository("CreativerFrontBundle:Posts")->find(array('id' => $post_id, 'user' => $user));
+
+
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 2000000000)) {
+                    $originalName = $image->getClientOriginalName();
+                    $file_type = $image->getMimeType();
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+                        //die(\Doctrine\Common\Util\Debug::dump($image));
+                        try {
+                            $imagine = new \Imagine\Imagick\Imagine();
+                            $image_name = time() . "_" . md5($originalName) . '.jpg';
+
+                            $image = $imagine->open($image->getPathname());
+
+                            $image->save($this->container->getParameter('path_img_post_original') . $image_name);
+
+                            $w = $image->getSize()->getWidth();
+                            $h = $image->getSize()->getHeight();
+
+
+                            if($w > 260){
+                                $width = $image->getSize()->getWidth();
+                                $count = $width / 260;
+                                $width = 260;
+                                $height = $image->getSize()->getHeight() / $count;
+                                $image->resize(new Box($width, $height), ImageInterface::FILTER_LANCZOS);
+                            }else{
+                                $height = $h;
+                                $width = $w;
+                                $image->resize(new Box($w, $h), ImageInterface::FILTER_LANCZOS);
+                            }
+
+                            $image->save($this->container->getParameter('path_img_post_thums') . $image_name);
+
+
+                            $im = new PostImages();
+                            $im->setName($image_name);
+                            $im->setWidth($width);
+                            $im->setHeight($height);
+                            $Post->addPostImage($im);
+                            $im->setPost($Post);
+                            $em->persist($im);
+                            $em->flush();
+
+
+                            $serializer = $this->container->get('jms_serializer');
+                            $categories = $serializer
+                                ->serialize(
+                                    $im,
+                                    'json'
+                                );
+
+                            $response = new Respon($categories);
+                            $response->headers->set('Content-Type', 'application/json');
+                            return $response;
+
+                        } catch (\Imagine\Exception\Exception $e) {
+                            die("error upload image ".$e);
+                        }
+
+
+                    } else {
+                        $status = 'failed';
+                        $message = 'Invalid File Type';
+                    }
+                } else {
+                    $status = 'failed';
+                    $message = 'Size exceeds limit';
+                }
+            } else {
+                $status = 'failed';
+                $message = 'File Error';
+            }
+
+            $response = new Respon(null, 200);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
     }
 
     public function favoritTmpAction(){

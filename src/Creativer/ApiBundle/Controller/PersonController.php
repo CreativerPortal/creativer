@@ -62,12 +62,11 @@ class PersonController extends Controller
         $em->persist($post);
         $em->flush();
 
-        $serializer = $this->container->get('jms_serializer');
-        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($data->id);
-
+        //$serializer = $this->container->get('jms_serializer');
+        //$user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($data->id);
         //$user = $serializer->serialize($user, 'json');
 
-        return array('user' => $user);
+        return array('post' => $post);
     }
 
     /**
@@ -471,14 +470,38 @@ class PersonController extends Controller
         $em = $this->getDoctrine()->getEntityManager();
         $post_id = $this->get('request')->request->get('post_id');
         $id = $this->get('security.context')->getToken()->getUser()->getId();
-        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Post')->find($post_id);
+        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->find($post_id);
 
 
+        $path_img_post_thums = $this->container->getParameter('path_img_post_thums');
+        $path_img_post_original = $this->container->getParameter('path_img_post_original');
 
+        $images = $post->getPostImages();
+        $comments = $post->getComments();
+
+        if(!empty($comments)){
+            foreach($comments as $key=>$val){
+                $em->remove($val);
+            }
+        }
+
+        if(!empty($images)){
+            $fs = new Filesystem();
+            foreach($images as $key=>$val){
+                $fs->remove(array($path_img_post_thums.$val->getName()));
+                $fs->remove(array($path_img_post_original.$val->getName()));
+                $em->remove($val);
+            }
+        }
+
+        $em->remove($post);
         $em->flush();
 
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
 
-        return array('image' => $image);
+        return $response;
     }
 
     /**
@@ -510,8 +533,6 @@ class PersonController extends Controller
 
         return array('user' => $newFriend);
     }
-
-
 
     /**
      * @return array
@@ -630,7 +651,6 @@ class PersonController extends Controller
         return $response;
     }
 
-
     /**
      * @return array
      * @Post("/v1/image_previews")
@@ -661,7 +681,6 @@ class PersonController extends Controller
         $em->flush();
     }
 
-
     /**
      * @return array
      * @Post("/v1/edit_text_image")
@@ -679,7 +698,6 @@ class PersonController extends Controller
 
         $em->flush();
     }
-
 
     /**
      * @return array
@@ -750,5 +768,61 @@ class PersonController extends Controller
 
     }
 
+    /**
+ * @return array
+ * @Post("/v1/edit_text_post")
+ * @View()
+ */
+    public function editTextPostAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $text = $this->get('request')->request->get('text');
 
+        $em = $this->getDoctrine()->getManager();
+        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->find($id);
+
+        $post->setText($text);
+
+        $em->flush($post);
+
+        $response = new Respon('', 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/remove_img_post")
+     * @View()
+     */
+    public function removeImgPostAction()
+    {
+        $img_id = $this->get('request')->request->get('img_id');
+        $post_id = $this->get('request')->request->get('post_id');
+
+
+        $em = $this->getDoctrine()->getManager();
+        $postImage = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostImages')->find($img_id);
+
+
+
+        $path_img_post_thums = $this->container->getParameter('path_img_post_thums');
+        $path_img_post_original = $this->container->getParameter('path_img_post_original');
+
+        if($postImage){
+            $fs = new Filesystem();
+            $fs->remove(array($path_img_post_thums.$postImage->getName()));
+            $fs->remove(array($path_img_post_original.$postImage->getName()));
+            $em->remove($postImage);
+        }
+
+        $em->remove($postImage);
+        $em->flush();
+
+        $response = new Respon('', 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
 }

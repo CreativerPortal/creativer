@@ -132,6 +132,26 @@
                             'Content-Type': 'application/json'
                         }
                     })
+                },
+                editTextPost: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_text_post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    })
+                },
+                removeImgPost: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_img_post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    })
                 }
             };
         }]);

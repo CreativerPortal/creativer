@@ -99,3 +99,7 @@ creativer_edit_images_post_baraholka:
     path:     /edit_images_post_baraholka
     defaults: { _controller: CreativerFrontBundle:Default:editImagesPostBaraholka }
     methods:  [POST]
+creativer_save_post_images:
+    path:     /save_post_images
+    defaults: { _controller: CreativerFrontBundle:Default:savePostImages }
+    methods:  [POST]
