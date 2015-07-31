@@ -787,11 +787,18 @@ class DefaultController extends Controller
         }
     }
 
-    public function favoritTmpAction(){
+    public function followingTmpAction(){
 
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
 
-        return $this->render('CreativerFrontBundle:Default:favoritTmp.html.twig', array('id' => $userId));
+        return $this->render('CreativerFrontBundle:Default:followingTmp.html.twig', array('id' => $userId));
+    }
+
+    public function followersTmpAction(){
+
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        return $this->render('CreativerFrontBundle:Default:followersTmp.html.twig', array('id' => $userId));
     }
 
     public function productsTmpAction(){

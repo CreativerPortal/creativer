@@ -105,6 +105,17 @@
                         data: data
                     });
                 },
+                removeComment: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_comment',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 finishUpload: function (data) {
                     return $http({
                         method: 'POST',

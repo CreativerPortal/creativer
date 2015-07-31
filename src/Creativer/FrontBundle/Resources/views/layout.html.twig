@@ -19,9 +19,9 @@
     <header class="header">
 
         <div class="row">
-            <div class="col-sm-3 col-md-offset-1 fiveMinuts">
-                <a href="" class="btn button_header_03 text-left">
-                    <span>Соцсеть</span>
+            <div class="col-sm-3 col-md-offset-1 fiveMinuts padding-left_0">
+                <a href="" class="btn button_header_09 text-left">
+                    <span>Моя страница</span>
                 </a>
                 <a href="{{ path('creativer_front_main') }}#/baraholka" class="btn button_header_05 right">
                     <span>Барахолка</span>
@@ -41,7 +41,7 @@
 
             {% else %}
                 <div class="col-sm-1">
-                    <img src="/var/www/creativer/web/img/flag_rus.png"  alt="русский"/>
+                    {#<img src="/var/www/creativer/web/img/flag_rus.png"  alt="русский"/>#}
                 </div>
             {% endif %}
         </div>
@@ -84,7 +84,7 @@
             {% else %}
                 {{ render(controller('CreativerFrontBundle:Default:login')) }}
                 <div class="col-sm-1">
-                    <img src="/var/www/creativer/web/img/flag_bel.png" alt="русский">
+                    {#<img src="/var/www/creativer/web/img/flag_bel.png" alt="русский">#}
                 </div>
             {% endif %}
 
@@ -99,7 +99,7 @@
                 </div>
 
                 <div class="col-sm-1">
-                    <img src="/var/www/creativer/web/img/flag_eng.png"  alt="русский"/>
+                    {#<img src="/var/www/creativer/web/img/flag_eng.png"  alt="русский"/>#}
                 </div>
             </div>
         {% endif %}

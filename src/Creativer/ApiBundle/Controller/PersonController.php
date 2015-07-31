@@ -113,6 +113,36 @@ class PersonController extends Controller
 
     /**
      * @return array
+     * @Post("/v1/remove_comment")
+     * @View()
+     */
+    public function removeCommentAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $comment_id = $this->get('request')->request->get('id');
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $comment = $this->getDoctrine()->getRepository('CreativerFrontBundle:Comments')->find($comment_id);
+
+        $em->remove($comment);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
      * @Post("/v1/get_album_comments")
      * @View(serializerGroups={"getAlbumComments"})
      */
@@ -204,7 +234,6 @@ class PersonController extends Controller
         return $response;
     }
 
-
     /**
      * @return array
      * @Post("/v1/save_field")
@@ -235,8 +264,6 @@ class PersonController extends Controller
 
         return array('user' => $user);
     }
-
-
 
     /**
      * @Post("/v1/finish_upload")
@@ -343,7 +370,6 @@ class PersonController extends Controller
         return $response;
     }
 
-
     /**
      * @return array
      * @Post("/v1/remove_image")
@@ -417,7 +443,6 @@ class PersonController extends Controller
 
         return $response;
     }
-
 
     /**
      * @return array

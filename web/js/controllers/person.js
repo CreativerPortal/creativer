@@ -184,6 +184,12 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
+    $scope.removeComment = function(key,comments,id){
+        personalService.removeComment({id: id}).success(function (data) {
+            comments.splice(key,1);
+        });
+    }
+
     $rootScope.updateAvatar = function(image){
         $rootScope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {

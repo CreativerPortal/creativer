@@ -30,8 +30,13 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/favorit', {
-            templateUrl: '/favorit_tmp',
+        $routeProvider.when('/following', {
+            templateUrl: '/following_tmp',
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/followers', {
+            templateUrl: '/followers_tmp',
             controller: 'personCtrl',
             reloadOnSearch: true
         });

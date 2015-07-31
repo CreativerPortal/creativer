@@ -27,8 +27,6 @@
             var polyfilter_scriptpath = '/js/vendor/';
         </script>
 
-        <script src="/js/classie.js"></script>
-        <script src="/js/modalEffects.js"></script>
         <script src="/js/cssParser.js"></script>
         <script src="/js/css-filters-polyfill.js"></script>
     {% endblock %}
@@ -65,7 +63,7 @@
                             </div>
                         </div>
                         <div class="margin-top_40 form-registration__text form-registration__text-blue">
-                            <span class="md-trigger md-setperspective" data-modal="modal-4">Прочтите условия соглашения</span>
+                            <span class="md-trigger md-setperspective" data-toggle="modal" data-target="#myModal">Прочтите условия соглашения</span>
                         </div>
                         <div class="form-registration__text margin-top_10">
                             <input style="position: absolute; top: -9999px; left: -9999px" id="condition" name="condition" type="checkbox" required="required" ng-model="checked">
@@ -107,22 +105,29 @@
 
     </div>
 
-    <div class="md-modal md-effect-4" id="modal-4">
-        <div class="md-content">
-            <h3>Модальные окна</h3>
-            <div>
-                <p> Это модальное окно. Вы можете выполнять следующие действия с ним:</p>
-                <ul>
-                    <li><strong>Читать:</strong> модальные окна, вероятно, несут важную текстовую информацию, так что не забудьте прочитать то, что в них написано.</li>
-                    <li><strong>Смотреть:</strong> модальные окна несут визуальную информацию, на которую приятно смотреть.</li>
-                    <li><strong>Закрыть:</strong> нажмите на кнопку, чтобы закрыть модальное окно.</li>
-                </ul>
-                <button class="md-close">Закрыть!</button>
+    <!-- Modal -->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content" style="background-color: #eae9e3;">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title lobster" id="myModalLabel">Условия</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button class="true fs_0-9" data-dismiss="modal">Закрыть</button>
+                </div>
             </div>
         </div>
     </div>
 
-
+    <style>
+        .modal-backdrop{
+            background-color: #6F5F56;
+        }
+    </style>
 
 
 {% endblock %}

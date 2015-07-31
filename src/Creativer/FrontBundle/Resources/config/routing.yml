@@ -79,9 +79,13 @@ creativer_front_albumTmp:
     path:     /album_tmp/{id_album}
     defaults: { _controller: CreativerFrontBundle:Default:albumTmp, id_album: null }
     methods:  [GET]
-creativer_front_favoritTmp:
-    path:     /favorit_tmp
-    defaults: { _controller: CreativerFrontBundle:Default:favoritTmp }
+creativer_front_followingTmp:
+    path:     /following_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:followingTmp }
+    methods:  [GET]
+creativer_front_followersTmp:
+    path:     /followers_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:followersTmp }
     methods:  [GET]
 creativer_front_upload_album:
     path:     /upload_album

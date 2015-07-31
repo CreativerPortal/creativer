@@ -138,6 +138,9 @@ body{
     border-radius: 100px;
 }
 
+.user__avatar-favorit img{
+    width: 100%;
+}
 
 .user__avatar-super-mini{
     width: 60px;
@@ -348,7 +351,15 @@ body{
     display: none;
 }
 
+.edit_comment{
+    display: none;
+}
+
 .one_post:hover .edit_post{
+    display: block;
+}
+
+.one_comment:hover .edit_comment{
     display: block;
 }
 

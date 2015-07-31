@@ -1,0 +1,31 @@
+<link rel="stylesheet" href="/css/pages/personal_page.css">
+<link rel="stylesheet" type="text/css" href="/css/vendor/component.css" />
+<script src="/js/classie.js"></script>
+<script src="/js/modalEffects.js"></script>
+<script src="/js/cssParser.js"></script>
+<script src="/js/css-filters-polyfill.js"></script>
+ <div class="row slid  padding-right_0" ng-show="user">
+
+        <div class="row">
+            <h3 class="col-sm-5 lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
+            <h4 class="col-sm-6 lobster text-gray margin-top_30 margin-left_15">В избранных у</h4>
+        </div>
+
+     <div class="col-sm-5 user padding-left_0">
+         {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
+     </div>
+
+        <div class="col-sm-7 album" ng-init="res = user.albums[id].images.length/3">
+
+            <div class="padding-bottom_30">
+                <a href="#/[[ favorit.id ]]" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.favorits_with_me">
+                    <div class="user__avatar-favorit">
+                        <img ng-src="[[ favorit.avatar ]]">
+                    </div>
+                    <div class="text-center fs_0-9 lobster">[[ favorit.username ]]</div>
+                    <div class="text-center fs_0-9 lobster">[[ favorit.lastname ]]</div>
+                </a>
+            </div>
+        </div>
+
+ </div>
