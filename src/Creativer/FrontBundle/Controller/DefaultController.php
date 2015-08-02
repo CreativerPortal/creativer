@@ -68,6 +68,7 @@ class DefaultController extends Controller
 
             if(!empty($errors)){
                 $session = $request->getSession();
+
                 return $this->render('CreativerFrontBundle:Default:registration.html.twig', array('form' => $form->createView(),
                     'errors' => $errors, 'img' => $request->get('form')['img']));
             }else{

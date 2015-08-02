@@ -49,18 +49,30 @@
                                 <div class="form-registration__element"><label for="password">Пароль:</label></div>
                                 <div class="form-registration__element"><label for="password_repeat">Пароль ещё раз:</label></div>
                             </div>
+
                             <div class="col-sm-6 padding-right_0">
                                 {{ form_row(form._token) }}
-                                <div class="form-registration__element">{{  form_widget(form.username, {'attr': {'class': 'name','id': 'name','name': 'username', 'ng-model': 'username', 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[username]'].$error.required">Имя не может быть пустым</span>
-                                <div class="form-registration__element">{{  form_widget(form.lastname, {'attr': {'class': 'name','id': 'name','name': 'lastname', 'ng-model': 'lastname', 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[lastname]'].$error.required">Фамилия не может быть пустым</span>
-                                <div class="form-registration__element">{{  form_widget(form.email, {'attr': {'class': 'email','id': 'email','name': 'email', 'ng-model': 'email', 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[email]'].$error.required">Email не может быть пустым</span>
+                                {% if form.vars.value %}
+                                    {% set username = 'username="' ~ form.vars.value.username ~ '"' %}
+                                    {% set lastname = 'lastname="' ~ form.vars.value.lastname ~ '"' %}
+                                    {% set email = 'email="' ~ form.vars.value.email ~ '"' %}
+                                {% else %}
+                                    {% set username = 'username=""' %}
+                                    {% set lastname = 'lastname=""' %}
+                                    {% set email = 'email=""' %}
+                                {% endif %}
+
+                                <div class="form-registration__element">{{  form_widget(form.username, {'attr': {'class': 'name','id': 'name','name': 'username', 'ng-model': 'username', 'ng-init': username, 'ng-required': 'true'}}) }}</div>
+                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[username]'].$error.required">??? ?? ????? ???? ??????</span>
+                                <div class="form-registration__element">{{  form_widget(form.lastname, {'attr': {'class': 'name','id': 'name','name': 'lastname', 'ng-model': 'lastname', 'ng-init': lastname, 'ng-required': 'true'}}) }}</div>
+                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[lastname]'].$error.required">??????? ?? ????? ???? ??????</span>
+                                <div class="form-registration__element">{{  form_widget(form.email, {'attr': {'class': 'email','id': 'email','name': 'email', 'ng-model': 'email', 'ng-init': email, 'ng-required': 'true'}}) }}</div>
+                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[email]'].$error.required">Email ?? ????? ???? ??????</span>
                                 <div class="form-registration__element">{{  form_widget(form.password.first, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.first'}}) }}</div>
                                 <div class="form-registration__element">{{  form_widget(form.password.second, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.second'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && (password.first != password.second)">Пароль не совпадает</span>
+                                <span class="text-danger ng-hide" ng-show="submitted && (password.first != password.second)">?????? ?? ?????????</span>
                             </div>
+
                         </div>
                         <div class="margin-top_40 form-registration__text form-registration__text-blue">
                             <span class="md-trigger md-setperspective" data-toggle="modal" data-target="#myModal">Прочтите условия соглашения</span>
@@ -88,11 +100,13 @@
 
                 <div class="col-sm-6 padding-left_0">
                     <div class="upload_img margin-left_0">
-                        <span class="form-registration__img" ng-model="myImage"><img src="[[myCroppedImage]]" ng-init="myImage = '{% if img is defined %}{{ img|escape  }}{% endif %}'" ></span>
+                        <span class="form-registration__img" ng-model="myImage">
+                            <img src="[[myCroppedImage]]" ng-init="myImage = '{% if img is defined %}{{ img|escape  }}{% endif %}'" >
+                        </span>
                         <label class="form-registration__text-blue">Загрузить ваше фото <input type="file" id="fileInput" style="display: none;" /></label>
                         <input type="hidden" name="form[img]" value="[[ myCroppedImage ]]">
                         <div>
-                            <div class="cropArea" {% if img is defined %}style="display:none;" {% endif %}>
+                            <div class="cropArea" style="zoom: reset;" {% if img is defined %} style="display:none;" {% endif %}>
                                 <img-crop  image="myImage" result-image="myCroppedImage" result-image-size="120" ></img-crop>
                             </div>
                         </div>

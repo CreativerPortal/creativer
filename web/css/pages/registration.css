@@ -140,10 +140,23 @@ body{
 .cropArea {
     background: #eae9e3;
     overflow: hidden;
-    width:500px;
-    height:350px;
     margin-top: 10px;
+    height: 230px;
 }
+
+@media screen and (max-width: 1370px) {
+    .cropArea {
+        height: 180px;
+    }
+}
+
+img-crop canvas {
+    bottom: 0px;
+    left: 0px;
+    margin-left: 0px!important;
+}
+
+
 
 canvas{
     border-radius: 3px;

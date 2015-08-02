@@ -50,7 +50,7 @@
 
                                     <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
                                         <input type="checkbox" class="hidden">
-                                        <div class="edit__album__menu fs_1-2">
+                                        <div class="edit__album__menu">
                                             <ul class="margin-top_20 padding-left_0">
                                                 <li ng-click="removeImage(image.id)">удалить</li>
                                                 <li ng-click="mainImage(image.id)">обложкой</li>
@@ -69,7 +69,7 @@
                                 <div ng-repeat="(key,image) in edit_album.images.slice(res, res*2)" class="upload__element">
                                     <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
                                         <input type="checkbox" class="hidden">
-                                        <div class="edit__album__menu fs_1-2">
+                                        <div class="edit__album__menu">
                                             <ul class="margin-top_20 padding-left_0">
                                                 <li ng-click="removeImage(image.id)">удалить</li>
                                                 <li ng-click="mainImage(image.id)">обложкой</li>
@@ -88,7 +88,7 @@
                                 <div ng-repeat="(key,image) in edit_album.images.slice(res*2, res*3)" class="upload__element">
                                     <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
                                         <input type="checkbox" class="hidden">
-                                        <div class="edit__album__menu fs_1-2">
+                                        <div class="edit__album__menu">
                                             <ul class="margin-top_20 padding-left_0">
                                                 <li ng-click="removeImage(image.id)">удалить</li>
                                                 <li ng-click="mainImage(image.id)">обложкой</li>
