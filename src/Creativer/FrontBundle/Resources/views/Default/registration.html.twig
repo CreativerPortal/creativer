@@ -63,14 +63,14 @@
                                 {% endif %}
 
                                 <div class="form-registration__element">{{  form_widget(form.username, {'attr': {'class': 'name','id': 'name','name': 'username', 'ng-model': 'username', 'ng-init': username, 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[username]'].$error.required">??? ?? ????? ???? ??????</span>
+                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[username]'].$error.required">Имя пользователя не может быть пустым</span>
                                 <div class="form-registration__element">{{  form_widget(form.lastname, {'attr': {'class': 'name','id': 'name','name': 'lastname', 'ng-model': 'lastname', 'ng-init': lastname, 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[lastname]'].$error.required">??????? ?? ????? ???? ??????</span>
+                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[lastname]'].$error.required">Фамилия пользователя не может быть пустой</span>
                                 <div class="form-registration__element">{{  form_widget(form.email, {'attr': {'class': 'email','id': 'email','name': 'email', 'ng-model': 'email', 'ng-init': email, 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[email]'].$error.required">Email ?? ????? ???? ??????</span>
+                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[email]'].$error.required">Email не может быть пустым</span>
                                 <div class="form-registration__element">{{  form_widget(form.password.first, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.first'}}) }}</div>
                                 <div class="form-registration__element">{{  form_widget(form.password.second, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.second'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && (password.first != password.second)">?????? ?? ?????????</span>
+                                <span class="text-danger ng-hide" ng-show="submitted && (password.first != password.second)">Паролт не совпадают</span>
                             </div>
 
                         </div>
