@@ -8,6 +8,6 @@
     <input class="form-auth__input fiveMinuts left margin-left_15" type="text" id="username" name="email" value="{{ last_username }}" placeholder="Email"/>
     <button type="submit" name="login" class="form-auth__buttom margin-left_5" id="login" data-placement="bottom" data-content="Пароль или email неверны"></button>
     {% if error %}
-        <div ng-if="fail_auth" id="fail_auth" class="fail_auth"><span>пароль или email неверны</span></div>
+        <div id="fail_auth" class="fail_auth"><span>пароль или email неверны</span></div>
     {% endif %}
 </form>
