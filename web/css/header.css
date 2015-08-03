@@ -351,3 +351,21 @@ p[contenteditable]{
     border: 1px dashed #827972;
     width: 448px;
 }
+
+.fail_auth{
+    background-image: url("/var/www/creativer/web/img/faile_autho.png");
+    width: 228px;
+    height: 38px;
+    position: absolute;
+    top: 22px;
+    left: 21px;
+    z-index: 2;
+    color: white;
+    text-align: center;
+}
+
+.fail_auth span{
+    vertical-align: middle;
+    line-height: 51px;
+    text-align: center;
+}
