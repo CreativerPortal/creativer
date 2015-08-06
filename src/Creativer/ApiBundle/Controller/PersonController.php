@@ -678,6 +678,50 @@ class PersonController extends Controller
 
     /**
      * @return array
+     * @Post("/v1/get_likes_by_album_id")
+     * @View()
+     */
+    public function getLikesByAlbumIdAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id_album = $this->get('request')->request->get('id_album');
+        $em = $this->getDoctrine()->getManager();
+        $redis = $this->get('snc_redis.default');
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->findOneById($id_album);
+
+        $images = $album->getImages();
+        $user = $album->getUser();
+
+        $likes = array();
+
+        foreach($images as $key=>$value){
+
+           $id_img = $value->getId();
+
+           if($redis->sismember($id_img, $id)){
+               $likes[$id_img]['liked'] = true;
+           }else{
+               $likes[$id_img]['liked'] = false;
+           }
+
+        }
+
+        $response = new Respon(json_encode(array('likes' => $likes)), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
      * @Post("/v1/image_previews")
      * @View()
      */

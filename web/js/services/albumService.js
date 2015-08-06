@@ -41,6 +41,17 @@ angular
                         data: data
                     });
                 },
+                getLikesByAlbumId: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_likes_by_album_id',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 deleteImage: function (data) {
                     return $http({
                         method: 'POST',

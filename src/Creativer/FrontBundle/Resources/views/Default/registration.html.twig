@@ -41,16 +41,6 @@
             <div class="row">
                 <div class="col-sm-6">
                     <div class="row col-sm-12">
-                        <div class="row">
-                            <div class="col-sm-6">
-                                <div class="form-registration__element"><label for="name">Имя:</label></div>
-                                <div class="form-registration__element"><label for="name">Фамилия:</label></div>
-                                <div class="form-registration__element"><label for="email">E-mail:</label></div>
-                                <div class="form-registration__element"><label for="password">Пароль:</label></div>
-                                <div class="form-registration__element"><label for="password_repeat">Пароль ещё раз:</label></div>
-                            </div>
-
-                            <div class="col-sm-6 padding-right_0">
                                 {{ form_row(form._token) }}
                                 {% if form.vars.value %}
                                     {% set username = 'username="' ~ form.vars.value.username ~ '"' %}
@@ -62,18 +52,62 @@
                                     {% set email = 'email=""' %}
                                 {% endif %}
 
-                                <div class="form-registration__element">{{  form_widget(form.username, {'attr': {'class': 'name','id': 'name','name': 'username', 'ng-model': 'username', 'ng-init': username, 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[username]'].$error.required">Имя пользователя не может быть пустым</span>
-                                <div class="form-registration__element">{{  form_widget(form.lastname, {'attr': {'class': 'name','id': 'name','name': 'lastname', 'ng-model': 'lastname', 'ng-init': lastname, 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[lastname]'].$error.required">Фамилия пользователя не может быть пустой</span>
-                                <div class="form-registration__element">{{  form_widget(form.email, {'attr': {'class': 'email','id': 'email','name': 'email', 'ng-model': 'email', 'ng-init': email, 'ng-required': 'true'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && registration['form[email]'].$error.required">Email не может быть пустым</span>
-                                <div class="form-registration__element">{{  form_widget(form.password.first, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.first'}}) }}</div>
-                                <div class="form-registration__element">{{  form_widget(form.password.second, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.second'}}) }}</div>
-                                <span class="text-danger ng-hide" ng-show="submitted && (password.first != password.second)">Паролт не совпадают</span>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element"><label for="name">Имя:</label></div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element">{{  form_widget(form.username, {'attr': {'class': 'name','id': 'name','name': 'username', 'ng-model': 'username', 'ng-init': username, 'ng-required': 'true'}}) }}</div>
+                                    <span class="text-danger ng-hide" ng-show="submitted && registration['form[username]'].$error.required">Имя пользователя не может быть пустым</span>
+                                </div>
                             </div>
 
-                        </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element"><label for="name">Фамилия:</label></div>
+                                </div>
+
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element">{{  form_widget(form.lastname, {'attr': {'class': 'name','id': 'name','name': 'lastname', 'ng-model': 'lastname', 'ng-init': lastname, 'ng-required': 'true'}}) }}</div>
+                                    <span class="text-danger ng-hide" ng-show="submitted && registration['form[lastname]'].$error.required">Фамилия пользователя не может быть пустой</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element"><label for="email">E-mail:</label></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element">{{  form_widget(form.email, {'attr': {'class': 'email','id': 'email','name': 'email', 'ng-model': 'email', 'ng-init': email, 'ng-required': 'true'}}) }}</div>
+                                    <span class="text-danger ng-hide" ng-show="submitted && registration['form[email]'].$error.required">Email не может быть пустым</span>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element"><label for="password">Пароль:</label></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element">{{  form_widget(form.password.first, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.first'}}) }}</div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element"><label for="password_repeat">Пароль ещё раз:</label></div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-registration__element">{{  form_widget(form.password.second, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.second'}}) }}</div>
+                                    <span class="text-danger ng-hide" ng-show="submitted && (password.first != password.second)">Паролт не совпадают</span>
+                                </div>
+                            </div>
+
+
+
+
+
+
                         <div class="margin-top_40 form-registration__text form-registration__text-blue">
                             <span class="md-trigger md-setperspective" data-toggle="modal" data-target="#myModal">Прочтите условия соглашения</span>
                         </div>
@@ -124,11 +158,10 @@
         <div class="modal-dialog" role="document">
             <div class="modal-content" style="background-color: #eae9e3;">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title lobster" id="myModalLabel">Условия</h4>
                 </div>
                 <div class="modal-body">
-                    ...
+                    Условия регистрации
                 </div>
                 <div class="modal-footer">
                     <button class="true fs_0-9" data-dismiss="modal">Закрыть</button>

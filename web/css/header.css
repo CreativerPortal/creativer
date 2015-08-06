@@ -368,4 +368,26 @@ p[contenteditable]{
     vertical-align: middle;
     line-height: 51px;
     text-align: center;
+    -webkit-animation: blink1 3s linear infinite;
+    animation: blink1 3s linear infinite;
+}
+
+@-webkit-keyframes blink1 {
+    0% { color: rgba(255, 255, 255, 1); }
+    50% { color: rgba(255, 255, 255, 0.2); }
+    100% { color: rgba(255, 255, 255, 1); }
+}
+@keyframes blink1 {
+    0% { color: rgba(255, 255, 255, 1); }
+    50% { color: rgba(255, 255, 255, 0.2); }
+    100% { color: rgba(255, 255, 255, 1); }
+}
+
+.yes_like:before{
+    color: #6096b9!important;
+}
+
+.no_like:before{
+    text-shadow: #6096b9 1px 0px, #6096b9 1px 1px, #6096b9 0px 1px, #6096b9 -1px 1px, #6096b9 -1px 0px, #6096b9 -1px -1px, #6096b9 0px -1px, #6096b9 1px -1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px;
+    color: #EAE9E3;
 }
