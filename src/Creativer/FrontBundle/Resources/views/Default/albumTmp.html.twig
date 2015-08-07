@@ -104,7 +104,7 @@
                                    <time class="text-gray ng-binding">[[ user.albums[album_key].images[album_key].date  | date: "dd.MM.yyyy" ]]</time> |
 
                                    <span ng-class="{'click_class':(click_class === 'true' && user.albums[album_key].images_likes[img_id].liked), 'yes_like':user.albums[album_key].images_likes[img_id].liked}"  ng-if="user.albums[album_key].images_likes[img_id].liked != undefined" class="text-blue glyphicon glyphicon-heart pointer no_like" style="top: 2px;" ng-click="like(user.albums[album_key].images[key_img].id,album_key,key_img); click_class = 'true'">
-                                       <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px">[[ user.albums[album_key].images[key_img].likes ]]</span>
+                                       <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ user.albums[album_key].images[key_img].likes ]]</span>
                                    </span>
                                </div>
 
