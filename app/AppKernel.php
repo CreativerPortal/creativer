@@ -25,6 +25,7 @@ class AppKernel extends Kernel
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Snc\RedisBundle\SncRedisBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
+            new FOS\ElasticaBundle\FOSElasticaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'prod'))) {

@@ -6,6 +6,8 @@ var mysql = require('mysql');
 
 db_connect = "mongodb://127.0.0.1:27017/local";
 
+console.log("start script");
+
 var connection = mysql.createConnection({
     host:     'localhost',
     user:     'slaq',
@@ -14,7 +16,7 @@ var connection = mysql.createConnection({
 });
 
 process.on('uncaughtException', function (processError) {
-    console.log(processError.stack);
+    //console.log(processError.stack);
 });
 
 app.get('/', function(req, res){
@@ -27,10 +29,10 @@ io.on('connection', function(socket){
 
     if(sockets[socket.handshake.query.id_user] != undefined){
         sockets[socket.handshake.query.id_user].push(socket);
-        console.log('user connected 2');
+        //console.log('user connected 2');
 
     }else{
-        console.log('user connected 1');
+        //console.log('user connected 1');
         sockets[socket.handshake.query.id_user] = [];
         sockets[socket.handshake.query.id_user].push(socket);
     }
@@ -42,7 +44,7 @@ io.on('connection', function(socket){
             var id_user = data.id_user;
             collection.aggregate([ {$match: {id_users: {$in: [id_user]}}}, {$group: {_id: { id_users: "$id_users" }, text: { $last: "$text" }, sender: { $last: "$sender" }, reviewed: { $last: "$reviewed" }, date: { $last: "$date" }}} ], function (err, result) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                 } else {
                     var companion = [];
                     for(var key in result){
@@ -56,15 +58,15 @@ io.on('connection', function(socket){
                     }
 
                     connection.connect(function(err) {});
-                    console.log("SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")");
-                    var queryText = "SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")";
+                    //console.log("SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")");
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                         connection.query(queryText, companion, function(err, rows) {
                             for(var row_key in result){
                                 for(var r_key in  rows){
                                     if(result[row_key].other_user == rows[r_key].id){
                                         result[row_key].username = rows[r_key].username;
                                         result[row_key].lastname = rows[r_key].lastname;
-                                        result[row_key].img = rows[r_key].img;
+                                        result[row_key].avatar = rows[r_key].avatar;
                                     }
                                 }
                             }
@@ -87,13 +89,13 @@ io.on('connection', function(socket){
             var id_users = data.ids.sort();
             collection.find({id_users:id_users}).sort({_id: -1}).limit(10).toArray(function (err, result) {
                 if (err) {
-                    console.log(err);
+                   // console.log(err);
                 } else if (result.length) {
                     var users = [];
                     users.push(id_users[0]);
                     users.push(id_users[1]);
                     connection.connect(function(err) {
-                        var queryText = "SELECT u.id, u.username, u.lastname, a.img, a.date FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ users.join(',') +")";
+                        var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
                         connection.query(queryText, users, function(err, rows) {
                             for(var key in rows){
                                 if(rows[key].id != data.id_user){
@@ -104,13 +106,13 @@ io.on('connection', function(socket){
                                 messages: result,
                                 companion: comp
                             };
-                            console.log(res);
+                            //console.log(res);
                             socket.emit('history', res);
                             }
                         );
                     });
                 } else {
-                    console.log('No document(s) found with defined "find" criteria!');
+                    //console.log('No document(s) found with defined "find" criteria!');
                 }
                 db.close();
             });
@@ -120,7 +122,7 @@ io.on('connection', function(socket){
 
 
     socket.on('disconnect', function(){
-        console.log('user disconnected');
+        //console.log('user disconnected');
         for(key in sockets[socket.handshake.query.id_user]){
             if(sockets[socket.handshake.query.id_user][key].id == socket.id){
                 sockets[socket.handshake.query.id_user].slice(key,1)
@@ -150,10 +152,10 @@ io.on('connection', function(socket){
                     date: data.date
                 }, function (err, result) {
                     if (err) {
-                        console.warn(err.message);
+                        //console.warn(err.message);
                     }
                     else {
-                        console.log(result.ops);
+                       // console.log(result.ops);
                         for (var key in data.ids) {
                             var id = data.ids[key];
                             for (var k in sockets[id]) {
@@ -162,6 +164,7 @@ io.on('connection', function(socket){
                         }
 
                     }
+                    db.close();
                 });
             }
         });
@@ -180,10 +183,10 @@ io.on('connection', function(socket){
             //        var id_recipient = data.ids[1];
             //    }
             //}
-            console.log({id_users: id_users, receiver: id_recipient});
+           // console.log({id_users: id_users, receiver: id_recipient});
             collection.update({id_users: id_users, receiver: id_recipient},{ $set: {reviewed: true}}, { multi: true }, function(err, result) {
                 if (err){
-                    console.log('bad');
+                    //console.log('bad');
                 }else{
                     //socket.emit('reviewed', {id_user: id_recipient});
                     var id = parseInt(socket.handshake.query.id_user);
@@ -191,6 +194,7 @@ io.on('connection', function(socket){
                         socket.emit('new message', result);
                     })
                 }
+                db.close();
             });
 
         });
@@ -203,7 +207,7 @@ io.on('connection', function(socket){
             var id_recipient = data.id_user
             collection.find({ receiver: id_recipient, reviewed: false}).sort({_id: -1}).toArray(function (err, result) {
                 if (err) {
-                    console.log(err);
+                    //console.log(err);
                 } else {
                     var companion = [];
                     for(var key in result){
@@ -217,19 +221,20 @@ io.on('connection', function(socket){
                     }
 
                     connection.connect(function(err) {
-                        console.log("SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")");
-                        var queryText = "SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")";
+                        //console.log("SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")");
+                        var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                         connection.query(queryText, companion, function(err, rows) {
                                 for(var row_key in result){
                                     for(var r_key in  rows){
                                         if(result[row_key].other_user == rows[r_key].id){
                                             result[row_key].username = rows[r_key].username;
                                             result[row_key].lastname = rows[r_key].lastname;
-                                            result[row_key].img = rows[r_key].img;
+                                            result[row_key].avatar = rows[r_key].avatar;
                                         }
                                     }
                                 }
                                 socket.emit('new message', result);
+                                db.close();
                             }
                         );
                     });
@@ -244,6 +249,7 @@ io.on('connection', function(socket){
         var id = parseInt(socket.handshake.query.id_user);
         collection.find({ receiver: id, reviewed: false}).sort({_id: -1}).toArray(function (err, result) {
             socket.emit('new message', result);
+            db.close();
         })
     })
 

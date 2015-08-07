@@ -182,3 +182,25 @@ mobile_detect:
         mobile: ~
         tablet: ~
     switch_device_view: ~
+
+fos_elastica:
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        app:
+            types:
+                user:
+                    mappings:
+                        username: ~
+                        lastName: ~
+                        email: ~
+                    persistence:
+                        # the driver can be orm, mongodb or propel
+                        # listener and finder are not supported by
+                        # propel and should be removed
+                        driver: orm
+                        model: Creativer\FrontBundle\Entity\User
+                        provider: ~
+                        listener:
+                            immediate: ~
+                        finder: ~
