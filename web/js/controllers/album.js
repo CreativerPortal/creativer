@@ -1,13 +1,14 @@
 angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.personal', 'service.socket', 'angularFileUpload', 'service.chat', 'angularSearchTree'])
     .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$timeout', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', 'searchTree', function($scope,$window,$rootScope,$location,$timeout,albumService,personalService,$routeParams, FileUploader, socket, chat, SearchTree) {
 
-    if(!$routeParams.url_img && $routeParams.key_img){
-        $location.path("/album/"+$routeParams.id_album);
-    }
+        if(!$routeParams.url_img && $routeParams.key_img){
+            $location.path("/album/"+$routeParams.id_album);
+        }
 
-    if(($routeParams.id_album_edit || $routeParams.id_album) && $scope.user) {
-        var exists_album = false;
         var key_album;
+
+        if(($routeParams.id_album_edit || $routeParams.id_album) && $scope.user) {
+        var exists_album = false;
         var id_album = $routeParams.id_album?$routeParams.id_album:$routeParams.id_album_edit;
         for(var key in $scope.user.albums){
             if(id_album == $scope.user.albums[key].id){
@@ -108,7 +109,6 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
 
             if($scope.user){
-                var key_album;
                 for(var key in $scope.user.albums){
                     if($routeParams.id_album == $scope.user.albums[key].id){
                         key_album = key;

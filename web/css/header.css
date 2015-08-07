@@ -387,7 +387,40 @@ p[contenteditable]{
     color: #6096b9!important;
 }
 
+.click_class:before{
+    -webkit-animation: blink1 1s linear infinite;
+    animation: blink1 1s linear infinite;
+    animation-iteration-count: 1;
+}
+
 .no_like:before{
     text-shadow: #6096b9 1px 0px, #6096b9 1px 1px, #6096b9 0px 1px, #6096b9 -1px 1px, #6096b9 -1px 0px, #6096b9 -1px -1px, #6096b9 0px -1px, #6096b9 1px -1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px;
     color: #EAE9E3;
+}
+
+@-webkit-keyframes blink1 {
+    0% {
+        opacity: 1;
+        color: #6096b9;
+        text-shadow: #6096b9 1px 0px, #6096b9 1px 1px, #6096b9 0px 1px, #6096b9 -1px 1px, #6096b9 -1px 0px, #6096b9 -1px -1px, #6096b9 0px -1px, #6096b9 1px -1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px;
+    }
+    99% {
+        opacity: 0;
+        color: #6096b9;
+        text-shadow: #6096b9 5px 0px, #6096b9 5px 5px, #6096b9 0px 5px, #6096b9 -1px 5px, #6096b9 -1px 0px, #6096b9 -1px -1px, #6096b9 0px -1px, #6096b9 5px -1px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px;
+    }
+    100% { font-size: 1em; opacity: 1; color: #6096b9; }
+}
+@keyframes blink1 {
+    0% {
+        opacity: 1;
+        color: #6096b9;
+        text-shadow: #6096b9 1px 0px, #6096b9 1px 1px, #6096b9 0px 1px, #6096b9 -1px 1px, #6096b9 -1px 0px, #6096b9 -1px -1px, #6096b9 0px -1px, #6096b9 1px -1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px;
+    }
+    99% {
+        opacity: 0;
+        color: #6096b9;
+        text-shadow: #6096b9 5px 0px, #6096b9 5px 5px, #6096b9 0px 5px, #6096b9 -1px 5px, #6096b9 -1px 0px, #6096b9 -1px -1px, #6096b9 0px -1px, #6096b9 5px -1px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px, #6096b9 0 0 5px;
+    }
+    100% { font-size: 1em; opacity: 1; color: #6096b9; }
 }
