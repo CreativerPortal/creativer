@@ -188,6 +188,12 @@ fos_elastica:
         default: { host: localhost, port: 9200 }
     indexes:
         app:
+            settings:
+                index:
+                    analysis:
+                        analyzer:
+                            my_analyzer:
+                                type: snowball
             types:
                 user:
                     mappings:
@@ -203,4 +209,25 @@ fos_elastica:
                         provider: ~
                         listener:
                             immediate: ~
+                        finder: ~
+                post_baraholka:
+                    mappings:
+                        id: ~
+                        img: ~
+                        name: ~
+                        description: ~
+                        full_description: ~
+                        price: ~
+                        categories_baraholka:
+                            type: "object"
+                            properties:
+                                id:
+                                    index: not_analyzed
+                                name:
+                                    type: string
+                                    index: not_analyzed
+                    persistence:
+                        driver: orm
+                        model: Creativer\FrontBundle\Entity\PostBaraholka
+                        provider: ~
                         finder: ~

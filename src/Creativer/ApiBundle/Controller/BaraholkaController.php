@@ -135,6 +135,8 @@ class BaraholkaController extends Controller
         $query = $query->getQuery();
 
 
+        $nameCategory = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find($category_id);
+
 
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
@@ -146,7 +148,8 @@ class BaraholkaController extends Controller
         $posts = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
-            'totalCount' => $pagination->getTotalItemCount());
+            'totalCount' => $pagination->getTotalItemCount(),
+            'nameCategory' => $nameCategory->getName());
 
         $posts = array('posts' => $posts);
 
@@ -605,5 +608,66 @@ class BaraholkaController extends Controller
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/search_posts_baraholka_by_text")
+     * @View()
+     */
+    public function searchPostsBaraholkaByTextAction()
+    {
+        $category_id = $this->get('request')->request->get('category_id');
+        $search_text = $this->get('request')->request->get('search_text');
+        $searchInCategory = $this->get('request')->request->get('searchInCategory');
+
+
+        $post_baraholka = $this->container->get('fos_elastica.finder.app.post_baraholka');
+        $boolQuery = new \Elastica\Query\Bool();
+
+        $fieldQuery = new \Elastica\Query\Match();
+        $fieldQuery->setFieldQuery('full_description', $search_text);
+        $boolQuery->addShould($fieldQuery);
+
+        $fieldQuery = new \Elastica\Query\Match();
+        $fieldQuery->setFieldQuery('description', $search_text);
+        $boolQuery->addShould($fieldQuery);
+
+        $fieldQuery = new \Elastica\Query\Match();
+        $fieldQuery->setFieldQuery('name', $search_text);
+        $boolQuery->addShould($fieldQuery);
+
+
+
+        if($category_id != 1000){
+            $categoryQuery = new \Elastica\Filter\Terms();
+            $categoryQuery->setTerms('categories_baraholka.id', array($category_id));
+
+            $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $categoryQuery);
+            $results = $post_baraholka->find($filteredQuery);
+        }else{
+            $results = $post_baraholka->find($fieldQuery);
+        }
+
+
+
+        $results = array('posts' => $results, 'searchInCategory' => $searchInCategory);
+
+        $serializer = $this->container->get('jms_serializer');
+        $posts = $serializer
+            ->serialize(
+                $results,
+                'json',
+                SerializationContext::create()
+                    ->setGroups(array('getPostsByCategory'))
+            );
+
+
+        $response = new Respon($posts);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+
+
+
     }
 }

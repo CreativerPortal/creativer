@@ -1,5 +1,5 @@
 angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.socket', 'service.chat'])
-    .controller('baraholkaCtrl',['$window', '$scope', '$rootScope', '$location', 'baraholkaService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,baraholkaService,$routeParams, FileUploader, socket, chat) {
+    .controller('baraholkaCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'baraholkaService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,baraholkaService,$routeParams, FileUploader, socket, chat) {
 
 
         if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
@@ -141,12 +141,13 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                     new24:$rootScope.new24,
                     post_category_id: $rootScope.post_category_id
                 }).success(function (data) {
-                    $scope.posts = data.posts.items;
-                    $scope.posts_page = data.posts;
+                    $scope.old_posts = $scope.posts = data.posts.items;
+                    $scope.old_posts_page = $scope.posts_page = data.posts;
+                    $scope.old_nameCategory = $scope.nameCategory = data.posts.nameCategory;
 
-                    $scope.pages = [];
-                    $scope.pages[0] = $scope.posts_page.currentPageNumber;
-                    $scope.currentPage = $scope.posts_page.currentPageNumber;
+                    $scope.old_pages = $scope.pages = [];
+                    $scope.old_pages[0] = $scope.pages[0] = $scope.posts_page.currentPageNumber;
+                    $scope.old_currentPage = $scope.currentPage = $scope.posts_page.currentPageNumber;
                     var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
                     length--;
                     while(length > 0){
@@ -166,6 +167,68 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             }
 
         });
+
+
+        $scope.$watch("searchInCategory", function(){
+
+            var text = $scope.searchInCategory;
+
+            if($scope.searchInCategory == ""){
+                $scope.search = false;
+                $scope.posts = $scope.old_posts;
+                $scope.posts_page = $scope.old_posts_page;
+                $scope.nameCategory = $scope.old_nameCategory;
+
+                $scope.pages = [];
+                $scope.pages[0] = $scope.old_pages[0];
+                $scope.currentPage = $scope.old_currentPage;
+            }
+
+            $timeout(function() {
+                if(($scope.searchInCategory == text && text != undefined && text != '') || (text && text.length > 0 && $scope.searchInCategory == 0)){
+                    baraholkaService.searchPostsBaraholkaByText({category_id:$routeParams.id_category, search_text: $scope.searchInCategory}).success(function (data) {
+                        if(text == $scope.searchInCategory) {
+                            $scope.search = true;
+                            $scope.posts = data.posts;
+                            $scope.posts_page = null;
+                            $scope.pages = [];
+                        }
+                    });
+                }
+            }, 1000);
+
+        })
+
+
+        $scope.$watch("searchInBaraholka", function(){
+
+            var text = $scope.searchInBaraholka;
+
+            if($scope.searchInBaraholka == ""){
+                $scope.search = false;
+                $scope.posts = $scope.old_posts;
+                $scope.posts_page = $scope.old_posts_page;
+                $scope.nameCategory = $scope.old_nameCategory;
+
+                $scope.pages = [];
+                $scope.pages[0] = $scope.old_pages[0];
+                $scope.currentPage = $scope.old_currentPage;
+            }
+
+            $timeout(function() {
+                if(($scope.searchInBaraholka == text && text != undefined && text != '') || (text && text.length > 0 && $scope.searchInBaraholka == 0)){
+                    baraholkaService.searchPostsBaraholkaByText({category_id:1000, search_text: $scope.searchInBaraholka}).success(function (data) {
+                        if(text == $scope.searchInBaraholka){
+                            $scope.search = true;
+                            $scope.posts = data.posts;
+                            $scope.posts_page = null;
+                            $scope.pages = [];
+                        }
+                    });
+                }
+            }, 1000);
+
+        })
 
         // UPLOAD
 

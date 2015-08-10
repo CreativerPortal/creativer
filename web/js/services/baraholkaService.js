@@ -186,6 +186,18 @@ angular
                         },
                         data: data
                     });
+                },
+
+                searchPostsBaraholkaByText: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'search_posts_baraholka_by_text',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
 
             };

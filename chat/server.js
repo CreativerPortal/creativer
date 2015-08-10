@@ -3,6 +3,7 @@ var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongo = require('mongodb').MongoClient;
 var mysql = require('mysql');
+var fs = require('fs');
 
 db_connect = "mongodb://127.0.0.1:27017/local";
 
@@ -16,6 +17,11 @@ var connection = mysql.createConnection({
 });
 
 process.on('uncaughtException', function (processError) {
+    var stream = fs.createWriteStream("errors.txt");
+    stream.once('open', function(fd) {
+        stream.write(processError.stack);
+        stream.end();
+    });
     //console.log(processError.stack);
 });
 

@@ -179,10 +179,12 @@ textarea {
 .slid__menu label{
     vertical-align: middle;
     cursor: pointer;
+    margin-bottom: 0px;
 }
 
 .baraholka__checkbox + label{
-    line-height: 4em;
+    line-height: 3.6em;
+    margin-bottom: 0px;
 }
 
 .slid__menu input[type=checkbox]{
@@ -190,7 +192,12 @@ textarea {
 }
 
 .baraholka__checkbox:checked + .baraholka__label{
-    color: #000000!important;
+    color: #22a60e !important;
+}
+
+.baraholka__checkbox:checked + .baraholka__label:before{
+    font-family: 'Glyphicons Halflings';
+    content: "\e013";
 }
 
 .cities__select{
