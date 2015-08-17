@@ -51,6 +51,28 @@ angular
                         },
                         data: data
                     });
+                },
+                searchProducts: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'search_products',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                searchServices: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'search_services',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);

@@ -666,8 +666,5 @@ class BaraholkaController extends Controller
         $response = new Respon($posts);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
-
-
-
     }
 }

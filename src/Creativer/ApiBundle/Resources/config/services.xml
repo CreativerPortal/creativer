@@ -12,6 +12,9 @@
         </service>
         <service id="jms_serializer.unserialize_object_constructor" class="%jms_serializer.unserialize_object_constructor.class%" public="false" />
         <service id="jms_serializer.object_constructor" alias="jms_serializer.unserialize_object_constructor" public="false" />
+
+        <!--<service id="creativer.listener.custom_property" class="Creativer\ApiBundle\Event\CustomPropertyListener" />-->
+
     </services>
 
 </container>

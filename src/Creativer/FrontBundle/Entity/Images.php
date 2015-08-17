@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\MaxDepth;
 
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Creativer\FrontBundle\Repository\ImagesRepository")
  * @ORM\Table(name="images")
  * @JMS\ExclusionPolicy("all")
  */
@@ -98,7 +98,6 @@ class Images
 
     }
     
-
 
     /**
      * Get id

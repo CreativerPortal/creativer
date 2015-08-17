@@ -1,0 +1,6 @@
+Error: Connection lost: The server closed the connection.
+    at Protocol.end (/var/www/creativer/chat/node_modules/mysql/lib/protocol/Protocol.js:103:13)
+    at Socket.<anonymous> (/var/www/creativer/chat/node_modules/mysql/lib/Connection.js:102:28)
+    at Socket.emit (events.js:129:20)
+    at _stream_readable.js:908:16
+    at process._tickCallback (node.js:355:11)

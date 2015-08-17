@@ -192,8 +192,33 @@ fos_elastica:
                 index:
                     analysis:
                         analyzer:
-                            my_analyzer:
-                                type: snowball
+                            custom_index_analyzer:
+                                type: custom
+                                tokenizer: nGram
+                                filter   : [stopwords, app_ngram, asciifolding, lowercase, snowball, worddelimiter]
+                            custom_search_analyzer:
+                                type: custom
+                                tokenizer: standard
+                                filter   : [stopwords, app_ngram, asciifolding, lowercase, snowball, worddelimiter]
+                        tokenizer:
+                            nGram:
+                                type:     "nGram"
+                                min_gram: 2
+                                max_gram: 20
+                        filter:
+                            snowball:
+                                type:     snowball
+                                language: [English, Russian]
+                            app_ngram:
+                                type: "nGram"
+                                min_gram: 2
+                                max_gram: 20
+                            worddelimiter :
+                                 type: word_delimiter
+                            stopwords:
+                                 type:      stop
+                                 stopwords: [_french_]
+                                 ignore_case : true
             types:
                 user:
                     mappings:
@@ -201,9 +226,6 @@ fos_elastica:
                         lastName: ~
                         email: ~
                     persistence:
-                        # the driver can be orm, mongodb or propel
-                        # listener and finder are not supported by
-                        # propel and should be removed
                         driver: orm
                         model: Creativer\FrontBundle\Entity\User
                         provider: ~
@@ -213,21 +235,119 @@ fos_elastica:
                 post_baraholka:
                     mappings:
                         id: ~
-                        img: ~
-                        name: ~
-                        description: ~
-                        full_description: ~
+                        img:
+                        name:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        description:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        full_description:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
                         price: ~
                         categories_baraholka:
                             type: "object"
                             properties:
                                 id:
-                                    index: not_analyzed
                                 name:
                                     type: string
-                                    index: not_analyzed
                     persistence:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\PostBaraholka
                         provider: ~
                         finder: ~
+#                categories:
+#                    mappings:
+#                        id: ~
+#                    persistence:
+#                        driver: orm
+#                        model: Creativer\FrontBundle\Entity\Categories
+#                        provider: ~
+#                        finder: ~
+                album:
+                    mappings:
+                        id: ~
+                        name:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        description:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        categories:
+                            type: "nested"
+                            properties:
+                                id: ~
+                    persistence:
+                        driver: orm
+                        model: Creativer\FrontBundle\Entity\Albums
+                        provider: ~
+                        finder: ~
+                images:
+                    mappings:
+                        id: ~
+                        text:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        name: ~
+                        id_album:
+                            property_path: "album.id"
+                        name_album:
+                            property_path: "album.name"
+                        album.description:
+                            property_path: "album.description"
+                        id_user:
+                            property_path: "album.user.id"
+                        username:
+                            property_path: "album.user.username"
+                        lastname:
+                            property_path: "album.user.lastname"
+                        album:
+                            type: "nested"
+                            properties:
+                                id: ~
+                                name:
+                                    search_analyzer: custom_search_analyzer
+                                    index_analyzer: custom_index_analyzer
+                                    type: string
+                                description:
+                                    search_analyzer: custom_search_analyzer
+                                    index_analyzer: custom_index_analyzer
+                                    type: string
+                                categories:
+                                    type: "nested"
+                                    properties:
+                                        id: ~
+                                user:
+                                    type: "object"
+                                    properties:
+                                        id: ~
+                                        username: ~
+                                        lastname: ~
+                    _parent:
+                        type: album
+                        property: album
+                        identifier: id
+                    persistence:
+                        driver: orm
+                        model: Creativer\FrontBundle\Entity\Images
+                        provider: ~
+                        finder: ~
+#                images:
+#                    mappings:
+#                        id:
+#                            property_path: id
+#                    persistence:
+#                        identifier: "id"
+#                        elastica_to_model_transformer:
+#                            ignore_missing: true
+#                        driver: orm
+#                        model: Creativer\FrontBundle\Entity\Images
+#                        provider:
+#                            query_builder_method: searchCatalogProduct

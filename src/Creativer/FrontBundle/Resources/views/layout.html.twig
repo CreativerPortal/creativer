@@ -19,7 +19,7 @@
     <header class="header">
 
         <div class="row">
-            <div class="col-sm-3 col-md-offset-1 fiveMinuts padding-left_0">
+            <div class="col-sm-3 col-sm-offset-1 fiveMinuts padding-left_0">
                 <a href="{{ path('creativer_front_main') }}" class="btn button_header_09 text-left">
                     <span>На главную</span>
                 </a>
@@ -28,7 +28,7 @@
                 </a>
             </div>
 
-            <div class="col-sm-4 col-md-offset-3 fiveMinuts">
+            <div class="col-sm-4 col-sm-offset-3 fiveMinuts">
                 <a href="#/feedback" class="btn button_header_09 right">
                     <span>Обратная связь</span>
                 </a>
@@ -47,14 +47,14 @@
         </div>
 
         <div class="row margin-top_5">
-            <div class="col-sm-2 col-sm-offset-1">
+            <div class="col-sm-3 col-sm-offset-1">
                 <div class="header__search-border left"><input class="header__search fiveMinuts" placeholder="Что ищем?"/></div>
-                <div class="header__search-button">
+                <div class="header__search-button left">
                     <img  src="/var/www/creativer/web/img/search_button.png" alt="поиск" />
                 </div>
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-sm-6">
                 <a href="{{ path('person') }}" class="logo">
                     <img src="/var/www/creativer/web/img/logo.png" />
                 </a>
@@ -93,10 +93,6 @@
         {% if is_granted('ROLE_USER') %}
         {% else %}
             <div class="row">
-                <div class="col-sm-3 col-sm-offset-8 fiveMinuts">
-                    <a href="" class="margin-left_10 fs_1-1 text-style">Вспомнить всё</a>
-                    <a href="{{ path("creativer_front_registration") }}" class="margin-left_25 fs_1-1 text-style">Регистрация</a>
-                </div>
 
                 <div class="col-sm-1">
                     {#<img src="/var/www/creativer/web/img/flag_eng.png"  alt="русский"/>#}

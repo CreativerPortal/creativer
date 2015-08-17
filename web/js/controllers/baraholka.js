@@ -178,10 +178,21 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 $scope.posts = $scope.old_posts;
                 $scope.posts_page = $scope.old_posts_page;
                 $scope.nameCategory = $scope.old_nameCategory;
-
                 $scope.pages = [];
                 $scope.pages[0] = $scope.old_pages[0];
                 $scope.currentPage = $scope.old_currentPage;
+                var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
+                length--;
+                while(length > 0){
+                    if($scope.pages[0] > 1){
+                        $scope.pages.unshift($scope.pages[0]-1)
+                        length = length - 1;
+                    }else{
+                        var p = parseInt($scope.pages[$scope.pages.length-1]) + 1;
+                        $scope.pages.push(p);
+                        length = length - 1;
+                    }
+                }
             }
 
             $timeout(function() {
@@ -209,10 +220,21 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 $scope.posts = $scope.old_posts;
                 $scope.posts_page = $scope.old_posts_page;
                 $scope.nameCategory = $scope.old_nameCategory;
-
                 $scope.pages = [];
                 $scope.pages[0] = $scope.old_pages[0];
                 $scope.currentPage = $scope.old_currentPage;
+                var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
+                length--;
+                while(length > 0){
+                    if($scope.pages[0] > 1){
+                        $scope.pages.unshift($scope.pages[0]-1)
+                        length = length - 1;
+                    }else{
+                        var p = parseInt($scope.pages[$scope.pages.length-1]) + 1;
+                        $scope.pages.push(p);
+                        length = length - 1;
+                    }
+                }
             }
 
             $timeout(function() {

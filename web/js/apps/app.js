@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.album.create', 'monospaced.elastic', 'ngAnimate', 'ngImgCrop'])
+var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.album.create', 'monospaced.elastic', 'ngAnimate', 'ngImgCrop'])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.when('/create_album', {
             templateUrl: '/create_album',
@@ -18,6 +18,16 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         $routeProvider.when('/feedback', {
             templateUrl: '/feedback_tmp',
             controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/products/search/:products_search_text?', {
+            templateUrl: '/products_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/services/search/:services_search_text?', {
+            templateUrl: '/services_tmp',
+            controller: 'catalogCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/products/:id_products?/:page?', {

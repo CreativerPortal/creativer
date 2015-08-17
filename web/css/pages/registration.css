@@ -43,19 +43,6 @@ body{
     text-decoration: none;
 }
 
-.form-registration label, .form-registration__text{
-    font-weight: 100!important;
-    color: #7d7066;
-}
-
-.form-registration__text-blue{
-    color: #6096b9!important;
-    cursor: pointer;
-}
-
-.form-registration__text-blue a{
-    text-decoration: underline;
-}
 
 .form-registration input{
     background-color: #eae9e3;
@@ -66,22 +53,6 @@ body{
     margin-top: 5px;
 }
 
-.form-registration .condition{
-    display: block;
-    height: 16px;
-    width: 16px;
-    outline: 1px dashed #827972;
-    border: 3px solid #eae9e3;
-}
-
-.condition{
-    cursor: pointer;
-}
-
-#condition:checked ~ label{
-    background-color: #e9724c;
-    padding: 3px;
- }
 
 .form-registration__submit{
     padding: 2px 15px;

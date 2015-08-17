@@ -29,7 +29,6 @@ input:focus,textarea:focus,select:focus{
     border: none;
     position: absolute;
     top: -55px;
-    left: 95px;
 }
 
 .header__search{
@@ -69,6 +68,53 @@ input:focus,textarea:focus,select:focus{
     width: 112px;
     height: 28px;
     border-radius: 3px 3px 5px 6px;
+}
+
+.form-registration label, .form-registration__text{
+    font-weight: 100!important;
+    color: #7d7066;
+}
+
+.form-registration__text-blue{
+    color: #6096b9!important;
+    cursor: pointer;
+}
+
+.form-registration__text-blue a{
+    text-decoration: underline;
+}
+
+.form-registration__text .condition{
+    display: block;
+    height: 16px;
+    width: 16px;
+    outline: 1px dashed #827972;
+    border: 3px solid #eae9e3;
+}
+
+
+.condition{
+    cursor: pointer;
+}
+
+#condition:checked ~ label{
+    background-color: #e9724c;
+    padding: 3px;
+}
+
+#condition_people:checked ~ label{
+    background-color: #e9724c;
+    padding: 3px;
+}
+
+#condition_product:checked ~ label{
+    background-color: #e9724c;
+    padding: 3px;
+}
+
+#condition_service:checked ~ label{
+    background-color: #e9724c;
+    padding: 3px;
 }
 
 .form-auth__buttom{
@@ -368,16 +414,16 @@ p[contenteditable]{
     vertical-align: middle;
     line-height: 51px;
     text-align: center;
-    -webkit-animation: blink1 3s linear infinite;
-    animation: blink1 3s linear infinite;
+    -webkit-animation: error 3s linear infinite;
+    animation: error 3s linear infinite;
 }
 
-@-webkit-keyframes blink1 {
+@-webkit-keyframes error {
     0% { color: rgba(255, 255, 255, 1); }
     50% { color: rgba(255, 255, 255, 0.2); }
     100% { color: rgba(255, 255, 255, 1); }
 }
-@keyframes blink1 {
+@keyframes error {
     0% { color: rgba(255, 255, 255, 1); }
     50% { color: rgba(255, 255, 255, 0.2); }
     100% { color: rgba(255, 255, 255, 1); }

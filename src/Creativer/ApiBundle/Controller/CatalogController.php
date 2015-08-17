@@ -78,6 +78,8 @@ class CatalogController extends Controller
         $category = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
         $parentId = $this->container->getParameter('category_products');
 
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->searchCatalogProduct();
+
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
             ->createQueryBuilder('e')
             ->addSelect('children')
@@ -356,4 +358,91 @@ class CatalogController extends Controller
     }
 
 
+    /**
+     * @return array
+     * @Post("/v1/search_products")
+     * @View()
+     */
+    public function searchProductsAction()
+    {
+        $search_text = $this->get('request')->request->get('search_text');
+
+        $products = $this->container->get('fos_elastica.finder.app.images');
+
+
+        $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>1000));
+        $items_id = [];
+
+        $i = 0;
+        while(isset($items[$i])){
+            if(!$items[$i]->getChildren()->isEmpty()){
+                $childs = $items[$i]->getChildren();
+
+                foreach($childs as $k => $v) {
+                    array_push($items, $childs[$k]);
+                    array_push($items_id, $childs[$k]->getId());
+                }
+            }
+            $i++;
+        }
+
+
+        $keywordQuery = new \Elastica\Query\QueryString();
+        $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
+
+//        $boolQuery->addShould($keywordQuery);
+
+//        $filter = new \Elastica\Filter\Terms();
+//        $filter->setTerms('album.categories.id', array(86));
+
+        $optionKeyTerm = new \Elastica\Filter\Terms();
+        $optionKeyTerm->setTerms('album.categories.id',  array(86,50));
+
+        $nested = new \Elastica\Filter\Nested();
+        $query = new \Elastica\Filter\Query();
+        $nested->setQuery($keywordQuery);
+        $nested->setFilter($optionKeyTerm);
+        $nested->setPath('album.categories');
+
+
+        $posts = $products->findHybrid($nested);
+
+
+        foreach ($posts as $hybridResult) {
+
+            $results[] = $hybridResult->getResult()->getHit()["_source"];
+        }
+        $products = array('products' => array('items' => $results));
+
+        return $products;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/search_services")
+     * @View()
+     */
+    public function searchServicesAction()
+    {
+        $search_text = $this->get('request')->request->get('search_text');
+        $searchInCategory = $this->get('request')->request->get('searchInCategory');
+
+        $products = $this->container->get('fos_elastica.finder.app.images');
+
+        $keywordQuery = new \Elastica\Query\QueryString();
+        $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
+
+        $query = new \Elastica\Query();
+        $query->setQuery($keywordQuery);
+
+        $posts = $products->findHybrid($query);
+
+        foreach ($posts as $hybridResult) {
+
+            $results[] = $hybridResult->getResult()->getHit()["_source"];
+        }
+        $products = array('services' => array('items' => $results));
+
+        return $products;
+    }
 }
