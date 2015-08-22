@@ -444,6 +444,34 @@
 	color: #ffffff;
 }
 
+.event_buttom{
+	background: url("/var/www/creativer/web/img/sprites_advert_min.png") no-repeat;
+}
+
+.event_buttom{
+	background-position: -136.9857940673828px -0.0028533935546875px ;
+	width: 138px;
+	height: 47px;
+	font-size: 0.88em;
+	vertical-align: middle;
+	text-align: center;
+	color: #ffffff;
+	text-decoration: none;
+	line-height: 3.5em;
+}
+
+.event_buttom:hover{
+	background-position: 0 0;
+	width: 138px;
+	height: 47px;
+	font-size: 0.88em;
+	vertical-align: middle;
+	text-align: center;
+	color: #ffffff;
+	text-decoration: none;
+	line-height: 3.5em;
+}
+
 
 /*-------- message button ---------*/
 

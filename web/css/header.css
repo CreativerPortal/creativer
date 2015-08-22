@@ -168,6 +168,18 @@ input:focus,textarea:focus,select:focus{
     width: 100%;
 }
 
+.black_ball{
+    background-color: #4E4745;
+    border-radius: 20px;
+    width: 22px;
+    height: 22px;
+    margin: auto;
+    margin-top: 2px;
+    -webkit-box-shadow: -2px 2px 1px 0px rgba(0,0,0,1)!important;
+    -moz-box-shadow: -2px 2px 1px 0px rgba(0,0,0,1)!important;
+    box-shadow: -2px 2px 1px 0px rgba(0,0,0,1)!important;
+}
+
 .still_label-person{
     position: relative;
     z-index: 2;
@@ -246,6 +258,11 @@ input:focus,textarea:focus,select:focus{
 }
 
 textarea { resize: none; }
+
+select {
+    background-color: rgb(234, 233, 227);
+    border: 1px dashed #827972;
+}
 
 div:focus{
     border: 1px solid #9b8166;
@@ -355,7 +372,7 @@ a:focus{
 .messages__curtain{
     position: absolute;
     z-index: 3;
-    left: -88px;
+    left: -136px;
     width: 350px;
     max-height: 300px;
     display: none;

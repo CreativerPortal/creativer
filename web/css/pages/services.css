@@ -297,6 +297,7 @@ body{
     border-right: 1px dashed #c5c3b4;
     border-radius: 0px 10px 10px 0px;
     height: 150px;
+    overflow: hidden;
 }
 
 .slid__news{

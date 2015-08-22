@@ -130,6 +130,8 @@ parameters:
     path_img_baraholka_original: "/home/baraholka/original/"
     path_img_post_thums: "/home/post/thums/"
     path_img_post_original: "/home/post/original/"
+    path_img_event_thums: "/home/event/thums/"
+    path_img_event_original: "/home/event/original/"
     session_max_idle_time: 1800
     session_handler_redis_save_path: "tcp://localhost:6379"
     jms_serializer.doctrine_proxy_subscriber.class: Creativer\ApiBundle\Event\DoctrineProxySubscriber
@@ -211,7 +213,7 @@ fos_elastica:
                                 language: [English, Russian]
                             app_ngram:
                                 type: "nGram"
-                                min_gram: 2
+                                min_gram: 3
                                 max_gram: 20
                             worddelimiter :
                                  type: word_delimiter
@@ -222,15 +224,15 @@ fos_elastica:
             types:
                 user:
                     mappings:
+                        id: ~
                         username: ~
-                        lastName: ~
-                        email: ~
+                        lastname: ~
+                        avatar: ~
                     persistence:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\User
                         provider: ~
-                        listener:
-                            immediate: ~
+                        listener: ~
                         finder: ~
                 post_baraholka:
                     mappings:
@@ -259,6 +261,7 @@ fos_elastica:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\PostBaraholka
                         provider: ~
+                        listener: ~
                         finder: ~
 #                categories:
 #                    mappings:
@@ -283,10 +286,26 @@ fos_elastica:
                             type: "nested"
                             properties:
                                 id: ~
+                        user:
+                            type: "nested"
+                            properties:
+                                id: ~
+                                username: ~
+                                lastname: ~
+                        images:
+                            type: "nested"
+                            properties:
+                                id: ~
+                                name: ~
+                                text:
+                                    search_analyzer: custom_search_analyzer
+                                    index_analyzer: custom_index_analyzer
+                                    type: string
                     persistence:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\Albums
                         provider: ~
+                        listener: ~
                         finder: ~
                 images:
                     mappings:
@@ -338,6 +357,7 @@ fos_elastica:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\Images
                         provider: ~
+                        listener: ~
                         finder: ~
 #                images:
 #                    mappings:
@@ -351,3 +371,21 @@ fos_elastica:
 #                        model: Creativer\FrontBundle\Entity\Images
 #                        provider:
 #                            query_builder_method: searchCatalogProduct
+fm_elfinder:
+    instances:
+        default:
+            locale: %locale% # defaults to current request locale
+            editor: tinymce4 # other options are tinymce, tinymce4, form, custom and simple
+            fullscreen: true # defaults true, applies to simple and ckeditor editors
+            theme: smoothness # jquery theme
+            include_assets: true # disable if you want to handle loading of the javascript and css assets yourself
+            connector:
+                debug: false # defaults to false
+                roots:       # at least one root must be defined
+                    uploads:
+                        show_hidden: false # defaults to false
+                        driver: LocalFileSystem
+                        path: event_folder
+                        upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
+                        upload_deny: ['all']
+                        upload_max_size: 2M

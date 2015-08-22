@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.album.create', 'monospaced.elastic', 'ngAnimate', 'ngImgCrop'])
+var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngAnimate', 'ngImgCrop','ui.tinymce'])
     .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
         $routeProvider.when('/create_album', {
             templateUrl: '/create_album',
@@ -28,6 +28,11 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         $routeProvider.when('/services/search/:services_search_text?', {
             templateUrl: '/services_tmp',
             controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/people/search/:people_search?', {
+            templateUrl: '/people_tmp',
+            controller: 'peopleCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/products/:id_products?/:page?', {
@@ -73,6 +78,16 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         $routeProvider.when('/edit_fleamarketposting/:id_fleamarketposting', {
             templateUrl: '/edit_fleamarketposting_tmp',
             controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/events', {
+            templateUrl: '/events_tmp',
+            controller: 'eventCtrl',
+            reloadOnSearch: true
+        });
+        $routeProvider.when('/create_event', {
+            templateUrl: '/create_event_tmp',
+            controller: 'eventCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/messages', {

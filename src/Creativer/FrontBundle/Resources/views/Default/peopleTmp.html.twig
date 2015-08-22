@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="/css/pages/personal_page.css">
+<link rel="stylesheet" type="text/css" href="/css/vendor/component.css" />
+
+ <div class="row slid margin-top_25 padding-right_0">
+
+     <div class="col-sm-8">
+        <div class="padding-bottom_30">
+            <a href="#/[[ man.id ]]" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="man in people">
+                <div class="user__avatar-favorit text-center" style="margin: auto;">
+                    <img ng-src="[[ man.avatar ]]">
+                </div>
+                <div class="text-center fs_0-9 lobster">[[ man.username ]]</div>
+                <div class="text-center fs_0-9 lobster">[[ man.lastname ]]</div>
+            </a>
+        </div>
+    </div>
+
+
+    <div class="col-sm-4 filters padding-bottom_30">
+        <div class="row margin-top_20 col-sm-12 user__text">
+            <div class="text-left user__text_bold">Город:</div>
+            <select name="city" class="selectForumId">
+                <option value="Минск" >Минск</option>
+                <option value="Гомель" >Гомель</option>
+                <option value="Витебск" >Витебск</option>
+                <option value="Могилёв" >Могилёв</option>
+                <option value="Брест" >Брест</option>
+                <option value="Гродно" >Гродно</option>
+                <option value="Бобруйск" >Бобруйск</option>
+                <option value="Полоцк" >Полоцк</option>
+                <option value="Орша" >Орша</option>
+                <option value="Мозырь" >Мозырь</option>
+                <option value="Борисов" >Борисов</option>
+                <option value="Бобруйск" >Бобруйск</option>
+                <option value="Речица" >Речица</option>
+                <option value="Слуцк" >Слуцк</option>
+                <option value="Быхов" >Быхов</option>
+                <option value="Горки" >Горки</option>
+                <option value="Городок" >Городок</option>
+                <option value="Добруш" >Добруш</option>
+                <option value="Дзержинск" >Дзержинск</option>
+                <option value="Дубровно" >Дубровно</option>
+                <option value="Жлобин" >Жлобин</option>
+                <option value="Калинковичи" >Калинковичи</option>
+                <option value="Климовичи" >Климовичи</option>
+                <option value="Костюковичи" >Костюковичи</option>
+                <option value="Кричев" >Кричев</option>
+                <option value="Мстиславль" >Мстиславль</option>
+                <option value="Лепель" >Лепель</option>
+                <option value="Осиповичи" >Осиповичи</option>
+                <option value="Петриков" >Петриков</option>
+                <option value="Рогачёв" >Рогачёв</option>
+                <option value="Сенно" >Сенно</option>
+                <option value="Старые Дороги" >Старые Дороги</option>
+                <option value="Чаусы" >Чаусы</option>
+                <option value="Червень" >Червень</option>
+                <option value="Чериков" >Чериков</option>
+                <option value="Шклов" >Шклов</option>
+                <option value="Молодечно" >Молодечно</option>
+                <option value="Узда" >Узда</option>
+            </select>
+        </div>
+
+        <div class="row margin-top_10 col-sm-12 user__text">
+            <div class="text-left user__text_bold">Возраст:</div>
+            <select name="city" class="selectForumId">
+                <option value="Минск" >30</option>
+                <option value="Минск" >29</option>
+            </select>
+        </div>
+    </div>
+
+ </div>

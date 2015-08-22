@@ -26,6 +26,7 @@ class AppKernel extends Kernel
             new Snc\RedisBundle\SncRedisBundle(),
             new SunCat\MobileDetectBundle\MobileDetectBundle(),
             new FOS\ElasticaBundle\FOSElasticaBundle(),
+            new FM\ElfinderBundle\FMElfinderBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'prod'))) {

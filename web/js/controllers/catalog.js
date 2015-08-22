@@ -131,6 +131,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
     if($routeParams.products_search_text){
+        $rootScope.condition = 2;
         catalogService.getProducts({id:$routeParams.id_products}).success(function (data) {
             $rootScope.products = data.products[0].children;
             $rootScope.product = data.product[0];
@@ -139,12 +140,13 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             $scope.items = data.products;
         });
     }else if($routeParams.services_search_text){
+        $rootScope.condition = 3;
         catalogService.getServices({id:$routeParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
         });
         catalogService.searchServices({search_text:$routeParams.services_search_text}).success(function (data) {
-
+            $scope.items = data.products;
         });
     }
 

@@ -396,6 +396,21 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:baraholkaTmp.html.twig', array());
     }
 
+    public function eventsTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:eventsTmp.html.twig', array());
+    }
+
+    public function createEventTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:createEventTmp.html.twig', array());
+    }
+
+    public function peopleTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:peopleTmp.html.twig', array());
+    }
+
     public function fleamarketpostingTmpAction(){
 
         $user = $this->get('security.context')->getToken()->getUser();

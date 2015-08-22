@@ -29,6 +29,17 @@ angular
                         },
                         data: data
                     });
+                },
+                searchPeople: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'search_people',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);

@@ -894,4 +894,26 @@ class PersonController extends Controller
 
         return $response;
     }
+
+    /**
+     * @return array
+     * @Post("/v1/search_people")
+     * @View()
+     */
+    public function searchPeopleAction()
+    {
+        $search_people = $this->get('request')->request->get('people_search');
+
+        $users = $this->container->get('fos_elastica.finder.app.user');
+
+
+        $keywordQuery = new \Elastica\Query\QueryString();
+        $keywordQuery->setQuery("username:".$search_people." OR lastname:".$search_people);
+
+        $people = $users->find($keywordQuery);
+
+        $people = array('people' => $people);
+
+        return $people;
+    }
 }

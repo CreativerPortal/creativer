@@ -71,7 +71,7 @@ body{
 }
 
 .horizontal_line{
-    background-image: url("../../img/horizontal_line.png");
+    background-image: url("/var/www/creativer/web/img/horizontal_line.png");
     background-repeat: repeat-x;
     background-position: 10px;
     height: 10px;

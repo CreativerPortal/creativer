@@ -70,7 +70,7 @@
             <a href="#/feedback" class="btn button_header_09 right">
                 <span>Обратная связь</span>
             </a>
-            <a href="" class="btn button_header_07 right">
+            <a href="#/events" class="btn button_header_07 right">
                 <span>События</span>
             </a>
         </div>
@@ -88,27 +88,27 @@
     <div class="row margin-top_5">
         <div class="col-sm-3 col-sm-offset-1">
             <div class="row">
-                <div class="header__search-border left"><input class="header__search fiveMinuts" placeholder="Что ищем?" ng-model="searchText"/></div>
+                <div class="header__search-border left"><input class="header__search fiveMinuts" placeholder="Что ищем?" ng-model="searchText" ng-click="bySearch = true" ng-keyup="$event.keyCode == 13 && search()"/></div>
                 <div class="header__search-button left" ng-click="search()">
                     <img  src="/var/www/creativer/web/img/search_button.png" alt="поиск" />
                 </div>
             </div>
-            <div class="row fiveMinuts fs_1-2" ng-init="condition=1">
+            <div class="row fiveMinuts fs_1-2" ng-init="condition=1" ng-show="bySearch">
 
                 <div class="form-registration__text left margin-right_10">
-                    <input style="position: absolute; top: -9999px; left: -9999px" id="condition_people" name="condition" type="radio" required="required" value="1" ng-model="condition" ng-checked="condition==1" checked>
+                    <input style="position: absolute; top: -9999px; left: -9999px" id="condition_people" name="condition" type="radio" required="required" value="1" ng-model="$root.condition" ng-checked="$root.condition==1" checked ng-keyup="$event.keyCode == 13 && search()">
                     <label class="condition left" for="condition_people"></label>
                     <label class="margin-left_5 pointer text-white" style="background: none; padding: 0px;" for="condition_people">Люди</label>
                 </div>
 
                 <div class="form-registration__text left margin-right_10">
-                    <input style="position: absolute; top: -9999px; left: -9999px" id="condition_product" name="condition" type="radio" required="required" value="2" ng-model="condition" ng-checked="condition==2">
+                    <input style="position: absolute; top: -9999px; left: -9999px" id="condition_product" name="condition" type="radio" required="required" value="2" ng-model="$root.condition" ng-checked="$root.condition==2" ng-keyup="$event.keyCode == 13 && search()">
                     <label class="condition left" for="condition_product"></label>
                     <label class="margin-left_5 pointer text-white" style="background: none; padding: 0px;" for="condition_product">Продукты</label>
                 </div>
 
                 <div class="form-registration__text left">
-                    <input style="position: absolute; top: -9999px; left: -9999px" id="condition_service" name="condition" type="radio" required="required" value="3" ng-model="condition" ng-checked="condition==3">
+                    <input style="position: absolute; top: -9999px; left: -9999px" id="condition_service" name="condition" type="radio" required="required" value="3" ng-model="$root.condition" ng-checked="$root.condition==3" ng-keyup="$event.keyCode == 13 && search()">
                     <label class="condition left" for="condition_service"></label>
                     <label class="margin-left_5 pointer text-white" style="background: none; padding: 0px;" for="condition_service">Услуги</label>
                 </div>
@@ -123,7 +123,11 @@
         </div>
 
         {% if is_granted('ROLE_USER') %}
-            <div class="messages col-sm-2 margin-top_10 margin-left_30 text-center pointer">
+            <div class="col-sm-1 padding-right_0 text-center">
+                <div class="text-white fiveMinuts black_ball" >25</div>
+                <span class="text-white fiveMinuts">События</span>
+            </div>
+            <div class="messages col-sm-1 padding-right_15 padding-left_0 margin-top_5 text-center pointer">
                 <img class="margin-left_25" ng-class="{background__envelope: $root.new_messages.length }" ng-src="/var/www/creativer/web/img/message_ico.png" alt="сообщения"/>
                     <span class="text-white fiveMinuts margin-left_5" >([[ $root.new_messages.length ]])</span><br>
                 <span class="text-white fiveMinuts">Сообщения</span>
@@ -244,6 +248,7 @@
     <script src="/js/services/baraholkaService.js"></script>
     <script src="/js/services/messagesService.js"></script>
     <script src="/js/services/headerService.js"></script>
+    <script src="/js/services/eventService.js"></script>
     <script src="/js/controllers/header.js"></script>
     <script src="/js/controllers/person.js"></script>
     <script src="/js/controllers/album.js"></script>
@@ -251,6 +256,10 @@
     <script src="/js/controllers/catalog.js"></script>
     <script src="/js/controllers/baraholka.js"></script>
     <script src="/js/controllers/messages.js"></script>
+    <script src="/js/controllers/people.js"></script>
+    <script src="/js/controllers/event.js"></script>
+    <script src="/assets/tinymce-dist/tinymce.js"></script>
+    <script src="/js/angular-ui-tinymce/src/tinymce.js"></script>
     <script src="/js/apps/app.js"></script>
     <script src="/js/elastic.js"></script>
 </div>

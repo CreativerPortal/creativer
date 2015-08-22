@@ -190,6 +190,13 @@
     text-decoration: underline;
 }
 
+.horizontal_line_dashed{
+    background-image: url("/var/www/creativer/web/img/horizontal_line.png");
+    background-repeat: repeat-x;
+    background-position: 10px;
+    height: 10px;
+}
+
 .overflow-hidden{
     overflow: hidden!important;
 }

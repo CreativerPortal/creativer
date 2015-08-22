@@ -1,0 +1,95 @@
+    <link rel="stylesheet" href="/css/pages/events.css">
+
+    <div class="row slid">
+
+        <div class="row margin-top_15">
+            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">События</h3></div>
+
+            <div class="col-sm-2 padding-left_0 margin-top_10">
+                <span>Регион</span>
+                <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Беларусь' ]]</span></label>
+                <input type="checkbox" class="cities-checkbox" id="all_cities">
+                <div class="cities__menu__main">
+                    <div class="cities__background-top"></div>
+                    <div class="cities__background-body">
+                        <ul class="text-white cities__menu fs_1-1 padding-left_0 text-center">
+                            <li ng-repeat="city in post_city">
+                                <label>[[ city.name ]]
+                                    <input type="radio" class="city-radio" name="city" ng-value="[[ city ]]" ng-model="$root.city" ng-click="uncheck($root.city.id)" />
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2 slid__search padding-left_0 margin-top_15">
+                <input placeholder="Поиск в событиях">
+                <button class="slid__slider-button"></button>
+            </div>
+            <a href="#/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
+        </div>
+
+        <div class="horizontal_line_dashed"></div>
+
+        <div class="row slid__list margin-top_10">
+            <div class="col-sm-2">
+                <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">Раздел</h3></div>
+
+
+            </div>
+            <div class="col-sm-10">
+
+                <div class="calendar padding-left_0 padding-right_0"></div>
+                <div class="banner-horizontal margin-top_40 text-center"><img src="/var/www/creativer/web/banner/banner_event.png" /></div>
+
+
+                <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">Раздел</h3></div>
+                <div class="horizontal_line_dashed"></div>
+
+                <div class="row margin-top_10">
+                    <div class="col-sm-12">
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="overflow-hidden container_image_product">
+                                    <img class="" src="/home/album/thums/1439717335_92b1dc6bdd73ee172a6b3b82ab2d22ae.jpg">
+                                </div>
+                                <a href="#/3" class="slid__card__name_user text-left">Встреча художников</a>
+                            </div>
+                            <div class="row">
+                                <div class="overflow-hidden container_image_product">
+                                    <img class="" src="/home/album/thums/1438786360_bd6d6f0b99541b8b3e8a922cea288551.jpg" >
+                                </div>
+                                <a href="#/3" class="slid__card__name_user text-left">Выставка животных</a>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="overflow-hidden container_image_product_center">
+                                <img src="/home/album/original/1438786371_46342fa33d8bd281ef6c4ab1d6791eb3.jpg" />
+                            </div>
+                            <a href="#/3" class="slid__card__name_user text-left">Картины великих людей</a>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="row">
+                                <div class="overflow-hidden container_image_product">
+                                    <img class="" src="/home/album/thums/1438786360_bd6d6f0b99541b8b3e8a922cea288551.jpg" >
+                                </div>
+                                <a href="#/3" class="slid__card__name_user text-left">Картины великих людей</a>
+                            </div>
+                            <div class="row">
+                                <div class="overflow-hidden container_image_product">
+                                    <img class="" src="/home/album/thums/1439844668_406048cd9b49746bd5a8e9dabfe1ec48.jpg" >
+                                </div>
+                                <a href="#/3" class="slid__card__name_user text-left">Выставка камней</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="banner-horizontal margin-top_40 text-center"><img src="/var/www/creativer/web/banner/banner_list.png" /></div>
+            </div>
+        </div>
+
+    </div>
+
+

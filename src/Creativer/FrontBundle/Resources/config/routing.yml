@@ -15,6 +15,10 @@ person:
     path:     /
     defaults: { _controller: CreativerFrontBundle:Default:layout_front }
     methods:  [GET]
+creativer_peopleTmp:
+    path:     /people_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:peopleTmp }
+    methods:  [GET]
 creativer_mainTmp:
     path:     /main_tmp
     defaults: { _controller: CreativerFrontBundle:Default:mainTmp }
@@ -34,6 +38,14 @@ creativer_personTmp:
 creativer_baraholkaTmp:
     path:     /baraholka_tmp
     defaults: { _controller: CreativerFrontBundle:Default:baraholkaTmp }
+    methods:  [GET]
+creativer_eventsTmp:
+    path:     /events_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:eventsTmp }
+    methods:  [GET]
+creativer_create_eventTmp:
+    path:     /create_event_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:createEventTmp }
     methods:  [GET]
 creativer_fleamarketpostingTmp:
     path:     /fleamarketposting_tmp

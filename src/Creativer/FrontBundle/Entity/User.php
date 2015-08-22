@@ -79,6 +79,13 @@ class User implements UserInterface, \Serializable
     private $albums;
 
     /**
+     * @ORM\ManyToMany(targetEntity="Events", inversedBy="users")
+     * @ORM\JoinTable(name="users_events")
+     */
+    private $events;
+
+
+    /**
      * @JMS\Type("Creativer\FrontBundle\Entity\Posts")
      * @ORM\OneToMany(targetEntity="Posts", mappedBy="user", fetch="EAGER")
      **/
@@ -238,6 +245,7 @@ class User implements UserInterface, \Serializable
         $this->date = new \DateTime();
         $this->favoritsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFavorits = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events = new \Doctrine\Common\Collections\ArrayCollection();
 
     }
 
@@ -955,5 +963,38 @@ class User implements UserInterface, \Serializable
     public function getWall()
     {
         return $this->wall;
+    }
+
+    /**
+     * Add events
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $events
+     * @return User
+     */
+    public function addEvent(\Creativer\FrontBundle\Entity\Events $events)
+    {
+        $this->events[] = $events;
+
+        return $this;
+    }
+
+    /**
+     * Remove events
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $events
+     */
+    public function removeEvent(\Creativer\FrontBundle\Entity\Events $events)
+    {
+        $this->events->removeElement($events);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvents()
+    {
+        return $this->events;
     }
 }

@@ -11,7 +11,5 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-person:
-    type: rest
-    resource: Creativer\ApiBundle\Controller\PersonController
-
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"

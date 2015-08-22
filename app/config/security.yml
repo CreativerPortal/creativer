@@ -39,5 +39,7 @@ security:
             #    realm: "Secured Demo Area"
 
     access_control:
+        - { path: ^/efconnect, role: ROLE_USER }
+        - { path: ^/elfinder, role: ROLE_USER }
 #        - { path: ^/registration, roles: IS_AUTHENTICATED_ANONYMOUSLY  }
         #- { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY, requires_channel: https }
