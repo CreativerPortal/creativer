@@ -12,11 +12,17 @@
     "bower_components",
     "test",
     "tests",
-    "app/vendor"
+    "web/vendor"
   ],
   "dependencies": {
-    "angular-bootstrap": "~0.12.1",
+    "angular-bootstrap": "~0.13.3",
     "bootstrap": "~3.3.2",
-    "angular-ui-tinymce": "latest"
+    "angular-ui-tinymce": "latest",
+    "angular-daterangepicker": "~0.1.17",
+    "datetimeRangePicker": "~1.3.0",
+    "angular-route": "~1.4.4",
+    "angular-resource": "~1.4.4",
+    "angular-animate": "~1.4.4",
+    "angular-date-range-picker": "~0.4.15"
   }
 }

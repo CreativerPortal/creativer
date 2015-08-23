@@ -1,6 +1,23 @@
 angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.socket', 'service.chat'])
     .controller('eventCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'eventService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,eventService,$routeParams, FileUploader, socket, chat) {
 
+        $scope.myDatetimeRange = {
+            "date": {
+                "from": "2015-08-23T09:39:27.549Z",
+                "to": "2015-08-23T09:39:27.549Z",
+                "min": null,
+                "max": null
+            },
+            "hasTimeSliders": false,
+            "hasDatePickers": true
+        };
+        $scope.myDatetimeLabels = {
+            date: {
+                from: 'Дата начала события',
+                to: 'Дата конца события'
+            }
+        };
+
 
         eventService.getCity({}).success(function (data) {
             $scope.city = data.city;

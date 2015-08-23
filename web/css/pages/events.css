@@ -84,7 +84,7 @@ body{
 .calendar{
     background-image: url("/var/www/creativer/web/img/calendar_board.png");
     height: 145px;
-    width: 759px;
+    width: 755px;
 }
 
 .container_image_product {
@@ -250,4 +250,18 @@ select {
     height: 35px;
     background-color: rgb(234, 233, 227);
     border: 1px dashed #827972;
+}
+
+.well {
+    background-color: #EAE9E3!important;
+    border: none!important;
+    box-shadow: none!important;
+}
+
+.clean-calendar > table thead tr:first-child{
+    background-color: #EAE9E3!important;
+}
+
+.clean-calendar > table .text-info {
+    color: #2025A5 !important;
 }

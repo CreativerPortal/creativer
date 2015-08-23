@@ -1,8 +1,10 @@
     <link rel="stylesheet" href="/css/pages/events.css">
+    <link rel="stylesheet" type="text/css" href="/vendor/datetimeRangePicker/range-picker.css" />
+    <link rel="stylesheet" type="text/css" href="/vendor/bootstrap-daterangepicker/daterangepicker-bs3.css" />
 
     <div class="row slid">
 
-        <form class="col-sm-10 padding-left_0" name="baraholka_form">
+        <div class="col-sm-10 padding-left_0">
 
             {#<div class="row margin-top_20">#}
                 {#<div class="col-sm-2">Раздел:</div>#}
@@ -40,7 +42,6 @@
                     <div ng-disabled="uploader.isUploading" class="button_favorites early-message text-center pointer left"><span class="middle">Выбрать</span></div> <span class="margin-left_10">главное изображение события</span>
                 </label>
             </div>
-
             <div class="row margin-left_0">
                 <div class="upload__element" ng-repeat="item in uploader.queue" style="float: left;">
                     <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
@@ -69,7 +70,9 @@
                 </div>
             </div>
 
-            <div class="row margin-top_20">
+            <div rg-range-picker="myDatetimeRange" collapse="collapseDirective" labels="myDatetimeLabels"></div>
+
+            <div class="row">
                 <div class="col-sm-12">
                     <textarea ui-tinymce="tinymceOptions" ng-model="tinymceModel"></textarea>
                 </div>
@@ -84,7 +87,7 @@
                 </button>
             </div>
 
-        </form>
+        </div>
 
     </div>
 

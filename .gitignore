@@ -7,6 +7,7 @@ app_dev/vendor
 puphpet
 Vagrantfile
 /web/bundles/
+/web/vendor/
 /web/img/album/
 /app/bootstrap.php.cache
 /app/cache/*
@@ -16,5 +17,7 @@ Vagrantfile
 !app/logs/.gitkeep
 /build/
 /vendor/
+/app/vendor/*
+app/vendor/*
 /bin/
 /composer.phar
