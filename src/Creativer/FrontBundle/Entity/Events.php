@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="events")
  * @JMS\ExclusionPolicy("all")
  */
@@ -27,9 +27,10 @@ class Events
 
     /**
      * @JMS\Expose
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="events")
-     */
-    private $users;
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="events", fetch="EAGER")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     **/
+    private $user;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
@@ -44,6 +45,23 @@ class Events
      */
     private $name;
 
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\Events")
+     * @ORM\ManyToOne(targetEntity="EventSections", inversedBy="events")
+     * @ORM\JoinColumn(name="event_sections_id", referencedColumnName="id")
+     * @JMS\Groups({"getPostById"})
+     **/
+    private $event_sections;
+
+    /**
+     * @JMS\Expose
+     * @ORM\ManyToOne(targetEntity="EventCity", inversedBy="event")
+     * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     * @JMS\Groups({"getCity"})
+     **/
+    private $event_city;
+
 
     /**
      * @JMS\Expose
@@ -54,7 +72,7 @@ class Events
 
     /**
      * @JMS\Expose
-     * @var \DateTime $date
+     * @var \DateTime $start_date
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
@@ -63,7 +81,7 @@ class Events
 
     /**
      * @JMS\Expose
-     * @var \DateTime $date
+     * @var \DateTime $end_date
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
@@ -88,7 +106,10 @@ class Events
     public function __construct()
     {
         $this->date = new \DateTime();
+        $this->start_date = new \DateTime();
+        $this->end_date = new \DateTime();
     }
+
 
 
     /**
@@ -263,35 +284,71 @@ class Events
     }
 
     /**
-     * Add users
+     * Set user
      *
-     * @param \Creativer\FrontBundle\Entity\User $users
+     * @param \Creativer\FrontBundle\Entity\User $user
      * @return Events
      */
-    public function addUser(\Creativer\FrontBundle\Entity\User $users)
+    public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
     {
-        $this->users[] = $users;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Remove users
+     * Get user
      *
-     * @param \Creativer\FrontBundle\Entity\User $users
+     * @return \Creativer\FrontBundle\Entity\User 
      */
-    public function removeUser(\Creativer\FrontBundle\Entity\User $users)
+    public function getUser()
     {
-        $this->users->removeElement($users);
+        return $this->user;
     }
 
     /**
-     * Get users
+     * Set event_sections
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @param \Creativer\FrontBundle\Entity\EventSections $eventSections
+     * @return Events
      */
-    public function getUsers()
+    public function setEventSections(\Creativer\FrontBundle\Entity\EventSections $eventSections = null)
     {
-        return $this->users;
+        $this->event_sections = $eventSections;
+
+        return $this;
+    }
+
+    /**
+     * Get event_sections
+     *
+     * @return \Creativer\FrontBundle\Entity\EventSections 
+     */
+    public function getEventSections()
+    {
+        return $this->event_sections;
+    }
+
+    /**
+     * Set event_city
+     *
+     * @param \Creativer\FrontBundle\Entity\EventCity $eventCity
+     * @return Events
+     */
+    public function setEventCity(\Creativer\FrontBundle\Entity\EventCity $eventCity = null)
+    {
+        $this->event_city = $eventCity;
+
+        return $this;
+    }
+
+    /**
+     * Get event_city
+     *
+     * @return \Creativer\FrontBundle\Entity\EventCity 
+     */
+    public function getEventCity()
+    {
+        return $this->event_city;
     }
 }

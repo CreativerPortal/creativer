@@ -78,10 +78,11 @@ class User implements UserInterface, \Serializable
      **/
     private $albums;
 
+
     /**
-     * @ORM\ManyToMany(targetEntity="Events", inversedBy="users")
-     * @ORM\JoinTable(name="users_events")
-     */
+     * @JMS\Type("Creativer\FrontBundle\Entity\Events")
+     * @ORM\OneToMany(targetEntity="Events", mappedBy="user", fetch="EAGER")
+     **/
     private $events;
 
 
@@ -689,6 +690,39 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Add events
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $events
+     * @return User
+     */
+    public function addEvent(\Creativer\FrontBundle\Entity\Events $events)
+    {
+        $this->events[] = $events;
+
+        return $this;
+    }
+
+    /**
+     * Remove events
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $events
+     */
+    public function removeEvent(\Creativer\FrontBundle\Entity\Events $events)
+    {
+        $this->events->removeElement($events);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
      * Add posts
      *
      * @param \Creativer\FrontBundle\Entity\Posts $posts
@@ -963,38 +997,5 @@ class User implements UserInterface, \Serializable
     public function getWall()
     {
         return $this->wall;
-    }
-
-    /**
-     * Add events
-     *
-     * @param \Creativer\FrontBundle\Entity\Events $events
-     * @return User
-     */
-    public function addEvent(\Creativer\FrontBundle\Entity\Events $events)
-    {
-        $this->events[] = $events;
-
-        return $this;
-    }
-
-    /**
-     * Remove events
-     *
-     * @param \Creativer\FrontBundle\Entity\Events $events
-     */
-    public function removeEvent(\Creativer\FrontBundle\Entity\Events $events)
-    {
-        $this->events->removeElement($events);
-    }
-
-    /**
-     * Get events
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getEvents()
-    {
-        return $this->events;
     }
 }

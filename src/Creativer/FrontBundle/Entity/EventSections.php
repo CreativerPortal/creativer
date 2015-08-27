@@ -11,36 +11,49 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="categories_events")
+ * @ORM\Table(name="event_sections")
  * @JMS\ExclusionPolicy("all")
  */
-class CategoriesEvents
+class EventSections
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\Groups({"getEventSections"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
+     * @JMS\Groups({"getEventSections"})
      */
     private $name;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="CategoriesEvents", mappedBy="parent")
      * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\EventSections")
+     * @ORM\OneToMany(targetEntity="Events", mappedBy="event_sections")
+     * @ORM\OrderBy({"id" = "DESC"})
+     * @JMS\Groups({"getEventSections"})
+     **/
+    private $events;
+
+    /**
+     * @ORM\OneToMany(targetEntity="EventSections", mappedBy="parent")
+     * @JMS\Expose
+     * @JMS\Groups({"getEventSections"})
      */
     private $children;
 
     /**
-     * @ORM\ManyToOne(targetEntity="CategoriesEvents", inversedBy="children")
+     * @ORM\ManyToOne(targetEntity="EventSections", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @JMS\Expose
+     * @JMS\Groups({"getEventSections"})
      */
     private $parent;
 
@@ -66,7 +79,6 @@ class CategoriesEvents
     }
 
 
-
     /**
      * Get id
      *
@@ -81,7 +93,7 @@ class CategoriesEvents
      * Set name
      *
      * @param string $name
-     * @return CategoriesEvents
+     * @return EventSections
      */
     public function setName($name)
     {
@@ -104,7 +116,7 @@ class CategoriesEvents
      * Set date
      *
      * @param \DateTime $date
-     * @return CategoriesEvents
+     * @return EventSections
      */
     public function setDate($date)
     {
@@ -127,7 +139,7 @@ class CategoriesEvents
      * Set isActive
      *
      * @param integer $isActive
-     * @return CategoriesEvents
+     * @return EventSections
      */
     public function setIsActive($isActive)
     {
@@ -147,12 +159,45 @@ class CategoriesEvents
     }
 
     /**
+     * Add events
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $events
+     * @return EventSections
+     */
+    public function addEvent(\Creativer\FrontBundle\Entity\Events $events)
+    {
+        $this->events[] = $events;
+
+        return $this;
+    }
+
+    /**
+     * Remove events
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $events
+     */
+    public function removeEvent(\Creativer\FrontBundle\Entity\Events $events)
+    {
+        $this->events->removeElement($events);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
      * Add children
      *
-     * @param \Creativer\FrontBundle\Entity\CategoriesEvents $children
-     * @return CategoriesEvents
+     * @param \Creativer\FrontBundle\Entity\EventSections $children
+     * @return EventSections
      */
-    public function addChild(\Creativer\FrontBundle\Entity\CategoriesEvents $children)
+    public function addChild(\Creativer\FrontBundle\Entity\EventSections $children)
     {
         $this->children[] = $children;
 
@@ -162,9 +207,9 @@ class CategoriesEvents
     /**
      * Remove children
      *
-     * @param \Creativer\FrontBundle\Entity\CategoriesEvents $children
+     * @param \Creativer\FrontBundle\Entity\EventSections $children
      */
-    public function removeChild(\Creativer\FrontBundle\Entity\CategoriesEvents $children)
+    public function removeChild(\Creativer\FrontBundle\Entity\EventSections $children)
     {
         $this->children->removeElement($children);
     }
@@ -182,10 +227,10 @@ class CategoriesEvents
     /**
      * Set parent
      *
-     * @param \Creativer\FrontBundle\Entity\CategoriesEvents $parent
-     * @return CategoriesEvents
+     * @param \Creativer\FrontBundle\Entity\EventSections $parent
+     * @return EventSections
      */
-    public function setParent(\Creativer\FrontBundle\Entity\CategoriesEvents $parent = null)
+    public function setParent(\Creativer\FrontBundle\Entity\EventSections $parent = null)
     {
         $this->parent = $parent;
 
@@ -195,7 +240,7 @@ class CategoriesEvents
     /**
      * Get parent
      *
-     * @return \Creativer\FrontBundle\Entity\CategoriesEvents 
+     * @return \Creativer\FrontBundle\Entity\EventSections 
      */
     public function getParent()
     {

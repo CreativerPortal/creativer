@@ -100,7 +100,8 @@ body{
     position: relative;
     color: inherit;
     cursor: pointer;
-    height: 178px;
+    height: 156px;
+    width: 170px;
 }
 
 .container_image_product_center{
@@ -116,7 +117,9 @@ body{
     position: relative;
     color: inherit;
     cursor: pointer;
-    height: 375px;
+    height: 367px;
+    width: 385px;
+    margin-left: -20px;
 }
 
 .advert_button{
@@ -183,10 +186,6 @@ body{
     text-decoration: none;
 }
 
-.slid__list a:after {
-    content: '\A';
-    white-space: pre;
-}
 
 .cities__select{
     line-height: 3.8em;
@@ -252,6 +251,11 @@ select {
     border: 1px dashed #827972;
 }
 
+textarea {
+    background-color: #eae9e3;
+    border: 1px dashed #827972;
+}
+
 .well {
     background-color: #EAE9E3!important;
     border: none!important;
@@ -264,4 +268,34 @@ select {
 
 .clean-calendar > table .text-info {
     color: #2025A5 !important;
+}
+
+.upload__element{
+    display: inline-block;
+    position: relative;
+}
+
+.upload__element:hover .close_image{
+    display: block;
+}
+
+.main_small_img_event{
+    height: 156px;
+}
+
+.close_image {
+    position: absolute;
+    right: 9px;
+    top: 5px;
+    color: #FFFFFF;
+    background-color: #80abe0;
+    padding: 5px;
+    border-radius: 20px;
+    cursor: pointer;
+    display: none;
+    opacity: 0.8;
+}
+
+.height_36{
+    height: 36px;
 }

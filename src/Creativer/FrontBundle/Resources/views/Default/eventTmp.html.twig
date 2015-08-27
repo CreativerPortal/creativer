@@ -1,0 +1,72 @@
+    <link rel="stylesheet" href="/css/pages/events.css">
+    <link rel="stylesheet" href="/css/vendor/range-picker.css">
+
+    <div class="row slid">
+
+        <div class="row margin-top_15">
+            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">События</h3></div>
+
+            <div class="col-sm-2 padding-left_0 margin-top_10">
+                <span>Регион</span>
+                <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Беларусь' ]]</span></label>
+                <input type="checkbox" class="cities-checkbox" id="all_cities">
+                <div class="cities__menu__main">
+                    <div class="cities__background-top"></div>
+                    <div class="cities__background-body">
+                        <ul class="text-white cities__menu fs_1-1 padding-left_0 text-center">
+                            <li ng-repeat="city in post_city">
+                                <label>[[ city.name ]]
+                                    <input type="radio" class="city-radio" name="city" ng-value="[[ city ]]" ng-model="$root.city" ng-click="uncheck($root.city.id)" />
+                                </label>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-2 slid__search padding-left_0 margin-top_15">
+                <input placeholder="Поиск в событиях">
+                <button class="slid__slider-button"></button>
+            </div>
+            <a href="#/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
+        </div>
+
+        <div class="horizontal_line_dashed"></div>
+
+        <div class="row slid__list margin-top_10">
+            <div class="col-sm-2 padding-left_0">
+
+                <div ng-repeat="children in section">
+                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">[[ children.name ]]</h3></div>
+                    <div ng-repeat="child in children.children"><a href="#/event/[[ child.id ]]">[[ child.name ]]</a></br></div>
+                </div>
+
+
+            </div>
+            <div class="col-sm-10">
+
+                <div class="calendar padding-left_0 padding-right_0"></div>
+                <div class="col-sm-12">
+                    <div class="row"><a class="text-blue text-italic" href="#/events">Вернуться к списку</a></div>
+                    <div class="row"><h2 class="lobster margin-left_0">[[ event.name ]]</h2></div>
+                    <div class="row">
+                        <div class="col-sm-6 padding-left_0 text-gray"><time class="comment_time">[[ event.start_date | date: "dd.MM.yyyy" ]]</time></div>
+                        <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="event.user.id == $root.id_user"><a href="#/edit_event/[[ event.id ]]">Редактировать</a></div>
+                    </div>
+                    <div class="row description margin-top_10">
+                    </div>
+                    <div class="row margin-top_10 text-right padding-5-15-5-15">
+                        <textarea msd-elastic="" class="text-gray right ng-valid ng-dirty ng-valid-parse ng-touched" ng-model="text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 50px; width: 720px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+                    </div>
+                    <div ng-show="text_comment" class="text-right">
+                        <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(text_comment)">Отправить</button>
+                        <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+

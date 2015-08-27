@@ -85,6 +85,11 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
+        $routeProvider.when('/event/:id', {
+            templateUrl: '/event_tmp',
+            controller: 'eventCtrl',
+            reloadOnSearch: true
+        });
         $routeProvider.when('/create_event', {
             templateUrl: '/create_event_tmp',
             controller: 'eventCtrl',
@@ -468,6 +473,7 @@ app.run(function($rootScope, $templateCache, $animate, $timeout) {
 
     $rootScope.$on('$routeChangeStart', function(event, next, current) {
         $templateCache.remove('/fleamarketposting_tmp');
+        $templateCache.remove('/create_event_tmp');
     });
 
     $animate.enabled(false);

@@ -11,32 +11,33 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="post_city")
+ * @ORM\Table(name="event_city")
  * @JMS\ExclusionPolicy("all")
  */
-class PostCity
+class EventCity
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getCategoriesBaraholka", "getPostById", "getCity"})
+     * @JMS\Groups({"getCity"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getCategoriesBaraholka", "getCity"})
+     * @JMS\Groups({"getCity"})
      */
     private $name;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="PostBaraholka", mappedBy="post_city")
+     * @ORM\OneToMany(targetEntity="Events", mappedBy="event_city")
+     * @JMS\Groups({"getCity"})
      **/
-    private $post_baraholka;
+    private $event;
 
     public function __construct()
     {
@@ -59,7 +60,7 @@ class PostCity
      * Set name
      *
      * @param string $name
-     * @return PostCity
+     * @return EventCity
      */
     public function setName($name)
     {
@@ -79,35 +80,35 @@ class PostCity
     }
 
     /**
-     * Add post_baraholka
+     * Add event
      *
-     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
-     * @return PostCity
+     * @param \Creativer\FrontBundle\Entity\Events $event
+     * @return EventCity
      */
-    public function addPostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka)
+    public function addEvent(\Creativer\FrontBundle\Entity\Events $event)
     {
-        $this->post_baraholka[] = $postBaraholka;
+        $this->event[] = $event;
 
         return $this;
     }
 
     /**
-     * Remove post_baraholka
+     * Remove event
      *
-     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
+     * @param \Creativer\FrontBundle\Entity\Events $event
      */
-    public function removePostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka)
+    public function removeEvent(\Creativer\FrontBundle\Entity\Events $event)
     {
-        $this->post_baraholka->removeElement($postBaraholka);
+        $this->event->removeElement($event);
     }
 
     /**
-     * Get post_baraholka
+     * Get event
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getPostBaraholka()
+    public function getEvent()
     {
-        return $this->post_baraholka;
+        return $this->event;
     }
 }

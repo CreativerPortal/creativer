@@ -22,6 +22,7 @@ use Creativer\FrontBundle\Entity\PostImages;
 use Creativer\FrontBundle\Entity\PostCategory;
 use Creativer\FrontBundle\Entity\PostCity;
 use Creativer\FrontBundle\Entity\Posts;
+use Creativer\FrontBundle\Entity\Events;
 use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
 use Imagine\Imagick;
@@ -401,9 +402,39 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:eventsTmp.html.twig', array());
     }
 
+    public function eventTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:eventTmp.html.twig', array());
+    }
+
     public function createEventTmpAction(){
 
-        return $this->render('CreativerFrontBundle:Default:createEventTmp.html.twig', array());
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findBy(array('user'=>$user,'isActive'=>0));
+
+        if(!empty($event)){
+            $event = $event[0];
+        }
+
+        if(empty($event)){
+            $event = new Events();
+            $event->setUser($user);
+            $em->persist($event);
+            $em->flush();
+        }
+
+        $event_id = $event->getId();
+
+        return $this->render('CreativerFrontBundle:Default:createEventTmp.html.twig', array('event_id' => $event_id));
     }
 
     public function peopleTmpAction(){
@@ -874,5 +905,71 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:userInfoTmp.html.twig', array('id' => $id));
     }
 
+    public function uploadImageEventAction(){
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $image = $request->files->get('file');
+
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 2000000000)) {
+                    $originalName = $image->getClientOriginalName();
+                    $file_type = $image->getMimeType();
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+                        //Start Uploading File
+                        $user = $this->get('security.context')->getToken()->getUser();
+                        $em = $this->getDoctrine()->getEntityManager();
+                        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findBy(array('user'=>$user,'isActive'=>0))[0];
+
+                        try {
+                            $imagine = new \Imagine\Imagick\Imagine();
+                            $image_name = time() . "_" . md5($originalName) . '.jpg';
+
+                            $image = $imagine->open($image->getPathname());
+                            $image->save($this->container->getParameter('path_img_event_original') . $image_name);
+
+                            $event->setImg($image_name);
+                            $em->persist($event);
+                            $em->flush();
+
+                            $serializer = $this->container->get('jms_serializer');
+                            $categories = $serializer
+                                ->serialize(
+                                    $event,
+                                    'json',
+                                    SerializationContext::create()
+                                        ->setGroups(array('uploadImageEvent'))
+                                );
+
+                            $response = new Respon($categories);
+                            $response->headers->set('Content-Type', 'application/json');
+                            return $response;
+                        } catch (\Imagine\Exception\Exception $e) {
+                            die("error upload image ".$e);
+                        }
+
+                    } else {
+                        $status = 'failed';
+                        $message = 'Invalid File Type';
+                    }
+                } else {
+                    $status = 'failed';
+                    $message = 'Size exceeds limit';
+                }
+            } else {
+                $status = 'failed';
+                $message = 'File Error';
+            }
+
+            $response = new Respon($message, 500);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        } else {
+            return $this->render('CreativerFrontBundle:Default:createEventTmp.html.twig');
+        }
+
+        return $this->render('CreativerFrontBundle:Default:createEventTmp.html.twig');
+    }
 
 }

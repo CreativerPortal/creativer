@@ -29,7 +29,7 @@ class PostBaraholka
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="post_baraholka", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
@@ -147,7 +147,6 @@ class PostBaraholka
         $this->images_baraholka = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
     }
-    
 
 
     /**
