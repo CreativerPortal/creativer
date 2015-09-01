@@ -95,6 +95,11 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
+        $routeProvider.when('/edit_event/:id_edit', {
+            templateUrl: '/edit_event_tmp',
+            controller: 'eventCtrl',
+            reloadOnSearch: true
+        });
         $routeProvider.when('/messages', {
             templateUrl: '/messages_tmp',
             controller: 'messagesCtrl',

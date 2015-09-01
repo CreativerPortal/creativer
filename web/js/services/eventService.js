@@ -8,21 +8,10 @@ angular
             var url = '/app_dev.php/v1/';
 
             return {
-                getCity: function (data) {
+                getCityAndSections: function (data) {
                     return $http({
                         method: 'POST',
-                        url: url + 'get_city',
-                        headers: {
-                            'Accept': 'application/json',
-                            'Content-Type': 'application/json'
-                        },
-                        data: data
-                    });
-                },
-                getEventSections: function (data) {
-                    return $http({
-                        method: 'POST',
-                        url: url + 'get_event_sections',
+                        url: url + 'get_city_snd_sections',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -56,6 +45,61 @@ angular
                     return $http({
                         method: 'POST',
                         url: url + 'get_event',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                getDatapicker: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_datapicker',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                eventAttend: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'event_attend',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                saveComment: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'save_event_comment',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                saveEditEvent: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'save_edit_event',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                deleteEvent: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'delete_event',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

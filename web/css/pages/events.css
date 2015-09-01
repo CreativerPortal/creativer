@@ -299,3 +299,66 @@ textarea {
 .height_36{
     height: 36px;
 }
+.number_date_31{
+    min-width: 21px;
+    margin: 0px 10px;
+    height: 33px;
+    text-align: center;
+    display: inline-block;
+}
+.number_date_30{
+    min-width: 21px;
+    margin: 0px 12px;
+    height: 33px;
+    text-align: center;
+    display: inline-block;
+}
+.number_date_29{
+    min-width: 21px;
+    margin: 0px 11px;
+    height: 33px;
+    text-align: center;
+    display: inline-block;
+}
+.number_date_28{
+    min-width: 21px;
+    margin: 0px 11px;
+    height: 33px;
+    text-align: center;
+    display: inline-block;
+}
+
+.circle{
+    border-radius: 10px;
+}
+
+.datapicker_circle{
+    background-color: #EC9271;
+    border-radius: 10px;
+    padding: 0px 3px;
+    color: white;
+}
+
+.head_datapicker{
+    height: 50px;
+}
+
+.arrow{
+    width: 16px;
+    color:#EC9271;
+}
+
+.body__datapicker{
+    width: 720px;
+    margin-left: 33px;
+    text-align: center;
+}
+
+.user__avatar-mini-2 {
+    width: 50px;
+    height: 50px;
+    overflow: hidden;
+    border: 3px solid #ffffff;
+    border-radius: 100px;
+    margin-right: 10px
+}

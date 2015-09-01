@@ -38,15 +38,14 @@
 
                 <div ng-repeat="children in section">
                     <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">[[ children.name ]]</h3></div>
-                    <div ng-repeat="child in children.children"><a href="#/event/[[ child.id ]]">[[ child.name ]]</a></br></div>
+                    <div ng-repeat="child in children.children"><a href="#/event/[[ child.id ]]">[[ child.name ]]</a></div>
                 </div>
 
 
             </div>
             <div class="col-sm-10">
 
-                <div class="calendar padding-left_0 padding-right_0"></div>
-                <div class="col-sm-12">
+                <div class="col-sm-12 margin-top_25">
                     <div class="row"><a class="text-blue text-italic" href="#/events">Вернуться к списку</a></div>
                     <div class="row"><h2 class="lobster margin-left_0">[[ event.name ]]</h2></div>
                     <div class="row">
@@ -55,13 +54,45 @@
                     </div>
                     <div class="row description margin-top_10">
                     </div>
-                    <div class="row margin-top_10 text-right padding-5-15-5-15">
-                        <textarea msd-elastic="" class="text-gray right ng-valid ng-dirty ng-valid-parse ng-touched" ng-model="text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 50px; width: 720px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+                    <div class="row text-right" ng-if="!event_attend">
+                        Пойдут [[ count_attend ]] человек. <span class="pointer text-blue" ng-click="eventAttend()">Я пойду!</span>
                     </div>
-                    <div ng-show="text_comment" class="text-right">
-                        <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(text_comment)">Отправить</button>
-                        <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
+                    <div class="row text-right" ng-if="event_attend">
+                        Пойдут [[ count_attend ]] человек. <span class="pointer text-blue" ng-click="eventAttend()">Я передумал идти!</span>
                     </div>
+
+
+
+                    {% if is_granted('ROLE_USER') %}
+                        <div class="row margin-top_30 text-right padding-5-15-5-15">
+                            <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 50px; width: 720px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+                        </div>
+                        <div ng-show="text_comment" class="margin-top_15 margin-left_20 text-right">
+                            <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(text_comment)">Отправить</button>
+                            <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
+                        </div>
+                    {%  endif %}
+
+
+                    <div class="row slid__comment margin-top_20" ng-repeat="comment in event.event_comments">
+                        <div class="col-sm-12 padding-left_0">
+
+                            <div class="user__avatar left">
+                                <div class="user__avatar-mini-2"><img src="[[ comment.user.avatar ]]"></div>
+                            </div>
+
+                            <div>
+                                <div class="text-blue"><a href="#/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
+                                <div class="margin-top_5"><p>[[ comment.text ]]</p></div>
+                                <div class="margin-left_60 text-gray fs_0-8 left"><time datetime="2014:12:12">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time></div>
+                                <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div>
+                            </div>
+
+                            <div class="col-sm-12 slid__comment__line"></div>
+                        </div>
+                    </div>
+
+
                 </div>
 
             </div>

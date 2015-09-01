@@ -51,6 +51,10 @@ creativer_create_eventTmp:
     path:     /create_event_tmp
     defaults: { _controller: CreativerFrontBundle:Default:createEventTmp }
     methods:  [GET]
+creativer_edit_eventTmp:
+    path:     /edit_event_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:editEventTmp }
+    methods:  [GET]
 creativer_fleamarketpostingTmp:
     path:     /fleamarketposting_tmp
     defaults: { _controller: CreativerFrontBundle:Default:fleamarketpostingTmp }

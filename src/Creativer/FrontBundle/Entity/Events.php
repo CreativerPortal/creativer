@@ -1,5 +1,4 @@
 <?php
-// src/AppBundle/Entity/Albums.php
 namespace Creativer\FrontBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -21,6 +20,7 @@ class Events
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\Groups({"getEvent"})
      */
     private $id;
 
@@ -29,36 +29,37 @@ class Events
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="User", inversedBy="events", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @JMS\Groups({"getEvent"})
      **/
     private $user;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @JMS\Expose
+     * @JMS\Groups({"getEvent"})
      */
     private $img;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getEvent"})
      */
     private $name;
 
     /**
      * @JMS\Expose
-     * @JMS\Type("Creativer\FrontBundle\Entity\Events")
-     * @ORM\ManyToOne(targetEntity="EventSections", inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="EventSections", inversedBy="events", fetch="EAGER")
      * @ORM\JoinColumn(name="event_sections_id", referencedColumnName="id")
-     * @JMS\Groups({"getPostById"})
+     * @JMS\Groups({"getEvent"})
      **/
     private $event_sections;
 
     /**
      * @JMS\Expose
-     * @ORM\ManyToOne(targetEntity="EventCity", inversedBy="event")
+     * @ORM\ManyToOne(targetEntity="EventCity", inversedBy="event", fetch="EAGER")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
-     * @JMS\Groups({"getCity"})
+     * @JMS\Groups({"getEvent"})
      **/
     private $event_city;
 
@@ -66,7 +67,7 @@ class Events
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"getEvent"})
      */
     private $description;
 
@@ -76,6 +77,7 @@ class Events
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"getEvent"})
      */
     private $start_date;
 
@@ -85,8 +87,22 @@ class Events
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"getEvent"})
      */
     private $end_date;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="events_attend")
+     */
+    private $users_attend;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\Events")
+     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event", cascade={"remove"})
+     * @JMS\Groups({"getEvent"})
+     **/
+    private $event_comments;
 
     /**
      * @JMS\Expose
@@ -108,8 +124,10 @@ class Events
         $this->date = new \DateTime();
         $this->start_date = new \DateTime();
         $this->end_date = new \DateTime();
-    }
+        $this->users_attend = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
 
+    }
 
 
     /**
@@ -350,5 +368,71 @@ class Events
     public function getEventCity()
     {
         return $this->event_city;
+    }
+
+    /**
+     * Add users_attend
+     *
+     * @param \Creativer\FrontBundle\Entity\User $usersAttend
+     * @return Events
+     */
+    public function addUsersAttend(\Creativer\FrontBundle\Entity\User $usersAttend)
+    {
+        $this->users_attend[] = $usersAttend;
+
+        return $this;
+    }
+
+    /**
+     * Remove users_attend
+     *
+     * @param \Creativer\FrontBundle\Entity\User $usersAttend
+     */
+    public function removeUsersAttend(\Creativer\FrontBundle\Entity\User $usersAttend)
+    {
+        $this->users_attend->removeElement($usersAttend);
+    }
+
+    /**
+     * Get users_attend
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getUsersAttend()
+    {
+        return $this->users_attend;
+    }
+
+    /**
+     * Add event_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\EventComments $eventComments
+     * @return Events
+     */
+    public function addEventComment(\Creativer\FrontBundle\Entity\EventComments $eventComments)
+    {
+        $this->event_comments[] = $eventComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove event_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\EventComments $eventComments
+     */
+    public function removeEventComment(\Creativer\FrontBundle\Entity\EventComments $eventComments)
+    {
+        $this->event_comments->removeElement($eventComments);
+    }
+
+    /**
+     * Get event_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventComments()
+    {
+        return $this->event_comments;
     }
 }

@@ -409,7 +409,6 @@ class DefaultController extends Controller
 
     public function createEventTmpAction(){
 
-
         $user = $this->get('security.context')->getToken()->getUser();
 
         if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
@@ -435,6 +434,18 @@ class DefaultController extends Controller
         $event_id = $event->getId();
 
         return $this->render('CreativerFrontBundle:Default:createEventTmp.html.twig', array('event_id' => $event_id));
+    }
+
+    public function editEventTmpAction(){
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        return $this->render('CreativerFrontBundle:Default:editEventTmp.html.twig', array());
     }
 
     public function peopleTmpAction(){

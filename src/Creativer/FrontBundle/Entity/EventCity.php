@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="event_city")
  * @JMS\ExclusionPolicy("all")
  */
@@ -21,28 +21,29 @@ class EventCity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getCity"})
+     * @JMS\Groups({"getCityAndSections", "getEvent"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getCity"})
+     * @JMS\Groups({"getCityAndSections", "getEvent"})
      */
     private $name;
 
 
     /**
-     * @ORM\OneToMany(targetEntity="Events", mappedBy="event_city")
-     * @JMS\Groups({"getCity"})
+     * @JMS\Type("Creativer\FrontBundle\Entity\Events")
+     * @ORM\OneToMany(targetEntity="Events", mappedBy="event_city", fetch="EAGER")
+     * @JMS\Groups({"getCityAndSections", "getEvent"})
      **/
     private $event;
 
     public function __construct()
     {
         $this->date = new \DateTime();
-        $this->post_baraholka = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->$event = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 

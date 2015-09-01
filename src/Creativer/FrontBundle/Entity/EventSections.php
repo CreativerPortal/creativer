@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity
  * @ORM\Table(name="event_sections")
  * @JMS\ExclusionPolicy("all")
  */
@@ -21,31 +21,30 @@ class EventSections
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getEventSections"})
+     * @JMS\Groups({"getEventSections", "getEvent", "getCityAndSections"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getEventSections"})
+     * @JMS\Groups({"getEventSections", "getEvent", "getCityAndSections"})
      */
     private $name;
 
 
     /**
      * @JMS\Expose
-     * @JMS\Type("Creativer\FrontBundle\Entity\EventSections")
-     * @ORM\OneToMany(targetEntity="Events", mappedBy="event_sections")
+     * @JMS\Type("Creativer\FrontBundle\Entity\Events")
+     * @ORM\OneToMany(targetEntity="Events", mappedBy="event_sections", fetch="EAGER")
      * @ORM\OrderBy({"id" = "DESC"})
-     * @JMS\Groups({"getEventSections"})
      **/
     private $events;
 
     /**
      * @ORM\OneToMany(targetEntity="EventSections", mappedBy="parent")
      * @JMS\Expose
-     * @JMS\Groups({"getEventSections"})
+     * @JMS\Groups({"getEventSections", "getCityAndSections"})
      */
     private $children;
 
@@ -53,7 +52,7 @@ class EventSections
      * @ORM\ManyToOne(targetEntity="EventSections", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @JMS\Expose
-     * @JMS\Groups({"getEventSections"})
+     * @JMS\Groups({"getEventSections", "getCityAndSections"})
      */
     private $parent;
 

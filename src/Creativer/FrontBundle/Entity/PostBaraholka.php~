@@ -126,11 +126,11 @@ class PostBaraholka
 
 
     /**
-     * @JMS\Expose
-     * @ORM\ManyToOne(targetEntity="PostCity", inversedBy="post_baraholka")
-     * @ORM\JoinColumn(name="post_city_id", referencedColumnName="id")
-     * @JMS\Groups({"getPostsByCategory", "getPostById"})
-     **/
+ * @JMS\Expose
+ * @ORM\ManyToOne(targetEntity="PostCity", inversedBy="post_baraholka")
+ * @ORM\JoinColumn(name="post_city_id", referencedColumnName="id")
+ * @JMS\Groups({"getPostsByCategory", "getPostById"})
+ **/
     private $post_city;
 
     /**

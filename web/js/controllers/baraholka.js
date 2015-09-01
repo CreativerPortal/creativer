@@ -22,6 +22,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             });
         }else if($routeParams.id_fleamarketposting){
             baraholkaService.getPostById({"post_id": $routeParams.id_fleamarketposting}).success(function (data) {
+                console.log(data.post);
                 $scope.post = data.post;
             });
         }

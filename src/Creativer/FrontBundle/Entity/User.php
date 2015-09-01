@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $id;
 
@@ -34,7 +34,7 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
      * @Assert\NotBlank(message="Имя пользователя не может быть пустым")
-     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById"})
+     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
 
      */
     private $username;
@@ -44,14 +44,14 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
      * @Assert\NotBlank(message="Фамилия пользователя не может быть пустым")
-     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById"})
+     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getPostsByCategory", "getPostById"})
+     * @JMS\Groups({"getImageComments", "getUser", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $avatar;
 
@@ -103,6 +103,19 @@ class User implements UserInterface, \Serializable
      * @ORM\OneToMany(targetEntity="PostComments", mappedBy="user", fetch="EAGER")
      **/
     private $post_comments;
+
+    /**
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
+     * @ORM\OneToMany(targetEntity="PostBaraholka", mappedBy="user", fetch="EAGER")
+     **/
+    private $post_baraholka;
+
+
+    /**
+     * @JMS\Type("Creativer\FrontBundle\Entity\EventComments")
+     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="user", fetch="EAGER")
+     **/
+    private $event_comments;
 
     /**
      * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
@@ -237,6 +250,12 @@ class User implements UserInterface, \Serializable
      */
     private $wall;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Events", inversedBy="users_attend")
+     * @ORM\JoinTable(name="users_attend_events")
+     */
+    private $events_attend;
+
     public function __construct()
     {
         $this->isActive = true;
@@ -247,7 +266,7 @@ class User implements UserInterface, \Serializable
         $this->favoritsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFavorits = new \Doctrine\Common\Collections\ArrayCollection();
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
-
+        $this->$events_attend = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getUsername()
@@ -306,7 +325,6 @@ class User implements UserInterface, \Serializable
             // $this->salt
             ) = unserialize($serialized);
     }
-
 
     /**
      * Get id
@@ -822,6 +840,72 @@ class User implements UserInterface, \Serializable
     }
 
     /**
+     * Add post_baraholka
+     *
+     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
+     * @return User
+     */
+    public function addPostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka)
+    {
+        $this->post_baraholka[] = $postBaraholka;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_baraholka
+     *
+     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
+     */
+    public function removePostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka)
+    {
+        $this->post_baraholka->removeElement($postBaraholka);
+    }
+
+    /**
+     * Get post_baraholka
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostBaraholka()
+    {
+        return $this->post_baraholka;
+    }
+
+    /**
+     * Add event_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\EventComments $eventComments
+     * @return User
+     */
+    public function addEventComment(\Creativer\FrontBundle\Entity\EventComments $eventComments)
+    {
+        $this->event_comments[] = $eventComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove event_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\EventComments $eventComments
+     */
+    public function removeEventComment(\Creativer\FrontBundle\Entity\EventComments $eventComments)
+    {
+        $this->event_comments->removeElement($eventComments);
+    }
+
+    /**
+     * Get event_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventComments()
+    {
+        return $this->event_comments;
+    }
+
+    /**
      * Add image_comments
      *
      * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
@@ -997,5 +1081,38 @@ class User implements UserInterface, \Serializable
     public function getWall()
     {
         return $this->wall;
+    }
+
+    /**
+     * Add events_attend
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $eventsAttend
+     * @return User
+     */
+    public function addEventsAttend(\Creativer\FrontBundle\Entity\Events $eventsAttend)
+    {
+        $this->events_attend[] = $eventsAttend;
+
+        return $this;
+    }
+
+    /**
+     * Remove events_attend
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $eventsAttend
+     */
+    public function removeEventsAttend(\Creativer\FrontBundle\Entity\Events $eventsAttend)
+    {
+        $this->events_attend->removeElement($eventsAttend);
+    }
+
+    /**
+     * Get events_attend
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventsAttend()
+    {
+        return $this->events_attend;
     }
 }
