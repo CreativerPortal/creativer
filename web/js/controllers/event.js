@@ -71,8 +71,10 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         }
 
         $scope.saveEvent = function(){
-            var tinymceModel = tinymce.get('ui-tinymce-0').getContent();
+            $scope.loader = true;
+            var tinymceModel = tinymce.editors[0].getContent();
             eventService.saveEventService({start_date:$scope.myDatetimeRange.date.from, end_date:$scope.myDatetimeRange.date.to, title:$scope.title, content:tinymceModel, city:$scope.selectCity, section:$scope.selectSection}).success(function (data) {
+                $location.path("/event/" + data.id);
             });
         };
 
@@ -86,7 +88,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                         $scope.selectSection = data.event_sections.id;
                         $scope.selectCity = data.event_city.id;
                         $scope.id_edit = data.id;
-                        tinymce.get('ui-tinymce-0').setContent(data.description);
+                        $scope.tinymceModel = data.description;
+                        $scope.main_image = data.img;
                         $scope.remove = {'remove_post': false};
                     });
                 }
@@ -106,7 +109,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
 
 
         $scope.saveEditEvent = function(){
-            var description = tinymce.get('ui-tinymce-0').getContent();
+            $scope.loader = true;
+            var description = tinymce.editors[0].getContent();
             eventService.saveEditEvent({
                 "id": $scope.id_edit,
                 "description": description,
@@ -278,6 +282,13 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             // console.info('onWhenAddingFileFailed', item, filter, options);
         };
         uploader.onAfterAddingFile = function(fileItem) {
+            if(uploader.queue.length == 2){
+                uploader.queue = new Array(uploader.queue[1]);
+            }
+            if($routeParams.id_edit){
+                fileItem.formData.push({id: $routeParams.id_edit});
+            }else{
+            }
             uploader.uploadAll();
         };
 
@@ -299,7 +310,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             // console.info('onCancelItem', fileItem, response, status, headers);
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
-
+            console.log(response);
+            $scope.main_image = response.img;
         };
         uploader.onCompleteAll = function(fileItem, response, status, headers) {
 

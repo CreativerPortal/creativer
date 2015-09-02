@@ -6,20 +6,6 @@
 
         <div class="col-sm-10 padding-left_0">
 
-            {#<div class="row margin-top_20">#}
-                {#<div class="col-sm-2">Раздел:</div>#}
-                {#<div class="col-sm-10">#}
-
-                    {#<select name="section" class="selectForumId" ng-model="section" ng-pattern="/^[1-9]+/" required>#}
-                        {#<optgroup ng-repeat="children in baraholka" label="[[ children.name ]]">#}
-                            {#<option ng-repeat="child in children.children" value="[[ child.id ]]">[[ child.name ]]</option>#}
-                        {#</optgroup>#}
-                    {#</select>#}
-                    {#<br/>#}
-                    {#<span class="text-danger" ng-show="submitted && baraholka_form.section.$error.required">Раздел не выбран</span>#}
-                {#</div>#}
-            {#</div>#}
-
             <div class="row margin-top_20">
                 <div class="col-sm-2">Заголовок:</div>
                 <div class="col-sm-10">
@@ -52,28 +38,22 @@
 
             <div class="margin-top_10">
                 <label class="" for="uploadImg" style="font-weight: normal;" ng-disabled="uploader.isUploading">
-                    <div ng-disabled="uploader.isUploading" class="button_favorites early-message text-center pointer left"><span class="middle">Выбрать</span></div> <span class="margin-left_10">главное изображение события</span>
+                    <div ng-disabled="uploader.isUploading" class="button_favorites early-message text-center pointer left" style="width: 118px; position: absolute;">
+                        <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="height: 28px; width: 100%; position: relative; border-radius: 5px;" ng-style="{ 'width': uploader.progress + '%' }"></div>
+                        <div class="middle" style="height: 28px; width: 100%; position: absolute; border: 10px; line-height: 26px;">Выбрать</div>
+                    </div>
                 </label>
+                <div class="col-sm-offset-2">главное изображение события</div>
             </div>
-            <div class="row margin-left_0">
+            <div class="row margin-left_0 margin-top_5">
                 <div class="upload__element" ng-repeat="item in uploader.queue" style="float: left;">
                     <span class="glyphicon glyphicon-remove close_image ng-isolate-scope" ng-click="item.remove();"></span>
                     <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }" class="text-center thumb__upload"></div>
                 </div>
             </div>
 
-            {#<div class="row col-sm-10 padding-right_0">#}
-                {#<div ng-show="uploader.isHTML5" style="height: 30px;">#}
-                    {#<div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">#}
-                        {#<div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">#}
-                            {#<div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>#}
-                            {#<div ng-show="uploader.progress" class="text-gray fiveMinuts text-bold margin-top_minus_10">[[ uploader.progress ]]%</div><br>#}
-                        {#</div>#}
-                    {#</div>#}
-                {#</div>#}
-            {#</div>#}
 
-            <input type="file" nv-file-select="" uploader="uploader" id="uploadImg"  class="hidden" ng-disabled="uploader.isUploading" />
+            <input type="file" nv-file-select uploader="uploader" id="uploadImg"  class="hidden" ng-disabled="uploader.isUploading" />
 
 
             <div rg-range-picker="myDatetimeRange" collapse="collapseDirective" labels="myDatetimeLabels"></div>
@@ -85,9 +65,8 @@
             </div>
 
 
-            <div class="button_message early-message text-center text-white pointer" style="width: 118px; position: absolute;" ng-click="saveEvent()">
-                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" style="height: 28px; width: 100%; position: relative; border-radius: 5px;" ng-style="{ 'width': uploader.progress + '%' }"></div>
-                <div style="height: 28px; width: 100%; position: absolute; border: 10px;">Сохранить</div>
+            <div class="button_message early-message text-center text-white pointer" ng-click="saveEvent()">
+                <div class="fs_0-9" ng-class="{'loader':loader}">Сохранить</div>
             </div>
 
         </div>

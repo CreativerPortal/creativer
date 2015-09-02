@@ -449,7 +449,7 @@
 }
 
 .event_buttom{
-	background-position: -136.9857940673828px -0.0028533935546875px ;
+	background-position: -137px -0.0028533935546875px ;
 	width: 138px;
 	height: 47px;
 	font-size: 0.88em;
@@ -461,8 +461,8 @@
 }
 
 .event_buttom:hover{
-	background-position: 0 0;
-	width: 138px;
+	background-position: 1px 0px;
+	width: 137px;
 	height: 47px;
 	font-size: 0.88em;
 	vertical-align: middle;
@@ -482,7 +482,7 @@
 
 .button_message{
 	background-position: 0 0;
-	width: 119px;
+	width: 118px;
 	height: 27px;
 	border: none;
 	color: #ffffff;

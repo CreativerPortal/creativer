@@ -233,7 +233,7 @@ class EventController extends Controller
                 $event,
                 'json',
                 SerializationContext::create()
-                    ->setGroups(array('getPostById'))
+                    ->setGroups(array('getEvent'))
             );
 
         $response = new Respon($categories);

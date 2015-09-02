@@ -23,6 +23,7 @@ use Creativer\FrontBundle\Entity\PostCategory;
 use Creativer\FrontBundle\Entity\PostCity;
 use Creativer\FrontBundle\Entity\Posts;
 use Creativer\FrontBundle\Entity\Events;
+use Symfony\Component\Filesystem\Filesystem;
 use Creativer\FrontBundle\Services\ImageServices;
 use Imagine\Image\Box;
 use Imagine\Imagick;
@@ -931,8 +932,16 @@ class DefaultController extends Controller
                         //Start Uploading File
                         $user = $this->get('security.context')->getToken()->getUser();
                         $em = $this->getDoctrine()->getEntityManager();
-                        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findBy(array('user'=>$user,'isActive'=>0))[0];
 
+                        $id = $this->get('request')->request->get('id');
+                        if($id){
+                            $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->find($id);
+                            $path_img_event_original = $this->container->getParameter('path_img_event_original');
+                            $fs = new Filesystem();
+                            $fs->remove(array($path_img_event_original.$event->getImg()));
+                        }else{
+                            $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findBy(array('user'=>$user,'isActive'=>0))[0];
+                        }
                         try {
                             $imagine = new \Imagine\Imagick\Imagine();
                             $image_name = time() . "_" . md5($originalName) . '.jpg';
@@ -945,15 +954,15 @@ class DefaultController extends Controller
                             $em->flush();
 
                             $serializer = $this->container->get('jms_serializer');
-                            $categories = $serializer
+                            $event = $serializer
                                 ->serialize(
                                     $event,
                                     'json',
                                     SerializationContext::create()
-                                        ->setGroups(array('uploadImageEvent'))
+                                        ->setGroups(array('getEvent'))
                                 );
 
-                            $response = new Respon($categories);
+                            $response = new Respon($event);
                             $response->headers->set('Content-Type', 'application/json');
                             return $response;
                         } catch (\Imagine\Exception\Exception $e) {
