@@ -51,7 +51,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getPostsByCategory", "getPostById"})
+     * @JMS\Groups({"getImageComments", "getUser", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $avatar;
 
@@ -324,5 +324,795 @@ class User implements UserInterface, \Serializable
             // see section on salt below
             // $this->salt
             ) = unserialize($serialized);
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer 
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set username
+     *
+     * @param string $username
+     * @return User
+     */
+    public function setUsername($username)
+    {
+        $this->username = $username;
+
+        return $this;
+    }
+
+    /**
+     * Set lastname
+     *
+     * @param string $lastname
+     * @return User
+     */
+    public function setLastname($lastname)
+    {
+        $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * Set avatar
+     *
+     * @param string $avatar
+     * @return User
+     */
+    public function setAvatar($avatar)
+    {
+        $this->avatar = $avatar;
+
+        return $this;
+    }
+
+    /**
+     * Get avatar
+     *
+     * @return string 
+     */
+    public function getAvatar()
+    {
+        return $this->avatar;
+    }
+
+    /**
+     * Set password
+     *
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set likes
+     *
+     * @param integer $likes
+     * @return User
+     */
+    public function setLikes($likes)
+    {
+        $this->likes = $likes;
+
+        return $this;
+    }
+
+    /**
+     * Get likes
+     *
+     * @return integer 
+     */
+    public function getLikes()
+    {
+        return $this->likes;
+    }
+
+    /**
+     * Set status
+     *
+     * @param string $status
+     * @return User
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * Get status
+     *
+     * @return string 
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * Set position
+     *
+     * @param string $position
+     * @return User
+     */
+    public function setPosition($position)
+    {
+        $this->position = $position;
+
+        return $this;
+    }
+
+    /**
+     * Get position
+     *
+     * @return string 
+     */
+    public function getPosition()
+    {
+        return $this->position;
+    }
+
+    /**
+     * Set info
+     *
+     * @param string $info
+     * @return User
+     */
+    public function setInfo($info)
+    {
+        $this->info = $info;
+
+        return $this;
+    }
+
+    /**
+     * Get info
+     *
+     * @return string 
+     */
+    public function getInfo()
+    {
+        return $this->info;
+    }
+
+    /**
+     * Set specialization
+     *
+     * @param string $specialization
+     * @return User
+     */
+    public function setSpecialization($specialization)
+    {
+        $this->specialization = $specialization;
+
+        return $this;
+    }
+
+    /**
+     * Get specialization
+     *
+     * @return string 
+     */
+    public function getSpecialization()
+    {
+        return $this->specialization;
+    }
+
+    /**
+     * Set worked
+     *
+     * @param string $worked
+     * @return User
+     */
+    public function setWorked($worked)
+    {
+        $this->worked = $worked;
+
+        return $this;
+    }
+
+    /**
+     * Get worked
+     *
+     * @return string 
+     */
+    public function getWorked()
+    {
+        return $this->worked;
+    }
+
+    /**
+     * Set links
+     *
+     * @param string $links
+     * @return User
+     */
+    public function setLinks($links)
+    {
+        $this->links = $links;
+
+        return $this;
+    }
+
+    /**
+     * Get links
+     *
+     * @return string 
+     */
+    public function getLinks()
+    {
+        return $this->links;
+    }
+
+    /**
+     * Set contacts
+     *
+     * @param string $contacts
+     * @return User
+     */
+    public function setContacts($contacts)
+    {
+        $this->contacts = $contacts;
+
+        return $this;
+    }
+
+    /**
+     * Get contacts
+     *
+     * @return string 
+     */
+    public function getContacts()
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * Set views
+     *
+     * @param integer $views
+     * @return User
+     */
+    public function setViews($views)
+    {
+        $this->views = $views;
+
+        return $this;
+    }
+
+    /**
+     * Get views
+     *
+     * @return integer 
+     */
+    public function getViews()
+    {
+        return $this->views;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return User
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set isActive
+     *
+     * @param boolean $isActive
+     * @return User
+     */
+    public function setIsActive($isActive)
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    /**
+     * Get isActive
+     *
+     * @return boolean 
+     */
+    public function getIsActive()
+    {
+        return $this->isActive;
+    }
+
+    /**
+     * Add albums
+     *
+     * @param \Creativer\FrontBundle\Entity\Albums $albums
+     * @return User
+     */
+    public function addAlbum(\Creativer\FrontBundle\Entity\Albums $albums)
+    {
+        $this->albums[] = $albums;
+
+        return $this;
+    }
+
+    /**
+     * Remove albums
+     *
+     * @param \Creativer\FrontBundle\Entity\Albums $albums
+     */
+    public function removeAlbum(\Creativer\FrontBundle\Entity\Albums $albums)
+    {
+        $this->albums->removeElement($albums);
+    }
+
+    /**
+     * Get albums
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAlbums()
+    {
+        return $this->albums;
+    }
+
+    /**
+     * Add events
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $events
+     * @return User
+     */
+    public function addEvent(\Creativer\FrontBundle\Entity\Events $events)
+    {
+        $this->events[] = $events;
+
+        return $this;
+    }
+
+    /**
+     * Remove events
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $events
+     */
+    public function removeEvent(\Creativer\FrontBundle\Entity\Events $events)
+    {
+        $this->events->removeElement($events);
+    }
+
+    /**
+     * Get events
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEvents()
+    {
+        return $this->events;
+    }
+
+    /**
+     * Add posts
+     *
+     * @param \Creativer\FrontBundle\Entity\Posts $posts
+     * @return User
+     */
+    public function addPost(\Creativer\FrontBundle\Entity\Posts $posts)
+    {
+        $this->posts[] = $posts;
+
+        return $this;
+    }
+
+    /**
+     * Remove posts
+     *
+     * @param \Creativer\FrontBundle\Entity\Posts $posts
+     */
+    public function removePost(\Creativer\FrontBundle\Entity\Posts $posts)
+    {
+        $this->posts->removeElement($posts);
+    }
+
+    /**
+     * Get posts
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPosts()
+    {
+        return $this->posts;
+    }
+
+    /**
+     * Add comments
+     *
+     * @param \Creativer\FrontBundle\Entity\Comments $comments
+     * @return User
+     */
+    public function addComment(\Creativer\FrontBundle\Entity\Comments $comments)
+    {
+        $this->comments[] = $comments;
+
+        return $this;
+    }
+
+    /**
+     * Remove comments
+     *
+     * @param \Creativer\FrontBundle\Entity\Comments $comments
+     */
+    public function removeComment(\Creativer\FrontBundle\Entity\Comments $comments)
+    {
+        $this->comments->removeElement($comments);
+    }
+
+    /**
+     * Get comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * Add post_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\PostComments $postComments
+     * @return User
+     */
+    public function addPostComment(\Creativer\FrontBundle\Entity\PostComments $postComments)
+    {
+        $this->post_comments[] = $postComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\PostComments $postComments
+     */
+    public function removePostComment(\Creativer\FrontBundle\Entity\PostComments $postComments)
+    {
+        $this->post_comments->removeElement($postComments);
+    }
+
+    /**
+     * Get post_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostComments()
+    {
+        return $this->post_comments;
+    }
+
+    /**
+     * Add post_baraholka
+     *
+     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
+     * @return User
+     */
+    public function addPostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka)
+    {
+        $this->post_baraholka[] = $postBaraholka;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_baraholka
+     *
+     * @param \Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka
+     */
+    public function removePostBaraholka(\Creativer\FrontBundle\Entity\PostBaraholka $postBaraholka)
+    {
+        $this->post_baraholka->removeElement($postBaraholka);
+    }
+
+    /**
+     * Get post_baraholka
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostBaraholka()
+    {
+        return $this->post_baraholka;
+    }
+
+    /**
+     * Add event_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\EventComments $eventComments
+     * @return User
+     */
+    public function addEventComment(\Creativer\FrontBundle\Entity\EventComments $eventComments)
+    {
+        $this->event_comments[] = $eventComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove event_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\EventComments $eventComments
+     */
+    public function removeEventComment(\Creativer\FrontBundle\Entity\EventComments $eventComments)
+    {
+        $this->event_comments->removeElement($eventComments);
+    }
+
+    /**
+     * Get event_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventComments()
+    {
+        return $this->event_comments;
+    }
+
+    /**
+     * Add image_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
+     * @return User
+     */
+    public function addImageComment(\Creativer\FrontBundle\Entity\ImageComments $imageComments)
+    {
+        $this->image_comments[] = $imageComments;
+
+        return $this;
+    }
+
+    /**
+     * Remove image_comments
+     *
+     * @param \Creativer\FrontBundle\Entity\ImageComments $imageComments
+     */
+    public function removeImageComment(\Creativer\FrontBundle\Entity\ImageComments $imageComments)
+    {
+        $this->image_comments->removeElement($imageComments);
+    }
+
+    /**
+     * Get image_comments
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImageComments()
+    {
+        return $this->image_comments;
+    }
+
+    /**
+     * Add folders
+     *
+     * @param \Creativer\FrontBundle\Entity\Folders $folders
+     * @return User
+     */
+    public function addFolder(\Creativer\FrontBundle\Entity\Folders $folders)
+    {
+        $this->folders[] = $folders;
+
+        return $this;
+    }
+
+    /**
+     * Remove folders
+     *
+     * @param \Creativer\FrontBundle\Entity\Folders $folders
+     */
+    public function removeFolder(\Creativer\FrontBundle\Entity\Folders $folders)
+    {
+        $this->folders->removeElement($folders);
+    }
+
+    /**
+     * Get folders
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFolders()
+    {
+        return $this->folders;
+    }
+
+    /**
+     * Add favoritsWithMe
+     *
+     * @param \Creativer\FrontBundle\Entity\User $favoritsWithMe
+     * @return User
+     */
+    public function addFavoritsWithMe(\Creativer\FrontBundle\Entity\User $favoritsWithMe)
+    {
+        $this->favoritsWithMe[] = $favoritsWithMe;
+
+        return $this;
+    }
+
+    /**
+     * Remove favoritsWithMe
+     *
+     * @param \Creativer\FrontBundle\Entity\User $favoritsWithMe
+     */
+    public function removeFavoritsWithMe(\Creativer\FrontBundle\Entity\User $favoritsWithMe)
+    {
+        $this->favoritsWithMe->removeElement($favoritsWithMe);
+    }
+
+    /**
+     * Get favoritsWithMe
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getFavoritsWithMe()
+    {
+        return $this->favoritsWithMe;
+    }
+
+    /**
+     * Add myFavorits
+     *
+     * @param \Creativer\FrontBundle\Entity\User $myFavorits
+     * @return User
+     */
+    public function addMyFavorit(\Creativer\FrontBundle\Entity\User $myFavorits)
+    {
+        $this->myFavorits[] = $myFavorits;
+
+        return $this;
+    }
+
+    /**
+     * Remove myFavorits
+     *
+     * @param \Creativer\FrontBundle\Entity\User $myFavorits
+     */
+    public function removeMyFavorit(\Creativer\FrontBundle\Entity\User $myFavorits)
+    {
+        $this->myFavorits->removeElement($myFavorits);
+    }
+
+    /**
+     * Get myFavorits
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getMyFavorits()
+    {
+        return $this->myFavorits;
+    }
+
+    /**
+     * Add roles
+     *
+     * @param \Creativer\FrontBundle\Entity\Role $roles
+     * @return User
+     */
+    public function addRole(\Creativer\FrontBundle\Entity\Role $roles)
+    {
+        $this->roles[] = $roles;
+
+        return $this;
+    }
+
+    /**
+     * Remove roles
+     *
+     * @param \Creativer\FrontBundle\Entity\Role $roles
+     */
+    public function removeRole(\Creativer\FrontBundle\Entity\Role $roles)
+    {
+        $this->roles->removeElement($roles);
+    }
+
+    /**
+     * Set wall
+     *
+     * @param \Creativer\FrontBundle\Entity\Wall $wall
+     * @return User
+     */
+    public function setWall(\Creativer\FrontBundle\Entity\Wall $wall = null)
+    {
+        $this->wall = $wall;
+
+        return $this;
+    }
+
+    /**
+     * Get wall
+     *
+     * @return \Creativer\FrontBundle\Entity\Wall 
+     */
+    public function getWall()
+    {
+        return $this->wall;
+    }
+
+    /**
+     * Add events_attend
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $eventsAttend
+     * @return User
+     */
+    public function addEventsAttend(\Creativer\FrontBundle\Entity\Events $eventsAttend)
+    {
+        $this->events_attend[] = $eventsAttend;
+
+        return $this;
+    }
+
+    /**
+     * Remove events_attend
+     *
+     * @param \Creativer\FrontBundle\Entity\Events $eventsAttend
+     */
+    public function removeEventsAttend(\Creativer\FrontBundle\Entity\Events $eventsAttend)
+    {
+        $this->events_attend->removeElement($eventsAttend);
+    }
+
+    /**
+     * Get events_attend
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getEventsAttend()
+    {
+        return $this->events_attend;
     }
 }

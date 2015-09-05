@@ -337,7 +337,8 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
             $scope.id_post_baraholka = response.id;
             if($routeParams.id_fleamarketposting){
-                $scope.post.images_baraholka.push({"id": response.id, "name": response.name})
+                $scope.post.images_baraholka.push({"id": response.id, "name": response.name, "path": response.path});
+                uploader.queue = [];
             }
         };
         uploader.onCompleteAll = function(fileItem, response, status, headers) {

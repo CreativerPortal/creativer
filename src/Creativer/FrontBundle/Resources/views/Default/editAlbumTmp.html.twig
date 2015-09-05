@@ -59,7 +59,7 @@
                                     </label>
 
                                     <div>
-                                        <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" style="width: 100%" />
+                                        <img ng-src="{{ path_img_album_thums }}/[[ image.path ]][[ image.name ]]" style="width: 100%" />
                                         <textarea ng-blur="editTextImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts margin-top_5" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>
@@ -78,7 +78,7 @@
                                     </label>
 
                                     <div>
-                                        <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]" style="width: 100%" />
+                                        <img ng-src="{{ path_img_album_thums }}/[[ image.path ]][[ image.name ]]" style="width: 100%" />
                                         <textarea ng-blur="editTextImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts margin-top_5" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>
@@ -97,7 +97,7 @@
                                     </label>
 
                                     <div>
-                                        <img ng-src="{{ path_img_album_thums }}/[[ image.name ]]"  style="width: 100%" />
+                                        <img ng-src="{{ path_img_album_thums }}/[[ image.path ]][[ image.name ]]"  style="width: 100%" />
                                         <textarea ng-blur="editTextImage(image.id, image.text)" type="text" value="[[ image.text ]]" ng-model="image.text" class="fiveMinuts margin-top_5" placeholder="описание изображения" style="width: 100%"></textarea><br>
                                     </div>
                                 </div>

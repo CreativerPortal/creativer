@@ -43,6 +43,12 @@ class Albums
     private $img;
 
     /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Expose
+     */
+    private $path;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
      * @JMS\Groups({"getUser", "getAlbumById", "getCatalogProductAlbums"})
@@ -144,6 +150,29 @@ class Albums
     public function getImg()
     {
         return $this->img;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Albums
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

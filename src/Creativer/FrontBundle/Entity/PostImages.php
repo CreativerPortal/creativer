@@ -33,6 +33,13 @@ class PostImages
     private $name;
 
     /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
+     */
+    private $path;
+
+    /**
      * @ORM\Column(type="integer", length=11)
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
@@ -69,7 +76,6 @@ class PostImages
     {
         $this->date = new \DateTime();
     }
-    
 
 
     /**
@@ -106,49 +112,26 @@ class PostImages
     }
 
     /**
-     * Set date
+     * Set path
      *
-     * @param \DateTime $date
+     * @param string $path
      * @return PostImages
      */
-    public function setDate($date)
+    public function setPath($path)
     {
-        $this->date = $date;
+        $this->path = $path;
 
         return $this;
     }
 
     /**
-     * Get date
+     * Get path
      *
-     * @return \DateTime 
+     * @return string 
      */
-    public function getDate()
+    public function getPath()
     {
-        return $this->date;
-    }
-
-    /**
-     * Set post
-     *
-     * @param \Creativer\FrontBundle\Entity\Posts $post
-     * @return PostImages
-     */
-    public function setPost(\Creativer\FrontBundle\Entity\Posts $post = null)
-    {
-        $this->post = $post;
-
-        return $this;
-    }
-
-    /**
-     * Get post
-     *
-     * @return \Creativer\FrontBundle\Entity\Posts 
-     */
-    public function getPost()
-    {
-        return $this->post;
+        return $this->path;
     }
 
     /**
@@ -195,5 +178,51 @@ class PostImages
     public function getWidth()
     {
         return $this->width;
+    }
+
+    /**
+     * Set date
+     *
+     * @param \DateTime $date
+     * @return PostImages
+     */
+    public function setDate($date)
+    {
+        $this->date = $date;
+
+        return $this;
+    }
+
+    /**
+     * Get date
+     *
+     * @return \DateTime 
+     */
+    public function getDate()
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set post
+     *
+     * @param \Creativer\FrontBundle\Entity\Posts $post
+     * @return PostImages
+     */
+    public function setPost(\Creativer\FrontBundle\Entity\Posts $post = null)
+    {
+        $this->post = $post;
+
+        return $this;
+    }
+
+    /**
+     * Get post
+     *
+     * @return \Creativer\FrontBundle\Entity\Posts 
+     */
+    public function getPost()
+    {
+        return $this->post;
     }
 }

@@ -21,14 +21,14 @@ class EventCity
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getCity", "getEvent"})
+     * @JMS\Groups({"getCityAndSections", "getEvent"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getCity", "getEvent"})
+     * @JMS\Groups({"getCityAndSections", "getEvent"})
      */
     private $name;
 
@@ -36,7 +36,7 @@ class EventCity
     /**
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
      * @ORM\OneToMany(targetEntity="Events", mappedBy="event_city", fetch="EAGER")
-     * @JMS\Groups({"getCity", "getEvent"})
+     * @JMS\Groups({"getCityAndSections", "getEvent"})
      **/
     private $event;
 

@@ -89,7 +89,7 @@
                 <div class="col-sm-6" ng-repeat="item in items.items" ng-init="count = item.images.length">
                     <div class="col-sm-6  padding-left_0 padding-right_5 slid__card__img margin-top_25" ng-init="count = item.images.length">
                         <div class="col-sm-12 padding-left_0 padding-right_0 overflow-hidden">
-                            <a animation-image href="#/album/[[ item.id ]]/[[ item.images[random].name ]]/[[ random ]]" img="/home/album/thums/[[ item.images[random].name ]]" ng-init="random = math.floor(math.random() * count);" style='background:url("/home/album/thums/[[ item.images[random].name ]]") top left no-repeat;' class="container_image_product" >                            </a>
+                            <a animation-image href="#/album/[[ item.id ]]/[[ item.images[random].name ]]/[[ random ]]" img="/home/album/thums/[[ item.images[random].path ]][[ item.images[random].name ]]" ng-init="random = math.floor(math.random() * count);" style='background:url("/home/album/thums/[[ item.images[random].path ]][[ item.images[random].name ]]") top left no-repeat;' class="container_image_product" >                            </a>
                             <!--<span class="slid__card__price">[[ item.images[random].price ]] руб.</span>-->
                         </div>
                     </div>

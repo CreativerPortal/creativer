@@ -563,8 +563,8 @@ class BaraholkaController extends Controller
 
         $fs = new Filesystem();
 
-        $fs->remove(array($path_img_baraholka_thums.$image->getName()));
-        $fs->remove(array($path_img_baraholka_original.$image->getName()));
+        $fs->remove(array($path_img_baraholka_thums.$image->getPath().$path_img_baraholka_thums.$image->getName()));
+        $fs->remove(array($path_img_baraholka_thums.$image->getPath().$path_img_baraholka_original.$image->getName()));
 
 
         $array = array('success' => true);

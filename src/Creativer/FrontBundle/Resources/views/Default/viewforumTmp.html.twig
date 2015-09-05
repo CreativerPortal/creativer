@@ -85,8 +85,8 @@
                 <tr ng-repeat="post in posts">
                     <td class="baraholka__table__left">
                         <div class="col-sm-2 padding-left_0">
-                            <img ng-if="post.img" ng-src="{{ path_img_baraholka_thums }}/[[ post.img ]]" />
-                            <img ng-if="!post.img" ng-src="{{ path_img_baraholka_thums }}/[[ post.images_baraholka[0].name ]]" />
+                            <img ng-if="post.img" ng-src="{{ path_img_baraholka_thums }}/[[ post.path ]][[ post.img ]]" />
+                            <img ng-if="!post.img" ng-src="{{ path_img_baraholka_thums }}/[[ post.images_baraholka[0].path ]][[ post.images_baraholka[0].name ]]" />
                         </div>
                         <div class="col-sm-10 padding-left_0">
                             <div class="baraholka__table__label">
@@ -104,7 +104,7 @@
                 </tr>
             </table>
 
-            <div ng-if="search && !posts.length" class="lobster text-center text-gray fs_3-2">Ничего не найдено</div>
+            <div ng-if="search && !posts.length && (searchInCategory || searchInBaraholka)" class="lobster text-center text-gray fs_3-2">Ничего не найдено</div>
 
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30">

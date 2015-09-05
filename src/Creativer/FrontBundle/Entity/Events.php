@@ -41,6 +41,13 @@ class Events
     private $img;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Expose
+     * @JMS\Groups({"getEvent"})
+     */
+    private $path;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
      * @JMS\Groups({"getEvent"})
@@ -161,6 +168,29 @@ class Events
     public function getImg()
     {
         return $this->img;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Events
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

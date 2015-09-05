@@ -33,6 +33,13 @@ class ImagesBaraholka
     private $name;
 
     /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
+     */
+    private $path;
+
+    /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\ImagesBaraholka")
      * @ORM\ManyToOne(targetEntity="PostBaraholka", inversedBy="images_baraholka")
@@ -55,7 +62,6 @@ class ImagesBaraholka
     {
         $this->date = new \DateTime();
     }
-    
 
 
     /**
@@ -89,6 +95,29 @@ class ImagesBaraholka
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return ImagesBaraholka
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

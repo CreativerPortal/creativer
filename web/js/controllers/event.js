@@ -90,6 +90,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                         $scope.id_edit = data.id;
                         $scope.tinymceModel = data.description;
                         $scope.main_image = data.img;
+                        $scope.main_path = data.path;
                         $scope.remove = {'remove_post': false};
                     });
                 }
@@ -312,6 +313,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
             console.log(response);
             $scope.main_image = response.img;
+            $scope.main_path = response.path;
         };
         uploader.onCompleteAll = function(fileItem, response, status, headers) {
 

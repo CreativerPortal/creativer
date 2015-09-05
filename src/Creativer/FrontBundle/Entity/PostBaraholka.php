@@ -50,6 +50,12 @@ class PostBaraholka
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Expose
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
+     */
+    private $path;
 
     /**
      * @JMS\Expose
@@ -203,6 +209,29 @@ class PostBaraholka
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return PostBaraholka
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

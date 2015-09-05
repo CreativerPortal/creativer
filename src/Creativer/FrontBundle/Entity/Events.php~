@@ -41,6 +41,13 @@ class Events
     private $img;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Expose
+     * @JMS\Groups({"getEvent"})
+     */
+    private $path;
+
+    /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
      * @JMS\Groups({"getEvent"})
@@ -99,7 +106,8 @@ class Events
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
-     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event", cascade={"remove"})
+     * @JMS\Groups({"getEvent"})
      **/
     private $event_comments;
 
@@ -160,6 +168,29 @@ class Events
     public function getImg()
     {
         return $this->img;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Events
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

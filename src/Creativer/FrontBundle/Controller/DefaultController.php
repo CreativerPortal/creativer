@@ -191,7 +191,7 @@ class DefaultController extends Controller
             $title = $request->get('title');
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 2000000000)) {
+                if (($image->getSize() < 10000000)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
@@ -200,7 +200,6 @@ class DefaultController extends Controller
                         $userId = $this->get('security.context')->getToken()->getUser()->getId();
                         $em = $this->getDoctrine()->getEntityManager();
                         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$userId));
-                        //die(\Doctrine\Common\Util\Debug::dump($image));
                         $album = $em->getRepository("CreativerFrontBundle:Albums")->findBy(array('isActive' => 0, 'user' => $user[0]));
 
                         if(empty($album)){
@@ -210,17 +209,38 @@ class DefaultController extends Controller
                             $album = $album[0];
                         }
 
+                        $year = date("Y");
+                        $maonth = date("m");
+                        $day = date("d");
+
+
                         try {
                             $imagine = new \Imagine\Imagick\Imagine();
+                            $name_path = $year."/".$maonth."/".$day."/";
                             $image_name = time() . "_" . md5($originalName) . '.jpg';
-
-                            $image = $imagine->open($image->getPathname());
-
-                            $image->save($this->container->getParameter('path_img_album_original') . $image_name);
-
+                            if (!file_exists($this->container->getParameter('path_img_album_original').$name_path))
+                                mkdir($this->container->getParameter('path_img_album_original').$name_path, 0777, true);
+                            if (!file_exists($this->container->getParameter('path_img_album_thums').$name_path))
+                                mkdir($this->container->getParameter('path_img_album_thums').$year."/".$maonth."/".$day, 0777, true);
+                            $path = $image->getPathname();
+                            $image = $imagine->open($path);
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
+                            if($w >= 1280 or $h >= 872){
+                                if($w > $h){
+                                    $count = $image->getSize()->getHeight() / 872;
+                                    $width = $image->getSize()->getWidth() / $count;
+                                    $image->resize(new Box($width, 872), ImageInterface::FILTER_LANCZOS);
+                                }else{
+                                    $count = $image->getSize()->getWidth() / 1280;
+                                    $height = $image->getSize()->getHeight() / $count;
+                                    $image->resize(new Box(1280, $height), ImageInterface::FILTER_LANCZOS);
+                                }
+                            }
+
+                            $image->save($this->container->getParameter('path_img_album_original').$originalName);
+                            rename($this->container->getParameter('path_img_album_original').$originalName,$this->container->getParameter('path_img_album_original').$name_path.$image_name);
                             if($w > $h){
                                 $count = $image->getSize()->getHeight() / 178;
                                 $width = $image->getSize()->getWidth() / $count;
@@ -231,15 +251,19 @@ class DefaultController extends Controller
                                 $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
                             }
 
-                            $image->save($this->container->getParameter('path_img_album_thums') . $image_name);
+
+                            $image->save($this->container->getParameter('path_img_album_thums').$originalName);
+                            rename($this->container->getParameter('path_img_album_thums').$originalName,$this->container->getParameter('path_img_album_thums').$name_path.$image_name);
 
 
                             if($main == 1){
                                 $album->setImg($image_name);
+                                $album->setPath($name_path);
                             }
 
                             $im = new Images();
                             $im->setAlbum($album);
+                            $im->setPath($name_path);
                             $im->setName($image_name);
                             if($price != null)
                             $im->setPrice($price);
@@ -255,16 +279,19 @@ class DefaultController extends Controller
                         }
 
                     } else {
-                        $status = 'failed';
-                        $message = 'Invalid File Type';
+                        $response = new Respon("Error type", 500);
+                        $response->headers->set('Content-Type', 'application/json');
+                        return $response;
                     }
                 } else {
-                    $status = 'failed';
-                    $message = 'Size exceeds limit';
+                    $response = new Respon("Error size", 500);
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
                 }
             } else {
-                $status = 'failed';
-                $message = 'File Error';
+                $response = new Respon("Error UploadObject", 500);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
             }
             $em->persist($album);
             $em->flush();
@@ -288,7 +315,7 @@ class DefaultController extends Controller
             $id_album = $request->get('id_album');
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 2000000000)) {
+                if (($image->getSize() < 10000000)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
@@ -296,19 +323,39 @@ class DefaultController extends Controller
                         //Start Uploading File
                         $userId = $this->get('security.context')->getToken()->getUser()->getId();
                         $em = $this->getDoctrine()->getEntityManager();
-                        //$user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$userId));
                         $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($id_album);
+
+                        $year = date("Y");
+                        $maonth = date("m");
+                        $day = date("d");
 
                         try {
                             $imagine = new \Imagine\Imagick\Imagine();
+                            $name_path = $year."/".$maonth."/".$day."/";
                             $image_name = time() . "_" . md5($originalName) . '.jpg';
-
-                            $image = $imagine->open($image->getPathname());
-                            $image->save($this->container->getParameter('path_img_album_original') . $image_name);
-
+                            if (!file_exists($this->container->getParameter('path_img_album_original').$name_path))
+                                mkdir($this->container->getParameter('path_img_album_original').$name_path, 0777, true);
+                            if (!file_exists($this->container->getParameter('path_img_album_thums').$name_path))
+                                mkdir($this->container->getParameter('path_img_album_thums').$year."/".$maonth."/".$day, 0777, true);
+                            $path = $image->getPathname();
+                            $image = $imagine->open($path);
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
+                            if($w >= 1280 or $h >= 872){
+                                if($w > $h){
+                                    $count = $image->getSize()->getHeight() / 872;
+                                    $width = $image->getSize()->getWidth() / $count;
+                                    $image->resize(new Box($width, 872), ImageInterface::FILTER_LANCZOS);
+                                }else{
+                                    $count = $image->getSize()->getWidth() / 1280;
+                                    $height = $image->getSize()->getHeight() / $count;
+                                    $image->resize(new Box(1280, $height), ImageInterface::FILTER_LANCZOS);
+                                }
+                            }
+
+                            $image->save($this->container->getParameter('path_img_album_original').$originalName);
+                            rename($this->container->getParameter('path_img_album_original').$originalName,$this->container->getParameter('path_img_album_original').$name_path.$image_name);
                             if($w > $h){
                                 $count = $image->getSize()->getHeight() / 178;
                                 $width = $image->getSize()->getWidth() / $count;
@@ -319,11 +366,14 @@ class DefaultController extends Controller
                                 $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
                             }
 
-                            $image->save($this->container->getParameter('path_img_album_thums') . $image_name);
+
+                            $image->save($this->container->getParameter('path_img_album_thums').$originalName);
+                            rename($this->container->getParameter('path_img_album_thums').$originalName,$this->container->getParameter('path_img_album_thums').$name_path.$image_name);
 
                             $im = new Images();
                             $im->setAlbum($album);
                             $im->setName($image_name);
+                            $im->setPath($name_path);
                             $em->persist($album);
                             $em->persist($im);
                             $em->flush();
@@ -345,16 +395,19 @@ class DefaultController extends Controller
                         }
 
                     } else {
-                        $status = 'failed';
-                        $message = 'Invalid File Type';
+                        $response = new Respon("Error type", 500);
+                        $response->headers->set('Content-Type', 'application/json');
+                        return $response;
                     }
                 } else {
-                    $status = 'failed';
-                    $message = 'Size exceeds limit';
+                    $response = new Respon("Error size", 500);
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
                 }
             } else {
-                $status = 'failed';
-                $message = 'File Error';
+                $response = new Respon("Error UploadObject", 500);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
             }
 
             $response = new Respon(null, 500);
@@ -537,7 +590,6 @@ class DefaultController extends Controller
             return $response;
         }
 
-
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $image = $request->files->get('file');
@@ -556,21 +608,23 @@ class DefaultController extends Controller
                 $auction = 0;
             }
 
+            $year = date("Y");
+            $maonth = date("m");
+            $day = date("d");
+            $name_path = $year."/".$maonth."/".$day."/";
 
 
             $em = $this->getDoctrine()->getEntityManager();
             $PostBaraholka = $em->getRepository("CreativerFrontBundle:PostBaraholka")->find(array('id' => $post_id, 'user' => $user));
-
             $PostCategory = $em->getRepository("CreativerFrontBundle:PostCategory")->find($post_category);
             $PostCity = $em->getRepository("CreativerFrontBundle:PostCity")->find($city);
             $CategoriesBaraholka = $em->getRepository("CreativerFrontBundle:CategoriesBaraholka")->find($section);
-
-           // die(\Doctrine\Common\Util\Debug::dump($CategoriesBaraholka));
 
             $PostBaraholka->setCategoriesBaraholka($CategoriesBaraholka);
             $PostBaraholka->setPostCategory($PostCategory);
             $PostBaraholka->setPostCity($PostCity);
             $PostBaraholka->setName($name);
+            $PostBaraholka->setPath($name_path);
             $PostBaraholka->setDescription($description);
             $PostBaraholka->setFullDescription($full_description);
             $PostBaraholka->setPrice($full_price);
@@ -578,27 +632,40 @@ class DefaultController extends Controller
             $PostBaraholka->setAuction($auction);
 
 
-
-
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 2000000000)) {
+                if (($image->getSize() < 10000000)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
-                        //die(\Doctrine\Common\Util\Debug::dump($image));
 
                         try {
                             $imagine = new \Imagine\Imagick\Imagine();
+                            $name_path = $year."/".$maonth."/".$day."/";
                             $image_name = time() . "_" . md5($originalName) . '.jpg';
-
-                            $image = $imagine->open($image->getPathname());
-
-                            $image->save($this->container->getParameter('path_img_baraholka_original') . $image_name);
-
+                            if (!file_exists($this->container->getParameter('path_img_baraholka_original').$name_path))
+                                mkdir($this->container->getParameter('path_img_baraholka_original').$name_path, 0777, true);
+                            if (!file_exists($this->container->getParameter('path_img_baraholka_thums').$name_path))
+                                mkdir($this->container->getParameter('path_img_baraholka_thums').$year."/".$maonth."/".$day, 0777, true);
+                            $path = $image->getPathname();
+                            $image = $imagine->open($path);
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
+                            if($w >= 800 or $h >= 600){
+                                if($w > $h){
+                                    $count = $image->getSize()->getHeight() / 600;
+                                    $width = $image->getSize()->getWidth() / $count;
+                                    $image->resize(new Box($width, 600), ImageInterface::FILTER_LANCZOS);
+                                }else{
+                                    $count = $image->getSize()->getWidth() / 800;
+                                    $height = $image->getSize()->getHeight() / $count;
+                                    $image->resize(new Box(800, $height), ImageInterface::FILTER_LANCZOS);
+                                }
+                            }
+
+                            $image->save($this->container->getParameter('path_img_baraholka_original').$originalName);
+                            rename($this->container->getParameter('path_img_baraholka_original').$originalName,$this->container->getParameter('path_img_baraholka_original').$name_path.$image_name);
                             if($w > $h){
                                 $count = $image->getSize()->getHeight() / 178;
                                 $width = $image->getSize()->getWidth() / $count;
@@ -609,17 +676,20 @@ class DefaultController extends Controller
                                 $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
                             }
 
-                            $image->save($this->container->getParameter('path_img_baraholka_thums') . $image_name);
+
+                            $image->save($this->container->getParameter('path_img_baraholka_thums').$originalName);
+                            rename($this->container->getParameter('path_img_baraholka_thums').$originalName,$this->container->getParameter('path_img_baraholka_thums').$name_path.$image_name);
 
 
                             if($main == 1){
                                 $PostBaraholka->setImg($image_name);
+                                $PostBaraholka->setPath($name_path);
                             }
 
                             $im = new ImagesBaraholka();
                             $im->setPostBaraholka($PostBaraholka);
                             $im->setName($image_name);
-
+                            $im->setPath($name_path);
                             $em->persist($im);
 
 
@@ -629,16 +699,19 @@ class DefaultController extends Controller
 
 
                     } else {
-                        $status = 'failed';
-                        $message = 'Invalid File Type';
+                        $response = new Respon("Error type", 500);
+                        $response->headers->set('Content-Type', 'application/json');
+                        return $response;
                     }
                 } else {
-                    $status = 'failed';
-                    $message = 'Size exceeds limit';
+                    $response = new Respon("Error size", 500);
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
                 }
             } else {
-                $status = 'failed';
-                $message = 'File Error';
+                $response = new Respon("Error UploadObject", 500);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
             }
 
 
@@ -674,23 +747,44 @@ class DefaultController extends Controller
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 2000000000)) {
+                if (($image->getSize() < 10000000)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
-                        //die(\Doctrine\Common\Util\Debug::dump($image));
+
+
+                        $year = date("Y");
+                        $maonth = date("m");
+                        $day = date("d");
+
                         try {
                             $imagine = new \Imagine\Imagick\Imagine();
+                            $name_path = $year."/".$maonth."/".$day."/";
                             $image_name = time() . "_" . md5($originalName) . '.jpg';
-
-                            $image = $imagine->open($image->getPathname());
-
-                            $image->save($this->container->getParameter('path_img_baraholka_original') . $image_name);
-
+                            if (!file_exists($this->container->getParameter('path_img_baraholka_original').$name_path))
+                                mkdir($this->container->getParameter('path_img_baraholka_original').$name_path, 0777, true);
+                            if (!file_exists($this->container->getParameter('path_img_baraholka_thums').$name_path))
+                                mkdir($this->container->getParameter('path_img_baraholka_thums').$year."/".$maonth."/".$day, 0777, true);
+                            $path = $image->getPathname();
+                            $image = $imagine->open($path);
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
+                            if($w >= 800 or $h >= 600){
+                                if($w > $h){
+                                    $count = $image->getSize()->getHeight() / 600;
+                                    $width = $image->getSize()->getWidth() / $count;
+                                    $image->resize(new Box($width, 600), ImageInterface::FILTER_LANCZOS);
+                                }else{
+                                    $count = $image->getSize()->getWidth() / 800;
+                                    $height = $image->getSize()->getHeight() / $count;
+                                    $image->resize(new Box(800, $height), ImageInterface::FILTER_LANCZOS);
+                                }
+                            }
+
+                            $image->save($this->container->getParameter('path_img_baraholka_original').$originalName);
+                            rename($this->container->getParameter('path_img_baraholka_original').$originalName,$this->container->getParameter('path_img_baraholka_original').$name_path.$image_name);
                             if($w > $h){
                                 $count = $image->getSize()->getHeight() / 178;
                                 $width = $image->getSize()->getWidth() / $count;
@@ -701,11 +795,14 @@ class DefaultController extends Controller
                                 $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
                             }
 
-                            $image->save($this->container->getParameter('path_img_baraholka_thums') . $image_name);
+
+                            $image->save($this->container->getParameter('path_img_baraholka_thums').$originalName);
+                            rename($this->container->getParameter('path_img_baraholka_thums').$originalName,$this->container->getParameter('path_img_baraholka_thums').$name_path.$image_name);
 
 
                             $im = new ImagesBaraholka();
                             $im->setName($image_name);
+                            $im->setPath($name_path);
                             $PostBaraholka->addImagesBaraholka($im);
                             $im->setPostBaraholka($PostBaraholka);
                             $em->persist($im);
@@ -729,16 +826,19 @@ class DefaultController extends Controller
 
 
                     } else {
-                        $status = 'failed';
-                        $message = 'Invalid File Type';
+                        $response = new Respon("Error type", 500);
+                        $response->headers->set('Content-Type', 'application/json');
+                        return $response;
                     }
                 } else {
-                    $status = 'failed';
-                    $message = 'Size exceeds limit';
+                    $response = new Respon("Error size", 500);
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
                 }
             } else {
-                $status = 'failed';
-                $message = 'File Error';
+                $response = new Respon("Error UploadObject", 500);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
             }
 
             $response = new Respon(null, 200);
@@ -768,24 +868,43 @@ class DefaultController extends Controller
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 2000000000)) {
+                if (($image->getSize() < 10000000)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
-                        //die(\Doctrine\Common\Util\Debug::dump($image));
                         try {
                             $imagine = new \Imagine\Imagick\Imagine();
+
+                            $year = date("Y");
+                            $maonth = date("m");
+                            $day = date("d");
+
+                            $name_path = $year."/".$maonth."/".$day."/";
                             $image_name = time() . "_" . md5($originalName) . '.jpg';
-
-                            $image = $imagine->open($image->getPathname());
-
-                            $image->save($this->container->getParameter('path_img_post_original') . $image_name);
-
+                            if (!file_exists($this->container->getParameter('path_img_post_original').$name_path))
+                                mkdir($this->container->getParameter('path_img_post_original').$name_path, 0777, true);
+                            if (!file_exists($this->container->getParameter('path_img_post_thums').$name_path))
+                                mkdir($this->container->getParameter('path_img_post_thums').$year."/".$maonth."/".$day, 0777, true);
+                            $path = $image->getPathname();
+                            $image = $imagine->open($path);
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
+                            if($w >= 800 or $h >= 600){
+                                if($w > $h){
+                                    $count = $image->getSize()->getHeight() / 600;
+                                    $width = $image->getSize()->getWidth() / $count;
+                                    $image->resize(new Box($width, 600), ImageInterface::FILTER_LANCZOS);
+                                }else{
+                                    $count = $image->getSize()->getWidth() / 800;
+                                    $height = $image->getSize()->getHeight() / $count;
+                                    $image->resize(new Box(800, $height), ImageInterface::FILTER_LANCZOS);
+                                }
+                            }
 
+                            $image->save($this->container->getParameter('path_img_post_original').$originalName);
+                            rename($this->container->getParameter('path_img_post_original').$originalName,$this->container->getParameter('path_img_post_original').$name_path.$image_name);
                             if($w > 260){
                                 $width = $image->getSize()->getWidth();
                                 $count = $width / 260;
@@ -798,11 +917,15 @@ class DefaultController extends Controller
                                 $image->resize(new Box($w, $h), ImageInterface::FILTER_LANCZOS);
                             }
 
-                            $image->save($this->container->getParameter('path_img_post_thums') . $image_name);
+
+                            $image->save($this->container->getParameter('path_img_post_thums').$originalName);
+                            rename($this->container->getParameter('path_img_post_thums').$originalName,$this->container->getParameter('path_img_post_thums').$name_path.$image_name);
+
 
 
                             $im = new PostImages();
                             $im->setName($image_name);
+                            $im->setPath($name_path);
                             $im->setWidth($width);
                             $im->setHeight($height);
                             $Post->addPostImage($im);
@@ -828,16 +951,19 @@ class DefaultController extends Controller
 
 
                     } else {
-                        $status = 'failed';
-                        $message = 'Invalid File Type';
+                        $response = new Respon("Error type", 500);
+                        $response->headers->set('Content-Type', 'application/json');
+                        return $response;
                     }
                 } else {
-                    $status = 'failed';
-                    $message = 'Size exceeds limit';
+                    $response = new Respon("Error size", 500);
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
                 }
             } else {
-                $status = 'failed';
-                $message = 'File Error';
+                $response = new Respon("Error UploadObject", 500);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
             }
 
             $response = new Respon(null, 200);
@@ -924,7 +1050,7 @@ class DefaultController extends Controller
             $image = $request->files->get('file');
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 2000000000)) {
+                if (($image->getSize() < 10000000)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
@@ -938,18 +1064,44 @@ class DefaultController extends Controller
                             $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->find($id);
                             $path_img_event_original = $this->container->getParameter('path_img_event_original');
                             $fs = new Filesystem();
-                            $fs->remove(array($path_img_event_original.$event->getImg()));
+                            $fs->remove(array($path_img_event_original.$event->getPath().$event->getImg()));
                         }else{
                             $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findBy(array('user'=>$user,'isActive'=>0))[0];
                         }
                         try {
                             $imagine = new \Imagine\Imagick\Imagine();
-                            $image_name = time() . "_" . md5($originalName) . '.jpg';
 
-                            $image = $imagine->open($image->getPathname());
-                            $image->save($this->container->getParameter('path_img_event_original') . $image_name);
+                            $year = date("Y");
+                            $maonth = date("m");
+                            $day = date("d");
+
+                            $name_path = $year."/".$maonth."/".$day."/";
+                            $image_name = time() . "_" . md5($originalName) . '.jpg';
+                            if (!file_exists($this->container->getParameter('path_img_event_original').$name_path))
+                                mkdir($this->container->getParameter('path_img_event_original').$name_path, 0777, true);
+                            $path = $image->getPathname();
+                            $image = $imagine->open($path);
+                            $w = $image->getSize()->getWidth();
+                            $h = $image->getSize()->getHeight();
+
+                            if($w >= 800 or $h >= 600){
+                                if($w > $h){
+                                    $count = $image->getSize()->getHeight() / 600;
+                                    $width = $image->getSize()->getWidth() / $count;
+                                    $image->resize(new Box($width, 600), ImageInterface::FILTER_LANCZOS);
+                                }else{
+                                    $count = $image->getSize()->getWidth() / 600;
+                                    $height = $image->getSize()->getHeight() / $count;
+                                    $image->resize(new Box(600, $height), ImageInterface::FILTER_LANCZOS);
+                                }
+                            }
+
+                            $image->save($this->container->getParameter('path_img_event_original').$originalName);
+                            rename($this->container->getParameter('path_img_event_original').$originalName,$this->container->getParameter('path_img_event_original').$name_path.$image_name);
+
 
                             $event->setImg($image_name);
+                            $event->setPath($name_path);
                             $em->persist($event);
                             $em->flush();
 
@@ -970,16 +1122,19 @@ class DefaultController extends Controller
                         }
 
                     } else {
-                        $status = 'failed';
-                        $message = 'Invalid File Type';
+                        $response = new Respon("Error type", 500);
+                        $response->headers->set('Content-Type', 'application/json');
+                        return $response;
                     }
                 } else {
-                    $status = 'failed';
-                    $message = 'Size exceeds limit';
+                    $response = new Respon("Error size", 500);
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
                 }
             } else {
-                $status = 'failed';
-                $message = 'File Error';
+                $response = new Respon("Error UploadObject", 500);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
             }
 
             $response = new Respon($message, 500);

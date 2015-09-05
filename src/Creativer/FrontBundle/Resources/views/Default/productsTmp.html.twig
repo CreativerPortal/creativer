@@ -89,7 +89,7 @@
             <div class="row slid__card slid__card__first">
 
                 <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0" ng-repeat="item in items.items">
-                    <a href="#/album/[[ item.id_album ]]/[[ item.name ]]" animation-image img="/home/album/thums/[[ item.name ]]" style='background:url("/home/album/thums/[[ item.name ]]") top left no-repeat;' class="container_image_product" >
+                    <a href="#/album/[[ item.id_album ]]/[[ item.name ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' class="container_image_product" >
                         {#<span class="slid__card__price">[[ item.price ]] руб.</span>#}
                     </a>
                     <a href="#/album/[[ item.id_album ]]" class="slid__card__name">[[ item.name_album ]]</a>

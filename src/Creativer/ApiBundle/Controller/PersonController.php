@@ -353,8 +353,8 @@ class PersonController extends Controller
         $fs = new Filesystem();
         foreach($images as $key=>$val){
             if($val){
-                $fs->remove(array($path_img_album_thums.$val->getName()));
-                $fs->remove(array($path_img_album_original.$val->getName()));
+                $fs->remove(array($path_img_album_thums.$path_img_album_thums.$val->getPath().$val->getName()));
+                $fs->remove(array($path_img_album_original.$path_img_album_original.$val->getPath().$val->getName()));
                 $em->remove($val);
             }
         }
@@ -396,8 +396,8 @@ class PersonController extends Controller
 
         $fs = new Filesystem();
             if($images){
-                $fs->remove(array($path_img_album_thums.$images->getName()));
-                $fs->remove(array($path_img_album_original.$images->getName()));
+                $fs->remove(array($path_img_album_thums.$images->getPath().$images->getName()));
+                $fs->remove(array($path_img_album_original.$images->getPath().$images->getName()));
                 $em->remove($images);
             }
 
@@ -881,8 +881,8 @@ class PersonController extends Controller
 
         if($postImage){
             $fs = new Filesystem();
-            $fs->remove(array($path_img_post_thums.$postImage->getName()));
-            $fs->remove(array($path_img_post_original.$postImage->getName()));
+            $fs->remove(array($path_img_post_thums.$postImage->getPath().$postImage->getName()));
+            $fs->remove(array($path_img_post_original.$postImage->getPath().$postImage->getName()));
             $em->remove($postImage);
         }
 

@@ -19,8 +19,8 @@
 
                     <a href="#/album/[[album.id]]" class="album__link"></a>
                     <div class="frame__img">
-                        <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.img ]]" />
-                        <img class="album_img" ng-show="!album.img" ng-src="{{ path_img_album_thums }}[[ album.images[0].name ]]" />
+                        <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.path ]][[ album.img ]]" />
+                        <img class="album_img" ng-show="!album.img" ng-src="{{ path_img_album_thums }}[[ album.images[0].path ]][[ album.images[0].name ]]" />
 
                     </div>
                     <img class="frame" src="/var/www/creativer/web/img/frame.png" />
@@ -138,7 +138,7 @@
                             <div class="left upload__element" ng-repeat="img in post.post_images">
                                 <img_post id_img="[[ img.id ]]" ng-if="img.new" remove_img_post></img_post>
                                 <img_post id_img="[[ img.id ]]"></img_post>
-                                <img src="{{ path_img_post_thums }}[[ img.name ]]" height="[[ img.height ]]" width="[[ img.width ]]" style="margin-right: 1px; margin-left: 1px; margin-bottom: 3px;">
+                                <img src="{{ path_img_post_thums }}[[ img.path ]][[ img.name ]]" height="[[ img.height ]]" width="[[ img.width ]]" style="margin-right: 1px; margin-left: 1px; margin-bottom: 3px;">
                             </div>
                         </div>
                         <div class="col-sm-10 padding-left_0">

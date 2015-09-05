@@ -52,6 +52,13 @@ class Images
     private $name;
 
     /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "uploadEditAlbum"})
+     */
+    private $path;
+
+    /**
      * @ORM\Column(type="integer", nullable=true)
      * @JMS\Expose
      * @JMS\Groups({"getAlbumById", "uploadEditAlbum"})
@@ -99,6 +106,7 @@ class Images
     }
     
 
+
     /**
      * Get id
      *
@@ -130,6 +138,29 @@ class Images
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return Images
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

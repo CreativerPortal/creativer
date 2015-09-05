@@ -26,8 +26,9 @@ private $id;
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="post_comments", fetch="EAGER")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="event_comments", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @JMS\Groups({"getEvent"})
      **/
     private $user;
 
@@ -36,19 +37,21 @@ private $id;
      * @JMS\Expose
      * @ORM\Column(name="date", type="datetime")
      * @Gedmo\Timestampable(on="create")
+     * @JMS\Groups({"getEvent"})
      */
     private $date;
 
     /**
      * @JMS\Expose
      * @ORM\Column(type="text")
+     * @JMS\Groups({"getEvent"})
      */
     private $text;
 
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
-     * @ORM\ManyToOne(targetEntity="Events", inversedBy="event_comments")
+     * @ORM\ManyToOne(targetEntity="Events", inversedBy="event_comments", cascade={"remove"})
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
      */
     private $event;

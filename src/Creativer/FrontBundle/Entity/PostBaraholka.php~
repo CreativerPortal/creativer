@@ -50,6 +50,12 @@ class PostBaraholka
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Expose
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
+     */
+    private $path;
 
     /**
      * @JMS\Expose
@@ -109,7 +115,7 @@ class PostBaraholka
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
      * @ORM\OneToMany(targetEntity="ImagesBaraholka", mappedBy="post_baraholka")
-     * @ORM\OrderBy({"id" = "DESC"})
+     * @ORM\OrderBy({"id" = "ASC"})
      * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
     private $images_baraholka;
@@ -203,6 +209,29 @@ class PostBaraholka
     public function getName()
     {
         return $this->name;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return PostBaraholka
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 
     /**

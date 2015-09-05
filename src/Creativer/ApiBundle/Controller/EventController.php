@@ -97,7 +97,7 @@ class EventController extends Controller
 
                 $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
                     ->createQueryBuilder('e')
-                    ->select('cat.id as id_cat','e.id','e.name','e.img','e.start_date','e.end_date')
+                    ->select('cat.id as id_cat','e.id','e.name','e.path','e.img','e.start_date','e.end_date')
                     ->leftJoin('e.event_sections', 'cat')
                     ->where('cat IN (:items)')
                     ->groupBy('e.id')
@@ -415,10 +415,11 @@ class EventController extends Controller
 
         $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->find($id);
         $image = $event->getImg();
+        $path = $event->getPath();
 
 
         $fs = new Filesystem();
-        $fs->remove(array($path_img_event_original.$image));
+        $fs->remove(array($path_img_event_original.$path.$image));
 
         $em->remove($event);
         $em->flush();
