@@ -109,7 +109,7 @@ class PostBaraholka
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
      * @ORM\OneToMany(targetEntity="ImagesBaraholka", mappedBy="post_baraholka")
-     * @ORM\OrderBy({"id" = "DESC"})
+     * @ORM\OrderBy({"id" = "ASC"})
      * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
     private $images_baraholka;

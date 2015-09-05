@@ -3,6 +3,10 @@ html, body{
     height: 100%;
 }
 
+button{
+    outline: none;
+}
+
 [ng-cloak]
 {
     display: none !important;

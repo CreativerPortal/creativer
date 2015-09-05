@@ -8,9 +8,9 @@
                     <input placeholder="Поиск по барахолке">
                     <button class="slid__slider-button"></button>
                 </div>
-                <div class="col-sm-3 slid__search__link margin-top_20">
-                    <a href="">Взглянуть шире</a>
-                </div>
+                {#<div class="col-sm-3 slid__search__link margin-top_20">#}
+                    {#<a href="">Взглянуть шире</a>#}
+                {#</div>#}
             </div>
 
             <div class="row margin-top_20">
@@ -34,13 +34,11 @@
                 <div class="col-sm-2">Разделы:</div>
                 <div class="col-sm-10">
 
-                    <select name="section" class="selectForumId" ng-model="section" ng-pattern="/^[1-9]+/" required>
-                        <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]">
+                    <select name="section" class="selectForumId" ng-model="section" required>
+                        <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]" value="[[ child.id ]]">
                             <option ng-repeat="child in children.children" value="[[ child.id ]]" ng-selected="post.categories_baraholka.id == child.id">[[ child.name ]]</option>
                         </optgroup>
                     </select>
-                    <br/>
-                    <span class="text-danger" ng-show="submitted && baraholka_form.section.$error.required">Раздел не выбран</span>
                 </div>
             </div>
 
@@ -134,14 +132,11 @@
                         <div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                             <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
-                            <div ng-show="uploader.progress" class="text-gray fiveMinuts text-bold margin-top_minus_10">Подождите пока файлы загрузятся на CREATIVER [[ uploader.progress ]]%</div><br>
                     </div>
                 </div>
 
 
             </div>
-
-            <div class="horizontal_line margin-top_15"></div>
 
             <div class="bg-warning text-center">
                     <h5 class="text-danger">Увеличьте продажи: оплатите выделение объявления через банкомат, инфокиоск, интернет-банкинг!</h5>
@@ -149,11 +144,11 @@
             </div>
 
             <div class="row text-center">
-                <button type="button" ng-show="!uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && createPostBaraholka()" >
-                    В статью
+                <button type="button" ng-class="{'loader':loader}" ng-show="!uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && redirectPostBaraholka()" >
+                    В объявление
                 </button>
-                <button type="button" ng-show="uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && uploader.uploadAll()" >
-                    В статью
+                <button type="button" ng-class="{'loader':loader}" ng-show="uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && uploader.uploadAll()" >
+                    В объявление
                 </button>
             </div>
 

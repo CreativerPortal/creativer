@@ -8,9 +8,6 @@
                     <input placeholder="Поиск по барахолке">
                     <button class="slid__slider-button"></button>
                 </div>
-                <div class="col-sm-3 slid__search__link margin-top_20">
-                    <a href="">Взглянуть шире</a>
-                </div>
             </div>
 
             <div class="row margin-top_20">
@@ -37,7 +34,7 @@
                     {#<select name="section" class="selectForumId" ng-model="section" ng-options="children.id as children.name for children in baraholka">#}
                     {#</select>#}
 
-                    <select name="section" class="selectForumId" ng-model="section" ng-pattern="/^[1-9]+/" required>
+                    <select name="section" class="selectForumId" ng-model="section" required>
                         <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]">
                             <option ng-repeat="child in children.children" value="[[ child.id ]]">[[ child.name ]]</option>
                         </optgroup>
@@ -141,14 +138,11 @@
                         <div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                             <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
-                            <div ng-show="uploader.progress" class="text-gray fiveMinuts text-bold margin-top_minus_10">Подождите пока файлы загрузятся на CREATIVER [[ uploader.progress ]]%</div><br>
                     </div>
                 </div>
 
 
             </div>
-
-            <div class="horizontal_line margin-top_15"></div>
 
             <div class="bg-warning text-center">
                     <h5 class="text-danger">Увеличьте продажи: оплатите выделение объявления через банкомат, инфокиоск, интернет-банкинг!</h5>

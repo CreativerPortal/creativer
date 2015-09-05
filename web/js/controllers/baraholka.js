@@ -21,10 +21,15 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 $scope.post = data.post;
             });
         }else if($routeParams.id_fleamarketposting){
-            baraholkaService.getPostById({"post_id": $routeParams.id_fleamarketposting}).success(function (data) {
-                console.log(data.post);
-                $scope.post = data.post;
-            });
+            $scope.$watchGroup(['post_city'], function() {
+                if($scope.post_city){
+                    baraholkaService.getPostById({"post_id": $routeParams.id_fleamarketposting}).success(function (data) {
+                        console.log(data.post);
+                        $scope.post = data.post;
+                    });
+                }
+            })
+
         }
 
         $scope.checkPostCategory = function(id_check_post_category){
@@ -109,6 +114,11 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             baraholkaService.createPostBaraholka(data).success(function (data) {
 
             });
+        }
+
+        $scope.redirectPostBaraholka = function(){
+            $scope.loader = true;
+            $location.path("/viewtopic/" + $routeParams.id_fleamarketposting);
         }
 
         $scope.saveComment = function(text){
