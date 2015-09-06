@@ -157,8 +157,10 @@
                         <div class="row">
                             {% if is_granted('ROLE_USER') %}
                                 <div class="col-sm-6 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
-                            {%  endif %}
-                            <div class="col-sm-6 text-right"><time class="comment_time padding-right_15">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
+                                <div class="col-sm-6 text-right"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></div>
+                            {%  else %}
+                                <div class="col-sm-6 col-sm-offset-6 text-right"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></div>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -187,7 +189,7 @@
                             </div>
 
                             <div class="user__text col-sm-12">[[comment.text]]</div>
-                            <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time>
+                            <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
 
                         </div>
                     </div>

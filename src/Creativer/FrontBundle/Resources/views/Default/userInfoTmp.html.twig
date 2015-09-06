@@ -45,10 +45,10 @@
             <span class="glyphicon glyphicon-envelope"></span>
             Сообщение
         </a>
-        <button class="button_favorites fs_0-9 margin-left_5" ng-class="{'loader':loader}" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span>
+        <button class="button_favorites fs_0-9 margin-left_5" ng-class="{'loader':loader_favorit}" ng-show="!favorit" ng-click="addFavorits(user.id)"><span class="glyphicon glyphicon-plus-sign" ></span>
             Избранное
         </button>
-        <button class="button_favorites fs_0-9 margin-left_5" ng-class="{'loader':loader}" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span>
+        <button class="button_favorites fs_0-9 margin-left_5" ng-class="{'loader':loader_favorit}" ng-show="favorit" ng-click="removeFavorits(user.id)"><span class="glyphicon glyphicon-minus-sign" ></span>
             Избранное
         </button>
     </div>
@@ -116,7 +116,7 @@
 
     <div class="row margin-top_20 col-sm-12 user__text">
         <div class="text-left user__text_bold">Присоединился:</div>
-        <time class="text_info" >[[ user.date | date: "dd.MM.yyyy" ]]</time>
+        <time class="text_info" >[[ user.date | date: "dd MMMM yyyy" ]]</time>
     </div>
 
 {% elseif(id != app.security.getToken().getUser().getId()) %}
@@ -158,6 +158,6 @@
 
     <div class="row margin-top_20 col-sm-12 user__text">
         <div class="text-left user__text_bold">Присоединился:</div>
-        <time class="text_info" >[[ user.date | date: "dd.MM.yyyy" ]]</time>
+        <time class="text_info" >[[ user.date | date: "dd MMMM yyyy" ]]</time>
     </div>
 {% endif %}

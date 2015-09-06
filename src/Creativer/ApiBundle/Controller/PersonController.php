@@ -683,18 +683,12 @@ class PersonController extends Controller
      */
     public function getLikesByAlbumIdAction()
     {
-        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
-            $array = array('success' => false);
-            $response = new Respon(json_encode($array), 401);
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
-        }
-
         $id_album = $this->get('request')->request->get('id_album');
         $em = $this->getDoctrine()->getManager();
         $redis = $this->get('snc_redis.default');
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        if($this->get('security.context')->isGranted('ROLE_USER')){
+            $id = $this->get('security.context')->getToken()->getUser()->getId();
+        }
         $album = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->findOneById($id_album);
 
         $images = $album->getImages();
@@ -706,7 +700,7 @@ class PersonController extends Controller
 
            $id_img = $value->getId();
 
-           if($redis->sismember($id_img, $id)){
+           if(!empty($id) and $redis->sismember($id_img, $id)){
                $likes[$id_img]['liked'] = true;
            }else{
                $likes[$id_img]['liked'] = false;

@@ -100,8 +100,8 @@
 
 
 
-                               <div class="col-sm-3 padding-right_0 text-right">
-                                   <time class="text-gray ng-binding">[[ user.albums[album_key].images[album_key].date  | date: "dd.MM.yyyy" ]]</time> |
+                               <div class="col-sm-3 padding-right_0 padding-left_0 text-right">
+                                   <time class="text-gray ng-binding">[[ user.albums[album_key].images[album_key].date  | date: "dd MMM yyyy" ]]</time> |
 
                                    <span ng-class="{'click_class':(click_class === 'true' && user.albums[album_key].images_likes[img_id].liked), 'yes_like':user.albums[album_key].images_likes[img_id].liked}"  ng-if="user.albums[album_key].images_likes[img_id].liked != undefined" class="text-blue glyphicon glyphicon-heart pointer no_like" style="top: 2px;" ng-click="like(user.albums[album_key].images[key_img].id,album_key,key_img); click_class = 'true'">
                                        <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ user.albums[album_key].images[key_img].likes ]]</span>
@@ -126,7 +126,7 @@
                                             <div class="row col-sm-12 user__text_bold text-left" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</div>
                                             <div class="row col-sm-12 user__text_bold text-left" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</div>
                                             <div class="row col-sm-12"><p class="user__text left">[[ comment.text ]]</p></div>
-                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time></div>
+                                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time></div>
                                         </div>
                                         <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                                     </div>

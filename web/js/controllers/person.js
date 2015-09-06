@@ -123,9 +123,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }
 
     $scope.addFavorits = function(id){
-        $scope.loader = true;
+        $scope.loader_favorit = true;
         personalService.addFavorits({id:id}).success(function (data) {
-            $scope.loader = false;
+            $scope.loader_favorit = false;
             $scope.user = data.user;
                 $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){
@@ -138,9 +138,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }
 
     $scope.removeFavorits = function(id){
-        $scope.loader = true;
+        $scope.loader_favorit = true;
         personalService.removeFavorits({id:id}).success(function (data) {
-            $scope.loader = false;
+            $scope.loader_favorit = false;
             $scope.user = data.user;
                 $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){
@@ -178,6 +178,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         };
 
     }
+
 
     $scope.editTextPost = function(id,text){
         personalService.editTextPost({id: id, text: text}).success(function (data) {
