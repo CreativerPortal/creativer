@@ -189,6 +189,12 @@ class DefaultController extends Controller
             $main = $request->get('main');
             $price = $request->get('price');
             $title = $request->get('title');
+            $name_album = $request->get('name_album');
+            $description_album = $request->get('description_album');
+            $stop = $request->get('stop');
+            $selectCategories = $request->get('selectCategories');
+            $selectCategories = explode(",", $selectCategories);
+
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
                 if (($image->getSize() < 10000000)) {
@@ -201,13 +207,23 @@ class DefaultController extends Controller
                         $em = $this->getDoctrine()->getEntityManager();
                         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$userId));
                         $album = $em->getRepository("CreativerFrontBundle:Albums")->findBy(array('isActive' => 0, 'user' => $user[0]));
+                        $categories = $em->getRepository("CreativerFrontBundle:Categories")->findById($selectCategories);
 
                         if(empty($album)){
                             $album = new Albums();
                             $album->setUser($user[0]);
+                            $album->setName($name_album);
+                            $album->setDescription($description_album);
+                            foreach($categories as $cat){
+                                $album->addCategory($cat);
+                            }
                         }else{
                             $album = $album[0];
                         }
+                        if($stop == 'true'){
+                            $album->setIsActive(1);
+                        }
+
 
                         $year = date("Y");
                         $maonth = date("m");

@@ -8,7 +8,7 @@
                 <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Барахолка</h3></div>
                 <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
                     <input placeholder="Поиск по барахолке">
-                    <button class="slid__slider-button"></button>
+                    <button class="slid__slider-button" ng-click="searchPostsBaraholkaByText()"></button>
                 </div>
             </div>
 
@@ -49,7 +49,10 @@
             <div class="row"><h2 class="lobster margin-left_0">[[ post.name ]]</h2></div>
             <div class="row">
                 <div class="col-sm-6 padding-left_0 fs_0-8"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
-                <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="post.user.id == $root.id_user"><a href="#/edit_fleamarketposting/[[ post.id ]]">Редактировать</a></div>
+                {% if is_granted('ROLE_USER') %}
+                    <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="post.user.id == $root.id_user"><a href="#/edit_fleamarketposting/[[ post.id ]]">Редактировать</a></div>
+                {% endif %}
+
             </div>
 
             <div class="row margin-top_25">
@@ -91,8 +94,8 @@
                         <div>
                             <div class="text-blue"><a href="#/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
                             <div class="margin-top_5"><p>[[ comment.text ]]</p></div>
-                            <div class="margin-left_60 text-gray fs_0-8 left"><time datetime="2014:12:12">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time></div>
-                            <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div>
+                            <div class="margin-left_60 text-gray fs_0-8 left"><time datetime='[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]'>[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time></div>
+                            {# <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div> #}
                         </div>
 
                         <div class="col-sm-12 slid__comment__line"></div>
@@ -103,7 +106,9 @@
         </div>
 
         <div class="col-sm-2">
-            <a href="#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+            {% endif %}
 
             <div class="row">
                 <div class="margin-top_80">

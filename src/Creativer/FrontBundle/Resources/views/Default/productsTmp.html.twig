@@ -74,11 +74,11 @@
                         <option value="date">дате добавления</option>
                     </select>
                 </div>
-                <div class="col-sm-3 extended__search">
+                {#<div class="col-sm-3 extended__search">
                     <label for="search">Расширенный поиск</label>
                     <input id="search" class="extended__search__element" type="checkbox" >
                     <span></span>
-                </div>
+                </div>#}
 
                 <div class="col-sm-3 col-sm-offset-2 slid__pagination fiveMinuts" ng-show="pages.length > 1">
                     <a href="#/products/[[ product.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>

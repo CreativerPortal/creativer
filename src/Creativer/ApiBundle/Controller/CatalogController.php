@@ -388,7 +388,7 @@ class CatalogController extends Controller
 
 
         $keywordQuery = new \Elastica\Query\QueryString();
-        $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
+        $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album_description:".$search_text);
         $boolQuery->addShould($keywordQuery);
 
 

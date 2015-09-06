@@ -84,8 +84,11 @@ class BaraholkaController extends Controller
         $post_category_id = $this->get('request')->request->get('post_category_id')?$this->get('request')->request->get('post_category_id'):0;
         $singboard_participate = $this->get('request')->request->get('singboard_participate');
 
-
-        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+        if($this->get('security.context')->isGranted('ROLE_USER')){
+            $userId = $this->get('security.context')->getToken()->getUser()->getId();
+        }else{
+            $userId = null;
+        }
 
 
         $page = $this->get('request')->request->get('page')?$this->get('request')->request->get('page'):1;

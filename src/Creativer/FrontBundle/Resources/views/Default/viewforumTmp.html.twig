@@ -8,7 +8,7 @@
                 <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Барахолка</h3></div>
                 <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
                     <input placeholder="Поиск по барахолке" ng-model="searchInBaraholka">
-                    <button class="slid__slider-button"></button>
+                    <button class="slid__slider-button" ng-click="searchPostsBaraholkaByText()"></button>
                 </div>
                 {#<div class="col-sm-3 slid__search__link margin-top_20">#}
                     {#<a href="">Взглянуть шире</a>#}
@@ -52,7 +52,7 @@
                 <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">[[ nameCategory ]]</h3></div>
                 <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
                     <input placeholder="Поиск в разделе" ng-model="searchInCategory">
-                    <button class="slid__slider-button"></button>
+                    <button class="slid__slider-button" ng-click="searchPostsBaraholkaByText()"></button>
                 </div>
             </div>
 
@@ -116,7 +116,10 @@
         </div>
 
         <div class="col-sm-2">
-            <a href="{{ path('creativer_front_main') }}#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('creativer_front_main') }}#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+            {% endif %}
+
 
             <div class="row">
                 <div class="margin-top_80">

@@ -103,9 +103,15 @@
                                <div class="col-sm-3 padding-right_0 padding-left_0 text-right">
                                    <time class="text-gray ng-binding">[[ user.albums[album_key].images[album_key].date  | date: "dd MMM yyyy" ]]</time> |
 
-                                   <span ng-class="{'click_class':(click_class === 'true' && user.albums[album_key].images_likes[img_id].liked), 'yes_like':user.albums[album_key].images_likes[img_id].liked}"  ng-if="user.albums[album_key].images_likes[img_id].liked != undefined" class="text-blue glyphicon glyphicon-heart pointer no_like" style="top: 2px;" ng-click="like(user.albums[album_key].images[key_img].id,album_key,key_img); click_class = 'true'">
-                                       <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ user.albums[album_key].images[key_img].likes ]]</span>
-                                   </span>
+                                   {% if is_granted('ROLE_USER') %}
+                                       <span ng-class="{'click_class':(click_class === 'true' && user.albums[album_key].images_likes[img_id].liked), 'yes_like':user.albums[album_key].images_likes[img_id].liked}"  ng-if="user.albums[album_key].images_likes[img_id].liked != undefined" class="text-blue glyphicon glyphicon-heart pointer no_like" style="top: 2px;" ng-click="like(user.albums[album_key].images[key_img].id,album_key,key_img); click_class = 'true'">
+                                           <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ user.albums[album_key].images[key_img].likes ]]</span>
+                                       </span>
+                                   {% else %}
+                                       <span class="text-blue glyphicon glyphicon-heart no_like" style="top: 2px;">
+                                           <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ user.albums[album_key].images[key_img].likes ]]</span>
+                                       </span>
+                                   {% endif %}
                                </div>
 
                            </div>
@@ -131,17 +137,21 @@
                                         <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                                     </div>
 
-                                    <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Написать комментарий" style="width: 440px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
-                                    <div ng-show="text_comment" class="margin-top_5 text-right">
-                                        <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)" ng-class="{'loader':loader}">Отправить</button>
-                                    </div>
+                                    {% if is_granted('ROLE_USER') %}
+                                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Написать комментарий" style="width: 440px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
+                                        <div ng-show="text_comment" class="margin-top_5 text-right">
+                                            <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)" ng-class="{'loader':loader}">Отправить</button>
+                                        </div>
+                                    {% endif %}
                                 </div>
                                 <div class="col-sm-2">
                                     <span class="left">Альбом:</span><br>
                                     <span class="text-blue left text-left">[[ user.albums[album_key].name ]]</span><br>
                                     <nav class="margin-top_10">
                                         <a target="_blank" href="/home/album/original/[[ user.albums[album_key].images[key_img].path ]][[ user.albums[album_key].images[key_img].name ]]"><span class="text-blue left">Увеличить</span></a><br>
-                                        <span class="text-blue left pointer" ng-click="delete = true">Удалить</span><br>
+                                        {% if is_granted('ROLE_USER') %}
+                                            <span class="text-blue left pointer" ng-show="$root.id_user == user.id" ng-click="delete = true">Удалить</span><br>
+                                        {% endif %}
                                     </nav>
                                 </div>
 

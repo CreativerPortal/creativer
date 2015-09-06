@@ -208,26 +208,28 @@ class PersonController extends Controller
      */
     public function getUserAction()
     {
+        if($this->get('security.context')->isGranted('ROLE_USER')){
+            if(!$this->get('request')->request->get('id'))
+            {
+                $id = $this->get('security.context')->getToken()->getUser()->getId();
+            }else{
+                $id = $this->get('request')->request->get('id');
+            }
+            $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$id));
 
-        if(!$this->get('request')->request->get('id'))
-        {
-            $id = $this->get('security.context')->getToken()->getUser()->getId();
+            $user = array('user' => $user[0]);
+
+            $serializer = $this->container->get('jms_serializer');
+            $user = $serializer
+                ->serialize(
+                    $user,
+                    'json',
+                    SerializationContext::create()
+                        ->enableMaxDepthChecks()
+                );
         }else{
-            $id = $this->get('request')->request->get('id');
+            $user = null;
         }
-        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$id));
-
-        $user = array('user' => $user[0]);
-
-        $serializer = $this->container->get('jms_serializer');
-        $user = $serializer
-            ->serialize(
-                $user,
-                'json',
-                SerializationContext::create()
-                    ->enableMaxDepthChecks()
-            );
-
 
         $response = new Respon($user);
         $response->headers->set('Content-Type', 'application/json');
@@ -265,50 +267,6 @@ class PersonController extends Controller
         return array('user' => $user);
     }
 
-    /**
-     * @Post("/v1/finish_upload")
-     */
-    public function finishUploadAction()
-    {
-        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
-            $array = array('success' => false);
-            $response = new Respon(json_encode($array), 401);
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
-        }
-
-        $data = json_decode($this->get("request")->getContent());
-        $name = isset($data->name)?$data->name:'';
-        $description = isset($data->description)?$data->description:'';
-        $selectCategories = isset($data->selectCategories)?$data->selectCategories:'';
-
-        $em = $this->getDoctrine();
-        $id = $this->get('security.context')->getToken()->getUser()->getId();
-        $user = $em->getRepository("CreativerFrontBundle:User")->findBy(array('id' => $id));
-        $album = $em->getRepository("CreativerFrontBundle:Albums")->findBy(array('user' => $user[0], 'isActive' => 0));
-
-        $categories = $em->getRepository("CreativerFrontBundle:Categories")->findBy(array('id' => $selectCategories));
-
-
-        if(!empty($album)){
-            $album = $album[0];
-            $album->setIsActive(1);
-            $album->setName($name);
-            $album->setDescription($description);
-            foreach($categories as $cat){
-                $album->addCategory($cat);
-            }
-            $em->getEntityManager()->flush($album);
-        }
-
-
-        $view = \FOS\RestBundle\View\View::create()
-            ->setStatusCode(200)
-            ->setFormat('json');
-
-        return $this->get('fos_rest.view_handler')->handle($view);
-    }
 
     /**
      * @return array

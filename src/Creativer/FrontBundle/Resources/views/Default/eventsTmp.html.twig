@@ -28,7 +28,9 @@
                 <input placeholder="Поиск в событиях">
                 <button class="slid__slider-button"></button>
             </div>
-            <a href="#/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="#/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
+            {% endif %}
         </div>
 
         <div class="horizontal_line_dashed"></div>

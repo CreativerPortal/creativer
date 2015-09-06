@@ -221,7 +221,6 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         })
 
-
         $scope.$watch("searchInBaraholka", function(){
 
             var text = $scope.searchInBaraholka;
@@ -261,7 +260,27 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 }
             }, 1000);
 
-        })
+        });
+
+        $scope.searchPostsBaraholkaByText = function(){
+            baraholkaService.searchPostsBaraholkaByText({category_id:$routeParams.id_category, search_text: $scope.searchInCategory}).success(function (data) {
+                if(text == $scope.searchInCategory) {
+                    $scope.search = true;
+                    $scope.posts = data.posts;
+                    $scope.posts_page = null;
+                    $scope.pages = [];
+                }
+            });
+
+            baraholkaService.searchPostsBaraholkaByText({category_id:1000, search_text: $scope.searchInBaraholka}).success(function (data) {
+                if(text == $scope.searchInBaraholka){
+                    $scope.search = true;
+                    $scope.posts = data.posts;
+                    $scope.posts_page = null;
+                    $scope.pages = [];
+                }
+            });
+        }
 
         // UPLOAD
 

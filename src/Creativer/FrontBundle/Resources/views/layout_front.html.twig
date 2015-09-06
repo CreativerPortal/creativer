@@ -290,24 +290,24 @@
                     <img  src="/var/www/creativer/web/img/search_button.png" alt="поиск" />
                 </div>
             </div>
-            <div class="row fiveMinuts fs_1-2" ng-init="condition=1" ng-show="bySearch">
-
-                <div class="form-registration__text left margin-right_10">
-                    <input style="position: absolute; top: -9999px; left: -9999px" id="condition_people" name="condition" type="radio" required="required" value="1" ng-model="$root.condition" ng-checked="$root.condition==1" checked ng-keyup="$event.keyCode == 13 && search()">
-                    <label class="condition left" for="condition_people"></label>
-                    <label class="margin-left_5 pointer text-white" style="background: none; padding: 0px;" for="condition_people">Люди</label>
-                </div>
+            <div class="row fiveMinuts fs_1-2" ng-init="condition=2" ng-show="bySearch">
 
                 <div class="form-registration__text left margin-right_10">
                     <input style="position: absolute; top: -9999px; left: -9999px" id="condition_product" name="condition" type="radio" required="required" value="2" ng-model="$root.condition" ng-checked="$root.condition==2" ng-keyup="$event.keyCode == 13 && search()">
                     <label class="condition left" for="condition_product"></label>
-                    <label class="margin-left_5 pointer text-white" style="background: none; padding: 0px;" for="condition_product">Продукты</label>
+                    <label class="margin-left_5 pointer text-white" style="background: none; padding: 0px;" for="condition_product">Товары</label>
                 </div>
 
-                <div class="form-registration__text left">
+                <div class="form-registration__text left margin-right_10">
                     <input style="position: absolute; top: -9999px; left: -9999px" id="condition_service" name="condition" type="radio" required="required" value="3" ng-model="$root.condition" ng-checked="$root.condition==3" ng-keyup="$event.keyCode == 13 && search()">
                     <label class="condition left" for="condition_service"></label>
                     <label class="margin-left_5 pointer text-white" style="background: none; padding: 0px;" for="condition_service">Услуги</label>
+                </div>
+
+                <div class="form-registration__text left">
+                    <input style="position: absolute; top: -9999px; left: -9999px" id="condition_people" name="condition" type="radio" required="required" value="1" ng-model="$root.condition" ng-checked="$root.condition==1" checked ng-keyup="$event.keyCode == 13 && search()">
+                    <label class="condition left" for="condition_people"></label>
+                    <label class="margin-left_5 pointer text-white" style="background: none; padding: 0px;" for="condition_people">Люди</label>
                 </div>
 
             </div>

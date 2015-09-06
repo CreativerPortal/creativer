@@ -2,7 +2,7 @@ angular.module('app.ctr.header', ['service.header'])
     .controller('headerCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$routeParams', function($window,$scope,$rootScope,$location,headerService,$routeParams) {
 
     if(!$rootScope.condition){
-        $rootScope.condition = 1;
+        $rootScope.condition = 2;
     }
 
     $rootScope.search = function(){

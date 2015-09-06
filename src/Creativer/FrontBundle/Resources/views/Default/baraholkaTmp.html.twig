@@ -8,7 +8,9 @@
                 <input placeholder="Поиск по барахолке">
                 <button class="slid__slider-button"></button>
             </div>
-            <a href="#/fleamarketposting" class="col-sm-5 col-sm-offset-2 advert_button margin-top_20">Разместить объявление</a>
+            {% if is_granted('ROLE_USER') %}
+                <a href="#/fleamarketposting" class="col-sm-5 col-sm-offset-2 advert_button margin-top_20">Разместить объявление</a>
+            {% endif %}
         </div>
 
         <nav class="row slid__menu margin-top_20">

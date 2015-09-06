@@ -110,6 +110,11 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
        // console.info('onCompleteItem', fileItem, response, status, headers);
+        if(!$scope.count_images_uploade){
+            $scope.count_images_uploade = 1;
+        }else{
+            $scope.count_images_uploade += 1;
+        }
         $scope.id_post_baraholka = response.id;
     };
     uploader.onCompleteAll = function(response) {
@@ -120,10 +125,7 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
             selectCategories.push($scope.selectedItem[item].id);
         }
         if($scope.id_post_baraholka){
-            personalService.finishUpload({name:name_album,selectCategories:selectCategories,description:description_album}).success(function () {
-                $rootScope.user = undefined;
-                $location.path("/album/"+$scope.id_post_baraholka);
-            });
+            $location.path("/album/"+$scope.id_post_baraholka);
         }
     };
 
@@ -136,8 +138,30 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
             item.formData.push({price: item.file.price});
         }
 
+        if($scope.album.name != undefined) {
+            item.formData.push({name_album: $scope.album.name});
+        }
+
+        if($scope.album.description != undefined) {
+            item.formData.push({description_album: $scope.album.description});
+        }
+
+        var selectCategories = [];
+        for(var i in $scope.selectedItem){
+            selectCategories.push($scope.selectedItem[i].id);
+        }
+
+        if($scope.album.description != undefined) {
+            var selectCategories = selectCategories.join(',');
+            item.formData.push({selectCategories: selectCategories});
+        }
+
         if(item.main == 1) {
             item.formData.push({main: 1});
+        }
+
+        if($scope.count_images_uploade == uploader.queue.length) {
+            item.formData.push({stop: 'true'});
         }
         uploader.uploadAll();
     };
