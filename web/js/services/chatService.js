@@ -33,6 +33,7 @@ angular.module('service.chat', ['service.socket'])
 
         var init = function(){
             socket.on("new message", function(data) {
+                console.log(data);
                 $rootScope.new_messages = data;
             });
         }

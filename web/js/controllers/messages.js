@@ -12,9 +12,6 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         }
     })
 
-    //messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
-    //    $scope.companion = data.user;
-    //})
 
     $scope.$watch('user', function() {
 
@@ -93,23 +90,8 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     socket.on('reviewed', function(data){
 
-        //for(var key in $rootScope.new_messages){
-        //    $rootScope.new_messages
-        //    if($rootScope.new_messages[key].id_user == data.id_user){
-        //        $scope.messages.unshift($rootScope.new_messages[key]);
-        //        $rootScope.new_messages = $rootScope.new_messages.slice(key,1);
-        //    }
-        //}
     });
 
-    //$scope.$watchGroup(['user','new_messages'], function() {
-    //    for(var key in $rootScope.new_messages){
-    //        if($scope.user && $rootScope.new_messages && $rootScope.new_messages[key].id_recipient == $scope.user.id){
-    //            console.log("равны 1");
-    //            socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
-    //        }
-    //    }
-    //});
 
 
     $scope.$on('$routeChangeStart', function(next, current) {

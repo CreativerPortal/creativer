@@ -161,14 +161,20 @@ io.on('connection', function(socket){
                         //console.warn(err.message);
                     }
                     else {
-                       // console.log(result.ops);
-                        for (var key in data.ids) {
-                            var id = data.ids[key];
-                            for (var k in sockets[id]) {
-                                sockets[id][k].emit('message', result.ops);
+                        var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ data.sender +")";
+                        connection.query(queryText, data.sender, function(err, rows) {
+                                result.ops[0].username = rows[0].username;
+                                result.ops[0].lastname = rows[0].lastname;
+                                result.ops[0].avatar = rows[0].avatar;
+                                for (var key in data.ids) {
+                                    var id = data.ids[key];
+                                    for (var k in sockets[id]) {
+                                        sockets[id][k].emit('message', result.ops);
+                                    }
+                                }
+                                db.close();
                             }
-                        }
-
+                        );
                     }
                     db.close();
                 });
@@ -182,19 +188,10 @@ io.on('connection', function(socket){
             var collection = db.collection('messages');
             var id_users = data.ids.sort();
             var id_recipient = data.id_user
-            //for(key in data.ids){
-            //    if(data.ids[0] != data.id_user){
-            //        var id_recipient = data.ids[0];
-            //    }else{
-            //        var id_recipient = data.ids[1];
-            //    }
-            //}
-           // console.log({id_users: id_users, receiver: id_recipient});
+
             collection.update({id_users: id_users, receiver: id_recipient},{ $set: {reviewed: true}}, { multi: true }, function(err, result) {
                 if (err){
-                    //console.log('bad');
                 }else{
-                    //socket.emit('reviewed', {id_user: id_recipient});
                     var id = parseInt(socket.handshake.query.id_user);
                     collection.find({ receiver: id_recipient, reviewed: false}).toArray(function (err, result) {
                         socket.emit('new message', result);
