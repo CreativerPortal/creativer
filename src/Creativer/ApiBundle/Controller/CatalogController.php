@@ -388,7 +388,7 @@ class CatalogController extends Controller
 
 
         $keywordQuery = new \Elastica\Query\QueryString();
-        $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album_description:".$search_text);
+        $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
         $boolQuery->addShould($keywordQuery);
 
 
@@ -446,6 +446,7 @@ class CatalogController extends Controller
         $boolQuery->addShould($keywordQuery);
 
 
+
         $optionKeyTerm = new \Elastica\Filter\Terms();
         $optionKeyTerm->setTerms('categories.id',  array($items_id));
         $nested = new \Elastica\Filter\Nested();
@@ -453,10 +454,8 @@ class CatalogController extends Controller
         $nested->setPath('categories');
 
 
-
-        $filteredQuery = new \Elastica\Query\Filtered($keywordQuery);
+        $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $nested);
         $posts = $products->findHybrid($filteredQuery);
-
 
 
         foreach ($posts as $hybridResult) {

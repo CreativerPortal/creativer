@@ -14,13 +14,13 @@ services:
             class: Creativer\FrontBundle\Twig\twigExtension
             tags:
                 -  { name: twig.extension }
-    fos_elastica.listener.app.album:
-        class: Creativer\FrontBundle\Handler\ElasticaCourseListener
-        arguments:
-            - '@fos_elastica.object_persister.app.album'
-            - ['postPersist', 'postUpdate', 'postRemove', 'preRemove']
-            - @fos_elastica.indexable
-        calls:
-             - [ setContainer, ['@service_container', @fos_elastica.object_persister.app.images ] ]
-        tags:
-            - { name: 'doctrine.event_subscriber' }
+#    fos_elastica.listener.app.album:
+#        class: Creativer\FrontBundle\Handler\ElasticaCourseListener
+#        arguments:
+#            - '@fos_elastica.object_persister.app.album'
+#            - ['postPersist', 'postUpdate', 'postRemove', 'preRemove']
+#            - @fos_elastica.indexable
+#        calls:
+#             - [ setContainer, ['@service_container', @fos_elastica.object_persister.app.images ] ]
+#        tags:
+#            - { name: 'doctrine.event_subscriber' }

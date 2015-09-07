@@ -9,7 +9,7 @@
             </div>
 
             <div class="col-sm-7 album" ng-init="count_albums=3">
-                <a ng-if="user.id == $root.id_user" href="/app_dev.php/#/create_album" class="add_photo btn button_message early-message text-center text-white right pointer margin-right_5"><span class="glyphicon glyphicon-picture"></span>  <span class="fs_0-9">Создать альбом</span></a>
+                <a ng-if="user.id == $root.id_user" href="#/create_album" class="add_photo btn button_message early-message text-center text-white right pointer margin-right_5"><span class="glyphicon glyphicon-picture"></span>  <span class="fs_0-9">Создать альбом</span></a>
                 <h4 class="lobster text-gray">Альбомы</h4>
                 <div class="album__element" ng-repeat="album in user.albums.slice(0,count_albums)">
 

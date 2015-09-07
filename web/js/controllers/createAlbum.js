@@ -110,12 +110,7 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
        // console.info('onCompleteItem', fileItem, response, status, headers);
-        if(!$scope.count_images_uploade){
-            $scope.count_images_uploade = 1;
-        }else{
-            $scope.count_images_uploade += 1;
-        }
-        $scope.id_post_baraholka = response.id;
+        $scope.id_album = response.id;
     };
     uploader.onCompleteAll = function(response) {
         var name_album = $scope.album?$scope.album.name:null;
@@ -124,12 +119,19 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
         for(item in $scope.selectedItem){
             selectCategories.push($scope.selectedItem[item].id);
         }
-        if($scope.id_post_baraholka){
-            $location.path("/album/"+$scope.id_post_baraholka);
+        if($scope.id_album){
+            $location.path("/album/"+$scope.id_album);
+            $scope.id_album = null;
         }
     };
 
     uploader.onBeforeUploadItem = function (item) {
+        if(!$scope.count_images_uploade){
+            $scope.count_images_uploade = 1;
+        }else{
+            $scope.count_images_uploade += 1;
+        }
+
         if(item.file.title != undefined) {
             item.formData.push({title: item.file.title});
         }
@@ -151,7 +153,7 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
             selectCategories.push($scope.selectedItem[i].id);
         }
 
-        if($scope.album.description != undefined) {
+        if(selectCategories != undefined) {
             var selectCategories = selectCategories.join(',');
             item.formData.push({selectCategories: selectCategories});
         }
