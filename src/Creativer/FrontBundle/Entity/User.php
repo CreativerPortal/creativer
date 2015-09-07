@@ -266,7 +266,7 @@ class User implements UserInterface, \Serializable
         $this->favoritsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFavorits = new \Doctrine\Common\Collections\ArrayCollection();
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->$events_attend = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->events_attend = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     public function getUsername()
