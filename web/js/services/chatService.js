@@ -13,10 +13,12 @@ angular.module('service.chat', ['service.socket'])
 
         socket.on('message', function(data){
             var data = data[0];
+            console.log(data);
+
             $rootScope.ids = [$routeParams.id_user_chat, $rootScope.id_user];
             $rootScope.ids = $rootScope.ids.sort();
             if(data.reviewed == false && ($routeParams.id_user_chat == data.sender || $routeParams.id_user_chat == data.receiver)){
-                $rootScope.messages.unshift({sender: data.sender, text: data.text, date: data.date});
+                $rootScope.messages.unshift({sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar});
 
 
                 if($rootScope.id_user == data.sender){

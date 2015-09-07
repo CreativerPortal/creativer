@@ -163,6 +163,7 @@ io.on('connection', function(socket){
                     else {
                         var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ data.sender +")";
                         connection.query(queryText, data.sender, function(err, rows) {
+                                result.ops[0].other_user = rows[0].id;
                                 result.ops[0].username = rows[0].username;
                                 result.ops[0].lastname = rows[0].lastname;
                                 result.ops[0].avatar = rows[0].avatar;
