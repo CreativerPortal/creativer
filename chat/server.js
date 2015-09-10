@@ -16,14 +16,14 @@ var connection = mysql.createConnection({
     database: 'creativer'
 });
 
-//process.on('uncaughtException', function (processError) {
-//    var stream = fs.createWriteStream("errors.txt");
-//    stream.once('open', function(fd) {
-//        stream.write(processError.stack);
-//        stream.end();
-//    });
-//    //console.log(processError.stack);
-//});
+process.on('uncaughtException', function (processError) {
+    var stream = fs.createWriteStream("errors.txt");
+    stream.once('open', function(fd) {
+        stream.write(processError.stack);
+        stream.end();
+    });
+    //console.log(processError.stack);
+});
 
 app.get('/', function(req, res){
     res.sendfile('index.html');
