@@ -16,14 +16,14 @@ var connection = mysql.createConnection({
     database: 'creativer'
 });
 
-process.on('uncaughtException', function (processError) {
-    var stream = fs.createWriteStream("errors.txt");
-    stream.once('open', function(fd) {
-        stream.write(processError.stack);
-        stream.end();
-    });
-    //console.log(processError.stack);
-});
+//process.on('uncaughtException', function (processError) {
+//    var stream = fs.createWriteStream("errors.txt");
+//    stream.once('open', function(fd) {
+//        stream.write(processError.stack);
+//        stream.end();
+//    });
+//    //console.log(processError.stack);
+//});
 
 app.get('/', function(req, res){
     res.sendfile('index.html');
@@ -35,10 +35,8 @@ io.on('connection', function(socket){
 
     if(sockets[socket.handshake.query.id_user] != undefined){
         sockets[socket.handshake.query.id_user].push(socket);
-        //console.log('user connected 2');
 
     }else{
-        //console.log('user connected 1');
         sockets[socket.handshake.query.id_user] = [];
         sockets[socket.handshake.query.id_user].push(socket);
     }
@@ -50,7 +48,6 @@ io.on('connection', function(socket){
             var id_user = data.id_user;
             collection.aggregate([ {$match: {id_users: {$in: [id_user]}}}, {$group: {_id: { id_users: "$id_users" }, text: { $last: "$text" }, sender: { $last: "$sender" }, reviewed: { $last: "$reviewed" }, date: { $last: "$date" }}} ], function (err, result) {
                 if (err) {
-                    //console.log(err);
                 } else {
                     var companion = [];
                     for(var key in result){
@@ -62,9 +59,7 @@ io.on('connection', function(socket){
                             result[key].other_user = result[key]._id.id_users[1];
                         }
                     }
-
-                    connection.connect(function(err) {});
-                    //console.log("SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")");
+                    //connection.connect();
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                         connection.query(queryText, companion, function(err, rows) {
                             for(var row_key in result){
@@ -77,14 +72,12 @@ io.on('connection', function(socket){
                                 }
                             }
                             socket.emit('all messages', result);
+                            //connection.end();
+                            db.close();
                         }
                     );
-
                 }
-                //Close connection
-                db.close();
             });
-
         });
     })
 
@@ -95,40 +88,35 @@ io.on('connection', function(socket){
             var id_users = data.ids.sort();
             collection.find({id_users:id_users}).sort({_id: -1}).limit(10).toArray(function (err, result) {
                 if (err) {
-                   // console.log(err);
                 } else if (result.length) {
                     var users = [];
                     users.push(id_users[0]);
                     users.push(id_users[1]);
-                    connection.connect(function(err) {
-                        var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
-                        connection.query(queryText, users, function(err, rows) {
-                            for(var key in rows){
-                                if(rows[key].id != data.id_user){
-                                    var comp = rows[key];
-                                }
+                    //connection.connect();
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
+                    connection.query(queryText, users, function(err, rows) {
+                        for(var key in rows){
+                            if(rows[key].id != data.id_user){
+                                var comp = rows[key];
                             }
-                            var res = {
-                                messages: result,
-                                companion: comp
-                            };
-                            //console.log(res);
-                            socket.emit('history', res);
-                            }
-                        );
-                    });
+                        }
+                        var res = {
+                            messages: result,
+                            companion: comp
+                        };
+                        socket.emit('history', res);
+                        //connection.end();
+                        db.close();
+                        }
+                    );
                 } else {
-                    //console.log('No document(s) found with defined "find" criteria!');
                 }
-                db.close();
             });
-
         });
     });
 
 
     socket.on('disconnect', function(){
-        //console.log('user disconnected');
         for(key in sockets[socket.handshake.query.id_user]){
             if(sockets[socket.handshake.query.id_user][key].id == socket.id){
                 sockets[socket.handshake.query.id_user].slice(key,1)
@@ -138,7 +126,7 @@ io.on('connection', function(socket){
 
     socket.on('message', function (data) {
         mongo.connect(db_connect, function (err, db) {
-            if (data.ids[0] != "null" && data.ids[1] != "null", data.sender != "null") {
+            if (data.ids[0] != "null" && data.ids[1] != "null" && data.ids[0] != data.ids[1] && data.sender != "null") {
                 data.ids[0] = parseInt(data.ids[0]);
                 data.ids[1] = parseInt(data.ids[1]);
                 data.sender = parseInt(data.sender);
@@ -158,26 +146,26 @@ io.on('connection', function(socket){
                     date: data.date
                 }, function (err, result) {
                     if (err) {
-                        //console.warn(err.message);
                     }
                     else {
+                        //connection.connect();
                         var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ data.sender +")";
                         connection.query(queryText, data.sender, function(err, rows) {
-                                result.ops[0].other_user = rows[0].id;
-                                result.ops[0].username = rows[0].username;
-                                result.ops[0].lastname = rows[0].lastname;
-                                result.ops[0].avatar = rows[0].avatar;
-                                for (var key in data.ids) {
-                                    var id = data.ids[key];
-                                    for (var k in sockets[id]) {
-                                        sockets[id][k].emit('message', result.ops);
-                                    }
+                            result.ops[0].other_user = rows[0].id;
+                            result.ops[0].username = rows[0].username;
+                            result.ops[0].lastname = rows[0].lastname;
+                            result.ops[0].avatar = rows[0].avatar;
+                            for (var key in data.ids) {
+                                var id = data.ids[key];
+                                for (var k in sockets[id]) {
+                                    sockets[id][k].emit('message', result.ops);
                                 }
-                                db.close();
+                            }
+                            //connection.end();
+                            db.close();
                             }
                         );
                     }
-                    db.close();
                 });
             }
         });
@@ -187,7 +175,9 @@ io.on('connection', function(socket){
     socket.on('reviewed', function (data) {
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
-            var id_users = data.ids.sort();
+            if(data.ids){
+                var id_users = data.ids.sort();
+            }
             var id_recipient = data.id_user
 
             collection.update({id_users: id_users, receiver: id_recipient},{ $set: {reviewed: true}}, { multi: true }, function(err, result) {
@@ -196,11 +186,10 @@ io.on('connection', function(socket){
                     var id = parseInt(socket.handshake.query.id_user);
                     collection.find({ receiver: id_recipient, reviewed: false}).toArray(function (err, result) {
                         socket.emit('new message', result);
+                        db.close();
                     })
                 }
-                db.close();
             });
-
         });
 
     });
@@ -223,25 +212,23 @@ io.on('connection', function(socket){
                             result[key].other_user = result[key].id_users[1];
                         }
                     }
-
-                    connection.connect(function(err) {
-                        //console.log("SELECT u.id, u.username, u.lastname, a.img FROM app_users AS u INNER JOIN avatar AS a ON u.id = a.user_id WHERE u.id IN ("+ companion.join(',') +")");
-                        var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
-                        connection.query(queryText, companion, function(err, rows) {
-                                for(var row_key in result){
-                                    for(var r_key in  rows){
-                                        if(result[row_key].other_user == rows[r_key].id){
-                                            result[row_key].username = rows[r_key].username;
-                                            result[row_key].lastname = rows[r_key].lastname;
-                                            result[row_key].avatar = rows[r_key].avatar;
-                                        }
-                                    }
+                    //connection.connect();
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
+                    connection.query(queryText, companion, function(err, rows) {
+                        for(var row_key in result){
+                            for(var r_key in  rows){
+                                if(result[row_key].other_user == rows[r_key].id){
+                                    result[row_key].username = rows[r_key].username;
+                                    result[row_key].lastname = rows[r_key].lastname;
+                                    result[row_key].avatar = rows[r_key].avatar;
                                 }
-                                socket.emit('new message', result);
-                                db.close();
                             }
-                        );
-                    });
+                        }
+                        socket.emit('new message', result);
+                        //connection.end();
+                        db.close();
+                        }
+                    );
                 }
             })
         });
@@ -255,7 +242,7 @@ io.on('connection', function(socket){
             socket.emit('new message', result);
             db.close();
         })
-    })
+        })
 
 });
 
