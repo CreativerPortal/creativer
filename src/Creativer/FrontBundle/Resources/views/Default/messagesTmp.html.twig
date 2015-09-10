@@ -43,7 +43,7 @@
 
         <div class="col-sm-7 album">
 
-            <textarea rows="2" placeholder="Найти сообшение" class="search__message "></textarea>
+            <textarea rows="2" placeholder="Найти сообшение" class="search__message"></textarea>
 
 
             <div class="margin-top_15 horizontal_line" ng-repeat="message in messages">
@@ -55,7 +55,7 @@
                         <a class="text-blue padding-left_0 chat__link" href="#/[[ message.sender ]]">[[ message.username ]] [[ message.lastname ]]</a>
                     </div>
                     <div class="col-sm-4 margin-left_25">
-                        <div class="text-left fs_0-8"><time>[[ message.date | date: "dd.MM.yyyy" ]]</time></div>
+                        <div class="text-left fs_0-8"><time class="text-gray">[[ message.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>
                     </div>
                 </div>
                 <div class="row">
@@ -65,7 +65,7 @@
                     <div class="col-sm-7">
 
                             <div class="row text-gray pointer">
-                                <div class="col-sm-12 fs_0-8 padding-left_3 padding-right_0 background__text-reviewed" ng-class="{background__text: message.reviewed == false && message.sender != user.id}" ng-click="go('chat/'+[[ message.other_user ]])">
+                                <div class="col-sm-12 fs_0-8 padding-left_3 padding-right_0 background__text-reviewed" ng-class="{background__text: message.reviewed == false && message.sender != user.id}" ng-click="go('chat/'+ message.other_user)">
                                     [[ message.text ]]
                                 </div>
                             </div>

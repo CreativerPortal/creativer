@@ -4,12 +4,12 @@
     }
 </script>
 <form class="col-sm-3 col-sm-offset-4 form-auth" action="{{ path('security_check') }}" method="post">
-    <input class="form-auth__input fiveMinuts left margin-left_10" type="password" id="password" name="password" placeholder="Шифр"/>
-    <input class="form-auth__input fiveMinuts left margin-left_15" type="text" id="username" name="email" value="{{ last_username }}" placeholder="Email"/>
+    <input class="form-auth__input fiveMinuts left margin-left_10" type="text" id="username" name="email" value="{{ last_username }}" placeholder="Email"/>
+    <input class="form-auth__input fiveMinuts left margin-left_15" type="password" id="password" name="password" placeholder="Пароль"/>
     <button type="submit" name="login" class="form-auth__buttom margin-left_5" id="login" data-placement="bottom" data-content="Пароль или email неверны"></button>
     <div class="col-sm-12 fiveMinuts padding-left_0 padding-right_0">
-        <a href="" class="margin-left_10 fs_1-1 text-style">Вспомнить всё</a>
-        <a href="{{ path('creativer_front_registration') }}" class="margin-left_25 fs_1-1 text-style">Регистрация</a>
+        <a href="{{ path('creativer_front_registration') }}" class="margin-left_10 fs_1-1 text-style">Регистрация</a>
+        <a href="" class="margin-left_25 fs_1-1 text-style">Забыл пароль</a>
     </div>
     {% if error %}
         <div id="fail_auth" class="fail_auth"><span>пароль или email неверны</span></div>

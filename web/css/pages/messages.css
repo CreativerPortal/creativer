@@ -161,6 +161,7 @@ body{
 
 .background__text-reviewed{
     height: 60px;
+    overflow: hidden;
 }
 
 .folder{

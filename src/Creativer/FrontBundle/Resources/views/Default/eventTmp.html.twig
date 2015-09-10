@@ -25,8 +25,8 @@
             </div>
 
             <div class="col-sm-2 slid__search padding-left_0 margin-top_15">
-                <input placeholder="Поиск в событиях">
-                <button class="slid__slider-button"></button>
+                <input placeholder="Поиск в событиях" ng-keyup="$event.keyCode == 13 && searchEvent()">
+                <button class="slid__slider-button" ng-click="searchEvent()"   ></button>
             </div>
             {% if is_granted('ROLE_USER') %}
                 <a href="#/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>

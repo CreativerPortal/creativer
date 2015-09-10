@@ -2,16 +2,19 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$routeParams, FileUploader, socket, chat) {
 
 
-    messagesService.getUser().success(function (data) {
-        $rootScope.user = $scope.user = data.user;
-        $scope.favorit = false;
-        for(key in $scope.user.favorits_with_me){
-            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                $scope.favorit = true;
+    if($rootScope.user != undefined && $rootScope.user.id == $rootScope.id_user){
+        $scope.user = $rootScope.user;
+    }else{
+        messagesService.getUser().success(function (data) {
+            $rootScope.user = $scope.user = data.user;
+            $scope.favorit = false;
+            for(key in $scope.user.favorits_with_me){
+                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                    $scope.favorit = true;
+                }
             }
-        }
-    })
-
+        })
+    }
 
     $scope.$watch('user', function() {
 
@@ -51,7 +54,10 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     }
 
     $scope.send_message = function(text){
-        if(text != undefined && $scope.ids && $scope.user){
+        if($scope.ids[0] == $scope.ids[1]){
+            $location.path('messages');
+        }
+        if(text != undefined && text != '' && $scope.ids && $scope.user && $scope.ids[0] != $scope.ids[1]){
             socket.emit('message', {ids: $scope.ids, sender: $scope.user.id, text: text});
         }
     }

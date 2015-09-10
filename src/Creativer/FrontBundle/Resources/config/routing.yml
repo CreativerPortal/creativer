@@ -19,6 +19,10 @@ creativer_peopleTmp:
     path:     /people_tmp
     defaults: { _controller: CreativerFrontBundle:Default:peopleTmp }
     methods:  [GET]
+creativer_searchEventsTmp:
+    path:     /search_events_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:searchEventsTmp }
+    methods:  [GET]
 creativer_mainTmp:
     path:     /main_tmp
     defaults: { _controller: CreativerFrontBundle:Default:mainTmp }
@@ -100,12 +104,12 @@ creativer_front_albumTmp:
     defaults: { _controller: CreativerFrontBundle:Default:albumTmp, id_album: null }
     methods:  [GET]
 creativer_front_followingTmp:
-    path:     /following_tmp
-    defaults: { _controller: CreativerFrontBundle:Default:followingTmp }
+    path:     /following_tmp/{id}
+    defaults: { _controller: CreativerFrontBundle:Default:followingTmp, id: null }
     methods:  [GET]
 creativer_front_followersTmp:
-    path:     /followers_tmp
-    defaults: { _controller: CreativerFrontBundle:Default:followersTmp }
+    path:     /followers_tmp/{id}
+    defaults: { _controller: CreativerFrontBundle:Default:followersTmp, id: null }
     methods:  [GET]
 creativer_front_upload_album:
     path:     /upload_album

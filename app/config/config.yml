@@ -370,6 +370,28 @@ fos_elastica:
                         provider: ~
                         listener: ~
                         finder: ~
+                events:
+                    mappings:
+                        id: ~
+                        name:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        description:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        price: ~
+                        event_section:
+                            type: "object"
+                            properties:
+                                id:
+                    persistence:
+                        driver: orm
+                        model: Creativer\FrontBundle\Entity\PostBaraholka
+                        provider: ~
+                        listener: ~
+                        finder: ~
 #                images:
 #                    mappings:
 #                        id:

@@ -523,6 +523,11 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:peopleTmp.html.twig', array());
     }
 
+    public function searchEventsTmpAction(){
+
+        return $this->render('CreativerFrontBundle:Default:searchEventsTmp.html.twig', array());
+    }
+
     public function fleamarketpostingTmpAction(){
 
         $user = $this->get('security.context')->getToken()->getUser();
@@ -988,18 +993,14 @@ class DefaultController extends Controller
         }
     }
 
-    public function followingTmpAction(){
-
-        $userId = $this->get('security.context')->getToken()->getUser()->getId();
-
-        return $this->render('CreativerFrontBundle:Default:followingTmp.html.twig', array('id' => $userId));
+    public function followingTmpAction($id)
+    {
+        return $this->render('CreativerFrontBundle:Default:followingTmp.html.twig', array('id' => $id));
     }
 
-    public function followersTmpAction(){
-
-        $userId = $this->get('security.context')->getToken()->getUser()->getId();
-
-        return $this->render('CreativerFrontBundle:Default:followersTmp.html.twig', array('id' => $userId));
+    public function followersTmpAction($id)
+    {
+        return $this->render('CreativerFrontBundle:Default:followersTmp.html.twig', array('id' => $id));
     }
 
     public function productsTmpAction(){

@@ -45,13 +45,19 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/following', {
-            templateUrl: '/following_tmp',
+        $routeProvider.when('/followers/:id', {
+            templateUrl: function ($stateParams){
+                var url = "/followers_tmp/" + $stateParams.id;
+                return url;
+            },
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/followers', {
-            templateUrl: '/followers_tmp',
+        $routeProvider.when('/following/:id', {
+            templateUrl: function ($stateParams){
+                var url = "/following_tmp/" + $stateParams.id;
+                return url;
+            },
             controller: 'personCtrl',
             reloadOnSearch: true
         });

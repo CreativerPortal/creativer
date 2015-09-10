@@ -39,13 +39,13 @@
                 </div>
 
                 <div class="col-sm-7 message-textareas padding-right_0">
-                    <textarea style="width: 320px;" rows="5" placeholder=" Введите текст..." class="search__message " ng-init="text_message" ng-model="$root.text_message"></textarea>
+                    <textarea style="width: 320px;" rows="5" placeholder=" Введите текст..." class="search__message " ng-init="text_message" ng-model="$root.text_message" ng-keyup="$event.keyCode == 13 && send_message(text_message)"></textarea>
                     <div class="tail_message"></div>
 
                 </div>
 
                 <div class="col-sm-2 ">
-                    <div class="user__avatar-mini left "><img ng-src="[[ companion.avatar ]]"></div>
+                    <a class="user__avatar-mini left" href="#/[[ companion.id ]]"><img ng-src="[[ companion.avatar ]]"></a>
                 </div>
             </div>
 
@@ -64,10 +64,12 @@
             <div class="row margin-top_15" ng-class="{'old__messages': !message.reviewed && (message.sender != user.id) && focus, 'new__messages': !message.reviewed  && (message.sender != user.id) && !focus}" ng-repeat="message in $root.messages">
                 <span ng-if="focus && !message.reviewed" ng-init="review(message)"></span>
                 <div class="col-sm-2">
-                    <div class="user__avatar-mini">
-                        <img ng-if="user.id == message.sender" ng-src="[[ user.avatar ]]">
-                        <img ng-if="companion.id == message.sender" ng-src="[[ companion.avatar ]]">
-                    </div>
+                    <a class="user__avatar-mini block" ng-if="user.id == message.sender" href="#/[[ user.id ]]">
+                        <img ng-src="[[ user.avatar ]]">
+                    </a>
+                    <a class="user__avatar-mini block" ng-if="companion.id == message.sender" href="#/[[ companion.id ]]">
+                        <img  ng-src="[[ companion.avatar ]]">
+                    </a>
                 </div>
                 <div class="col-sm-10 padding-left_0">
                     <div class="row">
@@ -76,7 +78,7 @@
                             <a ng-if="companion.id == message.sender" ng-href="#/[[ companion.id ]]" class="text-blue" href="">[[ companion.username ]] [[ companion.lastname ]]</a>
                         </div>
 
-                        <div class="col-sm-6 text-right fs_0-8"><time>[[ message.date | date: "dd.MM.yyyy" ]]</time></div>
+                        <div class="col-sm-6 text-right fs_0-8"><time class="text-gray">[[ message.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>
                     </div>
                     <div class="text-gray">
                         <p ng-if="user.id == message.sender" class="fs_0-8">[[ message.text ]]</p>

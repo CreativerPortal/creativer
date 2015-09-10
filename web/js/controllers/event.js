@@ -233,6 +233,10 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             });
         }
 
+        $scope.searchEvent = function(){
+            $location.path("/events/search/"+$scope.searchEventText);
+        }
+
         $scope.tinymceOptions = {
             file_browser_callback : function(field_name, url, type, win){
                                         tinymce.activeEditor.windowManager.open({
