@@ -224,6 +224,12 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
+    $scope.sendFeedBack = function(){
+        personalService.sendFeedBack({nick: $scope.nick, telephone: $scope.telephone, message: $scope.message}).success(function (data) {
+
+        });
+    }
+
     $scope.$on('$routeChangeStart', function(next, current) {
         if(current.params.id != undefined && current.params.id != next.targetScope.user.id){
             $rootScope.user = $scope.user = undefined;
@@ -362,6 +368,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             $rootScope.$emit("loadImageAll");
         }, 500)
     };
+
 
     uploader.onAfterAddingAll = function(addedFileItems,key) {
         // console.info('onAfterAddingAll', addedFileItems);

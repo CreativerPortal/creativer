@@ -422,3 +422,10 @@ fm_elfinder:
                         upload_allow: ['image/png', 'image/jpg', 'image/jpeg']
                         upload_deny: ['all']
                         upload_max_size: 2M
+swiftmailer:
+    transport:  gmail
+    encryption: ssl
+    auth_mode:  login
+    host:       smtp.gmail.com
+    username:   infocreativer@gmail.com
+    password:   creativerBY2015

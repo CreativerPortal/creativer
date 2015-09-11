@@ -33,6 +33,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     if(!$routeParams.id_user_chat){
         socket.on("all messages", function(data) {
+            console.log(data);
             $scope.messages = data;
         });
     }else{

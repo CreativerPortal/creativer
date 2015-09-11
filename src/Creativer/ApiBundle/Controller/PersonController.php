@@ -868,4 +868,29 @@ class PersonController extends Controller
 
         return $people;
     }
+
+    /**
+     * @return array
+     * @Post("/v1/feedback")
+     * @View()
+     */
+    public function feedbackAction(){
+
+        $nick = $this->get('request')->request->get('nick');
+        $telephone = $this->get('request')->request->get('telephone');
+        $email = $this->get('request')->request->get('email');
+        $message = $this->get('request')->request->get('message');
+
+
+        $mailer = $this->get('mailer');
+        $message = \Swift_Message::newInstance()
+            ->setSubject('feedback creativer')
+            ->setFrom($email)
+            ->setTo('info@creativer.by')
+            ->setBody($this->renderView('CreativerFrontBundle:Default:letter.html.twig', array('telephone' => $telephone, 'message' => $message, 'nick' => $nick)));
+        $result = $mailer->send($message);
+
+
+        return $this->render('CreativerFrontBundle:Default:createEventTmp.html.twig');
+    }
 }

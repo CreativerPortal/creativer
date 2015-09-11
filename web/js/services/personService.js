@@ -163,6 +163,16 @@
                         },
                         data: data
                     })
+                },
+                sendFeedBack: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'feedback',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    })
                 }
             };
         }]);

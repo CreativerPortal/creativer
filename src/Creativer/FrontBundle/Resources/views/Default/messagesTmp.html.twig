@@ -52,7 +52,8 @@
 
                     </div>
                     <div class="col-sm-5 padding-left_3">
-                        <a class="text-blue padding-left_0 chat__link" href="#/[[ message.sender ]]">[[ message.username ]] [[ message.lastname ]]</a>
+                        <a class="text-blue padding-left_0 chat__link" ng-if="message.sender != $root.id_user" href="#/[[ message.sender ]]">[[ message.username ]] [[ message.lastname ]]</a>
+                        <a class="text-blue padding-left_0 chat__link" ng-if="message.receiver != $root.id_user" href="#/[[ message.receiver ]]">[[ message.username ]] [[ message.lastname ]]</a>
                     </div>
                     <div class="col-sm-4 margin-left_25">
                         <div class="text-left fs_0-8"><time class="text-gray">[[ message.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>

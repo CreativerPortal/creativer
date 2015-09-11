@@ -17,7 +17,7 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
         });
         $routeProvider.when('/feedback', {
             templateUrl: '/feedback_tmp',
-            controller: 'baraholkaCtrl',
+            controller: 'personCtrl',
             reloadOnSearch: true
         });
         $routeProvider.when('/products/search/:products_search_text?', {

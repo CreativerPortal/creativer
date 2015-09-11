@@ -46,7 +46,7 @@ io.on('connection', function(socket){
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
             var id_user = data.id_user;
-            collection.aggregate([ {$match: {id_users: {$in: [id_user]}}}, {$group: {_id: { id_users: "$id_users" }, text: { $last: "$text" }, sender: { $last: "$sender" }, reviewed: { $last: "$reviewed" }, date: { $last: "$date" }}} ], function (err, result) {
+            collection.aggregate([ {$match: {id_users: {$in: [id_user]}}}, {$group: {_id: { id_users: "$id_users" }, text: { $last: "$text" }, sender: { $last: "$sender" }, receiver: { $last: "$receiver" }, reviewed: { $last: "$reviewed" }, date: { $last: "$date" }}} ], function (err, result) {
                 if (err) {
                 } else {
                     var companion = [];
