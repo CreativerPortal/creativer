@@ -423,9 +423,7 @@ fm_elfinder:
                         upload_deny: ['all']
                         upload_max_size: 2M
 swiftmailer:
-    transport:  gmail
-    encryption: ssl
-    auth_mode:  login
-    host:       smtp.gmail.com
-    username:   infocreativer@gmail.com
-    password:   creativerBY2015
+    transport: gmail
+    host:      smtp.gmail.com
+    username:  'infocreativer@gmail.com'
+    password:  'creativerBY2015'
