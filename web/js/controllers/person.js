@@ -226,7 +226,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     $scope.sendFeedBack = function(){
         $scope.loader = true;
-        personalService.sendFeedBack({nick: $scope.nick, telephone: $scope.telephone, message: $scope.message}).success(function (data) {
+        personalService.sendFeedBack({nick: $scope.nick, telephone: $scope.telephone, message: $scope.message, email: $scope.email}).success(function (data) {
             $scope.sent_letter = true;
             $scope.loader = false;
         });
