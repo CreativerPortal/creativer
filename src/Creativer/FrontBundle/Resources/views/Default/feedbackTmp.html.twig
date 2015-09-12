@@ -6,10 +6,10 @@
                 <img src="/var/www/creativer/web/img/box_mail.png" alt="e-mail" />
             </div>
 
-            <div class="col-sm-7" ng-if="!sent_letter">
+            <div class="col-sm-7" ng-show="!sent_letter">
                 <h3 class="lobster margin-top_0">Обратная связь</h3>
                 <div class="form-feedback">
-                    <form class="form-feedback-form text-brown" name="feedback_form">
+                    <form class="form-feedback-form text-brown" name="feedback_form" ng-model="feedback_form">
                         <div class="row">
                             <div class="col-sm-6"><label for="name" class="text-brown fs_0-9">Как к вам обращаться:</label></div>
                             <div class="col-sm-5"><input id="name" type="text" ng-model="nick" /></div>
@@ -39,7 +39,7 @@
 
             </div>
 
-            <div ng-if="sent_letter" class="margin-top_25">
+            <div ng-show="sent_letter" class="margin-top_25">
                 <h1 class="text-center lobster margin-top_25">Большое спасибо!<br/> Ваше сообщение отправлено</h1>
             </div>
         </div>
