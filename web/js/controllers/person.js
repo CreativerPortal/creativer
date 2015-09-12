@@ -225,9 +225,10 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }
 
     $scope.sendFeedBack = function(){
-        personalService.sendFeedBack({nick: $scope.nick, telephone: $scope.telephone, message: $scope.message}).success(function (data) {
-
-        });
+        $scope.loader = true;
+        //personalService.sendFeedBack({nick: $scope.nick, telephone: $scope.telephone, message: $scope.message}).success(function (data) {
+        //    $scope.sent_letter = true;
+        //});
     }
 
     $scope.$on('$routeChangeStart', function(next, current) {

@@ -6,35 +6,41 @@
                 <img src="/var/www/creativer/web/img/box_mail.png" alt="e-mail" />
             </div>
 
-            <div class="col-sm-7">
+            <div class="col-sm-7" ng-if="!sent_letter">
                 <h3 class="lobster margin-top_0">Обратная связь</h3>
                 <div class="form-feedback">
-                    <form action="" class="form-feedback-form text-brown">
+                    <form class="form-feedback-form text-brown" name="feedback_form">
                         <div class="row">
                             <div class="col-sm-6"><label for="name" class="text-brown fs_0-9">Как к вам обращаться:</label></div>
                             <div class="col-sm-5"><input id="name" type="text" ng-model="nick" /></div>
                         </div>
-                        <div class="row margin-top_10">
+                        <div class="row margin-top_5">
                             <div class="col-sm-6"><label for="telephone" class="text-brown fs_0-9">Телефон:</label></div>
                             <div class="col-sm-5"><input id="telephone" type="text" ng-model="telephone" /></div>
                         </div>
-                        <div class="row margin-top_10">
+                        <div class="row margin-top_5">
                             <div class="col-sm-6"><label for="password" class="text-brown fs_0-9">E-mail:</label></div>
-                            <div class="col-sm-5"><input id="password" type="email" ng-model="email" /></div>
+                            <div class="col-sm-5"><input id="password" type="email" ng-model="email" name="email" required=""/></div>
+                            <div class="text-danger text-right col-sm-11" ng-show="submitted && feedback_form.email.$error.required">Email обязтельное поле</div>
                         </div>
-                        <div class="row margin-top_10">
-                            <div class="col-sm-10">
-                                <textarea cols="55" rows="5" class="text-brown fs_0-9" placeholder="Ваше сообщение" ng-model="message"></textarea>
+                        <div class="row margin-top_5">
+                            <div class="col-sm-11 margin-top_5">
+                                <textarea cols="55" rows="4" class="text-brown fs_0-9" placeholder="Ваше сообщение" name="message" ng-model="message" required=""></textarea>
+                                <div class="text-danger right" ng-show="submitted && feedback_form.message.$error.required">Текст сообщения не может быть пустым</div>
                             </div>
                         </div>
                     </form>
                 </div>
 
                 <div class="margin-top_20 text-right col-sm-8">
-                    <button type="submit" class="form-registration__submit" ng-click="sendFeedBack()">Отправить</button>
+                    <button type="button" class="form-registration__submit" ng-class="{'loader':loader}" ng-click="(submitted = true) && !feedback_form.$error.required && sendFeedBack()">Отправить</button>
                     <button type="reset" class="form-registration__reset">Отменить</button>
                 </div>
 
+            </div>
+
+            <div ng-if="sent_letter" class="margin-top_25">
+                <h1 class="text-center lobster margin-top_25">Большое спасибо!<br/> Ваше сообщение отправлено</h1>
             </div>
         </div>
     </div>

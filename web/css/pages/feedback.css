@@ -61,6 +61,12 @@ textarea{
     width: 354px;
 }
 
+@media screen and (max-width: 1370px) {
+    textarea{
+        width: 346px;
+    }
+}
+
 input, textarea{
     background-color: #eae9e3;
     border: 1px dashed #7d7066;
@@ -68,14 +74,19 @@ input, textarea{
 
 .form-registration__submit {
     padding: 2px 15px;
+    width: 96px;
+    height: 23px;
     border: none;
     color: #ffffff;
     background-color: #5372a7;
     border-radius: 5px 9px 6px 7px;
+    vertical-align: middle;
 }
 
 .form-registration__reset {
     padding: 2px 15px;
+    width: 96px;
+    height: 23px;
     border: none;
     color: #ffffff;
     background-color: #ec796d;

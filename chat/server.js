@@ -16,8 +16,9 @@ var connection = mysql.createConnection({
     database: 'creativer'
 });
 
+var stream = fs.createWriteStream("errors.txt");
+
 process.on('uncaughtException', function (processError) {
-    var stream = fs.createWriteStream("errors.txt");
     stream.once('open', function(fd) {
         stream.write(processError.stack);
         stream.end();
@@ -71,6 +72,12 @@ io.on('connection', function(socket){
                                     }
                                 }
                             }
+                            if(err){
+                                stream.once('open', function(fd) {
+                                    stream.write(err);
+                                    stream.end();
+                                });
+                            }
                             socket.emit('all messages', result);
                             //connection.end();
                             db.close();
@@ -99,6 +106,12 @@ io.on('connection', function(socket){
                             if(rows[key].id != data.id_user){
                                 var comp = rows[key];
                             }
+                        }
+                        if(err){
+                            stream.once('open', function(fd) {
+                                stream.write(err);
+                                stream.end();
+                            });
                         }
                         var res = {
                             messages: result,
@@ -160,6 +173,12 @@ io.on('connection', function(socket){
                                 for (var k in sockets[id]) {
                                     sockets[id][k].emit('message', result.ops);
                                 }
+                            }
+                            if(err){
+                                stream.once('open', function(fd) {
+                                    stream.write(err);
+                                    stream.end();
+                                });
                             }
                             //connection.end();
                             db.close();
@@ -223,6 +242,12 @@ io.on('connection', function(socket){
                                     result[row_key].avatar = rows[r_key].avatar;
                                 }
                             }
+                        }
+                        if(err){
+                            stream.once('open', function(fd) {
+                                stream.write(err);
+                                stream.end();
+                            });
                         }
                         socket.emit('new message', result);
                         //connection.end();

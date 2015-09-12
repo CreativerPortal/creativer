@@ -884,13 +884,16 @@ class PersonController extends Controller
 
         $mailer = $this->get('mailer');
         $message = \Swift_Message::newInstance()
-            ->setSubject('feedback creativer')
+            ->setSubject('???????? ?????')
             ->setFrom($email)
             ->setTo('info@creativer.by')
             ->setBody($this->renderView('CreativerFrontBundle:Default:letter.html.twig', array('telephone' => $telephone, 'message' => $message, 'nick' => $nick)));
-        $result = $mailer->send($message);
+        $mailer->send($message);
 
 
-        return $this->render('CreativerFrontBundle:Default:createEventTmp.html.twig');
+        $response = new Respon('', 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 }
