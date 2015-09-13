@@ -31,23 +31,25 @@
             </div>
 
             <div class="row margin-left_15 slid__news margin-top_40">
-                <article>
-                    <time class="slid__news__time" datetime="2015-02-14">14.02.2015</time>
-                    <h5 class="text-bold margin-bottom_5 margin-top_5">Заголовок новости</h5>
-                    <p>
-                        На дерибасовской хорошая погода, или на брайтон бич опять идут дожди</br>
-                        <a class="text-blue center-block text-right" href="#">Далее </a>
+                <div class="text-center text-white">События</div>
+
+                <a class="text-gray" href="#/event/[[ news_events[0].id ]]">
+                    <time class="slid__news__time" datetime="2015-02-14">[[ news_events[0].date | date: "dd MMM yyyy" ]]</time>
+                    <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[0].name.slice(0,28) ]]...</h5>
+                    <p id="new_event_1">
                     </p>
-                </article>
-                <article>
-                    <time class="slid__news__time" datetime="2015-02-14">14.02.2015</time>
-                    <h5 class="text-bold margin-bottom_5 margin-top_5">Заголовок новости</h5>
-                    <p>
-                        На дерибасовской хорошая погода</br>
-                        <a class="text-blue center-block text-right" href="#">Далее </a>
+                    <div><span class="text-blue center-block text-right" href="#/event/[[ news_events[0].id ]]">Далее </span></div>
+                </a>
+
+                <a class="text-gray" href="#/event/[[ news_events[1].id ]]">
+                    <time class="slid__news__time" datetime="2015-02-14">[[ news_events[1].date | date: "dd MMM yyyy" ]]</time>
+                    <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[1].name.slice(0,28) ]]...</h5>
+                    <p id="new_event_2">
                     </p>
-                </article>
-                <a class="menu_action_still" href="">Ещё</a>
+                    <div><span class="text-blue center-block text-right" href="#/event/[[ news_events[1].id ]]">Далее </span></div>
+                </a>
+
+                <a class="menu_action_still" href="#/events">Ещё</a>
             </div>
 
             <form class="row  slid__get__news margin-top_40 margin-left_10">

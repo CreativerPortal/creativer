@@ -1,6 +1,12 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.socket', 'service.chat', 'angularFileUpload'])
     .controller('catalogCtrl',['$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,catalogService,personalService,$routeParams, FileUploader, socket, chat) {
 
+    catalogService.getNewsEvents().success(function (data) {
+        $scope.news_events = data;
+        angular.element('#new_event_1').text(data[0].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
+        angular.element('#new_event_2').text(data[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
+    })
+
     if(!$rootScope.my_user){
         personalService.getUser().success(function (data) {
             $rootScope.user = $scope.user = $rootScope.my_user = data.user;

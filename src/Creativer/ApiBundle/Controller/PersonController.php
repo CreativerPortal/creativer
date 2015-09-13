@@ -884,10 +884,10 @@ class PersonController extends Controller
 
         $mailer = $this->get('mailer');
         $message = \Swift_Message::newInstance()
-            ->setSubject('???????? ?????')
+            ->setSubject('Обратная связь')
             ->setFrom($email)
             ->setTo('info@creativer.by')
-            ->setBody($this->renderView('CreativerFrontBundle:Default:letter.html.twig', array('telephone' => $telephone, 'message' => $message, 'nick' => $nick)));
+            ->setBody($this->renderView('CreativerFrontBundle:Default:letter.html.twig', array('telephone' => $telephone, 'message' => $message, 'nick' => $nick, 'email' => $email)));
         $mailer->send($message);
 
 

@@ -391,7 +391,6 @@ class EventController extends Controller
         return $this->get('fos_rest.view_handler')->handle($view);
     }
 
-
     /**
      * @return array
      * @Post("/v1/delete_event")
@@ -429,6 +428,39 @@ class EventController extends Controller
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/get_news_events")
+     * @View(serializerGroups={"getEvent"})
+     */
+    public function getNewsEventsAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $date = new \DateTime();
+
+        $query = $em->createQueryBuilder();
+        $query->select('e')
+            ->from('CreativerFrontBundle:Events', 'e')
+            ->where('e.end_date >= :date')
+            ->setParameter('date',$date);
+        $events = $query->getQuery()->getResult();
+
+        $count = count($events);
+
+        if($count > 1){
+            $rand_keys = array_rand($events, 2);
+            $events = array($events[$rand_keys[0]], $events[$rand_keys[1]]);
+            return $events;
+        }else{
+            return $events;
+        }
+
     }
 
 }

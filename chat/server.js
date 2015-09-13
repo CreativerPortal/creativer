@@ -61,6 +61,12 @@ io.on('connection', function(socket){
                         }
                     }
                     //connection.connect();
+                    connection.connect(function(err){
+                        stream.once('open', function(fd) {
+                            stream.write(err);
+                            stream.end();
+                        });
+                    });
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                         connection.query(queryText, companion, function(err, rows) {
                             for(var row_key in result){
@@ -100,6 +106,12 @@ io.on('connection', function(socket){
                     users.push(id_users[0]);
                     users.push(id_users[1]);
                     //connection.connect();
+                    connection.connect(function(err){
+                        stream.once('open', function(fd) {
+                            stream.write(err);
+                            stream.end();
+                        });
+                    });
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
                     connection.query(queryText, users, function(err, rows) {
                         for(var key in rows){
@@ -162,6 +174,12 @@ io.on('connection', function(socket){
                     }
                     else {
                         //connection.connect();
+                        connection.connect(function(err){
+                            stream.once('open', function(fd) {
+                                stream.write(err);
+                                stream.end();
+                            });
+                        });
                         var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ data.sender +")";
                         connection.query(queryText, data.sender, function(err, rows) {
                             result.ops[0].other_user = rows[0].id;
@@ -232,6 +250,12 @@ io.on('connection', function(socket){
                         }
                     }
                     //connection.connect();
+                    connection.connect(function(err){
+                        stream.once('open', function(fd) {
+                            stream.write(err);
+                            stream.end();
+                        });
+                    });
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                     connection.query(queryText, companion, function(err, rows) {
                         for(var row_key in result){

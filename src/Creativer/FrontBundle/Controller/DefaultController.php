@@ -1060,6 +1060,12 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:userInfoTmp.html.twig', array('id' => $id));
     }
 
+    public function forgotPasswordAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:forgot_password.html.twig', array());
+    }
+
     public function uploadImageEventAction(){
 
         $request = $this->getRequest();

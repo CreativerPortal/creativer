@@ -291,15 +291,18 @@ body{
     width: 200px;
     background-image: url("/var/www/creativer/web/img/news_background.png");
     background-repeat: no-repeat;
-    padding: 40px 50px 20px 20px;
+    padding: 15px 41px 20px 13px;
 }
 
-.slid__news article{
+.slid__news a{
+    display: block;
     margin-top: 10px;
     font-size: 0.8em;
+    height: 113px;
+    overflow: hidden;
 }
 
-.slid__news article:first-child {
+.slid__news a:first-child {
     border-bottom: 1px dotted gray;
 }
 

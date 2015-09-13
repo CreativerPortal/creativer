@@ -73,6 +73,17 @@ angular
                         },
                         data: data
                     });
+                },
+                getNewsEvents: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_news_events',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);

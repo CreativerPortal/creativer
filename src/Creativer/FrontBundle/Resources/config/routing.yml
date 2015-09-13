@@ -5,6 +5,9 @@ logout:
 creativer_front_registration:
     path:     /registration
     defaults: { _controller: CreativerFrontBundle:Default:registration }
+creativer_front_forgot_password:
+    path:     /forgot_password
+    defaults: { _controller: CreativerFrontBundle:Default:forgotPassword }
 creativer_front_main:
     path:     /
     defaults: { _controller: CreativerFrontBundle:Default:layout_front }

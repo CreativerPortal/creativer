@@ -477,6 +477,16 @@ app.directive('editPain', function () {
     }
 });
 
+app.filter('filterByTags', function () {
+    return function(text, limit) {
+
+        var changedString = String(text).replace(/<[^>]+>/gm, '');
+        var length = changedString.length;
+
+        return changedString.length > limit ? changedString.substr(0, limit - 1) : changedString;
+    }
+});
+
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
     $interpolateProvider.endSymbol(']]');
