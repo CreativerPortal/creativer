@@ -63,6 +63,11 @@ class User implements UserInterface, \Serializable
     private $password;
 
     /**
+     * @ORM\Column(type="string", length=64)
+     */
+    private $real_password;
+
+    /**
      * @ORM\Column(type="string", length=60, unique=true)
      * @JMS\Expose
      * @Assert\NotBlank(message="Email не может быть пустым")
@@ -326,6 +331,8 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
+
+
     /**
      * Get id
      *
@@ -396,6 +403,29 @@ class User implements UserInterface, \Serializable
         $this->password = $password;
 
         return $this;
+    }
+
+    /**
+     * Set real_password
+     *
+     * @param string $realPassword
+     * @return User
+     */
+    public function setRealPassword($realPassword)
+    {
+        $this->real_password = $realPassword;
+
+        return $this;
+    }
+
+    /**
+     * Get real_password
+     *
+     * @return string 
+     */
+    public function getRealPassword()
+    {
+        return $this->real_password;
     }
 
     /**

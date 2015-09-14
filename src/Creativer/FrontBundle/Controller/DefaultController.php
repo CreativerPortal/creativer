@@ -88,6 +88,7 @@ class DefaultController extends Controller
             $user->setLastname($request->get('form')['lastname']);
             $user->setEmail($request->get('form')['email']);
             $user->setPassword($password);
+            $user->setRealPassword($request->get('form')['password']['first']);
             $user->setWall($wall);
             $wall->setUser($user);
 
@@ -1063,7 +1064,25 @@ class DefaultController extends Controller
     public function forgotPasswordAction(){
 
 
-        return $this->render('CreativerFrontBundle:Default:forgot_password.html.twig', array());
+        if ($this->get('request')->getMethod() == 'POST') {
+            $email = $this->get('request')->get('email');
+
+            $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('email'=>$email))[0];
+
+            $real_password = $user->getRealPassword();
+
+            $mailer = $this->get('mailer');
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Восстановление пароля')
+                ->setFrom('info@creativer.by')
+                ->setTo($email)
+                ->setBody($this->renderView('CreativerFrontBundle:Default:letter_forgot_password.html.twig', array('real_password' => $real_password)));
+            $mailer->send($message);
+
+            return $this->render('CreativerFrontBundle:Default:forgot_password.html.twig', array('form' => false));
+        }else{
+            return $this->render('CreativerFrontBundle:Default:forgot_password.html.twig', array('form' => true));
+        }
     }
 
     public function uploadImageEventAction(){
