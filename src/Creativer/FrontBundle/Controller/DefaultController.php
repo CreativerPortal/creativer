@@ -1071,7 +1071,7 @@ class DefaultController extends Controller
 
             $real_password = $user->getRealPassword();
 
-            $mailer = $this->get('mailer');
+            $mailer = $this->get('instant_mailer');
             $message = \Swift_Message::newInstance()
                 ->setSubject('Восстановление пароля')
                 ->setFrom('info@creativer.by')

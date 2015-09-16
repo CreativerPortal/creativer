@@ -14,6 +14,9 @@ services:
             class: Creativer\FrontBundle\Twig\twigExtension
             tags:
                 -  { name: twig.extension }
+    instant_mailer:
+        class: %swiftmailer.class%
+        arguments: ["@?swiftmailer.transport.real"]
 #    fos_elastica.listener.app.album:
 #        class: Creativer\FrontBundle\Handler\ElasticaCourseListener
 #        arguments:

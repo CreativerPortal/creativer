@@ -882,7 +882,7 @@ class PersonController extends Controller
         $message = $this->get('request')->request->get('message');
 
 
-        $mailer = $this->get('mailer');
+        $mailer = $this->get('instant_mailer');
         $message = \Swift_Message::newInstance()
             ->setSubject('Обратная связь')
             ->setFrom($email)

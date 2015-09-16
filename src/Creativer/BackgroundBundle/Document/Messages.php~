@@ -1,0 +1,46 @@
+<?php
+namespace Creativer\BackgroundBundle\Document;
+
+use Doctrine\ODM\MongoDB\Mapping\Annotations as MongoDB;
+
+
+/**
+ * @MongoDB\Document(collection="messages")
+ */
+class Messages
+{
+    /**
+     * @MongoDB\Id
+     */
+    protected $id;
+
+    /**
+     * @MongoDB\Int
+     */
+    protected $sender;
+
+    /**
+     * @MongoDB\Int
+     */
+    protected $receiver;
+
+    /**
+     * @MongoDB\String
+     */
+    protected $text;
+
+    /**
+     * @MongoDB\Boolean
+     */
+    protected $reviewed;
+
+    /**
+     * @MongoDB\Date
+     */
+    protected $date;
+
+    /**
+     * @MongoDB\Collection
+     */
+    protected $id_users;
+}

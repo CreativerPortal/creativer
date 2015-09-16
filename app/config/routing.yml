@@ -1,3 +1,8 @@
+creativer_background:
+    resource: "@CreativerBackgroundBundle/Controller/"
+    type:     annotation
+    prefix:   /
+
 creativer_front:
     resource: "@CreativerFrontBundle/Resources/config/routing.yml"
     prefix:   /

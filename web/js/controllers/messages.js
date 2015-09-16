@@ -16,6 +16,12 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         })
     }
 
+    if(!$scope.companion){
+        messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
+            $scope.companion = data.user;
+        })
+    }
+
     $scope.$watch('user', function() {
 
         if($routeParams.id_user_chat && $scope.user){

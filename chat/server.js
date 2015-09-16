@@ -5,16 +5,9 @@ var mongo = require('mongodb').MongoClient;
 var mysql = require('mysql');
 var fs = require('fs');
 
-db_connect = "mongodb://127.0.0.1:27017/local";
+db_connect = "mongodb://127.0.0.1:27017/creativer";
 
 console.log("start script");
-
-var connection = mysql.createConnection({
-    host:     'localhost',
-    user:     'slaq',
-    password: 'slaku777',
-    database: 'creativer'
-});
 
 var stream = fs.createWriteStream("errors.txt");
 
@@ -33,6 +26,15 @@ app.get('/', function(req, res){
 var sockets = [];
 
 io.on('connection', function(socket){
+
+    if(!connection){
+        var connection = mysql.createConnection({
+            host:     'localhost',
+            user:     'slaq',
+            password: 'slaku777',
+            database: 'creativer'
+        });
+    }
 
     if(sockets[socket.handshake.query.id_user] != undefined){
         sockets[socket.handshake.query.id_user].push(socket);
