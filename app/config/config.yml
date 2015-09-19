@@ -111,16 +111,25 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    encryption: %mailer_encryption%
-    auth_mode:  %mailer_auth_mode%
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    disable_delivery: true
-    spool:
-        type: file
-        path: "/home/spool"
+    default_mailer: first_mailer
+    mailers:
+        first_mailer:
+            transport: "%mailer_transport%"
+            encryption: %mailer_encryption%
+            auth_mode:  %mailer_auth_mode%
+            host:      "%mailer_host%"
+            username:  "%mailer_user%"
+            password:  "%mailer_password%"
+        second_mailer:
+            transport: "%mailer_transport%"
+            encryption: %mailer_encryption%
+            auth_mode:  %mailer_auth_mode%
+            host:      "%mailer_host%"
+            username:  "%mailer_user%"
+            password:  "%mailer_password%"
+            spool:
+                type: file
+                path: "/home/spool"
 
 sensio_framework_extra:
     view:   { annotations: false }

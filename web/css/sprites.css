@@ -107,249 +107,519 @@
 
 /* -------- ???????? ?????? --------*/
 
-.accessories, .accessories_active, .bags_belts, .bijouterie, .bijouterie_active, .books, .books_active, .clothing, .clothing_active, .design, .design_active, .foto, .foto_active, .hairstyles, .hairstyles_active, .makeup, .makeup_active, .manicure, .manicure_active, .pictures_active, .shoes, .shoes_active, .sports_massage, .sports_massage_active, .tattoo, .tattoo_active, .toys_souvenirs, .toys_souvenirs_active, .pictures, .pictures_active{
+/*.accessories, .accessories_active, .bags_belts, .bijouterie, .bijouterie_active,*/
+/*.books, .books_active, .clothing, .clothing_active, .design, .design_active, .foto, .foto_active,*/
+/*.hairstyles, .hairstyles_active, .makeup, .makeup_active, .manicure, .manicure_active, .pictures_active,*/
+/*.shoes, .shoes_active, .sports_massage, .sports_massage_active, .tattoo, .tattoo_active, .toys_souvenirs, .toys_souvenirs_active, .pictures, .pictures_active{*/
+	/*background: url("/var/www/creativer/web/img/sprites.png") no-repeat;*/
+	/*position: absolute;*/
+/*}*/
+
+/*.accessories{*/
+	/*background-position: 0 -137px ;*/
+	/*width: 197px;*/
+	/*height: 198px;*/
+	/*top: 520px;*/
+	/*left: 205px;*/
+	/*z-index: 2;*/
+/*}*/
+
+/*.accessories:hover{*/
+	/*background-position: -198px -137px ;*/
+	/*width: 197px;*/
+	/*height: 198px;*/
+/*}*/
+
+/*.bags_belts{*/
+	/*background-position: -1px -336px ;*/
+	/*width: 108px;*/
+	/*height: 136px;*/
+	/*top: 415px;*/
+	/*left: 370px;*/
+/*}*/
+
+/*.bags_belts:hover{*/
+	/*background-position: -110px -336px ;*/
+	/*width: 108px;*/
+	/*height: 136px;*/
+	/*top: 415px;*/
+	/*left: 370px;*/
+/*}*/
+
+/*.bijouterie{*/
+	/*background-position: 0 -578px ;*/
+	/*width: 133px;*/
+	/*height: 141px;*/
+	/*top: 177px;*/
+	/*left: 5px;*/
+/*}*/
+
+/*.bijouterie:hover{*/
+	/*background-position: -134px -578px ;*/
+	/*width: 133px;*/
+	/*height: 141px;*/
+	/*top: 177px;*/
+	/*left: 5px;*/
+/*}*/
+
+/*.books{*/
+	/*background-position: 0 -473px ;*/
+	/*width: 140px;*/
+	/*height: 104px;*/
+	/*top: 84px;*/
+	/*left: 165px;*/
+/*}*/
+
+/*.books:hover{*/
+	/*background-position: -142px -473px ;*/
+	/*width: 140px;*/
+	/*height: 104px;*/
+	/*top: 84px;*/
+	/*left: 165px;*/
+/*}*/
+
+/*.clothing{*/
+	/*background-position: 0 -720px ;*/
+	/*width: 242px;*/
+	/*height: 481px;*/
+	/*top: 165px;*/
+	/*left: 135px*/
+/*}*/
+
+/*.clothing:hover{*/
+	/*background-position: -243px -720px ;*/
+	/*width: 242px;*/
+	/*height: 481px;*/
+	/*top: 165px;*/
+	/*left: 135px*/
+/*}*/
+
+/*.design{*/
+	/*background-position: 0 -2041px ;*/
+	/*width: 240px;*/
+	/*height: 249px;*/
+	/*top: 440px;*/
+	/*left:50px;*/
+	/*z-index: 2;*/
+/*}*/
+
+/*.design:hover{*/
+	/*background-position: -241px -2041px ;*/
+	/*width: 240px;*/
+	/*height: 249px;*/
+/*}*/
+
+/*.foto{*/
+	/*background-position: 0 -1875px ;*/
+	/*width: 190px;*/
+	/*height: 165px;*/
+	/*top: 390px;*/
+	/*left:250px;*/
+/*}*/
+
+/*.foto:hover{*/
+	/*background-position: -191px -1875px ;*/
+	/*width: 190px;*/
+	/*height: 165px;*/
+	/*top: 390px;*/
+	/*left: 250px;*/
+/*}*/
+
+/*.hairstyles{*/
+	/*background-position: 0 -2530px ;*/
+	/*width: 101px;*/
+	/*height: 119px;*/
+	/*top: 240px;*/
+	/*left: 160px;*/
+/*}*/
+
+/*.hairstyles:hover{*/
+	/*background-position: -102px -2530px ;*/
+	/*width: 101px;*/
+	/*height: 119px;*/
+	/*top: 240px;*/
+	/*left: 160px;*/
+/*}*/
+
+/*.makeup{*/
+	/*background-position: 0 -2394px ;*/
+	/*width: 176px;*/
+	/*height: 135px;*/
+	/*top: 240px;*/
+	/*left: 290px;*/
+/*}*/
+
+/*.makeup:hover{*/
+	/*background-position: -177px -2394px ;*/
+	/*width: 176px;*/
+	/*height: 135px;*/
+	/*top: 240px;*/
+	/*left: 290px;*/
+/*}*/
+
+/*.manicure{*/
+	/*background-position: 0 -2292px ;*/
+	/*width: 98px;*/
+	/*height: 101px;*/
+	/*top: 85px;*/
+	/*left: 210px;*/
+/*}*/
+
+/*.manicure:hover{*/
+	/*background-position: -99px -2292px ;*/
+	/*width: 98px;*/
+	/*height: 101px;*/
+	/*top: 85px;*/
+	/*left: 210px;*/
+/*}*/
+
+/*.shoes{*/
+	/*background-position: 0 -1394px ;*/
+	/*width: 232px;*/
+	/*height: 159px;*/
+	/*top: 555px;*/
+	/*left: -10px;*/
+/*}*/
+
+/*.shoes:hover{*/
+	/*background-position: -233px -1394px ;*/
+	/*width: 232px;*/
+	/*height: 159px;*/
+	/*top: 555px;*/
+	/*left: -10px;*/
+/*}*/
+
+/*.sports_massage{*/
+	/*background-position: 0 -1670px ;*/
+	/*width: 242px;*/
+	/*height: 204px;*/
+	/*top: 550px;*/
+	/*left: 190px;*/
+	/*z-index: 3;*/
+/*}*/
+
+/*.sports_massage:hover{*/
+	/*background-position: -243px -1670px ;*/
+	/*width: 242px;*/
+	/*height: 204px;*/
+/*}*/
+
+/*.tattoo{*/
+	/*background-position: 0 -1554px ;*/
+	/*width: 152px;*/
+	/*height: 110px;*/
+	/*top: 85px;*/
+	/*left: 308px;*/
+/*}*/
+
+/*.tattoo:hover{*/
+	/*background-position: -162px -1554px ;*/
+	/*width: 152px;*/
+	/*height: 110px;*/
+	/*top: 85px;*/
+	/*left: 308px;*/
+/*}*/
+
+/*.toys_souvenirs{*/
+	/*background-position: 0 0;*/
+	/*width: 167px;*/
+	/*height: 120px;*/
+	/*top: 60px;*/
+	/*left: 15px;*/
+	/*z-index: 2;*/
+/*}*/
+
+/*.toys_souvenirs:hover{*/
+	/*background-position: -176px 0;*/
+	/*width: 167px;*/
+	/*height: 120px;*/
+	/*top: 60px;*/
+	/*left: 15px;*/
+/*}*/
+
+/*.pictures{*/
+	/*background-position: 0 -1202px ;*/
+	/*width: 180px;*/
+	/*height: 191px;*/
+	/*top: 360px;*/
+	/*left: 48px;*/
+/*}*/
+
+/*.pictures:hover{*/
+	/*background-position: -181px -1202px ;*/
+	/*width: 180px;*/
+	/*height: 191px;*/
+	/*top: 360px;*/
+	/*left: 48px;*/
+/*}*/
+
+
+
+.accessories_active, .accessories, .bijouterie_active, .bijouterie, .design_active, .design,
+.animal_active, .animal, .pictures_active, .pictures, .books_active, .books, .makeup_active, .makeup, .manicure_active, .manicure,
+.shoes_active, .shoes, .clothing_active, .clothing, .hairstyles_active, .hairstyles, .sweetness_active, .sweetness, .sports_massage_active, .sports_massage, .toys_souvenirs_active,
+.toys_souvenirs, .bags_belts_active, .bags_belts, .tattoo_active, .tattoo, .products, .services, .foto_active, .foto{
 	background: url("/var/www/creativer/web/img/sprites.png") no-repeat;
 	position: absolute;
 }
 
-.accessories{
-	background-position: 0 -137px ;
-	width: 197px;
-	height: 198px;
-	top: 520px;
-	left: 205px;
-	z-index: 2;
-}
-
 .accessories:hover{
-	background-position: -198px -137px ;
-	width: 197px;
-	height: 198px;
+	background-position: -203.946044921875px -2715.9033203125px ;
+	width: 203px;
+	height: 206px;
 }
 
-.bags_belts{
-	background-position: -1px -336px ;
-	width: 108px;
-	height: 136px;
-	top: 415px;
-	left: 370px;
-}
-
-.bags_belts:hover{
-	background-position: -110px -336px ;
-	width: 108px;
-	height: 136px;
-	top: 415px;
-	left: 370px;
-}
-
-.bijouterie{
-	background-position: 0 -578px ;
-	width: 133px;
-	height: 141px;
-	top: 177px;
-	left: 5px;
+.accessories{
+	background-position: 0 -2715.8777465820312px ;
+	width: 203px;
+	height: 206px;
+	top: 506px;
+	left: 126px;
+	z-index: 2;
 }
 
 .bijouterie:hover{
-	background-position: -134px -578px ;
-	width: 133px;
-	height: 141px;
-	top: 177px;
-	left: 5px;
+	background-position: -130.98016357421875px -2572.957305908203px ;
+	width: 124px;
+	height: 139px;
 }
 
-.books{
-	background-position: 0 -473px ;
-	width: 140px;
-	height: 104px;
-	top: 84px;
-	left: 165px;
-}
-
-.books:hover{
-	background-position: -142px -473px ;
-	width: 140px;
-	height: 104px;
-	top: 84px;
-	left: 165px;
-}
-
-.clothing{
-	background-position: 0 -720px ;
-	width: 242px;
-	height: 481px;
-	top: 165px;
-	left: 135px
-}
-
-.clothing:hover{
-	background-position: -243px -720px ;
-	width: 242px;
-	height: 481px;
-	top: 165px;
-	left: 135px
-}
-
-.design{
-	background-position: 0 -2041px ;
-	width: 240px;
-	height: 249px;
-	top: 440px;
-	left:50px;
-	z-index: 2;
+.bijouterie{
+	background-position: 0 -2572.9459533691406px ;
+	width: 124px;
+	height: 139px;
+	top: 185px;
+	left: 31px;
 }
 
 .design:hover{
-	background-position: -241px -2041px ;
-	width: 240px;
-	height: 249px;
+	background-position: -238px -1062.9346313476562px ;
+	width: 238px;
+	height: 275px;
 }
 
-.foto{
-	background-position: 0 -1875px ;
-	width: 190px;
-	height: 165px;
-	top: 390px;
-	left:250px;
-}
-
-.foto:hover{
-	background-position: -191px -1875px ;
-	width: 190px;
-	height: 165px;
-	top: 390px;
-	left: 250px;
-}
-
-.hairstyles{
-	background-position: 0 -2530px ;
-	width: 101px;
-	height: 119px;
-	top: 240px;
-	left: 160px;
-}
-
-.hairstyles:hover{
-	background-position: -102px -2530px ;
-	width: 101px;
-	height: 119px;
-	top: 240px;
-	left: 160px;
-}
-
-.makeup{
-	background-position: 0 -2394px ;
-	width: 176px;
-	height: 135px;
-	top: 240px;
-	left: 290px;
-}
-
-.makeup:hover{
-	background-position: -177px -2394px ;
-	width: 176px;
-	height: 135px;
-	top: 240px;
-	left: 290px;
-}
-
-.manicure{
-	background-position: 0 -2292px ;
-	width: 98px;
-	height: 101px;
-	top: 85px;
-	left: 210px;
-}
-
-.manicure:hover{
-	background-position: -99px -2292px ;
-	width: 98px;
-	height: 101px;
-	top: 85px;
-	left: 210px;
-}
-
-.shoes{
-	background-position: 0 -1394px ;
-	width: 232px;
-	height: 159px;
-	top: 555px;
-	left: -10px;
-}
-
-.shoes:hover{
-	background-position: -233px -1394px ;
-	width: 232px;
-	height: 159px;
-	top: 555px;
-	left: -10px;
-}
-
-.sports_massage{
-	background-position: 0 -1670px ;
-	width: 242px;
-	height: 204px;
-	top: 550px;
-	left: 190px;
-	z-index: 3;
-}
-
-.sports_massage:hover{
-	background-position: -243px -1670px ;
-	width: 242px;
-	height: 204px;
-}
-
-.tattoo{
-	background-position: 0 -1554px ;
-	width: 152px;
-	height: 110px;
-	top: 85px;
-	left: 308px;
-}
-
-.tattoo:hover{
-	background-position: -162px -1554px ;
-	width: 152px;
-	height: 110px;
-	top: 85px;
-	left: 308px;
-}
-
-.toys_souvenirs{
-	background-position: 0 0;
-	width: 167px;
-	height: 120px;
-	top: 60px;
-	left: 15px;
+.design{
+	background-position: 0 -1062.9715576171875px ;
+	width: 238px;
+	height: 275px;
+	top: 391px;
+	left: 32px;
 	z-index: 2;
 }
 
-.toys_souvenirs:hover{
-	background-position: -176px 0;
-	width: 167px;
-	height: 120px;
-	top: 60px;
-	left: 15px;
+.animal:hover{
+	background-position: -213.9801025390625px -893.9743957519531px ;
+	width: 213px;
+	height: 172px;
 }
 
-.pictures{
-	background-position: 0 -1202px ;
-	width: 180px;
-	height: 191px;
-	top: 360px;
-	left: 48px;
+.animal{
+	background-position: 0 -893.9545288085938px ;
+	width: 213px;
+	height: 172px;
+	top: 573px;
+	left: -21px;
+	z-index: 3;
 }
 
 .pictures:hover{
-	background-position: -181px -1202px ;
-	width: 180px;
-	height: 191px;
-	top: 360px;
-	left: 48px;
+	background-position: -176.9034423828125px -1331.8948059082031px ;
+	width: 176px;
+	height: 184px;
 }
 
+.pictures{
+	background-position: 0 -1331.9061889648438px ;
+	width: 176px;
+	height: 184px;
+	top: 352px;
+	left: 50px;
+}
+
+.books:hover{
+	background-position: -146.93182373046875px -1515.9288940429688px ;
+	width: 146px;
+	height: 97px;
+}
+
+.books{
+	background-position: 0 -1515.911865234375px ;
+	width: 146px;
+	height: 97px;
+	top: 89px;
+	left: 162px;
+}
+
+.makeup:hover{
+	background-position: -240.96026611328125px -718.9346313476562px ;
+	width: 240px;
+	height: 176px;
+}
+
+.makeup{
+	background-position: 0 -718.98291015625px ;
+	width: 240px;
+	height: 176px;
+	top: 226px;
+	left: 221px;
+}
+
+.manicure:hover{
+	background-position: -109.98016357421875px -611.9801025390625px ;
+	width: 110px;
+	height: 106px;
+}
+
+.manicure{
+	background-position: 0 -611.9943237304688px ;
+	width: 110px;
+	height: 106px;
+	top: 80px;
+	left: 204px;
+}
+
+.shoes:hover{
+	background-position: -170.946044921875px -2922.9345703125px ;
+	width: 170px;
+	height: 154px;
+}
+
+.shoes{
+	background-position: 0 -2922.9203491210938px ;
+	width: 170px;
+	height: 154px;
+	top: 554px;
+	left: 2px;
+}
+
+.clothing:hover{
+	background-position: -268px -1610.943099975586px ;
+	width: 268px;
+	height: 492px;
+}
+
+.clothing{
+	background-position: 0 -1610.9687042236328px ;
+	width: 268px;
+	height: 492px;
+	top: 163px;
+	left: 117px;
+}
+
+.hairstyles:hover{
+	background-position: -113.9573974609375px -482.93182373046875px ;
+	width: 114px;
+	height: 128px;
+}
+
+.hairstyles{
+	background-position: 0 -482.928955078125px ;
+	width: 114px;
+	height: 128px;
+	top: 234px;
+	left: 146px;
+}
+
+.sweetness:hover{
+	background-position: -168.977294921875px -2373.9487915039062px ;
+	width: 167px;
+	height: 198px;
+}
+
+.sweetness{
+	background-position: 0 -2373.9573364257812px ;
+	width: 167px;
+	height: 198px;
+	top: 527px;
+	left: 286px;
+}
+
+.sports_massage:hover{
+	background-position: -257px -279.9204406738281px ;
+	width: 257px;
+	height: 202px;
+}
+
+.sports_massage{
+	background-position: 0 -279.8891906738281px ;
+	width: 257px;
+	height: 202px;
+	top: 539px;
+	left: 176px;
+	z-index: 3;
+}
+
+.toys_souvenirs:hover{
+	background-position: -172.94891357421875px -2244.9629516601562px ;
+	width: 172px;
+	height: 128px;
+}
+
+.toys_souvenirs{
+	background-position: 0 -2244.94873046875px ;
+	width: 172px;
+	height: 128px;
+	top: 56px;
+	left: 30px;
+	z-index: 2;
+}
+
+.bags_belts:hover{
+	background-position: -118.98016357421875px -2103.9771728515625px ;
+	width: 117px;
+	height: 140px;
+}
+
+.bags_belts{
+	background-position: 0 -2103.974334716797px ;
+	width: 117px;
+	height: 140px;
+	top: 404px;
+	left: 367px;
+}
+
+.tattoo:hover{
+	background-position: -153.92047119140625px -168.94033813476562px ;
+	width: 153px;
+	height: 110px;
+}
+
+.tattoo{
+	background-position: 0 -168.91192626953125px ;
+	width: 153px;
+	height: 110px;
+	top: 82px;
+	left: 305px;
+}
+
+.foto:hover{
+	background-position: -195.5px 0;
+	width: 196px;
+	height: 169px;
+}
+
+.foto{
+	background-position: 0 0;
+	width: 196px;
+	height: 169px;
+	top: 382px;
+	left: 258px;
+}
+
+.products{
+	background-position: -204.92901611328125px -3080.9146728515625px ;
+	width: 259px;
+	height: 62px;
+	left: 64px;
+}
+
+.services{
+	background-position: 0 -3078.9459228515625px ;
+	width: 203px;
+	height: 64px;
+	left: 226px;
+	top: 6px;
+}
 
 /* -------------    -------------- */
 

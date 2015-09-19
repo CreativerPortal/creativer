@@ -54,11 +54,12 @@ class DefaultController extends Controller
 
 
         foreach($emails as $key=>$val){
-            $mailer = $this->get('mailer');
+            $mailer = $this->get('swiftmailer.mailer.second_mailer');
             $message = \Swift_Message::newInstance()
-                ->setSubject('Пришло сообщение')
-                ->setFrom('info@creativer.by')
+                ->setSubject('Новое сообщение')
+                ->setFrom(array('info@creativer.by' => 'Creativer'))
                 ->setTo($val['email'])
+                ->setContentType("text/html")
                 ->setBody($this->renderView('CreativerFrontBundle:Default:letter_chat.html.twig', array('name' => $val['username'])));
             $mailer->send($message);
         }

@@ -61,28 +61,28 @@
 
             </div>
 
-            <div class="row margin-top_15" ng-class="{'old__messages': !message.reviewed && (message.sender != user.id) && focus, 'new__messages': !message.reviewed  && (message.sender != user.id) && !focus}" ng-repeat="message in $root.messages">
-                <span ng-if="focus && !message.reviewed" ng-init="review(message)"></span>
+            <div class="row margin-top_15" ng-class="{'old__messages': !msg.reviewed && (msg.sender != user.id) && focus, 'new__messages': !msg.reviewed  && (msg.sender != user.id) && !focus}" ng-repeat="msg in $root.messages_history">
+                <span ng-if="focus && !msg.reviewed" ng-init="review(msg)"></span>
                 <div class="col-sm-2">
-                    <a class="user__avatar-mini block" ng-if="user.id == message.sender" href="#/[[ user.id ]]">
+                    <a class="user__avatar-mini block" ng-if="user.id == msg.sender" href="#/[[ user.id ]]">
                         <img ng-src="[[ user.avatar ]]">
                     </a>
-                    <a class="user__avatar-mini block" ng-if="companion.id == message.sender" href="#/[[ companion.id ]]">
+                    <a class="user__avatar-mini block" ng-if="companion.id == msg.sender" href="#/[[ companion.id ]]">
                         <img  ng-src="[[ companion.avatar ]]">
                     </a>
                 </div>
                 <div class="col-sm-10 padding-left_0">
                     <div class="row">
                         <div class=" col-sm-6 text-left">
-                            <a ng-if="user.id == message.sender" ng-href="#/[[ user.id ]]" class="text-blue" href="">[[ user.username ]] [[ user.lastname ]]</a>
-                            <a ng-if="companion.id == message.sender" ng-href="#/[[ companion.id ]]" class="text-blue" href="">[[ companion.username ]] [[ companion.lastname ]]</a>
+                            <a ng-if="user.id == msg.sender" ng-href="#/[[ user.id ]]" class="text-blue" href="">[[ user.username ]] [[ user.lastname ]]</a>
+                            <a ng-if="companion.id == msg.sender" ng-href="#/[[ companion.id ]]" class="text-blue" href="">[[ companion.username ]] [[ companion.lastname ]]</a>
                         </div>
 
-                        <div class="col-sm-6 text-right fs_0-8"><time class="text-gray">[[ message.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>
+                        <div class="col-sm-6 text-right fs_0-8"><time class="text-gray">[[ msg.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>
                     </div>
                     <div class="text-gray">
-                        <p ng-if="user.id == message.sender" class="fs_0-8">[[ message.text ]]</p>
-                        <p ng-if="companion.id == message.sender" class="fs_0-8">[[ message.text ]]</p>
+                        <p ng-if="user.id == msg.sender" class="fs_0-8">[[ msg.text ]]</p>
+                        <p ng-if="companion.id == msg.sender" class="fs_0-8">[[ msg.text ]]</p>
                     </div>
                 </div>
             </div>

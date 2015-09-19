@@ -17,7 +17,7 @@ body{
 .slid__slider{
     position: absolute;
     top:65px;
-    left: 50%;
+    left: 49%;
     margin-left: -115px;
     width: 280px;
     z-index: 1;
@@ -32,6 +32,7 @@ body{
      position: relative;
      background-image: url("/var/www/creativer/web/img/main_product.png");
     background-repeat: no-repeat;
+    top: 17px;
  }
 
 .slide__services{
@@ -39,8 +40,9 @@ body{
     height: 740px;
     position: relative;
     background-image: url("/var/www/creativer/web/img/main_services.png");
-    background-position: -20px 0px;
     background-repeat: no-repeat;
+    right: 11px;
+    top: 12px;
 }
 
 .text-style{

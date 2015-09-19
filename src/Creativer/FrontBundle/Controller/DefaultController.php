@@ -1071,10 +1071,10 @@ class DefaultController extends Controller
 
             $real_password = $user->getRealPassword();
 
-            $mailer = $this->get('instant_mailer');
+            $mailer = $this->get('swiftmailer.mailer');
             $message = \Swift_Message::newInstance()
                 ->setSubject('Восстановление пароля')
-                ->setFrom('info@creativer.by')
+                ->setFrom(array('info@creativer.by' => 'Creativer'))
                 ->setTo($email)
                 ->setBody($this->renderView('CreativerFrontBundle:Default:letter_forgot_password.html.twig', array('real_password' => $real_password)));
             $mailer->send($message);

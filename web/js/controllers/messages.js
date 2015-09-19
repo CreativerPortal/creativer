@@ -45,7 +45,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     }else{
         socket.on("history", function(data) {
             console.log(data);
-            $rootScope.messages = data.messages;
+            $rootScope.messages_history = data.messages;
             $scope.companion = data.companion;
         });
     }
