@@ -541,3 +541,10 @@ p[contenteditable]{
     position: relative;
     display: inline-block;
 }
+
+::selection {
+    background: #ffb5b3; /* Safari */
+}
+::-moz-selection {
+    background: #ffb5b3; /* Firefox */
+}

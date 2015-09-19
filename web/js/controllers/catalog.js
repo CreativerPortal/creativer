@@ -166,6 +166,12 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         });
     }
 
+    $rootScope.$watch('wi_container', function() {
+
+
+    });
+
+
 }]);
 
 

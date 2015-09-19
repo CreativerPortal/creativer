@@ -1,0 +1,64 @@
+.slid__slider::selection {
+	background: transparent; /* Safari */
+}
+.slid__slider::-moz-selection {
+	background: transparent; /* Firefox */
+}
+
+ul.wi-container {
+	width: 190px;
+	height: 278px;
+	position: relative;
+	padding: 0;
+	list-style-type: none;
+	-webkit-perspective: 1400px;
+	-moz-perspective: 1400px;
+	-ms-perspective: 1400px;
+	-o-perspective: 1400px;
+	perspective: 1400px;
+}
+
+ul.wi-container li {
+	-moz-user-select: none;
+	-khtml-user-select: none;
+	user-select: none;
+	width: 270px;
+	height: 293px;
+	display: none;
+	margin: 0;
+	position: absolute;
+	top: 0;
+	left: 0;
+	pointer-events: auto;
+}
+
+ul.wi-container li.wi-move {
+	pointer-events: none;
+	-webkit-transition: -webkit-transform 600ms ease, opacity 600ms ease, left 600ms ease, top 600ms ease;
+	-moz-transition: -moz-transform 600ms ease, opacity 600ms ease, left 600ms ease, top 600ms ease;
+	-o-transition: -o-transform 600ms ease, opacity 600ms ease, left 600ms ease, top 600ms ease;
+	-ms-transition: -ms-transform 600ms ease, opacity 600ms ease, left 600ms ease, top 600ms ease;
+	transition: transform 600ms ease, opacity 600ms ease, left 600ms ease, top 600ms ease;
+}
+
+#nav-prev{
+	top: 154px;
+	left: -13px;
+	cursor: pointer;
+	position: absolute;
+	display: block;
+	width: 29px;
+	height: 29px;
+	background-image: url("/var/www/creativer/web/img/left_button.png");
+}
+
+#nav-next{
+	top: 157px;
+	right: -16px;
+	cursor: pointer;
+	position: absolute;
+	display: block;
+	width: 28px;
+	height: 29px;
+	background-image: url("/var/www/creativer/web/img/right_button.png");
+}
