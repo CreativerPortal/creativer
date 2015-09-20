@@ -14,7 +14,7 @@
                         <h4 class="lobster text-gray margin-left_15 left">Сообщения</h4>
                     </div>
 
-                    <div class="col-sm-3 col-sm-offset-6">
+                    {#<div class="col-sm-3 col-sm-offset-6">
                         <label class="slid__all__folder button_gray_message right text-center fs_0-9 pointer" for="all_folders">
                             <span class="glyphicon glyphicon-folder-open"></span>
                             <span>&nbsp папки &nbsp</span>
@@ -29,7 +29,7 @@
                                 </ul>
                             </div>
                         </div>
-                    </div>
+                    </div>#}
 
                 </div>
 
@@ -56,14 +56,14 @@
                         <a class="text-blue padding-left_0 chat__link" ng-if="message.receiver != $root.id_user" href="#/[[ message.receiver ]]">[[ message.username ]] [[ message.lastname ]]</a>
                     </div>
                     <div class="col-sm-4 margin-left_25">
-                        <div class="text-left fs_0-8"><time class="text-gray">[[ message.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>
+                        <div class="text-left fs_0-8 text-right"><time class="text-gray">[[ message.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
                         <div class="user__avatar-mini" style="margin-top: -10px;"><img ng-src="[[ message.avatar ]]" /></div>
                     </div>
-                    <div class="col-sm-7">
+                    <div class="col-sm-9">
 
                             <div class="row text-gray pointer">
                                 <div class="col-sm-12 fs_0-8 padding-left_3 padding-right_0 background__text-reviewed" ng-class="{background__text: message.reviewed == false && message.sender != user.id}" ng-click="go('chat/'+ message.other_user)">
@@ -71,7 +71,7 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="col-sm-3 padding-left_0 padding-right_0 text-center">
+                    {#<div class="col-sm-3 padding-left_0 padding-right_0 text-center">
                         <div class="col-sm-10 padding-right_0">
                             <label class="slid__one__folder button_gray_message2 right text-center fs_0-9 pointer" for="[[ message.sender ]]">
                                 <span class="glyphicon glyphicon-folder-open"></span> &nbsp<span class="glyphicon glyphicon-menu-down"></span><br>
@@ -88,9 +88,9 @@
                                     <button class="true fs_0-9 margin-top_5">Создать</button>
                                 </div>
                             </div>
-                            {#<span class="text-blue text-underline fs_0-9">Удалить</span>#}
+                            <span class="text-blue text-underline fs_0-9">Удалить</span>
                         </div>
-                    </div>
+                    </div>#}
                 </div>
             </div>
             {#<div class="early_message early-message text-center margin-top_10"><span>ещё сообщения</span></div>#}

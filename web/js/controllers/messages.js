@@ -75,6 +75,25 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         }, 1000);
     }
 
+    $scope.oldMessages = function(){
+        var length = $rootScope.messages_history.length;
+        socket.emit("old messages",{id_user:$scope.user.id, ids:$scope.ids, length:length});
+    }
+
+
+    socket.on('old messages', function(data){
+
+        $rootScope.ids = [$routeParams.id_user_chat, $rootScope.id_user];
+        $rootScope.ids = $rootScope.ids.sort();
+
+        console.log(data.messages);
+
+
+        $rootScope.messages_history = $rootScope.messages_history.concat(data.messages);
+
+    });
+
+
         chat.init();
 
     $rootScope.updateAvatar = function(image){

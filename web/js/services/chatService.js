@@ -1,8 +1,8 @@
 angular.module('service.chat', ['service.socket'])
     .factory('chat', ['$rootScope', 'socket', '$routeParams', '$timeout', function ($rootScope,socket,$routeParams,$timeout) {
 
-        if(!$rootScope.messages){
-            $rootScope.messages = [];
+        if(!$rootScope.messages_history){
+            $rootScope.messages_history = [];
         }
 
         function soundClick() {
@@ -18,7 +18,7 @@ angular.module('service.chat', ['service.socket'])
             $rootScope.ids = [$routeParams.id_user_chat, $rootScope.id_user];
             $rootScope.ids = $rootScope.ids.sort();
             if(data.reviewed == false && ($routeParams.id_user_chat == data.sender || $routeParams.id_user_chat == data.receiver)){
-                $rootScope.messages.unshift({sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar});
+                $rootScope.messages_history.unshift({sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar});
 
 
                 if($rootScope.id_user == data.sender){
@@ -29,7 +29,7 @@ angular.module('service.chat', ['service.socket'])
                 }
             }else{
                 soundClick();
-                $rootScope.new_messages.push(data);
+                $rootScope.new_messages.unshift(data);
             }
         });
 

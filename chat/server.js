@@ -62,13 +62,7 @@ io.on('connection', function(socket){
                             result[key].other_user = result[key]._id.id_users[1];
                         }
                     }
-                    //connection.connect();
-                    connection.connect(function(err){
-                        stream.once('open', function(fd) {
-                            stream.write(err);
-                            stream.end();
-                        });
-                    });
+
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                         connection.query(queryText, companion, function(err, rows) {
                             for(var row_key in result){
@@ -80,12 +74,7 @@ io.on('connection', function(socket){
                                     }
                                 }
                             }
-                            if(err){
-                                stream.once('open', function(fd) {
-                                    stream.write(err);
-                                    stream.end();
-                                });
-                            }
+
                             socket.emit('all messages', result);
                             //connection.end();
                             db.close();
@@ -107,13 +96,7 @@ io.on('connection', function(socket){
                     var users = [];
                     users.push(id_users[0]);
                     users.push(id_users[1]);
-                    //connection.connect();
-                    connection.connect(function(err){
-                        stream.once('open', function(fd) {
-                            stream.write(err);
-                            stream.end();
-                        });
-                    });
+
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
                     connection.query(queryText, users, function(err, rows) {
                         for(var key in rows){
@@ -121,12 +104,7 @@ io.on('connection', function(socket){
                                 var comp = rows[key];
                             }
                         }
-                        if(err){
-                            stream.once('open', function(fd) {
-                                stream.write(err);
-                                stream.end();
-                            });
-                        }
+
                         var res = {
                             messages: result,
                             companion: comp
@@ -134,6 +112,44 @@ io.on('connection', function(socket){
                         socket.emit('history', res);
                         //connection.end();
                         db.close();
+                        }
+                    );
+                } else {
+                }
+            });
+        });
+    });
+
+
+    socket.on('old messages', function (data) {
+        mongo.connect(db_connect, function (err, db) {
+            var collection = db.collection('messages');
+            var id_users = data.ids.sort();
+            var length = data.length;
+            collection.find({id_users:id_users}).sort({_id: -1}).skip(length).limit(10).toArray(function (err, result) {
+                if (err) {
+                } else if (result.length) {
+                    var users = [];
+                    users.push(id_users[0]);
+                    users.push(id_users[1]);
+                    //connection.connect();
+                    connection.connect(function(err){
+                    });
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
+                    connection.query(queryText, users, function(err, rows) {
+                            for(var key in rows){
+                                if(rows[key].id != data.id_user){
+                                    var comp = rows[key];
+                                }
+                            }
+                            var res = {
+                                messages: result,
+                                companion: comp
+                            };
+
+                            socket.emit('old messages', res);
+                            //connection.end();
+                            db.close();
                         }
                     );
                 } else {
@@ -175,13 +191,6 @@ io.on('connection', function(socket){
                     if (err) {
                     }
                     else {
-                        //connection.connect();
-                        connection.connect(function(err){
-                            stream.once('open', function(fd) {
-                                stream.write(err);
-                                stream.end();
-                            });
-                        });
                         var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ data.sender +")";
                         connection.query(queryText, data.sender, function(err, rows) {
                             result.ops[0].other_user = rows[0].id;
@@ -194,13 +203,6 @@ io.on('connection', function(socket){
                                     sockets[id][k].emit('message', result.ops);
                                 }
                             }
-                            if(err){
-                                stream.once('open', function(fd) {
-                                    stream.write(err);
-                                    stream.end();
-                                });
-                            }
-                            //connection.end();
                             db.close();
                             }
                         );
@@ -251,13 +253,6 @@ io.on('connection', function(socket){
                             result[key].other_user = result[key].id_users[1];
                         }
                     }
-                    //connection.connect();
-                    connection.connect(function(err){
-                        stream.once('open', function(fd) {
-                            stream.write(err);
-                            stream.end();
-                        });
-                    });
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                     connection.query(queryText, companion, function(err, rows) {
                         for(var row_key in result){
@@ -269,14 +264,7 @@ io.on('connection', function(socket){
                                 }
                             }
                         }
-                        if(err){
-                            stream.once('open', function(fd) {
-                                stream.write(err);
-                                stream.end();
-                            });
-                        }
                         socket.emit('new message', result);
-                        //connection.end();
                         db.close();
                         }
                     );

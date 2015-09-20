@@ -410,13 +410,13 @@
 .animal:hover{
 	background-position: -213.9801025390625px -893.9743957519531px ;
 	width: 212px;
-	height: 172px;
+	height: 171px;
 }
 
 .animal{
 	background-position: 0 -893.9545288085938px ;
 	width: 212px;
-	height: 172px;
+	height: 171px;
 	top: 573px;
 	left: -21px;
 	z-index: 3;
@@ -425,13 +425,13 @@
 .pictures:hover{
 	background-position: -176.9034423828125px -1331.8948059082031px ;
 	width: 170px;
-	height: 184px;
+	height: 183px;
 }
 
 .pictures{
 	background-position: 0 -1331.9061889648438px ;
 	width: 170px;
-	height: 184px;
+	height: 183px;
 	top: 352px;
 	left: 50px;
 }

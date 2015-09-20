@@ -16,10 +16,10 @@
                         <a class=" fs_0-8 text-underline slid__back-link margin-left_5 text-blue" href="#/[[ companion.id ]]">[[ companion.username ]] [[ companion.lastname ]]</a>
                     </div>
 
-                    <div class="col-sm-6 col-sm-offset-1">
-                        <a class="text-blue fs_0-9 text-underline slid__back-link margin-left_5 " href="">На мою страницу</a>
-                        <a class="text-blue fs_0-9 text-underline slid__back-link  margin-left_10" href="">Вернуться на страницу</a>
-                    </div>
+                    {#<div class="col-sm-6 col-sm-offset-1">#}
+                        {#<a class="text-blue fs_0-9 text-underline slid__back-link margin-left_5 " href="">На мою страницу</a>#}
+                        {#<a class="text-blue fs_0-9 text-underline slid__back-link  margin-left_10" href="">Вернуться на страницу</a>#}
+                    {#</div>#}
 
                 </div>
 
@@ -51,9 +51,9 @@
 
             <div class="row horizontal_line margin-top_5">
                 <div class="col-sm-offset-2 col-sm-3">
-                    <span class="glyphicon glyphicon-picture text-blue margin-left_5"></span>
-                    <span class="glyphicon glyphicon-paperclip text-blue margin-left_10"></span>
-                    <span class="glyphicon glyphicon-menu-down text-blue fs_0-8"></span>
+                    {#<span class="glyphicon glyphicon-picture text-blue margin-left_5"></span>#}
+                    {#<span class="glyphicon glyphicon-paperclip text-blue margin-left_10"></span>#}
+                    {#<span class="glyphicon glyphicon-menu-down text-blue fs_0-8"></span>#}
                 </div>
                 <div class="col-sm-3 col-sm-offset-2 padding-left_0">
                     <button class="true fs_0-9" ng-click="send_message(text_message)" ng-disabled="!user && !companion">Отправить</button>
@@ -89,13 +89,13 @@
 
 
             <div class="row margin-left_30 margin-top_10">
-                <div class="col-sm-5 early_message early-message text-center  margin-left_30">
+                <div class="col-sm-5 early_message early-message text-center margin-left_30 pointer" ng-click="oldMessages()">
                     <span>Ранние сообщения</span>
                 </div>
 
-                <div class="col-sm-5 slid__all__folder button_gray_message text-center fs_0-8 right">
+                {#<div class="col-sm-5 slid__all__folder button_gray_message text-center fs_0-8 right">
                     <span class="glyphicon glyphicon-folder-open"></span>&nbsp; Папки &nbsp;<span class="glyphicon glyphicon-menu-down"></span>
-                </div>
+                </div>#}
             </div>
         </div>
     </div>
