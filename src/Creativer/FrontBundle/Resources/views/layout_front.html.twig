@@ -333,7 +333,8 @@
                     <div class="messages__curtain-body">
                         <a href="#/messages" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10">Перейти в сообщения</a>
                         <div class="row col-sm-10 col-sm-offset-1 horizontal_line margin-bottom_5"></div>
-                        <div class="row margin-top_10" ng-repeat="new_message in $root.new_messages">
+                        <div class="text-gray lobster" ng-show="!$root.new_messages[0]"><h4>пусто</h4></div>
+                        <div class="row margin-top_10" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
                             <div class="col-sm-3 col-sm-offset-1">
                                 <div class="user__avatar-mini text-left">
                                     <img ng-src="[[ new_message.avatar ]]" class="text-left">
