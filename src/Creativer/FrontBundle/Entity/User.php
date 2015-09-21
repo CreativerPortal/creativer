@@ -256,8 +256,11 @@ class User implements UserInterface, \Serializable
     private $wall;
 
     /**
+     * @JMS\Expose
      * @ORM\ManyToMany(targetEntity="Events", inversedBy="users_attend")
      * @ORM\JoinTable(name="users_attend_events")
+     * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(2)
      */
     private $events_attend;
 

@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="/css/header.css">
     <link rel="stylesheet" href="/css/footer.css">
     <link rel="stylesheet" href="/css/helpers.css">
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
 
     {% if is_mobile_view() %}
     {% elseif is_tablet_view() %}
@@ -36,6 +37,7 @@
     <script src="/vendor/angular-animate/angular-animate.min.js"></script>
     <script src="/vendor/angular-bootstrap/ui-bootstrap.js"></script>
     <script src="/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+
 
     <script src="/js/ng-img-crop.js"></script>
     <script src="/js/angular-multi-select-tree-0.1.0.min.js"></script>
@@ -320,9 +322,33 @@
         </div>
 
         {% if is_granted('ROLE_USER') %}
-            <div class="col-sm-1 padding-right_0 text-center">
-                <div class="text-white fiveMinuts black_ball" >25</div>
-                <span class="text-white fiveMinuts">События</span>
+            <div class="messages col-sm-1 padding-right_0 text-center">
+                <div class="text-white fiveMinuts black_ball pointer" >[[ user.events_attend.length ]]</div>
+                <span class="text-white fiveMinuts pointer">События</span>
+
+                <div class="events__curtain">
+                    <div class="events__curtain__wrapper">
+                        <a href="#/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in user.events_attend">
+                                <div class="col-sm-4 text-right padding-top_10">
+                                    <div class="event__avatar-mini right">
+                                        <img ng-src="{{ path_img_event_original }}/[[ event.path ]][[ event.img ]]" class="text-left">
+                                    </div>
+                                </div>
+                                <div class="col-sm-8 padding-left_0 padding-right_0 padding-top_5">
+                                    <div class="row">
+                                        <div class=" col-sm-10 text-left">
+                                            <span class="text-white fs_0-8 lobster">[[ event.name ]]</span>
+                                        </div>
+                                    </div>
+                                    <div class="row col-sm-12">
+                                        <p class="fs_0-8 left text-white">[[ event.start_date | date: "dd.MM.yyyy" ]] - [[ event.end_date | date: "dd.MM.yyyy" ]]</p>
+                                    </div>
+                                </div>
+                                <div class="row col-sm-10 col-sm-offset-1"></div>
+                        </a>
+                    </div>
+
+                </div>
             </div>
             <div class="messages col-sm-1 padding-right_10 padding-left_0 margin-top_5 text-center pointer">
                 <img class="margin-left_20" ng-class="{background__envelope: $root.new_messages.length }" ng-src="/var/www/creativer/web/img/message_ico.png" alt="сообщения"/>
@@ -458,19 +484,36 @@
     <script src="/js/controllers/event.js"></script>
     <script src="/assets/tinymce-dist/tinymce.js"></script>
     <script src="/js/angular-ui-tinymce/src/tinymce.js"></script>
+    <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
 
-<script type="text/javascript" src="/vendor/moment/min/moment.min.js"></script>
-<script type="text/javascript" src="/vendor/moment-range/lib/moment-range.bare.min.js"></script>
+    <script type="text/javascript" src="/vendor/moment/min/moment.min.js"></script>
+    <script type="text/javascript" src="/vendor/moment-range/lib/moment-range.bare.min.js"></script>
 
-<script type="text/javascript" src="/vendor/angular-touch/angular-touch.js"></script>
-<script type="text/javascript" src="/vendor/venturocket-angular-slider/build/angular-slider.js"></script>
-<script type="text/javascript" src="/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
-<script type="text/javascript" src="/vendor/datetimeRangePicker/range-picker.js"></script>
-<script src="https://code.angularjs.org/1.3.0-rc.2/i18n/angular-locale_ru.js"></script>
+    <script type="text/javascript" src="/vendor/angular-touch/angular-touch.js"></script>
+    <script type="text/javascript" src="/vendor/venturocket-angular-slider/build/angular-slider.js"></script>
+    <script type="text/javascript" src="/vendor/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script type="text/javascript" src="/vendor/datetimeRangePicker/range-picker.js"></script>
+    <script src="https://code.angularjs.org/1.3.0-rc.2/i18n/angular-locale_ru.js"></script>
 
 
     <script src="/js/apps/app.js"></script>
     <script src="/js/elastic.js"></script>
+
+    <script>
+        (function($){
+            $(window).load(function(){
+                $(".events__curtain__wrapper").mCustomScrollbar({
+                    scrollbarPosition: "inside"
+                });
+            });
+        })(jQuery);
+    </script>
+<style>
+    .mCSB_inside>.mCSB_container {
+        margin-right: 0px;
+    }
+</style>
+
 </div>
 <footer class="footer wrapper">
     <nav class="footer__menu col-sm-12 fiveMinuts">
