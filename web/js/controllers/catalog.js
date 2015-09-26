@@ -118,7 +118,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
-        if($routeParams.id_products && !$routeParams.url_img || $rootScope.items == undefined){
+        if((!$rootScope.items || $rootScope.currentPage != $routeParams.page) && $routeParams.id_products){
             $rootScope.page = $routeParams.page;
             $rootScope.$watch('filterCondition', function() {
                 catalogService.getCatalogProductAlbums({
@@ -129,7 +129,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                     $rootScope.items = $scope.items = data.products;
                     for(var key in $scope.items.items){
                         if($scope.items.items[key].name == $routeParams.url_img){
-                            $location.path("/products/"+$scope.product.id+'/'+$scope.page+'/'+$routeParams.url_img+'/'+key);
+                            $location.path("/products/"+$routeParams.id_products+'/'+$scope.page+'/'+$routeParams.url_img+'/'+key);
                         }
                     }
 
@@ -141,9 +141,9 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                         $scope.items.images_likes = data.likes;
                     });
 
-                    $scope.pages = [];
-                    $scope.pages[0] = $scope.items.currentPageNumber;
-                    $scope.currentPage = $scope.items.currentPageNumber;
+                    $rootScope.pages = $scope.pages = [];
+                    $rootScope.pages[0] = $scope.pages[0] = $scope.items.currentPageNumber;
+                    $rootScope.currentPage = $scope.currentPage = $scope.items.currentPageNumber;
                     var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
                     length--;
                     while (length > 0) {
@@ -165,7 +165,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     $scope.like = function(id,image_key){
         albumService.like({image_id:id}).success(function (data) {
             $scope.items.items[image_key].likes = data.likes;
-            $scope.items.images_likes[id].liked = !$scope.items.images_likes[id].liked;
+            $scope.items.images_likes[id].liked = data.liked;
         });
     }
 

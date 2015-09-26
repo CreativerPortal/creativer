@@ -203,7 +203,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             $scope.user.likes = data.likes_user;
             $scope.user.albums[album_key].likes = data.likes_album;
 
-            $scope.user.albums[key_album].images_likes[id].liked = !$scope.user.albums[key_album].images_likes[id].liked;
+            $scope.user.albums[key_album].images_likes[id].liked = data.liked;
         });
     }
 

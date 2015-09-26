@@ -628,7 +628,13 @@ class PersonController extends Controller
         $image->setLikes($likes);
         $em->flush();
 
-        $response = new Respon(json_encode(array('likes' => $likes, 'likes_album' => $likes_album, 'likes_user' => $likes_user)), 200);
+        if(!empty($id) and $redis->sismember($image_id, $id)){
+            $liked = true;
+        }else{
+            $liked = false;
+        }
+
+        $response = new Respon(json_encode(array('likes' => $likes, 'likes_album' => $likes_album, 'likes_user' => $likes_user, 'liked' => $liked)), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
