@@ -1061,6 +1061,18 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:userInfoTmp.html.twig', array('id' => $id));
     }
 
+    public function showPhotoTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:show_photoTmp.html.twig');
+    }
+
+    public function showProductPhotoTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:show_product_photoTmp.html.twig');
+    }
+
     public function forgotPasswordAction(){
 
 

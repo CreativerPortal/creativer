@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums"})
      */
     private $id;
 
@@ -212,7 +212,6 @@ class User implements UserInterface, \Serializable
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToMany(targetEntity="User", mappedBy="myFavorits")
      * @JMS\Groups({"getUser"})
-     * @MaxDepth(2)
      * @JMS\Expose
      */
     private $favoritsWithMe;
@@ -256,11 +255,8 @@ class User implements UserInterface, \Serializable
     private $wall;
 
     /**
-     * @JMS\Expose
      * @ORM\ManyToMany(targetEntity="Events", inversedBy="users_attend")
      * @ORM\JoinTable(name="users_attend_events")
-     * @JMS\Groups({"getUser"})
-     * @JMS\MaxDepth(2)
      */
     private $events_attend;
 

@@ -40,6 +40,14 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
+        $routeProvider.when('/products/:id_products?/:page?/:url_img?/:key_img?', {
+            templateUrl: function ($stateParams){
+                var url = "/products_tmp";
+                return url;
+            },
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
         $routeProvider.when('/services/:id_services?/:page?', {
             templateUrl: '/services_tmp',
             controller: 'catalogCtrl',

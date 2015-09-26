@@ -84,6 +84,17 @@ angular
                         },
                         data: data
                     });
+                },
+                getLikesByImagesId: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_likes_by_images_id',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);

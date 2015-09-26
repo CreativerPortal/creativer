@@ -189,7 +189,7 @@ body{
 .background__viewer__link__previous{
     z-index: 1;
     display: block;
-    position:fixed;
+    position:absolute;
     top: 0px;
     left: 0px;
     height: 100%;
@@ -199,7 +199,7 @@ body{
 .background__viewer__link__next{
     z-index: 1;
     display: block;
-    position:fixed;
+    position:absolute;
     top: 0px;
     right: 0px;
     height: 100%;

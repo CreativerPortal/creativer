@@ -1,0 +1,74 @@
+<div ng-show="url_img" class="background__viewer">
+    <a href="#products/[[ product.id ]]/[[ page ]]/[[ items.items[key_img -1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
+        <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
+    </a>
+    <div class="border__viewer">
+        <div class="border__viewer__wrapper">
+            <div class="wrapper__background">
+                <a href="#products/[[ product.id ]]/[[ page ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]">
+                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ items.items[key_img].path ]][[url_img]]" />
+                    <img style="display: none;" src="{{ path_img_album_original }}/[[ items.items[next_key_img].path ]][[ items.items[next_key_img].name ]]" />
+                    <img style="display: none;" src="{{ path_img_album_original }}/[[ items.items[key_img-1].path ]][[ items.items[key_img-1].name ]]" />
+                </a>
+            </div>
+            <div class="margin-top_10 row wrapper__comment">
+                <div class="col-sm-9 padding-left_0">
+                    <span class="left user__text">[[ items.items[key_img].text ]]</span>
+                </div>
+                <div class="col-sm-3 padding-right_0 padding-left_0 text-right">
+                    <time class="text-gray ng-binding">[[ items.items[key_img].date  | date: "dd MMM yyyy" ]]</time> |
+
+                    {% if is_granted('ROLE_USER') %}
+                        <span ng-class="{'click_class':(click_class === 'true' && items.images_likes[items.items[key_img].id].liked), 'yes_like':items.images_likes[items.items[key_img].id].liked}"  ng-if="items.items[key_img].likes != undefined" class="text-blue glyphicon glyphicon-heart pointer no_like" style="top: 2px;" ng-click="like(items.items[key_img].id,key_img); click_class = 'true'">
+                            <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ items.items[key_img].likes ]]</span>
+                        </span>
+                    {% else %}
+                        <span class="text-blue glyphicon glyphicon-heart no_like" style="top: 2px;">
+                            <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ items.items[key_img].likes ]]</span>
+                        </span>
+                    {% endif %}
+                </div>
+            </div>
+            <div class="horizontal_line_album_img wrapper__comment"></div>
+
+            <div class="row margin-top_10 wrapper__comment">
+
+                <div class="col-sm-10 text-left" >
+                    <div class="row col-sm-12" ng-repeat="comment in items.items[key_img][0].image_comments">
+                        <div class="col-sm-2">
+                            <div class="user__avatar-super-mini">
+                                <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
+                                <img ng-if="!comment.user" ng-src="[[ user.avatar ]]">
+                            </div>
+                        </div>
+                        <div class="col-sm-10 padding-left_10">
+                            <div class="row col-sm-12 user__text_bold text-left" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</div>
+                            <div class="row col-sm-12 user__text_bold text-left" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</div>
+                            <div class="row col-sm-12"><p class="user__text left">[[ comment.text ]]</p></div>
+                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time></div>
+                        </div>
+                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
+                    </div>
+
+                    {% if is_granted('ROLE_USER') %}
+                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Написать комментарий" style="width: 440px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
+                        <div ng-show="text_comment" class="margin-top_5 text-right">
+                            <button class="true fs_0-9" ng-click="saveImageComment(items.items[key_img][0],text_comment)" ng-class="{'loader':loader}">Отправить</button>
+                        </div>
+                    {% endif %}
+                </div>
+                <div class="col-sm-2">
+                    <span class="left">Альбом:</span><br>
+                    <a class="text-blue left text-left" href="#/album/[[ items.items[key_img].id_album ]]">[[ items.items[key_img].name_album ]]</a><br>
+                    <nav class="margin-top_10">
+                        <a target="_blank" href="/home/album/original/[[ items.items[key_img].path ]][[ items.items[key_img].name ]]"><span class="text-blue left">Увеличить</span></a><br>
+                    </nav>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <a href="#products/[[ product.id ]]/[[ page ]]" ng-click="closeImg()" class="right background__viewer__link__next">
+        <span class="glyphicon glyphicon-remove text-white close_img"></span>
+    </a>
+</div>

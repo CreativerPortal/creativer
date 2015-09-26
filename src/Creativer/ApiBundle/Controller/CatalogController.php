@@ -137,10 +137,14 @@ class CatalogController extends Controller
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')
             ->createQueryBuilder('e')
-            ->select('cat.id as id_cat', 'e.id','e.name','e.path','alb.id as id_album','alb.name as name_album','usr.id as id_user','usr.username','usr.lastname')
+            ->addSelect('cat.id as id_cat', 'e.id','e.name','e.path','e.date','e.text as tex_img', 'e.likes as likes',
+                     'alb.id as id_album','alb.name as name_album',
+                     'usr.id as id_user','usr.username','usr.lastname')
             ->leftJoin('e.album', 'alb')
             ->leftJoin('alb.user', 'usr')
             ->leftJoin('alb.categories', 'cat')
+            ->leftJoin('e.image_comments', 'comments')
+
             ->where('cat IN (:items)')
             ->groupBy('e.id')
             ->setParameter('items', $items);
@@ -184,7 +188,6 @@ class CatalogController extends Controller
         $response = new Respon($products);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
-
     }
 
 
@@ -465,5 +468,38 @@ class CatalogController extends Controller
         $products = array('products' => array('items' => $results));
 
         return $products;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/get_likes_by_images_id")
+     * @View()
+     */
+    public function getLikesByImagesIdAction()
+    {
+        $images_id = $this->get('request')->request->get('images_id');
+        $em = $this->getDoctrine()->getManager();
+        $redis = $this->get('snc_redis.default');
+        if($this->get('security.context')->isGranted('ROLE_USER')){
+            $id = $this->get('security.context')->getToken()->getUser()->getId();
+        }
+
+
+        $likes = array();
+
+        foreach($images_id as $key=>$id_img){
+
+            if(!empty($id) and $redis->sismember($id_img, $id)){
+                $likes[$id_img]['liked'] = true;
+            }else{
+                $likes[$id_img]['liked'] = false;
+            }
+
+        }
+
+        $response = new Respon(json_encode(array('likes' => $likes)), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 }

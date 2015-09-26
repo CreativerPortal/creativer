@@ -120,14 +120,14 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
 
             if($routeParams.id_album && $scope.user && !$scope.user.albums[key_album].images_likes){
-            albumService.getLikesByAlbumId({id_album:id_album}).success(function (data) {
-                for(var key in $scope.user.albums){
-                    if(id_album == $scope.user.albums[key].id){
-                        key_album = key;
+                albumService.getLikesByAlbumId({id_album:id_album}).success(function (data) {
+                    for(var key in $scope.user.albums){
+                        if(id_album == $scope.user.albums[key].id){
+                            key_album = key;
+                        }
                     }
-                }
-                $scope.user.albums[key_album].images_likes = data.likes;
-            });
+                    $scope.user.albums[key_album].images_likes = data.likes;
+                });
         }
 
     });

@@ -1,11 +1,17 @@
-angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.socket', 'service.chat', 'angularFileUpload'])
-    .controller('catalogCtrl',['$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,catalogService,personalService,$routeParams, FileUploader, socket, chat) {
+angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
+    .controller('catalogCtrl',['$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,catalogService,personalService,albumService,$routeParams, FileUploader, socket, chat) {
 
-    catalogService.getNewsEvents().success(function (data) {
-        $scope.news_events = data;
-        angular.element('#new_event_1').text(data[0].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
-        angular.element('#new_event_2').text(data[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
-    })
+    if($rootScope.news_events == undefined || !$routeParams.url_img){
+        catalogService.getNewsEvents().success(function (data) {
+            $rootScope.news_events = $scope.news_events = data;
+            if(data[0].description != undefined){
+                angular.element('#new_event_1').text(data[0].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
+            }
+            if(data[1].description != undefined){
+                angular.element('#new_event_2').text(data[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
+            }
+        })
+    }
 
     if(!$rootScope.my_user){
         personalService.getUser().success(function (data) {
@@ -27,6 +33,24 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             $rootScope.service = data.service[0];
         });
     }
+
+    if($routeParams.url_img){
+        $scope.url_img = $routeParams.url_img;
+        $rootScope.overflow = true;
+    }else{
+        $rootScope.overflow = false;
+    }
+    if($routeParams.key_img || $rootScope.key_img){
+        $rootScope.key_img = $routeParams.key_img;
+        $scope.next_key_img = parseInt($routeParams.key_img)+1;
+        $scope.previous = parseInt($routeParams.key_img)-1;
+    }
+    else{
+        $rootScope.key_img = undefined;
+    }
+
+    $scope.math = window.Math;
+    $scope.height = $window.innerHeight-150;
 
 
         $scope.operators = [
@@ -50,7 +74,6 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                 }
             }
         });
-
 
         $rootScope.$watch('product', function() {
             if($rootScope.product)
@@ -95,14 +118,28 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
-        if($routeParams.id_products){
+        if($routeParams.id_products && !$routeParams.url_img || $rootScope.items == undefined){
+            $rootScope.page = $routeParams.page;
             $rootScope.$watch('filterCondition', function() {
                 catalogService.getCatalogProductAlbums({
                     id: $routeParams.id_products,
                     page: $routeParams.page,
                     filter: $rootScope.filterCondition
                 }).success(function (data) {
-                    $scope.items = data.products;
+                    $rootScope.items = $scope.items = data.products;
+                    for(var key in $scope.items.items){
+                        if($scope.items.items[key].name == $routeParams.url_img){
+                            $location.path("/products/"+$scope.product.id+'/'+$scope.page+'/'+$routeParams.url_img+'/'+key);
+                        }
+                    }
+
+                    var images_id = new Array();
+                    for(var key in $scope.items.items){
+                        images_id.push($scope.items.items[key].id);
+                    }
+                    catalogService.getLikesByImagesId({images_id:images_id}).success(function (data) {
+                        $scope.items.images_likes = data.likes;
+                    });
 
                     $scope.pages = [];
                     $scope.pages[0] = $scope.items.currentPageNumber;
@@ -125,6 +162,31 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         }
 
 
+    $scope.like = function(id,image_key){
+        albumService.like({image_id:id}).success(function (data) {
+            $scope.items.items[image_key].likes = data.likes;
+            $scope.items.images_likes[id].liked = !$scope.items.images_likes[id].liked;
+        });
+    }
+
+    $scope.saveImageComment = function(image,text){
+        $scope.loader = true;
+        var user = {
+            user: {
+                id: 0,
+                username: $rootScope.username,
+                lastname: $rootScope.lastname,
+                avatar: $rootScope.avatar
+            },
+            text: text,
+            date: new Date()
+        }
+        image.image_comments.push(user);
+        albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
+            $scope.text_comment = undefined;
+            $scope.loader = false;
+        });
+    }
 
     chat.init();
     socket.emit("new message",{id_user: $scope.id_user})

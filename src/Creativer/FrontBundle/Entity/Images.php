@@ -40,7 +40,8 @@ class Images
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
      * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image", cascade={"remove"})
-     * @JMS\Groups({"getAlbumComments"})
+     * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums"})
+     * @JMS\MaxDepth(3)
      **/
     private $image_comments;
 
@@ -83,7 +84,7 @@ class Images
     /**
      * @ORM\Column(type="integer", name="likes", nullable=false)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser"})
+     * @JMS\Groups({"getImageComments", "getUser", "getCatalogProductAlbums"})
      */
     private $likes = 0;
 
