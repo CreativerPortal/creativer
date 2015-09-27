@@ -61,6 +61,27 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.previous = parseInt($routeParams.key_img)-1;
     }
 
+    if($routeParams.key_post){
+        $scope.key_post = $routeParams.key_post;
+        $scope.key_post_img = $routeParams.key_post_img;
+        $scope.next_key_post_img = parseInt($scope.key_post_img)+1
+        $scope.previous_key_post_img = parseInt($scope.key_post_img)-1;
+        $scope.url_img = $routeParams.url_img;
+        $rootScope.overflow = true;
+    }else{
+        $rootScope.overflow = false;
+    }
+
+    if($routeParams.key_post && $scope.user.wall.posts[$scope.key_post].post_images[$scope.key_post_img] == undefined){
+        $location.path("/"+$scope.user.id);
+    }
+
+    $scope.closeImg = function(){
+        albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
+            $rootScope.image_previews = [];
+        });
+    }
+
 
     chat.init();
     socket.emit("new message",{id_user: $scope.id_user})

@@ -135,11 +135,11 @@
                             </div>
                         {%  endif %}
                         <div class="col-sm-12 margin-top_10 padding-left_0 padding-right_0" ng-if="post" ng-init="imaging(post)">
-                            <div class="left upload__element" ng-repeat="img in post.post_images">
+                            <a href="#/[[ user.id ]]/[[ key ]]/[[ key_post_img ]]" class="left upload__element" ng-repeat="(key_post_img,img) in post.post_images">
                                 <img_post id_img="[[ img.id ]]" ng-if="img.new" remove_img_post></img_post>
                                 <img_post id_img="[[ img.id ]]"></img_post>
                                 <img src="{{ path_img_post_thums }}[[ img.path ]][[ img.name ]]" height="[[ img.height ]]" width="[[ img.width ]]" style="margin-right: 1px; margin-left: 1px; margin-bottom: 3px;">
-                            </div>
+                            </a>
                         </div>
                         <div class="col-sm-10 padding-left_0">
                             <p class="user__text text-left col-sm-12 padding-left_0 user__text__post" >[[post.text]]</p>
@@ -208,6 +208,7 @@
 
         </div>
 
+        {{ render(controller('CreativerFrontBundle:Default:showPostPhotoTmp')) }}
 
 
 

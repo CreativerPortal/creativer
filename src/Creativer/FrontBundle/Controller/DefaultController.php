@@ -1073,6 +1073,12 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:show_product_photoTmp.html.twig');
     }
 
+    public function showPostPhotoTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:show_post_photoTmp.html.twig');
+    }
+
     public function forgotPasswordAction(){
 
 

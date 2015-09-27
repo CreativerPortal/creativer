@@ -137,6 +137,14 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'personCtrl',
             reloadOnSearch: true
         });
+        $routeProvider.when('/:id/:key_post?/:key_post_img?', {
+            templateUrl: function ($stateParams){
+                var url = "/person_tmp/" + $stateParams.id;
+                return url;
+            },
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
         $routeProvider.when('/album/:id_album/:url_img?/:key_img?', {
             templateUrl: function ($stateParams){
                 var url = "/album_tmp/" + $stateParams.id_album;
