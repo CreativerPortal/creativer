@@ -5,6 +5,10 @@ angular.module('app.ctr.header', ['service.header'])
         $rootScope.condition = 2;
     }
 
+    headerService.getSoonEvents().success(function (data) {
+        $rootScope.events_attend = data;
+    })
+
     $rootScope.search = function(){
         if($rootScope.condition == 1){
             $location.path("/people/search/"+$scope.searchText);

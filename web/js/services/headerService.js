@@ -40,6 +40,17 @@ angular
                         },
                         data: data
                     });
+                },
+                getSoonEvents: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_soon_events',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);

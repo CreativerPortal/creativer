@@ -323,12 +323,12 @@
 
         {% if is_granted('ROLE_USER') %}
             <div class="messages col-sm-1 padding-right_0 text-center">
-                <div class="text-white fiveMinuts black_ball pointer" >[[ user.events_attend.length ]]</div>
+                <div class="text-white fiveMinuts black_ball pointer" >[[ events_attend.length ]]</div>
                 <span class="text-white fiveMinuts pointer">События</span>
 
-                <div class="events__curtain">
+                <div class="events__curtain" ng-if="events_attend.length">
                     <div class="events__curtain__wrapper">
-                        <a href="#/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in user.events_attend">
+                        <a href="#/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in events_attend">
                                 <div class="col-sm-4 text-right padding-top_10">
                                     <div class="event__avatar-mini right">
                                         <img ng-src="{{ path_img_event_original }}/[[ event.path ]][[ event.img ]]" class="text-left">
@@ -347,7 +347,11 @@
                                 <div class="row col-sm-10 col-sm-offset-1"></div>
                         </a>
                     </div>
-
+                </div>
+                <div class="events__curtain" ng-if="!events_attend.length">
+                    <div class="events__curtain__wrapper">
+                        <div class="fs_1-2 text-center lobster">У вас нет событий</div>
+                    </div>
                 </div>
             </div>
             <div class="messages col-sm-1 padding-right_10 padding-left_0 margin-top_5 text-center pointer">

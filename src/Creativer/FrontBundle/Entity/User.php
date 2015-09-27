@@ -32,9 +32,8 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
      * @Assert\NotBlank(message="Имя пользователя не может быть пустым")
-     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
 
      */
     private $username;
@@ -42,9 +41,8 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
      * @Assert\NotBlank(message="Фамилия пользователя не может быть пустым")
-     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $lastname;
 
@@ -87,6 +85,7 @@ class User implements UserInterface, \Serializable
     /**
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
      * @ORM\OneToMany(targetEntity="Events", mappedBy="user", fetch="EAGER")
+     * @JMS\Groups({"getUser","getEvent"})
      **/
     private $events;
 
@@ -257,6 +256,8 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\ManyToMany(targetEntity="Events", inversedBy="users_attend")
      * @ORM\JoinTable(name="users_attend_events")
+     * @JMS\Groups({"getUser","getEvent"})
+     * @JMS\Expose
      */
     private $events_attend;
 
@@ -330,7 +331,7 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
-
+    
 
     /**
      * Get id

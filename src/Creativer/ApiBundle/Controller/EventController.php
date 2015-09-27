@@ -141,7 +141,7 @@ class EventController extends Controller
                 $event,
                 'json',
                 SerializationContext::create()
-                    ->setGroups(array('getEvent'))
+                    ->enableMaxDepthChecks(3)
             );
 
         $response = new Respon($categories);
@@ -288,18 +288,16 @@ class EventController extends Controller
             $attend = true;
         }
 
-        $users = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findById($id)[0]->getUsersAttend();
-
         $query = $em->createQueryBuilder();
-        $query->select('COUNT(e)')
+        $query->select('e')
               ->from('CreativerFrontBundle:Events', 'e')
               ->innerJoin('e.users_attend', 'u')
               ->where('e.id = :id')
               ->setParameter('id',$id);
-        $count = $query->getQuery()->getResult();
+        $users = $query->getQuery()->getResult();
 
 
-        $response = new Respon(json_encode(array('attend' => $attend,'count' => $count[0][1])), 200);
+        $response = new Respon(json_encode(array('users' => $users, 'attend' => $attend)), 200);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -461,6 +459,32 @@ class EventController extends Controller
             return $events;
         }
 
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/get_soon_events")
+     * @View(serializerGroups={"getEvent"})
+     */
+    public function getSoonEventsAction()
+    {
+
+        $user = $this->get('security.context')->getToken()->getUser();
+        $id = $user->getId();
+        $date = new \DateTime();
+
+
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+            ->createQueryBuilder('e')
+            ->leftJoin('e.users_attend', 'ue')
+            ->where('ue = :user')
+            ->andWhere('e.end_date >= :date')
+            ->setParameter('user',$user)
+            ->setParameter('date',$date);
+        $events = $query->getQuery()->getResult();
+
+
+        return $events;
     }
 
 }

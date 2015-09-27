@@ -1,5 +1,5 @@
-angular.module('app.ctr.event', ['service.personal', 'service.event', 'angularFileUpload', 'service.socket', 'service.chat'])
-    .controller('eventCtrl',['$window', '$scope', '$timeout', '$rootScope', 'personalService', '$location', 'eventService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,personalService,$location,eventService,$routeParams, FileUploader, socket, chat) {
+angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.socket', 'service.chat', 'service.header'])
+    .controller('eventCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'headerService', 'eventService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,headerService,eventService,$routeParams, FileUploader, socket, chat) {
 
         $scope.myDatetimeRange = {
             "date": {
@@ -18,9 +18,6 @@ angular.module('app.ctr.event', ['service.personal', 'service.event', 'angularFi
             }
         };
 
-        personalService.getUser().success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-        })
 
         if(!$routeParams.id_edit && !$routeParams.id) {
 
@@ -103,6 +100,12 @@ angular.module('app.ctr.event', ['service.personal', 'service.event', 'angularFi
         if($routeParams.id){
             eventService.getEvent({id:$routeParams.id}).success(function (data) {
                 $scope.event = data;
+                $scope.users_attend = false;
+                for(var key in $scope.event.users_attend){
+                    if($scope.event.users_attend[key].id == $rootScope.id_user){
+                        $scope.event_attend = true;
+                    }
+                }
                 angular.element('.description').html(data.description);
             });
         }
@@ -128,7 +131,10 @@ angular.module('app.ctr.event', ['service.personal', 'service.event', 'angularFi
         $scope.eventAttend = function(){
             eventService.eventAttend({id:$routeParams.id}).success(function (data) {
                 $scope.event_attend = data.attend;
-                $scope.count_attend = data.count;
+                $scope.event.users_attend = data.users;
+                headerService.getSoonEvents().success(function (data) {
+                    $rootScope.events_attend = data;
+                })
             });
         }
 
