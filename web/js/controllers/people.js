@@ -1,9 +1,9 @@
 angular.module('app.ctr.people', ['service.header'])
-    .controller('peopleCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$routeParams', function($window,$scope,$rootScope,$location,headerService,$routeParams) {
+    .controller('peopleCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$stateParams', function($window,$scope,$rootScope,$location,headerService,$stateParams) {
 
-        if($routeParams.people_search){
+        if($stateParams.people_search){
             $rootScope.condition = 1;
-            headerService.searchPeople({people_search:$routeParams.people_search}).success(function (data) {
+            headerService.searchPeople({people_search:$stateParams.people_search}).success(function (data) {
                 console.log(data.people);
                 $scope.people = data.people;
             });

@@ -1,5 +1,5 @@
 angular.module('app.ctr.header', ['service.header'])
-    .controller('headerCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$routeParams', function($window,$scope,$rootScope,$location,headerService,$routeParams) {
+    .controller('headerCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$stateParams', function($window,$scope,$rootScope,$location,headerService,$stateParams) {
 
     if(!$rootScope.condition){
         $rootScope.condition = 2;

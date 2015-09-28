@@ -18,7 +18,7 @@
          </div>
 
         <div class="col-sm-7 album" ng-if="album_key" ng-init="res = user.albums[album_key].images.length/3">
-            <div class="row album__cards" ng-init="k=0">
+            <div class="row album__cards col-sm-12" ng-init="k=0">
                 <div class="col-sm-4 text-center">
                     <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(0, res)">
                         <div class="padding__1">

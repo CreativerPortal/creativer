@@ -1,10 +1,10 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
-    .controller('personCtrl',['$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$routeParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$timeout,$location,personalService,$routeParams, FileUploader, socket, chat) {
+    .controller('personCtrl',['$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
     // init controller
 
-    if($routeParams.id){
-        personalService.getUser({id: $routeParams.id}).success(function (data) {
+    if($stateParams.id){
+        personalService.getUser({id: $stateParams.id}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
@@ -25,8 +25,8 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         })
     }
 
-    if($routeParams.id_album && !$scope.user){
-        personalService.getUserByAlbumId({id: $routeParams.id_album}).success(function (data) {
+    if($stateParams.id_album && !$scope.user){
+        personalService.getUserByAlbumId({id: $stateParams.id_album}).success(function (data) {
             $scope.$apply(function () {
                 $scope.user = data.user;
             });
@@ -49,37 +49,38 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }
 
 
-    if($routeParams.id_album){
-        $scope.id_album = $routeParams.id_album;
+    if($stateParams.id_album){
+        $scope.id_album = $stateParams.id_album;
     }
-    if($routeParams.url_img){
-        $scope.url_img = $routeParams.url_img;
+    if($stateParams.url_img){
+        $scope.url_img = $stateParams.url_img;
     }
-    if($routeParams.key_img){
-        $scope.key_img = $routeParams.key_img;
-        $scope.next_key_img = parseInt($routeParams.key_img)+1;
-        $scope.previous = parseInt($routeParams.key_img)-1;
+    if($stateParams.key_img){
+        $scope.key_img = $stateParams.key_img;
+        $scope.next_key_img = parseInt($stateParams.key_img)+1;
+        $scope.previous = parseInt($stateParams.key_img)-1;
     }
-
-    if($routeParams.key_post){
-        $scope.key_post = $routeParams.key_post;
-        $scope.key_post_img = $routeParams.key_post_img;
+    $rootScope.overflow = false;
+    if($stateParams.key_post){
+        $scope.key_post = $stateParams.key_post;
+        $scope.key_post_img = $stateParams.key_post_img;
         $scope.next_key_post_img = parseInt($scope.key_post_img)+1
         $scope.previous_key_post_img = parseInt($scope.key_post_img)-1;
-        $scope.url_img = $routeParams.url_img;
+        $scope.url_img = $stateParams.url_img;
         $rootScope.overflow = true;
     }else{
         $rootScope.overflow = false;
     }
 
-    if($routeParams.key_post && $scope.user.wall.posts[$scope.key_post].post_images[$scope.key_post_img] == undefined){
+    if($stateParams.key_post && $scope.user && $scope.user.wall.posts[$scope.key_post].post_images[$scope.key_post_img] == undefined){
         $location.path("/"+$scope.user.id);
     }
 
     $scope.closeImg = function(){
-        albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
-            $rootScope.image_previews = [];
-        });
+        //albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
+        //    $rootScope.image_previews = [];
+        //});
+        $rootScope.overflow = false;
     }
 
 
@@ -92,18 +93,8 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
 
     $scope.savePost = function(wall,wall_id, text){
-        //var user = {
-        //    user: {
-        //        id: 0,
-        //        username: $rootScope.username,
-        //        lastname: $rootScope.lastname,
-        //        avatar: $rootScope.avatar
-        //    },
-        //    text: text
-        //}
-        //wall.posts.unshift(user);
         $scope.loader = true;
-        personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $routeParams.id}).success(function (data) {
+        personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $stateParams.id}).success(function (data) {
             $scope.loader = false;
             if(!uploader.queue.length){
                 $scope.text_post = '';
@@ -125,7 +116,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }
         $scope.loader = true;
         post.comments.push(user);
-        personalService.saveComment({post_id:post_id,text:text,id: $routeParams.id}).success(function (data) {
+        personalService.saveComment({post_id:post_id,text:text,id: $stateParams.id}).success(function (data) {
             $scope.user = data.user;
             $scope.loader = false;
         });
@@ -261,7 +252,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     // ALBUM
 
-    if($routeParams.id){
+    if($stateParams.id){
         var uploader = $scope.uploader = new FileUploader({
             url: 'save_post_images'
         });
@@ -416,10 +407,10 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.id_post_baraholka = response.id;
     };
     uploader.onCompleteAll = function() {
-        if($routeParams.id){
+        if($stateParams.id){
             uploader.queue = [];
             $scope.text_post = '';
-            personalService.getUser({id: $routeParams.id}).success(function (data) {
+            personalService.getUser({id: $stateParams.id}).success(function (data) {
                 $rootScope.user = $scope.user = data.user;
                 $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){
@@ -432,7 +423,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     };
 
     uploader.onBeforeUploadItem = function (item) {
-        if($routeParams.id){
+        if($stateParams.id){
             item.formData.push({post_id: $scope.new_post_id});
         }
         uploader.uploadAll();

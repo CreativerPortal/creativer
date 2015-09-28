@@ -1,5 +1,5 @@
 angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.socket', 'service.chat'])
-    .controller('baraholkaCtrl',['$window', '$scope', '$rootScope', '$location', 'baraholkaService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,baraholkaService,$routeParams, FileUploader, socket, chat) {
+    .controller('baraholkaCtrl',['$window', '$scope', '$rootScope', '$location', 'baraholkaService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,baraholkaService,$stateParams, FileUploader, socket, chat) {
 
 
         $scope.createPostBaraholka = function(){
@@ -54,9 +54,9 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         $rootScope.$watchGroup(['city','my_singboard', 'singboard_participate', 'new24', 'post_category_id'], function() {
 
-            if($routeParams.id_category){
-                $scope.posts_category = $routeParams.id_category;
-                baraholkaService.getPostsByCategory({category_id: $routeParams.id_category,page:$routeParams.page,
+            if($stateParams.id_category){
+                $scope.posts_category = $stateParams.id_category;
+                baraholkaService.getPostsByCategory({category_id: $stateParams.id_category,page:$stateParams.page,
                     city:$rootScope.city,
                     my_singboard:$rootScope.my_singboard,
                     singboard_participate:$rootScope.singboard_participate,
@@ -91,11 +91,11 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
 
 
-        if($routeParams.id_post){
-            baraholkaService.getPostById({"post_id": $routeParams.id_post}).success(function (data) {
+        if($stateParams.id_post){
+            baraholkaService.getPostById({"post_id": $stateParams.id_post}).success(function (data) {
                 $scope.post = data.post;
             });
-        }else if($routeParams.id_post){
+        }else if($stateParams.id_post){
 
         }
 

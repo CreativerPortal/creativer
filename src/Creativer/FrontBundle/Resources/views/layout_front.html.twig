@@ -44,6 +44,8 @@
     <script src="/js/angular-multi-select-tree-0.1.0.tpl.js"></script>
     <script src="/js/socket.io.js"></script>
     <script src="/js/angular-search-tree.js"></script>
+    <script src="/js/angular-ui-router.min.js"></script>
+
 
 
     <link rel="icon" type="image/x-icon" href="/favicon.ico" />
@@ -431,7 +433,8 @@
 
 </header>
     <div class="view-animate-container">
-        <div ng-view class="view-animate"></div>
+        {#<div ng-view class="view-animate"></div>#}
+        <div ui-view></div>
 
         <input ng-init="initCrop()" type="file" id="fileInput" style="display: none;" />
         <div ng-show="$root.myImage" class="background__viewer-avatar" style="zoom: reset;">

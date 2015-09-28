@@ -1,15 +1,15 @@
 angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.personal', 'service.socket', 'angularFileUpload', 'service.chat', 'angularSearchTree'])
-    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$timeout', 'albumService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', 'searchTree', function($scope,$window,$rootScope,$location,$timeout,albumService,personalService,$routeParams, FileUploader, socket, chat, SearchTree) {
+    .controller('albumCtrl',['$scope', '$window', '$rootScope', '$location', '$timeout', 'albumService', 'personalService', '$stateParams', 'FileUploader', 'socket', 'chat', 'searchTree', function($scope,$window,$rootScope,$location,$timeout,albumService,personalService,$stateParams, FileUploader, socket, chat, SearchTree) {
 
-        if(!$routeParams.url_img && $routeParams.key_img){
-            $location.path("/album/"+$routeParams.id_album);
+        if(!$stateParams.url_img && $stateParams.key_img){
+            $location.path("/album/"+$stateParams.id_album);
         }
 
         var key_album;
 
-        if(($routeParams.id_album_edit || $routeParams.id_album) && $scope.user) {
+        if(($stateParams.id_album_edit || $stateParams.id_album) && $scope.user) {
         var exists_album = false;
-        var id_album = $routeParams.id_album?$routeParams.id_album:$routeParams.id_album_edit;
+        var id_album = $stateParams.id_album?$stateParams.id_album:$stateParams.id_album_edit;
         for(var key in $scope.user.albums){
             if(id_album == $scope.user.albums[key].id){
                 exists_album = true;
@@ -29,7 +29,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             });
         }
     }else{
-        var id_album = $routeParams.id_album?$routeParams.id_album:$routeParams.id_album_edit;
+        var id_album = $stateParams.id_album?$stateParams.id_album:$stateParams.id_album_edit;
         albumService.getUserByAlbumId({id: id_album}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
             for (key in $scope.user.favorits_with_me) {
@@ -43,8 +43,8 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     }
 
 
-    if($routeParams.id_album_edit){
-        albumService.getAlbumById({id_album:$routeParams.id_album_edit}).success(function (data) {
+    if($stateParams.id_album_edit){
+        albumService.getAlbumById({id_album:$stateParams.id_album_edit}).success(function (data) {
             $scope.edit_album = data.album;
             $scope.edit_album.remove_post = false
             $scope.res = $scope.edit_album.images.length/3;
@@ -76,18 +76,18 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
 
         $scope.$watch('user', function() {
-        if($routeParams.id_album && $scope.user != undefined){
+        if($stateParams.id_album && $scope.user != undefined){
             for(var key in $scope.user.albums){
-                if($scope.user.albums[key].id == $routeParams.id_album){
+                if($scope.user.albums[key].id == $stateParams.id_album){
                     $scope.album_key = key;
                 }
             }
 
-            if(!$routeParams.key_img && $routeParams.url_img){
+            if(!$stateParams.key_img && $stateParams.url_img){
                 for(var key_img in $scope.user.albums[$scope.album_key].images){
-                    if($routeParams.url_img == $scope.user.albums[$scope.album_key].images[key_img].name){
+                    if($stateParams.url_img == $scope.user.albums[$scope.album_key].images[key_img].name){
                         $location.replace();
-                        $location.path("/album/"+$routeParams.id_album+'/'+$scope.user.albums[$scope.album_key].images[key_img].name+'/'+key_img);
+                        $location.path("/album/"+$stateParams.id_album+'/'+$scope.user.albums[$scope.album_key].images[key_img].name+'/'+key_img);
                     }
                 }
             }
@@ -97,12 +97,12 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                 $rootScope.image_previews = [];
             }
 
-            if($routeParams.id_album && $routeParams.key_img && ($scope.user.id != $rootScope.id_user)){
-                if(!$rootScope.image_previews[$routeParams.id_album]){
-                    $rootScope.image_previews[$routeParams.id_album] = [];
+            if($stateParams.id_album && $stateParams.key_img && ($scope.user.id != $rootScope.id_user)){
+                if(!$rootScope.image_previews[$stateParams.id_album]){
+                    $rootScope.image_previews[$stateParams.id_album] = [];
                 }
-                if($rootScope.image_previews.indexOf($scope.user.albums[$scope.album_key].images[$routeParams.key_img].id) == -1){
-                    $rootScope.image_previews[$routeParams.id_album].push($scope.user.albums[$scope.album_key].images[$routeParams.key_img].id);
+                if($rootScope.image_previews.indexOf($scope.user.albums[$scope.album_key].images[$stateParams.key_img].id) == -1){
+                    $rootScope.image_previews[$stateParams.id_album].push($scope.user.albums[$scope.album_key].images[$stateParams.key_img].id);
                 }
             }
         }
@@ -110,16 +110,16 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
             if($scope.user){
                 for(var key in $scope.user.albums){
-                    if($routeParams.id_album == $scope.user.albums[key].id){
+                    if($stateParams.id_album == $scope.user.albums[key].id){
                         key_album = key;
                     }
                 }
-                if($routeParams.key_img)
-                $scope.img_id = $scope.user.albums[key_album].images[$routeParams.key_img].id
+                if($stateParams.key_img)
+                $scope.img_id = $scope.user.albums[key_album].images[$stateParams.key_img].id
             }
 
 
-            if($routeParams.id_album && $scope.user && !$scope.user.albums[key_album].images_likes){
+            if($stateParams.id_album && $scope.user && !$scope.user.albums[key_album].images_likes){
                 albumService.getLikesByAlbumId({id_album:id_album}).success(function (data) {
                     for(var key in $scope.user.albums){
                         if(id_album == $scope.user.albums[key].id){
@@ -133,19 +133,19 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     });
 
 
-    if($routeParams.id_album){
-        $scope.id_album = $routeParams.id_album;
+    if($stateParams.id_album){
+        $scope.id_album = $stateParams.id_album;
     }
-    if($routeParams.url_img){
-        $scope.url_img = $routeParams.url_img;
+    if($stateParams.url_img){
+        $scope.url_img = $stateParams.url_img;
         $rootScope.overflow = true;
     }else{
         $rootScope.overflow = false;
     }
-    if($routeParams.key_img || $rootScope.key_img){
-        $rootScope.key_img = $routeParams.key_img;
-        $scope.next_key_img = parseInt($routeParams.key_img)+1;
-        $scope.previous = parseInt($routeParams.key_img)-1;
+    if($stateParams.key_img || $rootScope.key_img){
+        $rootScope.key_img = $stateParams.key_img;
+        $scope.next_key_img = parseInt($stateParams.key_img)+1;
+        $scope.previous = parseInt($stateParams.key_img)-1;
     }
     else{
         $rootScope.key_img = undefined;
@@ -173,7 +173,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     $scope.deleteImage = function(image_id,key_img,key_album){
         albumService.deleteImage({image_id:image_id}).success(function (data) {
             $scope.user.albums[key_album].images.splice(key_img,1);
-            $location.path("/album/"+$routeParams.id_album+'/'+$scope.user.albums[key_album].images[key_img].name+'/'+key_img);
+            $location.path("/album/"+$stateParams.id_album+'/'+$scope.user.albums[key_album].images[key_img].name+'/'+key_img);
         });
     }
 
@@ -282,7 +282,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                 for(item in $scope.selectedItem){
                     selectCategories.push($scope.selectedItem[item].id);
                 }
-                albumService.editCategoriesAlbum({id:$routeParams.id_album_edit,selectCategories:selectCategories}).success(function (data) {
+                albumService.editCategoriesAlbum({id:$stateParams.id_album_edit,selectCategories:selectCategories}).success(function (data) {
                 });
             }, 1000)
         }
@@ -324,7 +324,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
         // console.info('onWhenAddingFileFailed', item, filter, options);
     };
     uploader.onAfterAddingFile = function (item) {
-        item.formData.push({id_album: $routeParams.id_album_edit});
+        item.formData.push({id_album: $stateParams.id_album_edit});
         if(item.main == 1) {
             item.formData.push({main: 1});
         }

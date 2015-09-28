@@ -1,5 +1,5 @@
 angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.socket', 'service.chat', 'service.header'])
-    .controller('eventCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'headerService', 'eventService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,headerService,eventService,$routeParams, FileUploader, socket, chat) {
+    .controller('eventCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'headerService', 'eventService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,headerService,eventService,$stateParams, FileUploader, socket, chat) {
 
         $scope.myDatetimeRange = {
             "date": {
@@ -19,7 +19,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         };
 
 
-        if(!$routeParams.id_edit && !$routeParams.id) {
+        if(!$stateParams.id_edit && !$stateParams.id) {
 
             eventService.getEvents({}).success(function (data) {
                 $scope.events = data;
@@ -78,10 +78,10 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             });
         };
 
-        if($routeParams.id_edit){
+        if($stateParams.id_edit){
             $scope.$watchGroup(["city","section"], function(){
                 if($scope.section && $scope.city){
-                    eventService.getEvent({id:$routeParams.id_edit}).success(function (data) {
+                    eventService.getEvent({id:$stateParams.id_edit}).success(function (data) {
                         $scope.myDatetimeRange.date.from = data.start_date;
                         $scope.myDatetimeRange.date.to = data.end_date;
                         $scope.title = data.name;
@@ -97,8 +97,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             })
         }
 
-        if($routeParams.id){
-            eventService.getEvent({id:$routeParams.id}).success(function (data) {
+        if($stateParams.id){
+            eventService.getEvent({id:$stateParams.id}).success(function (data) {
                 $scope.event = data;
                 $scope.users_attend = false;
                 for(var key in $scope.event.users_attend){
@@ -123,13 +123,13 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                 "start_date": $scope.myDatetimeRange.date.from,
                 "end_date": $scope.myDatetimeRange.date.to
             }).success(function (data) {
-                $location.path("/event/" + $routeParams.id_edit);
+                $location.path("/event/" + $stateParams.id_edit);
             });
         }
 
 
         $scope.eventAttend = function(){
-            eventService.eventAttend({id:$routeParams.id}).success(function (data) {
+            eventService.eventAttend({id:$stateParams.id}).success(function (data) {
                 $scope.event_attend = data.attend;
                 $scope.event.users_attend = data.users;
                 headerService.getSoonEvents().success(function (data) {
@@ -295,8 +295,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             if(uploader.queue.length == 2){
                 uploader.queue = new Array(uploader.queue[1]);
             }
-            if($routeParams.id_edit){
-                fileItem.formData.push({id: $routeParams.id_edit});
+            if($stateParams.id_edit){
+                fileItem.formData.push({id: $stateParams.id_edit});
             }else{
             }
             uploader.uploadAll();

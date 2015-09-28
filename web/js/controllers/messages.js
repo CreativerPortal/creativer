@@ -1,5 +1,5 @@
 angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'service.chat', 'service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
-    .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$routeParams, FileUploader, socket, chat) {
+    .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$stateParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$stateParams, FileUploader, socket, chat) {
 
 
     if($rootScope.user != undefined && $rootScope.user.id == $rootScope.id_user){
@@ -17,15 +17,15 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     }
 
     if(!$scope.companion){
-        messagesService.getUser({id:$routeParams.id_user_chat}).success(function (data) {
+        messagesService.getUser({id:$stateParams.id_user_chat}).success(function (data) {
             $scope.companion = data.user;
         })
     }
 
     $scope.$watch('user', function() {
 
-        if($routeParams.id_user_chat && $scope.user){
-            var id_user_chat = parseInt($routeParams.id_user_chat);
+        if($stateParams.id_user_chat && $scope.user){
+            var id_user_chat = parseInt($stateParams.id_user_chat);
             $scope.ids = [id_user_chat,$scope.user.id];
             $scope.ids = $scope.ids.sort();
             socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
@@ -37,7 +37,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         }
     });
 
-    if(!$routeParams.id_user_chat){
+    if(!$stateParams.id_user_chat){
         socket.on("all messages", function(data) {
             console.log(data);
             $scope.messages = data;
@@ -83,7 +83,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     socket.on('old messages', function(data){
 
-        $rootScope.ids = [$routeParams.id_user_chat, $rootScope.id_user];
+        $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
         $rootScope.ids = $rootScope.ids.sort();
 
         console.log(data.messages);

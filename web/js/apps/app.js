@@ -1,46 +1,79 @@
-var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap'])
-    .config(['$routeProvider', '$httpProvider', function ($routeProvider, $httpProvider) {
-        $routeProvider.when('/create_album', {
+var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap'])
+    .config(['$routeProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+
+            //.state('state1.list', {
+            //    url: "/list",
+            //    templateUrl: "partials/state1.list.html",
+            //    controller: function($scope) {
+            //        $scope.items = ["A", "List", "Of", "Items"];
+            //    }
+            //})
+        //$routeProvider.when('/:id', {
+        //    templateUrl: function ($stateParams){
+        //        var url = "/person_tmp/" + $stateParams.id;
+        //        return url;
+        //    },
+        //    controller: 'personCtrl',
+        //    reloadOnSearch: true
+        //});
+        //$routeProvider.when('/:id/:key_post?/:key_post_img?', {
+        //    templateUrl: function ($stateParams){
+        //        var url = "/person_tmp/" + $stateParams.id;
+        //        return url;
+        //    },
+        //    controller: 'personCtrl',
+        //    reloadOnSearch: true
+        //});
+        $stateProvider.state('create_album', {
+            url: '/create_album',
             templateUrl: '/create_album',
             controller: 'createAlbumCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/edit_album/:id_album_edit', {
+        $stateProvider.state('edit_album', {
+            url: '/edit_album/:id_album_edit',
             templateUrl: '/edit_album',
             controller: 'albumCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/', {
+        $stateProvider.state('main', {
+            url: '/',
             templateUrl: '/main_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/feedback', {
+        $stateProvider.state('feedback', {
+            url: '/feedback',
             templateUrl: '/feedback_tmp',
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/products/search/:products_search_text?', {
+        $stateProvider.state('products_search', {
+            url: '/products/search/:products_search_text',
             templateUrl: '/products_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/services/search/:services_search_text?', {
+        $stateProvider.state('services_search', {
+            url: '/services/search/:services_search_text',
             templateUrl: '/services_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/people/search/:people_search?', {
+        $stateProvider.state('people', {
+            url: '/people/search/:people_search',
             templateUrl: '/people_tmp',
             controller: 'peopleCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/products/:id_products?/:page?', {
+        $stateProvider.state('products', {
+            url:'/products/:id_products/:page',
             templateUrl: '/products_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/products/:id_products?/:page?/:url_img?/:key_img?', {
+        $stateProvider.state('products2', {
+            url: '/products/:id_products/:page/:url_img/:key_img',
             templateUrl: function ($stateParams){
                 var url = "/products_tmp";
                 return url;
@@ -48,12 +81,14 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/services/:id_services?/:page?', {
+        $stateProvider.state('services', {
+            url: '/services/:id_services/:page',
             templateUrl: '/services_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/followers/:id', {
+        $stateProvider.state('followers_id', {
+            url: '/followers/:id',
             templateUrl: function ($stateParams){
                 var url = "/followers_tmp/" + $stateParams.id;
                 return url;
@@ -61,91 +96,89 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/following/:id', {
+        $stateProvider.state('followers', {
+            url: '/followers/:id',
             templateUrl: function ($stateParams){
-                var url = "/following_tmp/" + $stateParams.id;
+                var url = "/followers_tmp/" + $stateParams.id;
                 return url;
             },
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/baraholka', {
+        $stateProvider.state('baraholka', {
+            url: '/baraholka',
             templateUrl: '/baraholka_tmp',
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/viewforum/:id_category/:page?', {
+        $stateProvider.state('viewforum', {
+            url: '/viewforum/:id_category/:page',
             templateUrl: '/viewforum_tmp',
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/viewtopic/:id_post', {
+        $stateProvider.state('viewtopic', {
+            url: '/viewtopic/:id_post',
             templateUrl: '/viewtopic_tmp',
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/fleamarketposting', {
+        $stateProvider.state('fleamarketposting', {
+            url: '/fleamarketposting',
             templateUrl: '/fleamarketposting_tmp',
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/edit_fleamarketposting/:id_fleamarketposting', {
+        $stateProvider.state('edit_fleamarketposting', {
+            url: '/edit_fleamarketposting/:id_fleamarketposting',
             templateUrl: '/edit_fleamarketposting_tmp',
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/events', {
+        $stateProvider.state('events', {
+            url: '/events',
             templateUrl: '/events_tmp',
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/event/:id', {
+        $stateProvider.state('event', {
+            url: '/event/:id',
             templateUrl: '/event_tmp',
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/create_event', {
+        $stateProvider.state('create_event', {
+            url: '/create_event',
             templateUrl: '/create_event_tmp',
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/edit_event/:id_edit', {
+        $stateProvider.state('edit_event', {
+            url: '/edit_event/:id_edit',
             templateUrl: '/edit_event_tmp',
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/events/search/:events_search_text?', {
+        $stateProvider.state('events_search', {
+            url: '/events/search/:events_search_text',
             templateUrl: '/search_events_tmp',
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/messages', {
+        $stateProvider.state('messages', {
+            url: '/messages',
             templateUrl: '/messages_tmp',
             controller: 'messagesCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/chat/:id_user_chat', {
+        $stateProvider.state('chat', {
+            url: '/chat/:id_user_chat',
             templateUrl: '/chat_tmp',
             controller: 'messagesCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.when('/:id', {
-            templateUrl: function ($stateParams){
-                var url = "/person_tmp/" + $stateParams.id;
-                return url;
-            },
-            controller: 'personCtrl',
-            reloadOnSearch: true
-        });
-        $routeProvider.when('/:id/:key_post?/:key_post_img?', {
-            templateUrl: function ($stateParams){
-                var url = "/person_tmp/" + $stateParams.id;
-                return url;
-            },
-            controller: 'personCtrl',
-            reloadOnSearch: true
-        });
-        $routeProvider.when('/album/:id_album/:url_img?/:key_img?', {
+        $stateProvider.state('album_all', {
+            url: '/album/:id_album',
             templateUrl: function ($stateParams){
                 var url = "/album_tmp/" + $stateParams.id_album;
                 return url;
@@ -153,9 +186,34 @@ var app = angular.module('app', ['ngRoute', 'app.ctr.person', 'app.ctr.album', '
             controller: 'albumCtrl',
             reloadOnSearch: true
         });
-        $routeProvider.otherwise({
-            redirectTo: '/'
+        $stateProvider.state('album', {
+            url: '/album/:id_album/:url_img/:key_img',
+            templateUrl: function ($stateParams){
+                var url = "/album_tmp/" + $stateParams.id_album;
+                return url;
+            },
+            controller: 'albumCtrl',
+            reloadOnSearch: true
         });
+        $stateProvider.state('id', {
+            url: '/:id',
+            templateUrl: function ($stateParams){
+                var url = "/person_tmp/" + $stateParams.id;
+                return url;
+            },
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('id.state2', {
+            url: '/:key_post/:key_post_img',
+            templateUrl: function ($stateParams){
+                var url = "/show_post_photo_tmp";
+                return url;
+            },
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+
         $httpProvider.interceptors.push(function($q, $injector) {
             return {
                 'request': function(config) {

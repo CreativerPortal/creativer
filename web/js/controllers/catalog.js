@@ -1,7 +1,7 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
-    .controller('catalogCtrl',['$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,catalogService,personalService,albumService,$routeParams, FileUploader, socket, chat) {
+    .controller('catalogCtrl',['$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
-    if($rootScope.news_events == undefined || !$routeParams.url_img){
+    if($rootScope.news_events == undefined || !$stateParams.url_img){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
             if(data[0].description != undefined){
@@ -20,30 +20,29 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     }else{
         $scope.user = $rootScope.my_user;
     }
-
-
-    if($routeParams.id_products && !$rootScope.products){
-        catalogService.getProducts({id:$routeParams.id_products}).success(function (data) {
+        
+    if($stateParams.id_products && !$rootScope.products){
+        catalogService.getProducts({id:$stateParams.id_products}).success(function (data) {
             $rootScope.products = data.products[0].children;
             $rootScope.product = data.product[0];
         });
-    }else if($routeParams.id_services && !$rootScope.services){
-        catalogService.getServices({id:$routeParams.id_services}).success(function (data) {
+    }else if($stateParams.id_services && !$rootScope.services){
+        catalogService.getServices({id:$stateParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
         });
     }
 
-    if($routeParams.url_img){
-        $scope.url_img = $routeParams.url_img;
+    if($stateParams.url_img){
+        $scope.url_img = $stateParams.url_img;
         $rootScope.overflow = true;
     }else{
         $rootScope.overflow = false;
     }
-    if($routeParams.key_img || $rootScope.key_img){
-        $rootScope.key_img = $routeParams.key_img;
-        $scope.next_key_img = parseInt($routeParams.key_img)+1;
-        $scope.previous = parseInt($routeParams.key_img)-1;
+    if($stateParams.key_img || $rootScope.key_img){
+        $rootScope.key_img = $stateParams.key_img;
+        $scope.next_key_img = parseInt($stateParams.key_img)+1;
+        $scope.previous = parseInt($stateParams.key_img)-1;
     }
     else{
         $rootScope.key_img = undefined;
@@ -65,7 +64,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
         $rootScope.$watch('service', function() {
             if($rootScope.service)
-            $rootScope.service.id = $routeParams.id_services;
+            $rootScope.service.id = $stateParams.id_services;
             if($rootScope.service && $rootScope.service.id){
                 for(var key in $rootScope.services){
                     if($rootScope.services[key].child == true){
@@ -77,7 +76,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
         $rootScope.$watch('product', function() {
             if($rootScope.product)
-            $rootScope.product.id = $routeParams.id_products;
+            $rootScope.product.id = $stateParams.id_products;
             if($rootScope.product && $rootScope.product.id){
                 for(var key in $rootScope.products){
                     if($rootScope.products[key].child == true){
@@ -87,13 +86,13 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             }
         });
 
-        $routeParams.page = $routeParams.page?$routeParams.page:1;
+        $stateParams.page = $stateParams.page?$stateParams.page:1;
 
-        if($routeParams.id_services){
+        if($stateParams.id_services){
             $rootScope.$watch('filterCondition', function() {
                 catalogService.getCatalogServiceAlbums({
-                    id: $routeParams.id_services,
-                    page: $routeParams.page,
+                    id: $stateParams.id_services,
+                    page: $stateParams.page,
                     filter: $rootScope.filterCondition
                 }).success(function (data) {
                     $scope.items = data.services;
@@ -118,18 +117,18 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
-        if((!$rootScope.items || $rootScope.currentPage != $routeParams.page) && $routeParams.id_products){
-            $rootScope.page = $routeParams.page;
+        if((!$rootScope.items || $rootScope.currentPage != $stateParams.page) && $stateParams.id_products){
+            $rootScope.page = $stateParams.page;
             $rootScope.$watch('filterCondition', function() {
                 catalogService.getCatalogProductAlbums({
-                    id: $routeParams.id_products,
-                    page: $routeParams.page,
+                    id: $stateParams.id_products,
+                    page: $stateParams.page,
                     filter: $rootScope.filterCondition
                 }).success(function (data) {
                     $rootScope.items = $scope.items = data.products;
                     for(var key in $scope.items.items){
-                        if($scope.items.items[key].name == $routeParams.url_img){
-                            $location.path("/products/"+$routeParams.id_products+'/'+$scope.page+'/'+$routeParams.url_img+'/'+key);
+                        if($scope.items.items[key].name == $stateParams.url_img){
+                            $location.path("/products/"+$stateParams.id_products+'/'+$scope.page+'/'+$stateParams.url_img+'/'+key);
                         }
                     }
 
@@ -198,22 +197,22 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     $scope.math = window.Math;
 
 
-    if($routeParams.products_search_text){
+    if($stateParams.products_search_text){
         $rootScope.condition = 2;
-        catalogService.getProducts({id:$routeParams.id_products}).success(function (data) {
+        catalogService.getProducts({id:$stateParams.id_products}).success(function (data) {
             $rootScope.products = data.products[0].children;
             $rootScope.product = data.product[0];
         });
-        catalogService.searchProducts({search_text:$routeParams.products_search_text}).success(function (data) {
+        catalogService.searchProducts({search_text:$stateParams.products_search_text}).success(function (data) {
             $scope.items = data.products;
         });
-    }else if($routeParams.services_search_text){
+    }else if($stateParams.services_search_text){
         $rootScope.condition = 3;
-        catalogService.getServices({id:$routeParams.id_services}).success(function (data) {
+        catalogService.getServices({id:$stateParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
         });
-        catalogService.searchServices({search_text:$routeParams.services_search_text}).success(function (data) {
+        catalogService.searchServices({search_text:$stateParams.services_search_text}).success(function (data) {
             $scope.items = data.products;
         });
     }
@@ -224,7 +223,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     $scope.deleteImage = function(image_id,key_img,key_album){
         albumService.deleteImage({image_id:image_id}).success(function (data) {
             $scope.user.albums[key_album].images.splice(key_img,1);
-            $location.path("/album/"+$routeParams.id_album+'/'+$scope.user.albums[key_album].images[key_img].name+'/'+key_img);
+            $location.path("/album/"+$stateParams.id_album+'/'+$scope.user.albums[key_album].images[key_img].name+'/'+key_img);
         });
     }
 

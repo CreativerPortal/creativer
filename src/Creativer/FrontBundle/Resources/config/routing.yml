@@ -42,6 +42,10 @@ creativer_personTmp:
     path:     /person_tmp/{id}
     defaults: { _controller: CreativerFrontBundle:Default:personTmp, id: null }
     methods:  [GET]
+creativer_showPostPhotoTmp:
+    path:     /show_post_photo_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:showPostPhotoTmp }
+    methods:  [GET]
 creativer_baraholkaTmp:
     path:     /baraholka_tmp
     defaults: { _controller: CreativerFrontBundle:Default:baraholkaTmp }

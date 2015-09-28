@@ -1,5 +1,5 @@
 angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.socket', 'service.chat'])
-    .controller('baraholkaCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'baraholkaService','$routeParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,baraholkaService,$routeParams, FileUploader, socket, chat) {
+    .controller('baraholkaCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'baraholkaService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,baraholkaService,$stateParams, FileUploader, socket, chat) {
 
 
         if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
@@ -16,14 +16,14 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             }
         }
 
-        if($routeParams.id_post){
-            baraholkaService.getPostById({"post_id": $routeParams.id_post}).success(function (data) {
+        if($stateParams.id_post){
+            baraholkaService.getPostById({"post_id": $stateParams.id_post}).success(function (data) {
                 $scope.post = data.post;
             });
-        }else if($routeParams.id_fleamarketposting){
+        }else if($stateParams.id_fleamarketposting){
             $scope.$watchGroup(['post_city'], function() {
                 if($scope.post_city){
-                    baraholkaService.getPostById({"post_id": $routeParams.id_fleamarketposting}).success(function (data) {
+                    baraholkaService.getPostById({"post_id": $stateParams.id_fleamarketposting}).success(function (data) {
                         console.log(data.post);
                         $scope.post = data.post;
                     });
@@ -118,7 +118,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         $scope.redirectPostBaraholka = function(){
             $scope.loader = true;
-            $location.path("/viewtopic/" + $routeParams.id_fleamarketposting);
+            $location.path("/viewtopic/" + $stateParams.id_fleamarketposting);
         }
 
         $scope.saveComment = function(text){
@@ -143,9 +143,9 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         $rootScope.$watchGroup(['city','my_singboard', 'singboard_participate', 'new24', 'post_category_id'], function() {
 
-            if($routeParams.id_category){
-                $scope.posts_category = $routeParams.id_category;
-                baraholkaService.getPostsByCategory({category_id: $routeParams.id_category,page:$routeParams.page,
+            if($stateParams.id_category){
+                $scope.posts_category = $stateParams.id_category;
+                baraholkaService.getPostsByCategory({category_id: $stateParams.id_category,page:$stateParams.page,
                     city:$rootScope.city,
                     my_singboard:$rootScope.my_singboard,
                     singboard_participate:$rootScope.singboard_participate,
@@ -208,7 +208,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
             $timeout(function() {
                 if(($scope.searchInCategory == text && text != undefined && text != '') || (text && text.length > 0 && $scope.searchInCategory == 0)){
-                    baraholkaService.searchPostsBaraholkaByText({category_id:$routeParams.id_category, search_text: $scope.searchInCategory}).success(function (data) {
+                    baraholkaService.searchPostsBaraholkaByText({category_id:$stateParams.id_category, search_text: $scope.searchInCategory}).success(function (data) {
                         if(text == $scope.searchInCategory) {
                             $scope.search = true;
                             $scope.posts = data.posts;
@@ -263,7 +263,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         });
 
         $scope.searchPostsBaraholkaByText = function(){
-            baraholkaService.searchPostsBaraholkaByText({category_id:$routeParams.id_category, search_text: $scope.searchInCategory}).success(function (data) {
+            baraholkaService.searchPostsBaraholkaByText({category_id:$stateParams.id_category, search_text: $scope.searchInCategory}).success(function (data) {
                 if(text == $scope.searchInCategory) {
                     $scope.search = true;
                     $scope.posts = data.posts;
@@ -284,7 +284,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         // UPLOAD
 
-        if($routeParams.id_fleamarketposting){
+        if($stateParams.id_fleamarketposting){
             var uploader = $scope.uploader = new FileUploader({
                 url: 'edit_images_post_baraholka'
             });
@@ -310,7 +310,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         };
         uploader.onAfterAddingFile = function(fileItem) {
             // console.info('onAfterAddingFile', fileItem);
-            if($routeParams.id_fleamarketposting){
+            if($stateParams.id_fleamarketposting){
                 fileItem.formData.push({id: $scope.post.id});
                 uploader.uploadAll();
             }
@@ -319,7 +319,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         uploader.onBeforeUploadItem = function (item) {
 
-            if($routeParams.id_fleamarketposting){
+            if($stateParams.id_fleamarketposting){
             }else{
                 item.formData.push({post_id: $scope.post_id});
                 item.formData.push({post_category: $scope.post_category.id});
@@ -355,13 +355,13 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         };
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
             $scope.id_post_baraholka = response.id;
-            if($routeParams.id_fleamarketposting){
+            if($stateParams.id_fleamarketposting){
                 $scope.post.images_baraholka.push({"id": response.id, "name": response.name, "path": response.path});
                 uploader.queue = [];
             }
         };
         uploader.onCompleteAll = function(fileItem, response, status, headers) {
-            if(!$routeParams.id_fleamarketposting) {
+            if(!$stateParams.id_fleamarketposting) {
                 $location.path("/viewtopic/" + $scope.id_post_baraholka);
             }
         };

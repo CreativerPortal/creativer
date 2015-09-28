@@ -548,3 +548,7 @@ img-crop canvas {
     font-size: 30px;
     opacity: 0.5;
 }
+
+.text-white:hover {
+    color: #ffffff;
+}
