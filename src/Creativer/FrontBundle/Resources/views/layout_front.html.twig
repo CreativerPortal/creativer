@@ -21,6 +21,24 @@
     <link rel="stylesheet" href="/css/helpers.css">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.min.css">
 
+    <link rel="stylesheet" type="text/css" href="/css/vendor/component.css" />
+    <link rel="stylesheet" href="/css/pages/album.css">
+    <link rel="stylesheet" href="/css/pages/personal_page.css">
+    <link rel="stylesheet" href="/css/pages/flea_market.css">
+    <link rel="stylesheet" href="/css/button.css">
+    <link rel="stylesheet" href="/css/pages/chat.css">
+    <link rel="stylesheet" href="/css/pages/events.css">
+    <link rel="stylesheet" href="/css/pages/fleamarketposting.css">
+    <link rel="stylesheet" href="/css/pages/messages.css">
+    <link rel="stylesheet" href="/css/pages/products.css">
+    <link rel="stylesheet" href="/css/pages/services.css">
+    <link rel="stylesheet" href="/css/pages/viewforum.css">
+    <link rel="stylesheet" href="/css/pages/viewtopic.css">
+
+
+
+
+
     {% if is_mobile_view() %}
     {% elseif is_tablet_view() %}
         <link rel="stylesheet" href="/css/screens_tablet.css">
@@ -364,7 +382,7 @@
                     <div class="messages__curtain-angle"></div>
                     <div class="messages__curtain-body">
                         <a href="#/messages" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10">Перейти в сообщения</a>
-                        <div class="row col-sm-10 col-sm-offset-1 horizontal_line margin-bottom_5"></div>
+                        <div class="row col-sm-10 col-sm-offset-1 horizontal_line_messages margin-bottom_5"></div>
                         <div class="text-gray lobster" ng-show="!$root.new_messages[0]"><h4>пусто</h4></div>
                         <div class="row margin-top_10" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
                             <div class="col-sm-3 col-sm-offset-1">

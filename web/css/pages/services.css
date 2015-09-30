@@ -45,7 +45,7 @@ body{
 
 
 
-.slid__products__top{
+.slid__services__top{
     background-image: url("/var/www/creativer/web/img/shelf_services.png");
     background-repeat: no-repeat;
     width: 222px;
@@ -55,7 +55,7 @@ body{
     position: relative;
 }
 
-.font_product{
+.font_service{
     background-image: url("/var/www/creativer/web/img/fon_services_menu.png");
     background-repeat: repeat-y;
     background-position: top center;
@@ -65,24 +65,24 @@ body{
     margin-top: -40px;
 }
 
-.font_product a {
+.font_service a {
     color: white
 }
 
-.font_product a:hover {
+.font_service a:hover {
     text-decoration: none;
 }
 
-.font_product>ul {
+.font_service>ul {
     width: 180px;
 }
 
-.font_product ul {
+.font_service ul {
     width: 150px;
     padding-left: 10px;
 }
 
-.font_product>ul>li {
+.font_service>ul>li {
     border-bottom: 1px dashed #ffffff;
     list-style: none;
     color: white;
@@ -90,7 +90,7 @@ body{
     padding-left: 5px;
 }
 
-.font_product>ul>li>ul>li{
+.font_service>ul>li>ul>li{
     list-style: none;
 }
 
@@ -109,7 +109,7 @@ body{
     margin-left: -7px;
 }
 
-.slid__products__bottom{
+.slid__services__bottom{
     background-image: url("/var/www/creativer/web/img/fon_services_menu_buttom.png");
     background-repeat: no-repeat;
     background-position: top center;
@@ -283,7 +283,6 @@ body{
 }
 
 .slid__card__img{
-    border-top: 1px dashed #c5c3b4;
     border-bottom: 1px dashed #c5c3b4;
     border-left: 1px dashed #c5c3b4;
     border-radius: 10px 0px 0px 10px;

@@ -1,7 +1,6 @@
-    <link rel="stylesheet" href="/css/pages/fleamarketposting.css">
     <div class="row slid" ng-init="post_id = {{ post_id }}">
 
-        <form class="col-sm-10 padding-left_0" name="baraholka_form">
+        <form class="col-sm-10 padding-left_0 form_create_post" name="baraholka_form">
             <div class="row">
                 <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Барахолка</h3></div>
                 <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
@@ -59,7 +58,7 @@
                 </div>
             </div>
 
-            <div class="horizontal_line"></div>
+            <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-12">
@@ -76,7 +75,7 @@
                 </div>
             </div>
 
-            <div class="horizontal_line"></div>
+            <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-12">
@@ -95,7 +94,7 @@
                 </div>
             </div>
 
-            <div class="horizontal_line"></div>
+            <div class="horizontal_line_baraholka"></div>
 
             <div class="margin-top_10">
                 <label class="" for="uploadImg" style="font-weight: normal;" ng-disabled="uploader.isUploading">
@@ -108,7 +107,7 @@
             <div class="row margin-left_0">
 
                 <div class="upload__element" ng-repeat="item in post.images_baraholka" style="float: left; position: relative;">
-                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info" style="position: absolute; top: 0px;">
+                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info" style="position: absolute; top: 0px;">
                         <input type="checkbox" class="hidden">
                         <div class="edit__album__menu">
                             <ul class="margin-top_20">

@@ -1,7 +1,6 @@
-    <link rel="stylesheet" href="/css/pages/fleamarketposting.css">
     <div class="row slid" ng-init="post_id = {{ post_id }}">
 
-        <form class="col-sm-10 padding-left_0" name="baraholka_form">
+        <form class="col-sm-10 padding-left_0 form_create_post" name="baraholka_form">
             <div class="row">
                 <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">Барахолка</h3></div>
                 <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
@@ -61,7 +60,7 @@
                 </div>
             </div>
 
-            <div class="horizontal_line"></div>
+            <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-12">
@@ -78,7 +77,7 @@
                 </div>
             </div>
 
-            <div class="horizontal_line"></div>
+            <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-12">
@@ -97,7 +96,7 @@
                 </div>
             </div>
 
-            <div class="horizontal_line"></div>
+            <div class="horizontal_line_baraholka"></div>
 
             <div class="margin-top_10">
                 <label class="" for="uploadImg" style="font-weight: normal;" ng-disabled="uploader.isUploading">
@@ -110,9 +109,9 @@
             <div class="row margin-left_0">
 
                 <div class="upload__element" ng-repeat="item in uploader.queue" style="float: left;">
-                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope" edit-pain="info">
+                    <label class="glyphicon glyphicon-pencil edit__img_baraholka ng-isolate-scope" edit-pain="info">
                         <input type="checkbox" class="hidden">
-                        <div class="edit__album__menu">
+                        <div class="edit__img_baraholka__menu">
                             <ul class="margin-top_20">
                                 <li ng-click="item.remove()">Удалить</li>
                                 <li ng-init="item.main = 0" ng-click="item.main = 1">

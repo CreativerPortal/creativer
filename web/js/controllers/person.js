@@ -60,7 +60,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.next_key_img = parseInt($stateParams.key_img)+1;
         $scope.previous = parseInt($stateParams.key_img)-1;
     }
-    $rootScope.overflow = false;
     if($stateParams.key_post){
         $scope.key_post = $stateParams.key_post;
         $scope.key_post_img = $stateParams.key_post_img;

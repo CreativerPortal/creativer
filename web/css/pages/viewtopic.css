@@ -55,7 +55,11 @@ body{
     border: none;
     padding-left: 5px;
     width: 325px;
-    height: 35px;
+    height: 33px;
+}
+
+.slid__search input:focus{
+    outline: none;
 }
 
 .slid__search__link{
@@ -87,10 +91,6 @@ body{
     color: #ffffff;
 }
 
-.slid__menu{
-    background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
-    height: 57px;
-}
 
 .slid__menu a{
     vertical-align: middle;
@@ -158,7 +158,7 @@ textarea {
     background-position: center bottom;
 }
 
-.user__avatar{
+.user__avatar__viewtopic{
     width: 60px;
 }
 
@@ -171,10 +171,6 @@ textarea {
     display: none;
 }
 
-.slid__menu{
-    background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
-    height: 57px;
-}
 
 .slid__menu label{
     vertical-align: middle;

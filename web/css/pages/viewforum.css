@@ -250,11 +250,6 @@ input[type=radio]:checked ~ .baraholka__filter__element {
     display: none;
 }
 
-.slid__menu{
-    background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
-    height: 57px;
-}
-
 .slid__menu label{
     vertical-align: middle;
     cursor: pointer;

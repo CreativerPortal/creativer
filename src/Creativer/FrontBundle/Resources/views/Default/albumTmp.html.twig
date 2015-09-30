@@ -1,16 +1,8 @@
-<link rel="stylesheet" type="text/css" href="/css/vendor/component.css" />
-{#<script src="/js/classie.js"></script>#}
-{#<script src="/js/modalEffects.js"></script>#}
-{#<script src="/js/cssParser.js"></script>#}
-{#<script src="/js/css-filters-polyfill.js"></script>#}
-<link rel="stylesheet" href="/css/pages/album.css">
-<link rel="stylesheet" href="/css/pages/personal_page.css">
-
  <div class="row slid  padding-right_0" ng-show="user">
 
         <div class="row">
             <h3 class="col-sm-5 lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
-            <h4 class="col-sm-6 lobster text-gray margin-top_30 margin-left_15">Альбом "[[ user.albums[album_key].name ]]"</h4>
+            <h4 class="col-sm-6 lobster text-gray margin-top_30 padding-left_0">Альбом "[[ user.albums[album_key].name ]]"</h4>
         </div>
 
          <div class="col-sm-5 user padding-left_0">
@@ -61,7 +53,7 @@
                 <div class="album__element" ng-repeat="album in user.albums.slice(0, count_albums)">
                     <a href="#/album/[[album.id]]" class="album__link"></a>
                     <div class="frame__img">
-                        <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.path ]][[ album.img ]]" />
+                        <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.img ]]" />
                         <img class="album_img" ng-show="!album.img" ng-src="{{ path_img_album_thums }}[[ album.images[0].path ]][[ album.images[0].name ]]" />
                     </div>
                     <img class="frame" src="/var/www/creativer/web/img/frame.png" />

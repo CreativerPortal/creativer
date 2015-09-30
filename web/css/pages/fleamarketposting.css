@@ -97,7 +97,6 @@ body{
 }
 
 .slid__menu{
-    font-size: 0.9em;
     background-image: url("/var/www/creativer/web/img/footer_menu_background.png");
     height: 57px;
 }
@@ -154,11 +153,11 @@ body{
     color: #77a2bf;
 }
 
-input[type=radio]{
+.form_create_post input[type=radio]{
     display: none;
 }
 
-input[type=radio]:checked ~ .baraholka__filter__element {
+.form_create_post input[type=radio]:checked ~ .baraholka__filter__element {
     background-position: -73px 0;
     color: #ffffff;
 }
@@ -187,7 +186,7 @@ input[type=radio]:checked ~ .baraholka__filter__element {
     text-align: center;
 }
 
-.baraholka__table__right span:after{
+.baraholka__table__right .price:after{
     content: " руб.";
 }
 
@@ -214,14 +213,14 @@ input[type=radio]:checked ~ .baraholka__filter__element {
     text-decoration: none;
 }
 
-.horizontal_line {
+.horizontal_line_baraholka {
     background-image: url("/var/www/creativer/web/img/horizontal_line.png");
     background-repeat-y: no-repeat;
     background-position: center bottom;
     height: 30px;
 }
 
-.edit__album {
+.edit__img_baraholka {
     position: relative;
     right: 0%;
     top: 30px;
@@ -232,10 +231,10 @@ input[type=radio]:checked ~ .baraholka__filter__element {
     cursor: pointer;
 }
 
-.edit__album input:checked ~ .edit__album__menu {
+.edit__img_baraholka input:checked ~ .edit__album__menu {
     display: block;
 }
-.edit__album__menu {
+.edit__img_baraholka__menu {
     position: absolute;
     height: 130px;
     width: 139px;
@@ -253,32 +252,36 @@ input[type=radio]:checked ~ .baraholka__filter__element {
     margin-top: 5px;
 }
 
-select{
+.form_create_post select{
      height: 35px;
      background-color: rgb(234, 233, 227);
     border: 1px dashed #827972;
 }
 
-input{
+.form_create_post input{
     height: 35px;
     background-color: #eae9e3;
     border: 1px dashed #827972;
     width: 100%;
 }
 
-textarea{
+.form_create_post input:focus{
+    outline: none;
+}
+
+.form_create_post textarea{
     height: 75px;
     background-color: #eae9e3;
     border: 1px dashed #827972;
     width: 100%;
 }
 
-input[type="checkbox"] {
+.form_create_post input[type="checkbox"] {
     margin: 4px 0 0;
     margin-top: 1px \9;
     line-height: normal;
 }
-input[type="checkbox"]{
+.form_create_post input[type="checkbox"]{
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;

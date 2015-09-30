@@ -65,11 +65,6 @@ body{
 }
 
 
-.slid textarea{
-    background-color: #eae9e3;
-    border: 1px dashed #827972;
-}
-
 ::-webkit-input-placeholder {color:#827972;}
 ::-moz-placeholder          {color:#827972;}/* Firefox 19+ */
 :-moz-placeholder           {color:#827972;}/* Firefox 18- */

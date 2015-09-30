@@ -1,10 +1,9 @@
-    <link rel="stylesheet" href="/css/pages/services.css">
 
     <div class="row slid padding-right_0">
 
         <div class="col-sm-3 padding-left_0 ">
-            <div class="slid__products__top"></div>
-            <nav class="font_product fiveMinuts">
+            <div class="slid__services__top"></div>
+            <nav class="font_service fiveMinuts">
                 <ul>
                     <li ng-repeat="service_one in $root.services">
                         <a ng-class="{menu_action_black: service_one.id == $root.service.id}" href="#/services/[[ service_one.id ]]">[[ service_one.name ]]</a>
@@ -24,7 +23,7 @@
                     </li>
                 </ul>
             </nav>
-            <div class="slid__products__bottom"></div>
+            <div class="slid__services__bottom"></div>
 
             <div class="row margin-left_15">
                 <img src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />

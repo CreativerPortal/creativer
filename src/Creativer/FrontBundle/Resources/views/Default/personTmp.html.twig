@@ -1,5 +1,3 @@
-        <link rel="stylesheet" href="/css/pages/personal_page.css">
-
         <div class="row slid  padding-right_0" ng-show="user">
 
             <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
@@ -10,7 +8,7 @@
 
             <div class="col-sm-7 album" ng-init="count_albums=3">
                <div class="col-sm-12 padding-left_0">
-                    <a ng-if="user.id == $root.id_user" href="#/create_album" class="add_photo btn button_message early-message text-center text-white right pointer margin-right_5">
+                    <a ng-if="user.id == $root.id_user" href="#/create_album" class="add_photo button_message early-message text-center text-white right pointer margin-right_5">
                         <span class="glyphicon glyphicon-picture"></span>
                             <span class="fs_0-9">Создать альбом</span>
                     </a>
@@ -24,7 +22,7 @@
 
                     <a href="#/album/[[album.id]]" class="album__link"></a>
                     <div class="frame__img">
-                        <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.path ]][[ album.img ]]" />
+                        <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.img ]]" />
                         <img class="album_img" ng-show="!album.img" ng-src="{{ path_img_album_thums }}[[ album.images[0].path ]][[ album.images[0].name ]]" />
 
                     </div>
@@ -57,7 +55,7 @@
 
                 <h4 class="lobster margin-top_20 text-gray">Стена</h4>
 
-                <div ng-click="attache = true" style="width: 550px;">
+                <div ng-click="attache = true" style="width: 550px;" class="create_post">
                     {% if is_granted('ROLE_USER') %}
                         <textarea msd-elastic="" class="text-gray" cols="73" rows="2" placeholder="Написать сообщение" ng-blur="focus = false" ng-focus="focus = true" ng-model="text_post" style="height: 50px;"></textarea>
                     {% endif %}
@@ -140,7 +138,7 @@
                             </div>
                         {%  endif %}
                         <div class="col-sm-12 margin-top_10 padding-left_0 padding-right_0" ng-if="post" ng-init="imaging(post)">
-                            <a href="#/[[ user.id ]]/[[ key ]]/[[ key_post_img ]]" class="left upload__element" ng-repeat="(key_post_img,img) in post.post_images">
+                            <a href="#/[[ user.id ]]/[[ key ]]/[[ key_post_img ]]" class="left" ng-repeat="(key_post_img,img) in post.post_images">
                                 <img_post id_img="[[ img.id ]]" ng-if="img.new" remove_img_post></img_post>
                                 <img_post id_img="[[ img.id ]]"></img_post>
                                 <img src="{{ path_img_post_thums }}[[ img.path ]][[ img.name ]]" height="[[ img.height ]]" width="[[ img.width ]]" style="margin-right: 1px; margin-left: 1px; margin-bottom: 3px;">

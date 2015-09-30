@@ -1,23 +1,6 @@
 angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.socket', 'service.chat', 'service.header'])
     .controller('eventCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'headerService', 'eventService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,headerService,eventService,$stateParams, FileUploader, socket, chat) {
 
-        $scope.myDatetimeRange = {
-            "date": {
-                "from": "2015-08-23T09:39:27.549Z",
-                "to": "2015-08-23T09:39:27.549Z",
-                "min": null,
-                "max": null
-            },
-            "hasTimeSliders": false,
-            "hasDatePickers": true
-        };
-        $scope.myDatetimeLabels = {
-            date: {
-                from: 'Дата начала события',
-                to: 'Дата конца события'
-            }
-        };
-
 
         if(!$stateParams.id_edit && !$stateParams.id) {
 
@@ -55,6 +38,25 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                             $scope.days[i] = {'action': 0, 'day': i};
                         }
                     }
+
+
+                    $scope.myDatetimeRange = {
+                        "date": {
+                            "from": data.current_date,
+                            "to": data.current_date,
+                            "min": null,
+                            "max": null
+                        },
+                        "hasTimeSliders": false,
+                        "hasDatePickers": true
+                    };
+                    $scope.myDatetimeLabels = {
+                        date: {
+                            from: 'Дата начала события',
+                            to: 'Дата конца события'
+                        }
+                    };
+
 
                 });
             }

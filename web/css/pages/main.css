@@ -8,6 +8,7 @@ body{
 
 
 .slid{
+    padding: 0px;
     background-image: url("/var/www/creativer/web/img/side_background.png");
     -webkit-box-shadow: inset 0px -73px 82px 51px rgba(234,233,227,1);
     -moz-box-shadow: inset 0px -73px 82px 51px rgba(234,233,227,1);

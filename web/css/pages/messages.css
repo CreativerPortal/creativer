@@ -60,20 +60,9 @@ body{
 :-ms-input-placeholder      {color:#827972;}
 
 
-.user{
-    background-image: url("/var/www/creativer/web/img/vertical_line.png");
-    background-repeat: no-repeat;
-    background-position: right;
-}
-
 .user__text{
     font-weight: 100!important;
     color: #7d7066;
-}
-
-.user__text_bold{
-    color: #696360;
-    font-weight: bold;
 }
 
 .user__text-gray{
@@ -93,9 +82,6 @@ body{
     border-radius: 100px;
 }
 
-.user__avatar img, .user__avatar-mini img{
-    width: 100%;
-}
 
 .edit{
     position: absolute;
@@ -130,7 +116,7 @@ body{
     background-image: url("/var/www/creativer/web/img/line_message.png");
     background-repeat: no-repeat;
     background-position: center bottom;
-    /*min-height: 90px;*/
+    min-height: 90px;
 }
 
 .early-message{

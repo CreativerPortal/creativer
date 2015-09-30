@@ -391,7 +391,7 @@ class PersonController extends Controller
 
         $images = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->find($id);
         $album = $images->getAlbum();
-        $album->setImg($images->getName());
+        $album->setImg($images->getPath().$images->getName());
 
 
         $em->flush();

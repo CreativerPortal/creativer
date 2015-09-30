@@ -24,6 +24,7 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         //    controller: 'personCtrl',
         //    reloadOnSearch: true
         //});
+        $urlRouterProvider.otherwise("/");
         $stateProvider.state('create_album', {
             url: '/create_album',
             templateUrl: '/create_album',
@@ -112,6 +113,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             reloadOnSearch: true
         });
         $stateProvider.state('viewforum', {
+            url: '/viewforum/:id_category',
+            templateUrl: '/viewforum_tmp',
+            controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('viewforum_page', {
             url: '/viewforum/:id_category/:page',
             templateUrl: '/viewforum_tmp',
             controller: 'baraholkaCtrl',

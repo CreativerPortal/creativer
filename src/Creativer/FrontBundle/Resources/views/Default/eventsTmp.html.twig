@@ -1,5 +1,3 @@
-    <link rel="stylesheet" href="/css/pages/events.css">
-
     <div class="row slid">
 
         <div class="row margin-top_15">
@@ -23,7 +21,7 @@
                 </div>
             </div>
 
-            <div class="col-sm-2 slid__search padding-left_0 margin-top_15">
+            <div class="col-sm-2 slid__search__events padding-left_0 margin-top_15">
                 <input placeholder="Поиск в событиях" ng-model="searchEventText" ng-keyup="$event.keyCode == 13 && searchEvent()">
                 <button class="slid__slider-button" ng-click="searchEvent()"></button>
             </div>
@@ -34,7 +32,7 @@
 
         <div class="horizontal_line_dashed"></div>
 
-        <div class="row slid__list margin-top_10">
+        <div class="row margin-top_10">
             <div class="col-sm-2 padding-left_0">
 
                 <div ng-repeat="children in section">
@@ -59,8 +57,8 @@
                             {#<span class="glyphicon glyphicon-chevron-right text-white previous fs_0-9" style="width: 16px;"></span>#}
                         </div>
                     </div>
-                    <div class="glyphicon glyphicon-chevron-left text-white previous left margin-left_10 margin-top_25 arrow pointer" ng-click="previousMonth()"></div>
-                    <div class="glyphicon glyphicon-chevron-right text-white previous right margin-right_10 margin-top_25 arrow pointer" ng-click="nextMonth()"></div>
+                    <div class="glyphicon glyphicon-chevron-left text-white previous_event left margin-left_10 margin-top_25 arrow pointer" ng-click="previousMonth()"></div>
+                    <div class="glyphicon glyphicon-chevron-right text-white previous_event right margin-right_10 margin-top_25 arrow pointer" ng-click="nextMonth()"></div>
                     <div class="body__datapicker">
                         <div ng-repeat="day in days" ng-if="day.day" class="number_date_31" ng-switch-when="31">
                             <div class="circle">
@@ -117,7 +115,7 @@
                         <div class="col-sm-12">
                             <div class="col-sm-3">
                                 <div class="row">
-                                    <a href="#/event/[[ event.events[0].id ]]" class="overflow-hidden container_image_product block">
+                                    <a href="#/event/[[ event.events[0].id ]]" class="overflow-hidden container_image_events block">
                                         <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ event.events[0].path ]][[ event.events[0].img ]]" />
                                     </a>
                                     <a href="#/event/[[ event.events[0].id ]]" class="slid__card__name_user text-left">[[ event.events[0].name ]]</a><br>
@@ -125,7 +123,7 @@
                                     <span class="text-gray fs_0-9" ng-if="event.events[0].start_date == event.events[0].end_date">[[ event.events[0].start_date | date: "dd.MM.yyyy" ]]</span>
                                 </div>
                                 <div class="row">
-                                    <a href="#/event/[[ event.events[1].id ]]" class="overflow-hidden container_image_product block">
+                                    <a href="#/event/[[ event.events[1].id ]]" class="overflow-hidden container_image_events block">
                                         <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ event.events[1].path ]][[ event.events[1].img ]]" />
                                     </a>
                                     <a href="#/event/[[ event.events[1].id ]]" class="slid__card__name_user text-left">[[ event.events[1].name ]]</a><br>
@@ -145,7 +143,7 @@
                             </div>
                             <div class="col-sm-3">
                                 <div class="row right">
-                                    <a href="#/event/[[ event.events[3].id ]]" class="overflow-hidden container_image_product">
+                                    <a href="#/event/[[ event.events[3].id ]]" class="overflow-hidden container_image_events">
                                         <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ event.events[3].path ]][[ event.events[3].img ]]">
                                     </a>
                                     <a href="#/event/[[ event.events[3].id ]]" class="slid__card__name_user text-left">[[ event.events[3].name ]]</a><br>
@@ -153,7 +151,7 @@
                                     <span class="text-gray fs_0-9" ng-if="event.events[3].start_date == event.events[3].end_date">[[ event.events[3].start_date | date: "dd.MM.yyyy" ]]</span>
                                 </div>
                                 <div class="row right">
-                                    <a href="#/event/[[ event.events[4].id ]]" class="overflow-hidden container_image_product">
+                                    <a href="#/event/[[ event.events[4].id ]]" class="overflow-hidden container_image_events">
                                         <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ event.events[4].path ]][[ event.events[4].img ]]" >
                                     </a>
                                     <a href="#/event/[[ event.events[4].id ]]" class="slid__card__name_user text-left ">[[ event.events[4].name ]]</a><br>
