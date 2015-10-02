@@ -127,26 +127,20 @@ class EventController extends Controller
     }
 
     /**
+     * @return array
      * @Post("/v1/get_event")
      * @View(serializerGroups={"getEvent"})
      */
     public function getEventAction(){
         $id = $this->get('request')->request->get('id');
-        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->find($id);
 
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+            ->createQueryBuilder('e')
+            ->where('e.id = :id')
+            ->setParameter('id', $id);
+        $event = $query->getQuery()->getResult()[0];
 
-        $serializer = $this->container->get('jms_serializer');
-        $categories = $serializer
-            ->serialize(
-                $event,
-                'json',
-                SerializationContext::create()
-                    ->enableMaxDepthChecks(3)
-            );
-
-        $response = new Respon($categories);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+        return $event;
     }
 
 

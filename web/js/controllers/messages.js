@@ -39,12 +39,10 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     if(!$stateParams.id_user_chat){
         socket.on("all messages", function(data) {
-            console.log(data);
             $scope.messages = data;
         });
     }else{
         socket.on("history", function(data) {
-            console.log(data);
             $rootScope.messages_history = data.messages;
             $scope.companion = data.companion;
         });

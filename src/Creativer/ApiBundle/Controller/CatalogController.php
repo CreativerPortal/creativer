@@ -176,24 +176,24 @@ class CatalogController extends Controller
 
         //die(\Doctrine\Common\Util\Debug::dump($pagination));
 
-        $serializer = $this->container->get('jms_serializer');
-        $products = $serializer
-            ->serialize(
-                $products,
-                'json',
-                SerializationContext::create()
-                    ->enableMaxDepthChecks()
-            );
-
-        $response = new Respon($products);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+//        $serializer = $this->container->get('jms_serializer');
+//        $products = $serializer
+//            ->serialize(
+//                $products,
+//                'json',
+//                SerializationContext::create()
+//                    ->enableMaxDepthChecks()
+//            );
+//
+//        $response = new Respon($products);
+//        $response->headers->set('Content-Type', 'application/json');
+        return $products;
     }
 
 
     /**
      * @Post("/v1/get_catalog_service_albums")
-     * @View()
+     * @View(serializerGroups={"getCatalogServiceAlbums"})
      */
     public function getCatalogServiceAlbumsAction(){
 
@@ -248,18 +248,18 @@ class CatalogController extends Controller
 
         //die(\Doctrine\Common\Util\Debug::dump($pagination));
 
-        $serializer = $this->container->get('jms_serializer');
-        $services = $serializer
-            ->serialize(
-                $services,
-                'json',
-                SerializationContext::create()
-                    ->enableMaxDepthChecks()
-            );
-
-        $response = new Respon($services);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+//        $serializer = $this->container->get('jms_serializer');
+//        $services = $serializer
+//            ->serialize(
+//                $services,
+//                'json',
+//                SerializationContext::create()
+//                    ->enableMaxDepthChecks()
+//            );
+//
+//        $response = new Respon($services);
+//        $response->headers->set('Content-Type', 'application/json');
+        return $services;
 
     }
 

@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums",  "getCatalogServiceAlbums"})
      */
     private $id;
 
@@ -33,7 +33,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
      * @Assert\NotBlank(message="Имя пользователя не может быть пустым")
-     * @JMS\Groups({"getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getUser", "getAlbumComments", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
 
      */
     private $username;
@@ -42,16 +42,24 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
      * @Assert\NotBlank(message="Фамилия пользователя не может быть пустым")
-     * @JMS\Groups({"getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getUser", "getAlbumComments", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $avatar;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent"})
+     */
+    private $color;
 
 
     /**
@@ -1144,5 +1152,28 @@ class User implements UserInterface, \Serializable
     public function getEventsAttend()
     {
         return $this->events_attend;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return User
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string 
+     */
+    public function getColor()
+    {
+        return $this->color;
     }
 }

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-sm-4 padding-left_0">
             <div class="user__avatar-border">
-                <label class="user__avatar" ng-class="{'edit__avatar':$root.id_user == user.id}" for="fileInput">
+                <label style="background-color: [[ user.color ]];" class="user__avatar" ng-class="{'edit__avatar':$root.id_user == user.id}" for="fileInput">
                     <img src="[[ user.avatar ]]" />
                 </label>
             </div>

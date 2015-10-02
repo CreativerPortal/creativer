@@ -191,6 +191,7 @@
     <div ng-model="username" ng-init="username='{{ app.security.getToken().getUser().getUsername() }}'"></div>
     <div ng-model="lastname" ng-init="lastname='{{ app.security.getToken().getUser().getLastname() }}'"></div>
     <div ng-model="img" ng-init="img='{{ app.security.getToken().getUser().getAvatar() }}'"></div>
+    <div ng-model="color" ng-init="color='{{ app.security.getToken().getUser().getColor() }}'"></div>
 {% endif %}
 
 
@@ -413,7 +414,7 @@
             </div>
             <div class="personal col-sm-1 padding-left_0">
                 <label class="still_label-person" for="checkbox-menu-person">
-                    <div class="user__avatar-mini-header" ng-class="{spinner: !user}">
+                    <div class="user__avatar-mini-header" ng-class="{spinner: !user}" ng-init="$root.color = '{{app.user.color}}'" style="background-color: [[ $root.color ]];">
                         <img ng-src="[[ $root.avatar ]]" ng-init="$root.avatar = '{{app.user.avatar}}'">
                     </div>
                 </label>

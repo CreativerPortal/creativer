@@ -146,7 +146,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                 user: {
                     username: $rootScope.username,
                     lastname: $rootScope.lastname,
-                    avatar: $rootScope.img
+                    avatar: $rootScope.img,
+                    color: $rootScope.color
                 },
                 text: text,
                 date: new Date()

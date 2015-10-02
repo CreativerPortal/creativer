@@ -180,14 +180,27 @@ class BaraholkaController extends Controller
      */
     public function getPostByIdAction()
     {
+        $user = $this->get('security.context')->getToken()->getUser();
         $post_id = $this->get('request')->request->get('post_id');
 
-        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
-            ->createQueryBuilder('e')
-            ->where('e.id = :id')
-            ->setParameter('id', $post_id)
-            ->getQuery()
-            ->getResult()[0];
+        if($post_id == 'undefined'){
+            $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
+                ->createQueryBuilder('e')
+                ->where('e.user = :user')
+                ->setParameter('user', $user)
+                ->setMaxResults(1)
+                ->orderBy("e.id", 'DESC')
+                ->getQuery()
+                ->getResult()[0];
+        }else{
+            $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
+                ->createQueryBuilder('e')
+                ->where('e.id = :id')
+                ->setParameter('id', $post_id)
+                ->getQuery()
+                ->getResult()[0];
+        }
+
 
 
         $post = array('post' => $query);

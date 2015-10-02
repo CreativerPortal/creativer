@@ -1,5 +1,5 @@
 angular.module('service.chat', ['service.socket'])
-    .factory('chat', ['$rootScope', 'socket', '$routeParams', '$timeout', function ($rootScope,socket,$routeParams,$timeout) {
+    .factory('chat', ['$rootScope', 'socket', '$stateParams', '$timeout', function ($rootScope,socket,$stateParams,$timeout) {
 
         if(!$rootScope.messages_history){
             $rootScope.messages_history = [];
@@ -13,13 +13,10 @@ angular.module('service.chat', ['service.socket'])
 
         socket.on('message', function(data){
             var data = data[0];
-            console.log(data);
-
-            $rootScope.ids = [$routeParams.id_user_chat, $rootScope.id_user];
+            $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
             $rootScope.ids = $rootScope.ids.sort();
-            if(data.reviewed == false && ($routeParams.id_user_chat == data.sender || $routeParams.id_user_chat == data.receiver)){
+            if(data.reviewed == false && ($stateParams.id_user_chat == data.sender || $stateParams.id_user_chat == data.receiver)){
                 $rootScope.messages_history.unshift({sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar});
-
 
                 if($rootScope.id_user == data.sender){
                     $rootScope.text_message = null;

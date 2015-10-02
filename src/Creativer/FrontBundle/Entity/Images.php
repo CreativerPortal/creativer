@@ -32,7 +32,7 @@ class Images
      * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
      * @JMS\MaxDepth(2)
-     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums",  "getCatalogServiceAlbums"})
      **/
     private $album;
 
@@ -40,22 +40,21 @@ class Images
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
      * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image", cascade={"remove"})
-     * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums"})
-     * @JMS\MaxDepth(3)
+     * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums",  "getCatalogServiceAlbums"})
      **/
     private $image_comments;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "uploadEditAlbum"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "uploadEditAlbum"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "uploadEditAlbum"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "uploadEditAlbum"})
      */
     private $path;
 
@@ -70,13 +69,13 @@ class Images
     /**
      * @ORM\Column(type="integer", nullable=true, options={"default":0})
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser" ,"getAlbumComments"})
      */
     private $views;
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getImageComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "uploadEditAlbum"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "uploadEditAlbum"})
      * @JMS\Expose
      */
     private $text;
@@ -84,7 +83,7 @@ class Images
     /**
      * @ORM\Column(type="integer", name="likes", nullable=false)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getCatalogProductAlbums"})
      */
     private $likes = 0;
 
@@ -94,7 +93,7 @@ class Images
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getImageComments", "getUser", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getCatalogProductAlbums",  "getCatalogServiceAlbums"})
      */
     private $date;
 

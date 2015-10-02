@@ -104,9 +104,11 @@
                 <div class="row margin-top_10 one_post" ng-init="post.remove_post = false" ng-repeat="(key, post) in user.wall.posts">
 
                     <div class="col-sm-2">
-                        <div class="user__avatar-mini">
+                        <div ng-if="post.user" class="user__avatar-mini" style="background-color: [[ post.user.color ]]">
                             <img ng-if="post.user.avatar" ng-src="[[ post.user.avatar ]]">
-                            <img ng-if="!post.user.avatar" ng-src="[[ user.avatar ]]">
+                        </div>
+                        <div ng-if="!post.user" class="user__avatar-mini" style="background-color: [[ user.color ]]">
+                            <img  ng-src="[[ user.avatar ]]">
                         </div>
                     </div>
                     <div class="col-sm-10 padding-left_0" ng-init="edits=false">
@@ -171,9 +173,11 @@
                     <div class="row margin-left_60 col-sm-11 one_comment" ng-repeat="(key,comment) in post.comments">
                         <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
-                            <div class="user__avatar-super-mini">
+                            <div ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
                                 <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
-                                <img ng-if="!comment.user" ng-src="[[ user.avatar ]]">
+                            </div>
+                            <div ng-if="!comment.user" class="user__avatar-super-mini" style="background-color: [[ user.color ]]">
+                                <img  ng-src="[[ user.avatar ]]">
                             </div>
                         </div>
                         <div class="col-sm-10 padding-left_0">

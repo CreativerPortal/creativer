@@ -7,7 +7,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
         var key_album;
 
-        if(($stateParams.id_album_edit || $stateParams.id_album) && $scope.user) {
+    if(($stateParams.id_album_edit || $stateParams.id_album) && $scope.user) {
         var exists_album = false;
         var id_album = $stateParams.id_album?$stateParams.id_album:$stateParams.id_album_edit;
         for(var key in $scope.user.albums){
@@ -28,6 +28,17 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                 }
             });
         }
+
+        for(var key in $scope.user.albums){
+            if(!$scope.user.albums[key].images[0].image_comments) {
+                albumService.getAlbumComments({id_album: id_album}).success(function (data) {
+                    for (var key in $scope.user.albums) {
+                        if ($scope.user.albums[key].id == $stateParams.id_album)
+                            $scope.user.albums[key].images = data.images;
+                    }
+                });
+            }
+        }
     }else{
         var id_album = $stateParams.id_album?$stateParams.id_album:$stateParams.id_album_edit;
         albumService.getUserByAlbumId({id: id_album}).success(function (data) {
@@ -39,6 +50,19 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                     $scope.favorit = false;
                 }
             }
+            if($stateParams.id_album){
+                for(var key in $scope.user.albums){
+                    if($scope.user.albums[key].images) {
+                        albumService.getAlbumComments({id_album: id_album}).success(function (data) {
+                            for (var key in $scope.user.albums) {
+                                if ($scope.user.albums[key].id == $stateParams.id_album)
+                                    $scope.user.albums[key].images = data.images;
+                            }
+                        });
+                    }
+                }
+            }
+
         });
     }
 
@@ -185,7 +209,8 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                 id: 0,
                 username: $rootScope.username,
                 lastname: $rootScope.lastname,
-                avatar: $rootScope.avatar
+                avatar: $rootScope.avatar,
+                color: $rootScope.color
             },
             text: text,
             date: new Date()

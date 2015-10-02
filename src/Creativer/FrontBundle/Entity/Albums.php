@@ -20,7 +20,7 @@ class Albums
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      * @JMS\Expose
      */
     private $id;
@@ -31,19 +31,21 @@ class Albums
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      **/
     private $user;
 
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      * @JMS\Expose
      */
     private $img;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      * @JMS\Expose
      */
     private $path;
@@ -51,7 +53,7 @@ class Albums
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      */
     private $name;
 
@@ -59,14 +61,14 @@ class Albums
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      */
     private $description;
 
     /**
      * @ORM\Column(type="integer", nullable=true, options={"default":0})
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      */
     private $views;
 
@@ -82,7 +84,7 @@ class Albums
     /**
      * @ORM\Column(type="integer", nullable=false)
      * @JMS\Expose
-     * @JMS\Groups({"getAlbumComments", "getUser"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      */
     private $likes = 0;
 
@@ -105,7 +107,7 @@ class Albums
      * @JMS\Type("Creativer\FrontBundle\Entity\Images")
      * @ORM\OneToMany(targetEntity="Images", mappedBy="album")
      * @ORM\OrderBy({"id" = "DESC"})
-     * @JMS\Groups({"getAlbumComments", "getUser", "getAlbumById"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      **/
     private $images;
 

@@ -20,14 +20,14 @@ class Posts
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPost"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="integer", length=11)
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPost"})
      */
     private $wall_id;
 
@@ -36,7 +36,7 @@ class Posts
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="posts", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPost"})
      **/
     private $user;
 
@@ -46,13 +46,14 @@ class Posts
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"getUser", "getPost"})
      */
     private $date;
 
 
     /**
      * @ORM\Column(type="text")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPost"})
      * @JMS\Expose
      */
     private $text;
@@ -77,7 +78,7 @@ class Posts
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\PostImages")
      * @ORM\OneToMany(targetEntity="PostImages", mappedBy="post")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getPost"})
      **/
     private $post_images;
 

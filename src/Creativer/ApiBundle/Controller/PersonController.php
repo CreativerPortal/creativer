@@ -32,7 +32,7 @@ class PersonController extends Controller
     /**
      * @return array
      * @Post("/v1/save_post")
-     * @View()
+     * @View(serializerGroups={"getPost"})
      */
     public function savePostAction()
     {
@@ -48,23 +48,15 @@ class PersonController extends Controller
 
         $wall = $this->getDoctrine()->getRepository('CreativerFrontBundle:Wall')->findOneById($data->wall_id);
 
-
         $post = new Posts();
-
 
         $post->setUser($user)
             ->setText($data->text)
             ->setWall($wall);
 
-
-
         $em = $this->getDoctrine()->getManager();
         $em->persist($post);
         $em->flush();
-
-        //$serializer = $this->container->get('jms_serializer');
-        //$user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($data->id);
-        //$user = $serializer->serialize($user, 'json');
 
         return array('post' => $post);
     }
@@ -72,7 +64,7 @@ class PersonController extends Controller
     /**
      * @return array
      * @Post("/v1/save_comment")
-     * @View()
+     * @View(serializerGroups={"getComments"})
      */
     public function saveCommentAction()
     {
@@ -85,15 +77,11 @@ class PersonController extends Controller
         }
 
         $data = json_decode($this->get("request")->getContent());
-
-
         $user = $this->get('security.context')->getToken()->getUser();
-
         $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->findOneById($data->post_id);
 
 
         $comment = new Comments();
-
         $comment->setText($data->text)
             ->setPost($post)
             ->setUser($user);
@@ -103,12 +91,7 @@ class PersonController extends Controller
         $em->persist($comment);
         $em->flush();
 
-        $serializer = $this->container->get('jms_serializer');
-        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($data->id);
-
-        //$user = $serializer->serialize($user, 'json');
-
-        return array('user' => $user);
+        return array('comment' => $comment);
     }
 
     /**
@@ -219,21 +202,12 @@ class PersonController extends Controller
 
             $user = array('user' => $user[0]);
 
-            $serializer = $this->container->get('jms_serializer');
-            $user = $serializer
-                ->serialize(
-                    $user,
-                    'json',
-                    SerializationContext::create()
-                        ->enableMaxDepthChecks()
-                );
         }else{
             $user = null;
         }
 
-        $response = new Respon($user);
-        $response->headers->set('Content-Type', 'application/json');
-        return $response;
+
+        return $user;
     }
 
     /**
@@ -271,7 +245,7 @@ class PersonController extends Controller
     /**
      * @return array
      * @Post("/v1/get_user_by_album_id")
-     * @View()
+     * @View(serializerGroups={"getUser"})
      */
     public function getUserByAlbumIdAction()
     {
@@ -856,7 +830,7 @@ class PersonController extends Controller
     /**
      * @return array
      * @Post("/v1/search_people")
-     * @View()
+     * @View(serializerGroups={"searchPeople"})
      */
     public function searchPeopleAction()
     {

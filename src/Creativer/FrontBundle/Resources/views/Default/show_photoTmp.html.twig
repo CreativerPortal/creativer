@@ -38,9 +38,11 @@
                 <div class="col-sm-10 text-left" >
                     <div class="row col-sm-12" ng-repeat="comment in user.albums[album_key].images[key_img].image_comments">
                         <div class="col-sm-2">
-                            <div class="user__avatar-super-mini">
-                                <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
-                                <img ng-if="!comment.user" ng-src="[[ user.avatar ]]">
+                            <div class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
+                                <img  ng-src="[[ comment.user.avatar ]]">
+                            </div>
+                            <div class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
+                                <img ng-src="[[ user.avatar ]]">
                             </div>
                         </div>
                         <div class="col-sm-10 padding-left_10">

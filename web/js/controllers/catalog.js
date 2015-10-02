@@ -1,7 +1,7 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
     .controller('catalogCtrl',['$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
-    if($rootScope.news_events == undefined || !$stateParams.url_img){
+    if($rootScope.news_events == undefined && ($stateParams.id_products || $stateParams.id_services)){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
             if(data[0].description != undefined){
@@ -88,28 +88,28 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
         $stateParams.page = $stateParams.page?$stateParams.page:1;
 
-        if($stateParams.id_services){
-            $rootScope.$watch('filterCondition', function() {
+        if((!$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services){
+            $rootScope.$watch('filterConditionServices', function() {
                 catalogService.getCatalogServiceAlbums({
                     id: $stateParams.id_services,
                     page: $stateParams.page,
                     filter: $rootScope.filterCondition
                 }).success(function (data) {
-                    $scope.items = data.services;
+                    $rootScope.items_services = $scope.items_services = data.services;
 
-                    $scope.pages = [];
-                    $scope.pages[0] = $scope.items.currentPageNumber;
-                    $scope.currentPage = $scope.items.currentPageNumber;
-                    var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
+                    $rootScope.id_services = $stateParams.id_services;
+                    $rootScope.pages_services = [];
+                    $rootScope.pages_services[0] = $scope.items_services.currentPageNumber;
+                    $rootScope.currentPage = $scope.currentPage = $scope.items_services.currentPageNumber;
+                    var length = ($scope.items_services.totalCount / $scope.items_services.numItemsPerPage < 5) ? $scope.items_services.totalCount / $scope.items_services.numItemsPerPage : 5;
                     length--;
                     while (length > 0) {
-                        console.log(length);
-                        if ($scope.pages[0] > 1) {
-                            $scope.pages.unshift($scope.pages[0] - 1)
+                        if ($rootScope.pages_services[0] > 1) {
+                            $rootScope.pages_services.unshift($rootScope.pages_services[0] - 1)
                             length = length - 1;
                         } else {
-                            var p = parseInt($scope.pages[$scope.pages.length - 1]) + 1;
-                            $scope.pages.push(p);
+                            var p = parseInt($rootScope.pages_services[$rootScope.pages_services.length - 1]) + 1;
+                            $rootScope.pages_services.push(p);
                             length = length - 1;
                         }
                     }
@@ -117,7 +117,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
-        if((!$rootScope.items || $rootScope.currentPage != $stateParams.page) && $stateParams.id_products){
+        if((!$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products){
             $rootScope.page = $stateParams.page;
             $rootScope.$watch('filterCondition', function() {
                 catalogService.getCatalogProductAlbums({
@@ -140,19 +140,19 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                         $scope.items.images_likes = data.likes;
                     });
 
-                    $rootScope.pages = $scope.pages = [];
-                    $rootScope.pages[0] = $scope.pages[0] = $scope.items.currentPageNumber;
+                    $rootScope.id_products = $stateParams.id_products;
+                    $rootScope.pages = [];
+                    $rootScope.pages[0] = $scope.items.currentPageNumber;
                     $rootScope.currentPage = $scope.currentPage = $scope.items.currentPageNumber;
                     var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
                     length--;
                     while (length > 0) {
-                        console.log(length);
-                        if ($scope.pages[0] > 1) {
-                            $scope.pages.unshift($scope.pages[0] - 1)
+                        if ($rootScope.pages[0] > 1) {
+                            $rootScope.pages.unshift($rootScope.pages[0] - 1)
                             length = length - 1;
                         } else {
-                            var p = parseInt($scope.pages[$scope.pages.length - 1]) + 1;
-                            $scope.pages.push(p);
+                            var p = parseInt($rootScope.pages[$rootScope.pages.length - 1]) + 1;
+                            $rootScope.pages.push(p);
                             length = length - 1;
                         }
                     }

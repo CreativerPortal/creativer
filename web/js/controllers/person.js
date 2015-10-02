@@ -94,29 +94,42 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     $scope.savePost = function(wall,wall_id, text){
         $scope.loader = true;
         personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $stateParams.id}).success(function (data) {
-            $scope.loader = false;
             if(!uploader.queue.length){
                 $scope.text_post = '';
             }
             $scope.new_post_id = data.post.id;
-            uploader.uploadAll();
+            if(uploader.queue.length){
+                uploader.uploadAll();
+            }else{
+                personalService.getUser({id: $stateParams.id}).success(function (data) {
+                    $scope.loader = false;
+                    $scope.user = data.user;
+                    $scope.favorit = false;
+                    for(key in $scope.user.favorits_with_me){
+                        if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                            $scope.favorit = true;
+                        }
+                    }
+                })
+            }
         });
     }
 
     $scope.saveComment = function(post, post_id, text){
-        var user = {
-            user: {
-                id: 0,
-                username: $rootScope.username,
-                lastname: $rootScope.lastname,
-                avatar: $rootScope.avatar
-            },
-            text: text
-        }
+        //var user = {
+        //    user: {
+        //        id: 0,
+        //        username: $rootScope.username,
+        //        lastname: $rootScope.lastname,
+        //        avatar: $rootScope.avatar
+        //    },
+        //    text: text
+        //}
         $scope.loader = true;
-        post.comments.push(user);
+        //post.comments.push(user);
         personalService.saveComment({post_id:post_id,text:text,id: $stateParams.id}).success(function (data) {
-            $scope.user = data.user;
+            post.comments.push(data.comment);
+            post.text_comment = '';
             $scope.loader = false;
         });
     }
@@ -410,6 +423,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             uploader.queue = [];
             $scope.text_post = '';
             personalService.getUser({id: $stateParams.id}).success(function (data) {
+                $scope.loader = false;
                 $rootScope.user = $scope.user = data.user;
                 $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){

@@ -34,7 +34,7 @@
 
         <div class="horizontal_line_dashed"></div>
 
-        <div class="row slid__list margin-top_10">
+        <div class="row margin-top_10">
             <div class="col-sm-2 padding-left_0">
 
                 <div ng-repeat="children in section">
@@ -80,8 +80,8 @@
                     <div class="row slid__comment margin-top_20" ng-repeat="comment in event.event_comments">
                         <div class="col-sm-12 padding-left_0">
 
-                            <div class="user__avatar left">
-                                <div class="user__avatar-mini-2"><img src="[[ comment.user.avatar ]]"></div>
+                            <div class="user__avatar_event left" >
+                                <div class="user__avatar-mini-2" style="background-color: [[ comment.user.color ]]"><img ng-show="comment.user.avatar" src="[[ comment.user.avatar ]]"></div>
                             </div>
 
                             <div>

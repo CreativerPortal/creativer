@@ -68,6 +68,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             reloadOnSearch: true
         });
         $stateProvider.state('products', {
+            url:'/products/:id_products',
+            templateUrl: '/products_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('products_page', {
             url:'/products/:id_products/:page',
             templateUrl: '/products_tmp',
             controller: 'catalogCtrl',
@@ -83,6 +89,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             reloadOnSearch: true
         });
         $stateProvider.state('services', {
+            url: '/services/:id_services',
+            templateUrl: '/services_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('services_page', {
             url: '/services/:id_services/:page',
             templateUrl: '/services_tmp',
             controller: 'catalogCtrl',
@@ -263,32 +275,33 @@ app.directive('editPain', function () {
         link: function(scope, element, attrs){
             element.on("click", function(el){
                var parent = el.target.parentNode.querySelector('.text_info');
-               parent.removeAttribute('disabled');
-               parent.focus();
-               chat.init();
-               parent.onkeypress = function(e){
-                    if(e.keyCode==13){ //enter && shift
+                if(parent){
+                    parent.removeAttribute('disabled');
+                    parent.focus();
+                    chat.init();
+                    parent.onkeypress = function(e){
+                        if(e.keyCode==13){ //enter && shift
 
-                        e.preventDefault(); //Prevent default browser behavior
-                        if (window.getSelection) {
-                            var selection = window.getSelection(),
-                                range = selection.getRangeAt(0),
-                                br = document.createTextNode("\t\n"),
-                                textNode = document.createTextNode("\t"); //Passing " " directly will not end up being shown correctly
-                            range.deleteContents();//required or not?
-                            range.insertNode(br);
-                            range.collapse(false);
-                            range.insertNode(textNode);
-                            range.selectNodeContents(textNode);
+                            e.preventDefault(); //Prevent default browser behavior
+                            if (window.getSelection) {
+                                var selection = window.getSelection(),
+                                    range = selection.getRangeAt(0),
+                                    br = document.createTextNode("\t\n"),
+                                    textNode = document.createTextNode("\t"); //Passing " " directly will not end up being shown correctly
+                                range.deleteContents();//required or not?
+                                range.insertNode(br);
+                                range.collapse(false);
+                                range.insertNode(textNode);
+                                range.selectNodeContents(textNode);
 
-                            selection.removeAllRanges();
-                            selection.addRange(range);
-                            return false;
+                                selection.removeAllRanges();
+                                selection.addRange(range);
+                                return false;
+                            }
+
                         }
-
-                    }
-                };
-
+                    };
+                }
             // TODO ??????? contentEditable ??? ?????? ??????
             })
         }

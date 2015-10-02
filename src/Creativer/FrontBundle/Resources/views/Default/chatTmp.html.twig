@@ -25,7 +25,7 @@
             {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
         </div>
 
-        <div class="col-sm-7 album">
+        <div class="col-sm-7">
 
             <div class="row">
                 <div class="col-sm-2">
@@ -43,7 +43,7 @@
                 </div>
             </div>
 
-            <div class="row horizontal_line margin-top_5">
+            <div class="row margin-top_5">
                 <div class="col-sm-offset-2 col-sm-3">
                     {#<span class="glyphicon glyphicon-picture text-blue margin-left_5"></span>#}
                     {#<span class="glyphicon glyphicon-paperclip text-blue margin-left_10"></span>#}
@@ -52,8 +52,9 @@
                 <div class="col-sm-3 col-sm-offset-2 padding-left_0">
                     <button class="true fs_0-9" ng-click="send_message(text_message)" ng-disabled="!user && !companion">Отправить</button>
                 </div>
-
             </div>
+
+            <div class="horizontal_line"></div>
 
             <div class="row margin-top_15" ng-class="{'old__messages': !msg.reviewed && (msg.sender != user.id) && focus, 'new__messages': !msg.reviewed  && (msg.sender != user.id) && !focus}" ng-repeat="msg in $root.messages_history">
                 <span ng-if="focus && !msg.reviewed" ng-init="review(msg)"></span>

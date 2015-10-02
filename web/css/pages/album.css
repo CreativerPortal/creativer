@@ -253,25 +253,25 @@ input {
     padding-left: 10px;
 }
 
+.album textarea {
+    background-color: #eae9e3;
+    border: 1px dashed #827972;
+    width: 535px;
+    overflow: hidden;
+    word-wrap: break-word;
+    resize: none;
+    height: 46px;
+}
+
 .description_album{
     margin-top: 15px;
     height: 65px;
-    width: 530px;
+    width: 535px;
     padding-left: 10px;
 }
 
 .comment .slid__comment__line:last-child{
     display: none;
-}
-
-textarea {
-    background-color: #eae9e3;
-    border: 1px dashed #827972;
-    width: 455px;
-    overflow: hidden;
-    word-wrap: break-word;
-    resize: none;
-    height: 46px;
 }
 
 .background__viewer{

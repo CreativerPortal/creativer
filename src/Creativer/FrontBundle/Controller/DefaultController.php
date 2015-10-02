@@ -75,8 +75,14 @@ class DefaultController extends Controller
                     'errors' => $errors, 'img' => $request->get('form')['img']));
             }else{
                 $im = new ImageServices($this->container);
-                $img = $im->base64_to_jpeg($request->get('form')['img']);
+                if($request->get('form')['img'] != "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAHgAAAB4CAYAAAA5ZDbSAAABp0lEQVR4Xu3TAREAAAiDQNe/tD3+sAHgdh1tYDRdcFdg/AkKXGDcAI7XgguMG8DxWnCBcQM4XgsuMG4Ax2vBBcYN4HgtuMC4ARyvBRcYN4DjteAC4wZwvBZcYNwAjteCC4wbwPFacIFxAzheCy4wbgDHa8EFxg3geC24wLgBHK8FFxg3gOO14ALjBnC8Flxg3ACO14ILjBvA8VpwgXEDOF4LLjBuAMdrwQXGDeB4LbjAuAEcrwUXGDeA47XgAuMGcLwWXGDcAI7XgguMG8DxWnCBcQM4XgsuMG4Ax2vBBcYN4HgtuMC4ARyvBRcYN4DjteAC4wZwvBZcYNwAjteCC4wbwPFacIFxAzheCy4wbgDHa8EFxg3geC24wLgBHK8FFxg3gOO14ALjBnC8Flxg3ACO14ILjBvA8VpwgXEDOF4LLjBuAMdrwQXGDeB4LbjAuAEcrwUXGDeA47XgAuMGcLwWXGDcAI7XgguMG8DxWnCBcQM4XgsuMG4Ax2vBBcYN4HgtuMC4ARyvBRcYN4DjteAC4wZwvBZcYNwAjteCC4wbwPFaMB74AS1+AHmsOhpiAAAAAElFTkSuQmCC"){
+                    $img = $im->base64_to_jpeg($request->get('form')['img']);
+                }else{
+                    $img = '';
+                }
             }
+
+            $color = sprintf( '#%02X%02X%02X', rand(0, 255), rand(0, 255), rand(0, 255) );
 
             $factory = $this->get('security.encoder_factory');
             $user = new User();
@@ -90,6 +96,7 @@ class DefaultController extends Controller
             $user->setPassword($password);
             $user->setRealPassword($request->get('form')['password']['first']);
             $user->setWall($wall);
+            $user->setColor($color);
             $wall->setUser($user);
 
 
@@ -553,6 +560,7 @@ class DefaultController extends Controller
             $em->flush();
         }
 
+
         //die(\Doctrine\Common\Util\Debug::dump($post_baraholka));
         $post_id = $post_baraholka->getId();
 
@@ -731,7 +739,11 @@ class DefaultController extends Controller
                     return $response;
                 }
             } else {
-                $response = new Respon("Error UploadObject", 500);
+                $em->persist($PostBaraholka);
+                $em->flush();
+                $id = $PostBaraholka->getId();
+                $array = array('id' => $id);
+                $response = new Respon(json_encode($array), 200);
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
             }
@@ -1094,6 +1106,7 @@ class DefaultController extends Controller
                 ->setSubject('Восстановление пароля')
                 ->setFrom(array('info@creativer.by' => 'Creativer'))
                 ->setTo($email)
+                ->setContentType("text/html")
                 ->setBody($this->renderView('CreativerFrontBundle:Default:letter_forgot_password.html.twig', array('real_password' => $real_password)));
             $mailer->send($message);
 

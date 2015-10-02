@@ -38,7 +38,7 @@
                     </div>
 
                     <label class="" for="uploadImg" style="font-weight: normal;" ng-disabled="uploader.isUploading">
-                        <div ng-disabled="uploader.isUploading" class="btn button_favorites early-message text-center"><span>Выбрать</span></div>
+                        <div ng-disabled="uploader.isUploading" class="button_favorites early-message text-center"><span>Выбрать</span></div>
                     </label>
 
                     <input type="file" nv-file-select="" uploader="uploader" multiple id="uploadImg"  class="hidden" ng-disabled="uploader.isUploading" />
@@ -50,7 +50,7 @@
                         {#</li>#}
                     {#</ul>#}
 
-                    <button type="button" class="btn button_message early-message text-center text-white right pointer" ng-click="uploader.uploadAll()" ng-disabled="uploader.isUploading">
+                    <button type="button" class="pointer button_message early-message text-center text-white right pointer" ng-click="uploader.uploadAll()" ng-disabled="uploader.isUploading">
                         <span>Продолжить</span>
                     </button>
 

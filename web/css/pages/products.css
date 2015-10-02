@@ -257,6 +257,7 @@ body{
     position: relative;
     color: inherit;
     cursor: pointer;
+    margin: auto;
 }
 
 .image_product{
@@ -498,14 +499,4 @@ body{
 .viewer__image{
     max-width: 1000px;
     max-height: 830px;
-}
-
-textarea {
-    background-color: #eae9e3;
-    border: 1px dashed #827972;
-    width: 455px;
-    overflow: hidden;
-    word-wrap: break-word;
-    resize: none;
-    height: 46px;
 }

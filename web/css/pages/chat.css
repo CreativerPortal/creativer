@@ -76,7 +76,7 @@ body{
 }
 
 
-.message-textareas textarea{
+.message-textareas .message__field{
     margin-left: -12px;
     border-color: #b0aea8!important;
 }
@@ -92,12 +92,12 @@ body{
     height: 33px;
 }
 
-.message-textareas textarea:focus{
+.message-textareas .message__field:focus{
     outline: 1px solid #b29f81;
     border: 1px solid #b29f81!important;
 }
 
-.message-textareas textarea:focus~.tail_message{
+.message-textareas .message__field:focus~.tail_message{
     background-position: -24px 0;
     width: 24px;
     height: 33px;

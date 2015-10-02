@@ -63,8 +63,8 @@
             <div class="row">
                 <div class="col-sm-4 padding-left_0">
                     Сортировать по:
-                    <select class="slid__order-by" ng-model="$root.filterCondition">
-                        <option ng-selected="[[ filter.value == $root.filterCondition ]]"
+                    <select class="slid__order-by" ng-model="$root.filterConditionServices">
+                        <option ng-selected="[[ filter.value == $root.filterConditionServices ]]"
                                 ng-repeat="filter in filters"
                                 value="[[ filter.value ]]">
                             {{operator.displayName}}
@@ -80,17 +80,17 @@
                     <span></span>
                 </div>#}
 
-                <div class="col-sm-3 col-sm-offset-2 slid__pagination fiveMinuts" ng-show="pages.length > 1">
-                    <a href="#/services/[[ service.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                <div class="col-sm-3 col-sm-offset-2 slid__pagination fiveMinuts" ng-show="pages_services.length > 1">
+                    <a href="#/services/[[ service.id ]]/[[ page ]]" ng-repeat="page in pages_services" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>
 
             <div class="row slid__card slid__card__first">
 
-                <div class="col-sm-6" ng-repeat="item in items.items" ng-init="count = item.images.length">
+                <div class="col-sm-6" ng-repeat="item in items_services.items" ng-init="count = item.images.length">
                     <div class="col-sm-6  padding-left_0 padding-right_5 slid__card__img margin-top_25" ng-init="count = item.images.length">
                         <div class="col-sm-12 padding-left_0 padding-right_0 overflow-hidden">
-                            <a animation-image href="#/album/[[ item.id ]]/[[ item.images[random].name ]]/[[ random ]]" img="/home/album/thums/[[ item.images[random].path ]][[ item.images[random].name ]]" ng-init="random = math.floor(math.random() * count);" style='background:url("/home/album/thums/[[ item.images[random].path ]][[ item.images[random].name ]]") top left no-repeat;' class="container_image_product" >                            </a>
+                            <a animation-image href="#/album/[[ item.id ]]" img="/home/album/thums/[[ item.images[random].path ]][[ item.images[random].name ]]" ng-init="random = math.floor(math.random() * count);" style='background:url("/home/album/thums/[[ item.images[random].path ]][[ item.images[random].name ]]") top left no-repeat;' class="container_image_services" >                            </a>
                             <!--<span class="slid__card__price">[[ item.images[random].price ]] руб.</span>-->
                         </div>
                     </div>
@@ -101,15 +101,15 @@
                     </div>
                 </div>
 
-                <div ng-show="items.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">ПУСТО</div>
+                <div ng-show="items_services.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">ПУСТО</div>
 
 
             </div>
 
 
             <div class="row">
-                <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages.length > 1">
-                    <a href="#/services/[[ service.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages_services.length > 1">
+                    <a href="#/services/[[ service.id ]]/[[ page ]]" ng-repeat="page in pages_services" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>
 
