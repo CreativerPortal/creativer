@@ -83,10 +83,10 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $stateProvider.state('followers', {
-            url: '/followers/:id',
+        $stateProvider.state('following', {
+            url: '/following/:id',
             templateUrl: function ($stateParams){
-                var url = "/followers_tmp/" + $stateParams.id;
+                var url = "/following_tmp/" + $stateParams.id;
                 return url;
             },
             controller: 'personCtrl',
@@ -244,6 +244,17 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         });
     }]);
 
+app.directive('scrollbar', function($timeout) {
+    return {
+        link: function(scope, element, attr) {
+            $timeout(function() {
+                $(".events__curtain__wrapper").mCustomScrollbar({
+                    scrollbarPosition: "inside"
+                });
+            });
+        }
+    }
+});
 
 app.directive('editPain', function () {
     return{

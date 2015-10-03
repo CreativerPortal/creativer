@@ -12,8 +12,8 @@
         <div class="col-sm-7 album" ng-init="res = user.albums[id].images.length/3">
 
             <div class="padding-bottom_30">
-                <a href="#/[[ favorit.id ]]" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
-                    <div class="user__avatar-favorit">
+                <a href="#/[[ favorit.id ]]" ng-click="removeUser()" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
+                    <div class="user__avatar-favorit" style="background-color: [[ favorit.color ]]">
                         <img ng-src="[[ favorit.avatar ]]">
                     </div>
                     <div class="text-center fs_0-9 lobster">[[ favorit.username ]]</div>

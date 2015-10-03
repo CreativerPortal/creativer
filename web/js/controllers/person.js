@@ -83,6 +83,8 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }
 
 
+    $scope.height = $window.innerHeight-30;
+
     chat.init();
     socket.emit("new message",{id_user: $scope.id_user})
     $window.onfocus = function(){

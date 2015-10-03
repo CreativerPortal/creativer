@@ -595,3 +595,8 @@ p[contenteditable]{
 ::-moz-selection {
     background: #ffb5b3; /* Firefox */
 }
+
+.mCustomScrollBox:focus{
+    border: none;
+    outline: none;
+}

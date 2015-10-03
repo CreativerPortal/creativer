@@ -348,7 +348,7 @@
                 <span class="text-white fiveMinuts pointer">События</span>
 
                 <div class="events__curtain" ng-if="events_attend.length">
-                    <div class="events__curtain__wrapper">
+                    <div class="events__curtain__wrapper" scrollbar>
                         <a href="#/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in events_attend">
                                 <div class="col-sm-4 text-right padding-top_10">
                                     <div class="event__avatar-mini right">
@@ -382,7 +382,7 @@
                 <div class="messages__curtain">
                     <div class="messages__curtain-angle"></div>
                     <div class="messages__curtain-body">
-                        <a href="#/messages" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10">Перейти в сообщения</a>
+                        <a href="#/messages" ng-click="removeUser()" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10">Перейти в сообщения</a>
                         <div class="row col-sm-10 col-sm-offset-1 horizontal_line_messages margin-bottom_5"></div>
                         <div class="text-gray lobster" ng-show="!$root.new_messages[0]"><h4>пусто</h4></div>
                         <div class="row margin-top_10" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
@@ -525,20 +525,12 @@
     <script src="/js/apps/app.js"></script>
     <script src="/js/elastic.js"></script>
 
-    <script>
-        (function($){
-            $(window).load(function(){
-                $(".events__curtain__wrapper").mCustomScrollbar({
-                    scrollbarPosition: "inside"
-                });
-            });
-        })(jQuery);
-    </script>
-<style>
-    .mCSB_inside>.mCSB_container {
-        margin-right: 0px;
-    }
-</style>
+
+    <style>
+        .mCSB_inside>.mCSB_container {
+            margin-right: 0px;
+        }
+    </style>
 
 </div>
 <footer class="footer wrapper">

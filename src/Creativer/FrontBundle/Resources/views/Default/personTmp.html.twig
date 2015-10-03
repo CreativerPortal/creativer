@@ -104,7 +104,7 @@
                 <div class="row margin-top_10 one_post" ng-init="post.remove_post = false" ng-repeat="(key, post) in user.wall.posts">
 
                     <div class="col-sm-2">
-                        <a href="#/[[ post.user.id ]]" ng-if="post.user" class="user__avatar-mini" style="background-color: [[ post.user.color ]]">
+                        <a href="#/[[ post.user.id ]]" ng-click="removeUser()" ng-if="post.user" class="user__avatar-mini" style="background-color: [[ post.user.color ]]">
                             <img ng-if="post.user.avatar" ng-src="[[ post.user.avatar ]]">
                         </a>
                         <a href="#/[[ user.id ]]" ng-if="!post.user" class="user__avatar-mini" style="background-color: [[ user.color ]]">
@@ -181,7 +181,7 @@
                             </a>
                         </div>
                         <div class="col-sm-10 padding-left_0">
-                            <a href="#/[[ comment.user.id ]]" class="col-sm-6 user__text_bold" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
+                            <a href="#/[[ comment.user.id ]]" ng-click="removeUser()" class="col-sm-6 user__text_bold" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
                             <a href="#/[[ user.id ]]" class="col-sm-6 user__text_bold" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</a>
                             <div ng-if="((user.id == id_user) || (comment.user.id == id_user)) && !comment.remove_comment"  class="col-sm-6 text-right edit_comment">
                                 <span ng-click="comment.remove_comment = true">

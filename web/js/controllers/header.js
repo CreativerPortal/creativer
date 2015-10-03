@@ -19,6 +19,10 @@ angular.module('app.ctr.header', ['service.header'])
         }
     }
 
+    $rootScope.removeUser = function(){
+        $rootScope.user = null;
+    }
+
 }]);
 
 
