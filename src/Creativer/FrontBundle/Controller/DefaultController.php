@@ -485,7 +485,7 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:eventTmp.html.twig', array());
     }
 
-    public function createEventTmpAction(){
+    public function createEventTmpAction($date){
 
         $user = $this->get('security.context')->getToken()->getUser();
 

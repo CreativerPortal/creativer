@@ -65,7 +65,7 @@ body{
     background-image: url("/var/www/creativer/web/img/vertical_line.png");
     background-repeat: no-repeat;
     background-position: right;
-    width: 371px;
+    width: 390px;
 }
 
 .filters{
@@ -430,12 +430,13 @@ body{
     cursor: pointer;
 }
 
-.upload__element{
+.upload__element_person{
     display: inline-block;
     position: relative;
+    margin-top: -7px;
 }
 
-.upload__element:hover .close_image{
+.upload__element_person:hover .close_image{
     display: block;
 }
 
@@ -552,4 +553,8 @@ img-crop canvas {
 
 .background__viewer__link__next:hover .close_img {
     opacity: 1;
+}
+
+.progress_person{
+    height: 20px!important;
 }

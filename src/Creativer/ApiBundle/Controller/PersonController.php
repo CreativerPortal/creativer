@@ -837,13 +837,15 @@ class PersonController extends Controller
         $search_people = $this->get('request')->request->get('people_search');
 
         $users = $this->container->get('fos_elastica.finder.app.user');
-
-
         $keywordQuery = new \Elastica\Query\QueryString();
-        $keywordQuery->setQuery("username:".$search_people." OR lastname:".$search_people);
+
+        if($search_people == 'undefined'){
+            $keywordQuery->setQuery("id:"."*");
+        }else{
+            $keywordQuery->setQuery("username:".$search_people." OR lastname:".$search_people);
+        }
 
         $people = $users->find($keywordQuery);
-
         $people = array('people' => $people);
 
         return $people;

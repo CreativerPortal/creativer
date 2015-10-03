@@ -29,7 +29,7 @@
 
             <div class="row">
                 <div class="col-sm-2">
-                    <div class="user__avatar-mini"><img ng-src="[[ user.avatar ]]"></div>
+                    <div class="user__avatar-mini" style="background-color: [[ user.color ]]"><img ng-src="[[ user.avatar ]]"></div>
                 </div>
 
                 <div class="col-sm-7 message-textareas padding-right_0">
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="col-sm-2 ">
-                    <a class="user__avatar-mini left" href="#/[[ companion.id ]]"><img ng-src="[[ companion.avatar ]]"></a>
+                    <a class="user__avatar-mini left" href="#/[[ companion.id ]]" style="background-color: [[ companion.color ]]"><img ng-src="[[ companion.avatar ]]"></a>
                 </div>
             </div>
 
@@ -59,10 +59,10 @@
             <div class="row margin-top_15" ng-class="{'old__messages': !msg.reviewed && (msg.sender != user.id) && focus, 'new__messages': !msg.reviewed  && (msg.sender != user.id) && !focus}" ng-repeat="msg in $root.messages_history">
                 <span ng-if="focus && !msg.reviewed" ng-init="review(msg)"></span>
                 <div class="col-sm-2">
-                    <a class="user__avatar-mini block" ng-if="user.id == msg.sender" href="#/[[ user.id ]]">
+                    <a style="background-color: [[ user.color ]]" class="user__avatar-mini block" ng-if="user.id == msg.sender" href="#/[[ user.id ]]">
                         <img ng-src="[[ user.avatar ]]">
                     </a>
-                    <a class="user__avatar-mini block" ng-if="companion.id == msg.sender" href="#/[[ companion.id ]]">
+                    <a style="background-color: [[ companion.color ]]" class="user__avatar-mini block" ng-if="companion.id == msg.sender" href="#/[[ companion.id ]]">
                         <img  ng-src="[[ companion.avatar ]]">
                     </a>
                 </div>

@@ -109,7 +109,7 @@ class Events
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
-     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event", cascade={"remove"})
+     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event")
      * @JMS\Groups({"getEvent"})
      **/
     private $event_comments;

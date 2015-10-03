@@ -11,6 +11,13 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                 angular.element('#new_event_2').text(data[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
             }
         })
+    }else if($stateParams.id_products || $stateParams.id_services){
+        if($rootScope.news_events[0].description != undefined){
+            angular.element('#new_event_1').text($rootScope.news_events[0].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
+        }
+        if($rootScope.news_events[1].description != undefined){
+            angular.element('#new_event_2').text($rootScope.news_events[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
+        }
     }
 
     if(!$rootScope.my_user){
@@ -60,6 +67,9 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         if(!$rootScope.filterCondition){
             $rootScope.filterCondition = 'likes';
         }
+        if(!$rootScope.filterConditionServices){
+            $rootScope.filterConditionServices = 'likes';
+        }
 
 
         $rootScope.$watch('service', function() {
@@ -93,7 +103,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                 catalogService.getCatalogServiceAlbums({
                     id: $stateParams.id_services,
                     page: $stateParams.page,
-                    filter: $rootScope.filterCondition
+                    filter: $rootScope.filterConditionServices
                 }).success(function (data) {
                     $rootScope.items_services = $scope.items_services = data.services;
 
@@ -160,6 +170,9 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
+    $scope.closeImg = function(){
+        $rootScope.overflow = false;
+    }
 
     $scope.like = function(id,image_key){
         albumService.like({image_id:id}).success(function (data) {

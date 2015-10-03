@@ -63,7 +63,7 @@ io.on('connection', function(socket){
                         }
                     }
 
-                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                         connection.query(queryText, companion, function(err, rows) {
                             for(var row_key in result){
                                 for(var r_key in  rows){
@@ -71,6 +71,7 @@ io.on('connection', function(socket){
                                         result[row_key].username = rows[r_key].username;
                                         result[row_key].lastname = rows[r_key].lastname;
                                         result[row_key].avatar = rows[r_key].avatar;
+                                        result[row_key].color = rows[r_key].color;
                                     }
                                 }
                             }
@@ -97,7 +98,7 @@ io.on('connection', function(socket){
                     users.push(id_users[0]);
                     users.push(id_users[1]);
 
-                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
                     connection.query(queryText, users, function(err, rows) {
                         for(var key in rows){
                             if(rows[key].id != data.id_user){
@@ -135,7 +136,7 @@ io.on('connection', function(socket){
                     //connection.connect();
                     connection.connect(function(err){
                     });
-                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
                     connection.query(queryText, users, function(err, rows) {
                             for(var key in rows){
                                 if(rows[key].id != data.id_user){
@@ -191,13 +192,14 @@ io.on('connection', function(socket){
                     if (err) {
                     }
                     else {
-                        var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ data.sender +")";
+                        var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color FROM app_users AS u WHERE u.id IN ("+ data.sender +")";
                         connection.query(queryText, data.sender, function(err, rows) {
                             result.ops[0].other_user = rows[0].id;
                             result.ops[0].username = rows[0].username;
                             result.ops[0].lastname = rows[0].lastname;
                             result.ops[0].avatar = rows[0].avatar;
-                            for (var key in data.ids) {
+                            result.ops[0].color = rows[0].color;
+                                for (var key in data.ids) {
                                 var id = data.ids[key];
                                 for (var k in sockets[id]) {
                                     sockets[id][k].emit('message', result.ops);
@@ -253,7 +255,7 @@ io.on('connection', function(socket){
                             result[key].other_user = result[key].id_users[1];
                         }
                     }
-                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
                     connection.query(queryText, companion, function(err, rows) {
                         for(var row_key in result){
                             for(var r_key in  rows){
@@ -261,6 +263,7 @@ io.on('connection', function(socket){
                                     result[row_key].username = rows[r_key].username;
                                     result[row_key].lastname = rows[r_key].lastname;
                                     result[row_key].avatar = rows[r_key].avatar;
+                                    result[row_key].color = rows[r_key].color;
                                 }
                             }
                         }

@@ -42,9 +42,17 @@ creativer_personTmp:
     path:     /person_tmp/{id}
     defaults: { _controller: CreativerFrontBundle:Default:personTmp, id: null }
     methods:  [GET]
+creativer_showPhotoTmp:
+    path:     /show_photo_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:showPhotoTmp }
+    methods:  [GET]
 creativer_showPostPhotoTmp:
     path:     /show_post_photo_tmp
     defaults: { _controller: CreativerFrontBundle:Default:showPostPhotoTmp }
+    methods:  [GET]
+creativer_showProductPhotoTmp:
+    path:     /show_product_photo_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:showProductPhotoTmp }
     methods:  [GET]
 creativer_baraholkaTmp:
     path:     /baraholka_tmp
@@ -59,8 +67,8 @@ creativer_eventTmp:
     defaults: { _controller: CreativerFrontBundle:Default:eventTmp }
     methods:  [GET]
 creativer_create_eventTmp:
-    path:     /create_event_tmp
-    defaults: { _controller: CreativerFrontBundle:Default:createEventTmp }
+    path:     /create_event_tmp/{date}
+    defaults: { _controller: CreativerFrontBundle:Default:createEventTmp, date: null }
     methods:  [GET]
 creativer_edit_eventTmp:
     path:     /edit_event_tmp

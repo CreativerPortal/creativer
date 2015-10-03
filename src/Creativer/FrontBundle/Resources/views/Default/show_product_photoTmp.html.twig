@@ -36,14 +36,16 @@
                 <div class="col-sm-10 text-left" >
                     <div class="row col-sm-12" ng-repeat="comment in items.items[key_img][0].image_comments">
                         <div class="col-sm-2">
-                            <div class="user__avatar-super-mini">
-                                <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
-                                <img ng-if="!comment.user" ng-src="[[ user.avatar ]]">
-                            </div>
+                            <a href="#/[[ comment.user.id ]]" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
+                                <img  ng-src="[[ comment.user.avatar ]]">
+                            </a>
+                            <a href="#/[[ user.id ]]" class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
+                                <img ng-src="[[ user.avatar ]]">
+                            </a>
                         </div>
                         <div class="col-sm-10 padding-left_10">
-                            <div class="row col-sm-12 user__text_bold text-left" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</div>
-                            <div class="row col-sm-12 user__text_bold text-left" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</div>
+                            <div class="row col-sm-12 user__text_bold text-left" ng-if="comment.user"><a class="text-gray" href="#/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
+                            <div class="row col-sm-12 user__text_bold text-left" ng-if="!comment.user"><a class="text-gray" href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></div>
                             <div class="row col-sm-12"><p class="user__text left">[[ comment.text ]]</p></div>
                             <div class="row col-sm-12 text-left"><time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time></div>
                         </div>

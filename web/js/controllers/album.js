@@ -192,6 +192,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
         albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
             $rootScope.image_previews = [];
         });
+        $rootScope.overflow = false;
     }
 
     $scope.deleteImage = function(image_id,key_img,key_album){

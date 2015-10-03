@@ -16,7 +16,7 @@ angular.module('service.chat', ['service.socket'])
             $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
             $rootScope.ids = $rootScope.ids.sort();
             if(data.reviewed == false && ($stateParams.id_user_chat == data.sender || $stateParams.id_user_chat == data.receiver)){
-                $rootScope.messages_history.unshift({sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar});
+                $rootScope.messages_history.unshift({sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar, color: data.color});
 
                 if($rootScope.id_user == data.sender){
                     $rootScope.text_message = null;

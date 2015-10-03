@@ -8,24 +8,6 @@
                     <div class="col-sm-3">
                         <h4 class="lobster text-gray margin-left_15 left">Сообщения</h4>
                     </div>
-
-                    {#<div class="col-sm-3 col-sm-offset-6">
-                        <label class="slid__all__folder button_gray_message right text-center fs_0-9 pointer" for="all_folders">
-                            <span class="glyphicon glyphicon-folder-open"></span>
-                            <span>&nbsp папки &nbsp</span>
-                            <span class="glyphicon glyphicon-menu-down"></span>
-                        </label>
-                        <input type="checkbox" class="folders__main" id="all_folders" />
-                        <div class="folders__menu__main">
-                            <div class="folders__menu__top-down"></div>
-                            <div class="folders__menu__body">
-                                <ul class="text-white folders__menu fs_1-1 padding-left_0 text-center">
-                                    <li ng-repeat="folder in user.folders">[[ folder.name ]]</li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>#}
-
                 </div>
 
             </div>
@@ -56,7 +38,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <div class="user__avatar-mini" style="margin-top: -10px;"><img ng-src="[[ message.avatar ]]" /></div>
+                        <div class="user__avatar-mini" style="margin-top: -10px; background-color: [[ message.color ]]"><img ng-src="[[ message.avatar ]]" /></div>
                     </div>
                     <div class="col-sm-9">
 

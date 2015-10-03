@@ -83,6 +83,22 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         if($stateParams.id_edit){
             $scope.$watchGroup(["city","section"], function(){
                 if($scope.section && $scope.city){
+                    $scope.myDatetimeRange = {
+                        "date": {
+                            "from": new Date(),
+                            "to": new Date(),
+                            "min": null,
+                            "max": null
+                        },
+                        "hasTimeSliders": false,
+                        "hasDatePickers": true
+                    };
+                    $scope.myDatetimeLabels = {
+                        date: {
+                            from: 'Дата начала события',
+                            to: 'Дата конца события'
+                        }
+                    };
                     eventService.getEvent({id:$stateParams.id_edit}).success(function (data) {
                         $scope.myDatetimeRange.date.from = data.start_date;
                         $scope.myDatetimeRange.date.to = data.end_date;
@@ -142,19 +158,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
 
         $scope.saveComment = function(text){
             $scope.loader = true;
-            var user = {
-                user: {
-                    username: $rootScope.username,
-                    lastname: $rootScope.lastname,
-                    avatar: $rootScope.img,
-                    color: $rootScope.color
-                },
-                text: text,
-                date: new Date()
-            }
-            $scope.event.event_comments.push(user);
             eventService.saveComment({event_id:$scope.event.id,text:text}).success(function (data) {
-                $scope.user = data.user;
+                $scope.event.event_comments.push(data);
                 $scope.text_comment = undefined;
                 $scope.loader = false;
             });
@@ -166,9 +171,10 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             });
         }
 
-        $scope.removeComment = function(key,comments,id){
-            personalService.removeComment({id: id}).success(function (data) {
-                comments.splice(key,1);
+
+        $scope.removeComment = function(id,key){
+            eventService.removeComment({id: id}).success(function (data) {
+                $scope.event.event_comments.splice(key,1);
             });
         }
 

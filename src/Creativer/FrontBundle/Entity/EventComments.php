@@ -20,6 +20,7 @@ class EventComments
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
+     * @JMS\Groups({"getEvent"})
      */
 private $id;
 
@@ -51,7 +52,7 @@ private $id;
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
-     * @ORM\ManyToOne(targetEntity="Events", inversedBy="event_comments", cascade={"remove"})
+     * @ORM\ManyToOne(targetEntity="Events", inversedBy="event_comments")
      * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
      */
     private $event;

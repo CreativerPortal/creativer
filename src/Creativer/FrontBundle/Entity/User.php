@@ -49,7 +49,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      */
     private $avatar;
 
@@ -57,7 +57,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      */
     private $color;
 

@@ -75,6 +75,11 @@
 
         </div>
 
-     {{ render(controller('CreativerFrontBundle:Default:showPhotoTmp')) }}
 
+     <div ui-view>
+     </div>
+     {#{{ render(controller('CreativerFrontBundle:Default:showPhotoTmp')) }}#}
+     <div ng-if="!key_img">
+         <span ng-init="$root.overflow = false"></span>
+     </div>
  </div>

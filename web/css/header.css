@@ -35,6 +35,12 @@ input:focus,textarea:focus,select:focus{
     top: -55px;
 }
 
+.empty_message{
+    font-size: 3em!important;
+    margin-top: 35px;
+    opacity: 0.5;
+}
+
 .header__search{
     width: 105px;
     height: 20px;

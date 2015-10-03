@@ -225,12 +225,11 @@ fos_elastica:
                         tokenizer:
                             nGram:
                                 type:     "nGram"
-                                min_gram: 2
+                                min_gram: 3
                                 max_gram: 20
                         filter:
                             snowball:
                                 type:     snowball
-                                language: [English, Russian]
                             app_ngram:
                                 type: "nGram"
                                 min_gram: 3

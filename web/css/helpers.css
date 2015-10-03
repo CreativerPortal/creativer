@@ -142,12 +142,20 @@
     padding-left: 0px!important;
 }
 
+.padding-left_1{
+    padding-left: 1px!important;
+}
+
 .padding-left_3{
     padding-left: 3px!important;
 }
 
 .padding-right_0{
     padding-right: 0px!important;
+}
+
+.padding-right_1{
+    padding-right: 1px!important;
 }
 
 .padding-right_5{
@@ -160,14 +168,6 @@
 
 .padding-right_15{
     padding-right: 15px!important;
-}
-
-.padding-top_5{
-    padding-top: 5px!important;
-}
-
-.padding-top_10{
-    padding-top: 10px!important;
 }
 
 .padding-bottom_30{

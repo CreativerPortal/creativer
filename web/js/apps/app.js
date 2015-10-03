@@ -1,29 +1,6 @@
 var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap'])
     .config(['$routeProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
-            //.state('state1.list', {
-            //    url: "/list",
-            //    templateUrl: "partials/state1.list.html",
-            //    controller: function($scope) {
-            //        $scope.items = ["A", "List", "Of", "Items"];
-            //    }
-            //})
-        //$routeProvider.when('/:id', {
-        //    templateUrl: function ($stateParams){
-        //        var url = "/person_tmp/" + $stateParams.id;
-        //        return url;
-        //    },
-        //    controller: 'personCtrl',
-        //    reloadOnSearch: true
-        //});
-        //$routeProvider.when('/:id/:key_post?/:key_post_img?', {
-        //    templateUrl: function ($stateParams){
-        //        var url = "/person_tmp/" + $stateParams.id;
-        //        return url;
-        //    },
-        //    controller: 'personCtrl',
-        //    reloadOnSearch: true
-        //});
         $urlRouterProvider.otherwise("/");
         $stateProvider.state('create_album', {
             url: '/create_album',
@@ -79,12 +56,9 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $stateProvider.state('products2', {
-            url: '/products/:id_products/:page/:url_img/:key_img',
-            templateUrl: function ($stateParams){
-                var url = "/products_tmp";
-                return url;
-            },
+        $stateProvider.state('products_page.state2', {
+            url: '/:url_img/:key_img',
+            templateUrl: '/show_product_photo_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
@@ -168,7 +142,11 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         });
         $stateProvider.state('create_event', {
             url: '/create_event',
-            templateUrl: '/create_event_tmp',
+            templateUrl: function (){
+                var date = new Date();
+                var url = "/create_event_tmp/" + date;
+                return url;
+            },
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
@@ -196,7 +174,7 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'messagesCtrl',
             reloadOnSearch: true
         });
-        $stateProvider.state('album_all', {
+        $stateProvider.state('album', {
             url: '/album/:id_album',
             templateUrl: function ($stateParams){
                 var url = "/album_tmp/" + $stateParams.id_album;
@@ -205,10 +183,10 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'albumCtrl',
             reloadOnSearch: true
         });
-        $stateProvider.state('album', {
-            url: '/album/:id_album/:url_img/:key_img',
+        $stateProvider.state('album.photo', {
+            url: '/:url_img/:key_img',
             templateUrl: function ($stateParams){
-                var url = "/album_tmp/" + $stateParams.id_album;
+                var url = "/show_photo_tmp";
                 return url;
             },
             controller: 'albumCtrl',

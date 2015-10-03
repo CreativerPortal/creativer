@@ -242,6 +242,10 @@ body{
     right: -11%;
 }
 
+.slid_create_event{
+    padding: 0px 60px;
+}
+
 .slid_create_event input {
     height: 35px;
     background-color: #eae9e3;
@@ -369,11 +373,16 @@ body{
     overflow: hidden;
     border: 3px solid #ffffff;
     border-radius: 100px;
-    margin-right: 10px
+    margin-right: 10px;
+    display: block;
 }
 
 .user__avatar {
     width: 120px;
     height: 120px;
     overflow: hidden;
+}
+
+.one_post:hover .edit_post{
+    display: block;
 }

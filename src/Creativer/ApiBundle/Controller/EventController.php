@@ -299,7 +299,7 @@ class EventController extends Controller
     /**
      * @return array
      * @Post("/v1/save_event_comment")
-     * @View()
+     * @View(serializerGroups={"getEvent"})
      */
     public function saveEventCommentAction()
     {
@@ -328,11 +328,7 @@ class EventController extends Controller
         $em->persist($comment);
         $em->flush();
 
-        $view = \FOS\RestBundle\View\View::create()
-            ->setStatusCode(200)
-            ->setFormat('json');
-
-        return $this->get('fos_rest.view_handler')->handle($view);
+        return $comment;
     }
 
     /**
@@ -479,6 +475,37 @@ class EventController extends Controller
 
 
         return $events;
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/remove_comment_event")
+     * @View()
+     */
+    public function removeCommentEventAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $comment_id = $this->get('request')->request->get('id');
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $comment = $this->getDoctrine()->getRepository('CreativerFrontBundle:EventComments')->find($comment_id);
+
+        $em->remove($comment);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
 }
