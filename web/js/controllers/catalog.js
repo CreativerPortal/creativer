@@ -170,6 +170,12 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
+    $scope.removeComment = function(album_key,key_img,id,key){
+        albumService.removeComment({id: id}).success(function (data) {
+            $scope.user.albums[album_key].images[key_img].image_comments.splice(key,1);
+        });
+    }
+
     $scope.closeImg = function(){
         $rootScope.overflow = false;
     }

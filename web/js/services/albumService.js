@@ -162,6 +162,17 @@ angular
                         data: data
                     });
                 },
+                removeComment: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_comment_album',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 mainImage: function (data) {
                     return $http({
                         method: 'POST',

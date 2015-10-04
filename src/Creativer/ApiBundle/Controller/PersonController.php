@@ -180,9 +180,7 @@ class PersonController extends Controller
         $em->persist($imageComment);
         $em->flush();
 
-        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
-
-        return array('image_comments' => $image->getImageComments());
+        return $imageComment;
     }
 
     /**
@@ -874,6 +872,37 @@ class PersonController extends Controller
 
 
         $response = new Respon('', 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/remove_comment_album")
+     * @View()
+     */
+    public function removeCommentAlbumAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $comment_id = $this->get('request')->request->get('id');
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        $comment = $this->getDoctrine()->getRepository('CreativerFrontBundle:ImageComments')->find($comment_id);
+
+        $em->remove($comment);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

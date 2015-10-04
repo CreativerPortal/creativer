@@ -367,3 +367,6 @@ input {
     max-height: 830px;
 }
 
+.comm:hover .edit_post{
+    display: block;
+}

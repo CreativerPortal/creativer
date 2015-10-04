@@ -205,20 +205,9 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
     $scope.saveImageComment = function(image,text){
         $scope.loader = true;
-        var user = {
-            user: {
-                id: 0,
-                username: $rootScope.username,
-                lastname: $rootScope.lastname,
-                avatar: $rootScope.avatar,
-                color: $rootScope.color
-            },
-            text: text,
-            date: new Date()
-        }
-        image.image_comments.push(user);
         albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
             $scope.text_comment = undefined;
+            image.image_comments.push(data);
             $scope.loader = false;
         });
     }
@@ -293,6 +282,12 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                     $scope.edit_album.images.splice(key, 1);
                 }
             }
+        });
+    }
+
+    $scope.removeComment = function(album_key,key_img,id,key){
+        albumService.removeComment({id: id}).success(function (data) {
+            $scope.user.albums[album_key].images[key_img].image_comments.splice(key,1);
         });
     }
 
