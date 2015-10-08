@@ -1,4 +1,4 @@
-var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap'])
+var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.shop', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap'])
     .config(['$routeProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
         $urlRouterProvider.otherwise("/");
@@ -174,6 +174,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'messagesCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('create_shop', {
+            url: '/create_shop',
+            templateUrl: '/create_shop_tmp',
+            controller: 'shopCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('album', {
             url: '/album/:id_album',
             templateUrl: function ($stateParams){
@@ -210,6 +216,7 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'personCtrl',
             reloadOnSearch: true
         });
+
 
         $httpProvider.interceptors.push(function($q, $injector) {
             return {

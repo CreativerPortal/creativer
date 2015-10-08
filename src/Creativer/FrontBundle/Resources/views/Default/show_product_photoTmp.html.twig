@@ -34,7 +34,7 @@
             <div class="row margin-top_10 wrapper__comment">
 
                 <div class="col-sm-10 text-left" >
-                    <div class="row col-sm-12 padding-right_0" ng-repeat="comment in items.items[key_img][0].image_comments">
+                    <div class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img][0].image_comments">
                         <div class="col-sm-2">
                             <a href="#/[[ comment.user.id ]]" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
@@ -55,7 +55,7 @@
                                     </div>
                                     <div ng-if="comment.remove_comment == true" class="col-sm-12 padding-right_0 text-right">
                                         Удалить ?
-                                        <span class="text-blue pointer" ng-click="removeComment(album_key,key_img,comment.id,key)">Да</span> |
+                                        <span class="text-blue pointer" ng-click="removeComment(key_img,comment.id,key)">Да</span> |
                                         <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                                     </div>
                                 </div>

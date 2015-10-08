@@ -82,6 +82,10 @@ creativer_editFleamarketpostingTmp:
     path:     /edit_fleamarketposting_tmp
     defaults: { _controller: CreativerFrontBundle:Default:editFleamarketpostingTmp }
     methods:  [GET]
+creativer_create_shopTmp:
+    path:     /create_shop_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:createShopTmp }
+    methods:  [GET]
 creativer_viewforumTmp:
     path:     /viewforum_tmp
     defaults: { _controller: CreativerFrontBundle:Default:viewforumTmp }
@@ -129,6 +133,10 @@ creativer_front_followersTmp:
 creativer_front_upload_album:
     path:     /upload_album
     defaults: { _controller: CreativerFrontBundle:Default:uploadAlbum }
+    methods:  [POST]
+creativer_front_upload_shop:
+    path:     /upload_shop
+    defaults: { _controller: CreativerFrontBundle:Default:uploadShop }
     methods:  [POST]
 creativer_front_upload_edit_album:
     path:     /upload_edit_album

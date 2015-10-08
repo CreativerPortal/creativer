@@ -170,9 +170,9 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
-    $scope.removeComment = function(album_key,key_img,id,key){
+    $scope.removeComment = function(key_img,id,key){
         albumService.removeComment({id: id}).success(function (data) {
-            $scope.user.albums[album_key].images[key_img].image_comments.splice(key,1);
+            $scope.items.items[key_img][0].image_comments.splice(key,1);
         });
     }
 
@@ -188,19 +188,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     }
 
     $scope.saveImageComment = function(image,text){
-        $scope.loader = true;
-        var user = {
-            user: {
-                id: 0,
-                username: $rootScope.username,
-                lastname: $rootScope.lastname,
-                avatar: $rootScope.avatar
-            },
-            text: text,
-            date: new Date()
-        }
-        image.image_comments.push(user);
         albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
+            image.image_comments.push(data);
             $scope.text_comment = undefined;
             $scope.loader = false;
         });

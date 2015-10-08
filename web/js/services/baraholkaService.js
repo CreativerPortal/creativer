@@ -198,7 +198,19 @@ angular
                         },
                         data: data
                     });
-                }
+                },
+
+                removeComment: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_comment_baraholka',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
 
             };
         }]);

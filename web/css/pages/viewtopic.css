@@ -162,7 +162,7 @@ textarea {
 }
 
 .user__avatar__viewtopic{
-    width: 60px;
+    width: 78px;
 }
 
 .img-barholka{
@@ -248,4 +248,8 @@ textarea {
     z-index: 100;
     top: 37px;
     right: 0%;
+}
+
+.comm:hover .edit_post{
+    display: block;
 }

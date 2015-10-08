@@ -18,7 +18,7 @@ class ImageComments
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getAlbumComments"})
      * @JMS\Expose
      */
     private $id;
@@ -28,7 +28,7 @@ class ImageComments
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="image_comments", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"getAlbumComments", "getAlbumById", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getAlbumComments", "getAlbumById"})
      **/
     private $user;
 
@@ -47,14 +47,14 @@ class ImageComments
      * @JMS\Expose
      * @ORM\Column(name="date", type="datetime")
      * @Gedmo\Timestampable(on="create")
-     * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getAlbumComments"})
      */
     private $date;
 
     /**
      * @JMS\Expose
      * @ORM\Column(type="text")
-     * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums", "getCatalogProductAlbums"})
+     * @JMS\Groups({"getAlbumComments"})
      */
     private $text;
 

@@ -81,17 +81,35 @@
 
 
 
-                <div class="row slid__comment margin-top_20" ng-repeat="comment in post.post_comments">
-                    <div class="col-sm-11 col-sm-offset-1 padding-left_0">
+                <div class="row slid__comment margin-top_20 comm" ng-repeat="(key,comment) in post.post_comments">
+                    <div class="col-sm-11 col-sm-offset-1 padding-left_0 comm">
 
-                        <div class="user__avatar__viewtopic left">
-                            <div class="user__avatar-mini-2"><img src="[[ comment.user.avatar ]]"></div>
+                        <div class="user__avatar__viewtopic col-sm-1">
+                            <div class="user__avatar-mini-2" style="background-color: [[ comment.user.color ]]">
+                                <img ng-show="[[ comment.user.avatar ]]" src="[[ comment.user.avatar ]]">
+                            </div>
                         </div>
 
-                        <div>
-                            <div class="text-blue"><a href="#/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
+                        <div class="row col-sm-11 padd">
+                            <div class="text-blue row" ng-init="comment.remove_comment = false">
+                                <div class="col-sm-6">
+                                    <a href="#/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
+                                </div>
+                                <div class="col-sm-6 padding-right_0">
+                                    <div ng-if="id_user == comment.user.id && comment.remove_comment == false" class="right text-right edit_post">
+                                        <span ng-click="comment.remove_comment = true">
+                                            <span class="text-gray glyphicon glyphicon-remove pointer"></span>
+                                        </span>
+                                    </div>
+                                    <div ng-if="comment.remove_comment == true" class="col-sm-12 padding-right_0 text-right text-gray">
+                                        Удалить ?
+                                        <span class="text-blue pointer" ng-click="removeComment(key,comment.id)">Да</span> |
+                                        <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="margin-top_5"><p>[[ comment.text ]]</p></div>
-                            <div class="margin-left_60 text-gray fs_0-8 left"><time datetime='[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]'>[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time></div>
+                            <div class="text-gray fs_0-8 left"><time datetime='[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]'>[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time></div>
                             {# <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div> #}
                         </div>
 
