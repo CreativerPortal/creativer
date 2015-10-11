@@ -1,21 +1,21 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
-    .controller('catalogCtrl',['$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
+    .controller('catalogCtrl',['$state', '$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
     if($rootScope.news_events == undefined && ($stateParams.id_products || $stateParams.id_services)){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
-            if(data[0].description != undefined){
+            if(data.length && data[0].description != undefined){
                 angular.element('#new_event_1').text(data[0].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
             }
-            if(data[1].description != undefined){
+            if(data.length && data[1].description != undefined){
                 angular.element('#new_event_2').text(data[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
             }
         })
     }else if($stateParams.id_products || $stateParams.id_services){
-        if($rootScope.news_events[0].description != undefined){
+        if($rootScope.news_events.length && $rootScope.news_events[0].description != undefined){
             angular.element('#new_event_1').text($rootScope.news_events[0].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
         }
-        if($rootScope.news_events[1].description != undefined){
+        if($rootScope.news_events.length && $rootScope.news_events[1].description != undefined){
             angular.element('#new_event_2').text($rootScope.news_events[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
         }
     }
@@ -28,12 +28,12 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         $scope.user = $rootScope.my_user;
     }
         
-    if($stateParams.id_products && !$rootScope.products){
+    if(($stateParams.id_products && !$rootScope.products) || $state.current.name == 'products_all'){
         catalogService.getProducts({id:$stateParams.id_products}).success(function (data) {
             $rootScope.products = data.products[0].children;
             $rootScope.product = data.product[0];
         });
-    }else if($stateParams.id_services && !$rootScope.services){
+    }else if(($stateParams.id_services && !$rootScope.services) || $state.current.name == 'services_all'){
         catalogService.getServices({id:$stateParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
@@ -72,10 +72,10 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         }
 
 
+
         $rootScope.$watch('service', function() {
-            if($rootScope.service)
-            $rootScope.service.id = $stateParams.id_services;
-            if($rootScope.service && $rootScope.service.id){
+            $rootScope.service_id = $stateParams.id_services;
+            if($rootScope.service && $rootScope.service_id){
                 for(var key in $rootScope.services){
                     if($rootScope.services[key].child == true){
                         $rootScope.services[key].child = false;
@@ -85,9 +85,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         });
 
         $rootScope.$watch('product', function() {
-            if($rootScope.product)
-            $rootScope.product.id = $stateParams.id_products;
-            if($rootScope.product && $rootScope.product.id){
+            $rootScope.product_id = $stateParams.id_products;
+            if($rootScope.product && $rootScope.product_id){
                 for(var key in $rootScope.products){
                     if($rootScope.products[key].child == true){
                         $rootScope.products[key].child = false;
@@ -96,9 +95,20 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             }
         });
 
+
+        if($state.current.name == 'products_all'){
+            for(var key in $rootScope.products){
+                    $rootScope.products[key].child = false;
+            }
+        }else if($state.current.name == 'services_all'){
+            for(var key in $rootScope.services){
+                $rootScope.services[key].child  = false;
+            }
+        }
+
         $stateParams.page = $stateParams.page?$stateParams.page:1;
 
-        if((!$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services){
+        if((!$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services || $state.current.name == 'services_all'){
             $rootScope.$watch('filterConditionServices', function() {
                 catalogService.getCatalogServiceAlbums({
                     id: $stateParams.id_services,
@@ -127,7 +137,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
-        if((!$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products){
+        if((!$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products || $state.current.name == 'products_all'){
             $rootScope.page = $stateParams.page;
             $rootScope.$watch('filterCondition', function() {
                 catalogService.getCatalogProductAlbums({

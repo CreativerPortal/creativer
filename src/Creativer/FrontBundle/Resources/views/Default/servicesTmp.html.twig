@@ -6,16 +6,16 @@
             <nav class="font_service fiveMinuts">
                 <ul>
                     <li ng-repeat="service_one in $root.services">
-                        <a ng-class="{menu_action_black: service_one.id == $root.service.id}" href="#/services/[[ service_one.id ]]">[[ service_one.name ]]</a>
-                        <ul ng-show="service_one.id == $root.service.id || service_one.child == true">
-                            <span ng-if="service_one.id == $root.service.id" ng-init="service_one.child=true; $root.services.name=service_one.name;"></span>
+                        <a ng-class="{menu_action_black: service_one.id == $root.service_id}" href="#/services/[[ service_one.id ]]">[[ service_one.name ]]</a>
+                        <ul ng-show="service_one.id == $root.service_id || service_one.child == true">
+                            <span ng-if="service_one.id == $root.service_id" ng-init="service_one.child=true; $root.services.name=service_one.name;"></span>
                             <li ng-repeat="service_two in service_one.children">
-                                <a ng-class="{menu_action_black: service_two.id == $root.service.id, font_product_dropdown: service_two.children.length}" href="#/services/[[ service_two.id ]]">[[ service_two.name ]]</a>
+                                <a ng-class="{menu_action_black: service_two.id == $root.service_id, font_product_dropdown: service_two.children.length}" href="#/services/[[ service_two.id ]]">[[ service_two.name ]]</a>
                                 <ul ng-show="service_two.children.length || service_one.child == true">
-                                    <span ng-if="service_two.id == $root.service.id" ng-init="service_one.child=true; $root.services.name=service_two.name;"></span>
+                                    <span ng-if="service_two.id == $root.service_id" ng-init="service_one.child=true; $root.services.name=service_two.name;"></span>
                                     <li ng-repeat="service_three in service_two.children" >
-                                        <span ng-if="service_three.id == $root.service.id" ng-init="service_one.child=true; $root.services.name=service_three.name;"></span>
-                                        <a ng-class="{menu_action_black: service_three.id == $root.service.id}" href="#/services/[[ service_three.id ]]">[[ service_three.name ]]</a>
+                                        <span ng-if="service_three.id == $root.service_id" ng-init="service_one.child=true; $root.services.name=service_three.name;"></span>
+                                        <a ng-class="{menu_action_black: service_three.id == $root.service_id}" href="#/services/[[ service_three.id ]]">[[ service_three.name ]]</a>
                                     </li>
                                 </ul>
                             </li>
@@ -67,7 +67,6 @@
                         <option ng-selected="[[ filter.value == $root.filterConditionServices ]]"
                                 ng-repeat="filter in filters"
                                 value="[[ filter.value ]]">
-                            {{operator.displayName}}
                         </option>
                         <option value="likes" ng-selected="$root.filter == 'likes'">рейтингу</option>
                         <option value="views">кол-ву просмотров</option>

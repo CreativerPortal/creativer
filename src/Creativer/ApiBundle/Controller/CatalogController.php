@@ -121,19 +121,47 @@ class CatalogController extends Controller
         $page = $this->get('request')->request->get('page')?$this->get('request')->request->get('page'):1;
         $filter = $this->get('request')->request->get('filter')?$this->get('request')->request->get('filter'):'likes';
 
+        if(empty($id)){
+            $id = 1000;
+        }
+
         $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
 
         $i = 0;
         while(isset($items[$i])){
             if(!$items[$i]->getChildren()->isEmpty()){
                 $childs = $items[$i]->getChildren();
-
-                foreach($childs as $k => $v) {
-                    array_push($items, $childs[$k]);
+                foreach($childs as $k => $childs_two) {
+                    if(!$childs_two->getChildren()->isEmpty()){
+                        $childs_two = $items[$i]->getChildren();
+                        foreach($childs_two as $kk => $childs_three) {
+                            if(!$childs_three->getChildren()->isEmpty()) {
+                                $childs_tree = $childs_three->getChildren();
+                                foreach($childs_tree as $kkk => $childs_four) {
+                                    if(!$childs_four->getChildren()->isEmpty()) {
+                                        $childs_four = $childs_four->getChildren();
+                                        foreach($childs_four as $kkkk => $childs_five) {
+                                            array_push($items, $childs_five);
+                                        }
+                                    }else{
+                                        array_push($items, $childs_four);
+                                    }
+                                }
+                            }else{
+                                array_push($items, $childs_three);
+                            }
+                        }
+                    }else{
+                        array_push($items, $childs_two);
+                    }
                 }
             }
             $i++;
         }
+
+       //die(\Doctrine\Common\Util\Debug::dump($items));
+
+
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')
             ->createQueryBuilder('e')
@@ -201,6 +229,9 @@ class CatalogController extends Controller
         $page = $this->get('request')->request->get('page')?$this->get('request')->request->get('page'):1;
         $filter = $this->get('request')->request->get('filter')?$this->get('request')->request->get('filter'):'likes';
 
+        if(empty($id)){
+            $id = 1001;
+        }
 
         $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
 
@@ -208,9 +239,29 @@ class CatalogController extends Controller
         while(isset($items[$i])){
             if(!$items[$i]->getChildren()->isEmpty()){
                 $childs = $items[$i]->getChildren();
-
-                foreach($childs as $k => $v) {
-                    array_push($items, $childs[$k]);
+                foreach($childs as $k => $childs_two) {
+                    if(!$childs_two->getChildren()->isEmpty()){
+                        $childs_two = $items[$i]->getChildren();
+                        foreach($childs_two as $kk => $childs_three) {
+                            if(!$childs_three->getChildren()->isEmpty()) {
+                                $childs_tree = $childs_three->getChildren();
+                                foreach($childs_tree as $kkk => $childs_four) {
+                                    if(!$childs_four->getChildren()->isEmpty()) {
+                                        $childs_four = $childs_four->getChildren();
+                                        foreach($childs_four as $kkkk => $childs_five) {
+                                            array_push($items, $childs_five);
+                                        }
+                                    }else{
+                                        array_push($items, $childs_four);
+                                    }
+                                }
+                            }else{
+                                array_push($items, $childs_three);
+                            }
+                        }
+                    }else{
+                        array_push($items, $childs_two);
+                    }
                 }
             }
             $i++;

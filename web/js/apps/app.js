@@ -32,16 +32,16 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
-        $stateProvider.state('services_search', {
-            url: '/services/search/:services_search_text',
-            templateUrl: '/services_tmp',
-            controller: 'catalogCtrl',
-            reloadOnSearch: true
-        });
         $stateProvider.state('people', {
             url: '/people/search/:people_search',
             templateUrl: '/people_tmp',
             controller: 'peopleCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('products_all', {
+            url:'/products',
+            templateUrl: '/products_tmp',
+            controller: 'catalogCtrl',
             reloadOnSearch: true
         });
         $stateProvider.state('products', {
@@ -62,6 +62,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('services_all', {
+            url: '/services',
+            templateUrl: '/services_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('services', {
             url: '/services/:id_services',
             templateUrl: '/services_tmp',
@@ -70,6 +76,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         });
         $stateProvider.state('services_page', {
             url: '/services/:id_services/:page',
+            templateUrl: '/services_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('services_search', {
+            url: '/services/search/:services_search_text',
             templateUrl: '/services_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true

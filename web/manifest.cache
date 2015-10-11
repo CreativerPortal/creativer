@@ -1,0 +1,32 @@
+CACHE MANIFEST
+# Версия 1.0
+
+CACHE:
+/var/www/creativer/web/img/sprites.png
+/var/www/creativer/web/img/logo.png
+/var/www/creativer/web/img/header_background_img.png
+/var/www/creativer/web/img/search_button.png
+/var/www/creativer/web/img/main_product.png
+/var/www/creativer/web/img/main_services.png
+/var/www/creativer/web/img/side_background.png
+/var/www/creativer/web/img/sing_in.png
+/var/www/creativer/web/img/calendar_board.png
+/var/www/creativer/web/img/sprites_advert_min.png
+/var/www/creativer/web/img/sprites_button.png
+/var/www/creativer/web/img/box_mail.png
+/var/www/creativer/web/img/border_mail.png
+/var/www/creativer/web/img/to_search.png
+/var/www/creativer/web/img/menu_person.png
+/var/www/creativer/web/img/add_photo.png
+/var/www/creativer/web/img/frame.png
+/var/www/creativer/web/img/message_ico.png
+/var/www/creativer/web/img/message_button.png
+/var/www/creativer/web/img/shelf_products.png
+/var/www/creativer/web/img/fon_products_menu_buttom.png
+/var/www/creativer/web/img/fon_products_menu.png
+/var/www/creativer/web/img/shelf_services.png
+/var/www/creativer/web/img/fon_services_menu_buttom.png
+/var/www/creativer/web/img/fon_services_menu.png
+/var/www/creativer/web/img/sprites_buttoms.png
+/var/www/creativer/web/img/true_false.png
+/var/www/creativer/web/img/top_background_folders.png

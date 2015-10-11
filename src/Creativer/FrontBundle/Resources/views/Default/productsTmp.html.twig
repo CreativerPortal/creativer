@@ -5,16 +5,16 @@
             <nav class="font_product fiveMinuts">
                 <ul>
                     <li ng-repeat="product_one in $root.products">
-                        <a ng-class="{menu_action_black: product_one.id == $root.product.id}" href="#/products/[[ product_one.id ]]/1">[[ product_one.name ]]</a>
-                        <ul ng-show="product_one.id == $root.product.id || product_one.child == true">
-                            <span ng-if="product_one.id == $root.product.id" ng-init="product_one.child=true; $root.product.name=product_one.name;"></span>
+                        <a ng-class="{menu_action_black: product_one.id == $root.product_id}" href="#/products/[[ product_one.id ]]/1">[[ product_one.name ]]</a>
+                        <ul ng-show="product_one.id == $root.product_id || product_one.child == true">
+                            <span ng-if="product_one.id == $root.product_id" ng-init="product_one.child=true; $root.product.name=product_one.name;"></span>
                             <li ng-repeat="product_two in product_one.children">
-                                <a ng-class="{menu_action_black: product_two.id == $root.product.id, font_product_dropdown: product_two.children.length}" href="#/products/[[ product_two.id ]]/1">[[ product_two.name ]]</a>
+                                <a ng-class="{menu_action_black: product_two.id == $root.product_id, font_product_dropdown: product_two.children.length}" href="#/products/[[ product_two.id ]]/1">[[ product_two.name ]]</a>
                                 <ul ng-show="product_two.children.length || product_one.child == true">
-                                    <span ng-if="product_two.id == $root.product.id" ng-init="product_one.child=true; $root.product.name=product_two.name;"></span>
+                                    <span ng-if="product_two.id == $root.product_id" ng-init="product_one.child=true; $root.product.name=product_two.name;"></span>
                                     <li ng-repeat="product_three in product_two.children" >
-                                        <span ng-if="product_three.id == $root.product.id" ng-init="product_one.child=true; $root.product.name=product_three.name;"></span>
-                                        <a ng-class="{menu_action_black: product_three.id == $root.product.id}" href="#/products/[[ product_three.id ]]/1">[[ product_three.name ]]</a>
+                                        <span ng-if="product_three.id == $root.product_id" ng-init="product_one.child=true; $root.product.name=product_three.name;"></span>
+                                        <a ng-class="{menu_action_black: product_three.id == $root.product_id}" href="#/products/[[ product_three.id ]]/1">[[ product_three.name ]]</a>
                                     </li>
                                 </ul>
                             </li>
@@ -66,7 +66,6 @@
                         <option ng-selected="[[ filter.value == $root.filterCondition ]]"
                                 ng-repeat="filter in filters"
                                 value="[[ filter.value ]]">
-                            {{operator.displayName}}
                         </option>
                         <option value="likes" ng-selected="$root.filter == 'likes'">рейтингу</option>
                         <option value="views">кол-ву просмотров</option>
@@ -80,7 +79,7 @@
                 </div>#}
 
                 <div class="col-sm-3 col-sm-offset-4 slid__pagination fiveMinuts padding-left_0" ng-show="pages.length > 1">
-                    <a href="#/products/[[ product.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
 
             </div>
@@ -88,7 +87,7 @@
             <div class="row slid__card slid__card__first">
 
                 <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.items">
-                    <a href="#/products/[[ product.id ]]/[[ currentPage ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' class="container_image_product" >
+                    <a href="#/products/[[ product_id ]]/[[ currentPage ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' class="container_image_product" >
                         {#<span class="slid__card__price">[[ item.price ]] руб.</span>#}
                     </a>
                     <a href="#/album/[[ item.id_album ]]" class="slid__card__name">[[ item.name_album ]]</a>
@@ -102,7 +101,7 @@
 
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages.length > 1">
-                    <a href="#/products/[[ product.id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>
         </div>
