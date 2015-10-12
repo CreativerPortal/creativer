@@ -1,0 +1,48 @@
+    <div class="row slid">
+
+        <div class="col-sm-10 padding-left_0">
+
+
+            <table class="baraholka__table margin-top_25 padding-left_0">
+                <tr ng-repeat="post in posts">
+                    <td class="shops__table__left">
+                        <div class="col-sm-2 padding-left_0">
+                            <img ng-if="post.img" ng-src="{{ path_img_shop }}/[[ post.path ]][[ post.img ]]" />
+                            <img ng-if="!post.img" ng-src="{{ path_img_shop }}/[[ post.images_baraholka[0].path ]][[ post.images_baraholka[0].name ]]" />
+                        </div>
+                    </td>
+                    <td class="shops__table__right">
+                        <div class="col-sm-10 text-left">
+                            <p href="#/viewtopic/[[ post.id ]]" class="text-gray fs_1-2 lobster">[[ post.name ]]</p>
+                            <p class="text-gray">[[ post.description ]]</p>
+                        </div>
+                        <span class="glyphicon glyphicon-remove close_image_shop ng-isolate-scope" ng-click="removeShop(post.id); item.remove();"></span>
+                    </td>
+                </tr>
+            </table>
+
+            <div ng-if="search && !posts.length && (searchInCategory || searchInBaraholka)" class="lobster text-center text-gray fs_3-2">Ничего не найдено</div>
+
+
+        </div>
+
+        <div class="col-sm-2">
+            {% if is_granted('ROLE_USER') %}
+                <a href="#/create_shop" class="col-sm-5 advert_button margin-top_20">Добавить магазин</a>
+            {% endif %}
+
+
+            <div class="row">
+                <div class="margin-top_80">
+                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                </div>
+
+            </div>
+
+        </div>
+
+
+
+    </div>

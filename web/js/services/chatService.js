@@ -1,5 +1,5 @@
 angular.module('service.chat', ['service.socket'])
-    .factory('chat', ['$rootScope', 'socket', '$stateParams', '$timeout', function ($rootScope,socket,$stateParams,$timeout) {
+    .factory('chat', ['$state', '$rootScope', 'socket', '$stateParams', '$timeout', function ($state,$rootScope,socket,$stateParams,$timeout) {
 
         if(!$rootScope.messages_history){
             $rootScope.messages_history = [];
@@ -32,7 +32,10 @@ angular.module('service.chat', ['service.socket'])
 
         var init = function(){
             socket.on("new message", function(data) {
-                $rootScope.new_messages = data;
+                if($state.current.name != 'chat')
+                {
+                    $rootScope.new_messages = data;
+                }
             });
         }
 

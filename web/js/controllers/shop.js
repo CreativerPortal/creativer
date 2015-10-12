@@ -3,6 +3,10 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
 
         shopService.getCtegoriesShops({}).success(function (data) {
             $rootScope.data = $scope.data = data.catagories_shops;
+            for(var key in $scope.data){
+                $scope.data[key].name = $scope.data[key].parent.name+' :: '+$scope.data[key].name;
+            }
+            $rootScope.data = $scope.data;
             $scope.selectOnly1Or2 = function(item, selectedItems) {
                 if (selectedItems  !== undefined && selectedItems.length >= 20) {
                     return false;
@@ -11,6 +15,18 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
                 }
             };
         });
+
+        if($stateParams.id_category){
+            shopService.getShopsByCategory({id:$stateParams.id_category}).success(function (data) {
+                $scope.posts = data.shops;
+            });
+        }
+
+        $scope.removeShop = function(id){
+            shopService.removeShop({id:id}).success(function (data) {
+                $scope.posts[key] = data.shops;
+            });
+        }
 
         $scope.createShop = function(){
             var data = {};

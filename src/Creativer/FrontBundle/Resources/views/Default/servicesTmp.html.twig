@@ -106,6 +106,18 @@
             </div>
 
 
+            <div class="row slid__card slid__card__first">
+
+                <div class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.shops">
+                    <a href="#/shops/[[ item.id_cat ]]" class="shop-mini-header auto block">
+                        <img src="{{ path_img_shop }}[[ item.path ]][[ item.img ]]" />
+                    </a>
+                    <a href="#/shops/[[ item.id_cat ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>
+                </div>
+
+            </div>
+
+
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages_services.length > 1">
                     <a href="#/services/[[ service.id ]]/[[ page ]]" ng-repeat="page in pages_services" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>

@@ -2,19 +2,17 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$stateParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$stateParams, FileUploader, socket, chat) {
 
 
-    if($rootScope.user != undefined && $rootScope.user.id == $rootScope.id_user){
-        $scope.user = $rootScope.user;
-    }else{
-        messagesService.getUser().success(function (data) {
-            $rootScope.user = $scope.user = data.user;
-            $scope.favorit = false;
-            for(key in $scope.user.favorits_with_me){
-                if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                    $scope.favorit = true;
-                }
+
+    messagesService.getUser().success(function (data) {
+        $rootScope.user = $scope.user = data.user;
+        $scope.favorit = false;
+        for(key in $scope.user.favorits_with_me){
+            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                $scope.favorit = true;
             }
-        })
-    }
+        }
+    })
+
 
     if(!$scope.companion){
         messagesService.getUser({id:$stateParams.id_user_chat}).success(function (data) {

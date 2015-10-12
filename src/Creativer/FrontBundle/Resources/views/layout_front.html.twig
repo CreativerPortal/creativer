@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" ng-app="app" manifest="manifest.cache">
 <head>
-    <meta charset="utf-8">
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1045">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -387,7 +387,7 @@
                         <div class="text-gray lobster" ng-show="!$root.new_messages[0]"><h4>пусто</h4></div>
                         <div class="row margin-top_10" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
                             <div class="col-sm-3 col-sm-offset-1">
-                                <div class="user__avatar-mini text-left">
+                                <div class="user__avatar-mini text-left" style="background-color: [[ new_message.color ]];">
                                     <img ng-src="[[ new_message.avatar ]]" class="text-left">
                                 </div>
                             </div>

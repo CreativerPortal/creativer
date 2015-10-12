@@ -1,11 +1,11 @@
 <div ng-show="url_img" class="background__viewer">
-    <a href="#products/[[ product.id ]]/[[ page ]]/[[ items.items[key_img -1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
+    <a href="#products/[[ product_id ]]/[[ page ]]/[[ items.items[key_img -1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
         <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
     </a>
     <div class="border__viewer">
         <div class="border__viewer__wrapper">
             <div class="wrapper__background">
-                <a href="#products/[[ product.id ]]/[[ page ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]">
+                <a href="#products/[[ product_id ]]/[[ page ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]">
                     <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ items.items[key_img].path ]][[url_img]]" />
                     <img style="display: none;" src="{{ path_img_album_original }}/[[ items.items[next_key_img].path ]][[ items.items[next_key_img].name ]]" />
                     <img style="display: none;" src="{{ path_img_album_original }}/[[ items.items[key_img-1].path ]][[ items.items[key_img-1].name ]]" />
@@ -85,7 +85,7 @@
             </div>
         </div>
     </div>
-    <a href="#products/[[ product.id ]]/[[ page ]]" ng-click="closeImg()" class="right background__viewer__link__next">
+    <a href="#products/[[ product_id ]]/[[ page ]]" ng-click="closeImg()" class="right background__viewer__link__next">
         <span class="glyphicon glyphicon-remove text-white close_img"></span>
     </a>
 </div>

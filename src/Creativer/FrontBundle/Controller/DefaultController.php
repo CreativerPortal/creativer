@@ -1345,4 +1345,10 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:createShopTmp.html.twig');
     }
 
+    public function shopsTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:shopsTmp.html.twig');
+    }
+
 }

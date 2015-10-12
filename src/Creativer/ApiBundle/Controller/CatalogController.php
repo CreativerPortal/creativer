@@ -161,7 +161,7 @@ class CatalogController extends Controller
 
        //die(\Doctrine\Common\Util\Debug::dump($items));
 
-
+        $branch = 0;
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')
             ->createQueryBuilder('e')
@@ -174,8 +174,10 @@ class CatalogController extends Controller
             ->leftJoin('e.image_comments', 'comments')
 
             ->where('cat IN (:items)')
+            ->andWhere('cat.branch = :branch')
             ->groupBy('e.id')
-            ->setParameter('items', $items);
+            ->setParameter('items', $items)
+            ->setParameter('branch', $branch);
 
             if($filter == 'likes'){
                 $query->orderBy('e.likes', 'DESC');
@@ -184,8 +186,22 @@ class CatalogController extends Controller
             }elseif($filter == 'date'){
                 $query->orderBy('e.date', 'DESC');
             }
-
         $query = $query->getQuery();
+
+
+        $count = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
+            ->createQueryBuilder('s')
+            ->select('COUNT(s)')
+            ->getQuery()
+            ->getResult()[0][1];
+        $offset = rand(0, $count - 4 - 1);
+        $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
+            ->createQueryBuilder('s')
+            ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
+            ->leftJoin('s.categories', 'cat')
+            ->setMaxResults(4)
+            ->setFirstResult($offset);
+        $shops = $shops->getQuery()->getResult();
 
 
         $paginator  = $this->get('knp_paginator');
@@ -198,23 +214,12 @@ class CatalogController extends Controller
         $products = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
-            'totalCount' => $pagination->getTotalItemCount());
+            'totalCount' => $pagination->getTotalItemCount(),
+            'shops' => $shops);
 
         $products = array('products' => $products);
 
-        //die(\Doctrine\Common\Util\Debug::dump($pagination));
 
-//        $serializer = $this->container->get('jms_serializer');
-//        $products = $serializer
-//            ->serialize(
-//                $products,
-//                'json',
-//                SerializationContext::create()
-//                    ->enableMaxDepthChecks()
-//            );
-//
-//        $response = new Respon($products);
-//        $response->headers->set('Content-Type', 'application/json');
         return $products;
     }
 
@@ -283,6 +288,22 @@ class CatalogController extends Controller
 
         $query = $query->getQuery();
 
+
+        $count = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
+            ->createQueryBuilder('s')
+            ->select('COUNT(s)')
+            ->getQuery()
+            ->getResult()[0][1];
+        $offset = rand(0, $count - 4 - 1);
+        $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
+            ->createQueryBuilder('s')
+            ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
+            ->leftJoin('s.categories', 'cat')
+            ->setMaxResults(4)
+            ->setFirstResult($offset);
+        $shops = $shops->getQuery()->getResult();
+
+
         $paginator  = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
@@ -293,25 +314,13 @@ class CatalogController extends Controller
         $services = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
-            'totalCount' => $pagination->getTotalItemCount());
+            'totalCount' => $pagination->getTotalItemCount(),
+            'shops' => $shops);
 
         $services = array('services' => $services);
 
         //die(\Doctrine\Common\Util\Debug::dump($pagination));
-
-//        $serializer = $this->container->get('jms_serializer');
-//        $services = $serializer
-//            ->serialize(
-//                $services,
-//                'json',
-//                SerializationContext::create()
-//                    ->enableMaxDepthChecks()
-//            );
-//
-//        $response = new Respon($services);
-//        $response->headers->set('Content-Type', 'application/json');
         return $services;
-
     }
 
 
@@ -324,6 +333,7 @@ class CatalogController extends Controller
 
         //$categories = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('parent' => null));
 
+        $branch = 0;
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
             ->createQueryBuilder('e')
@@ -335,7 +345,10 @@ class CatalogController extends Controller
             ->leftJoin('twoChildren.children', 'treeChildren')
             ->addSelect('fourChildren')
             ->leftJoin('treeChildren.children', 'fourChildren')
-            ->where('e.parent IS NULL');
+            ->where('e.parent IS NULL')
+            ->andWhere('twoChildren.branch = :branch')
+            ->setParameter('branch', $branch);
+
         $categories = $query->getQuery()->getResult();
 
 

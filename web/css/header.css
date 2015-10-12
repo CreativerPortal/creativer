@@ -102,6 +102,9 @@ input:focus,textarea:focus,select:focus{
     border: 3px solid #eae9e3;
 }
 
+.auto{
+    margin: auto;
+}
 
 .condition{
     cursor: pointer;
@@ -163,6 +166,21 @@ input:focus,textarea:focus,select:focus{
 
 .user__avatar-mini-header img {
     width: 100%;
+}
+
+.shop-mini-header {
+    width: 70px!important;
+    height: 70px!important;
+    overflow: hidden;
+    border: 3px solid #ffffff!important;
+    border-radius: 100px;
+    -webkit-box-shadow: -3px 4px 1px 0px rgba(134,91,61,1)!important;
+    -moz-box-shadow: -3px 4px 1px 0px rgba(134,91,61,1)!important;
+    box-shadow: -3px 4px 1px 0px rgba(134,91,61,1)!important;
+}
+
+.shop-mini-header img {
+    height: 130%;
 }
 
 .user__avatar-mini{

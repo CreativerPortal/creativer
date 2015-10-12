@@ -186,6 +186,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'messagesCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('shops', {
+            url: '/shops/:id_category',
+            templateUrl: '/shops_tmp',
+            controller: 'shopCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('create_shop', {
             url: '/create_shop',
             templateUrl: '/create_shop_tmp',

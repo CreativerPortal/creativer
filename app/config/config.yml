@@ -227,14 +227,15 @@ fos_elastica:
                         tokenizer:
                             nGram:
                                 type:     "nGram"
-                                min_gram: 3
+                                min_gram: 2
                                 max_gram: 20
                         filter:
                             snowball:
                                 type:     snowball
+                                language: English
                             app_ngram:
                                 type: "nGram"
-                                min_gram: 3
+                                min_gram: 2
                                 max_gram: 20
                             worddelimiter :
                                  type: word_delimiter
@@ -246,9 +247,16 @@ fos_elastica:
                 user:
                     mappings:
                         id: ~
-                        username: ~
-                        lastname: ~
+                        username:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        lastname:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
                         avatar: ~
+                        color: ~
                     persistence:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\User
@@ -291,10 +299,7 @@ fos_elastica:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
                             type: string
-                        path:
-                            search_analyzer: custom_search_analyzer
-                            index_analyzer: custom_index_analyzer
-                            type: string
+                        path: ~
                         description:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer

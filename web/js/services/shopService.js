@@ -21,5 +21,17 @@ angular
                     });
                 },
 
+                getShopsByCategory: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_shops_by_category',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                }
+
             };
         }]);
