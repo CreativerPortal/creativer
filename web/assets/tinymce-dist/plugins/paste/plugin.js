@@ -135,7 +135,7 @@ define("tinymce/pasteplugin/Utils", [
 				return;
 			}
 
-			// img/input/hr
+			// img2/input/hr
 			if (shortEndedElements[name]) {
 				text += ' ';
 			}
@@ -475,7 +475,7 @@ define("tinymce/pasteplugin/Clipboard", [
 			var html = '', pasteBinClones, i, clone, cloneHtml;
 
 			// Since WebKit/Chrome might clone the paste bin when pasting
-			// for example: <img style="float: right"> we need to check if any of them contains some useful html.
+			// for example: <img2 style="float: right"> we need to check if any of them contains some useful html.
 			// TODO: Man o man is this ugly. WebKit is the new IE! Remove this if they ever fix it!
 			pasteBinClones = editor.dom.select('div[id=mcepastebin]');
 			for (i = 0; i < pasteBinClones.length; i++) {
@@ -557,7 +557,7 @@ define("tinymce/pasteplugin/Clipboard", [
 						rng = null;
 					}
 
-					pasteHtml('<img src="' + reader.result + '">');
+					pasteHtml('<img2 src="' + reader.result + '">');
 				}
 
 				if (items) {

@@ -457,7 +457,7 @@ tinymce.PluginManager.add('image', function(editor) {
 		}
 
 		if (editor.settings.image_advtab) {
-			// Parse styles from img
+			// Parse styles from img2
 			if (imgElm) {
 				if (imgElm.style.marginLeft && imgElm.style.marginRight && imgElm.style.marginLeft === imgElm.style.marginRight) {
 					data.hspace = removePixelSuffix(imgElm.style.marginLeft);

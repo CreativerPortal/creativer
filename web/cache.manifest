@@ -1,5 +1,6 @@
-CACHE MANIFEST
+﻿CACHE MANIFEST
 # Версия 1.0
+
 
 CACHE:
 /var/www/creativer/web/img/sprites.png
@@ -30,3 +31,4 @@ CACHE:
 /var/www/creativer/web/img/sprites_buttoms.png
 /var/www/creativer/web/img/true_false.png
 /var/www/creativer/web/img/top_background_folders.png
+/var/www/creativer/web/img/news_background.png

@@ -1109,6 +1109,18 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:show_post_photoTmp.html.twig');
     }
 
+    public function cacheAction(){
+
+
+        return $this->render('CreativerFrontBundle::cache_manifest.html.twig');
+    }
+
+    public function shopsTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:shopsTmp.html.twig');
+    }
+
     public function forgotPasswordAction(){
 
 
@@ -1343,12 +1355,6 @@ class DefaultController extends Controller
         }
 
         return $this->render('CreativerFrontBundle:Default:createShopTmp.html.twig');
-    }
-
-    public function shopsTmpAction(){
-
-
-        return $this->render('CreativerFrontBundle:Default:shopsTmp.html.twig');
     }
 
 }

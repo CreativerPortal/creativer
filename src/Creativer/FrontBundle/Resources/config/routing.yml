@@ -1,3 +1,7 @@
+cache:
+    path:     /cache.html
+    defaults: { _controller: CreativerFrontBundle:Default:cache }
+    methods:  [GET]
 logout:
     path:     /logout
     defaults: { _controller: CreativerFrontBundle:Default:main }

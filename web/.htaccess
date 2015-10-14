@@ -4,9 +4,13 @@
 # start page (path "/") because otherwise Apache will apply the rewriting rules
 # to each configured DirectoryIndex file (e.g. index.php, index.html, index.pl).
 DirectoryIndex app.php
-
+AddType text/cache-manifest .manifest
 # Disabling MultiViews prevents unwanted negotiation, e.g. "/app" should not resolve
 # to the front controller "/app.php" but be rewritten to "/app.php/app".
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType text/cache-manifest "access plus 0 seconds"
+</IfModule>
 <IfModule mod_negotiation.c>
     Options -MultiViews
 </IfModule>
@@ -25,8 +29,8 @@ DirectoryIndex app.php
     RewriteRule ^(.*) - [E=BASE:%1]
 
     # Sets the HTTP_AUTHORIZATION header removed by apache
-    RewriteCond %{HTTP:Authorization} .
-    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+#    RewriteCond %{HTTP:Authorization} .
+#    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
     # Redirect to URI without front controller to prevent duplicate content
     # (with and without `/app.php`). Only do this redirect on the initial

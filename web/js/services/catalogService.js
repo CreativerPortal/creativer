@@ -5,7 +5,7 @@ angular
         '$http',
         function ($http) {
 
-            var url = '/app_dev.php/v1/';
+            var url = '/v1/';
 
             return {
                 getServices: function (data) {

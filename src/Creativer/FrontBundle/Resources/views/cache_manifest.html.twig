@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" manifest="cache.manifest">
+<head>
+    <meta charset="utf-8">
+</head>
+    <body>
+        <script>
+            if (window.applicationCache) {
+                var cacheStatus = (function(appCache) {
+                    switch (appCache.status) {
+                        case appCache.UNCACHED: // UNCACHED == 0
+                            return 'UNCACHED';
+                        case appCache.IDLE: // IDLE == 1
+                            return 'IDLE';
+                        case appCache.CHECKING: // CHECKING == 2
+                            return 'CHECKING';
+                        case appCache.DOWNLOADING: // DOWNLOADING == 3
+                            return 'DOWNLOADING';
+                        case appCache.UPDATEREADY:  // UPDATEREADY == 4
+                            return 'UPDATEREADY';
+                        case appCache.OBSOLETE: // OBSOLETE == 5
+                            return 'OBSOLETE';
+                        default:
+                            return 'UKNOWN CACHE STATUS';
+                    }
+                })(window.applicationCache);
+
+                var appCache = window.applicationCache;
+                appCache.addEventListener('updateready', function(e) {
+                    console.log('update ready, trigger swap cache');
+                    window.location.reload();
+
+                });
+                appCache.addEventListener('downloading', function(e) {
+                    console.log('downloading new cache');
+
+                });
+                appCache.addEventListener('noupdate', function(e) {
+                    console.log('no update needed');
+
+                });
+
+                if ( cacheStatus !== 'UNCACHED' && cacheStatus !== 'CHECKING' && cacheStatus !== 'DOWNLOADING' ) {
+                    appCache.update();
+                }
+            }
+            else {
+                console.warn('Application Cache API is not available!');
+            }
+        </script>
+    </body>
+</html>

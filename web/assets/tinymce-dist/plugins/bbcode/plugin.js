@@ -59,7 +59,7 @@
 			rep(/<font.*?color=\"(.*?)\".*?>(.*?)<\/font>/gi, "[color=$1]$2[/color]");
 			rep(/<span style=\"font-size:(.*?);\">(.*?)<\/span>/gi, "[size=$1]$2[/size]");
 			rep(/<font>(.*?)<\/font>/gi, "$1");
-			rep(/<img.*?src=\"(.*?)\".*?\/>/gi, "[img]$1[/img]");
+			rep(/<img.*?src=\"(.*?)\".*?\/>/gi, "[img2]$1[/img2]");
 			rep(/<span class=\"codeStyle\">(.*?)<\/span>/gi, "[code]$1[/code]");
 			rep(/<span class=\"quoteStyle\">(.*?)<\/span>/gi, "[quote]$1[/quote]");
 			rep(/<strong class=\"codeStyle\">(.*?)<\/strong>/gi, "[code][b]$1[/b][/code]");
@@ -109,7 +109,7 @@
 			rep(/\[\/u\]/gi, "</u>");
 			rep(/\[url=([^\]]+)\](.*?)\[\/url\]/gi, "<a href=\"$1\">$2</a>");
 			rep(/\[url\](.*?)\[\/url\]/gi, "<a href=\"$1\">$1</a>");
-			rep(/\[img\](.*?)\[\/img\]/gi, "<img src=\"$1\" />");
+			rep(/\[img\](.*?)\[\/img\]/gi, "<img2 src=\"$1\" />");
 			rep(/\[color=(.*?)\](.*?)\[\/color\]/gi, "<font color=\"$1\">$2</font>");
 			rep(/\[code\](.*?)\[\/code\]/gi, "<span class=\"codeStyle\">$1</span>&nbsp;");
 			rep(/\[quote.*?\](.*?)\[\/quote\]/gi, "<span class=\"quoteStyle\">$1</span>&nbsp;");

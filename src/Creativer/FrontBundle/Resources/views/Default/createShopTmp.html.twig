@@ -66,9 +66,9 @@
             </div>
 
             <div class="row">
-                <div ng-show="uploader.isHTML5" style="height: 30px;">
+                <div class="col-sm-12" ng-show="uploader.isHTML5">
                     <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-                        <div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
+                        <div class="progress" style="height: 10px;" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                             <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                         </div>
                     </div>

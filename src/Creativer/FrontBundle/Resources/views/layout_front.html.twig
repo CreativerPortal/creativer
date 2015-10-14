@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="app" manifest="manifest.cache">
+<html lang="en" ng-app="app">
 <head>
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -276,6 +276,10 @@
 
 <header class="header" ng-controller="headerCtrl">
 
+    <iframe src="/cache.html" style="display: none;">
+        Ваш браузер не поддерживает плавающие фреймы!
+    </iframe>
+
     <div class="row">
         <div class="col-sm-3 col-sm-offset-1 fiveMinuts padding-left_0">
             <a href="#/{% if app.user %}{{app.user.id}}{% endif %}" class="btn button_header_09 text-left">
@@ -511,7 +515,6 @@
     <script src="/js/controllers/event.js"></script>
     <script src="/js/controllers/shop.js"></script>
 
-    <script src="/assets/tinymce-dist/tinymce.js"></script>
     <script src="/js/angular-ui-tinymce/src/tinymce.js"></script>
     <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
 
