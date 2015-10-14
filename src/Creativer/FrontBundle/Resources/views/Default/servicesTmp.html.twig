@@ -10,12 +10,23 @@
                         <ul ng-show="service_one.id == $root.service_id || service_one.child == true">
                             <span ng-if="service_one.id == $root.service_id" ng-init="service_one.child=true; $root.services.name=service_one.name;"></span>
                             <li ng-repeat="service_two in service_one.children">
-                                <a ng-class="{menu_action_black: service_two.id == $root.service_id, font_product_dropdown: service_two.children.length}" href="#/services/[[ service_two.id ]]">[[ service_two.name ]]</a>
+                                <a ng-if="service_two.branch == 0" ng-class="{menu_action_black: service_two.id == $root.service_id, font_product_dropdown: service_two.children.length}" href="#/services/[[ service_two.id ]]">[[ service_two.name ]]</a>
+                                <a ng-if="service_two.branch == 1" ng-class="{menu_action_black: service_two.id == $root.service_id, font_product_dropdown: service_two.children.length}" href="#/shops/[[ service_two.id ]]">[[ service_two.name ]]</a>
                                 <ul ng-show="service_two.children.length || service_one.child == true">
                                     <span ng-if="service_two.id == $root.service_id" ng-init="service_one.child=true; $root.services.name=service_two.name;"></span>
                                     <li ng-repeat="service_three in service_two.children" >
                                         <span ng-if="service_three.id == $root.service_id" ng-init="service_one.child=true; $root.services.name=service_three.name;"></span>
-                                        <a ng-class="{menu_action_black: service_three.id == $root.service_id}" href="#/services/[[ service_three.id ]]">[[ service_three.name ]]</a>
+                                        <a ng-if="service_two.branch == 0" ng-class="{menu_action_black: service_three.id == $root.service_id}" href="#/services/[[ service_three.id ]]">[[ service_three.name ]]</a>
+                                        <a ng-if="service_two.branch == 1" ng-class="{menu_action_black: service_three.id == $root.service_id}" href="#/shops/[[ service_three.id ]]">[[ service_three.name ]]</a>
+
+                                        <ul ng-show="service_three.children.length || service_one.child == true">
+                                            <span ng-if="service_three.id == $root.service_id" ng-init="service_one.child=true; $root.service.name=service_three.name;"></span>
+                                            <li ng-repeat="service_four in service_three.children" >
+                                                <span ng-if="service_four.id == $root.service_id" ng-init="service_one.child=true; $root.service.name=service_four.name;"></span>
+                                                <a ng-class="{menu_action_black: service_four.id == $root.service_id}" href="#/services/[[ service_four.id ]]/1">[[ service_four.name ]]</a>
+                                            </li>
+                                        </ul>
+
                                     </li>
                                 </ul>
                             </li>

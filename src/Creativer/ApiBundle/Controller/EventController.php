@@ -97,7 +97,7 @@ class EventController extends Controller
 
                 $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
                     ->createQueryBuilder('e')
-                    ->select('cat.id as id_cat','e.id','e.name','e.path','e.img2','e.start_date','e.end_date')
+                    ->select('cat.id as id_cat','e.id','e.name','e.path','e.img','e.start_date','e.end_date')
                     ->leftJoin('e.event_sections', 'cat')
                     ->where('cat IN (:items)')
                     ->groupBy('e.id')

@@ -204,6 +204,7 @@ body{
     width: 80%;
     vertical-align: middle;
     text-align: center;
+    position: relative;
 }
 
 .shops__table__left{
@@ -222,8 +223,8 @@ body{
 
 .close_image_shop {
     position: absolute;
-    right: 20px;
-    top: 30px;
+    right: 5px;
+    top: 5px;
     color: #FFFFFF;
     background-color: #80abe0;
     padding: 5px;
@@ -244,6 +245,12 @@ body{
     cursor: pointer;
     display: none;
     opacity: 0.8;
+}
+
+.remove_shop_yes_no {
+    position: absolute;
+    right: 9px;
+    top: 5px;
 }
 
 .open:hover{

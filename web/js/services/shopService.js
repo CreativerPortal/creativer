@@ -31,6 +31,18 @@ angular
                         },
                         data: data
                     });
+                },
+
+                removeShop: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
 
             };

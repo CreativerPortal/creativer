@@ -22,9 +22,9 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             });
         }
 
-        $scope.removeShop = function(id){
+        $scope.removeShop = function(id,key){
             shopService.removeShop({id:id}).success(function (data) {
-                $scope.posts[key] = data.shops;
+                $scope.posts.splice(key,1);
             });
         }
 

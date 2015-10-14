@@ -109,4 +109,45 @@ class ShopsController extends Controller
 
         return $response;
     }
+
+
+
+    /**
+     * @return array
+     * @Post("/v1/remove_shop")
+     * @View()
+     */
+    public function removeShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $id = $this->get('request')->request->get('id');
+
+        $path_img_shop = $this->container->getParameter('path_img_shop');
+
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $image = $shop->getImg();
+        $path = $shop->getPath();
+
+
+        $fs = new Filesystem();
+        $fs->remove(array($path_img_shop.$path.$image));
+
+        $em->remove($shop);
+        $em->flush();
+
+
+        $response = new Respon(json_encode(array()), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
 }
