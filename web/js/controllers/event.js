@@ -52,8 +52,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                     };
                     $scope.myDatetimeLabels = {
                         date: {
-                            from: 'Дата начала события',
-                            to: 'Дата конца события'
+                            from: '???? ?????? ???????',
+                            to: '???? ????? ???????'
                         }
                     };
 
@@ -95,8 +95,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                     };
                     $scope.myDatetimeLabels = {
                         date: {
-                            from: 'Дата начала события',
-                            to: 'Дата конца события'
+                            from: '???? ?????? ???????',
+                            to: '???? ????? ???????'
                         }
                     };
                     eventService.getEvent({id:$stateParams.id_edit}).success(function (data) {
@@ -254,8 +254,8 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         $scope.tinymceOptions = {
             file_browser_callback : function(field_name, url, type, win){
                                         tinymce.activeEditor.windowManager.open({
-                                            file: 'http://creativer.by.my/elfinder',// use an absolute path!
-                                            title: 'Проводник',
+                                            file: 'http://creativer.ml/elfinder',// use an absolute path!
+                                            title: '?????????',
                                             width: 1350,
                                             height: 560,
                                             resizable: 'yes'

@@ -17,6 +17,7 @@ body{
 
 .form-feedback{
     background-image: url("/var/www/creativer/web/img/border_mail.png");
+    background-repeat: no-repeat;
     width: 402px;
     height: 251px;
     background-position: left;

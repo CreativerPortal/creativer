@@ -1,6 +1,7 @@
 var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.shop', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap'])
     .config(['$routeProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
+        
         $urlRouterProvider.otherwise("/");
         $stateProvider.state('create_album', {
             url: '/create_album',
@@ -107,6 +108,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         $stateProvider.state('baraholka', {
             url: '/baraholka',
             templateUrl: '/baraholka_tmp',
+            controller: 'baraholkaCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('viewforum_empty', {
+            url: '/viewforum',
+            templateUrl: '/viewforum_tmp',
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });

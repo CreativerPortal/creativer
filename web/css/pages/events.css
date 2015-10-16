@@ -87,6 +87,7 @@ body{
 
 .calendar{
     background-image: url("/var/www/creativer/web/img/calendar_board.png");
+    background-repeat: no-repeat;
     height: 145px;
     width: 755px;
 }

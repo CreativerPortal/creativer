@@ -34,9 +34,7 @@
     <link rel="stylesheet" href="/css/pages/services.css">
     <link rel="stylesheet" href="/css/pages/viewforum.css">
     <link rel="stylesheet" href="/css/pages/viewtopic.css">
-
-
-
+    <link rel="stylesheet" href="/css/vendor/angular-multi-select-tree-0.1.0.css">
 
 
     {% if is_mobile_view() %}
@@ -46,7 +44,7 @@
         <link rel="stylesheet" href="/css/screens.css">
     {% endif %}
 
-    <link rel="stylesheet" href="/css/vendor/angular-multi-select-tree-0.1.0.css">
+
     <script type="text/javascript" src="/vendor/jquery/dist/jquery.min.js"></script>
     <script src="/js/angular.min.js"></script>
     <script src="/vendor/angular-route/angular-route.min.js"></script>
@@ -56,6 +54,8 @@
     <script src="/vendor/angular-bootstrap/ui-bootstrap.js"></script>
     <script src="/vendor/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 
+    <script src="/assets/tinymce-dist/tinymce.js"></script>
+    <script src="/js/angular-ui-tinymce/src/tinymce.js"></script>
 
     <script src="/js/ng-img-crop.js"></script>
     <script src="/js/angular-multi-select-tree-0.1.0.min.js"></script>
@@ -276,16 +276,16 @@
 
 <header class="header" ng-controller="headerCtrl">
 
-    <iframe src="/cache.html" style="display: none;">
-        Ваш браузер не поддерживает плавающие фреймы!
-    </iframe>
+    {#<iframe src="/cache.html" style="display: none;">#}
+        {#Ваш браузер не поддерживает плавающие фреймы!#}
+    {#</iframe>#}
 
     <div class="row">
         <div class="col-sm-3 col-sm-offset-1 fiveMinuts padding-left_0">
             <a href="#/{% if app.user %}{{app.user.id}}{% endif %}" class="btn button_header_09 text-left">
                 <span>Моя страница</span>
             </a>
-            <a href="#/baraholka" class="btn button_header_05 right">
+            <a href="#/baraholka" ng-click="$root.searchInBaraholka = null" class="btn button_header_05 right">
                 <span>Барахолка</span>
             </a>
         </div>
@@ -515,7 +515,6 @@
     <script src="/js/controllers/event.js"></script>
     <script src="/js/controllers/shop.js"></script>
 
-    <script src="/js/angular-ui-tinymce/src/tinymce.js"></script>
     <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
 
     <script type="text/javascript" src="/vendor/moment/min/moment.min.js"></script>
