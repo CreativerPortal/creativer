@@ -8063,7 +8063,7 @@ define("tinymce/dom/DOMUtils", [
 		 * Returns true/false if the specified node is to be considered empty or not.
 		 *
 		 * @example
-		 * tinymce.DOM.isEmpty(node, {img2: true});
+		 * tinymce.DOM.isEmpty(node, {img: true});
 		 * @method isEmpty
 		 * @param {Object} elements Optional name/value object with elements that are automatically treated as non-empty elements.
 		 * @return {Boolean} true/false if the node is empty or not.
@@ -8085,7 +8085,7 @@ define("tinymce/dom/DOMUtils", [
 							continue;
 						}
 
-						// Keep empty elements like <img2 />
+						// Keep empty elements like <img />
 						name = node.nodeName.toLowerCase();
 						if (elements && elements[name]) {
 							// Ignore single BR elements in blocks like <p><br /></p> or <p><span><br /></span></p>
@@ -8227,7 +8227,7 @@ define("tinymce/dom/DOMUtils", [
 							node.parentNode.insertBefore(children[0], node);
 						}
 
-						// Keep non empty elements or img2, hr etc
+						// Keep non empty elements or img, hr etc
 						if (children.length || /^(br|hr|input|img)$/i.test(node.nodeName)) {
 							return;
 						}
@@ -9308,7 +9308,7 @@ define("tinymce/dom/RangeUtils", [
 						return;
 					}
 
-					// Walk left until we hit a text node we can move to or a block/br/img2
+					// Walk left until we hit a text node we can move to or a block/br/img
 					walker = new TreeWalker(startNode, parentBlockContainer);
 					while ((node = walker[left ? 'prev' : 'next']())) {
 						// Break if we hit a non content editable node
@@ -9679,7 +9679,7 @@ define("tinymce/NodeChange", [
 				node = selection.getStart() || root;
 				node = node.ownerDocument != editor.getDoc() ? editor.getBody() : node;
 
-				// Edge case for <p>|<img2></p>
+				// Edge case for <p>|<img></p>
 				if (node.nodeName == 'IMG' && selection.isCollapsed()) {
 					node = node.parentNode;
 				}
@@ -10118,7 +10118,7 @@ define("tinymce/html/Node", [], function() {
 		 * Returns true/false if the node is to be considered empty or not.
 		 *
 		 * @example
-		 * node.isEmpty({img2: true});
+		 * node.isEmpty({img: true});
 		 * @method isEmpty
 		 * @param {Object} elements Name/value object with elements that are automatically treated as non empty elements.
 		 * @return {Boolean} true/false if the node is empty or not.
@@ -10134,7 +10134,7 @@ define("tinymce/html/Node", [], function() {
 							continue;
 						}
 
-						// Keep empty elements like <img2 />
+						// Keep empty elements like <img />
 						if (elements[node.name]) {
 							return false;
 						}
@@ -10330,7 +10330,7 @@ define("tinymce/html/Schema", [
 
 		// Phrasing content elements from the HTML5 spec (inline)
 		phrasingContent = split(
-			"a abbr b bdo br button cite code del dfn em embed i iframe img2 input ins kbd " +
+			"a abbr b bdo br button cite code del dfn em embed i iframe img input ins kbd " +
 			"label map noscript object q s samp script select small span strong sub sup " +
 			"textarea u var #text #comment"
 		);
@@ -10431,7 +10431,7 @@ define("tinymce/html/Schema", [
 			add("video", "src crossorigin poster preload autoplay mediagroup loop " +
 				"muted controls width height buffered", flowContent, "track source");
 			add("audio", "src crossorigin preload autoplay mediagroup loop muted controls buffered volume", flowContent, "track source");
-			add("picture", "", "img2 source");
+			add("picture", "", "img source");
 			add("source", "src srcset type media sizes");
 			add("track", "kind src srclang label default");
 			add("datalist", "", phrasingContent, "option");
@@ -10490,7 +10490,7 @@ define("tinymce/html/Schema", [
 			addAttrs("input button select textarea", "autofocus");
 			addAttrs("input textarea", "placeholder");
 			addAttrs("a", "download");
-			addAttrs("link script img2", "crossorigin");
+			addAttrs("link script img", "crossorigin");
 			addAttrs("iframe", "sandbox seamless allowfullscreen"); // Excluded: srcdoc
 		}
 
@@ -10593,7 +10593,7 @@ define("tinymce/html/Schema", [
 		// Setup map objects
 		whiteSpaceElementsMap = createLookupTable('whitespace_elements', 'pre script noscript style textarea video audio iframe object');
 		selfClosingElementsMap = createLookupTable('self_closing_elements', 'colgroup dd dt li option p td tfoot th thead tr');
-		shortEndedElementsMap = createLookupTable('short_ended_elements', 'area base basefont br col frame hr img2 input isindex link ' +
+		shortEndedElementsMap = createLookupTable('short_ended_elements', 'area base basefont br col frame hr img input isindex link ' +
 			'meta param embed source wbr track');
 		boolAttrMap = createLookupTable('boolean_attributes', 'checked compact declare defer disabled ismap multiple nohref noresize ' +
 			'noshade nowrap readonly selected autoplay loop controls');
@@ -12157,7 +12157,7 @@ define("tinymce/html/DomParser", [
 							removeWhitespaceBefore(newNode);
 						}
 
-						// Change current node if the element wasn't empty i.e not <br /> or <img2 />
+						// Change current node if the element wasn't empty i.e not <br /> or <img />
 						if (!empty) {
 							node = newNode;
 						}
@@ -13865,7 +13865,7 @@ define("tinymce/dom/ControlSelection", [
 			rootClass + ' .mce-resizehandle:hover {' +
 				'background: #000' +
 			'}' +
-			rootClass + ' img2[data-mce-selected], hr[data-mce-selected] {' +
+			rootClass + ' img[data-mce-selected], hr[data-mce-selected] {' +
 				'outline: 1px solid black;' +
 				'resize: none' + // Have been talks about implementing this in browsers
 			'}' +
@@ -13902,7 +13902,7 @@ define("tinymce/dom/ControlSelection", [
 			}
 
 			if (typeof selector != 'string') {
-				selector = 'table,img2,div';
+				selector = 'table,img,div';
 			}
 
 			if (elm.getAttribute('data-mce-resize') === 'false') {
@@ -14194,12 +14194,12 @@ define("tinymce/dom/ControlSelection", [
 			}
 
 			// Remove data-mce-selected from all elements since they might have been copied using Ctrl+c/v
-			each(dom.select('img2[data-mce-selected],hr[data-mce-selected]'), function(img) {
+			each(dom.select('img[data-mce-selected],hr[data-mce-selected]'), function(img) {
 				img.removeAttribute('data-mce-selected');
 			});
 
 			controlElm = e.type == 'mousedown' ? e.target : selection.getNode();
-			controlElm = dom.$(controlElm).closest(isIE ? 'table' : 'table,img2,hr')[0];
+			controlElm = dom.$(controlElm).closest(isIE ? 'table' : 'table,img,hr')[0];
 
 			if (isChildOrEqual(controlElm, rootElement)) {
 				disableGeckoResize();
@@ -15436,7 +15436,7 @@ define("tinymce/dom/Selection", [
 		 * @return {Element} Returns the element that got passed in.
 		 * @example
 		 * // Inserts a DOM node at current selection/caret location
-		 * tinymce.activeEditor.selection.setNode(tinymce.activeEditor.dom.create('img2', {src: 'some.gif', title: 'some title'}));
+		 * tinymce.activeEditor.selection.setNode(tinymce.activeEditor.dom.create('img', {src: 'some.gif', title: 'some title'}));
 		 */
 		setNode: function(elm) {
 			var self = this;
@@ -16163,7 +16163,7 @@ define("tinymce/Formatter", [
 
 				alignleft: [
 					{selector: 'figure,p,h1,h2,h3,h4,h5,h6,td,th,tr,div,ul,ol,li', styles: {textAlign: 'left'}, defaultBlock: 'div'},
-					{selector: 'img2,table', collapsed: false, styles: {'float': 'left'}}
+					{selector: 'img,table', collapsed: false, styles: {'float': 'left'}}
 				],
 
 				aligncenter: [
@@ -16174,7 +16174,7 @@ define("tinymce/Formatter", [
 
 				alignright: [
 					{selector: 'figure,p,h1,h2,h3,h4,h5,h6,td,th,tr,div,ul,ol,li', styles: {textAlign: 'right'}, defaultBlock: 'div'},
-					{selector: 'img2,table', collapsed: false, styles: {'float': 'right'}}
+					{selector: 'img,table', collapsed: false, styles: {'float': 'right'}}
 				],
 
 				alignjustify: [
@@ -19052,7 +19052,7 @@ define("tinymce/EnterKey", [
 					if (node.nodeType === 1) {
 						// Ignore bogus elements
 						if (!node.getAttribute('data-mce-bogus')) {
-							// Keep empty elements like <img2 /> <input /> but not trailing br:s like <p>text|<br></p>
+							// Keep empty elements like <img /> <input /> but not trailing br:s like <p>text|<br></p>
 							name = node.nodeName.toLowerCase();
 							if (nonEmptyElementsMap[name] && name !== 'br') {
 								return false;
@@ -30011,7 +30011,7 @@ define("tinymce/Editor", [
 		 *    setup: function(ed) {
 		 *       ed.addButton('example', {
 		 *          title: 'My title',
-		 *          image: '../js/tinymce/plugins/example/img2/example.gif',
+		 *          image: '../js/tinymce/plugins/example/img/example.gif',
 		 *          onclick: function() {
 		 *             ed.insertContent('Hello world!!');
 		 *          }
@@ -30642,7 +30642,7 @@ define("tinymce/Editor", [
 		},
 
 		/**
-		 * URL converter function this gets executed each time a user adds an img2, a or
+		 * URL converter function this gets executed each time a user adds an img, a or
 		 * any other element that has a URL in it. This will be called both by the DOM and HTML
 		 * manipulation functions.
 		 *

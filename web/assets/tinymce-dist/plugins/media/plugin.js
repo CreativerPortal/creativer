@@ -197,9 +197,9 @@ tinymce.PluginManager.add('media', function(editor, url) {
 			onSubmit: function() {
 				var beforeObjects, afterObjects, i, y;
 
-				beforeObjects = editor.dom.select('img2[data-mce-object]');
+				beforeObjects = editor.dom.select('img[data-mce-object]');
 				editor.insertContent(dataToHtml(this.toJSON()));
-				afterObjects = editor.dom.select('img2[data-mce-object]');
+				afterObjects = editor.dom.select('img[data-mce-object]');
 
 				// Find new image placeholder so we can select it
 				for (i = 0; i < beforeObjects.length; i++) {
@@ -293,7 +293,7 @@ tinymce.PluginManager.add('media', function(editor, url) {
 				html += '<object data="' + data.source1 + '" width="' + data.width + '" height="' + data.height + '" type="application/x-shockwave-flash">';
 
 				if (data.poster) {
-					html += '<img2 src="' + data.poster + '" width="' + data.width + '" height="' + data.height + '" />';
+					html += '<img src="' + data.poster + '" width="' + data.width + '" height="' + data.height + '" />';
 				}
 
 				html += '</object>';
@@ -769,7 +769,7 @@ tinymce.PluginManager.add('media', function(editor, url) {
 	editor.addButton('media', {
 		tooltip: 'Insert/edit video',
 		onclick: showDialog,
-		stateSelector: ['img2[data-mce-object=video]', 'img2[data-mce-object=iframe]']
+		stateSelector: ['img[data-mce-object=video]', 'img[data-mce-object=iframe]']
 	});
 
 	editor.addMenuItem('media', {

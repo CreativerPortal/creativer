@@ -136,3 +136,42 @@ canvas{
 button:disabled{
     background-color: #8f8a8c;
 }
+
+.line_package{
+    height: 270px;
+}
+
+.line_package>div{
+    position: relative;
+}
+
+.line_package input{
+    position: absolute;
+    bottom: 0px;
+}
+
+.start, .standard, .unlimited{
+    background: url("/var/www/creativer/web/img/packages.png") no-repeat;
+    position: absolute;
+}
+
+.start{
+    background-position: 0 0 ;
+    width: 266px;
+    height: 249px;
+    z-index: 2;
+}
+
+.standard{
+    background-position: -260px 0 ;
+    width: 266px;
+    height: 249px;
+    z-index: 2;
+}
+
+.unlimited{
+    background-position: -520px 0 ;
+    width: 266px;
+    height: 249px;
+    z-index: 2;
+}

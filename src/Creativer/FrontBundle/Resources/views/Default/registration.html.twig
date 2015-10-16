@@ -10,6 +10,8 @@
         <link rel="stylesheet" href="/css/header.css">
         <link rel="stylesheet" href="/css/footer.css">
         <link rel="stylesheet" href="/css/helpers.css">
+        <link rel="stylesheet" href="/css/component.css">
+
     {% endblock %}
 
     {% block javascripts %}
@@ -22,6 +24,8 @@
         <script src="/js/vendor.js"></script>
         <script src="/js/ng-img-crop.js"></script>
         <script src="/js/controllers/registration.js"></script>
+        <script src="/js/svgcheckbx.js"></script>
+
 
         {#<script>#}
             {#var polyfilter_scriptpath = '/js/';#}
@@ -34,6 +38,36 @@
 {% block body %}
 
     <div class="row slid">
+
+        <form class="ac-custom ac-radio ac-fill" autocomplete="off">
+            <div class="row"><h3 class="lobster margin-left_0">Пакеты:</h3></div>
+
+            <div class="row line_package">
+                <div class="col-sm-4">
+                        <label class="start" for="r1">
+                            <div class="lobster text-white fs_1-5 margin-top_60">Начальный</div>
+                            <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> До 10 фото ваших работ 0 руб / мес</p>
+                        </label>
+                        <input id="r1" name="r1" type="radio">
+                </div>
+                <div class="col-sm-4">
+                        <label class="standard" for="r2">
+                            <div class="lobster text-white fs_1-5 margin-top_60">Стандартный</div>
+                            <p class="col-sm-10 col-sm-offset-1 text-white"> до 50 фото ваших работ 50.000 руб / мес или 250.000 руб / 6 мес</p>
+
+                        </label>
+                        <input id="r2" name="r1" type="radio">
+                </div>
+                <div class="col-sm-4">
+                        <label class="unlimited" for="r3">
+                            <div class="lobster text-white fs_1-5 margin-top_60 margin-left_10">Безлимитный</div>
+                            <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> неограниченное количество фото ваших работ 100.000 руб / мес ил</p>
+
+                        </label>
+                        <input id="r3" name="r1" type="radio">
+                </div>
+            </div>
+        </form>
 
         <div class="row"><h3 class="lobster margin-left_0">Регистрация</h3></div>
 

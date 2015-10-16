@@ -1,7 +1,7 @@
 angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'service.chat', 'service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
     .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$stateParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$stateParams, FileUploader, socket, chat) {
 
-
+    $rootScope.message_button = true;
 
     messagesService.getUser().success(function (data) {
         $rootScope.user = $scope.user = data.user;
@@ -60,8 +60,9 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         if($scope.ids[0] == $scope.ids[1]){
             $location.path('messages');
         }
-        if(text != undefined && text != '' && $scope.ids && $scope.user && $scope.ids[0] != $scope.ids[1]){
+        if($rootScope.message_button == true && text != undefined && text != '' && $scope.ids && $scope.user && $scope.ids[0] != $scope.ids[1]){
             socket.emit('message', {ids: $scope.ids, sender: $scope.user.id, text: text});
+            $rootScope.message_button = false;
         }
     }
 

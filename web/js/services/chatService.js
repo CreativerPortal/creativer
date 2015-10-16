@@ -12,6 +12,7 @@ angular.module('service.chat', ['service.socket'])
         }
 
         socket.on('message', function(data){
+            $rootScope.message_button = true;
             var data = data[0];
             $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
             $rootScope.ids = $rootScope.ids.sort();
