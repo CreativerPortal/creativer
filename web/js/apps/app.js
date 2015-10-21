@@ -1,7 +1,7 @@
 var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.shop', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap'])
     .config(['$routeProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
 
-        
+
         $urlRouterProvider.otherwise("/");
         $stateProvider.state('create_album', {
             url: '/create_album',
@@ -24,6 +24,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         $stateProvider.state('feedback', {
             url: '/feedback',
             templateUrl: '/feedback_tmp',
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('settings', {
+            url: '/settings',
+            templateUrl: '/settings_tmp',
             controller: 'personCtrl',
             reloadOnSearch: true
         });

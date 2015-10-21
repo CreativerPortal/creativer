@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="/css/pages/viewforum.css">
     <link rel="stylesheet" href="/css/pages/viewtopic.css">
     <link rel="stylesheet" href="/css/vendor/angular-multi-select-tree-0.1.0.css">
+    <link rel="stylesheet" href="/css/component.css">
 
 
     {% if is_mobile_view() %}
@@ -63,6 +64,7 @@
     <script src="/js/socket.io.js"></script>
     <script src="/js/angular-search-tree.js"></script>
     <script src="/js/angular-ui-router.min.js"></script>
+    <script src="/js/svgcheckbx.js"></script>
 
 
 
@@ -430,7 +432,7 @@
                         <li><a href="{{ path('person') }}#/{{ app.user.id }}">Моя страница</a></li>
                         <li><a href="{{ path('person') }}#/create_album">Создать альбом</a></li>
                         <li><a href="{{ path('person') }}#/messages">Сообщения</a></li>
-                        <li><a href="">Настройки</a></li>
+                        <li><a href="{{ path('person') }}#/settings">Настройки</a></li>
                         <li><a href="{{ path("logout") }}">Выход</a></li>
                     </ul>
                 </nav>

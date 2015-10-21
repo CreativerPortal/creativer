@@ -17,6 +17,28 @@
                         data: data
                     });
                 },
+                replacePassword: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'replace_password',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                saveName: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'save_name',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 getUserByAlbumId: function (data) {
                     return $http({
                         method: 'POST',

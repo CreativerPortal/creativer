@@ -1,0 +1,128 @@
+<link rel="stylesheet" href="/css/component.css">
+<script src="/js/svgcheckbx.js"></script>
+<style>
+    .ac-custom input[type="checkbox"], .ac-custom input[type="radio"], .ac-custom label::before {
+        width: 20px;
+        height: 20px;
+        bottom: auto;
+        right: auto;
+        margin-top: 0px;
+        position: absolute;
+        cursor: pointer;
+    }
+    .ac-custom svg {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        bottom: auto;
+        margin-top: auto;
+        pointer-events: none;
+        right: auto;
+    }
+</style>
+
+<div class="row slid  padding-right_0" ng-show="user">
+
+        <div class="row">
+            <h3 class="col-sm-5 lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
+            <h4 class="col-sm-6 lobster text-gray margin-top_30 padding-left_0">Настройки</h4>
+        </div>
+
+         <div class="col-sm-5 user padding-left_0">
+             {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
+         </div>
+
+
+         <div class="col-sm-7 padding-left_0">
+             <h4 class="margin-left_25" ng-if="replace_password == undefined">Изменить пароль</h4>
+             <h4 class="margin-left_25 alert-success" ng-if="replace_password == 'true'"><span class="glyphicon glyphicon-ok"></span> Пароль изменён успешно</h4>
+             <h4 class="margin-left_25 alert-danger" ng-if="replace_password == 'false'"><span class="glyphicon glyphicon-remove"></span> Ошибка изменения пароля</h4>
+
+             <div class="row margin-left_25 slid__comment__line"></div>
+             <div class="row margin-top_20">
+                <div class="col-sm-5 text-right">Старый пароль:</div>
+                <div class="col-sm-7"><input class="" type="password" ng-model="oldPassword"></div>
+             </div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right">Новый пароль:</div>
+                 <div class="col-sm-7"><input class="" type="password" ng-model="newPassword"></div>
+             </div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right">Повторите пароль:</div>
+                 <div class="col-sm-7"><input class="" type="password" ng-model="repeatPassword"></div>
+             </div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right"></div>
+                 <div class="col-sm-7">
+                     <button class="true fs_0-9" ng-class="{'loader': loader_password}" ng-click="replacePassword(oldPassword,newPassword,repeatPassword); loader_password=true;">Изменить</button>
+                 </div>
+             </div>
+         </div>
+
+         <div class="col-sm-7 padding-left_0">
+             <h4 class="margin-left_25">Пакеты</h4>
+             <div class="row margin-left_25 slid__comment__line"></div>
+
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right"></div>
+                 <div class="col-sm-7">
+                     <button class="true fs_0-9" ng-class="{'loader': loader}" ng-click="saveComment(post,post.id,text_comment)">Изменить</button>
+                 </div>
+             </div>
+         </div>
+
+         <form class="col-sm-7 padding-left_0 ac-custom ac-checkbox ac-checkmark" autocomplete="off">
+             <h4 class="margin-left_25">Оповещения</h4>
+             <div class="row margin-left_25 slid__comment__line"></div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right">О сообщениях:</div>
+                 <div class="col-sm-7">
+                     <input id="cb7" name="cb7" type="checkbox">
+                     <label for="cb7"></label>
+                 </div>
+             </div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right">О комментариях:</div>
+                 <div class="col-sm-7">
+                     <input id="cb7" name="cb7" type="checkbox">
+                     <label for="cb7"></label>
+                 </div>
+             </div>
+         </form>
+
+         <form class="col-sm-7 padding-left_0 ac-custom ac-checkbox ac-checkmark">
+             <h4 class="margin-left_25" ng-if="username_lastname == undefined">Дополнительно</h4>
+             <h4 class="margin-left_25 alert-success" ng-if="username_lastname == 'true'"><span class="glyphicon glyphicon-ok"></span> Имя изменено успешно</h4>
+             <h4 class="margin-left_25 alert-danger" ng-if="username_lastname == 'false'"><span class="glyphicon glyphicon-remove"></span> Ошибка изменения имени</h4>
+
+
+             <div class="row margin-left_25 slid__comment__line"></div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right">Автопрокрутка изображений в каталоге:</div>
+                 <div class="col-sm-7">
+                     <input id="cb7" name="cb7" type="checkbox">
+                     <label for="cb7"></label>
+                 </div>
+             </div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right">Имя:</div>
+                 <div class="col-sm-7"><input class="" type="text" ng-model="username" ng-value="user.username"></div>
+             </div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right">Фамилия:</div>
+                 <div class="col-sm-7"><input class="" type="text" ng-model="lastname" ng-value="user.lastname"></div>
+             </div>
+             <div class="row margin-top_20">
+                 <div class="col-sm-5 text-right"></div>
+                 <div class="col-sm-7">
+                     <button class="true fs_0-9" ng-class="{'loader': loader_username}" ng-click="saveName(username,lastname); loader_username=true;">Изменить</button>
+                 </div>
+             </div>
+         </form>
+
+
+
+     <div ng-if="!key_img">
+         <span ng-init="$root.overflow = false"></span>
+     </div>
+ </div>

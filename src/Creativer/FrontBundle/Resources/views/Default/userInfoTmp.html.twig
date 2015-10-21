@@ -1,4 +1,4 @@
-{% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
+{% if(is_granted('ROLE_USER') and ((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId())) ) %}
     <div class="row">
         <div class="col-sm-4 padding-left_0">
             <div class="user__avatar-border">
@@ -21,7 +21,7 @@
             </div>
         </div>
     </div>
-{% elseif(id != app.security.getToken().getUser().getId()) %}
+{% else %}
     <div class="row">
         <div class="col-sm-5 padding-left_0">
             <div class="user__avatar-border">
@@ -39,7 +39,7 @@
     </div>
 {% endif %}
 
-{% if((id != app.security.getToken().getUser().getId()) or (id == null) ) and  is_granted('ROLE_USER') %}
+{% if(is_granted('ROLE_USER') and (id != app.security.getToken().getUser().getId()) or (id == null) )%}
     <div  class="margin-top_20">
         <a href="#/chat/[[ user.id ]]" class="button_message-link fs_0-9 margin-left_10">
             <span class="glyphicon glyphicon-envelope"></span>
@@ -70,7 +70,7 @@
     <div class="col-sm-3 col-sm-offset-4 user__text_bold">[[ user.favorits_with_me.length ]]</div>
 </div>
 
-{% if((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId()) ) %}
+{% if(is_granted('ROLE_USER') and  ((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId())) ) %}
 
     <div class="margin-top_20 col-sm-12 user__text">
         <div class="row text-left user__text_bold"><a class="text-gray" href="#/following/[[ user.id ]]">Избранные:</a></div>
@@ -119,7 +119,7 @@
         <time class="text_info" >[[ user.date | date: "dd MMMM yyyy" ]]</time>
     </div>
 
-{% elseif(id != app.security.getToken().getUser().getId()) %}
+{% elseif(is_granted('ROLE_USER') and id != app.security.getToken().getUser().getId()) %}
     <div class="margin-top_20 col-sm-12 user__text">
         <div class="row text-left user__text_bold"><a class="text-gray" href="#/following/[[ user.id ]]">Избранные:</a></div>
         <a href="#/[[ favorit.id ]]" ng-click="removeUser()" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">

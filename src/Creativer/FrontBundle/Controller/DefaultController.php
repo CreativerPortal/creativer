@@ -1073,6 +1073,20 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:chatTmp.html.twig', array('id' => $userId));
     }
 
+    public function settingsTmpAction(){
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $userId = $this->get('security.context')->getToken()->getUser()->getId();
+
+        return $this->render('CreativerFrontBundle:Default:settingsTmp.html.twig', array('id' => $userId));
+    }
+
     public function fleamarketAction(){
 
 
@@ -1127,18 +1141,22 @@ class DefaultController extends Controller
         if ($this->get('request')->getMethod() == 'POST') {
             $email = $this->get('request')->get('email');
 
-            $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('email'=>$email))[0];
+            $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('email'=>$email));
 
-            $real_password = $user->getRealPassword();
+            if(!$user){
+                return $this->render('CreativerFrontBundle:Default:mistake_forgot_password.html.twig', array('email' => $email));
+            }else{
+                $real_password = $user[0]->getRealPassword();
 
-            $mailer = $this->get('swiftmailer.mailer');
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Восстановление пароля')
-                ->setFrom(array('info@creativer.by' => 'Creativer'))
-                ->setTo($email)
-                ->setContentType("text/html")
-                ->setBody($this->renderView('CreativerFrontBundle:Default:letter_forgot_password.html.twig', array('real_password' => $real_password)));
-            $mailer->send($message);
+                $mailer = $this->get('swiftmailer.mailer');
+                $message = \Swift_Message::newInstance()
+                    ->setSubject('Восстановление пароля')
+                    ->setFrom(array('info@creativer.by' => 'Creativer'))
+                    ->setTo($email)
+                    ->setContentType("text/html")
+                    ->setBody($this->renderView('CreativerFrontBundle:Default:letter_forgot_password.html.twig', array('real_password' => $real_password)));
+                $mailer->send($message);
+            }
 
             return $this->render('CreativerFrontBundle:Default:forgot_password.html.twig', array('form' => false));
         }else{

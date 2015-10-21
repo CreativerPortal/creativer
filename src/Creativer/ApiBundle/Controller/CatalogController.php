@@ -453,10 +453,15 @@ class CatalogController extends Controller
             $i++;
         }
 
-
-        $keywordQuery = new \Elastica\Query\QueryString();
-        $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
-        $boolQuery->addShould($keywordQuery);
+        if($search_text == 'undefined'){
+            $keywordQuery = new \Elastica\Query\QueryString();
+            $keywordQuery->setQuery("id:"."*");
+            $boolQuery->addShould($keywordQuery);
+        }else{
+            $keywordQuery = new \Elastica\Query\QueryString();
+            $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
+            $boolQuery->addShould($keywordQuery);
+        }
 
 
         $optionKeyTerm = new \Elastica\Filter\Terms();
@@ -507,10 +512,15 @@ class CatalogController extends Controller
             $i++;
         }
 
-
-        $keywordQuery = new \Elastica\Query\QueryString();
-        $keywordQuery->setQuery("name:".$search_text." OR description:".$search_text." OR images.text:".$search_text);
-        $boolQuery->addShould($keywordQuery);
+        if($search_text == 'undefined'){
+            $keywordQuery = new \Elastica\Query\QueryString();
+            $keywordQuery->setQuery("id:"."*");
+            $boolQuery->addShould($keywordQuery);
+        }else{
+            $keywordQuery = new \Elastica\Query\QueryString();
+            $keywordQuery->setQuery("name:".$search_text." OR description:".$search_text." OR images.text:".$search_text);
+            $boolQuery->addShould($keywordQuery);
+        }
 
 
 

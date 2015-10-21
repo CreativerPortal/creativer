@@ -189,7 +189,6 @@ class PersonController extends Controller
      */
     public function getUserAction()
     {
-        if($this->get('security.context')->isGranted('ROLE_USER')){
             if(!$this->get('request')->request->get('id'))
             {
                 $id = $this->get('security.context')->getToken()->getUser()->getId();
@@ -200,12 +199,77 @@ class PersonController extends Controller
 
             $user = array('user' => $user[0]);
 
-        }else{
-            $user = null;
-        }
-
 
         return $user;
+    }
+
+    /**
+     * @Post("/v1/replace_password")
+     * @View(serializerGroups={"getUser"})
+     */
+    public function replacePasswordAction()
+    {
+        $oldPassword = $this->get('request')->request->get('oldPassword');
+        $newPassword = $this->get('request')->request->get('newPassword');
+        $repeatPassword = $this->get('request')->request->get('repeatPassword');
+        $realPassword = $this->get('security.context')->getToken()->getUser()->getRealPassword();
+
+        $factory = $this->get('security.encoder_factory');
+        $encoder = $factory->getEncoder($this->get('security.context')->getToken()->getUser());
+        $lastPassword = $encoder->encodePassword($newPassword, $this->get('security.context')->getToken()->getUser()->getSalt());
+
+
+        if($oldPassword == $realPassword and $newPassword == $repeatPassword){
+            $this->get('security.context')->getToken()->getUser()->setPassword($lastPassword);
+            $this->get('security.context')->getToken()->getUser()->setRealPassword($newPassword);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($this->get('security.context')->getToken()->getUser());
+            $em->flush();
+
+            $array = array('success' => true);
+            $response = new Respon(json_encode($array), 200);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }else{
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 400);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+    }
+
+    /**
+     * @Post("/v1/save_name")
+     * @View(serializerGroups={"getUser"})
+     */
+    public function saveNameAction()
+    {
+        $userName = $this->get('request')->request->get('username');
+        $lastName = $this->get('request')->request->get('lastname');
+
+        if($userName and $lastName){
+            $this->get('security.context')->getToken()->getUser()->setUsername($userName);
+            $this->get('security.context')->getToken()->getUser()->setLastname($lastName);
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($this->get('security.context')->getToken()->getUser());
+            $em->flush();
+
+            $array = array('success' => true);
+            $response = new Respon(json_encode($array), 200);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }else{
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 400);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
     }
 
     /**

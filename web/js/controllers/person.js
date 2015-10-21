@@ -258,6 +258,34 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
+    $scope.replacePassword = function(oldPassword,newPassword,repeatPassword){
+        personalService.replacePassword({oldPassword: oldPassword, newPassword: newPassword, repeatPassword:repeatPassword})
+        .success(function (data) {
+            $scope.loader_password = false;
+            $scope.replace_password = 'true';
+        })
+        .error(function (data) {
+            $scope.loader_password = false;
+            $scope.replace_password = 'false';
+        })
+    }
+
+    $scope.saveName = function(username,lastname){
+        personalService.saveName({username: username, lastname: lastname})
+            .success(function (data) {
+                $scope.loader_username = false;
+                $scope.username_lastname = 'true';
+                $scope.user.username = username;
+                $scope.user.lastname = lastname;
+                $scope.username = username;
+                $scope.lastname = lastname;
+            })
+            .error(function (data) {
+                $scope.loader_username = false;
+                $scope.username_lastname = 'false';
+            })
+    }
+
     $scope.$on('$routeChangeStart', function(next, current) {
         if(current.params.id != undefined && current.params.id != next.targetScope.user.id){
             $rootScope.user = $scope.user = undefined;
