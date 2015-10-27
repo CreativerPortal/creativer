@@ -54,6 +54,13 @@ class Categories
     private $albums;
 
     /**
+     * @ORM\Column(type="integer")
+     * @JMS\Expose
+     * @JMS\Groups({"getAlbumById"})
+     */
+    private $branch;
+
+    /**
      * @JMS\Expose
      * @var \DateTime $date
      *
@@ -244,5 +251,28 @@ class Categories
     public function getAlbums()
     {
         return $this->albums;
+    }
+
+    /**
+     * Set branch
+     *
+     * @param integer $branch
+     * @return Categories
+     */
+    public function setBranch($branch)
+    {
+        $this->branch = $branch;
+
+        return $this;
+    }
+
+    /**
+     * Get branch
+     *
+     * @return integer 
+     */
+    public function getBranch()
+    {
+        return $this->branch;
     }
 }

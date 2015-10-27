@@ -3,7 +3,7 @@
         '$http',
         function ($http) {
 
-            var url = '/v1/';
+            var url = '/app_dev.php/v1/';
 
             return {
                 getUser: function (data) {
@@ -21,6 +21,39 @@
                     return $http({
                         method: 'POST',
                         url: url + 'replace_password',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                changeAutoScroll: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'change_auto_scroll',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                notificationMessage: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'notification_message',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                notificationComment: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'notification_comment',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'
@@ -98,6 +131,17 @@
                     return $http({
                         method: 'POST',
                         url: url + 'save_field',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+                previousPosts: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'previous_posts',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

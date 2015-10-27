@@ -25,35 +25,40 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums",  "getCatalogServiceAlbums"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
      * @Assert\NotBlank(message="Имя пользователя не может быть пустым")
-     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
-
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $username;
 
     /**
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
      * @Assert\NotBlank(message="Фамилия пользователя не может быть пустым")
-     * @JMS\Groups({"getCatalogProductAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getUser", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
      */
     private $avatar;
+
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     */
+    private $color;
 
 
     /**
@@ -87,6 +92,7 @@ class User implements UserInterface, \Serializable
     /**
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
      * @ORM\OneToMany(targetEntity="Events", mappedBy="user", fetch="EAGER")
+     * @JMS\Groups({"getUser","getEvent"})
      **/
     private $events;
 
@@ -209,10 +215,31 @@ class User implements UserInterface, \Serializable
     private $date;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @JMS\Expose
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     */
+    private $autoscroll;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @JMS\Expose
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     */
+    private $notification_comment=1;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @JMS\Expose
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     */
+    private $notification_message=1;
+
+    /**
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToMany(targetEntity="User", mappedBy="myFavorits")
      * @JMS\Groups({"getUser"})
-     * @MaxDepth(2)
+     * @JMS\MaxDepth(2)
      * @JMS\Expose
      */
     private $favoritsWithMe;
@@ -226,6 +253,7 @@ class User implements UserInterface, \Serializable
      *      inverseJoinColumns={@ORM\JoinColumn(name="favorit_user_id", referencedColumnName="id")}
      *      )
      * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(2)
      */
     private $myFavorits;
 
@@ -258,6 +286,8 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\ManyToMany(targetEntity="Events", inversedBy="users_attend")
      * @ORM\JoinTable(name="users_attend_events")
+     * @JMS\Groups({"getUser","getEvent"})
+     * @JMS\Expose
      */
     private $events_attend;
 
@@ -331,7 +361,7 @@ class User implements UserInterface, \Serializable
             ) = unserialize($serialized);
     }
 
-
+    
 
     /**
      * Get id
@@ -1144,5 +1174,97 @@ class User implements UserInterface, \Serializable
     public function getEventsAttend()
     {
         return $this->events_attend;
+    }
+
+    /**
+     * Set color
+     *
+     * @param string $color
+     * @return User
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * Get color
+     *
+     * @return string 
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * Set autoscroll
+     *
+     * @param integer $autoscroll
+     * @return User
+     */
+    public function setAutoscroll($autoscroll)
+    {
+        $this->autoscroll = $autoscroll;
+
+        return $this;
+    }
+
+    /**
+     * Get autoscroll
+     *
+     * @return integer 
+     */
+    public function getAutoscroll()
+    {
+        return $this->autoscroll;
+    }
+
+    /**
+     * Set notification_comment
+     *
+     * @param boolean $notificationComment
+     * @return User
+     */
+    public function setNotificationComment($notificationComment)
+    {
+        $this->notification_comment = $notificationComment;
+
+        return $this;
+    }
+
+    /**
+     * Get notification_comment
+     *
+     * @return boolean 
+     */
+    public function getNotificationComment()
+    {
+        return $this->notification_comment;
+    }
+
+    /**
+     * Set notification_message
+     *
+     * @param boolean $notificationMessage
+     * @return User
+     */
+    public function setNotificationMessage($notificationMessage)
+    {
+        $this->notification_message = $notificationMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get notification_message
+     *
+     * @return boolean 
+     */
+    public function getNotificationMessage()
+    {
+        return $this->notification_message;
     }
 }

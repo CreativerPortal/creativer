@@ -27,18 +27,27 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                     }
                 }
             });
-        }
-
-        for(var key in $scope.user.albums){
-            if(!$scope.user.albums[key].images[0].image_comments) {
-                albumService.getAlbumComments({id_album: id_album}).success(function (data) {
-                    for (var key in $scope.user.albums) {
-                        if ($scope.user.albums[key].id == $stateParams.id_album)
-                            $scope.user.albums[key].images = data.images;
-                    }
-                });
+        }else{
+            for (key in $scope.user.favorits_with_me) {
+                if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
+                    $scope.favorit = true;
+                } else {
+                    $scope.favorit = false;
+                }
             }
         }
+
+        //for(var key in $scope.user.albums){
+        //    if($scope.user.albums[key].id == id_album && $scope.user.albums[key].images[0].image_comments == undefined) {
+        //        albumService.getAlbumComments({id_album: id_album}).success(function (data) {
+        //            for (var key in $scope.user.albums) {
+        //                if ($scope.user.albums[key].id == $stateParams.id_album)
+        //                    $scope.user.albums[key].images = data.images;
+        //            }
+        //        });
+        //        break;
+        //    }
+        //}
     }else{
         var id_album = $stateParams.id_album?$stateParams.id_album:$stateParams.id_album_edit;
         albumService.getUserByAlbumId({id: id_album}).success(function (data) {
@@ -52,13 +61,14 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             }
             if($stateParams.id_album){
                 for(var key in $scope.user.albums){
-                    if($scope.user.albums[key].images) {
+                    if($scope.user.albums[key].images[0].image_comments == undefined) {
                         albumService.getAlbumComments({id_album: id_album}).success(function (data) {
                             for (var key in $scope.user.albums) {
                                 if ($scope.user.albums[key].id == $stateParams.id_album)
                                     $scope.user.albums[key].images = data.images;
                             }
                         });
+                        break;
                     }
                 }
             }
@@ -98,8 +108,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     }
 
 
-
-        $scope.$watch('user', function() {
+    $scope.$watch('user', function() {
         if($stateParams.id_album && $scope.user != undefined){
             for(var key in $scope.user.albums){
                 if($scope.user.albums[key].id == $stateParams.id_album){
@@ -143,6 +152,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             }
 
 
+
             if($stateParams.id_album && $scope.user && !$scope.user.albums[key_album].images_likes){
                 albumService.getLikesByAlbumId({id_album:id_album}).success(function (data) {
                     for(var key in $scope.user.albums){
@@ -154,7 +164,14 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                 });
         }
 
+        if($scope.user && $scope.user.albums[key_album].images[$stateParams.key_img].viewed == false && $scope.user.id == $rootScope.id_user){
+            albumService.setViewed({id:$scope.user && $scope.user.albums[key_album].images[$stateParams.key_img]}).success(function (data) {
+                $scope.user.albums[key_album].images[$stateParams.key_img].viewed = true;
+            });
+        }
+
     });
+
 
 
     if($stateParams.id_album){

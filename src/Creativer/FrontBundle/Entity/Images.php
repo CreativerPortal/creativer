@@ -71,7 +71,7 @@ class Images
      * @JMS\Expose
      * @JMS\Groups({"getUser" ,"getAlbumComments"})
      */
-    private $views;
+    private $views=0;
 
     /**
      * @ORM\Column(type="text", nullable=true)
@@ -86,6 +86,13 @@ class Images
      * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getCatalogProductAlbums"})
      */
     private $likes = 0;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "uploadEditAlbum"})
+     */
+    private $viewed=1;
 
     /**
      * @JMS\Expose
@@ -332,5 +339,28 @@ class Images
     public function getImageComments()
     {
         return $this->image_comments;
+    }
+
+    /**
+     * Set viewed
+     *
+     * @param boolean $viewed
+     * @return Images
+     */
+    public function setViewed($viewed)
+    {
+        $this->viewed = $viewed;
+
+        return $this;
+    }
+
+    /**
+     * Get viewed
+     *
+     * @return boolean 
+     */
+    public function getViewed()
+    {
+        return $this->viewed;
     }
 }

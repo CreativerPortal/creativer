@@ -1,5 +1,4 @@
 <link rel="stylesheet" href="/css/component.css">
-<script src="/js/svgcheckbx.js"></script>
 <style>
     .ac-custom input[type="checkbox"], .ac-custom input[type="radio"], .ac-custom label::before {
         width: 20px;
@@ -77,14 +76,14 @@
              <div class="row margin-top_20">
                  <div class="col-sm-5 text-right">О сообщениях:</div>
                  <div class="col-sm-7">
-                     <input id="cb7" name="cb7" type="checkbox">
+                     <input id="cb7" name="cb7" type="checkbox" ng-click="notificationMessage()" ng-model="user.notification_message" ng-checked="user.notification_message == true">
                      <label for="cb7"></label>
                  </div>
              </div>
              <div class="row margin-top_20">
                  <div class="col-sm-5 text-right">О комментариях:</div>
                  <div class="col-sm-7">
-                     <input id="cb7" name="cb7" type="checkbox">
+                     <input id="cb7" name="cb7" type="checkbox" ng-click="notificationComment()" ng-model="user.notification_comment" ng-checked="user.notification_comment == true">
                      <label for="cb7"></label>
                  </div>
              </div>
@@ -100,7 +99,7 @@
              <div class="row margin-top_20">
                  <div class="col-sm-5 text-right">Автопрокрутка изображений в каталоге:</div>
                  <div class="col-sm-7">
-                     <input id="cb7" name="cb7" type="checkbox">
+                     <input id="cb7" name="cb7" type="checkbox" ng-click="changeAutoScroll()" ng-model="user.autoscroll" ng-checked="user.autoscroll == true">
                      <label for="cb7"></label>
                  </div>
              </div>
@@ -122,7 +121,9 @@
 
 
 
-     <div ng-if="!key_img">
+     <div ng-if="!key_img" ng-init="svg='1'">
          <span ng-init="$root.overflow = false"></span>
      </div>
  </div>
+
+<script src="/js/svgcheckbx.js"></script>

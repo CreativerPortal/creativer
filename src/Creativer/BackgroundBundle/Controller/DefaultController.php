@@ -48,7 +48,9 @@ class DefaultController extends Controller
             ->createQueryBuilder('e')
             ->select('e.email, e.username')
             ->where('e IN (:items)')
+            ->andWhere('e.notification_message = :n_m')
             ->setParameter('items', $mass)
+            ->setParameter('n_m', true)
             ->getQuery()
             ->getResult();
 
@@ -67,4 +69,59 @@ class DefaultController extends Controller
 
         return array();
     }
+
+
+    /**
+     * @Route("/background_comment")
+     * @Template()
+     */
+    public function backgroundCommentAction()
+    {
+        $date = new \DateTime();
+        $date1 = $date->format('Y-m-d');
+        $date2 = $date->modify('-1 day')->format('Y-m-d');
+
+        $date1 = new \DateTime($date1);
+        $date2 = new \DateTime($date2);
+
+
+        $users = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')
+            ->createQueryBuilder('e')
+            ->select('user.id as id_user', 'user.email as email', 'user.username as username', 'user.lastname as lastname',  'album.id as id_album', 'album.name as name_album')
+            ->leftJoin('e.image_comments', 'image_comments')
+            ->leftJoin('e.album', 'album')
+            ->leftJoin('album.user', 'user')
+            ->where('e.viewed = :viewed')
+            ->andWhere('user.notification_comment = :n_c')
+            ->andWhere('image_comments.date <= :date1')
+            ->andWhere('image_comments.date >= :date2')
+
+            ->setParameter('viewed', false)
+            ->setParameter('n_c', true)
+            ->setParameter('date1', $date1)
+            ->setParameter('date2', $date2)
+            ->groupBy('user.id')
+            ->getQuery()
+            ->getResult();
+
+
+
+        foreach($users as $key=>$val){
+            $mailer = $this->get('swiftmailer.mailer.second_mailer');
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Creativer')
+                ->setFrom(array('info@creativer.by' => 'Creativer'))
+                ->setTo($val['email'])
+                ->setContentType("text/html")
+                ->setBody($this->renderView('CreativerFrontBundle:Default:letter_comment.html.twig', array('username' => $val['username'],
+                                                                                                           'lastname' => $val['lastname'],
+                                                                                                           'id_album' => $val['id_album'],
+                                                                                                           'name_album' => $val['name_album'])));
+            $mailer->send($message);
+        }
+
+
+        return array();
+    }
+
 }

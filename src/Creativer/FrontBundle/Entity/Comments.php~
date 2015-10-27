@@ -19,7 +19,7 @@ class Comments
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getComments"})
      * @JMS\Expose
      */
     private $id;
@@ -29,7 +29,7 @@ class Comments
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToOne(targetEntity="User", inversedBy="comments", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getComments"})
      **/
     private $user;
 
@@ -38,14 +38,14 @@ class Comments
      * @JMS\Expose
      * @ORM\Column(name="date", type="datetime")
      * @Gedmo\Timestampable(on="create")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getComments"})
      */
     private $date;
 
     /**
      * @JMS\Expose
      * @ORM\Column(type="text")
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "getComments"})
      */
     private $text;
 

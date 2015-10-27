@@ -183,6 +183,17 @@ angular
                         },
                         data: data
                     });
+                },
+                setViewed: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'set_viewed',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
             };
         }]);

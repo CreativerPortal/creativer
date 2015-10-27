@@ -549,7 +549,7 @@ app.directive('editPain', function () {
     return{
         restrict: "A",
         scope: true,
-        template: "<span class='glyphicon glyphicon-remove close_image' ng-click='removeImgPost(id_img,id_post)'></span>",
+        template: "<span class='glyphicon glyphicon-remove close_image_post' ng-click='removeImgPost(id_img,id_post)'></span>",
         link: function(scope, element, attrs){
             scope.id_img = attrs.idImg;
             scope.id_post = scope.post.id;

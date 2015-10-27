@@ -11,10 +11,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="albums")
+ * @ORM\Table(name="shops")
  * @JMS\ExclusionPolicy("all")
  */
-class Albums
+class Shops
 {
     /**
      * @ORM\Column(type="integer")
@@ -24,16 +24,6 @@ class Albums
      * @JMS\Expose
      */
     private $id;
-
-
-    /**
-     * @JMS\Expose
-     * @JMS\Type("Creativer\FrontBundle\Entity\User")
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="albums", fetch="EAGER")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
-     **/
-    private $user;
 
 
     /**
@@ -65,28 +55,14 @@ class Albums
      */
     private $description;
 
-    /**
-     * @ORM\Column(type="integer", nullable=true, options={"default":0})
-     * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
-     */
-    private $views;
-
 
     /**
      * @ORM\ManyToMany(targetEntity="Categories", inversedBy="albums")
-     * @ORM\JoinTable(name="albums_categories")
+     * @ORM\JoinTable(name="shops_categories")
      * @JMS\Expose
      * @JMS\Groups({"getAlbumById"})
      */
     private $categories;
-
-    /**
-     * @ORM\Column(type="integer", nullable=false)
-     * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
-     */
-    private $likes = 0;
 
     /**
      * @JMS\Expose
@@ -102,21 +78,10 @@ class Albums
      */
     private $isActive = 0;
 
-    /**
-     * @JMS\Expose
-     * @JMS\Type("Creativer\FrontBundle\Entity\Images")
-     * @ORM\OneToMany(targetEntity="Images", mappedBy="album")
-     * @ORM\OrderBy({"id" = "DESC"})
-     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
-     **/
-    private $images;
-
-
 
     public function __construct()
     {
         $this->categories = new ArrayCollection();
-        $this->images = new \Doctrine\Common\Collections\ArrayCollection();
         $this->date = new \DateTime();
     }
 
@@ -135,7 +100,7 @@ class Albums
      * Set img
      *
      * @param string $img
-     * @return Albums
+     * @return Shops
      */
     public function setImg($img)
     {
@@ -158,7 +123,7 @@ class Albums
      * Set path
      *
      * @param string $path
-     * @return Albums
+     * @return Shops
      */
     public function setPath($path)
     {
@@ -181,7 +146,7 @@ class Albums
      * Set name
      *
      * @param string $name
-     * @return Albums
+     * @return Shops
      */
     public function setName($name)
     {
@@ -204,7 +169,7 @@ class Albums
      * Set description
      *
      * @param string $description
-     * @return Albums
+     * @return Shops
      */
     public function setDescription($description)
     {
@@ -224,56 +189,10 @@ class Albums
     }
 
     /**
-     * Set views
-     *
-     * @param integer $views
-     * @return Albums
-     */
-    public function setViews($views)
-    {
-        $this->views = $views;
-
-        return $this;
-    }
-
-    /**
-     * Get views
-     *
-     * @return integer 
-     */
-    public function getViews()
-    {
-        return $this->views;
-    }
-
-    /**
-     * Set likes
-     *
-     * @param integer $likes
-     * @return Albums
-     */
-    public function setLikes($likes)
-    {
-        $this->likes = $likes;
-
-        return $this;
-    }
-
-    /**
-     * Get likes
-     *
-     * @return integer 
-     */
-    public function getLikes()
-    {
-        return $this->likes;
-    }
-
-    /**
      * Set date
      *
      * @param \DateTime $date
-     * @return Albums
+     * @return Shops
      */
     public function setDate($date)
     {
@@ -296,7 +215,7 @@ class Albums
      * Set isActive
      *
      * @param integer $isActive
-     * @return Albums
+     * @return Shops
      */
     public function setIsActive($isActive)
     {
@@ -316,33 +235,10 @@ class Albums
     }
 
     /**
-     * Set user
-     *
-     * @param \Creativer\FrontBundle\Entity\User $user
-     * @return Albums
-     */
-    public function setUser(\Creativer\FrontBundle\Entity\User $user = null)
-    {
-        $this->user = $user;
-
-        return $this;
-    }
-
-    /**
-     * Get user
-     *
-     * @return \Creativer\FrontBundle\Entity\User 
-     */
-    public function getUser()
-    {
-        return $this->user;
-    }
-
-    /**
      * Add categories
      *
      * @param \Creativer\FrontBundle\Entity\Categories $categories
-     * @return Albums
+     * @return Shops
      */
     public function addCategory(\Creativer\FrontBundle\Entity\Categories $categories)
     {
@@ -369,38 +265,5 @@ class Albums
     public function getCategories()
     {
         return $this->categories;
-    }
-
-    /**
-     * Add images
-     *
-     * @param \Creativer\FrontBundle\Entity\Images $images
-     * @return Albums
-     */
-    public function addImage(\Creativer\FrontBundle\Entity\Images $images)
-    {
-        $this->images[] = $images;
-
-        return $this;
-    }
-
-    /**
-     * Remove images
-     *
-     * @param \Creativer\FrontBundle\Entity\Images $images
-     */
-    public function removeImage(\Creativer\FrontBundle\Entity\Images $images)
-    {
-        $this->images->removeElement($images);
-    }
-
-    /**
-     * Get images
-     *
-     * @return \Doctrine\Common\Collections\Collection 
-     */
-    public function getImages()
-    {
-        return $this->images;
     }
 }

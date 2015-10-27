@@ -37,11 +37,9 @@ class Wall
 
 
     /**
-     * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Posts")
-     * @ORM\OneToMany(targetEntity="Posts", mappedBy="wall")
+     * @ORM\OneToMany(targetEntity="Posts", mappedBy="wall", fetch="EXTRA_LAZY")
      * @ORM\OrderBy({"id" = "DESC"})
-     * @JMS\Groups({"getUser"})
      **/
     private $posts;
 
@@ -89,7 +87,7 @@ class Wall
     /**
      * Get posts
      *
-     * @return \Doctrine\Common\Collections\Collection 
+     * @return \Doctrine\Common\Collections\Collection
      */
     public function getPosts()
     {

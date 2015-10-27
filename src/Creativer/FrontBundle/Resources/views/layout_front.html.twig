@@ -189,11 +189,12 @@
 
 <div class="container wrapper">
 {% if app.user %}
-    <div ng-model="id_user" ng-init="id_user={{ app.security.getToken().getUser().getId() }}"></div>
+    <div ng-model="id_user" ng-init="id_user='{{ app.security.getToken().getUser().getId() }}'"></div>
     <div ng-model="username" ng-init="username='{{ app.security.getToken().getUser().getUsername() }}'"></div>
     <div ng-model="lastname" ng-init="lastname='{{ app.security.getToken().getUser().getLastname() }}'"></div>
     <div ng-model="img" ng-init="img='{{ app.security.getToken().getUser().getAvatar() }}'"></div>
     <div ng-model="color" ng-init="color='{{ app.security.getToken().getUser().getColor() }}'"></div>
+    <div ng-model="autoscroll" ng-init="autoscroll={{ app.security.getToken().getUser().getAutoscroll()}}"></div>
 {% endif %}
 
 

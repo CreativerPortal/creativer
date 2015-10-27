@@ -98,6 +98,7 @@ class DefaultController extends Controller
             $user->setRealPassword($request->get('form')['password']['first']);
             $user->setWall($wall);
             $user->setColor($color);
+            $user->setAutoscroll(0);
             $wall->setUser($user);
 
 

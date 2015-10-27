@@ -34,7 +34,6 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @Assert\NotBlank(message="Имя пользователя не может быть пустым")
      * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
-
      */
     private $username;
 
@@ -216,9 +215,31 @@ class User implements UserInterface, \Serializable
     private $date;
 
     /**
+     * @ORM\Column(type="boolean")
+     * @JMS\Expose
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     */
+    private $autoscroll;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @JMS\Expose
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     */
+    private $notification_comment=1;
+
+    /**
+     * @ORM\Column(type="boolean")
+     * @JMS\Expose
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     */
+    private $notification_message=1;
+
+    /**
      * @JMS\Type("Creativer\FrontBundle\Entity\User")
      * @ORM\ManyToMany(targetEntity="User", mappedBy="myFavorits")
      * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(2)
      * @JMS\Expose
      */
     private $favoritsWithMe;
@@ -232,6 +253,7 @@ class User implements UserInterface, \Serializable
      *      inverseJoinColumns={@ORM\JoinColumn(name="favorit_user_id", referencedColumnName="id")}
      *      )
      * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(2)
      */
     private $myFavorits;
 
@@ -1175,5 +1197,74 @@ class User implements UserInterface, \Serializable
     public function getColor()
     {
         return $this->color;
+    }
+
+    /**
+     * Set autoscroll
+     *
+     * @param integer $autoscroll
+     * @return User
+     */
+    public function setAutoscroll($autoscroll)
+    {
+        $this->autoscroll = $autoscroll;
+
+        return $this;
+    }
+
+    /**
+     * Get autoscroll
+     *
+     * @return integer 
+     */
+    public function getAutoscroll()
+    {
+        return $this->autoscroll;
+    }
+
+    /**
+     * Set notification_comment
+     *
+     * @param boolean $notificationComment
+     * @return User
+     */
+    public function setNotificationComment($notificationComment)
+    {
+        $this->notification_comment = $notificationComment;
+
+        return $this;
+    }
+
+    /**
+     * Get notification_comment
+     *
+     * @return boolean 
+     */
+    public function getNotificationComment()
+    {
+        return $this->notification_comment;
+    }
+
+    /**
+     * Set notification_message
+     *
+     * @param boolean $notificationMessage
+     * @return User
+     */
+    public function setNotificationMessage($notificationMessage)
+    {
+        $this->notification_message = $notificationMessage;
+
+        return $this;
+    }
+
+    /**
+     * Get notification_message
+     *
+     * @return boolean 
+     */
+    public function getNotificationMessage()
+    {
+        return $this->notification_message;
     }
 }

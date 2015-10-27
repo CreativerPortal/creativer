@@ -71,6 +71,7 @@ class EventController extends Controller
             );
 
         $response = new Respon($categories);
+        $response = new Respon($categories);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }

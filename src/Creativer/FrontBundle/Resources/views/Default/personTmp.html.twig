@@ -127,7 +127,7 @@
                             </div>
 
 
-                            <div ng-if="(user.id == id_user && post.user) && post.remove_post == false"  class="col-sm-6 text-right edit_post">
+                            <div ng-if="(user.id == id_user && post.user.id != id_user) && post.remove_post == false"  class="col-sm-6 text-right edit_post">
                                 <span ng-click="post.remove_post = true">
                                     <span class="text-gray glyphicon glyphicon-remove pointer"></span>
                                 </span>
@@ -140,11 +140,13 @@
                             </div>
                         {%  endif %}
                         <div class="col-sm-12 margin-top_10 padding-left_0 padding-right_0" ng-if="post" ng-init="imaging(post)">
-                            <a href="#/[[ user.id ]]/[[ key ]]/[[ key_post_img ]]" class="left" ng-repeat="(key_post_img,img) in post.post_images">
-                                <img_post id_img="[[ img.id ]]" ng-if="img.new" remove_img_post></img_post>
-                                <img_post id_img="[[ img.id ]]"></img_post>
-                                <img src="{{ path_img_post_thums }}[[ img.path ]][[ img.name ]]" height="[[ img.height ]]" width="[[ img.width ]]" style="margin-right: 1px; margin-left: 1px; margin-bottom: 3px;">
-                            </a>
+                            <div class="left img_post" ng-repeat="(key_post_img,img) in post.post_images">
+                                    <img_post id_img="[[ img.id ]]" ng-if="img.new" remove_img_post></img_post>
+                                    <img_post id_img="[[ img.id ]]"></img_post>
+                                <a href="#/[[ user.id ]]/[[ key ]]/[[ key_post_img ]]" >
+                                    <img src="{{ path_img_post_thums }}[[ img.path ]][[ img.name ]]" height="[[ img.height ]]" width="[[ img.width ]]" style="margin-right: 1px; margin-left: 1px; margin-bottom: 3px;">
+                                </a>
+                            </div>
                         </div>
                         <div class="col-sm-10 padding-left_0">
                             <p class="user__text text-left col-sm-12 padding-left_0 user__text__post" >[[post.text]]</p>
@@ -159,7 +161,7 @@
 
                         </div>
 
-                        <div class="row">
+                        <div class="row" ng-init="post.comments_all_show = false;">
                             {% if is_granted('ROLE_USER') %}
                                 <div class="col-sm-6 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
                                 <div class="col-sm-6 text-right"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></div>
@@ -169,8 +171,42 @@
                         </div>
                     </div>
 
+                    <div class="row">
+                        <div ng-show="post.comments.length > 2 && post.comments_all_show == false" ng-click="post.comments_all_show = true" class="col-sm-offset-2 col-sm-9 text-gray text-center comments_show">
+                            Показать все [[ post.comments.length ]] комментариев
+                        </div>
+                    </div>
+                    <div class="row margin-left_60 col-sm-11 one_comment" ng-if="post.comments_all_show == true" ng-repeat="(key,comment) in post.comments">
+                        <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
+                        <div class="col-sm-2">
+                            <a href="#/[[ comment.user.id ]]" ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
+                                <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
+                            </a>
+                            <a href="#/[[ user.id ]]" ng-if="!comment.user" class="user__avatar-super-mini" style="background-color: [[ user.color ]]">
+                                <img  ng-src="[[ user.avatar ]]">
+                            </a>
+                        </div>
+                        <div class="col-sm-10 padding-left_0">
+                            <a href="#/[[ comment.user.id ]]" ng-click="removeUser()" class="col-sm-6 user__text_bold" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
+                            <a href="#/[[ user.id ]]" class="col-sm-6 user__text_bold" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</a>
+                            <div ng-if="((user.id == id_user) || (comment.user.id == id_user)) && !comment.remove_comment"  class="col-sm-6 text-right edit_comment">
+                                <span ng-click="comment.remove_comment = true">
+                                    <span class="text-gray glyphicon glyphicon-remove pointer"></span>
+                                </span>
+                            </div>
 
-                    <div class="row margin-left_60 col-sm-11 one_comment" ng-repeat="(key,comment) in post.comments">
+                            <div ng-if="comment.remove_comment == true" class="col-sm-6 text-right">
+                                Удалить ?
+                                <span class="text-blue pointer" ng-click="removeComment(key,post.comments,comment.id)">Да</span> |
+                                <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
+                            </div>
+
+                            <div class="user__text col-sm-12">[[comment.text]]</div>
+                            <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
+
+                        </div>
+                    </div>
+                    <div class="row margin-left_60 col-sm-11 one_comment" ng-if="post.comments_all_show == false" ng-repeat="(key,comment) in post.comments.slice(post.comments.length-2,post.comments.length)">
                         <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
                             <a href="#/[[ comment.user.id ]]" ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
@@ -211,6 +247,11 @@
                     </div>
 
                 </div>
+
+                <div ng-show="user.wall.posts.length > 4" class="text-center col-sm-12 load_post text-gray pointer margin-top_10" ng-click="previousPosts()">
+                    Показать предыдущие посты
+                </div>
+
             </div>
 
         </div>

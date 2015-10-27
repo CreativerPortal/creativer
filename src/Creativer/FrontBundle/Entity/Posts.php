@@ -37,6 +37,7 @@ class Posts
      * @ORM\ManyToOne(targetEntity="User", inversedBy="posts", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      * @JMS\Groups({"getUser", "getPost"})
+     * @JMS\MaxDepth(1)
      **/
     private $user;
 
@@ -63,6 +64,7 @@ class Posts
      * @JMS\Type("Creativer\FrontBundle\Entity\Wall")
      * @ORM\ManyToOne(targetEntity="Wall", inversedBy="posts")
      * @ORM\JoinColumn(name="wall_id", referencedColumnName="id")
+     * @JMS\MaxDepth(0)
      **/
     private $wall;
 

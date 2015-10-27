@@ -3,9 +3,10 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     // init controller
 
-    if($stateParams.id){
+    if($stateParams.id && !$stateParams.key_post){
         personalService.getUser({id: $stateParams.id}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
+            $scope.user.wall.posts = data.posts;
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
                 if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -13,9 +14,10 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 }
             }
         })
-    }else{
+    }else if(!$stateParams.key_post){
         personalService.getUser({id: $rootScope.id_user}).success(function (data) {
             $rootScope.user = $scope.user = data.user;
+            $scope.user.wall.posts = data.posts;
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
                 if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -75,6 +77,14 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $location.path("/"+$scope.user.id);
     }
 
+    $scope.previousPosts = function(){
+        personalService.previousPosts({id:$scope.user.id,offset:$scope.user.wall.posts.length}).success(function (data) {
+            for(var key in data.posts){
+                $scope.user.wall.posts.push(data.posts[key]);
+            }
+        });
+    }
+
     $scope.closeImg = function(){
         //albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
         //    $rootScope.image_previews = [];
@@ -106,6 +116,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 personalService.getUser({id: $stateParams.id}).success(function (data) {
                     $scope.loader = false;
                     $scope.user = data.user;
+                    $scope.user.wall.posts = data.posts;
                     $scope.favorit = false;
                     for(key in $scope.user.favorits_with_me){
                         if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -152,7 +163,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.loader_favorit = true;
         personalService.addFavorits({id:id}).success(function (data) {
             $scope.loader_favorit = false;
-            $scope.user = data.user;
+            $scope.user = data;
                 $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){
                     if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -167,7 +178,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.loader_favorit = true;
         personalService.removeFavorits({id:id}).success(function (data) {
             $scope.loader_favorit = false;
-            $scope.user = data.user;
+            $scope.user = data;
                 $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){
                     if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -285,6 +296,29 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 $scope.username_lastname = 'false';
             })
     }
+
+    $scope.changeAutoScroll = function(){
+        personalService.changeAutoScroll({autoscroll: $scope.user.autoscroll}).success(function (data) {
+            $rootScope.autoscroll = $scope.user.autoscroll;
+        });
+    }
+
+    $scope.notificationMessage = function(){
+        personalService.notificationMessage({notification_message: $scope.user.notification_message}).success(function (data) {
+        });
+    }
+
+    $scope.notificationComment = function(){
+        personalService.notificationComment({notification_comment: $scope.user.notification_comment}).success(function (data) {
+        });
+    }
+
+    $scope.$watch("svg", function () {
+        setTimeout(function(){
+            svgCheckbox();
+        }, 1200);
+    });
+
 
     $scope.$on('$routeChangeStart', function(next, current) {
         if(current.params.id != undefined && current.params.id != next.targetScope.user.id){
@@ -455,6 +489,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             personalService.getUser({id: $stateParams.id}).success(function (data) {
                 $scope.loader = false;
                 $rootScope.user = $scope.user = data.user;
+                $scope.user.wall.posts = data.posts;
                 $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){
                     if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){

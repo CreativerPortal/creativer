@@ -22,6 +22,9 @@ app.controller('Ctrl', function($scope) {
         };
 
         angular.element(document.querySelector('#fileInput')).on('change',handleFileSelect);
+
+    svgCheckbox();
+
     });
 
 

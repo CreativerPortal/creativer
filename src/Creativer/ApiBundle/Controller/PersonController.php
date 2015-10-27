@@ -170,6 +170,10 @@ class PersonController extends Controller
        // die(\Doctrine\Common\Util\Debug::dump($avatar));
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findOneById($data->image_id);
 
+        if($image->getAlbum()->getUser()->getId() != $this->get('security.context')->getToken()->getUser()->getid()){
+            $image->setViewed(false);
+        }
+
         $imageComment = new ImageComments();
 
         $imageComment->setUser($user)
@@ -177,6 +181,7 @@ class PersonController extends Controller
             ->setText($data->text);
 
         $em = $this->getDoctrine()->getManager();
+        $em->persist($image);
         $em->persist($imageComment);
         $em->flush();
 
@@ -189,18 +194,67 @@ class PersonController extends Controller
      */
     public function getUserAction()
     {
-            if(!$this->get('request')->request->get('id'))
-            {
-                $id = $this->get('security.context')->getToken()->getUser()->getId();
-            }else{
-                $id = $this->get('request')->request->get('id');
-            }
-            $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$id));
+        if(!$this->get('request')->request->get('id'))
+        {
+            $id = $this->get('security.context')->getToken()->getUser()->getId();
+        }else{
+            $id = $this->get('request')->request->get('id');
+        }
+        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$id))[0];
 
-            $user = array('user' => $user[0]);
+        $posts = $user->getWall()->getPosts()->slice(0, 5);
+
+        $user = array('user' => $user, 'posts' => $posts);
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $user,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @Post("/v1/previous_posts")
+     * @View(serializerGroups={"getUser"})
+     */
+    public function previousPostsAction()
+    {
+        if(!$this->get('request')->request->get('id'))
+        {
+            $id = $this->get('security.context')->getToken()->getUser()->getId();
+        }else{
+            $id = $this->get('request')->request->get('id');
+        }
+        $offset = $this->get('request')->request->get('offset');
+
+        $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$id))[0];
+
+        $posts = $user->getWall()->getPosts()->slice($offset, 5);
 
 
-        return $user;
+        $posts = array('posts' => $posts);
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $posts,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -273,6 +327,69 @@ class PersonController extends Controller
     }
 
     /**
+     * @Post("/v1/change_auto_scroll")
+     * @View(serializerGroups={"getUser"})
+     */
+    public function changeAutoScrollAction()
+    {
+        $autoscroll = $this->get('request')->request->get('autoscroll');
+
+        $this->get('security.context')->getToken()->getUser()->setAutoscroll($autoscroll);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($this->get('security.context')->getToken()->getUser());
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @Post("/v1/notification_message")
+     * @View(serializerGroups={"getUser"})
+     */
+    public function notificationMessageAction()
+    {
+        $notification = $this->get('request')->request->get('notification_message');
+
+        $this->get('security.context')->getToken()->getUser()->setNotificationMessage($notification);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($this->get('security.context')->getToken()->getUser());
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @Post("/v1/notification_comment")
+     * @View(serializerGroups={"getUser"})
+     */
+    public function notificationCommentAction()
+    {
+        $notification = $this->get('request')->request->get('notification_comment');
+
+        $this->get('security.context')->getToken()->getUser()->setNotificationComment($notification);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($this->get('security.context')->getToken()->getUser());
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
      * @return array
      * @Post("/v1/save_field")
      * @View()
@@ -302,7 +419,6 @@ class PersonController extends Controller
 
         return array('user' => $user);
     }
-
 
     /**
      * @return array
@@ -474,7 +590,7 @@ class PersonController extends Controller
     /**
      * @return array
      * @Post("/v1/remove_post")
-     * @View()
+     * @View(serializerGroups={"getUser"})
      */
     public function removePostAction()
     {
@@ -526,7 +642,7 @@ class PersonController extends Controller
     /**
      * @return array
      * @Post("/v1/add_favorits")
-     * @View()
+     * @View(serializerGroups={"getUser"})
      */
     public function addFavoritsAction()
     {
@@ -550,13 +666,28 @@ class PersonController extends Controller
         $em->flush();
 
 
-        return array('user' => $newFriend);
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $newFriend,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setSerializeNull(true)
+            );
+
+
+        $response = new Respon($response, 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     /**
      * @return array
      * @Post("/v1/remove_favorits")
-     * @View()
+     * @View(serializerGroups={"getUser"})
      */
     public function removeFavoritsAction()
     {
@@ -579,7 +710,20 @@ class PersonController extends Controller
 
         $em->flush();
 
-        return array('user' => $oldFriend);
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $oldFriend,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setSerializeNull(true)
+            );
+
+        $response = new Respon($response, 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
     /**
@@ -963,6 +1107,36 @@ class PersonController extends Controller
         $comment = $this->getDoctrine()->getRepository('CreativerFrontBundle:ImageComments')->find($comment_id);
 
         $em->remove($comment);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/set_viewed")
+     * @View()
+     */
+    public function setViewedAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $id = $this->get('request')->request->get('id');
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->find($id);
+
+        $image->setViewed(true);
+
         $em->flush();
 
         $array = array('success' => true);
