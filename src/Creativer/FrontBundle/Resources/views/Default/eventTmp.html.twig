@@ -57,10 +57,11 @@
                     </div>
                     <div class="row description margin-top_10">
                     </div>
-                    <div class="row text-right" ng-if="!event_attend">
-                        Идёт [[ event.users_attend.length ]] человек. <span class="pointer text-blue" ng-click="eventAttend()">Пойду!</span>
+                    <div class="row text-right" ng-show="!event_attend">
+                        {#Идёт [[ event.users_attend.length ]] человек. #}
+                        <span class="pointer text-blue" ng-click="eventAttend()">Пойду!</span>
                     </div>
-                    <div class="row text-right" ng-if="event_attend">
+                    <div class="row text-right" ng-show="event_attend">
                         Идёт [[ event.users_attend.length ]] человек. <span class="pointer text-blue" ng-click="eventAttend()">Не пойду!</span>
                     </div>
 

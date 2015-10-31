@@ -44,21 +44,23 @@
             <div class="row margin-left_15 slid__news margin-top_40">
                 <div class="text-center text-white">События</div>
 
-                <a class="text-gray" href="#/event/[[ news_events[0].id ]]">
-                    <time class="slid__news__time" datetime="2015-02-14">[[ news_events[0].date | date: "dd MMM yyyy" ]]</time>
-                    <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[0].name.slice(0,28) ]]...</h5>
-                    <p id="new_event_1">
-                    </p>
-                    <div><span class="text-blue center-block text-right" href="#/event/[[ news_events[0].id ]]">Далее </span></div>
-                </a>
+                <div class="events_catalog">
+                    <a ng-show="news_events[0]" class="text-gray event_link" ng-href="#/event/[[ news_events[0].id ]]">
+                        <time class="slid__news__time" datetime="2015-02-14">[[ news_events[0].date | date: "dd MMM yyyy" ]]</time>
+                        <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[0].name.slice(0,28) ]]...</h5>
+                        <p id="new_event_1">
+                        </p>
+                        <div><span class="text-blue center-block text-right text-underline_hover" href="#/event/[[ news_events[0].id ]]">Далее </span></div>
+                    </a>
 
-                <a class="text-gray" href="#/event/[[ news_events[1].id ]]">
-                    <time class="slid__news__time" datetime="2015-02-14">[[ news_events[1].date | date: "dd MMM yyyy" ]]</time>
-                    <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[1].name.slice(0,28) ]]...</h5>
-                    <p id="new_event_2">
-                    </p>
-                    <div><span class="text-blue center-block text-right" href="#/event/[[ news_events[1].id ]]">Далее </span></div>
-                </a>
+                    <a ng-show="news_events[1]" class="text-gray event_link" ng-href="#/event/[[ news_events[1].id ]]">
+                        <time class="slid__news__time" datetime="2015-02-14">[[ news_events[1].date | date: "dd MMM yyyy" ]]</time>
+                        <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[1].name.slice(0,28) ]]...</h5>
+                        <p id="new_event_2">
+                        </p>
+                        <div><span class="text-blue center-block text-right text-underline_hover" ng-href="#/event/[[ news_events[1].id ]]">Далее </span></div>
+                    </a>
+                </div>
 
                 <a class="menu_action_still" href="#/events">Ещё</a>
             </div>
@@ -92,7 +94,7 @@
                 </div>#}
 
                 <div class="col-sm-3 col-sm-offset-4 slid__pagination fiveMinuts padding-left_0" ng-show="pages.length > 1">
-                    <a href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a ng-href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
 
             </div>
@@ -103,8 +105,8 @@
                     <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="#/products/[[ product_id ]]/[[ currentPage ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' >
                         {#<span class="slid__card__price">[[ item.price ]] руб.</span>#}
                     </a>
-                    <a href="#/album/[[ item.id_album ]]" class="slid__card__name">[[ item.name_album ]]</a>
-                    <a href="#/[[ item.id_user ]]" class="slid__card__name_user">[[ item.username ]] [[ item.lastname ]]</a>
+                    <a ng-href="#/album/[[ item.id_album ]]" class="slid__card__name">[[ item.name_album ]]</a>
+                    <a ng-href="#/[[ item.id_user ]]" class="slid__card__name_user">[[ item.username ]] [[ item.lastname ]]</a>
                 </div>
 
                 <div ng-show="items.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">ПУСТО</div>
@@ -114,10 +116,10 @@
             <div class="row slid__card slid__card__first">
 
                 <div class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.shops">
-                    <a href="#/shops/[[ item.id_cat ]]" class="shop-mini-header auto block">
-                        <img src="{{ path_img_shop }}[[ item.path ]][[ item.img ]]" />
+                    <a ng-href="#/shops/[[ item.id_cat ]]" class="shop-mini-header auto block">
+                        <img ng-src="{{ path_img_shop }}[[ item.path ]][[ item.img ]]" />
                     </a>
-                    <a href="#/shops/[[ item.id_cat ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>
+                    <a ng-href="#/shops/[[ item.id_cat ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>
                 </div>
 
             </div>
@@ -125,7 +127,7 @@
 
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages.length > 1">
-                    <a href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a ng-href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>
         </div>

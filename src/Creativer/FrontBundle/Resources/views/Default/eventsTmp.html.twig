@@ -37,7 +37,7 @@
 
                 <div ng-repeat="children in section">
                     <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">[[ children.name ]]</h3></div>
-                    <div ng-repeat="child in children.children"><a href="#/event/[[ child.id ]]">[[ child.name ]]</a></div>
+                    <div ng-repeat="child in children.children"><a class="link_event" href="#/events/[[ child.id ]]">[[ child.name ]]</a></div>
                 </div>
 
 
@@ -60,45 +60,33 @@
                     <div class="glyphicon glyphicon-chevron-left text-white previous_event left margin-left_10 margin-top_25 arrow pointer" ng-click="previousMonth()"></div>
                     <div class="glyphicon glyphicon-chevron-right text-white previous_event right margin-right_10 margin-top_25 arrow pointer" ng-click="nextMonth()"></div>
                     <div class="body__datapicker">
-                        <div ng-repeat="day in days" ng-if="day.day" class="number_date_31" ng-switch-when="31">
+                        <div ng-repeat="day in days" ng-if="day.day" class="number_date_31" ng-switch-when="31" ng-click="getEventsByDate(day.day)">
                             <div class="circle">
-                                <div ng-if="day.action" class="datapicker_circle">
-                                    [[ day.day ]]
-                                </div>
-                                <div ng-if="!day.action">
+                                <div ng-class="{'target_day':day.day == target_day, 'datapicker_circle':day.action == 1}">
                                     [[ day.day ]]
                                 </div>
                             </div>
                         </div>
 
-                        <div ng-repeat="day in days" ng-if="day.day" class="number_date_30" ng-switch-when="30">
+                        <div ng-repeat="day in days" ng-if="day.day" class="number_date_30" ng-switch-when="30" ng-click="getEventsByDate(day.day)">
                             <div class="circle">
-                                <div ng-if="day.action" class="datapicker_circle">
-                                    [[ day.day ]]
-                                </div>
-                                <div ng-if="!day.action">
+                                <div ng-class="{'target_day':day.day == target_day, 'datapicker_circle':day.action == 1}">
                                     [[ day.day ]]
                                 </div>
                             </div>
                         </div>
 
-                        <div ng-repeat="day in days" ng-if="day.day" class="number_date_29" ng-switch-when="29">
+                        <div ng-repeat="day in days" ng-if="day.day" class="number_date_29" ng-switch-when="29" ng-click="getEventsByDate(day.day)">
                             <div class="circle">
-                                <div ng-if="day.action" class="datapicker_circle">
-                                    [[ day.day ]]
-                                </div>
-                                <div ng-if="!day.action">
+                                <div ng-class="{'target_day':day.day == target_day, 'datapicker_circle':day.action == 1}">
                                     [[ day.day ]]
                                 </div>
                             </div>
                         </div>
 
-                        <div ng-repeat="day in days" ng-if="day.day" class="number_date_28" ng-switch-when="28">
+                        <div ng-repeat="day in days" ng-if="day.day" class="number_date_28" ng-switch-when="28" ng-click="getEventsByDate(day.day)">
                             <div class="circle">
-                                <div ng-if="day.action" class="datapicker_circle">
-                                    [[ day.day ]]
-                                </div>
-                                <div ng-if="!day.action">
+                                <div ng-class="{'target_day':day.day == target_day, 'datapicker_circle':day.action == 1}">
                                     [[ day.day ]]
                                 </div>
                             </div>
@@ -108,59 +96,130 @@
                 </div>
                 <div class="banner-horizontal margin-top_20 text-center"><img src="/var/www/creativer/web/banner/banner_event.png" /></div>
 
+
+
+
                 <div ng-repeat="event in events">
                     <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">[[ event.name ]]</h3></div>
                     <div class="horizontal_line_dashed"></div>
-                    <div class="row margin-top_10">
-                        <div class="col-sm-12">
-                            <div class="col-sm-3">
-                                <div class="row">
-                                    <a href="#/event/[[ event.events[0].id ]]" class="overflow-hidden container_image_events block">
-                                        <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ event.events[0].path ]][[ event.events[0].img ]]" />
+                    <div class="lobster text-gray text-center fs_3-2 margin-top_20" ng-if="event.events.length == 0">Нет событий</div>
+                    <div class="row" ng-if="(event.events.length % 2) == 0">
+                        <div  ng-class="{'col-sm-4':((key % 2) == 0), 'col-sm-8':((key % 2) != 0), 'right':((key % 2) == 0) && ((key/2 % 2) != 0)}" class="margin-top_30 trio_events" ng-repeat="(key,item) in event.events">
+
+                                <div ng-if="(key % 2) == 0" ng-class="{'container_image_events':(key % 2) == 0}" class="block left text-gray">
+                                    <a href="#/events/[[ item.id_cat ]]" class="name_category">[[ item.name_cat ]]</a>
+                                    <a href="#/event/[[ item.id ]]">
+                                        <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ item.path ]][[ item.img ]]" />
                                     </a>
-                                    <a href="#/event/[[ event.events[0].id ]]" class="slid__card__name_user text-left">[[ event.events[0].name ]]</a><br>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[0].start_date != event.events[0].end_date">[[ event.events[0].start_date | date: "dd.MM.yyyy" ]] - [[ event.events[0].end_date | date: "dd.MM.yyyy" ]]</span>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[0].start_date == event.events[0].end_date">[[ event.events[0].start_date | date: "dd.MM.yyyy" ]]</span>
-                                </div>
-                                <div class="row">
-                                    <a href="#/event/[[ event.events[1].id ]]" class="overflow-hidden container_image_events block">
-                                        <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ event.events[1].path ]][[ event.events[1].img ]]" />
+                                    <a href="#/event/[[ item.id ]]" class="margin-top_5">
+                                        <div class="col-sm-6 padding-left_3">
+                                            <span class="glyphicon glyphicon-eye-open text-gray-light middle"></span> <span class="fs_0-7 text-gray-light"> 12341</span>
+                                        </div>
+                                        <div class="col-sm-6 padding-right_5 text-right fs_0-8 text-gray-light" ng-if="item.start_date != item.end_date">
+                                            <time>[[ item.start_date | date: "dd.MM.yyyy" ]]</time><br>
+                                            <time>[[ item.end_date | date: "dd.MM.yyyy" ]]</time>
+                                        </div>
+                                        <div class="col-sm-6 padding-right_5 text-right fs_0-8 text-gray-light" ng-if="item.start_date == item.end_date">
+                                            <time>[[ item.start_date | date: "dd.MM.yyyy" ]]</time><br>
+                                        </div>
                                     </a>
-                                    <a href="#/event/[[ event.events[1].id ]]" class="slid__card__name_user text-left">[[ event.events[1].name ]]</a><br>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[1].start_date != event.events[1].end_date">[[ event.events[1].start_date | date: "dd.MM.yyyy" ]] - [[ event.events[1].end_date | date: "dd.MM.yyyy" ]]</span>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[1].start_date == event.events[1].end_date">[[ event.events[1].start_date | date: "dd.MM.yyyy" ]]</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-6">
-                                <a href="#/event/[[ event.events[2].id ]]" class="overflow-hidden container_image_product_center block">
-                                    <img ng-src="{{  path_img_event_original }}[[ event.events[2].path ]][[ event.events[2].img ]]" />
-                                </a>
-                                <div class="padding-left_0">
-                                    <a href="#/event/[[ event.events[2].id ]]" class="slid__card__name_user text-left">[[ event.events[2].name ]]</a><br>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[2].start_date != event.events[2].end_date">[[ event.events[2].start_date | date: "dd.MM.yyyy" ]] - [[ event.events[2].end_date | date: "dd.MM.yyyy" ]]</span>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[2].start_date == event.events[2].end_date">[[ event.events[2].start_date | date: "dd.MM.yyyy" ]]</span>
-                                </div>
-                            </div>
-                            <div class="col-sm-3">
-                                <div class="row right">
-                                    <a href="#/event/[[ event.events[3].id ]]" class="overflow-hidden container_image_events">
-                                        <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ event.events[3].path ]][[ event.events[3].img ]]">
+                                    <a href="#/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-black text-bold text-underline_hover">
+                                        [[ item.name ]]
                                     </a>
-                                    <a href="#/event/[[ event.events[3].id ]]" class="slid__card__name_user text-left">[[ event.events[3].name ]]</a><br>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[3].start_date != event.events[3].end_date">[[ event.events[3].start_date | date: "dd.MM.yyyy" ]] - [[ event.events[3].end_date | date: "dd.MM.yyyy" ]]</span>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[3].start_date == event.events[3].end_date">[[ event.events[3].start_date | date: "dd.MM.yyyy" ]]</span>
+                                    <a href="#/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-gray text-underline_none_hover" parse-description ng-model="item.description"></a>
                                 </div>
-                                <div class="row right">
-                                    <a href="#/event/[[ event.events[4].id ]]" class="overflow-hidden container_image_events">
-                                        <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ event.events[4].path ]][[ event.events[4].img ]]" >
+
+                                <div ng-if="(key % 2) != 0" ng-class="{'container_image_events_big':((key % 2) != 0)}" class="block left">
+                                    <a href="#/events/[[ item.id_cat ]]" class="name_category">[[ item.name_cat ]]</a>
+
+                                    <a href="#/event/[[ item.id ]]" >
+                                        <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ item.path ]][[ item.img ]]" />
+                                        <div class="container_image_events_big_text col-sm-10 col-sm-offset-1">
+                                            <div class="fs_1-5 text-underline">[[ item.name ]]</div>
+                                            <div class="margin-top_30">
+                                                <span class="glyphicon glyphicon-eye-open text-white middle"></span>
+                                                <span class="fs_0-7"> 12341</span>
+                                            </div>
+                                        </div>
                                     </a>
-                                    <a href="#/event/[[ event.events[4].id ]]" class="slid__card__name_user text-left ">[[ event.events[4].name ]]</a><br>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[4].start_date != event.events[4].end_date">[[ event.events[4].start_date | date: "dd.MM.yyyy" ]] - [[ event.events[4].end_date | date: "dd.MM.yyyy" ]]</span>
-                                    <span class="text-gray fs_0-9" ng-if="event.events[4].start_date == event.events[4].end_date">[[ event.events[4].start_date | date: "dd.MM.yyyy" ]]</span>
                                 </div>
-                            </div>
+
                         </div>
                     </div>
+
+
+
+                    <div class="row margin-top_10" ng-if="(event.events.length % 2) != 0">
+                        <div class="col-sm-4 trio_events" ng-repeat="item in event.events.slice(0, 3)">
+                            <div class="container_image_events block left text-gray">
+                                <a href="#/events/[[ item.id_cat ]]" class="name_category">[[ item.name_cat ]]</a>
+                                <a href="#/event/[[ item.id ]]">
+                                    <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ item.path ]][[ item.img ]]" />
+                                </a>
+                                <a href="#/event/[[ item.id ]]" class="margin-top_5">
+                                    <div class="col-sm-6 padding-left_3">
+                                        <span class="glyphicon glyphicon-eye-open text-gray-light middle"></span> <span class="fs_0-7 text-gray-light"> 12341</span>
+                                    </div>
+                                    <div class="col-sm-6 padding-right_5 text-right fs_0-8 text-gray-light" ng-if="item.start_date != item.end_date">
+                                        <time>[[ item.start_date | date: "dd.MM.yyyy" ]]</time><br>
+                                        <time>[[ item.end_date | date: "dd.MM.yyyy" ]]</time>
+                                    </div>
+                                    <div class="col-sm-6 padding-right_5 text-right fs_0-8 text-gray-light" ng-if="item.start_date == item.end_date">
+                                        <time>[[ item.start_date | date: "dd.MM.yyyy" ]]</time><br>
+                                    </div>
+                                </a>
+                                <a href="#/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-black text-bold text-underline_hover">
+                                    [[ item.name ]]
+                                </a>
+                                <a href="#/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-gray text-underline_none_hover" parse-description ng-model="item.description"></a>
+                            </div>
+                        </div>
+
+
+                        <div  ng-class="{'col-sm-4':((key % 2) == 0), 'col-sm-8':((key % 2) != 0), 'right':((key % 2) == 0) && ((key/2 % 2) != 0)}" class="margin-top_30 trio_events" ng-repeat="(key,item) in event.events.slice(3, event.events.length)">
+
+                            <div ng-if="(key % 2) == 0" ng-class="{'container_image_events':(key % 2) == 0}" class="block left text-gray">
+                                <a href="#/events/[[ item.id_cat ]]" class="name_category">[[ item.name_cat ]]</a>
+                                <a href="#/event/[[ item.id ]]">
+                                    <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ item.path ]][[ item.img ]]" />
+                                </a>
+                                <a href="#/event/[[ item.id ]]" class="margin-top_5">
+                                    <div class="col-sm-6 padding-left_3">
+                                        <span class="glyphicon glyphicon-eye-open text-gray-light middle"></span> <span class="fs_0-7 text-gray-light"> 12341</span>
+                                    </div>
+                                    <div class="col-sm-6 padding-right_5 text-right fs_0-8 text-gray-light" ng-if="item.start_date != item.end_date">
+                                        <time>[[ item.start_date | date: "dd.MM.yyyy" ]]</time><br>
+                                        <time>[[ item.end_date | date: "dd.MM.yyyy" ]]</time>
+                                    </div>
+                                    <div class="col-sm-6 padding-right_5 text-right fs_0-8 text-gray-light" ng-if="item.start_date == item.end_date">
+                                        <time>[[ item.start_date | date: "dd.MM.yyyy" ]]</time><br>
+                                    </div>
+                                </a>
+                                <a href="#/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-black text-bold text-underline_hover">
+                                    [[ item.name ]]
+                                </a>
+                                <a href="#/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-gray text-underline_none_hover" parse-description ng-model="item.description"></a>
+                            </div>
+
+                            <div ng-if="(key % 2) != 0" ng-class="{'container_image_events_big':((key % 2) != 0)}" class="block left">
+                                <a href="#/events/[[ item.id_cat ]]" class="name_category">[[ item.name_cat ]]</a>
+
+                                <a href="#/event/[[ item.id ]]" >
+                                    <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ item.path ]][[ item.img ]]" />
+                                    <div class="container_image_events_big_text col-sm-10 col-sm-offset-1">
+                                        <div class="fs_1-5 text-underline">[[ item.name ]]</div>
+                                        <div class="margin-top_30">
+                                            <span class="glyphicon glyphicon-eye-open text-white middle"></span>
+                                            <span class="fs_0-7"> 12341</span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+
+                        </div>
+
+                    </div>
+
                 </div>
 
                 <div class="banner-horizontal margin-top_40 text-center"><img src="/var/www/creativer/web/banner/banner_list.png" /></div>

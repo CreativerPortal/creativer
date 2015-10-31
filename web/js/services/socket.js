@@ -6,7 +6,9 @@ angular.module('service.socket', [])
                 socket.on(eventName, function () {
                     var args = arguments;
                     $rootScope.$apply(function () {
-                        callback.apply(socket, args);
+                        if (callback) {
+                            callback.apply(socket, args);
+                        }
                     });
                 });
             },

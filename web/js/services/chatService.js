@@ -6,9 +6,9 @@ angular.module('service.chat', ['service.socket'])
         }
 
         function soundClick() {
-            var audio = new Audio(); // ??????? ????? ??????? Audio
-            audio.src = '/sound/drop.wav'; // ????????? ???? ? ????? "?????"
-            audio.autoplay = true; // ????????????? ?????????
+            var audio = new Audio();
+            audio.src = '/sound/drop.wav';
+            audio.autoplay = true;
         }
 
         socket.on('message', function(data){
@@ -22,7 +22,6 @@ angular.module('service.chat', ['service.socket'])
                 if($rootScope.id_user == data.sender){
                     $rootScope.text_message = null;
                 }else{
-                    console.log($rootScope.ids);
                     socket.emit('reviewed', {ids: $rootScope.ids, id_user: $rootScope.id_user});
                 }
             }else{
@@ -33,10 +32,8 @@ angular.module('service.chat', ['service.socket'])
 
         var init = function(){
             socket.on("new message", function(data) {
-                if($state.current.name != 'chat')
-                {
+                //if($state.current.name != 'chat'){}
                     $rootScope.new_messages = data;
-                }
             });
         }
 

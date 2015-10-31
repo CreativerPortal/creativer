@@ -38,6 +38,10 @@
     font-size: 0.8em;
 }
 
+.fs_0-7{
+    font-size: 0.7em;
+}
+
 .right{
     float: right;
 }
@@ -186,6 +190,9 @@
     color: #000000;
 }
 
+.text-black:hover {
+    color: #000000;
+}
 
 .text-white {
     color: #ffffff;
@@ -196,7 +203,11 @@
 }
 
 .text-gray{
-    color: #696360;
+    color: #696360!important;
+}
+
+.text-gray-light{
+    color: #777775!important;
 }
 
 .text-brown{
@@ -213,6 +224,14 @@
 
 .text-underline{
     text-decoration: underline;
+}
+
+.text-underline_hover:hover{
+    text-decoration: underline;
+}
+
+.text-underline_none_hover:hover{
+    text-decoration: none;
 }
 
 .horizontal_line_dashed{

@@ -1,24 +1,18 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
     .controller('catalogCtrl',['$state', '$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
-    if($rootScope.news_events == undefined && ($stateParams.id_products || $stateParams.id_services)){
-        catalogService.getNewsEvents().success(function (data) {
-            $rootScope.news_events = $scope.news_events = data;
-            if(data.length && data[0].description != undefined){
-                angular.element('#new_event_1').text(data[0].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
-            }
-            if(data.length && data[1].description != undefined){
-                angular.element('#new_event_2').text(data[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
-            }
-        })
-    }else if($stateParams.id_products || $stateParams.id_services){
-        if($rootScope.news_events.length && $rootScope.news_events[0].description != undefined){
-            angular.element('#new_event_1').text($rootScope.news_events[0].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
+    catalogService.getNewsEvents().success(function (data) {
+        $rootScope.news_events = $scope.news_events = data;
+        var text_first = data[0]?data[0].description:null;
+        var text_second = data[1]?data[1].description:null;
+
+        if(text_first != undefined){
+            angular.element('#new_event_1').text(text_first.replace(/<[^>]+>|&nbsp;/g,'').slice(0,50)+" ...");
         }
-        if($rootScope.news_events.length && $rootScope.news_events[1].description != undefined){
-            angular.element('#new_event_2').text($rootScope.news_events[1].description.replace(/<[^>]+>|&nbsp;/g,'').slice(0,60)+" ...");
+        if(text_second != undefined){
+            angular.element('#new_event_2').text(text_second.replace(/<[^>]+>|&nbsp;/g,'').slice(0,50)+" ...");
         }
-    }
+    })
 
     if(!$rootScope.my_user){
         personalService.getUser().success(function (data) {
@@ -191,6 +185,13 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     }
 
     $scope.like = function(id,image_key){
+        if($scope.items.images_likes[id].liked){
+            $scope.items.items[image_key].likes = $scope.items.items[image_key].likes - 1;
+            $scope.items.images_likes[id].liked = !$scope.items.images_likes[id].liked;
+        }else{
+            $scope.items.items[image_key].likes = $scope.items.items[image_key].likes + 1;
+            $scope.items.images_likes[id].liked = !$scope.items.images_likes[id].liked;
+        }
         albumService.like({image_id:id}).success(function (data) {
             $scope.items.items[image_key].likes = data.likes;
             $scope.items.images_likes[id].liked = data.liked;

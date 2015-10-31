@@ -37,29 +37,93 @@ class EventController extends Controller
      */
     public function getDatapickerAction(){
         $other_date = $this->get('request')->request->get('date');
+        $id_cat = $this->get('request')->request->get('id_cat');
+        $target_date = $this->get('request')->request->get('target_date');
 
+        if($target_date) {
+            $target_date = $date = new \DateTime($target_date);
+        }
         if($other_date){
             $current_date = $date = new \DateTime($other_date);
         }else{
             $current_date = $date = new \DateTime();
         }
 
-        $month = $date->format('m');
-        $year = $date->format('Y');
+        $month = (int)$date->format('m');
+        $year = (int)$date->format('Y');
 
 
-        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
-            ->createQueryBuilder('e')
-            ->select('e.id','e.name','e.img','e.start_date','e.end_date')
-            ->where('YEAR(e.end_date) = :year OR YEAR(e.start_date) = :year')
-            ->andWhere('MONTH(e.end_date) = :month OR MONTH(e.start_date) = :month')
-            ->groupBy('e.id')
-            ->orderBy('e.id', 'DESC')
-            ->setParameter('month', $month)
-            ->setParameter('year', $year);
-        $events = $query->getQuery()->getResult();
+        $start_month = $date->modify('first day of this month')->format('Y-m-d');
+        $end_month = $date->modify('last day of this month')->format('Y-m-d');
 
-        $result = array('year' => $year, 'month' => $month, 'events' => $events, 'current_date' => $current_date);
+        if($id_cat != null) {
+
+            $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+                ->createQueryBuilder('e')
+                ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date')
+                ->leftJoin('e.event_sections', 'cat')
+                ->where('cat IN (:items)');
+                if($target_date){
+                    $query->andWhere('e.end_date >= :date AND e.start_date <= :date')
+                    ->setParameter('date', $target_date);
+                }else{
+                    $query->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month')
+                    ->setParameter('start_month', $start_month)
+                    ->setParameter('end_month', $end_month);
+                }
+            $query->groupBy('e.id')
+                ->orderBy('e.id', 'DESC')
+                ->setParameter('items', $id_cat);
+            $query = $query->getQuery()->getResult();
+
+            $mass[0]['events'] = $query;
+
+        }else{
+
+            $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:EventSections')->findBy(array('parent'=>1000));
+
+            $i = 0;
+            $mass = [];
+            while(isset($items[$i])){
+                $name = $items[$i]->getName();
+                $mass[$i] = array('name'=>$name);
+                if(!$items[$i]->getChildren()->isEmpty()){
+                    $childs = $items[$i]->getChildren();
+                    $event = [];
+                    foreach($childs as $k => $v) {
+                        array_push($event, $childs[$k]);
+                    }
+
+                    $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+                        ->createQueryBuilder('e')
+                        ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date')
+                        ->leftJoin('e.event_sections', 'cat')
+                        ->where('cat IN (:items)');
+                          if($target_date){
+                              $query->andWhere('e.end_date >= :date AND e.start_date <= :date')
+                                  ->setParameter('date', $target_date);
+                          }else{
+                              $query->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month')
+                                  ->setParameter('start_month', $start_month)
+                                  ->setParameter('end_month', $end_month);
+                          }
+                        $query->groupBy('e.id')
+                        ->orderBy('e.id', 'DESC')
+                        ->setParameter('items', $event);
+                    $query = $query->getQuery()->getResult();
+
+                    $mass[$i]['events'] = $query;
+                }
+                $i++;
+            }
+
+        }
+
+        $next_date = $date->modify('first day of next month')->format('Y-m-d');
+        $previous_date = $date->modify('first day of -1 month')->format('Y-m-d');
+
+
+        $result = array('year' => $year, 'month' => $month, 'events' => $mass, 'current_date' => $current_date, 'next_date' => $next_date, 'previous_date' => $previous_date);
 
         $serializer = $this->container->get('jms_serializer');
         $categories = $serializer
@@ -71,7 +135,6 @@ class EventController extends Controller
             );
 
         $response = new Respon($categories);
-        $response = new Respon($categories);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -82,34 +145,57 @@ class EventController extends Controller
      */
     public function getEventsAction(){
 
-        $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:EventSections')->findBy(array('parent'=>1000));
+        $id_cat = $this->get('request')->request->get('id_cat');
 
-        $i = 0;
-        $mass = [];
-        while(isset($items[$i])){
-            $name = $items[$i]->getName();
-            $mass[$i] = array('name'=>$name);
-            if(!$items[$i]->getChildren()->isEmpty()){
-                $childs = $items[$i]->getChildren();
-                $event = [];
-                foreach($childs as $k => $v) {
-                    array_push($event, $childs[$k]);
+
+        if($id_cat != null){
+
+            $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+                ->createQueryBuilder('e')
+                ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date')
+                ->leftJoin('e.event_sections', 'cat')
+                ->where('cat IN (:items)')
+                ->groupBy('e.id')
+                ->orderBy('e.id', 'DESC')
+                ->setParameter('items', $id_cat);
+            $query = $query->getQuery()->getResult();
+            $mass[0]['events'] = $query;
+
+
+        }else{
+            $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:EventSections')->findBy(array('parent'=>1000));
+
+
+            $i = 0;
+            $mass = [];
+            while(isset($items[$i])){
+                $name = $items[$i]->getName();
+                $mass[$i] = array('name'=>$name);
+                if(!$items[$i]->getChildren()->isEmpty()){
+                    $childs = $items[$i]->getChildren();
+                    $event = [];
+                    foreach($childs as $k => $v) {
+                        array_push($event, $childs[$k]);
+                    }
+
+                    $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+                        ->createQueryBuilder('e')
+                        ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date')
+                        ->leftJoin('e.event_sections', 'cat')
+                        ->where('cat IN (:items)')
+                        ->groupBy('e.id')
+                        ->orderBy('e.id', 'DESC')
+                        ->setParameter('items', $event);
+                    $query = $query->getQuery()->getResult();
+
+                    $mass[$i]['events'] = $query;
                 }
-
-                $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
-                    ->createQueryBuilder('e')
-                    ->select('cat.id as id_cat','e.id','e.name','e.path','e.img','e.start_date','e.end_date')
-                    ->leftJoin('e.event_sections', 'cat')
-                    ->where('cat IN (:items)')
-                    ->groupBy('e.id')
-                    ->orderBy('e.id', 'DESC')
-                    ->setParameter('items', $event);
-                $query = $query->getQuery()->getResult();
-
-                $mass[$i]['events'] = $query;
+                $i++;
             }
-            $i++;
+
         }
+
+
 
 
 
@@ -283,16 +369,28 @@ class EventController extends Controller
             $attend = true;
         }
 
-        $query = $em->createQueryBuilder();
-        $query->select('e')
-              ->from('CreativerFrontBundle:Events', 'e')
-              ->innerJoin('e.users_attend', 'u')
-              ->where('e.id = :id')
-              ->setParameter('id',$id);
-        $users = $query->getQuery()->getResult();
 
+        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+            ->createQueryBuilder('e')
+            ->where('e.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getResult()[0];
 
-        $response = new Respon(json_encode(array('users' => $users, 'attend' => $attend)), 200);
+        $users = $event->getUsersAttend();
+
+        $users = array('users' => $users, 'attend' => $attend);
+
+        $serializer = $this->container->get('jms_serializer');
+        $posts = $serializer
+            ->serialize(
+                $users,
+                'json',
+                SerializationContext::create()
+                    ->setGroups(array('eventAttend'))
+            );
+
+        $response = new Respon($posts);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
@@ -477,7 +575,6 @@ class EventController extends Controller
 
         return $events;
     }
-
 
     /**
      * @return array

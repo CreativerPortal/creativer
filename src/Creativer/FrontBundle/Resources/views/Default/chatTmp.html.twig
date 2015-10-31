@@ -84,7 +84,7 @@
 
 
             <div class="row margin-left_30 margin-top_10">
-                <div class="col-sm-5 early_message early-message text-center margin-left_30 pointer" ng-click="oldMessages()">
+                <div ng-class="{'loader':loader_message}" ng-show="messages_history.length >= 10" class="col-sm-5 early_message text-white text-center margin-left_30 pointer" ng-click="oldMessages()">
                     <span>Ранние сообщения</span>
                 </div>
 

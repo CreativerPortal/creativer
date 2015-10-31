@@ -758,8 +758,23 @@ class PersonController extends Controller
 
         $em->flush();
 
+        $posts = $user->getWall()->getPosts()->slice(0, 5);
 
-        return array('user' => $user);
+        $user = array('user' => $user, 'posts' => $posts);
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $user,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**

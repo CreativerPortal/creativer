@@ -100,7 +100,7 @@ class Events
 
     /**
      * @ORM\ManyToMany(targetEntity="User", mappedBy="events_attend")
-     * @JMS\Groups({"getUser","getEvent"})
+     * @JMS\Groups({"getUser","getEvent","eventAttend"})
      * @JMS\MaxDepth(2)
      * @JMS\Expose
      */

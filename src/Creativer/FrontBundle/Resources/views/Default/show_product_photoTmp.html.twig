@@ -33,7 +33,7 @@
 
             <div class="row margin-top_10 wrapper__comment">
 
-                <div class="col-sm-10 text-left" >
+                <div class="col-sm-9 text-left" >
                     <div class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img][0].image_comments">
                         <div class="col-sm-2">
                             <a href="#/[[ comment.user.id ]]" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
@@ -68,15 +68,30 @@
                     </div>
 
                     {% if is_granted('ROLE_USER') %}
-                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="63" rows="1" placeholder="Написать комментарий" style="width: 440px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
+                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="55" rows="1" placeholder="Написать комментарий" style="width: 400px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
                         <div ng-show="text_comment" class="margin-top_5 text-right">
                             <button class="true fs_0-9" ng-click="saveImageComment(items.items[key_img][0],text_comment)" ng-class="{'loader':loader}">Отправить</button>
                         </div>
                     {% endif %}
                 </div>
-                <div class="col-sm-2">
-                    <span class="left">Альбом:</span><br>
-                    <a class="text-blue left text-left" href="#/album/[[ items.items[key_img].id_album ]]">[[ items.items[key_img].name_album ]]</a><br>
+                <div class="col-sm-3">
+
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <a href="#/[[ items.items[key_img].id_user ]]" class="user__avatar-super-mini left" style="background-color: [[ items.items[key_img].color ]]">
+                                <img ng-src="[[ items.items[key_img].avatar ]]">
+                            </a>
+                        </div>
+                        <div class="col-sm-7">
+                            <a href="#/[[ items.items[key_img].id_user ]]" class="text-gray">
+                                <span class="fs_0-8">[[ items.items[key_img].username ]] [[ items.items[key_img].lastname ]]</span>
+                            </a><br>
+                            <a href="#/album/[[ items.items[key_img].id_album ]]">
+                                <span class="text-blue fs_0-8">[[ items.items[key_img].name_album ]]</span>
+                            </a>
+                        </div>
+                    </div>
+
                     <nav class="margin-top_10">
                         <a target="_blank" href="/home/album/original/[[ items.items[key_img].path ]][[ items.items[key_img].name ]]"><span class="text-blue left">Увеличить</span></a><br>
                     </nav>

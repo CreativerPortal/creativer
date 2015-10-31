@@ -167,7 +167,7 @@ class CatalogController extends Controller
             ->createQueryBuilder('e')
             ->addSelect('cat.id as id_cat', 'e.id','e.name','e.path','e.date','e.text as tex_img', 'e.likes as likes',
                      'alb.id as id_album','alb.name as name_album',
-                     'usr.id as id_user','usr.username','usr.lastname')
+                     'usr.id as id_user','usr.username','usr.lastname', 'usr.avatar', 'usr.color')
             ->leftJoin('e.album', 'alb')
             ->leftJoin('alb.user', 'usr')
             ->leftJoin('alb.categories', 'cat')

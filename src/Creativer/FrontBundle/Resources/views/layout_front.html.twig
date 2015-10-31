@@ -356,7 +356,7 @@
 
                 <div class="events__curtain" ng-if="events_attend.length">
                     <div class="events__curtain__wrapper" scrollbar>
-                        <a href="#/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in events_attend">
+                        <a ng-href="#/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in events_attend">
                                 <div class="col-sm-4 text-right padding-top_10">
                                     <div class="event__avatar-mini right">
                                         <img ng-src="{{ path_img_event_original }}/[[ event.path ]][[ event.img ]]" class="text-left">
@@ -389,12 +389,12 @@
                 <div class="messages__curtain">
                     <div class="messages__curtain-angle"></div>
                     <div class="messages__curtain-body">
-                        <a href="#/messages" ng-click="removeUser()" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10">Перейти в сообщения</a>
-                        <div class="row col-sm-10 col-sm-offset-1 horizontal_line_messages margin-bottom_5"></div>
+                        <a href="#/messages" ng-click="removeUser()" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10 padding-left_0">Перейти в сообщения</a>
+                        <div class="margin-left_15 col-sm-11 padding-left_0 horizontal_line margin-bottom_5"></div>
                         <div class="text-gray lobster" ng-show="!$root.new_messages[0]"><h4>пусто</h4></div>
                         <div class="row margin-top_10" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
-                            <div class="col-sm-3 col-sm-offset-1">
-                                <div class="user__avatar-mini text-left" style="background-color: [[ new_message.color ]];">
+                            <div class="col-sm-2 col-sm-offset-1 padding-right_0 padding-left_0">
+                                <div class="user__avatar-mini-header text-left" style="background-color: [[ new_message.color ]];">
                                     <img ng-src="[[ new_message.avatar ]]" class="text-left">
                                 </div>
                             </div>
@@ -404,12 +404,12 @@
                                         <a ng-href="#/[[ new_message.other_user ]]" class="text-blue">[[ new_message.username ]] [[ new_message.lastname ]]</a>
                                     </div>
                                 </div>
-                                <a href="#/chat/[[ new_message.other_user ]]" class="row col-sm-12">
+                                <a ng-href="#/chat/[[ new_message.other_user ]]" class="row col-sm-12 padding-right_0">
                                     <div class="row col-sm-12 text-gray">
                                         <p class="fs_0-8 left">[[ new_message.text ]]</p>
                                     </div>
                                     <div class="row text-gray">
-                                        <div class="col-sm-10 text-right fs_0-8"><time class="text-gray">[[ new_message.date | date: "hh:mm dd.MM" ]]</time></div>
+                                        <div class="col-sm-12 text-right padding-right_0 fs_0-8"><time class="text-gray fs_0-8">[[ new_message.date | date: "hh:mm dd.MM" ]]</time></div>
                                     </div>
                                 </a>
                             </div>
@@ -463,7 +463,7 @@
         <div ui-view></div>
 
         <input ng-init="initCrop()" type="file" id="fileInput" style="display: none;" />
-        <div ng-show="$root.myImage" class="background__viewer-avatar" style="zoom: reset;">
+        <div ng-show="$root.myImage" class="background__viewer-avatar">
             <div class="border__viewer-avatar margin-top_100">
                 <div class="border__viewer__wrapper-avatar">
                     <!-- Modal -->
@@ -479,7 +479,7 @@
                                 <img src="[[ myCroppedImage ]]">
                             </div>
                         </div>
-                        <div class="row right" style="position: absolute; bottom: 10px; right: 25px; zoom: 0.76!important;">
+                        <div class="row right" style="position: absolute; bottom: 10px; right: 25px;">
                             <div class=""></div>
                             <button type="submit" class="true" ng-class="{'loader':loader}" ng-click="$root.updateAvatar(myCroppedImage)">Отправить</button>
                             <button type="reset" class="false" ng-click="$root.myImage=''">Отменить</button>

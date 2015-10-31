@@ -2,6 +2,11 @@
     window.onclick = function(){
         document.getElementById('fail_auth').style.display = 'none';
     }
+    setTimeout(
+        function second_passed() {
+            document.getElementById('fail_auth').style.display = 'none';
+        },
+    5000)
 </script>
 <form class="col-sm-3 col-sm-offset-4 form-auth" action="{{ path('security_check') }}" method="post">
     <input class="form-auth__input fiveMinuts left margin-left_10" type="text" id="username" name="email" value="{{ last_username }}" placeholder="Email"/>

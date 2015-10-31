@@ -441,8 +441,8 @@ a:focus{
 .messages__curtain{
     position: absolute;
     z-index: 3;
-    left: -136px;
-    width: 350px;
+    left: -117px;
+    width: 302px;
     max-height: 300px;
     display: none;
 }

@@ -240,7 +240,8 @@ io.on('connection', function(socket){
     socket.on('new message', function (data) {
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
-            var id_recipient = data.id_user
+            var id_recipient = parseInt(data.id_user);
+
             collection.find({ receiver: id_recipient, reviewed: false}).sort({_id: -1}).toArray(function (err, result) {
                 if (err) {
                     //console.log(err);
@@ -268,7 +269,9 @@ io.on('connection', function(socket){
                             }
                         }
                         socket.emit('new message', result);
-                        db.close();
+                            console.log(result);
+
+                            db.close();
                         }
                     );
                 }

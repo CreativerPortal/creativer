@@ -250,6 +250,14 @@ body{
     -webkit-animation:pulse 1.5s alternate infinite;
 }
 
+.events_catalog{
+    height: 230px;
+}
+
+.event_link{
+    text-decoration: none!important;
+}
+
 .container_image_product{
     height: 150px;
     width: 162px;

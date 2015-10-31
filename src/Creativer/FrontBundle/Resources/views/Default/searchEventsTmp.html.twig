@@ -52,16 +52,28 @@
                     <div class="horizontal_line_dashed"></div>
                     <div class="row margin-top_10">
                         <div class="col-sm-12">
-                            <div class="col-sm-3" ng-repeat="e in event.events">
-                                <div class="row">
-                                    <a href="#/event/[[ e.id ]]" class="overflow-hidden container_image_product block">
+                            <div class="col-sm-4 trio_events" ng-repeat="e in event.events">
+                                <div class="container_image_events block left text-gray">
+                                    <a href="#/events/[[ e.id_cat ]]" class="name_category">[[ e.name_cat ]]</a>
+                                    <a href="#/event/[[ e.id ]]">
                                         <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ e.path ]][[ e.img ]]" />
                                     </a>
-                                    <p>
-                                        <a href="#/event/[[ e.id ]]" class="slid__card__name_user text-left">[[ e.name ]]</a><br>
-                                        <span class="text-gray fs_0-9" ng-if="e.start_date != e.end_date">[[ e.start_date | date: "dd.MM.yyyy" ]] - [[ e.end_date | date: "dd.MM.yyyy" ]]</span>
-                                        <span class="text-gray fs_0-9" ng-if="e.start_date == e.end_date">[[ e.start_date | date: "dd.MM.yyyy" ]]</span>
-                                    </p>
+                                    <a href="#/event/[[ e.id ]]" class="margin-top_5">
+                                        <div class="col-sm-6 padding-left_3">
+                                            <span class="glyphicon glyphicon-eye-open text-gray-light middle"></span> <span class="fs_0-7 text-gray-light"> 12341</span>
+                                        </div>
+                                        <div class="col-sm-6 padding-right_5 text-right fs_0-8 text-gray-light" ng-if="e.start_date != e.end_date">
+                                            <time>[[ e.start_date | date: "dd.MM.yyyy" ]]</time><br>
+                                            <time>[[ e.end_date | date: "dd.MM.yyyy" ]]</time>
+                                        </div>
+                                        <div class="col-sm-6 padding-right_5 text-right fs_0-8 text-gray-light" ng-if="e.start_date == e.end_date">
+                                            <time>[[ e.start_date | date: "dd.MM.yyyy" ]]</time><br>
+                                        </div>
+                                    </a>
+                                    <a href="#/event/[[ e.id ]]" class="row col-sm-12 margin-top_5 text-black text-bold text-underline_hover">
+                                        [[ e.name ]]
+                                    </a>
+                                    <a href="#/event/[[ e.id ]]" class="row col-sm-12 margin-top_5 text-gray text-underline_none_hover" parse-description ng-model="e.description"></a>
                                 </div>
                             </div>
                         </div>

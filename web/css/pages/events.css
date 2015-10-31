@@ -94,9 +94,6 @@ body{
 
 .container_image_events {
     display: block;
-    overflow: hidden;
-    border: 1px dashed #c5c3b4;
-    border-radius: 10px;
     animation-name: horizontal;
     animation-duration: 1.5s;
     animation-delay: 0s;
@@ -105,15 +102,12 @@ body{
     position: relative;
     color: inherit;
     cursor: pointer;
-    height: 156px;
-    width: 170px;
+    height: 170px;
+    width: 238px;
 }
 
-.container_image_product_center{
+.container_image_events_big {
     display: block;
-    overflow: hidden;
-    border: 1px dashed #c5c3b4;
-    border-radius: 10px;
     animation-name: horizontal;
     animation-duration: 1.5s;
     animation-delay: 0s;
@@ -122,9 +116,48 @@ body{
     position: relative;
     color: inherit;
     cursor: pointer;
-    height: 367px;
-    width: 385px;
-    margin-left: -20px;
+    height: 393px;
+    width: 504px;
+}
+
+.container_image_events_big_text{
+    color: white;
+    position: absolute;
+    bottom: 10px;
+}
+
+.container_image_events img, .container_image_events_big img{
+    border: 1px dashed #c5c3b4;
+    border-radius: 7px;
+}
+
+.trio_events{
+    height: 393px;
+}
+
+.link_event{
+    color: #6096b9;
+    text-decoration: none;
+}
+
+.link_event:hover {
+    color: #6096b9;
+    text-decoration: none;
+}
+
+.name_category{
+    position: absolute;
+    display: block;
+    color: white;
+    padding: 7px 10px;
+    border-top-left-radius: 6px;
+    margin-top: 1px;
+    margin-left: 1px;
+    background-image: url("/var/www/creativer/web/img/black_background_opacity.png");
+}
+
+.name_category:hover{
+    color:white;
 }
 
 .advert_button{
@@ -285,7 +318,8 @@ body{
 }
 
 .main_small_img_event{
-    height: 156px;
+    height: 100%;
+    width: 100%;
 }
 
 .close_image {
@@ -335,10 +369,18 @@ body{
 
 .circle{
     border-radius: 10px;
+    cursor: pointer;
 }
 
 .datapicker_circle{
     background-color: #EC9271;
+    border-radius: 10px;
+    padding: 0px 3px;
+    color: white;
+}
+
+.target_day{
+    background-color: #008ebe;
     border-radius: 10px;
     padding: 0px 3px;
     color: white;
@@ -363,7 +405,7 @@ body{
 }
 
 .body__datapicker{
-    width: 720px;
+    width: 690px;
     margin-left: 22px;
     text-align: center;
 }

@@ -159,6 +159,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'eventCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('events_cat', {
+            url: '/events/:id_cat',
+            templateUrl: '/events_tmp',
+            controller: 'eventCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('event', {
             url: '/event/:id',
             templateUrl: '/event_tmp',
@@ -596,7 +602,24 @@ app.directive('editPain', function () {
             })
         }
     }
+}).directive('parseDescription', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        replace: true,
+        scope: {
+            props: '=parseDescription',
+            ngModel: '=ngModel'
+        },
+        link: function compile(scope, element, attrs, controller) {
+            scope.$watch('ngModel', function (value) {
+                var html = value.replace(/<[^>]+>|&nbsp;|&laquo;|&amp;|&raquo;|&ndash;/g,'').slice(0,60)+" ...";
+                element.html(html);
+            });
+        }
+    };
 });
+
 
 app.filter('filterByTags', function () {
     return function(text, limit) {

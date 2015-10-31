@@ -1,7 +1,8 @@
 angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'service.chat', 'service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
-    .controller('messagesCtrl',['$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$stateParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$stateParams, FileUploader, socket, chat) {
+    .controller('messagesCtrl',['$state', '$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$stateParams', 'FileUploader', 'socket', 'chat', function($state, $window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$stateParams, FileUploader, socket, chat) {
 
     $rootScope.message_button = true;
+    $rootScope.messages_history = [];
 
     messagesService.getUser().success(function (data) {
         $rootScope.user = $scope.user = data.user;
@@ -73,25 +74,23 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     }
 
     $scope.oldMessages = function(){
+        $scope.loader_message = true;
         var length = $rootScope.messages_history.length;
         socket.emit("old messages",{id_user:$scope.user.id, ids:$scope.ids, length:length});
     }
 
 
     socket.on('old messages', function(data){
-
         $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
         $rootScope.ids = $rootScope.ids.sort();
-
-        console.log(data.messages);
-
-
         $rootScope.messages_history = $rootScope.messages_history.concat(data.messages);
-
+        $scope.loader_message = false;
     });
 
 
-        chat.init();
+    chat.init();
+    socket.emit("new message",{id_user: $scope.id_user})
+
 
     $rootScope.updateAvatar = function(image){
         $rootScope.loader = true;
@@ -104,10 +103,13 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     }
 
 
-    $window.onfocus = function(){
-        $scope.focus = true;
-        socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
-    };
+        $window.onfocus = function(){
+            if($state.current.name != 'messages'){
+                $scope.focus = true;
+                socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
+            }
+        };
+
 
     $window.onblur = function(){
         $scope.focus = false;
@@ -117,11 +119,9 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         $location.path( path );
     };
 
-    socket.on('reviewed', function(data){
-
-    });
-
-
+    //socket.on('reviewed', function(data){
+    //
+    //});
 
     $scope.$on('$routeChangeStart', function(next, current) {
         if(current.params.id != undefined && current.params.id != next.targetScope.user.id){

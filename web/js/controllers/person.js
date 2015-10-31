@@ -232,6 +232,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $rootScope.loader = true;
         personalService.updateAvatar({img:image}).success(function (data) {
             $scope.user = data.user;
+            $scope.user.wall.posts = data.posts;
             $rootScope.avatar = $scope.user.avatar;
             $rootScope.myImage = false;
             $rootScope.loader = false;
