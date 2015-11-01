@@ -136,9 +136,7 @@ class Events
         $this->end_date = new \DateTime();
         $this->users_attend = new \Doctrine\Common\Collections\ArrayCollection();
         $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
-
     }
-
 
 
     /**

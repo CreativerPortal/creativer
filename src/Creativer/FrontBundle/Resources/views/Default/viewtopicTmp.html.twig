@@ -3,9 +3,9 @@
         <div class="col-sm-10 padding-left_0">
             <div class="row">
                 <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a  ng-click="$root.searchInBaraholka = null" class="text-black" href="#/baraholka">Барахолка</a></h3></div>
-                <div class="col-sm-3 slid__search padding-left_0 margin-top_20">
+                <div class="col-sm-3 slid__search padding-left_0 padding-right_5 margin-top_20">
                     <input placeholder="Поиск по барахолке" ng-model="$root.searchInBaraholka">
-                    <a href="#/viewforum"><button class="slid__slider-button" ng-click="searchPostsBaraholkaByText()"></button></a>
+                    <a href="#/viewforum" class="right margin-top_3"><button class="slid__slider-button" ng-click="searchPostsBaraholkaByText()"></button></a>
                 </div>
             </div>
 
@@ -18,6 +18,11 @@
                         <div class="cities__background-top"></div>
                         <div class="cities__background-body">
                             <ul class="text-white cities__menu fs_1-1 padding-left_0 text-center">
+                                <li>
+                                    <label>Беларусь
+                                        <input type="radio" class="city-radio" name="city" ng-value="Беларусь" ng-model="$root.city" ng-click="uncheck(null)" />
+                                    </label>
+                                </li>
                                 <li ng-repeat="city in post_city">
                                     <label>[[ city.name ]]
                                         <input type="radio" class="city-radio" name="city" ng-value="[[ city ]]" ng-model="$root.city" ng-click="uncheck($root.city.id)" />

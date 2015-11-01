@@ -122,10 +122,12 @@ textarea {
 
 .open:after{
     font-family: 'Glyphicons Halflings';
-    content: " \e259";
+    content: "  \e252";
+    color: #6fb110;
     vertical-align: bottom;
     letter-spacing: -10px;
     text-decoration: none;
+    font-size: 0.9em;
 }
 
 .user__avatar-mini {
@@ -191,7 +193,7 @@ textarea {
 }
 
 .baraholka__checkbox:checked + .baraholka__label{
-    color: #22a60e !important;
+    color: #6fb110 !important;
 }
 
 .baraholka__checkbox:checked + .baraholka__label:before{
@@ -213,7 +215,7 @@ textarea {
 .cities__background-top{
     background-image: url('/var/www/creativer/web/img/top_background_folders.png');
     width: 137px;
-    height: 62px;
+    height: 34px;
 }
 
 .cities__background-body{
@@ -247,7 +249,7 @@ textarea {
     position: absolute;
     z-index: 100;
     top: 37px;
-    right: 0%;
+    right: -20px;
 }
 
 .comm:hover .edit_post{

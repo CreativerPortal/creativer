@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums",  "getCatalogServiceAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "eventAttend"})
      */
     private $id;
 
@@ -92,7 +92,7 @@ class User implements UserInterface, \Serializable
     /**
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
      * @ORM\OneToMany(targetEntity="Events", mappedBy="user", fetch="EAGER")
-     * @JMS\Groups({"getUser","getEvent"})
+     * @JMS\Groups({"getUser","getEvent","eventAttend"})
      **/
     private $events;
 
@@ -286,7 +286,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\ManyToMany(targetEntity="Events", inversedBy="users_attend")
      * @ORM\JoinTable(name="users_attend_events")
-     * @JMS\Groups({"getUser","getEvent"})
+     * @JMS\Groups({"getUser","getEvent","eventAttend"})
      * @JMS\Expose
      */
     private $events_attend;

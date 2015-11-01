@@ -39,12 +39,15 @@ class EventController extends Controller
         $other_date = $this->get('request')->request->get('date');
         $id_cat = $this->get('request')->request->get('id_cat');
         $target_date = $this->get('request')->request->get('target_date');
+        $city = $this->get('request')->request->get('city')?$this->get('request')->request->get('city')['id']:null;
+
 
         if($target_date) {
             $target_date = $date = new \DateTime($target_date);
-        }
-        if($other_date){
+            $target_date = $target_date->setTime(10, 00, 00)->format('Y-m-d H:i:s');
+        }elseif($other_date){
             $current_date = $date = new \DateTime($other_date);
+            $current_date = $current_date->setTime(10, 00, 00)->format('Y-m-d H:i:s');
         }else{
             $current_date = $date = new \DateTime();
         }
@@ -53,8 +56,8 @@ class EventController extends Controller
         $year = (int)$date->format('Y');
 
 
-        $start_month = $date->modify('first day of this month')->format('Y-m-d');
-        $end_month = $date->modify('last day of this month')->format('Y-m-d');
+        $start_month = $date->modify('first day of this month')->setTime(00, 00, 00)->format('Y-m-d H:i:s');
+        $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y-m-d H:i:s');
 
         if($id_cat != null) {
 
@@ -62,6 +65,7 @@ class EventController extends Controller
                 ->createQueryBuilder('e')
                 ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date')
                 ->leftJoin('e.event_sections', 'cat')
+                ->leftJoin('e.event_city', 'city')
                 ->where('cat IN (:items)');
                 if($target_date){
                     $query->andWhere('e.end_date >= :date AND e.start_date <= :date')
@@ -71,10 +75,14 @@ class EventController extends Controller
                     ->setParameter('start_month', $start_month)
                     ->setParameter('end_month', $end_month);
                 }
-            $query->groupBy('e.id')
-                ->orderBy('e.id', 'DESC')
-                ->setParameter('items', $id_cat);
-            $query = $query->getQuery()->getResult();
+                $query->groupBy('e.id')
+                ->orderBy('e.id', 'DESC');
+                if($city){
+                    $query->andWhere('city.id = :city')
+                        ->setParameter('city', $city);
+                }
+                $query->setParameter('items', $id_cat);
+                $query = $query->getQuery()->getResult();
 
             $mass[0]['events'] = $query;
 
@@ -98,9 +106,10 @@ class EventController extends Controller
                         ->createQueryBuilder('e')
                         ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date')
                         ->leftJoin('e.event_sections', 'cat')
+                        ->leftJoin('e.event_city', 'city')
                         ->where('cat IN (:items)');
-                          if($target_date){
-                              $query->andWhere('e.end_date >= :date AND e.start_date <= :date')
+                        if($target_date){
+                                  $query->andWhere('e.end_date >= :date AND e.start_date <= :date')
                                   ->setParameter('date', $target_date);
                           }else{
                               $query->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month')
@@ -108,8 +117,12 @@ class EventController extends Controller
                                   ->setParameter('end_month', $end_month);
                           }
                         $query->groupBy('e.id')
-                        ->orderBy('e.id', 'DESC')
-                        ->setParameter('items', $event);
+                        ->orderBy('e.id', 'DESC');
+                        if($city){
+                            $query->andWhere('city.id = :city')
+                                  ->setParameter('city', $city);
+                        }
+                    $query->setParameter('items', $event);
                     $query = $query->getQuery()->getResult();
 
                     $mass[$i]['events'] = $query;
@@ -121,7 +134,9 @@ class EventController extends Controller
 
         $next_date = $date->modify('first day of next month')->format('Y-m-d');
         $previous_date = $date->modify('first day of -1 month')->format('Y-m-d');
-
+        if(empty($current_date)){
+            $current_date = $target_date;
+        }
 
         $result = array('year' => $year, 'month' => $month, 'events' => $mass, 'current_date' => $current_date, 'next_date' => $next_date, 'previous_date' => $previous_date);
 
@@ -296,6 +311,9 @@ class EventController extends Controller
         $start_date = new \DateTime($start_date);
         $end_date = new \DateTime($end_date);
 
+        $start_date = $start_date->setTime(01, 00, 00);
+        $end_date = $end_date->setTime(23, 59, 59);
+
         $event->setEventSections($section);
         $event->setEventCity($city);
         $event->setDescription($content);
@@ -320,6 +338,30 @@ class EventController extends Controller
         $response = new Respon($categories);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/search_events")
+     * @View(serializerGroups={"getEvent"})
+     */
+    public function searchEventsAction()
+    {
+        $search_people = $this->get('request')->request->get('text');
+
+        $users = $this->container->get('fos_elastica.finder.app.events');
+        $keywordQuery = new \Elastica\Query\QueryString();
+
+        if($search_people == 'undefined'){
+            $keywordQuery->setQuery("id:"."*");
+        }else{
+            $keywordQuery->setQuery("name:".$search_people." OR description:".$search_people);
+        }
+
+        $events = $users->find($keywordQuery);
+        $events = array('events' => $events);
+
+        return $events;
     }
 
     /**

@@ -261,7 +261,9 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\User
-                        provider: ~
+                        identifier: id
+                        provider:
+                            batch_size: 100
                         listener: ~
                         finder: ~
                 post_baraholka:
@@ -290,7 +292,9 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\PostBaraholka
-                        provider: ~
+                        identifier: id
+                        provider:
+                            batch_size: 100
                         listener: ~
                         finder: ~
                 album:
@@ -328,7 +332,9 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\Albums
-                        provider: ~
+                        identifier: id
+                        provider:
+                            batch_size: 100
                         listener: ~
                         finder: ~
                 images:
@@ -390,12 +396,18 @@ fos_elastica:
                     persistence:
                         driver: orm
                         model: Creativer\FrontBundle\Entity\Images
-                        provider: ~
+                        identifier: id
+                        provider:
+                            batch_size: 100
                         listener: ~
                         finder: ~
                 events:
                     mappings:
                         id: ~
+                        img: ~
+                        path: ~
+                        start_date: ~
+                        end_date: ~
                         name:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
@@ -404,15 +416,16 @@ fos_elastica:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
                             type: string
-                        price: ~
-                        event_section:
-                            type: "object"
-                            properties:
-                                id:
+#                        event_section:
+#                            type: "object"
+#                            properties:
+#                                id: ~
                     persistence:
                         driver: orm
-                        model: Creativer\FrontBundle\Entity\PostBaraholka
-                        provider: ~
+                        model: Creativer\FrontBundle\Entity\Events
+                        identifier: id
+                        provider:
+                            batch_size: 100
                         listener: ~
                         finder: ~
 #                images:

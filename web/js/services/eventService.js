@@ -41,6 +41,17 @@ angular
                         data: data
                     });
                 },
+                searchEvents: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'search_events',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 removeComment: function (data) {
                     return $http({
                         method: 'POST',

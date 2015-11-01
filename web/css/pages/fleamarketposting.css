@@ -186,10 +186,6 @@ body{
     text-align: center;
 }
 
-.baraholka__table__right .price:after{
-    content: " руб.";
-}
-
 .baraholka__table__label{
     width: 50px;
     height: 11px;
