@@ -1,5 +1,5 @@
 angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.socket', 'service.chat'])
-    .controller('baraholkaCtrl',['$window', '$scope', '$rootScope', '$location', 'baraholkaService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,baraholkaService,$stateParams, FileUploader, socket, chat) {
+    .controller('baraholkaCtrl',['$window', '$scope', '$rootScope', '$location', 'baraholkaService', '$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$rootScope,$location,baraholkaService,$stateParams, FileUploader, socket, chat) {
 
 
         $scope.createPostBaraholka = function(){

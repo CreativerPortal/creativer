@@ -1,0 +1,112 @@
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
+<div class="container container-big">
+
+    <ul class="gridder hidden_shop" id="hasSelectedItem">
+
+        <li class="gridder-list" data-griddercontent="#gridder-content-10[[ key ]]" ng-repeat="(key,image) in shop.images">
+            <div class="image" style="background-image: url('{{ path_img_shop }}[[ image.path ]][[ image.name ]]');">
+                <div class="overlay">
+
+                </div>
+            </div>
+
+    </ul>
+
+    <div id="gridder-content-10[[ key ]]" class="gridder-content" ng-repeat="(key,image) in shop.images">
+        <img src="{{ path_img_shop }}[[ image.path ]][[ image.name ]]">
+        <div class="description">
+
+        </div>
+        <span ng-if="(shop.images.length-1) == key" shop-images></span>
+    </div>
+
+
+</div>
+
+    <div class="row slid margin-top_20">
+
+        <div class="col-sm-5">
+            <table class="table table-striped">
+                <tr ng-show="shop.name">
+                    <td ng-if="shop.img" class="logo_shop"><img src="{{ path_img_shop }}[[ shop.path ]][[ shop.img ]]" /></td>
+                    <td ng-if="!shop.img" class="logo_shop"><img src="{{ path_img_shop }}[[ shop.images[0].path ]][[ shop.images[0].name ]]" /></td>
+                    <td>[[ shop.name ]]</td>
+                </tr>
+                <tr ng-show="shop.site">
+                    <td>Сайт</td>
+                    <td>[[ shop.site ]]</td>
+                </tr>
+                <tr ng-show="shop.telephone">
+                    <td>телефон</td>
+                    <td>[[ shop.telephone ]]</td>
+                </tr>
+                <tr ng-show="shop.email">
+                    <td>E-mail</td>
+                    <td>[[ shop.email ]]</td>
+                </tr>
+                <tr ng-show="shop.address[0]">
+                    <td>Адрес</td>
+                    <td>
+                        <span ng-repeat="item in shop.address">
+                            <span>[[ item.address ]]</span></br>
+                        </span>
+                    </td>
+                </tr>
+                <tr ng-show="shop.email">
+                    <td>Время работы</td>
+                    <td>[[ shop.working_time ]]</td>
+                </tr>
+                <tr ng-show="shop.address[0]">
+                    <td colspan="2">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d293.8233393711081!2d27.558433403970714!3d53.903549315698214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1446472000823" width="340" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="col-sm-7">
+            {#{% if is_granted('ROLE_USER') %}#}
+            {#<a href="#/create_shop" class="col-sm-5 advert_button margin-top_20">Добавить магазин</a>#}
+            {#{% endif %}#}
+
+            <h3 class="lobster">О нас</h3>
+            <div class="text-gray">
+               [[ shop.description ]]
+            </div>
+
+        </div>
+
+    </div>
+    <script src="/js/jquery.gridder.js"></script>
+    <link rel="stylesheet" href="/css/vendor/jquery.gridder.min.css">
+<link rel="stylesheet" href="/css/vendor/demo.css">
+
+    {#<script>#}
+        {#jQuery(document).ready(function ($) {#}
+
+            {#// Call Gridder#}
+            {#$(".gridder").gridderExpander({#}
+                {#scroll: true,#}
+                {#scrollOffset: 60,#}
+                {#scrollTo: "panel", // panel or listitem#}
+                {#animationSpeed: 400,#}
+                {#animationEasing: "easeInOutExpo",#}
+                {#showNav: true,#}
+                {#nextText: "<i class=\"glyphicon glyphicon-chevron-right\"></i>",#}
+                {#prevText: "<i class=\"glyphicon glyphicon-chevron-left\"></i>",#}
+                {#closeText: "<i class=\"glyphicon glyphicon-remove\"></i>",#}
+                {#onStart: function(){#}
+                    {#console.log("Gridder Inititialized");#}
+                {#},#}
+                {#onContent: function(){#}
+                   {#$("#hasSelectedItem").removeClass('hidden_shop', 1000, "easeOutSine");#}
+                {#},#}
+                {#onClosed: function(){#}
+                   {#setTimeout(function(){#}
+                       {#$("#hasSelectedItem").addClass('hidden_shop', 1000, "easeOutSine");#}
+                   {#})#}
+                {#}#}
+            {#});#}
+        {#});#}
+    {#</script>#}

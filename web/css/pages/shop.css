@@ -1,0 +1,45 @@
+.shops__table{
+    width: 100%;
+    border-collapse: collapse;
+    border-top: 2px dashed #c3c1bb;
+    border-bottom: 2px dashed #c3c1bb;
+}
+
+.shops__table td{
+    border-bottom: 2px dashed #c3c1bb;
+    height: 110px;
+}
+
+.baraholka__table__left{
+    width: 80%;
+}
+
+.baraholka__table__left img{
+    max-height: 72px;
+    max-width: 84px;
+}
+
+.baraholka__table__right{
+    width: 20%;
+    vertical-align: middle;
+    text-align: center;
+}
+
+
+.baraholka__table__label{
+    width: 50px;
+    height: 11px;
+    background-color: red;
+    font-size: 9px;
+    text-align: center;
+    color: #ffffff;
+    display: inline-block;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd){
+    background-color: rgba(154, 113, 110, 0.11);
+}
+
+.logo_shop img{
+    width: 150px;
+}

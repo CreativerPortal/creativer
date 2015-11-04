@@ -52,6 +52,12 @@ class User implements UserInterface, \Serializable
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     */
+    private $path;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -1266,5 +1272,28 @@ class User implements UserInterface, \Serializable
     public function getNotificationMessage()
     {
         return $this->notification_message;
+    }
+
+    /**
+     * Set path
+     *
+     * @param string $path
+     * @return User
+     */
+    public function setPath($path)
+    {
+        $this->path = $path;
+
+        return $this;
+    }
+
+    /**
+     * Get path
+     *
+     * @return string 
+     */
+    public function getPath()
+    {
+        return $this->path;
     }
 }

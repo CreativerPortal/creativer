@@ -117,7 +117,9 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             data.full_price = $scope.price;
             data.auction = $scope.auction;
             baraholkaService.createPostBaraholka(data).success(function (data) {
-
+                if(uploader.queue.length == 0){
+                    $location.path("/viewtopic/" + data.id);
+                }
             });
         }
 
@@ -135,7 +137,6 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 $scope.loader = false;
             });
         }
-
 
         $rootScope.$watchGroup(['city','my_singboard', 'singboard_participate', 'new24', 'post_category_id'], function() {
 
@@ -174,7 +175,6 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             }
 
         });
-
 
         $scope.$watch("searchInCategory", function(){
 

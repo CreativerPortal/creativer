@@ -1,5 +1,7 @@
-angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.socket', 'service.chat'])
-    .controller('shopCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'shopService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,shopService,$stateParams, FileUploader, socket, chat) {
+angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.socket', 'service.chat', 'angularSearchTree'])
+    .controller('shopCtrl',['$state', '$window', '$scope', '$timeout', '$rootScope', '$location', 'shopService', '$stateParams', 'FileUploader', 'socket', 'chat', 'searchTree', function($state, $window,$scope,$timeout,$rootScope,$location,shopService,$stateParams, FileUploader, socket, chat, SearchTree) {
+
+
 
         shopService.getCtegoriesShops({}).success(function (data) {
             $rootScope.data = $scope.data = data.catagories_shops;
@@ -16,15 +18,76 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             };
         });
 
+        if($stateParams.id_shop){
+            shopService.getShopById({id:$stateParams.id_shop}).success(function (data) {
+                $scope.shop = data;
+            });
+        }
+
+        if($stateParams.edit_id){
+            shopService.getShopById({id:$stateParams.edit_id}).success(function (data) {
+                $scope.shop = data;
+                $scope.shop.remove_shop = false;
+                var categories = [];
+                for(var key in data.categories){
+                    categories.push(data.categories[key]);
+                }
+
+                shopService.getCtegoriesShops({}).success(function (data) {
+                    $rootScope.data = $scope.data = data.catagories_shops;
+                    for(var key in $scope.data){
+                        $scope.data[key].name = $scope.data[key].parent.name+' :: '+$scope.data[key].name;
+                    }
+                    var search_tree = SearchTree();
+                    $scope.selectOnly1Or2 = function (item, selectedItems) {
+                        if (selectedItems !== undefined && selectedItems.length >= 20) {
+                            return false;
+                        } else {
+                            return true;
+                        }
+                    };
+
+                    for (var cat in categories) {
+                        $scope.data = search_tree({id: categories[cat].id},$scope.data);
+                    }
+
+                });
+            });
+        }
+
         if($stateParams.id_category){
             shopService.getShopsByCategory({id:$stateParams.id_category}).success(function (data) {
                 $scope.posts = data.shops;
             });
         }
 
+            if ($state.current.name == 'create_shop') {
+                $scope.address = [];
+                $scope.address.push("");
+
+                $scope.add = function () {
+                    $scope.address.push("");
+                };
+            }
+
         $scope.removeShop = function(id,key){
             shopService.removeShop({id:id}).success(function (data) {
-                $scope.posts.splice(key,1);
+                $location.path("/shops/"+data.id);
+            });
+        }
+
+        $scope.removeImageShop = function(id_image){
+            shopService.removeImageShop({id: $scope.shop.id, id_image: id_image}).success(function (data) {
+                for(var key in $scope.shop.images){
+                    if($scope.shop.images[key].id == id_image){
+                        $scope.shop.images.splice(key,1);
+                    }
+                }
+            });
+        }
+
+        $scope.mainImageShop = function(id_image){
+            shopService.mainImageShop({"id": $scope.shop.id, "id_image": id_image}).success(function (data) {
             });
         }
 
@@ -44,9 +107,16 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             socket.emit("new message",{id_user: $scope.id_user})
         }
 
-        var uploader = $scope.uploader = new FileUploader({
-            url: 'upload_shop'
-        });
+
+        if($stateParams.edit_id){
+            var uploader = $scope.uploader = new FileUploader({
+                url: 'edit_images_shop'
+            });
+        }else{
+            var uploader = $scope.uploader = new FileUploader({
+                url: 'upload_shop'
+            });
+        }
 
         // FILTERS
 
@@ -61,29 +131,70 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
         // CALLBACKS
 
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
-            // console.info('onCompleteItem', fileItem, response, status, headers);
-            $scope.id_album = response.id;
+            $scope.id_shop = response.id;
+            if($stateParams.edit_id){
+                $scope.shop.images.push({id: response.id, name: response.name, path: response.path});
+                uploader.queue = [];
+            }
         };
         uploader.onCompleteAll = function(response) {
             var selectCategories = [];
             for(var key in $scope.selectedItem){
                 selectCategories.push($scope.selectedItem[key].id);
             }
-            if($scope.id_album){
-                $location.path("/album/"+$scope.id_album);
-                $scope.id_album = null;
+            if(!$stateParams.edit_id){
+                $location.path("/shop/"+$scope.id_shop);
+            }
+        };
+
+        var count_shop_images = 0;
+
+        uploader.onAfterAddingFile = function(fileItem) {
+            if($stateParams.edit_id){
+                fileItem.formData.push({id: $scope.shop.id});
+                uploader.uploadAll();
             }
         };
 
         uploader.onBeforeUploadItem = function (item) {
 
+            count_shop_images = count_shop_images + 1;
+
             if($scope.title != undefined) {
                 item.formData.push({title: $scope.title});
             }
-
+            if($scope.address != undefined) {
+                item.formData.push({address: $scope.address});
+            }
+            if($scope.working_time != undefined) {
+                item.formData.push({working_time: $scope.working_time});
+            }
+            if($scope.email != undefined) {
+                item.formData.push({email: $scope.email});
+            }
+            if($scope.telephone != undefined) {
+                item.formData.push({telephone: $scope.telephone});
+            }
+            if($scope.site != undefined) {
+                item.formData.push({site: $scope.site});
+            }
+            if($scope.description != undefined) {
+                item.formData.push({description: $scope.description});
+            }
             if($scope.full_description != undefined) {
                 item.formData.push({full_description: $scope.full_description});
             }
+            if($scope.address[0] != undefined) {
+                var address = JSON.stringify($scope.address);
+                item.formData.push({address: address});
+            }
+            if(uploader.queue.length == count_shop_images) {
+                item.formData.push({stop: 1});
+            }
+            if(item.main == 1) {
+                item.formData.push({main: 1});
+            }
+
 
             var selectCategories = [];
             for(var i in $scope.selectedItem){

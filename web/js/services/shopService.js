@@ -9,6 +9,18 @@ angular
 
             return {
 
+                getShopById: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_shop_by_id',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
                 getCtegoriesShops: function (data) {
                     return $http({
                         method: 'POST',
@@ -37,6 +49,30 @@ angular
                     return $http({
                         method: 'POST',
                         url: url + 'remove_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                removeImageShop: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_image_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                mainImageShop: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'main_image_shop',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

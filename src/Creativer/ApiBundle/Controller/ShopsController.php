@@ -30,7 +30,7 @@ class ShopsController extends Controller
 {
     /**
      * @Post("/v1/get_ctegories_shops")
-     * @View(serializerGroups={"getAlbumById"})
+     * @View(serializerGroups={"getShopsByCategory"})
      */
     public function getCtegoriesShopsAction()
     {
@@ -44,7 +44,6 @@ class ShopsController extends Controller
         $catagoriesShops = $query->getQuery()->getResult();
 
 
-
         $categories = array('catagories_shops' => $catagoriesShops);
 
 
@@ -53,7 +52,7 @@ class ShopsController extends Controller
 
     /**
      * @Post("/v1/get_shops_by_category")
-     * @View(serializerGroups={"getAlbumById"})
+     * @View(serializerGroups={"getShopsByCategory"})
      */
     public function getShopsByCategoryAction()
     {
@@ -72,44 +71,21 @@ class ShopsController extends Controller
     }
 
     /**
-     * @return array
-     * @Post("/v1/remove_event")
-     * @View()
+     * @Post("/v1/get_shop_by_id")
+     * @View(serializerGroups={"getShopById"})
      */
-    public function removeEventAction()
+    public function getShopByIdAction()
     {
-        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
-            $array = array('success' => false);
-            $response = new Respon(json_encode($array), 401);
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
-        }
-
-        $em = $this->getDoctrine()->getEntityManager();
         $id = $this->get('request')->request->get('id');
 
-        $path_img_event_original = $this->container->getParameter('path_img_shop');
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
+            ->createQueryBuilder('e')
+            ->where('e = :id')
+            ->setParameter('id', $id);
+        $shops = $query->getQuery()->getResult()[0];
 
-
-        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
-        $image = $event->getImg();
-        $path = $event->getPath();
-
-
-        $fs = new Filesystem();
-        $fs->remove(array($path_img_event_original.$path.$image));
-
-        $em->remove($event);
-        $em->flush();
-
-
-        $response = new Respon(json_encode(array()), 200);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
+        return $shops;
     }
-
 
 
     /**
@@ -134,18 +110,112 @@ class ShopsController extends Controller
 
 
         $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+
+        $category_id = $shop->getCategories()[0]->getId();
+
+        $images = $shop->getImages();
+
+        foreach($images as $key=>$val){
+            $image = $val->getName();
+            $path = $val->getPath();
+            $fs = new Filesystem();
+            $fs->remove(array($path_img_shop.$path.$image));
+            $em->remove($val);
+        }
+
         $image = $shop->getImg();
         $path = $shop->getPath();
 
 
-        $fs = new Filesystem();
-        $fs->remove(array($path_img_shop.$path.$image));
+        if(!empty($image)){
+            $fs = new Filesystem();
+            $fs->remove(array($path_img_shop.$path.$image));
+        }
+
 
         $em->remove($shop);
         $em->flush();
 
 
-        $response = new Respon(json_encode(array()), 200);
+        $response = new Respon(json_encode(array('id' => $category_id)), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/remove_image_shop")
+     * @View()
+     */
+    public function removeImageShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $id_image = $this->get('request')->request->get('id_image');
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:ImagesShops')->find($id_image);
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->remove($image);
+        $em->persist($shop);
+        $em->flush();
+
+        $path_img_shop = $this->container->getParameter('path_img_shop');
+
+        $fs = new Filesystem();
+        $fs->remove(array($path_img_shop.$image->getPath().$path_img_shop.$image->getName()));
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/main_image_shop")
+     * @View()
+     */
+    public function mainImageShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $id_image = $this->get('request')->request->get('id_image');
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:ImagesShops')->find($id_image);
+
+        $shops->setImg($image->getName());
+        $shops->setPath($image->getPath());
+
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($shops);
+        $em->flush();
+
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;

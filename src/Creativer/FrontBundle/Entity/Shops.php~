@@ -51,10 +51,59 @@ class Shops
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({})
      */
     private $description;
 
+    /**
+     * @JMS\Expose
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({})
+     */
+    private $full_description;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({""})
+     * @JMS\Expose
+     */
+    private $telephone;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({""})
+     * @JMS\Expose
+     */
+    private $email;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({""})
+     * @JMS\Expose
+     */
+    private $site;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     * @JMS\Groups({""})
+     * @JMS\Expose
+     */
+    private $working_time;
+
+    /**
+     * @JMS\Expose
+     * @ORM\OneToMany(targetEntity="ImagesShops", mappedBy="shop")
+     * @ORM\OrderBy({"id" = "DESC"})
+     * @JMS\Groups({})
+     **/
+    private $images;
+
+    /**
+     * @JMS\Expose
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="shop", fetch="EAGER")
+     * @JMS\Groups({"getUser"})
+     **/
+    private $address;
 
     /**
      * @ORM\ManyToMany(targetEntity="Categories", inversedBy="albums")
@@ -81,9 +130,12 @@ class Shops
 
     public function __construct()
     {
+        $this->images = new ArrayCollection();
+        $this->address = new ArrayCollection();
         $this->categories = new ArrayCollection();
         $this->date = new \DateTime();
     }
+
 
 
     /**
@@ -189,6 +241,121 @@ class Shops
     }
 
     /**
+     * Set full_description
+     *
+     * @param string $fullDescription
+     * @return Shops
+     */
+    public function setFullDescription($fullDescription)
+    {
+        $this->full_description = $fullDescription;
+
+        return $this;
+    }
+
+    /**
+     * Get full_description
+     *
+     * @return string 
+     */
+    public function getFullDescription()
+    {
+        return $this->full_description;
+    }
+
+    /**
+     * Set telephone
+     *
+     * @param string $telephone
+     * @return Shops
+     */
+    public function setTelephone($telephone)
+    {
+        $this->telephone = $telephone;
+
+        return $this;
+    }
+
+    /**
+     * Get telephone
+     *
+     * @return string 
+     */
+    public function getTelephone()
+    {
+        return $this->telephone;
+    }
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     * @return Shops
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
+    }
+
+    /**
+     * Get email
+     *
+     * @return string 
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set site
+     *
+     * @param string $site
+     * @return Shops
+     */
+    public function setSite($site)
+    {
+        $this->site = $site;
+
+        return $this;
+    }
+
+    /**
+     * Get site
+     *
+     * @return string 
+     */
+    public function getSite()
+    {
+        return $this->site;
+    }
+
+    /**
+     * Set working_time
+     *
+     * @param string $workingTime
+     * @return Shops
+     */
+    public function setWorkingTime($workingTime)
+    {
+        $this->working_time = $workingTime;
+
+        return $this;
+    }
+
+    /**
+     * Get working_time
+     *
+     * @return string 
+     */
+    public function getWorkingTime()
+    {
+        return $this->working_time;
+    }
+
+    /**
      * Set date
      *
      * @param \DateTime $date
@@ -232,6 +399,72 @@ class Shops
     public function getIsActive()
     {
         return $this->isActive;
+    }
+
+    /**
+     * Add images
+     *
+     * @param \Creativer\FrontBundle\Entity\ImagesShops $images
+     * @return Shops
+     */
+    public function addImage(\Creativer\FrontBundle\Entity\ImagesShops $images)
+    {
+        $this->images[] = $images;
+
+        return $this;
+    }
+
+    /**
+     * Remove images
+     *
+     * @param \Creativer\FrontBundle\Entity\ImagesShops $images
+     */
+    public function removeImage(\Creativer\FrontBundle\Entity\ImagesShops $images)
+    {
+        $this->images->removeElement($images);
+    }
+
+    /**
+     * Get images
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getImages()
+    {
+        return $this->images;
+    }
+
+    /**
+     * Add address
+     *
+     * @param \Creativer\FrontBundle\Entity\Address $address
+     * @return Shops
+     */
+    public function addAddress(\Creativer\FrontBundle\Entity\Address $address)
+    {
+        $this->address[] = $address;
+
+        return $this;
+    }
+
+    /**
+     * Remove address
+     *
+     * @param \Creativer\FrontBundle\Entity\Address $address
+     */
+    public function removeAddress(\Creativer\FrontBundle\Entity\Address $address)
+    {
+        $this->address->removeElement($address);
+    }
+
+    /**
+     * Get address
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getAddress()
+    {
+        return $this->address;
     }
 
     /**

@@ -2,6 +2,15 @@
 
         <form class="col-sm-10 padding-left_0 form_create_post" name="shop_form">
 
+            <div class="row margin-top_20 margin-left_0">
+                <span class="text-blue pointer left" ng-if="shop.remove_shop == false" ng-click="shop.remove_shop = true">Удалить магазин</span>
+
+                <div ng-if="shop.remove_shop == true" class="col-sm-6 left padding-left_0">
+                    Вы действително хотите удалить магазин ?
+                    <span class="text-blue pointer" ng-click="removeShop(shop.id)">Да</span> |
+                    <span ng-click="shop.remove_shop = false" class="text-blue pointer">Нет</span>
+                </div>
+            </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Разделы:</div>
@@ -19,7 +28,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Заголовок:</div>
                 <div class="col-sm-10">
-                    <input type="text" name="tit" ng-model="title" ng-required="true" required="">
+                    <input type="text" name="name" ng-model="shop.name" ng-required="true" required="" value="shop.name">
                     <span class="text-danger" ng-show="submitted && shop_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -27,7 +36,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Краткое описание:</div>
                 <div class="col-sm-10">
-                    <input type="text" name="description" ng-model="description" ng-required="true" required="">
+                    <input type="text" name="description" ng-model="shop.description" ng-required="true" required="" value="shop.description">
                     <span class="text-danger" ng-show="submitted && shop_form.description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -35,7 +44,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Полное описание:</div>
                 <div class="col-sm-10">
-                    <textarea name="full_description" ng-model="full_description" ng-required="true" required=""></textarea>
+                    <textarea name="full_description" ng-model="shop.full_description" ng-required="true" required="">[[ shop.full_description ]]</textarea>
                     <span class="text-danger" ng-show="submitted && shop_form.full_description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -45,30 +54,28 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Сайт:</div>
                 <div class="col-sm-10">
-                    <input name="site" ng-model="site">
+                    <input name="site" ng-model="shop.site" value="shop.site">
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">
-                    <span>Адрес: <span class="glyphicon glyphicon-plus-sign pointer" style="top: 3px;" ng-click="add()"></span></span>
-                </div>
-                <div class="col-sm-10 right" ng-repeat="(key,ad) in address track by $index">
-                    <input class="margin-top_5" name="address" ng-model="address[key]">
+                <div class="col-sm-2">Адрес:</div>
+                <div class="col-sm-10">
+                    <input name="address" ng-model="shop.address[0]" value="shop.address[0]">
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Телефон:</div>
                 <div class="col-sm-10">
-                    <input name="address" ng-model="telephone">
+                    <input name="address" ng-model="shop.telephone" value="shop.telephone">
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">E-mail:</div>
                 <div class="col-sm-10">
-                    <input name="address" ng-model="email">
+                    <input name="address" ng-model="shop.email" value="shop.email">
                 </div>
             </div>
 
@@ -84,21 +91,20 @@
 
             <div class="row margin-left_0">
 
-                <div class="upload__element" ng-repeat="item in uploader.queue" style="float: left;">
-                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
+                <div class="upload__element" ng-repeat="item in shop.images" style="float: left; position: relative;">
+                    <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info" style="position: absolute; top: 0px;">
                         <input type="checkbox" class="hidden">
                         <div class="edit__album__menu">
                             <ul class="margin-top_20">
-                                <li ng-click="item.remove()">Удалить</li>
-                                <li ng-init="item.main = 0" ng-click="item.main = 1">
+                                <li ng-click="removeImageShop(item.id)">Удалить</li>
+                                <li ng-click="mainImageShop(item.id)">
                                     Обложкой
                                 </li>
                             </ul>
                         </div>
                     </label>
 
-                    <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }" class="text-center thumb__upload"></div>
-
+                    <img src="{{ path_img_shop }}[[ item.path ]][[ item.name ]]" height="100" />
                 </div>
             </div>
 
@@ -113,8 +119,9 @@
 
             </div>
 
+
             <div class="row text-center">
-                <button type="button" ng-show="!uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !shop_form.$error.required && createShop()" >
+                <button type="button" ng-show="!uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !shop_form.$error.required && redirectShop()" >
                     Продолжить
                 </button>
                 <button type="button" ng-show="uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !shop_form.$error.required && uploader.uploadAll()" >

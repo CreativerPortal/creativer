@@ -52,6 +52,12 @@ class User implements UserInterface, \Serializable
      */
     private $avatar;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     */
+    private $path;
 
     /**
      * @ORM\Column(type="string", length=255)

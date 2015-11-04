@@ -17,6 +17,8 @@ use Creativer\FrontBundle\Entity\Role;
 use Creativer\FrontBundle\Entity\Images;
 use Creativer\FrontBundle\Entity\Albums;
 use Creativer\FrontBundle\Entity\Shops;
+use Creativer\FrontBundle\Entity\ImagesShops;
+use Creativer\FrontBundle\Entity\Address;
 use Creativer\FrontBundle\Entity\PostBaraholka;
 use Creativer\FrontBundle\Entity\ImagesBaraholka;
 use Creativer\FrontBundle\Entity\PostImages;
@@ -1136,6 +1138,18 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:shopsTmp.html.twig');
     }
 
+    public function shopTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:shopTmp.html.twig');
+    }
+
+    public function editShopTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:editShopTmp.html.twig');
+    }
+
     public function forgotPasswordAction(){
 
 
@@ -1275,7 +1289,14 @@ class DefaultController extends Controller
         if ($request->getMethod() == 'POST') {
             $image = $request->files->get('file');
             $title = $request->get('title');
+            $description = $request->get('description');
+            $site = $request->get('site');
+            $address_shop = $request->get('address');
+            $telephone = $request->get('telephone');
+            $email = $request->get('email');
             $full_description = $request->get('full_description');
+            $stop = $request->get('stop');
+            $main = $request->get('main');
             $selectCategories = $request->get('selectCategories');
             $selectCategories = explode(",", $selectCategories);
 
@@ -1293,16 +1314,33 @@ class DefaultController extends Controller
                         $shop= $em->getRepository("CreativerFrontBundle:Shops")->findBy(array('isActive' => 0));
                         $categories = $em->getRepository("CreativerFrontBundle:Categories")->findById($selectCategories);
 
+                        $address_shop = json_decode($address_shop);
+
+
                         if(empty($shop)){
                             $shop = new Shops();
                             $shop->setName($title);
-                            $shop->setDescription($full_description);
-                            $shop->setIsActive(1);
+                            $shop->setEmail($email);
+                            $shop->setTelephone($telephone);
+                            $shop->setSite($site);
+                            $shop->setDescription($description);
+                            $shop->setFullDescription($full_description);
                             foreach($categories as $cat){
                                 $shop->addCategory($cat);
                             }
+                            foreach($address_shop as $adr){
+                                $address = new Address();
+                                $address->setAddress($adr);
+                                $shop->addAddress($address);
+                                $address->setShop($shop);
+                                $em->persist($address);
+                            }
                         }else{
                             $shop = $shop[0];
+                        }
+
+                        if($stop == 1){
+                            $shop->setIsActive(1);
                         }
 
                         $year = date("Y");
@@ -1321,24 +1359,36 @@ class DefaultController extends Controller
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
-                            if($w >= 400 or $h >= 872){
+                            if($w >= 600 or $h >= 400){
                                 if($w > $h){
-                                    $count = $image->getSize()->getHeight() / 300;
+                                    $count = $image->getSize()->getHeight() / 400;
                                     $width = $image->getSize()->getWidth() / $count;
-                                    $image->resize(new Box($width, 300), ImageInterface::FILTER_LANCZOS);
+                                    $image->resize(new Box($width, 400), ImageInterface::FILTER_LANCZOS);
                                 }else{
-                                    $count = $image->getSize()->getWidth() / 400;
+                                    $count = $image->getSize()->getWidth() / 600;
                                     $height = $image->getSize()->getHeight() / $count;
-                                    $image->resize(new Box(400, $height), ImageInterface::FILTER_LANCZOS);
+                                    $image->resize(new Box(600, $height), ImageInterface::FILTER_LANCZOS);
                                 }
                             }
 
                             $image->save($this->container->getParameter('path_img_shop').$originalName);
                             rename($this->container->getParameter('path_img_shop').$originalName,$this->container->getParameter('path_img_shop').$name_path.$image_name);
 
-                            $shop->setImg($image_name);
-                            $shop->setPath($name_path);
+                            $images_shops = new  ImagesShops();
+                            $images_shops->setName($image_name);
+                            $images_shops->setPath($name_path);
+
+
+                            $shop->addImage($images_shops);
+                            $images_shops->setShop($shop);
+
+
+                            if($main == 1){
+                                $shop->setImg($image_name);
+                                $shop->setPath($name_path);
+                            }
                             $em->persist($shop);
+                            $em->persist($images_shops);
                             $em->flush();
 
                         } catch (\Imagine\Exception\Exception $e) {
@@ -1360,10 +1410,6 @@ class DefaultController extends Controller
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
             }
-            $shop->setImg($image_name);
-            $shop->setPath($name_path);
-            $em->persist($shop);
-            $em->flush();
             $id = $shop->getId();
             $array = array('id' => $id);
             $response = new Respon(json_encode($array), 200);
@@ -1374,6 +1420,114 @@ class DefaultController extends Controller
         }
 
         return $this->render('CreativerFrontBundle:Default:createShopTmp.html.twig');
+    }
+
+
+
+    public function editImagesShopAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $image = $request->files->get('file');
+            $id = $request->get('id');
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $shops = $em->getRepository("CreativerFrontBundle:Shops")->find(array('id' => $id));
+
+
+            if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
+                if (($image->getSize() < 10000000)) {
+                    $originalName = $image->getClientOriginalName();
+                    $file_type = $image->getMimeType();
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    if (in_array(strtolower($file_type), $valid_filetypes)) {
+
+
+                        $year = date("Y");
+                        $maonth = date("m");
+                        $day = date("d");
+
+                        try {
+                            $imagine = new \Imagine\Imagick\Imagine();
+                            $name_path = $year."/".$maonth."/".$day."/";
+                            $image_name = time() . "_" . md5($originalName) . '.jpg';
+                            if (!file_exists($this->container->getParameter('path_img_shop').$name_path))
+                                mkdir($this->container->getParameter('path_img_shop').$name_path, 0777, true);
+                            $path = $image->getPathname();
+                            $image = $imagine->open($path);
+                            $w = $image->getSize()->getWidth();
+                            $h = $image->getSize()->getHeight();
+
+                            if($w >= 600 or $h >= 400){
+                                if($w > $h){
+                                    $count = $image->getSize()->getHeight() / 400;
+                                    $width = $image->getSize()->getWidth() / $count;
+                                    $image->resize(new Box($width, 400), ImageInterface::FILTER_LANCZOS);
+                                }else{
+                                    $count = $image->getSize()->getWidth() / 600;
+                                    $height = $image->getSize()->getHeight() / $count;
+                                    $image->resize(new Box(600, $height), ImageInterface::FILTER_LANCZOS);
+                                }
+                            }
+
+                            $image->save($this->container->getParameter('path_img_shop').$originalName);
+                            rename($this->container->getParameter('path_img_shop').$originalName,$this->container->getParameter('path_img_shop').$name_path.$image_name);
+
+
+                            $im = new ImagesShops();
+                            $im->setName($image_name);
+                            $im->setPath($name_path);
+                            $shops->addImage($im);
+                            $im->setShop($shops);
+                            $em->persist($im);
+                            $em->flush();
+
+
+                            $serializer = $this->container->get('jms_serializer');
+                            $categories = $serializer
+                                ->serialize(
+                                    $im,
+                                    'json'
+                                );
+
+                            $response = new Respon($categories);
+                            $response->headers->set('Content-Type', 'application/json');
+                            return $response;
+
+                        } catch (\Imagine\Exception\Exception $e) {
+                            die("error upload image ".$e);
+                        }
+
+
+                    } else {
+                        $response = new Respon("Error type", 500);
+                        $response->headers->set('Content-Type', 'application/json');
+                        return $response;
+                    }
+                } else {
+                    $response = new Respon("Error size", 500);
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
+                }
+            } else {
+                $response = new Respon("Error UploadObject", 500);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            }
+
+            $response = new Respon(null, 200);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
     }
 
 }

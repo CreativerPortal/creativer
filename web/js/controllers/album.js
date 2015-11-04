@@ -88,7 +88,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     if($stateParams.id_album_edit){
         albumService.getAlbumById({id_album:$stateParams.id_album_edit}).success(function (data) {
             $scope.edit_album = data.album;
-            $scope.edit_album.remove_post = false
+            $scope.edit_album.remove_post = false;
             $scope.res = $scope.edit_album.images.length/3;
             var categories = [];
             for(var key in data.album.categories){

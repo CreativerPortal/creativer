@@ -20,7 +20,7 @@ class Categories
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getShopsByCategory", "getShopById"})
      * @JMS\Expose
      */
     private $id;
@@ -28,14 +28,14 @@ class Categories
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"getAlbumById", "getShopsByCategory", "getShopById"})
      */
     private $name;
 
     /**
      * @ORM\OneToMany(targetEntity="Categories", mappedBy="parent")
      * @JMS\Expose
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"getAlbumById", "getShopsByCategory", "getShopById"})
      */
     private $children;
 
@@ -43,20 +43,20 @@ class Categories
      * @ORM\ManyToOne(targetEntity="Categories", inversedBy="children")
      * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
      * @JMS\Expose
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"getAlbumById", "getShopsByCategory", "getShopById"})
      */
     private $parent;
 
     /**
      * @ORM\ManyToMany(targetEntity="Albums", mappedBy="categories")
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"getAlbumById", "getShopsByCategory", "getShopById"})
      */
     private $albums;
 
     /**
      * @ORM\Column(type="integer")
      * @JMS\Expose
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"getAlbumById", "getShopsByCategory", "getShopById"})
      */
     private $branch;
 

@@ -116,10 +116,11 @@
             <div class="row slid__card slid__card__first">
 
                 <div class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.shops">
-                    <a ng-href="#/shops/[[ item.id_cat ]]" class="shop-mini-header auto block">
-                        <img ng-src="{{ path_img_shop }}[[ item.path ]][[ item.img ]]" />
+                    <a ng-href="#/shop/[[ item.id ]]" class="shop-mini-header auto block">
+                        <img ng-if="item.img" ng-src="{{ path_img_shop }}[[ item.path ]][[ item.img ]]" />
+                        <img ng-if="!item.img" ng-src="{{ path_img_shop }}[[ item[0].images[0].path ]][[ item[0].images[0].name ]]" />
                     </a>
-                    <a ng-href="#/shops/[[ item.id_cat ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>
+                    <a ng-href="#/shops/[[ item.id ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>
                 </div>
 
             </div>

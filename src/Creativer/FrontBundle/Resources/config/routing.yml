@@ -90,10 +90,22 @@ creativer_shopsTmp:
     path:     /shops_tmp
     defaults: { _controller: CreativerFrontBundle:Default:shopsTmp }
     methods:  [GET]
+creativer_shopTmp:
+    path:     /shop_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:shopTmp }
+    methods:  [GET]
+creativer_edit_shopTmp:
+    path:     /edit_shop_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:editShopTmp }
+    methods:  [GET]
 creativer_create_shopTmp:
     path:     /create_shop_tmp
     defaults: { _controller: CreativerFrontBundle:Default:createShopTmp }
     methods:  [GET]
+creativer_edit_images_shop:
+    path:     /edit_images_shop
+    defaults: { _controller: CreativerFrontBundle:Default:editImagesShop }
+    methods:  [POST]
 creativer_viewforumTmp:
     path:     /viewforum_tmp
     defaults: { _controller: CreativerFrontBundle:Default:viewforumTmp }

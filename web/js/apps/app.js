@@ -211,9 +211,21 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'shopCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('shop', {
+            url: '/shop/:id_shop',
+            templateUrl: '/shop_tmp',
+            controller: 'shopCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('create_shop', {
             url: '/create_shop',
             templateUrl: '/create_shop_tmp',
+            controller: 'shopCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('edit_shop', {
+            url: '/edit_shop/:edit_id',
+            templateUrl: '/edit_shop_tmp',
             controller: 'shopCtrl',
             reloadOnSearch: true
         });
@@ -615,6 +627,33 @@ app.directive('editPain', function () {
             scope.$watch('ngModel', function (value) {
                 var html = value.replace(/<[^>]+>|&nbsp;|&laquo;|&amp;|&raquo;|&ndash;/g,'').slice(0,60)+" ...";
                 element.html(html);
+            });
+        }
+    };
+}).directive('shopImages', function () {
+    return {
+        link: function compile(scope, element, attrs, controller) {
+            $(".gridder").gridderExpander({
+                scroll: true,
+                scrollOffset: 60,
+                scrollTo: "panel", // panel or listitem
+                animationSpeed: 400,
+                animationEasing: "easeInOutExpo",
+                showNav: true,
+                nextText: "<i class=\"glyphicon glyphicon-chevron-right\"></i>",
+                prevText: "<i class=\"glyphicon glyphicon-chevron-left\"></i>",
+                closeText: "<i class=\"glyphicon glyphicon-remove\"></i>",
+                onStart: function(){
+                    console.log("Gridder Inititialized");
+                },
+                onContent: function(){
+                    $("#hasSelectedItem").removeClass('hidden_shop', 1000, "easeOutSine");
+                },
+                onClosed: function(){
+                    setTimeout(function(){
+                        $("#hasSelectedItem").addClass('hidden_shop', 1000, "easeOutSine");
+                    })
+                }
             });
         }
     };
