@@ -22,6 +22,7 @@ use Creativer\FrontBundle\Entity\Address;
 use Creativer\FrontBundle\Entity\PostBaraholka;
 use Creativer\FrontBundle\Entity\ImagesBaraholka;
 use Creativer\FrontBundle\Entity\PostImages;
+use Creativer\FrontBundle\Entity\PostDocuments;
 use Creativer\FrontBundle\Entity\PostCategory;
 use Creativer\FrontBundle\Entity\PostCity;
 use Creativer\FrontBundle\Entity\Posts;
@@ -984,6 +985,113 @@ class DefaultController extends Controller
                             $im->setWidth($width);
                             $im->setHeight($height);
                             $Post->addPostImage($im);
+                            $im->setPost($Post);
+                            $em->persist($im);
+                            $em->flush();
+
+
+                            $serializer = $this->container->get('jms_serializer');
+                            $categories = $serializer
+                                ->serialize(
+                                    $im,
+                                    'json'
+                                );
+
+                            $response = new Respon($categories);
+                            $response->headers->set('Content-Type', 'application/json');
+                            return $response;
+
+                        } catch (\Imagine\Exception\Exception $e) {
+                            die("error upload image ".$e);
+                        }
+
+
+                    } else {
+                        $response = new Respon("Error type", 500);
+                        $response->headers->set('Content-Type', 'application/json');
+                        return $response;
+                    }
+                } else {
+                    $response = new Respon("Error size", 500);
+                    $response->headers->set('Content-Type', 'application/json');
+                    return $response;
+                }
+            } else {
+                $response = new Respon("Error UploadObject", 500);
+                $response->headers->set('Content-Type', 'application/json');
+                return $response;
+            }
+
+            $response = new Respon(null, 200);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+    }
+
+
+    public function savePostDocumentsAction(){
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $response = new Response(null, 401);
+            $response->headers->set('Content-Type', 'application/json');
+            return $response;
+        }
+
+        $request = $this->getRequest();
+        if ($request->getMethod() == 'POST') {
+            $file = $request->files->get('file');
+            $post_id = $request->get('post_id');
+
+            $em = $this->getDoctrine()->getEntityManager();
+            $Post = $em->getRepository("CreativerFrontBundle:Posts")->find(array('id' => $post_id, 'user' => $user));
+
+
+            if (($file instanceof UploadedFile) && ($file->getError() == '0')) {
+                $size = $file->getSize();
+                if (($size < 10000000)) {
+                    $originalName = $file->getClientOriginalName();
+                    $file_type = $file->getMimeType();
+
+                    $valid_filetypes = array('application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                             'text/plain',
+                                             '',
+                                             'image/png',
+                                             'image/gif',
+                                             'inode/x-empty',
+                                             'application/vnd.ms-powerpoint',
+                                             'application/octet-stream',
+                                             'application/vnd.ms-excel',
+                                             'application/msword');
+
+
+                    $format = explode(".", $originalName)[1];
+
+                    if (in_array(strtolower($file_type), $valid_filetypes) and !empty($format)) {
+                        try {
+                            $year = date("Y");
+                            $maonth = date("m");
+                            $day = date("d");
+                            $name_path = $year."/".$maonth."/".$day."/";
+                            $file_name = time() . "_" . md5($originalName).'.'.$format;
+
+                            if (!file_exists($this->container->getParameter('path_documents').$name_path))
+                                mkdir($this->container->getParameter('path_documents').$name_path, 0777, true);
+                            $path = $file->getPathname();
+
+
+                            //$image->save($this->container->getParameter('path_documents').$originalName);
+                            rename($path,$this->container->getParameter('path_documents').$name_path.$file_name);
+
+
+
+                            $im = new PostDocuments();
+                            $im->setName($file_name);
+                            $im->setPath($name_path);
+                            $im->setRealName($originalName);
+                            $im->setSize($size);
+                            $Post->addPostDocument($im);
                             $im->setPost($Post);
                             $em->persist($im);
                             $em->flush();

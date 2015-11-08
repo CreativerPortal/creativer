@@ -478,7 +478,9 @@ a:focus{
 
 p[contenteditable]{
     border: 1px dashed #827972;
-    width: 448px;
+    width: 453px;
+    margin-left: 1px;
+    margin-right: 1px;
 }
 
 .fail_auth{
@@ -614,4 +616,12 @@ p[contenteditable]{
 .mCustomScrollBox:focus{
     border: none;
     outline: none;
+}
+
+.rem-logo-img{
+    opacity: 0;
+}
+
+.video-js .rem-logo img{
+    opacity: 0!important;
 }

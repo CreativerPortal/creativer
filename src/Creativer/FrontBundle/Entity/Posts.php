@@ -85,6 +85,22 @@ class Posts
     private $post_images;
 
     /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostVideos")
+     * @ORM\OneToMany(targetEntity="PostVideos", mappedBy="post")
+     * @JMS\Groups({"getUser", "getPost"})
+     **/
+    private $post_videos;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostDocuments")
+     * @ORM\OneToMany(targetEntity="PostDocuments", mappedBy="post")
+     * @JMS\Groups({"getUser", "getPost"})
+     **/
+    private $post_documents;
+
+    /**
      * Constructor
      */
     public function __construct()
@@ -284,5 +300,71 @@ class Posts
     public function getPostImages()
     {
         return $this->post_images;
+    }
+
+    /**
+     * Add post_videos
+     *
+     * @param \Creativer\FrontBundle\Entity\PostVideos $postVideos
+     * @return Posts
+     */
+    public function addPostVideo(\Creativer\FrontBundle\Entity\PostVideos $postVideos)
+    {
+        $this->post_videos[] = $postVideos;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_videos
+     *
+     * @param \Creativer\FrontBundle\Entity\PostVideos $postVideos
+     */
+    public function removePostVideo(\Creativer\FrontBundle\Entity\PostVideos $postVideos)
+    {
+        $this->post_videos->removeElement($postVideos);
+    }
+
+    /**
+     * Get post_videos
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostVideos()
+    {
+        return $this->post_videos;
+    }
+
+    /**
+     * Add post_documents
+     *
+     * @param \Creativer\FrontBundle\Entity\PostDocuments $postDocuments
+     * @return Posts
+     */
+    public function addPostDocument(\Creativer\FrontBundle\Entity\PostDocuments $postDocuments)
+    {
+        $this->post_documents[] = $postDocuments;
+
+        return $this;
+    }
+
+    /**
+     * Remove post_documents
+     *
+     * @param \Creativer\FrontBundle\Entity\PostDocuments $postDocuments
+     */
+    public function removePostDocument(\Creativer\FrontBundle\Entity\PostDocuments $postDocuments)
+    {
+        $this->post_documents->removeElement($postDocuments);
+    }
+
+    /**
+     * Get post_documents
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getPostDocuments()
+    {
+        return $this->post_documents;
     }
 }

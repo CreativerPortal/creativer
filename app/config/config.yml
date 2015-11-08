@@ -39,6 +39,7 @@ twig:
         path_img_post_original: "%path_img_post_original%"
         path_img_event_original: "%path_img_event_original%"
         path_img_shop: "%path_img_shop%"
+        path_documents: "%path_documents%"
 
 # Assetic Configuration
 assetic:
@@ -155,6 +156,7 @@ parameters:
     path_img_post_original: "/home/post/original/"
     path_img_event_original: "/home/event/original/"
     path_img_shop: "/home/shops/"
+    path_documents: "/home/documents/"
     session_max_idle_time: 1800
     session_handler_redis_save_path: "tcp://localhost:6379"
     jms_serializer.doctrine_proxy_subscriber.class: Creativer\ApiBundle\Event\DoctrineProxySubscriber

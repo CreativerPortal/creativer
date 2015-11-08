@@ -1,8 +1,11 @@
 <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
+<script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?key=AIzaSyBg4-8UFvuhitcVtR4J0MuxAtTTDCqUG5c&sensor=true&region=ru">
+</script>
+
 <div class="container container-big">
 
-    <ul class="gridder hidden_shop" id="hasSelectedItem">
+    <ul class="gridder hidden_shop margin-top_20" id="hasSelectedItem">
 
         <li class="gridder-list" data-griddercontent="#gridder-content-10[[ key ]]" ng-repeat="(key,image) in shop.images">
             <div class="image" style="background-image: url('{{ path_img_shop }}[[ image.path ]][[ image.name ]]');">
@@ -59,7 +62,8 @@
                 </tr>
                 <tr ng-show="shop.address[0]">
                     <td colspan="2">
-                        <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d293.8233393711081!2d27.558433403970714!3d53.903549315698214!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sru!2sru!4v1446472000823" width="340" height="250" frameborder="0" style="border:0" allowfullscreen></iframe>
+                        <div ng-model="shop.address" id="map_canvas" shop-map style="width: 340px; height: 254px;">
+                        </div>
                     </td>
                 </tr>
             </table>
@@ -80,7 +84,8 @@
     </div>
     <script src="/js/jquery.gridder.js"></script>
     <link rel="stylesheet" href="/css/vendor/jquery.gridder.min.css">
-<link rel="stylesheet" href="/css/vendor/demo.css">
+    <link rel="stylesheet" href="/css/vendor/demo.css">
+
 
     {#<script>#}
         {#jQuery(document).ready(function ($) {#}

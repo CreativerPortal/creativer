@@ -4,6 +4,10 @@ services:
 #        arguments: ["@session", "@security.context", "@router", %session_max_idle_time%]
 #        tags:
 #            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+    kernel.listener.response_listener:
+        class: Creativer\FrontBundle\Handler\ResponseListener
+        tags:
+           - { name: kernel.event_listener, event: kernel.response, method: onKernelResponse }
     session_handler_redis:
         class: Creativer\FrontBundle\Handler\NativeRedisSessionHandler
         arguments:    ["%session_handler_redis_save_path%"]

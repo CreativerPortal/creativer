@@ -109,6 +109,12 @@ body{
 .text_info:-moz-placeholder           {font-style: italic!important; color: #c3bec1;}/* Firefox 18- */
 .text_info:-ms-input-placeholder      {font-style: italic!important; color: #c3bec1;}
 
+.text_video{
+    border: 1px dashed #827972!important;
+    outline: none;
+    width: 100%;
+}
+
 .user__text_bold{
     color: #696360;
     font-weight: bold;
@@ -433,10 +439,15 @@ body{
 .upload__element_person{
     display: inline-block;
     position: relative;
-    margin-top: -7px;
+    margin-top: -9px;
 }
 
 .img_post{
+    position: relative;
+    display: block;
+}
+
+.video_post{
     position: relative;
     display: block;
 }
@@ -453,7 +464,8 @@ body{
     border-radius: 20px;
     cursor: pointer;
     opacity: 0.8;
-    right: 0px;
+    right: 2px;
+    top: 5px;
     z-index: 10;
 }
 

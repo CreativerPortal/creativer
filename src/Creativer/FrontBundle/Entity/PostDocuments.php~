@@ -10,44 +10,57 @@ use JMS\Serializer\Annotation\MaxDepth;
 
 
 /**
- * @ORM\Entity()
- * @ORM\Table(name="images_shops")
+ * @ORM\Entity
+ * @ORM\Table(name="post_documents")
  * @JMS\ExclusionPolicy("all")
  */
-class ImagesShops
+class PostDocuments
 {
     /**
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"getShopById", "getShopsByCategory", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"getUser", "getPost"})
      * @JMS\Expose
      */
     private $id;
 
-
-    /**
-     * @JMS\Expose
-     * @ORM\ManyToOne(targetEntity="Shops", inversedBy="images")
-     * @ORM\JoinColumn(name="shop_id", referencedColumnName="id")
-     * @JMS\Groups({"getShopById", "getShopsByCategory"})
-     **/
-    private $shop;
-
-
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getShopById", "getShopsByCategory", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"getUser"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getShopById", "getShopsByCategory", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"getUser"})
+     */
+    private $real_name;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
+     */
+    private $size;
+
+    /**
+     * @ORM\Column(type="string", nullable=true, length=255)
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
      */
     private $path;
+
+    /**
+     * @JMS\Expose
+     * @JMS\Type("Creativer\FrontBundle\Entity\PostDocuments")
+     * @ORM\ManyToOne(targetEntity="Posts", inversedBy="post_documents")
+     * @ORM\JoinColumn(name="document_id", referencedColumnName="id")
+     * @JMS\Groups({"getUser", "getPost"})
+     **/
+    private $post;
 
     /**
      * @JMS\Expose
@@ -55,7 +68,6 @@ class ImagesShops
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getShopById", "getShopsByCategory"})
      */
     private $date;
 
@@ -63,7 +75,6 @@ class ImagesShops
     public function __construct()
     {
         $this->date = new \DateTime();
-
     }
 
 
@@ -81,7 +92,7 @@ class ImagesShops
      * Set name
      *
      * @param string $name
-     * @return ImagesShops
+     * @return PostDocuments
      */
     public function setName($name)
     {
@@ -101,10 +112,56 @@ class ImagesShops
     }
 
     /**
+     * Set real_name
+     *
+     * @param string $realName
+     * @return PostDocuments
+     */
+    public function setRealName($realName)
+    {
+        $this->real_name = $realName;
+
+        return $this;
+    }
+
+    /**
+     * Get real_name
+     *
+     * @return string 
+     */
+    public function getRealName()
+    {
+        return $this->real_name;
+    }
+
+    /**
+     * Set size
+     *
+     * @param string $size
+     * @return PostDocuments
+     */
+    public function setSize($size)
+    {
+        $this->size = $size;
+
+        return $this;
+    }
+
+    /**
+     * Get size
+     *
+     * @return string 
+     */
+    public function getSize()
+    {
+        return $this->size;
+    }
+
+    /**
      * Set path
      *
      * @param string $path
-     * @return ImagesShops
+     * @return PostDocuments
      */
     public function setPath($path)
     {
@@ -127,7 +184,7 @@ class ImagesShops
      * Set date
      *
      * @param \DateTime $date
-     * @return ImagesShops
+     * @return PostDocuments
      */
     public function setDate($date)
     {
@@ -147,25 +204,25 @@ class ImagesShops
     }
 
     /**
-     * Set shop
+     * Set post
      *
-     * @param \Creativer\FrontBundle\Entity\Shops $shop
-     * @return ImagesShops
+     * @param \Creativer\FrontBundle\Entity\Posts $post
+     * @return PostDocuments
      */
-    public function setShop(\Creativer\FrontBundle\Entity\Shops $shop = null)
+    public function setPost(\Creativer\FrontBundle\Entity\Posts $post = null)
     {
-        $this->shop = $shop;
+        $this->post = $post;
 
         return $this;
     }
 
     /**
-     * Get shop
+     * Get post
      *
-     * @return \Creativer\FrontBundle\Entity\Shops 
+     * @return \Creativer\FrontBundle\Entity\Posts 
      */
-    public function getShop()
+    public function getPost()
     {
-        return $this->shop;
+        return $this->post;
     }
 }

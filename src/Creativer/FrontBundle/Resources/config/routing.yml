@@ -182,3 +182,7 @@ creativer_save_post_images:
     path:     /save_post_images
     defaults: { _controller: CreativerFrontBundle:Default:savePostImages }
     methods:  [POST]
+creativer_save_post_documents:
+    path:     /save_post_documents
+    defaults: { _controller: CreativerFrontBundle:Default:savePostDocuments }
+    methods:  [POST]

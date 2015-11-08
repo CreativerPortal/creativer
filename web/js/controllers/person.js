@@ -105,11 +105,15 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     $scope.savePost = function(wall,wall_id, text){
         $scope.loader = true;
-        personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $stateParams.id}).success(function (data) {
+        personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $stateParams.id,videos:$scope.videos}).success(function (data) {
             if(!uploader.queue.length){
                 $scope.text_post = '';
+                $scope.videos = [];
             }
             $scope.new_post_id = data.post.id;
+            if(uploaderDoc.queue.length){
+                uploaderDoc.uploadAll();
+            }
             if(uploader.queue.length){
                 uploader.uploadAll();
             }else{
@@ -126,6 +130,13 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 })
             }
         });
+    }
+
+    $scope.videos = [];
+
+
+    $scope.addVideo = function(){
+        $scope.videos.push("");
     }
 
     $scope.saveComment = function(post, post_id, text){
@@ -216,7 +227,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     }
 
-
     $scope.editTextPost = function(id,text){
         personalService.editTextPost({id: id, text: text}).success(function (data) {
         });
@@ -256,6 +266,20 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                         if($scope.user.wall.posts[key].post_images[k].id == img_id)
                         $scope.user.wall.posts[key].post_images.splice(k,1);
                         $scope.imaging($scope.user.wall.posts[key]);
+                    }
+                }
+            }
+        });
+    }
+
+    $scope.removeVideoPost = function(video_id,post_id){
+        personalService.removeVideoPost({video_id: video_id,post_id:post_id}).success(function (data) {
+            var posts = $scope.user.wall.posts;
+            for(var key in posts){
+                if(posts[key].id == post_id){
+                    for(var k in posts[key].post_videos){
+                        if($scope.user.wall.posts[key].post_videos[k].id == video_id)
+                            $scope.user.wall.posts[key].post_videos.splice(k,1);
                     }
                 }
             }
@@ -320,7 +344,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }, 1200);
     });
 
-
     $scope.$on('$routeChangeStart', function(next, current) {
         if(current.params.id != undefined && current.params.id != next.targetScope.user.id){
             $rootScope.user = $scope.user = undefined;
@@ -331,13 +354,20 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     if($stateParams.id){
         var uploader = $scope.uploader = new FileUploader({
-            url: 'save_post_images'
+            url: 'save_post_images',
+            queueLimit: 10
         });
     }else{
         var uploader = $scope.uploader = new FileUploader({
-            url: 'upload_album'
+            url: 'upload_album',
+            queueLimit: 10
         });
     }
+
+    var uploaderDoc = $scope.uploaderDoc = new FileUploader({
+        url: 'save_post_documents',
+        queueLimit: 5
+    });
 
     $rootScope.images = [];
     $rootScope.canvas = [];
@@ -352,6 +382,15 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }
     });
 
+    uploaderDoc.filters.push({
+        name: 'documentFilter',
+        fn: function(item /*{File|FileLikeObject}*/, options) {
+            var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+            console.log(type);
+            return '|vnd.openxmlformats-officedocument.wordprocessingml.document|plain|postscript|vnd.ms-powerpoint|pdf|vnd.openxmlformats-officedocument.spreadsheetml.sheet|vnd.openxmlformats-officedocument.presentationml.presentation|vnd.ms-excel|msword||'.indexOf(type) !== -1;
+        }
+    });
+
     // CALLBACKS
 
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
@@ -363,21 +402,19 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     $rootScope.$on("loadImageAll", function(){
             var count = angular.element(document.querySelectorAll('.album canvas')).length;
             $rootScope.canvas = angular.element(document.querySelectorAll('canvas'));
-
-            var width = 532;
+            var width = 536;
             var count_row = Math.ceil(count / 4);
-
             var count_images = Math.ceil(count / count_row);
             var images_row = [];
 
             for (var i = 0; i < count_row; i++) {
                 if ((count_row - 1) == i) {
                     var cm = Math.ceil(count_images);
-                    var cm1 = Math.floor(count_images);
+                    var cm1 = Math.ceil(count_images);
                     var mass = $rootScope.images.slice(i * cm1, i * cm1 + cm);
                     images_row.push(mass);
                 } else {
-                    var cm = Math.floor(count_images);
+                    var cm = Math.ceil(count_images);
                     var mass = $rootScope.images.slice(i * cm, i * cm + cm);
                     images_row.push(mass);  // количество картинок в строке
                 }
@@ -385,17 +422,18 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
             var p = 0;
             for (var j = 0; j < count_row; j++) {
-                var delim = (width - images_row[j].length * 4) * images_row[j][0].height;
+                var delim = width * images_row[j][0].height;
                 var delit = images_row[j][0].width;
 
                 for (var k = 1; k < images_row[j].length; k++) {
-                    delit = delit + images_row[j][k].width * (images_row[j][0].height / images_row[j][k].height);
+                    delit = delit + images_row[j][k].width * images_row[j][0].height / images_row[j][k].height;
                 }
 
-                var height = Math.floor(delim / delit);//высота строки
+                var height = delim / delit;//высота строки
 
                 for (var k = 0; k < images_row[j].length; k++) {
                     var width_im = images_row[j][k].width / images_row[j][k].height * height;
+                    width_im = width_im - 2;
                     $rootScope.canvas[p].setAttribute('width', width_im);
                     $rootScope.canvas[p].setAttribute('height', height);
                     $rootScope.canvas[p].getContext('2d').drawImage(images_row[j][k], 0, 0, width_im, height);
@@ -406,45 +444,43 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     $scope.imaging = function(post){
 
-            var count = post.post_images.length;
+        var count = post.post_images.length;
+        var width = 453;
+        var count_row = Math.ceil(count / 4);
+        var count_images = Math.ceil(count / count_row);
+        var post_images_row = [];
 
-            var width = 455;
-            var count_row = Math.ceil(count / 4);
+        for (var i = 0; i < count_row; i++) {
+            if ((count_row - 1) == i) {
+                var cm = Math.ceil(count_images);
+                var cm1 = Math.ceil(count_images);
+                var mass = post.post_images.slice(i * cm1, i * cm1 + cm);
+                post_images_row.push(mass);
+            } else {
+                var cm = Math.ceil(count_images);
+                var mass = post.post_images.slice(i * cm, i * cm + cm);
+                post_images_row.push(mass);  // количество картинок в строке
+            }
+        }
 
-            var count_images = Math.ceil(count / count_row);
-            var post_images_row = [];
+        var p = 0;
+        for (var j = 0; j < count_row; j++) {
+            var delim = width * post_images_row[j][0].height;
+            var delit = post_images_row[j][0].width;
 
-            for (var i = 0; i < count_row; i++) {
-                if ((count_row - 1) == i) {
-                    var cm = Math.ceil(count_images);
-                    var cm1 = Math.floor(count_images);
-                    var mass = post.post_images.slice(i * cm1, i * cm1 + cm);
-                    post_images_row.push(mass);
-                } else {
-                    var cm = Math.floor(count_images);
-                    var mass = post.post_images.slice(i * cm, i * cm + cm);
-                    post_images_row.push(mass);  // количество картинок в строке
-                }
+            for (var k = 1; k < post_images_row[j].length; k++) {
+                delit = delit + post_images_row[j][k].width * (post_images_row[j][0].height / post_images_row[j][k].height);
             }
 
-            var p = 0;
-            for (var j = 0; j < count_row; j++) {
-                var delim = (width - post_images_row[j].length * 4) * post_images_row[j][0].height;
-                var delit = post_images_row[j][0].width;
+            var height = delim / delit;//высота строки
 
-                for (var k = 1; k < post_images_row[j].length; k++) {
-                    delit = delit + post_images_row[j][k].width * (post_images_row[j][0].height / post_images_row[j][k].height);
-                }
-
-                var height = Math.floor(delim / delit);//высота строки
-
-                for (var k = 0; k < post_images_row[j].length; k++) {
-                    var width_im = post_images_row[j][k].width / post_images_row[j][k].height * height;
-                    post.post_images[p].width = width_im;
-                    post.post_images[p].height = height;
-                    p = p + 1;
-                }
+            for (var k = 0; k < post_images_row[j].length; k++) {
+                var width_im = post_images_row[j][k].width / post_images_row[j][k].height * height;
+                post.post_images[p].width = width_im - 2;
+                post.post_images[p].height = height;
+                p = p + 1;
             }
+        }
 
     }
 
@@ -461,8 +497,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     };
 
 
-    uploader.onAfterAddingAll = function(addedFileItems,key) {
+    uploaderDoc.onAfterAddingAll = function(addedFileItems,key) {
         // console.info('onAfterAddingAll', addedFileItems);
+        console.log($scope.uploaderDoc.queue);
     };
     uploader.onProgressItem = function(fileItem, progress) {
        // console.info('onProgressItem', fileItem, progress);
@@ -508,6 +545,12 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         uploader.uploadAll();
     };
 
+    uploaderDoc.onBeforeUploadItem = function (item) {
+        if($stateParams.id){
+            item.formData.push({post_id: $scope.new_post_id});
+        }
+        uploaderDoc.uploadAll();
+    };
 
 }]);
 

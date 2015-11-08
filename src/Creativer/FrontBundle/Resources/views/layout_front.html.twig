@@ -195,7 +195,7 @@
     <div ng-model="lastname" ng-init="lastname='{{ app.security.getToken().getUser().getLastname() }}'"></div>
     <div ng-model="img" ng-init="img='{{ app.security.getToken().getUser().getAvatar() }}'"></div>
     <div ng-model="color" ng-init="color='{{ app.security.getToken().getUser().getColor() }}'"></div>
-    <div ng-model="autoscroll" ng-init="autoscroll={{ app.security.getToken().getUser().getAutoscroll()}}"></div>
+    <div ng-model="autoscroll" ng-init="autoscroll='{{ app.security.getToken().getUser().getAutoscroll()}}'"></div>
 {% endif %}
 
 

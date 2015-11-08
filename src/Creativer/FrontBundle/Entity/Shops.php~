@@ -20,7 +20,7 @@ class Shops
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      * @JMS\Expose
      */
     private $id;
@@ -28,14 +28,14 @@ class Shops
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      * @JMS\Expose
      */
     private $img;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      * @JMS\Expose
      */
     private $path;
@@ -43,7 +43,7 @@ class Shops
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      */
     private $name;
 
@@ -51,57 +51,57 @@ class Shops
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      */
     private $description;
 
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      */
     private $full_description;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @JMS\Groups({""})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      * @JMS\Expose
      */
     private $telephone;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @JMS\Groups({""})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      * @JMS\Expose
      */
     private $email;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @JMS\Groups({""})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      * @JMS\Expose
      */
     private $site;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
-     * @JMS\Groups({""})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      * @JMS\Expose
      */
     private $working_time;
 
     /**
      * @JMS\Expose
-     * @ORM\OneToMany(targetEntity="ImagesShops", mappedBy="shop")
+     * @ORM\OneToMany(targetEntity="ImagesShops", mappedBy="shop", cascade={"remove"})
      * @ORM\OrderBy({"id" = "DESC"})
-     * @JMS\Groups({})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      **/
     private $images;
 
     /**
      * @JMS\Expose
-     * @ORM\OneToMany(targetEntity="Address", mappedBy="shop", fetch="EAGER")
-     * @JMS\Groups({"getUser"})
+     * @ORM\OneToMany(targetEntity="Address", mappedBy="shop", fetch="EAGER", cascade={"remove"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      **/
     private $address;
 
@@ -109,7 +109,7 @@ class Shops
      * @ORM\ManyToMany(targetEntity="Categories", inversedBy="albums")
      * @ORM\JoinTable(name="shops_categories")
      * @JMS\Expose
-     * @JMS\Groups({"getAlbumById"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getShopById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopsByCategory"})
      */
     private $categories;
 

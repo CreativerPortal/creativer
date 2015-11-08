@@ -516,11 +516,20 @@ app.directive('editPain', function () {
                         remove_img[key].removeAttribute("remove_img_post");
                     }
                 }
+                if(document.querySelectorAll("[remove_video_post]")[0]){
+                    var remove_video = document.querySelectorAll("[remove_video_post]");
+                    for(var key in remove_video){
+                        remove_video[key].innerHTML = "";
+                        remove_video[key].removeAttribute("remove_video_post");
+                    }
+                }
 
                 var text = element.parent().parent().find("p")[0];
                 var attache = angular.element(element.parent().parent()[0].querySelector('.attacher'))[0];
                 var progress = angular.element(element.parent().parent()[0].querySelector('.progress__wrapper'))[0];
                 var images = element.parent().parent().find("img_post");
+                var videos = element.parent().parent().find("video_post");
+
 
                 attache.setAttribute('attache-post', '');
                 text.setAttribute('contenteditable', '');
@@ -532,6 +541,12 @@ app.directive('editPain', function () {
                     if(!isNaN(key)){
                         images[key].setAttribute('remove_img_post', '');
                         $compile(images[key])(scope);
+                    }
+                }
+                for(var key in videos){
+                    if(!isNaN(key)){
+                        videos[key].setAttribute('remove_video_post', '');
+                        $compile(videos[key])(scope);
                     }
                 }
                 scope.$parent.$parent.edits = true;
@@ -573,6 +588,16 @@ app.directive('editPain', function () {
             scope.id_post = scope.post.id;
         }
     }
+}).directive('removeVideoPost', function(){
+    return{
+        restrict: "A",
+        scope: true,
+        template: "<span class='glyphicon glyphicon-remove close_image_post' ng-click='removeVideoPost(id_video,id_post)'></span>",
+        link: function(scope, element, attrs){
+            scope.id_video = attrs.idVideo;
+            scope.id_post = scope.post.id;
+        }
+    }
 }).directive('progressWrapper', function($compile){
     return{
         restrict: "A",
@@ -605,6 +630,16 @@ app.directive('editPain', function () {
                         if(!isNaN(key)) {
                             remove_img[key].innerHTML = "";
                             remove_img[key].removeAttribute("remove_img_post");
+                        }
+                    }
+                }
+
+                if(document.querySelectorAll("[remove_video_post]")[0]){
+                    var remove_video = document.querySelectorAll("[remove_video_post]");
+                    for(var key in remove_video){
+                        if(!isNaN(key)) {
+                            remove_video[key].innerHTML = "";
+                            remove_video[key].removeAttribute("remove_video_post");
                         }
                     }
                 }
@@ -657,6 +692,42 @@ app.directive('editPain', function () {
             });
         }
     };
+}).directive('shopMap', function () {
+    return {
+        restrict: 'A',
+        require: 'ngModel',
+        replace: true,
+        scope: {
+            ngModel: '=ngModel'
+        },
+        link: function compile(scope, element, attrs, controller) {
+            scope.$watch('ngModel', function (value) {
+                console.log(value);
+                setTimeout(function () {
+                    geocoder = new google.maps.Geocoder();
+                    var mapOptions = {
+                        center: new google.maps.LatLng(53.884107, 27.719879),
+                        zoom: 18,
+                        mapTypeId: google.maps.MapTypeId.ROADMAP
+                    };
+                    var map = new google.maps.Map(document.getElementById("map_canvas"),
+                        mapOptions);
+                    var address = "Минск "+value[0].address;
+                    geocoder.geocode({'address': address}, function (results, status) {
+                        if (status == google.maps.GeocoderStatus.OK) {
+                            map.setCenter(results[0].geometry.location);
+                            new google.maps.Marker({
+                                map: map,
+                                position: results[0].geometry.location
+                            });
+                        } else {
+                            console.log("Адрес не найден: " + status);
+                        }
+                    });
+                }, 2000)
+            })
+        }
+    };
 });
 
 
@@ -668,6 +739,18 @@ app.filter('filterByTags', function () {
 
         return changedString.length > limit ? changedString.substr(0, limit - 1) : changedString;
     }
+}).filter('trustAsResourceUrl', ['$sce', function($sce) {
+        return function(val) {
+            return $sce.trustAsResourceUrl(val.replace("watch?v=", "embed/")+"?modestbranding=1&showinfo=0&color=white&theme=light");
+        };
+}]).filter('bytes', function() {
+    return function(bytes, precision) {
+        if (isNaN(parseFloat(bytes)) || !isFinite(bytes)) return '-';
+        if (typeof precision === 'undefined') precision = 1;
+        var units = ['bytes', 'kB', 'MB', 'GB', 'TB', 'PB'];
+        var number = Math.floor(Math.log(bytes) / Math.log(1024));
+        return (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision) +  ' ' + units[number];
+    };
 });
 
 app.config(function($interpolateProvider) {

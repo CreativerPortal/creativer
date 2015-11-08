@@ -15,6 +15,7 @@ use Symfony\Component\Serializer\Normalizer\GetSetMethodNormalizer;
 use Creativer\FrontBundle\Entity\User;
 use Creativer\FrontBundle\Entity\Wall;
 use Creativer\FrontBundle\Entity\Posts;
+use Creativer\FrontBundle\Entity\PostVideos;
 use Creativer\FrontBundle\Entity\Comments;
 use Creativer\FrontBundle\Entity\ImageComments;
 use Symfony\Component\BrowserKit\Response;
@@ -48,13 +49,28 @@ class PersonController extends Controller
 
         $wall = $this->getDoctrine()->getRepository('CreativerFrontBundle:Wall')->findOneById($data->wall_id);
 
+
         $post = new Posts();
+        $em = $this->getDoctrine()->getManager();
 
         $post->setUser($user)
-            ->setText($data->text)
             ->setWall($wall);
 
-        $em = $this->getDoctrine()->getManager();
+        if(!empty($data->text)){
+            $post->setText($data->text);
+        }else{
+            $post->setText(' ');
+        }
+
+        if(!empty($data->videos[0])){
+            foreach($data->videos as $key=>$val){
+                $video = new PostVideos();
+                $video->setUrl($val);
+                $video->setPost($post);
+                $em->persist($video);
+            }
+        }
+
         $em->persist($post);
         $em->flush();
 
@@ -610,9 +626,19 @@ class PersonController extends Controller
 
         $path_img_post_thums = $this->container->getParameter('path_img_post_thums');
         $path_img_post_original = $this->container->getParameter('path_img_post_original');
+        $path_documents = $this->container->getParameter('path_documents');
+
 
         $images = $post->getPostImages();
+        $documents = $post->getPostDocuments();
         $comments = $post->getComments();
+        $videos = $post->getPostVideos();
+
+        if(!empty($videos)){
+            foreach($videos as $key=>$val){
+                $em->remove($val);
+            }
+        }
 
         if(!empty($comments)){
             foreach($comments as $key=>$val){
@@ -623,8 +649,16 @@ class PersonController extends Controller
         if(!empty($images)){
             $fs = new Filesystem();
             foreach($images as $key=>$val){
-                $fs->remove(array($path_img_post_thums.$val->getName()));
-                $fs->remove(array($path_img_post_original.$val->getName()));
+                $fs->remove(array($path_img_post_thums.$val->getPath().$val->getName()));
+                $fs->remove(array($path_img_post_original.$val->getPath().$val->getName()));
+                $em->remove($val);
+            }
+        }
+
+        if(!empty($documents)){
+            $fs = new Filesystem();
+            foreach($documents as $key=>$val){
+                $fs->remove(array($path_documents.$val->getPath().$val->getName()));
                 $em->remove($val);
             }
         }
@@ -1040,6 +1074,27 @@ class PersonController extends Controller
         }
 
         $em->remove($postImage);
+        $em->flush();
+
+        $response = new Respon('', 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/remove_video_post")
+     * @View()
+     */
+    public function removeVideoPostAction()
+    {
+        $video_id = (int)$this->get('request')->request->get('video_id');
+
+        $em = $this->getDoctrine()->getManager();
+        $video = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostVideos')->find($video_id);
+
+        $em->remove($video);
         $em->flush();
 
         $response = new Respon('', 200);
