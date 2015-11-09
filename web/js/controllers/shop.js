@@ -61,14 +61,17 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             });
         }
 
-            if ($state.current.name == 'create_shop') {
-                $scope.address = [];
+        if ($state.current.name == 'create_shop') {
+            $scope.address = [];
+            $scope.address.push("");
+            $scope.add = function () {
                 $scope.address.push("");
-
-                $scope.add = function () {
-                    $scope.address.push("");
-                };
-            }
+            };
+        }else if($state.current.name == 'edit_shop'){
+            $scope.add = function () {
+                $scope.shop.address.push("");
+            };
+        }
 
         $scope.removeShop = function(id,key){
             shopService.removeShop({id:id}).success(function (data) {
@@ -96,9 +99,47 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             data.section = $scope.section;
             data.title = $scope.title;
             data.full_description = $scope.full_description;
-            //baraholkaService.createPostBaraholka(data).success(function (data) {
-            //
-            //});
+        }
+
+
+        $scope.editName = function(name){
+            shopService.editName({id: $scope.shop.id, name: name}).success(function (data) {
+            });
+        }
+
+        $scope.editDescription = function(description){
+            shopService.editDescription({"id": $scope.shop.id, "description": description}).success(function (data) {
+            });
+        }
+
+        $scope.editFullDescription = function(full_description){
+            shopService.editFullDescription({"id": $scope.shop.id, "full_description": full_description}).success(function (data) {
+            });
+        }
+
+        $scope.editSite = function(site){
+            shopService.editSite({"id": $scope.shop.id, "site": site}).success(function (data) {
+            });
+        }
+
+        $scope.editAddress = function(id,address){
+            shopService.editAddress({"id": $scope.shop.id, "id_address": id, "address": address}).success(function (data) {
+            });
+        }
+
+        $scope.editTelephone = function(telephone){
+            shopService.editTelephone({"id": $scope.shop.id, "telephone": telephone}).success(function (data) {
+            });
+        }
+
+        $scope.editEmail = function(email){
+            shopService.editEmail({"id": $scope.shop.id, "email": email}).success(function (data) {
+            });
+        }
+
+        $scope.editWorkingTime = function(working_time){
+            shopService.editWorkingTime({"id": $scope.shop.id, "working_time": working_time}).success(function (data) {
+            });
         }
 
         chat.init();

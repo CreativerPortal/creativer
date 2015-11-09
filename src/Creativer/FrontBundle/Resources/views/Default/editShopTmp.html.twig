@@ -28,7 +28,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Заголовок:</div>
                 <div class="col-sm-10">
-                    <input type="text" name="name" ng-model="shop.name" ng-required="true" required="" value="shop.name">
+                    <input type="text" name="name" ng-blur="editName(shop.name)" ng-model="shop.name" ng-required="true" required="" value="shop.name">
                     <span class="text-danger" ng-show="submitted && shop_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Краткое описание:</div>
                 <div class="col-sm-10">
-                    <input type="text" name="description" ng-model="shop.description" ng-required="true" required="" value="shop.description">
+                    <input type="text" name="description" ng-blur="editDescription(shop.description)" ng-model="shop.description" ng-required="true" required="" value="shop.description">
                     <span class="text-danger" ng-show="submitted && shop_form.description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -44,7 +44,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Полное описание:</div>
                 <div class="col-sm-10">
-                    <textarea name="full_description" ng-model="shop.full_description" ng-required="true" required="">[[ shop.full_description ]]</textarea>
+                    <textarea name="full_description" ng-blur="editFullDescription(shop.full_description)" ng-model="shop.full_description" ng-required="true" required="">[[ shop.full_description ]]</textarea>
                     <span class="text-danger" ng-show="submitted && shop_form.full_description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -54,28 +54,37 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Сайт:</div>
                 <div class="col-sm-10">
-                    <input name="site" ng-model="shop.site" value="shop.site">
+                    <input name="site" ng-blur="editSite(shop.site)" ng-model="shop.site" value="shop.site">
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Адрес:</div>
-                <div class="col-sm-10">
-                    <input name="address" ng-model="shop.address[0]" value="shop.address[0]">
+                <div class="col-sm-2">
+                    <span>Адрес: <span class="glyphicon glyphicon-plus-sign pointer" style="top: 3px;" ng-click="add()"></span></span>
+                </div>
+                <div class="col-sm-10 right" ng-repeat="ad in shop.address">
+                    <input class="margin-top_5" ng-blur="editAddress(ad.id,ad.address)" name="address" ng-model="ad.address" ng-value="[[ ad.address ]]">
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Телефон:</div>
                 <div class="col-sm-10">
-                    <input name="address" ng-model="shop.telephone" value="shop.telephone">
+                    <input name="address" ng-blur="editTelephone(shop.telephone)" ng-model="shop.telephone" value="shop.telephone">
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">E-mail:</div>
                 <div class="col-sm-10">
-                    <input name="address" ng-model="shop.email" value="shop.email">
+                    <input name="address" ng-blur="editEmail(shop.email)" ng-model="shop.email" value="shop.email">
+                </div>
+            </div>
+
+            <div class="row margin-top_20">
+                <div class="col-sm-2">Время работы:</div>
+                <div class="col-sm-10">
+                    <input name="address" ng-blur="editWorkingTime(shop.working_time)" ng-model="shop.working_time" value="shop.working_time">
                 </div>
             </div>
 

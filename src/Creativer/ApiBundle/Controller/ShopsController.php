@@ -220,4 +220,282 @@ class ShopsController extends Controller
 
         return $response;
     }
+
+
+    /**
+     * @return array
+     * @Post("/v1/edit_name_shop")
+     * @View()
+     */
+    public function editNameShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $title = $this->get('request')->request->get('name');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $shop->setName($title);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($shop);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_description_shop")
+     * @View()
+     */
+    public function editDescriptionShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $description = $this->get('request')->request->get('description');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $shop->setDescription($description);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($shop);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_full_description_shop")
+     * @View()
+     */
+    public function editFullDescriptionShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $full_description = $this->get('request')->request->get('full_description');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $shop->setFullDescription($full_description);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($shop);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/edit_site_shop")
+     * @View()
+     */
+    public function editSiteShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $site = $this->get('request')->request->get('site');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $shop->setSite($site);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($shop);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_address_shop")
+     * @View()
+     */
+    public function editAddressShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        //$id = $this->get('request')->request->get('id');
+        $id_address = $this->get('request')->request->get('id_address');
+        $address_text = $this->get('request')->request->get('address');
+
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $address = $this->getDoctrine()->getRepository('CreativerFrontBundle:Address')->find($id_address);
+        $address->setAddress($address_text);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($address);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/edit_telephone_shop")
+     * @View()
+     */
+    public function editTelephoneShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $telephone = $this->get('request')->request->get('telephone');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $shop->setTelephone($telephone);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($shop);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/edit_email_shop")
+     * @View()
+     */
+    public function editEmailShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $email = $this->get('request')->request->get('email');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $shop->setEmail($email);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($shop);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/edit_working_time_shop")
+     * @View()
+     */
+    public function editWorkingTimeShopAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $working_time_shop = $this->get('request')->request->get('working_time');
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $shop->setWorkingTime($working_time_shop);
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($shop);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
 }

@@ -79,6 +79,102 @@ angular
                         },
                         data: data
                     });
+                },
+
+                editName: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_name_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editDescription: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_description_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editFullDescription: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_full_description_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editSite: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_site_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editAddress: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_address_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editTelephone: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_telephone_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editEmail: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_email_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
+
+                editWorkingTime: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_working_time_shop',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
                 }
 
             };
