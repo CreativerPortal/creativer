@@ -77,7 +77,7 @@
                             <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 50px; width: 720px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
                         </div>
                         <div ng-show="text_comment" class="margin-top_15 margin-left_20 text-right">
-                            <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(text_comment)">Отправить</button>
+                            <button class="true fs_0-9" ng-class="{'loader':loader_event}" ng-click="saveComment(text_comment)">Отправить</button>
                             <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
                         </div>
                     {%  endif %}

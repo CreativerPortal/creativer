@@ -1,18 +1,20 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
     .controller('catalogCtrl',['$state', '$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
-    catalogService.getNewsEvents().success(function (data) {
-        $rootScope.news_events = $scope.news_events = data;
-        var text_first = data[0]?data[0].description:null;
-        var text_second = data[1]?data[1].description:null;
+    if(!$scope.news_events){
+        catalogService.getNewsEvents().success(function (data) {
+            $rootScope.news_events = $scope.news_events = data;
+            var text_first = data[0]?data[0].description:null;
+            var text_second = data[1]?data[1].description:null;
 
-        if(text_first != undefined){
-            angular.element('#new_event_1').text(text_first.replace(/<[^>]+>|&nbsp;/g,'').slice(0,50)+" ...");
-        }
-        if(text_second != undefined){
-            angular.element('#new_event_2').text(text_second.replace(/<[^>]+>|&nbsp;/g,'').slice(0,50)+" ...");
-        }
-    })
+            if(text_first != undefined){
+                angular.element('#new_event_1').text(text_first.replace(/<[^>]+>|&nbsp;/g,'').slice(0,50)+" ...");
+            }
+            if(text_second != undefined){
+                angular.element('#new_event_2').text(text_second.replace(/<[^>]+>|&nbsp;/g,'').slice(0,50)+" ...");
+            }
+        })
+    }
 
     if(!$rootScope.my_user){
         personalService.getUser().success(function (data) {
@@ -214,7 +216,6 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
     $scope.math = window.Math;
-
 
     if($stateParams.products_search_text){
         $rootScope.condition = 2;

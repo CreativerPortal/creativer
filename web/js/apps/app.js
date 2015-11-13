@@ -523,12 +523,21 @@ app.directive('editPain', function () {
                         remove_video[key].removeAttribute("remove_video_post");
                     }
                 }
+                if(document.querySelectorAll("[remove_document_post]")[0]){
+                    var remove_document = document.querySelectorAll("[remove_document_post]");
+                    for(var key in remove_document){
+                        remove_document[key].innerHTML = "";
+                        remove_document[key].removeAttribute("remove_document_post");
+                    }
+                }
 
                 var text = element.parent().parent().find("p")[0];
                 var attache = angular.element(element.parent().parent()[0].querySelector('.attacher'))[0];
                 var progress = angular.element(element.parent().parent()[0].querySelector('.progress__wrapper'))[0];
                 var images = element.parent().parent().find("img_post");
                 var videos = element.parent().parent().find("video_post");
+                var documents = element.parent().parent().find("document_post");
+
 
 
                 attache.setAttribute('attache-post', '');
@@ -547,6 +556,12 @@ app.directive('editPain', function () {
                     if(!isNaN(key)){
                         videos[key].setAttribute('remove_video_post', '');
                         $compile(videos[key])(scope);
+                    }
+                }
+                for(var key in documents){
+                    if(!isNaN(key)){
+                        documents[key].setAttribute('remove_document_post', '');
+                        $compile(documents[key])(scope);
                     }
                 }
                 scope.$parent.$parent.edits = true;
@@ -598,6 +613,16 @@ app.directive('editPain', function () {
             scope.id_post = scope.post.id;
         }
     }
+}).directive('removeDocumentPost', function(){
+    return{
+        restrict: "A",
+        scope: true,
+        template: "<span class='glyphicon glyphicon-remove right text-gray pointer' ng-click='removeDocumentPost(id_document,id_post)'></span>",
+        link: function(scope, element, attrs){
+            scope.id_document = attrs.idDocument;
+            scope.id_post = scope.post.id;
+        }
+    }
 }).directive('progressWrapper', function($compile){
     return{
         restrict: "A",
@@ -640,6 +665,16 @@ app.directive('editPain', function () {
                         if(!isNaN(key)) {
                             remove_video[key].innerHTML = "";
                             remove_video[key].removeAttribute("remove_video_post");
+                        }
+                    }
+                }
+
+                if(document.querySelectorAll("[remove_document_post]")[0]){
+                    var remove_document = document.querySelectorAll("[remove_document_post]");
+                    for(var key in remove_document){
+                        if(!isNaN(key)) {
+                            remove_document[key].innerHTML = "";
+                            remove_document[key].removeAttribute("remove_document_post");
                         }
                     }
                 }
@@ -741,7 +776,15 @@ app.filter('filterByTags', function () {
     }
 }).filter('trustAsResourceUrl', ['$sce', function($sce) {
         return function(val) {
-            return $sce.trustAsResourceUrl(val.replace("watch?v=", "embed/")+"?modestbranding=1&showinfo=0&color=white&theme=light");
+            if(val.indexOf('watch?v=') + 1) {
+                return $sce.trustAsResourceUrl(val.replace("watch?v=", "embed/")+"?modestbranding=1&showinfo=0&color=white&theme=light");
+            }else if(val.indexOf('video') + 1) {
+                return $sce.trustAsResourceUrl(val.replace("video", "play/embed"));
+            }else if(val.indexOf('view') + 1){
+                return $sce.trustAsResourceUrl(val.replace("view", "embed"));
+            }else if(val.indexOf('vimeo.com') + 1){
+                return $sce.trustAsResourceUrl(val.replace("vimeo.com", "player.vimeo.com/video"));
+            }
         };
 }]).filter('bytes', function() {
     return function(bytes, precision) {

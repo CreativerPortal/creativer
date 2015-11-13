@@ -61,6 +61,17 @@
                         data: data
                     });
                 },
+                changeTariff: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'change_tariff',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 saveName: function (data) {
                     return $http({
                         method: 'POST',
@@ -234,6 +245,26 @@
                     return $http({
                         method: 'POST',
                         url: url + 'remove_video_post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    })
+                },
+                getTariffs: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_Tariffs',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    })
+                },
+                removeDocumentPost: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'remove_document_post',
                         headers: {
                             'Content-Type': 'application/json'
                         },

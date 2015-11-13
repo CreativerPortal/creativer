@@ -1,4 +1,5 @@
 <link rel="stylesheet" href="/css/component.css">
+
 <style>
     .ac-custom input[type="checkbox"], .ac-custom input[type="radio"], .ac-custom label::before {
         width: 20px;
@@ -17,6 +18,28 @@
         margin-top: auto;
         pointer-events: none;
         right: auto;
+    }
+    .tariff svg {
+        position: absolute;
+        width: 20px;
+        height: 20px;
+        bottom: 14px;
+        margin-top: auto;
+        pointer-events: none;
+        left: 140px;
+    }
+
+    .tariff_block{
+        height: 200px;
+    }
+    .tariff input[type="checkbox"], .tariff input[type="radio"], .tariff label::before {
+        width: 20px;
+        height: 20px;
+        top: 165px;
+        left: 124px;
+        margin-top: 0px;
+        position: absolute;
+        cursor: pointer;
     }
 </style>
 
@@ -62,10 +85,45 @@
              <h4 class="margin-left_25">Пакеты</h4>
              <div class="row margin-left_25 slid__comment__line"></div>
 
+             <form class="ac-custom ac-radio ac-fill tariff" autocomplete="off">
+
+                 <div class="line_package margin-left_20">
+                     <div class="col-sm-4 tariff_block">
+                         <label class="start" for="r1">
+                             <span class="text-white">{{ tariffs[0].name }}</span><br>
+                             <span class="text-white fs_0-7">
+                                 {{ tariffs[0].text }}
+                             </span>
+                         </label>
+                         <input id="r1" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[0].id }}">
+                     </div>
+                     <div class="col-sm-4 tariff_block">
+                         <label class="standard" for="r2">
+                             <span class="text-white">{{ tariffs[1].name }}</span><br>
+                             <span class="text-white fs_0-7">
+                                 {{ tariffs[1].text }}
+                             </span>
+                         </label>
+                         <input id="r2" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[1].id  }}">
+                     </div>
+                     <div class="col-sm-4 tariff_block">
+                         <label class="unlimited" for="r3">
+                             <span class="text-white">{{ tariffs[2].name  }}</span><br>
+                             <span class="text-white fs_0-7">
+                                 {{  tariffs[2].text }}
+                             </span>
+                         </label>
+                         <input id="r3" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[2].id }}">
+                     </div>
+                 </div>
+             </form>
+
+             <div class="row col-sm-11 col-sm-offset-1 padding-left_0">Ваш баланс <span class="text-blue">[[ user.balance | number : 0 ]]</span> руб.</div>
+
              <div class="row margin-top_20">
                  <div class="col-sm-5 text-right"></div>
                  <div class="col-sm-7">
-                     <button class="true fs_0-9" ng-class="{'loader': loader}" ng-click="saveComment(post,post.id,text_comment)">Изменить</button>
+                     <button class="true fs_0-9" ng-class="{'loader': loader_tariff}" ng-click="changeTariff(user.tariff.id)">Изменить</button>
                  </div>
              </div>
          </div>
@@ -125,5 +183,3 @@
          <span ng-init="$root.overflow = false"></span>
      </div>
  </div>
-
-<script src="/js/svgcheckbx.js"></script>

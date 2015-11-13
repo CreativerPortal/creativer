@@ -52,12 +52,6 @@ class User implements UserInterface, \Serializable
      */
     private $avatar;
 
-    /**
-     * @ORM\Column(type="string", length=255)
-     * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
-     */
-    private $path;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -209,7 +203,31 @@ class User implements UserInterface, \Serializable
      * @JMS\Expose
      * @JMS\Groups({"getUser"})
      */
+    private $balance;
+
+    /**
+     * @JMS\Expose
+     * @ORM\ManyToOne(targetEntity="Tariffs", inversedBy="users", fetch="EAGER")
+     * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id")
+     * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(2)
+     **/
+    private $tariff;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Expose
+     * @JMS\Groups({"getUser"})
+     */
     private $views;
+
+    /**
+     * @JMS\Expose
+     * @var \DateTime $date
+     * @JMS\Groups({"getUser"})
+     * @ORM\Column(type="datetime")
+     */
+    private $connection_status;
 
     /**
      * @JMS\Expose
@@ -276,7 +294,7 @@ class User implements UserInterface, \Serializable
      *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      *      )
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(1)
      */
     private $roles;
 
@@ -292,7 +310,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\ManyToMany(targetEntity="Events", inversedBy="users_attend")
      * @ORM\JoinTable(name="users_attend_events")
-     * @JMS\Groups({"getUser","getEvent","eventAttend"})
+     * @JMS\Groups({"getEvent","eventAttend"})
      * @JMS\Expose
      */
     private $events_attend;
@@ -304,6 +322,7 @@ class User implements UserInterface, \Serializable
         // $this->salt = md5(uniqid(null, true));
         $this->roles = new ArrayCollection();
         $this->date = new \DateTime();
+        $this->connection_status = new \DateTime();
         $this->favoritsWithMe = new \Doctrine\Common\Collections\ArrayCollection();
         $this->myFavorits = new \Doctrine\Common\Collections\ArrayCollection();
         $this->events = new \Doctrine\Common\Collections\ArrayCollection();
@@ -1274,26 +1293,73 @@ class User implements UserInterface, \Serializable
         return $this->notification_message;
     }
 
+
     /**
-     * Set path
+     * Set connection_status
      *
-     * @param string $path
+     * @param string $connectionStatus
      * @return User
      */
-    public function setPath($path)
+    public function setConnectionStatus($connectionStatus)
     {
-        $this->path = $path;
+        $this->connection_status = $connectionStatus;
 
         return $this;
     }
 
     /**
-     * Get path
+     * Get connection_status
      *
      * @return string 
      */
-    public function getPath()
+    public function getConnectionStatus()
     {
-        return $this->path;
+        return $this->connection_status;
+    }
+
+    /**
+     * Set balance
+     *
+     * @param integer $balance
+     * @return User
+     */
+    public function setBalance($balance)
+    {
+        $this->balance = $balance;
+
+        return $this;
+    }
+
+    /**
+     * Get balance
+     *
+     * @return integer 
+     */
+    public function getBalance()
+    {
+        return $this->balance;
+    }
+
+    /**
+     * Set tariff
+     *
+     * @param \Creativer\FrontBundle\Entity\Tariffs $tariff
+     * @return User
+     */
+    public function setTariff(\Creativer\FrontBundle\Entity\Tariffs $tariff = null)
+    {
+        $this->tariff = $tariff;
+
+        return $this;
+    }
+
+    /**
+     * Get tariff
+     *
+     * @return \Creativer\FrontBundle\Entity\Tariffs 
+     */
+    public function getTariff()
+    {
+        return $this->tariff;
     }
 }

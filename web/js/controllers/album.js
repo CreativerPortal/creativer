@@ -163,6 +163,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
             if($stateParams.id_album && $scope.user && !$scope.user.albums[key_album].images_likes){
                 albumService.getLikesByAlbumId({id_album:id_album}).success(function (data) {
+                    $scope.likes = data.likes;
                     for(var key in $scope.user.albums){
                         if(id_album == $scope.user.albums[key].id){
                             key_album = key;
@@ -229,12 +230,18 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
 
     $scope.saveImageComment = function(image,text){
-        $scope.loader = true;
-        albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
-            $scope.text_comment = undefined;
-            image.image_comments.push(data);
-            $scope.loader = false;
-        });
+        if($scope.loader_album_comment == false || $scope.loader_album_comment == undefined) {
+            $scope.loader_album_comment = true;
+            albumService.saveImageComment({
+                image_id: image.id,
+                text: text,
+                id: $rootScope.id_user
+            }).success(function (data) {
+                $scope.text_comment = undefined;
+                image.image_comments.push(data);
+                $scope.loader_album_comment = false;
+            });
+        }
     }
 
     $scope.like = function(id,album_key,image_key){

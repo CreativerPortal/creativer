@@ -12,15 +12,15 @@
                     <form class="form-feedback-form text-brown" name="feedback_form" ng-model="feedback_form">
                         <div class="row">
                             <div class="col-sm-6"><label for="name" class="text-brown fs_0-9">Как к вам обращаться:</label></div>
-                            <div class="col-sm-5"><input id="name" type="text" ng-model="nick" /></div>
+                            <div class="col-sm-6"><input id="name" class="right" type="text" ng-model="nick" /></div>
                         </div>
                         <div class="row margin-top_5">
                             <div class="col-sm-6"><label for="telephone" class="text-brown fs_0-9">Телефон:</label></div>
-                            <div class="col-sm-5"><input id="telephone" type="text" ng-model="telephone" /></div>
+                            <div class="col-sm-6"><input id="telephone" class="right" type="text" ng-model="telephone" /></div>
                         </div>
                         <div class="row margin-top_5">
                             <div class="col-sm-6"><label for="password" class="text-brown fs_0-9">E-mail:</label></div>
-                            <div class="col-sm-5"><input id="password" type="email" ng-model="email" name="email" required=""/></div>
+                            <div class="col-sm-6"><input id="password" class="right" type="email" ng-model="email" name="email" required=""/></div>
                             <div class="text-danger text-right col-sm-11" ng-show="submitted && feedback_form.email.$error.required">Email обязтельное поле</div>
                         </div>
                         <div class="row margin-top_5">

@@ -255,6 +255,9 @@ body{
     text-decoration: none;
 }
 
+.connection_status{
+    color: #b3b3b2;
+}
 
 .edit{
     position: absolute;
@@ -452,6 +455,11 @@ body{
     display: block;
 }
 
+.document_post{
+    position: relative;
+    display: block;
+}
+
 .upload__element_person:hover .close_image-post{
     display: block;
 }
@@ -597,4 +605,56 @@ img-crop canvas {
 
 .progress_person{
     height: 20px!important;
+}
+
+.start, .standard, .unlimited{
+    background: url("/var/www/creativer/web/img/packages_min.png") no-repeat;
+    position: absolute;
+}
+
+.start{
+    padding-top: 35px;
+    padding-left: 25px;
+    padding-right: 10px;
+    background-position: 0 0 ;
+    width: 184px;
+    height: 175px;
+    z-index: 2;
+    background-repeat: no-repeat;
+}
+
+.standard{
+    padding-top: 35px;
+    padding-left: 25px;
+    padding-right: 20px;
+    background-position: -179px 0 ;
+    width: 184px;
+    height: 175px;
+    z-index: 2;
+    background-repeat: no-repeat;
+}
+
+.unlimited{
+    padding-top: 35px;
+    padding-left: 25px;
+    padding-right: 10px;
+    background-position: -357px 0 ;
+    width: 184px;
+    height: 175px;
+    z-index: 2;
+    background-repeat: no-repeat;
+}
+
+.package_person{
+    margin-left: 10px;
+}
+
+.package_person_name{
+    height: 169px;
+    margin-top: -77px;
+    line-height: 7.5em;
+    font-size: 1.4em;
+    display: inline-block;
+    text-align: center;
+    background-repeat: no-repeat;
 }

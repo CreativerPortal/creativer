@@ -129,13 +129,15 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         }
 
         $scope.saveComment = function(text){
-            $scope.loader = true;
-            baraholkaService.saveComment({post_id:$scope.post.id,text:text}).success(function (data) {
-                $scope.post.post_comments.push(data);
-                $scope.user = data.user;
-                $scope.text_comment = undefined;
-                $scope.loader = false;
-            });
+            if($scope.loader == false || $scope.loader == undefined) {
+                $scope.loader = true;
+                baraholkaService.saveComment({post_id: $scope.post.id, text: text}).success(function (data) {
+                    $scope.post.post_comments.push(data);
+                    $scope.user = data.user;
+                    $scope.text_comment = undefined;
+                    $scope.loader = false;
+                });
+            }
         }
 
         $rootScope.$watchGroup(['city','my_singboard', 'singboard_participate', 'new24', 'post_category_id'], function() {

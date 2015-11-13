@@ -71,6 +71,10 @@ function svgCheckbox() {
 				resetRadio(el);
 				draw(el, type);
 			});
+			if (el.checked) {
+				resetRadio(el);
+				draw(el, 'fill');
+			}
 		}
 
 		checkbxsCross.forEach(function (el, i) {
@@ -184,6 +188,7 @@ function svgCheckbox() {
 				}
 			});
 		}
+
 
 	}
 }

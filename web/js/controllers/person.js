@@ -1,5 +1,5 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
-    .controller('personCtrl',['$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
+    .controller('personCtrl',['$state','$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
     // init controller
 
@@ -24,6 +24,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                     $scope.favorit = true;
                 }
             }
+            $scope.$watch("svg", function () {
+                svgCheckbox();
+            });
         })
     }
 
@@ -34,7 +37,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             });
         })
     }
-
     if(!$rootScope.data){
         personalService.getAllCategories().success(function (data) {
             $rootScope.data = $scope.data = data.categories;
@@ -49,8 +51,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }else{
         $scope.data = $rootScope.data;
     }
-
-
     if($stateParams.id_album){
         $scope.id_album = $stateParams.id_album;
     }
@@ -92,7 +92,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $rootScope.overflow = false;
     }
 
-
     $scope.height = $window.innerHeight-30;
 
     chat.init();
@@ -104,58 +103,52 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
 
     $scope.savePost = function(wall,wall_id, text){
-        $scope.loader = true;
-        personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $stateParams.id,videos:$scope.videos}).success(function (data) {
-            if(!uploader.queue.length){
-                $scope.text_post = '';
-                $scope.videos = [];
-            }
-            $scope.new_post_id = data.post.id;
-            if(uploaderDoc.queue.length){
-                uploaderDoc.uploadAll();
-            }
-            if(uploader.queue.length){
-                uploader.uploadAll();
-            }else{
-                personalService.getUser({id: $stateParams.id}).success(function (data) {
-                    $scope.loader = false;
-                    $scope.user = data.user;
-                    $scope.user.wall.posts = data.posts;
-                    $scope.favorit = false;
-                    for(key in $scope.user.favorits_with_me){
-                        if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
-                            $scope.favorit = true;
+        if($scope.loader_post == false || $scope.loader_post == undefined){
+            $scope.loader_post = true;
+            $scope.count_elment = (uploader.queue.length != 0 && uploaderDoc.queue.length != 0)?2:1;
+            personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $stateParams.id,videos:$scope.videos}).success(function (data) {
+                if(!uploader.queue.length){
+                    $scope.text_post = '';
+                    $scope.videos = [];
+                }
+                $scope.new_post_id = data.post.id;
+                if(uploaderDoc.queue.length){
+                    uploaderDoc.uploadAll();
+                }
+                if(uploader.queue.length){
+                    uploader.uploadAll();
+                }else{
+                    personalService.getUser({id: $stateParams.id}).success(function (data) {
+                        $scope.loader_post = false;
+                        $scope.user = data.user;
+                        $scope.user.wall.posts = data.posts;
+                        $scope.favorit = false;
+                        for(key in $scope.user.favorits_with_me){
+                            if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
+                                $scope.favorit = true;
+                            }
                         }
-                    }
-                })
-            }
-        });
+                    })
+                }
+            });
+        }
     }
 
     $scope.videos = [];
-
 
     $scope.addVideo = function(){
         $scope.videos.push("");
     }
 
     $scope.saveComment = function(post, post_id, text){
-        //var user = {
-        //    user: {
-        //        id: 0,
-        //        username: $rootScope.username,
-        //        lastname: $rootScope.lastname,
-        //        avatar: $rootScope.avatar
-        //    },
-        //    text: text
-        //}
-        $scope.loader = true;
-        //post.comments.push(user);
-        personalService.saveComment({post_id:post_id,text:text,id: $stateParams.id}).success(function (data) {
-            post.comments.push(data.comment);
-            post.text_comment = '';
-            $scope.loader = false;
-        });
+        if($scope.loader_comment == false || $scope.loader_comment == undefined){
+            $scope.loader_comment = true;
+            personalService.saveComment({post_id:post_id,text:text,id: $stateParams.id}).success(function (data) {
+                post.comments.push(data.comment);
+                post.text_comment = '';
+                $scope.loader_comment = false;
+            });
+        }
     }
 
     $scope.saveField = function(event,field){
@@ -286,6 +279,20 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
+    $scope.removeDocumentPost = function(document_id,post_id){
+        personalService.removeDocumentPost({document_id: document_id,post_id:post_id}).success(function (data) {
+            var posts = $scope.user.wall.posts;
+            for(var key in posts){
+                if(posts[key].id == post_id){
+                    for(var k in posts[key].post_documents){
+                        if($scope.user.wall.posts[key].post_documents[k].id == document_id)
+                            $scope.user.wall.posts[key].post_documents.splice(k,1);
+                    }
+                }
+            }
+        });
+    }
+
     $scope.sendFeedBack = function(){
         $scope.loader = true;
         personalService.sendFeedBack({nick: $scope.nick, telephone: $scope.telephone, message: $scope.message, email: $scope.email}).success(function (data) {
@@ -338,11 +345,13 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
-    $scope.$watch("svg", function () {
-        setTimeout(function(){
-            svgCheckbox();
-        }, 1200);
-    });
+    $scope.changeTariff = function(id){
+        $scope.loader_tariff = true;
+        personalService.changeTariff({id: id}).success(function (data) {
+            $rootScope.user = $scope.user = data.user;
+            $scope.loader_tariff = false;
+        });
+    }
 
     $scope.$on('$routeChangeStart', function(next, current) {
         if(current.params.id != undefined && current.params.id != next.targetScope.user.id){
@@ -521,7 +530,29 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.id_post_baraholka = response.id;
     };
     uploader.onCompleteAll = function() {
-        if($stateParams.id){
+        if(uploaderDoc.progress == 100 && uploader.progress == 100) {
+            if($stateParams.id){
+            uploader.queue = [];
+            uploaderDoc.queue = [];
+            $scope.text_post = '';
+            personalService.getUser({id: $stateParams.id}).success(function (data) {
+                $scope.loader = false;
+                $rootScope.user = $scope.user = data.user;
+                $scope.user.wall.posts = data.posts;
+                $scope.favorit = false;
+                for (key in $scope.user.favorits_with_me) {
+                    if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
+                        $scope.favorit = true;
+                    }
+                }
+            })
+            }
+        }
+    };
+
+    uploaderDoc.onCompleteAll = function() {
+        if(uploaderDoc.progress == 100 && uploader.progress == 100){
+            uploaderDoc.queue = [];
             uploader.queue = [];
             $scope.text_post = '';
             personalService.getUser({id: $stateParams.id}).success(function (data) {
@@ -536,7 +567,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 }
             })
         }
-    };
+    }
 
     uploader.onBeforeUploadItem = function (item) {
         if($stateParams.id){

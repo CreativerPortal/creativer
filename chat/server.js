@@ -16,7 +16,7 @@ process.on('uncaughtException', function (processError) {
         stream.write(processError.stack);
         stream.end();
     });
-    //console.log(processError.stack);
+    console.log(processError.stack);
 });
 
 app.get('/', function(req, res){
@@ -36,6 +36,29 @@ io.on('connection', function(socket){
         });
     }
 
+    var date = new Date("0000");
+    var queryText = "UPDATE app_users SET connection_status='online' WHERE id="+socket.handshake.query.id_user+";";
+    connection.query(queryText, function(err, rows) {
+            console.log("good")
+        }
+    );
+
+    socket.on('disconnect', function(){
+        var date = new Date();
+        var queryText = "UPDATE app_users SET connection_status=NOW() WHERE id="+socket.handshake.query.id_user+";";
+        connection.query(queryText, function(err, rows) {
+                console.log("disconnect")
+            }
+        );
+
+        for(key in sockets[socket.handshake.query.id_user]){
+            if(sockets[socket.handshake.query.id_user][key].id == socket.id){
+                sockets[socket.handshake.query.id_user].slice(key,1)
+            };
+        }
+    });
+
+
     if(sockets[socket.handshake.query.id_user] != undefined){
         sockets[socket.handshake.query.id_user].push(socket);
 
@@ -43,7 +66,6 @@ io.on('connection', function(socket){
         sockets[socket.handshake.query.id_user] = [];
         sockets[socket.handshake.query.id_user].push(socket);
     }
-
 
     socket.on('all messages', function (data) {
         mongo.connect(db_connect, function (err, db) {
@@ -159,14 +181,6 @@ io.on('connection', function(socket){
         });
     });
 
-
-    socket.on('disconnect', function(){
-        for(key in sockets[socket.handshake.query.id_user]){
-            if(sockets[socket.handshake.query.id_user][key].id == socket.id){
-                sockets[socket.handshake.query.id_user].slice(key,1)
-            };
-        }
-    });
 
     socket.on('message', function (data) {
         mongo.connect(db_connect, function (err, db) {

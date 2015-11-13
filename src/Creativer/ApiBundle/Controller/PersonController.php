@@ -17,6 +17,7 @@ use Creativer\FrontBundle\Entity\Wall;
 use Creativer\FrontBundle\Entity\Posts;
 use Creativer\FrontBundle\Entity\PostVideos;
 use Creativer\FrontBundle\Entity\Comments;
+use Creativer\FrontBundle\Entity\Tariffs;
 use Creativer\FrontBundle\Entity\ImageComments;
 use Symfony\Component\BrowserKit\Response;
 use Symfony\Component\Filesystem\Filesystem;
@@ -447,7 +448,21 @@ class PersonController extends Controller
         $data = $this->getDoctrine()->getRepository('CreativerFrontBundle:Albums')->find($id);
         $user = $data->getUser();
 
-        return array('user' => $user);
+        $user = array('user' => $user);
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $user,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
@@ -1105,6 +1120,37 @@ class PersonController extends Controller
 
     /**
      * @return array
+     * @Post("/v1/remove_document_post")
+     * @View()
+     */
+    public function removeDocumentPostAction()
+    {
+        $document_id = $this->get('request')->request->get('document_id');
+        $post_id = $this->get('request')->request->get('post_id');
+
+
+        $em = $this->getDoctrine()->getManager();
+        $postDocument = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostDocuments')->find($document_id);
+
+        $path_documents = $this->container->getParameter('path_documents');
+
+        if($postDocument){
+            $fs = new Filesystem();
+            $fs->remove(array($path_documents.$postDocument->getPath().$postDocument->getName()));
+            $em->remove($postDocument);
+        }
+
+        $em->remove($postDocument);
+        $em->flush();
+
+        $response = new Respon('', 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
      * @Post("/v1/search_people")
      * @View(serializerGroups={"searchPeople"})
      */
@@ -1213,6 +1259,43 @@ class PersonController extends Controller
         $response = new Respon(json_encode($array), 200);
         $response->headers->set('Content-Type', 'application/json');
 
+        return $response;
+    }
+
+    /**
+     * @Post("/v1/change_tariff")
+     * @View(serializerGroups={"getUser"})
+     */
+    public function changeTariffAction()
+    {
+        if(!$this->get('request')->request->get('id'))
+        {
+            $id = $this->get('security.context')->getToken()->getUser()->getId();
+        }else{
+            $id = $this->get('request')->request->get('id');
+        }
+        $tariff = $this->getDoctrine()->getRepository('CreativerFrontBundle:Tariffs')->find($id);
+        $this->get('security.context')->getToken()->getUser()->setTariff($tariff);
+
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->flush();
+
+        $user = array('user' => $user);
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $user,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
 }

@@ -496,6 +496,9 @@ body{
     border-radius: 15px;
     border: 1px dashed #696360;
     padding: 20px;
+    max-width: 858px;
+    min-width: 858px;
+    min-height: 360px;
 }
 
 .wrapper__comment{
@@ -504,13 +507,16 @@ body{
 }
 
 .wrapper__background{
-    width: 100%;
     padding: 0px 10px 20px 10px;
+    display: table-cell;
+    height: 360px;
+    width: 858px;
+    vertical-align: middle;
 }
 
 .viewer__image{
-    max-width: 1000px;
-    max-height: 830px;
+    max-width: 800px;
+    max-height: 580px;
 }
 
 .comm:hover .edit_post{

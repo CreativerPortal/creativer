@@ -36,6 +36,24 @@ class EventController extends Controller
      * @View()
      */
     public function getDatapickerAction(){
+
+//            /* @var $start \DateTime */
+//            $start = new \DateTime('2015-11-07T20:59:59.000Z');
+//
+//            /* @var $end \DateTime */
+//            $end = new \DateTime('2015-11-15T20:59:59.000Z');
+//
+//            $google = $this->get('google.client');
+//
+//            $google->setCredentialsJson();
+//
+//            $events = $google->getCalendar()->events->listEvents('infocreativer@gmail.com', [
+//                'timeMin' => $start->format('c'),
+//                'timeMax' => $end->format('c'),
+//            ]);
+//
+//            die(var_dump($events));
+
         $other_date = $this->get('request')->request->get('date');
         $id_cat = $this->get('request')->request->get('id_cat');
         $target_date = $this->get('request')->request->get('target_date');
@@ -63,7 +81,7 @@ class EventController extends Controller
 
             $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
                 ->createQueryBuilder('e')
-                ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date')
+                ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date','e.viewed as viewed','e.count_comment as count_comment')
                 ->leftJoin('e.event_sections', 'cat')
                 ->leftJoin('e.event_city', 'city')
                 ->where('cat IN (:items)');
@@ -104,7 +122,7 @@ class EventController extends Controller
 
                     $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
                         ->createQueryBuilder('e')
-                        ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date')
+                        ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date','e.viewed as viewed','e.count_comment as count_comment')
                         ->leftJoin('e.event_sections', 'cat')
                         ->leftJoin('e.event_city', 'city')
                         ->where('cat IN (:items)');
@@ -242,7 +260,46 @@ class EventController extends Controller
             ->setParameter('id', $id);
         $event = $query->getQuery()->getResult()[0];
 
-        return $event;
+        $serializer = $this->container->get('jms_serializer');
+        $categories = $serializer
+            ->serialize(
+                $event,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+            );
+
+        $response = new Respon($categories);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/reviewed_event")
+     * @View(serializerGroups={"getEvent"})
+     */
+    public function reviewedEventAction(){
+        $id = $this->get('request')->request->get('id');
+
+        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+            ->createQueryBuilder('e')
+            ->where('e.id = :id')
+            ->setParameter('id', $id);
+        $event = $query->getQuery()->getResult()[0];
+
+        $count = $event->getViewed()+1;
+        $event->setViewed($count);
+
+        $em = $this->getDoctrine()->getEntityManager();
+        $em->persist($event);
+        $em->flush();
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 
 
@@ -457,6 +514,9 @@ class EventController extends Controller
 
         $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findOneById($data->event_id);
 
+        $count_comment = $event->getCountComment()+1;
+        $event->setCountComment($count_comment);
+
 
         $comment = new EventComments();
 
@@ -467,6 +527,7 @@ class EventController extends Controller
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($comment);
+        $em->persist($event);
         $em->flush();
 
         return $comment;
@@ -639,7 +700,7 @@ class EventController extends Controller
         $path_img_event_original = $this->container->getParameter('path_img_shop');
 
 
-        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
+        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->find($id);
         $image = $event->getImg();
         $path = $event->getPath();
 
@@ -676,6 +737,10 @@ class EventController extends Controller
         $comment_id = $this->get('request')->request->get('id');
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $comment = $this->getDoctrine()->getRepository('CreativerFrontBundle:EventComments')->find($comment_id);
+
+        $count_comment = $comment->getEvent()->getCountComment()-1;
+
+        $comment->getEvent()->setCountComment($count_comment);
 
         $em->remove($comment);
         $em->flush();

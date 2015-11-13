@@ -1,5 +1,5 @@
 angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.socket', 'service.chat', 'service.header'])
-    .controller('eventCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'headerService', 'eventService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,headerService,eventService,$stateParams, FileUploader, socket, chat) {
+    .controller('eventCtrl',['$state','$window', '$scope', '$timeout', '$rootScope', '$location', 'headerService', 'eventService','$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window,$scope,$timeout,$rootScope,$location,headerService,eventService,$stateParams, FileUploader, socket, chat) {
 
 
         //if(!$stateParams.id_edit && !$stateParams.id) {
@@ -100,81 +100,83 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         $scope.nextMonth = function(){
             $scope.target_day = undefined;
             var id_cat = $stateParams.id_cat?$stateParams.id_cat:null;
-            eventService.getDatapicker({date:$scope.datapicker.next_date,id_cat:id_cat,city:$rootScope.city}).success(function (data) {
-                $scope.datapicker = data;
-                $scope.events = data.events;
-                $scope.datapicker.current_date = new Date($scope.datapicker.current_date);
-                $scope.datapicker.next_date = new Date($scope.datapicker.current_date);
-                $scope.datapicker.previous_date = new Date($scope.datapicker.current_date);
+            if ($state.current.name != 'event')
+                eventService.getDatapicker({date:$scope.datapicker.next_date,id_cat:id_cat,city:$rootScope.city}).success(function (data) {
+                    $scope.datapicker = data;
+                    $scope.events = data.events;
+                    $scope.datapicker.current_date = new Date($scope.datapicker.current_date);
+                    $scope.datapicker.next_date = new Date($scope.datapicker.current_date);
+                    $scope.datapicker.previous_date = new Date($scope.datapicker.current_date);
 
-                var job_date = new Date($scope.datapicker.current_date);
+                    var job_date = new Date($scope.datapicker.current_date);
 
-                $scope.datapicker.next_date.setMonth(job_date.getMonth() + 1);
-                $scope.datapicker.previous_date.setMonth(job_date.getMonth() - 1);
+                    $scope.datapicker.next_date.setMonth(job_date.getMonth() + 1);
+                    $scope.datapicker.previous_date.setMonth(job_date.getMonth() - 1);
 
-                var count_dayes = 32 - new Date(data.year, data.month - 1, 32).getDate();
-                $scope.count_dayes = new Array(count_dayes);
-                $scope.days = [];
-                var current_date = new Date($scope.datapicker.current_date);
+                    var count_dayes = 32 - new Date(data.year, data.month - 1, 32).getDate();
+                    $scope.count_dayes = new Array(count_dayes);
+                    $scope.days = [];
+                    var current_date = new Date($scope.datapicker.current_date);
 
-                for (var i = 1; i <= count_dayes; i++) {
-                    $scope.days[i] = {'action': 0, 'day': i};
-                    for (var k in data.events) {
-                        for (var key in data.events[k].events) {
-                            var sd = new Date(data.events[k].events[key].start_date).getTime();
-                            var ed = new Date(data.events[k].events[key].end_date).getTime();
-                            current_date.setDate(i);
-                            var cd = current_date.getTime();
-                            if (cd >= sd && cd <= ed) {
-                                $scope.days[i] = {'action': 1, 'day': i};
-                                break;
+                    for (var i = 1; i <= count_dayes; i++) {
+                        $scope.days[i] = {'action': 0, 'day': i};
+                        for (var k in data.events) {
+                            for (var key in data.events[k].events) {
+                                var sd = new Date(data.events[k].events[key].start_date).getTime();
+                                var ed = new Date(data.events[k].events[key].end_date).getTime();
+                                current_date.setDate(i);
+                                var cd = current_date.getTime();
+                                if (cd >= sd && cd <= ed) {
+                                    $scope.days[i] = {'action': 1, 'day': i};
+                                    break;
+                                }
                             }
                         }
-                    }
 
-                }
-            });
+                    }
+                });
         }
 
         $scope.previousMonth = function(){
             $scope.target_day = undefined;
             var id_cat = $stateParams.id_cat?$stateParams.id_cat:null;
-            eventService.getDatapicker({date:$scope.datapicker.previous_date,id_cat:id_cat,city:$rootScope.city}).success(function (data) {
-                $scope.datapicker = data;
-                $scope.events = data.events;
-                $scope.datapicker.current_date = new Date($scope.datapicker.current_date);
-                $scope.datapicker.next_date = new Date($scope.datapicker.current_date);
-                $scope.datapicker.previous_date = new Date($scope.datapicker.current_date);
+            if ($state.current.name != 'event')
+                eventService.getDatapicker({date:$scope.datapicker.previous_date,id_cat:id_cat,city:$rootScope.city}).success(function (data) {
+                    $scope.datapicker = data;
+                    $scope.events = data.events;
+                    $scope.datapicker.current_date = new Date($scope.datapicker.current_date);
+                    $scope.datapicker.next_date = new Date($scope.datapicker.current_date);
+                    $scope.datapicker.previous_date = new Date($scope.datapicker.current_date);
 
-                var job_date = new Date($scope.datapicker.current_date);
+                    var job_date = new Date($scope.datapicker.current_date);
 
-                $scope.datapicker.next_date.setMonth(job_date.getMonth() + 1);
-                $scope.datapicker.previous_date.setMonth(job_date.getMonth() - 1);
+                    $scope.datapicker.next_date.setMonth(job_date.getMonth() + 1);
+                    $scope.datapicker.previous_date.setMonth(job_date.getMonth() - 1);
 
-                var count_dayes = 32 - new Date(data.year, data.month - 1, 32).getDate();
-                $scope.count_dayes = new Array(count_dayes);
-                $scope.days = [];
-                var current_date = new Date($scope.datapicker.current_date);
+                    var count_dayes = 32 - new Date(data.year, data.month - 1, 32).getDate();
+                    $scope.count_dayes = new Array(count_dayes);
+                    $scope.days = [];
+                    var current_date = new Date($scope.datapicker.current_date);
 
 
-                for (var i = 1; i <= count_dayes; i++) {
-                    $scope.days[i] = {'action': 0, 'day': i};
-                    for (var k in data.events) {
-                        for (var key in data.events[k].events) {
-                            var sd = new Date(data.events[k].events[key].start_date).getTime();
-                            var ed = new Date(data.events[k].events[key].end_date).getTime();
-                            current_date.setDate(i);
-                            var cd = current_date.getTime();
-                            if (cd >= sd && cd <= ed) {
-                                $scope.days[i] = {'action': 1, 'day': i};
-                                break;
+                    for (var i = 1; i <= count_dayes; i++) {
+                        $scope.days[i] = {'action': 0, 'day': i};
+                        for (var k in data.events) {
+                            for (var key in data.events[k].events) {
+                                var sd = new Date(data.events[k].events[key].start_date).getTime();
+                                var ed = new Date(data.events[k].events[key].end_date).getTime();
+                                current_date.setDate(i);
+                                var cd = current_date.getTime();
+                                if (cd >= sd && cd <= ed) {
+                                    $scope.days[i] = {'action': 1, 'day': i};
+                                    break;
+                                }
                             }
                         }
+
                     }
 
-                }
-
-            });
+                });
         }
 
         $scope.getEventsByDate = function(day){
@@ -183,16 +185,18 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                 $scope.targetDate = new Date($scope.datapicker.current_date);
                 $scope.targetDate.setDate(day);
                 var id_cat = $stateParams.id_cat?$stateParams.id_cat:null;
-                eventService.getDatapicker({date:$scope.datapicker.current_date, target_date:$scope.targetDate ,id_cat:id_cat, city:$rootScope.city}).success(function (data) {
-                    $scope.events = data.events;
-                    $scope.target_day = day;
-                });
+                if ($state.current.name != 'event')
+                    eventService.getDatapicker({date:$scope.datapicker.current_date, target_date:$scope.targetDate ,id_cat:id_cat, city:$rootScope.city}).success(function (data) {
+                        $scope.events = data.events;
+                        $scope.target_day = day;
+                    });
             }else{
                 var id_cat = $stateParams.id_cat?$stateParams.id_cat:null;
-                eventService.getDatapicker({date:$scope.datapicker.current_date, id_cat:id_cat, city:$rootScope.city}).success(function (data) {
-                    $scope.events = data.events;
-                    $scope.target_day = day;
-                });
+                if ($state.current.name != 'event')
+                    eventService.getDatapicker({date:$scope.datapicker.current_date, id_cat:id_cat, city:$rootScope.city}).success(function (data) {
+                        $scope.events = data.events;
+                        $scope.target_day = day;
+                    });
             }
 
         }
@@ -218,7 +222,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             $rootScope.$watchGroup(["city"], function(){
 
                     var id_cat = $stateParams.id_cat?$stateParams.id_cat:null;
-                    if(!$stateParams.events_search_text)
+                    if(!$stateParams.events_search_text && $state.current.name != 'event')
                     eventService.getDatapicker({id_cat:id_cat,city:$rootScope.city}).success(function (data) {
                         $scope.datapicker = data;
                         $scope.events = data.events;
@@ -285,6 +289,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                     }
                 }
                 angular.element('.description').html(data.description);
+                eventService.reviewedEvent({id:$stateParams.id});
             });
         }
 
@@ -316,12 +321,14 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         }
 
         $scope.saveComment = function(text){
-            $scope.loader = true;
-            eventService.saveComment({event_id:$scope.event.id,text:text}).success(function (data) {
-                $scope.event.event_comments.push(data);
-                $scope.text_comment = undefined;
-                $scope.loader = false;
-            });
+            if($scope.loader_event == false || $scope.loader_event == undefined) {
+                $scope.loader_event = true;
+                eventService.saveComment({event_id: $scope.event.id, text: text}).success(function (data) {
+                    $scope.event.event_comments.push(data);
+                    $scope.text_comment = undefined;
+                    $scope.loader_event = false;
+                });
+            }
         }
 
         $scope.deleteEvent = function(id_event){

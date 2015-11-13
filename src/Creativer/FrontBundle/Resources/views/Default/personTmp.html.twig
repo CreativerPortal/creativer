@@ -1,8 +1,20 @@
         <div class="row slid  padding-right_0" ng-show="user">
 
-            <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
+            <div class="row">
+                <div class="col-sm-5 padding-left_0">
+                    <div class="col-sm-7 padding-left_0" >
+                        <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
+                    </div>
+                    <div ng-if="user.connection_status != '-0001-11-30T00:00:00+0150' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
+                        [[ user.connection_status | date: "dd MMM HH:mm" ]]
+                    </div>
+                    <div ng-if="user.connection_status == '-0001-11-30T00:00:00+0150' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
+                        Online
+                    </div>
+                </div>
+            </div>
 
-            <div class="col-sm-5 user padding-left_0">
+            <div class="col-sm-2 user padding-left_0">
                 {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
             </div>
 
@@ -79,9 +91,9 @@
                             <div class="text-gray col-sm-1 glyphicon glyphicon-remove pointer padding-right_0 text-right" ng-click="item.remove();">
                             </div>
                     </div>
-                    <div class="row col-sm-12 padding-right_5" ng-show="uploader.progress">
+                    <div class="row col-sm-12 padding-right_5" ng-show="uploader.progress || uploaderDoc.progress">
                         <div class="progress progress_person" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
-                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }">[[ uploader.progress ]] %</div>
+                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': (uploader.progress + uploaderDoc.progress)/count_elment + '%' }">[[ (uploader.progress + uploaderDoc.progress)/count_elment ]] %</div>
                         </div>
                     </div>
                     <div class="row">
@@ -111,7 +123,7 @@
                         </div>
                         <div class="col-sm-6">
                             <div ng-show="text_post || (videos[0] != undefined) || uploader.queue.length" class="text-right col-sm-12">
-                                <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="savePost(user.wall,user.wall.id,text_post)">Отправить</button>
+                                <button class="true fs_0-9" ng-class="{'loader':loader_post}" ng-click="savePost(user.wall,user.wall.id,text_post)">Отправить</button>
                                 <button class="false fs_0-9" ng-click="text_post=''; videos=[]; uploader.clearQueue()">Отмена</button>
                             </div>
                         </div>
@@ -180,7 +192,8 @@
                                 <span class="fs_0-9">[[ post.post_documents[key].real_name ]]</span><br />
                                 <span class="text-gray fs_0-8">[[ post.post_documents[key].size | bytes ]]</span>
                             </a>
-
+                            <document_post id_document="[[ document.id ]]" ng-if="document.new" remove_document_post></document_post>
+                            <document_post id_document="[[ document.id ]]"></document_post>
                         </div>
 
                         <div class="col-sm-12 padding-left_0">
@@ -273,10 +286,10 @@
                     </div>
                     <div class="row margin-left_60 col-sm-11" ng-show="post.comments[0] || com">
                         {% if is_granted('ROLE_USER') %}
-                            <textarea msd-elastic="" class="text-gray margin-left_20 margin-top_10"  ng-model="text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px;"></textarea>
-                            <div ng-show="text_comment" class="margin-top_5 margin-left_20 text-right" style="margin-right: 15px;">
-                                <button class="true fs_0-9" ng-class="{'loader': loader}" ng-click="saveComment(post,post.id,text_comment)">Отправить</button>
-                                <button class="false fs_0-9" ng-click="text_comment=''">Отмена</button>
+                            <textarea msd-elastic="" class="text-gray margin-left_20 margin-top_10"  ng-model="post.text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px;"></textarea>
+                            <div ng-show="post.text_comment" class="margin-top_5 margin-left_20 text-right" style="margin-right: 15px;">
+                                <button class="true fs_0-9" ng-class="{'loader': loader_comment}" ng-click="saveComment(post,post.id,post.text_comment)">Отправить</button>
+                                <button class="false fs_0-9" ng-click="post.text_comment=''">Отмена</button>
                             </div>
                         {%  endif %}
                     </div>

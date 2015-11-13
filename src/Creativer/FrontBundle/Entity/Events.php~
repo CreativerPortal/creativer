@@ -80,6 +80,20 @@ class Events
 
     /**
      * @JMS\Expose
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Groups({"getEvent"})
+     */
+    private $viewed=0;
+
+    /**
+     * @JMS\Expose
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Groups({"getEvent"})
+     */
+    private $count_comment=0;
+
+    /**
+     * @JMS\Expose
      * @var \DateTime $start_date
      *
      * @Gedmo\Timestampable(on="create")
@@ -239,6 +253,52 @@ class Events
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set viewed
+     *
+     * @param integer $viewed
+     * @return Events
+     */
+    public function setViewed($viewed)
+    {
+        $this->viewed = $viewed;
+
+        return $this;
+    }
+
+    /**
+     * Get viewed
+     *
+     * @return integer 
+     */
+    public function getViewed()
+    {
+        return $this->viewed;
+    }
+
+    /**
+     * Set count_comment
+     *
+     * @param integer $countComment
+     * @return Events
+     */
+    public function setCountComment($countComment)
+    {
+        $this->count_comment = $countComment;
+
+        return $this;
+    }
+
+    /**
+     * Get count_comment
+     *
+     * @return integer 
+     */
+    public function getCountComment()
+    {
+        return $this->count_comment;
     }
 
     /**

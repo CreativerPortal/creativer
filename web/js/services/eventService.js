@@ -41,6 +41,17 @@ angular
                         data: data
                     });
                 },
+                reviewedEvent: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'reviewed_event',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 searchEvents: function (data) {
                     return $http({
                         method: 'POST',

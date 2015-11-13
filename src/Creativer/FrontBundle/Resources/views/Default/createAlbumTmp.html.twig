@@ -18,7 +18,7 @@
                     <textarea class="description_album" ng-model="album.description" placeholder="Короткое описание альбома"></textarea>
                     <div ng-show="uploader.isHTML5" style="height: 89px;">
                         <div nv-file-drop="" uploader="uploader" options="{ url: '/upload_album' }">
-                            <div class="progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
+                            <div class="progress progress_edit" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                                 <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
                             </div>
 
@@ -38,7 +38,7 @@
                     </div>
 
                     <label class="" for="uploadImg" style="font-weight: normal;" ng-disabled="uploader.isUploading">
-                        <div ng-disabled="uploader.isUploading" class="button_favorites early-message text-center"><span>Выбрать</span></div>
+                        <div ng-disabled="uploader.isUploading" class="button_favorites early-message pointer text-center"><span>Выбрать</span></div>
                     </label>
 
                     <input type="file" nv-file-select="" uploader="uploader" multiple id="uploadImg"  class="hidden" ng-disabled="uploader.isUploading" />

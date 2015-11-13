@@ -268,6 +268,8 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
+                    serializer:
+                        groups: [getUser]
                 post_baraholka:
                     mappings:
                         id: ~
@@ -299,6 +301,8 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
+                    serializer:
+                        groups: [getPostById]
                 album:
                     mappings:
                         id: ~
@@ -339,6 +343,8 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
+                    serializer:
+                        groups: [getCatalogServiceAlbums]
                 images:
                     mappings:
                         id: ~
@@ -403,6 +409,8 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
+                    serializer:
+                        groups: [getCatalogProductAlbums]
                 events:
                     mappings:
                         id: ~
@@ -418,6 +426,10 @@ fos_elastica:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
                             type: string
+                        users_attend:
+                            type: "object"
+                            properties:
+                                id: ~
 #                        event_section:
 #                            type: "object"
 #                            properties:
@@ -430,6 +442,8 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
+                    serializer:
+                        groups: [getEvent]
 #                images:
 #                    mappings:
 #                        id:

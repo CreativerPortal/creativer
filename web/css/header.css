@@ -273,9 +273,10 @@ input:focus,textarea:focus,select:focus{
     position: absolute;
     background-image: url("../var/www/creativer/web/img/menu_person.png");
     z-index: 1;
-    top: 32px;
+    top: 40px;
     left: -6px;
     display: block;
+    background-repeat: no-repeat;
 }
 
 .pointer{

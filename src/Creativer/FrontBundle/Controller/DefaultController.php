@@ -1194,8 +1194,10 @@ class DefaultController extends Controller
         }
 
         $userId = $this->get('security.context')->getToken()->getUser()->getId();
+        $tariffs = $this->getDoctrine()->getRepository('CreativerFrontBundle:Tariffs')->findAll();
 
-        return $this->render('CreativerFrontBundle:Default:settingsTmp.html.twig', array('id' => $userId));
+
+        return $this->render('CreativerFrontBundle:Default:settingsTmp.html.twig', array('id' => $userId, 'tariffs' => $tariffs));
     }
 
     public function fleamarketAction(){

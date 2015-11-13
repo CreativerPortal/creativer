@@ -29,7 +29,8 @@ class Events
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="User", inversedBy="events", fetch="EAGER")
      * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
-     * @JMS\Groups({"getUser","getEvent"})
+     * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(1)
      **/
     private $user;
 
@@ -59,6 +60,7 @@ class Events
      * @ORM\ManyToOne(targetEntity="EventSections", inversedBy="events", fetch="EAGER")
      * @ORM\JoinColumn(name="event_sections_id", referencedColumnName="id")
      * @JMS\Groups({"getEvent"})
+     * @JMS\MaxDepth(2)
      **/
     private $event_sections;
 
@@ -66,6 +68,7 @@ class Events
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="EventCity", inversedBy="event", fetch="EAGER")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
+     * @JMS\MaxDepth(2)
      * @JMS\Groups({"getEvent"})
      **/
     private $event_city;
@@ -77,6 +80,20 @@ class Events
      * @JMS\Groups({"getEvent"})
      */
     private $description;
+
+    /**
+     * @JMS\Expose
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Groups({"getEvent"})
+     */
+    private $viewed=0;
+
+    /**
+     * @JMS\Expose
+     * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
+     * @JMS\Groups({"getEvent"})
+     */
+    private $count_comment=0;
 
     /**
      * @JMS\Expose
@@ -110,6 +127,7 @@ class Events
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
      * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event")
+     * @JMS\MaxDepth(3)
      * @JMS\Groups({"getEvent"})
      **/
     private $event_comments;
@@ -239,6 +257,52 @@ class Events
     public function getDescription()
     {
         return $this->description;
+    }
+
+    /**
+     * Set viewed
+     *
+     * @param integer $viewed
+     * @return Events
+     */
+    public function setViewed($viewed)
+    {
+        $this->viewed = $viewed;
+
+        return $this;
+    }
+
+    /**
+     * Get viewed
+     *
+     * @return integer 
+     */
+    public function getViewed()
+    {
+        return $this->viewed;
+    }
+
+    /**
+     * Set count_comment
+     *
+     * @param integer $countComment
+     * @return Events
+     */
+    public function setCountComment($countComment)
+    {
+        $this->count_comment = $countComment;
+
+        return $this;
+    }
+
+    /**
+     * Get count_comment
+     *
+     * @return integer 
+     */
+    public function getCountComment()
+    {
+        return $this->count_comment;
     }
 
     /**
