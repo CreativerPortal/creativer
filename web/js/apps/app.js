@@ -1,5 +1,5 @@
-var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.shop', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap'])
-    .config(['$routeProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider) {
+var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.shop', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap', 'angular-momentjs'])
+    .config(['$routeProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', '$momentProvider', function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider, $momentProvider) {
 
 
         $urlRouterProvider.otherwise("/");
@@ -36,6 +36,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         $stateProvider.state('products_search', {
             url: '/products/search/:products_search_text',
             templateUrl: '/products_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('services_search', {
+            url: '/services/search/:services_search_text',
+            templateUrl: '/services_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
@@ -83,12 +89,6 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         });
         $stateProvider.state('services_page', {
             url: '/services/:id_services/:page',
-            templateUrl: '/services_tmp',
-            controller: 'catalogCtrl',
-            reloadOnSearch: true
-        });
-        $stateProvider.state('services_search', {
-            url: '/services/search/:services_search_text',
             templateUrl: '/services_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
@@ -266,6 +266,9 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             reloadOnSearch: true
         });
 
+        $momentProvider
+            .asyncLoading(false)
+            .scriptUrl('//cdnjs.cloudflare.com/ajax/libs/moment.js/2.5.1/moment.min.js');
 
         $httpProvider.interceptors.push(function($q, $injector) {
             return {
@@ -794,7 +797,31 @@ app.filter('filterByTags', function () {
         var number = Math.floor(Math.log(bytes) / Math.log(1024));
         return (bytes / Math.pow(1024, Math.floor(number))).toFixed(precision) +  ' ' + units[number];
     };
-});
+}).filter('imagey', function() {
+        var IMG_URL_REGEX = /(href=['"]?)?https?:\/\/(?:[0-9a-z\-]+\.)+[a-z]{2,6}\/(?:[^'"]+)\.(?:jpe?g|gif|png)/g
+
+        function proxify(href) {
+            var prefix, suffix, encodedHref
+
+            if (href && href.substring(0, 5) == 'http:') {
+                prefix = "https://images2-focus-opensocial.googleusercontent.com/gadgets/proxy?url="
+                suffix = "&container=focus&gadget=a&no_expand=1&resize_h=0&rewriteMime=image%2F*"
+                encodedHref = encodeURIComponent(href)
+                return prefix + encodedHref + suffix
+            } else {
+                return href
+            }
+        }
+
+        return function(input) {
+            if (!input) { return input }
+
+            // If we have an href, skip the link, else swap it out for an image tag
+            return input.replace(IMG_URL_REGEX, function(match, href) {
+                return (href) ? match : "<img width='300' src=\"" + proxify(match) + "\">"
+            })
+        }
+    })
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');

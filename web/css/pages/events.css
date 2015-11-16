@@ -131,7 +131,7 @@ body{
 }
 
 .trio_events{
-    height: 393px;
+    height: 433px;
 }
 
 .link_event{
@@ -433,4 +433,11 @@ body{
 
 .one_post:hover .edit_post{
     display: block;
+}
+
+.default_img_event{
+    width: 100%;
+    text-align: center;
+    font-size: 13em;
+    z-index: -1;
 }

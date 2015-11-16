@@ -53,7 +53,7 @@ private $id;
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
      * @ORM\ManyToOne(targetEntity="Events", inversedBy="event_comments")
-     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="event_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $event;
 

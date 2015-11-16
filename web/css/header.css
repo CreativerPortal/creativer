@@ -7,6 +7,14 @@ button{
     outline: none;
 }
 
+a:focus, a:active{
+    outline: none;
+}
+
+input:focus,textarea:focus,select:focus{
+    outline: 2px solid #b29f81;
+}
+
 [ng-cloak]
 {
     display: none !important;
@@ -14,10 +22,6 @@ button{
 
 .container{
     box-sizing: border-box;
-}
-
-input:focus,textarea:focus,select:focus{
-    outline: 2px solid #b29f81;
 }
 
 .header{
@@ -290,10 +294,10 @@ select {
     border: 1px dashed #827972;
 }
 
-div:focus{
-    border: 1px solid #9b8166;
-    outline: 1px solid #9b8166;
-}
+/*div:focus{*/
+    /*border: 1px solid #9b8166;*/
+    /*outline: 1px solid #9b8166;*/
+/*}*/
 
 .form-auth__buttom:hover {
     -webkit-transform: rotate(-15deg); /* Chrome y Safari */

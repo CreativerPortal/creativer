@@ -95,7 +95,7 @@ class Posts
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\PostDocuments")
-     * @ORM\OneToMany(targetEntity="PostDocuments", mappedBy="post")
+     * @ORM\OneToMany(targetEntity="PostDocuments", mappedBy="post", cascade={"remove"})
      * @JMS\Groups({"getUser", "getPost"})
      **/
     private $post_documents;

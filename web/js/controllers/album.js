@@ -361,7 +361,8 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     $scope.uploader = new FileUploader();
 
     var uploader = $scope.uploader = new FileUploader({
-        url: 'upload_edit_album'
+        url: 'upload_edit_album',
+        queueLimit: 10
     });
 
     $rootScope.images = [];

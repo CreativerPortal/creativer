@@ -2,6 +2,9 @@
 @font-face {
     font-family: fiveMinuts;
     src: url("fonts/FiveMinutes.otf");
+    src: url("fonts/FiveMinutes.eot");
+    src: url('fonts/FiveMinutes.eot?') format('eot');
+    src: url("fonts/FiveMinutes.woff");
 }
 
 

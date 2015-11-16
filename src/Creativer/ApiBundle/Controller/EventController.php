@@ -59,13 +59,12 @@ class EventController extends Controller
         $target_date = $this->get('request')->request->get('target_date');
         $city = $this->get('request')->request->get('city')?$this->get('request')->request->get('city')['id']:null;
 
-
         if($target_date) {
             $target_date = $date = new \DateTime($target_date);
-            $target_date = $target_date->setTime(10, 00, 00)->format('Y-m-d H:i:s');
+            $target_date = $target_date->setTime(10, 00, 00)->format('Y/m/d H:i:s');
         }elseif($other_date){
             $current_date = $date = new \DateTime($other_date);
-            $current_date = $current_date->setTime(10, 00, 00)->format('Y-m-d H:i:s');
+            $current_date = $current_date->setTime(10, 00, 00)->format('Y/m/d H:i:s');
         }else{
             $current_date = $date = new \DateTime();
         }
@@ -74,8 +73,8 @@ class EventController extends Controller
         $year = (int)$date->format('Y');
 
 
-        $start_month = $date->modify('first day of this month')->setTime(00, 00, 00)->format('Y-m-d H:i:s');
-        $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y-m-d H:i:s');
+        $start_month = $date->modify('first day of this month')->setTime(00, 00, 00)->format('Y/m/d H:i:s');
+        $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
 
         if($id_cat != null) {
 
@@ -150,8 +149,8 @@ class EventController extends Controller
 
         }
 
-        $next_date = $date->modify('first day of next month')->format('Y-m-d');
-        $previous_date = $date->modify('first day of -1 month')->format('Y-m-d');
+        $next_date = $date->modify('first day of next month')->format('Y/m/d');
+        $previous_date = $date->modify('first day of -1 month')->format('Y/m/d');
         if(empty($current_date)){
             $current_date = $target_date;
         }
@@ -400,7 +399,7 @@ class EventController extends Controller
     /**
      * @return array
      * @Post("/v1/search_events")
-     * @View(serializerGroups={"getEvent"})
+     * @View(serializerGroups={"elastica"})
      */
     public function searchEventsAction()
     {
@@ -607,8 +606,9 @@ class EventController extends Controller
         $path = $event->getPath();
 
 
-        $fs = new Filesystem();
-        $fs->remove(array($path_img_event_original.$path.$image));
+        if (file_exists($path_img_event_original . $path . $image) && !empty($path) && !empty($image)) {
+            unlink($path_img_event_original . $path . $image);
+        }
 
         $em->remove($event);
         $em->flush();
@@ -679,44 +679,43 @@ class EventController extends Controller
         return $events;
     }
 
-    /**
-     * @return array
-     * @Post("/v1/remove_event")
-     * @View()
-     */
-    public function removeEventAction()
-    {
-        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
-            $array = array('success' => false);
-            $response = new Respon(json_encode($array), 401);
-            $response->headers->set('Content-Type', 'application/json');
-
-            return $response;
-        }
-
-        $em = $this->getDoctrine()->getEntityManager();
-        $id = $this->get('request')->request->get('id');
-
-        $path_img_event_original = $this->container->getParameter('path_img_shop');
-
-
-        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->find($id);
-        $image = $event->getImg();
-        $path = $event->getPath();
-
-
-        $fs = new Filesystem();
-        $fs->remove(array($path_img_event_original.$path.$image));
-
-        $em->remove($event);
-        $em->flush();
-
-
-        $response = new Respon(json_encode(array()), 200);
-        $response->headers->set('Content-Type', 'application/json');
-
-        return $response;
-    }
+//    /**
+//     * @return array
+//     * @Post("/v1/remove_event")
+//     * @View()
+//     */
+//    public function removeEventAction()
+//    {
+//        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+//            $array = array('success' => false);
+//            $response = new Respon(json_encode($array), 401);
+//            $response->headers->set('Content-Type', 'application/json');
+//
+//            return $response;
+//        }
+//
+//        $em = $this->getDoctrine()->getEntityManager();
+//        $id = $this->get('request')->request->get('id');
+//
+//        $path_img_event_original = $this->container->getParameter('path_img_shop');
+//
+//
+//        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->find($id);
+//        $image = $event->getImg();
+//        $path = $event->getPath();
+//
+//
+//        unlink($path_img_event_original.$path.$image);
+//
+//        $em->remove($event);
+//        $em->flush();
+//
+//
+//        $response = new Respon(json_encode(array()), 200);
+//        $response->headers->set('Content-Type', 'application/json');
+//
+//        return $response;
+//    }
 
     /**
      * @return array

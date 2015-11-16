@@ -69,7 +69,8 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
         // ALBUM
 
     var uploader = $scope.uploader = new FileUploader({
-        url: 'upload_album'
+        url: 'upload_album',
+        queueLimit: 10
     });
 
         // FILTERS

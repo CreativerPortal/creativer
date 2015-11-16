@@ -20,7 +20,7 @@ class Events
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getEvent", "getUser"})
+     * @JMS\Groups({"getEvent", "getUser", "elastica"})
      */
     private $id;
 
@@ -37,21 +37,21 @@ class Events
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      */
     private $img;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      */
     private $path;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      */
     private $name;
 
@@ -59,7 +59,7 @@ class Events
      * @JMS\Expose
      * @ORM\ManyToOne(targetEntity="EventSections", inversedBy="events", fetch="EAGER")
      * @ORM\JoinColumn(name="event_sections_id", referencedColumnName="id")
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      * @JMS\MaxDepth(2)
      **/
     private $event_sections;
@@ -69,7 +69,7 @@ class Events
      * @ORM\ManyToOne(targetEntity="EventCity", inversedBy="event", fetch="EAGER")
      * @ORM\JoinColumn(name="city_id", referencedColumnName="id")
      * @JMS\MaxDepth(2)
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      **/
     private $event_city;
 
@@ -77,14 +77,14 @@ class Events
     /**
      * @JMS\Expose
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      */
     private $description;
 
     /**
      * @JMS\Expose
      * @ORM\Column(type="integer", nullable=true, options={"default" = 0})
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      */
     private $viewed=0;
 
@@ -101,7 +101,7 @@ class Events
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      */
     private $start_date;
 
@@ -111,12 +111,12 @@ class Events
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      */
     private $end_date;
 
     /**
-     * @ORM\ManyToMany(targetEntity="User", mappedBy="events_attend")
+     * @ORM\ManyToMany(targetEntity="User", mappedBy="events_attend", fetch="EAGER")
      * @JMS\Groups({"getUser","getEvent","eventAttend"})
      * @JMS\MaxDepth(2)
      * @JMS\Expose
@@ -126,9 +126,9 @@ class Events
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
-     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event")
+     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event", cascade={"remove"})
      * @JMS\MaxDepth(3)
-     * @JMS\Groups({"getEvent"})
+     * @JMS\Groups({"getEvent", "elastica"})
      **/
     private $event_comments;
 

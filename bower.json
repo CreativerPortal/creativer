@@ -23,6 +23,7 @@
     "angular-route": "~1.4.4",
     "angular-resource": "~1.4.4",
     "angular-animate": "~1.4.4",
-    "angular-date-range-picker": "~0.4.15"
+    "angular-date-range-picker": "~0.4.15",
+    "angular-momentjs": "~0.2.2"
   }
 }

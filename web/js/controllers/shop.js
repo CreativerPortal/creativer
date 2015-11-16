@@ -151,11 +151,13 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
 
         if($stateParams.edit_id){
             var uploader = $scope.uploader = new FileUploader({
-                url: 'edit_images_shop'
+                url: 'edit_images_shop',
+                queueLimit: 10
             });
         }else{
             var uploader = $scope.uploader = new FileUploader({
-                url: 'upload_shop'
+                url: 'upload_shop',
+                queueLimit: 10
             });
         }
 

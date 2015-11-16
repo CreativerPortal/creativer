@@ -576,9 +576,68 @@ class BaraholkaController extends Controller
 
         $fs = new Filesystem();
 
-        $fs->remove(array($path_img_baraholka_thums.$image->getPath().$path_img_baraholka_thums.$image->getName()));
-        $fs->remove(array($path_img_baraholka_thums.$image->getPath().$path_img_baraholka_original.$image->getName()));
+        $path = $image->getPath();
+        $name = $image->getName();
 
+        if (file_exists($path_img_baraholka_thums . $path . $name) && !empty($path) && !empty($name)) {
+            $fs->remove(array($path_img_baraholka_thums . $path . $name));
+        }
+        if (file_exists($path_img_baraholka_thums . $path . $name) && !empty($path) && !empty($name)) {
+            $fs->remove(array($path_img_baraholka_thums . $path . $path_img_baraholka_original . $name));
+        }
+
+
+        $array = array('success' => true);
+        $response = new Respon(json_encode($array), 200);
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * @return array
+     * @Post("/v1/delete_post_baraholka")
+     * @View()
+     */
+    public function deletePostBaraholkaAction()
+    {
+        if (false === $this->container->get('security.context')->isGranted('ROLE_USER')) {
+            $array = array('success' => false);
+            $response = new Respon(json_encode($array), 401);
+            $response->headers->set('Content-Type', 'application/json');
+
+            return $response;
+        }
+
+        $id = $this->get('request')->request->get('id');
+        $user = $this->get('security.context')->getToken()->getUser();
+
+        $em = $this->getDoctrine()->getEntityManager();
+
+        $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
+        $images = $postBaraholka->getImagesBaraholka();
+
+        $path_img_baraholka_thums = $this->container->getParameter('path_img_baraholka_thums');
+        $path_img_baraholka_original = $this->container->getParameter('path_img_baraholka_original');
+
+        $fs = new Filesystem();
+
+        foreach($images as $key=>$image){
+            $path = $image->getPath();
+            $name = $image->getName();
+
+            if (file_exists($path_img_baraholka_thums . $path . $name) && !empty($path) && !empty($name)) {
+                $fs->remove(array($path_img_baraholka_thums . $path . $name));
+            }
+            if (file_exists($path_img_baraholka_thums . $path . $name) && !empty($path) && !empty($name)) {
+                $fs->remove(array($path_img_baraholka_thums . $path . $path_img_baraholka_original . $name));
+            }
+
+            $em->remove($image);
+        }
+
+        $em->remove($postBaraholka);
+        $em->flush();
 
         $array = array('success' => true);
         $response = new Respon(json_encode($array), 200);

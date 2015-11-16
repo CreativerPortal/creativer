@@ -25,7 +25,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 }
             }
             $scope.$watch("svg", function () {
-                svgCheckbox();
+                setTimeout(function(){
+                    svgCheckbox();
+                },3000)
             });
         })
     }
@@ -452,7 +454,6 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     });
 
     $scope.imaging = function(post){
-
         var count = post.post_images.length;
         var width = 453;
         var count_row = Math.ceil(count / 4);
@@ -530,13 +531,15 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.id_post_baraholka = response.id;
     };
     uploader.onCompleteAll = function() {
-        if(uploaderDoc.progress == 100 && uploader.progress == 100) {
+        if(uploader.progress == 100 && (uploaderDoc.progress == 100 || !uploaderDoc.progress)) {
             if($stateParams.id){
-            uploader.queue = [];
-            uploaderDoc.queue = [];
+            uploader.clearQueue();
+            uploaderDoc.clearQueue();
             $scope.text_post = '';
+            $rootScope.images = [];
+            $rootScope.count = 0;
             personalService.getUser({id: $stateParams.id}).success(function (data) {
-                $scope.loader = false;
+                $scope.loader_post = false;
                 $rootScope.user = $scope.user = data.user;
                 $scope.user.wall.posts = data.posts;
                 $scope.favorit = false;
@@ -551,12 +554,14 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     };
 
     uploaderDoc.onCompleteAll = function() {
-        if(uploaderDoc.progress == 100 && uploader.progress == 100){
-            uploaderDoc.queue = [];
-            uploader.queue = [];
+        if(uploaderDoc.progress == 100 && (uploader.progress == 100 || !uploader.progress)){
+            uploaderDoc.clearQueue();
+            uploader.clearQueue();
             $scope.text_post = '';
+            $rootScope.images = [];
+            $rootScope.count = 0;
             personalService.getUser({id: $stateParams.id}).success(function (data) {
-                $scope.loader = false;
+                $scope.loader_post = false;
                 $rootScope.user = $scope.user = data.user;
                 $scope.user.wall.posts = data.posts;
                 $scope.favorit = false;

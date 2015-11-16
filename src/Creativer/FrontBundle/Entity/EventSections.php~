@@ -21,14 +21,14 @@ class EventSections
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"getEventSections", "getEvent", "getCityAndSections"})
+     * @JMS\Groups({"getEventSections", "getEvent", "getCityAndSections", "elastica"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getEventSections", "getEvent", "getCityAndSections"})
+     * @JMS\Groups({"getEventSections", "getEvent", "getCityAndSections", "elastica"})
      */
     private $name;
 

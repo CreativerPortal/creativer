@@ -262,7 +262,7 @@ body{
 }
 
 .horizontal_line_baraholka {
-    background-image: url("/var/www/creativer/web/img/horizontal_line.png");
+    background: url("/var/www/creativer/web/img/horizontal_line.png") no-repeat top center;
     background-repeat-y: no-repeat;
     background-position: center bottom;
     height: 30px;
@@ -301,8 +301,8 @@ body{
 }
 
 .form_create_post select{
-     height: 35px;
-     background-color: rgb(234, 233, 227);
+    height: 35px;
+    background-color: rgb(234, 233, 227);
     border: 1px dashed #827972;
 }
 

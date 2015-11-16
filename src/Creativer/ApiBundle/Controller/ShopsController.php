@@ -114,12 +114,14 @@ class ShopsController extends Controller
         $category_id = $shop->getCategories()[0]->getId();
 
         $images = $shop->getImages();
+        $fs = new Filesystem();
 
         foreach($images as $key=>$val){
             $image = $val->getName();
             $path = $val->getPath();
-            $fs = new Filesystem();
-            $fs->remove(array($path_img_shop.$path.$image));
+            if(file_exists($path_img_shop.$path.$image) && !empty($path) && !empty($image)){
+                $fs->remove(array($path_img_shop.$path.$image));
+            }
             $em->remove($val);
         }
 
@@ -129,7 +131,9 @@ class ShopsController extends Controller
 
         if(!empty($image)){
             $fs = new Filesystem();
-            $fs->remove(array($path_img_shop.$path.$image));
+            if(file_exists($path_img_shop.$path.$image) && !empty($path) && !empty($image)){
+                $fs->remove(array($path_img_shop.$path.$image));
+            }
         }
 
 
@@ -173,8 +177,13 @@ class ShopsController extends Controller
 
         $path_img_shop = $this->container->getParameter('path_img_shop');
 
+        $path = $image->getPath();
+        $name = $image->getName();
+
         $fs = new Filesystem();
-        $fs->remove(array($path_img_shop.$image->getPath().$path_img_shop.$image->getName()));
+        if(file_exists($path_img_shop.$path.$name) && !empty($path) && !empty($name)){
+            $fs->remove(array($path_img_shop.$path.$name));
+        }
 
         $array = array('success' => true);
         $response = new Respon(json_encode($array), 200);

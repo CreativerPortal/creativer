@@ -536,7 +536,6 @@ class CatalogController extends Controller
 
 
         foreach ($posts as $hybridResult) {
-
             $results[] = $hybridResult->getResult()->getHit()["_source"];
         }
         $products = array('products' => array('items' => $results));

@@ -210,6 +210,7 @@ class User implements UserInterface, \Serializable
      * @ORM\ManyToOne(targetEntity="Tariffs", inversedBy="users", fetch="EAGER")
      * @ORM\JoinColumn(name="tariff_id", referencedColumnName="id")
      * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(2)
      **/
     private $tariff;
 
@@ -293,7 +294,7 @@ class User implements UserInterface, \Serializable
      *      inverseJoinColumns={@ORM\JoinColumn(name="role_id", referencedColumnName="id")}
      *      )
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\MaxDepth(1)
      */
     private $roles;
 
@@ -309,7 +310,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\ManyToMany(targetEntity="Events", inversedBy="users_attend")
      * @ORM\JoinTable(name="users_attend_events")
-     * @JMS\Groups({"getUser","getEvent","eventAttend"})
+     * @JMS\Groups({"getEvent","eventAttend"})
      * @JMS\Expose
      */
     private $events_attend;
@@ -1291,7 +1292,7 @@ class User implements UserInterface, \Serializable
     {
         return $this->notification_message;
     }
-    
+
 
     /**
      * Set connection_status

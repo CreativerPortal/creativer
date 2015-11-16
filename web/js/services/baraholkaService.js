@@ -212,5 +212,17 @@ angular
                     });
                 },
 
+                deletePostBaraholka: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'delete_post_baraholka',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                }
+
             };
         }]);

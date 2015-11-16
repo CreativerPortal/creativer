@@ -102,7 +102,8 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         
         var uploader = $scope.uploader = new FileUploader({
-            url: 'create_post_baraholka'
+            url: 'create_post_baraholka',
+            queueLimit: 10
         });
 
         // FILTERS

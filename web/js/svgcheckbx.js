@@ -30,6 +30,21 @@ function svgCheckbox() {
 				list: {speed: .3, easing: 'ease-in-out'}
 			};
 
+		function reset(el) {
+			Array.prototype.slice.call(el.parentNode.querySelectorAll('svg > path')).forEach(function (el) {
+				el.parentNode.removeChild(el);
+			});
+		}
+
+		function resetRadio(el) {
+			Array.prototype.slice.call(document.querySelectorAll('input[type="radio"][name="' + el.getAttribute('name') + '"]')).forEach(function (el) {
+				var path = el.parentNode.querySelector('svg > path');
+				if (path) {
+					path.parentNode.removeChild(path);
+				}
+			});
+		}
+
 		function createSVGEl(def) {
 			var svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
 			if (def) {
@@ -63,44 +78,6 @@ function svgCheckbox() {
 				}
 			});
 		}
-
-		function controlRadiobox(el, type) {
-			var svg = createSVGEl();
-			el.parentNode.appendChild(svg);
-			el.addEventListener('change', function () {
-				resetRadio(el);
-				draw(el, type);
-			});
-			if (el.checked) {
-				resetRadio(el);
-				draw(el, 'fill');
-			}
-		}
-
-		checkbxsCross.forEach(function (el, i) {
-			controlCheckbox(el, 'cross');
-		});
-		radiobxsFill.forEach(function (el, i) {
-			controlRadiobox(el, 'fill');
-		});
-		checkbxsCheckmark.forEach(function (el, i) {
-			controlCheckbox(el, 'checkmark');
-		});
-		radiobxsCircle.forEach(function (el, i) {
-			controlRadiobox(el, 'circle');
-		});
-		checkbxsBoxfill.forEach(function (el, i) {
-			controlCheckbox(el, 'boxfill');
-		});
-		radiobxsSwirl.forEach(function (el, i) {
-			controlRadiobox(el, 'swirl');
-		});
-		checkbxsDiagonal.forEach(function (el, i) {
-			controlCheckbox(el, 'diagonal');
-		});
-		checkbxsList.forEach(function (el) {
-			controlCheckbox(el, 'list', {viewBox: '0 0 300 100', preserveAspectRatio: 'none'});
-		});
 
 		function draw(el, type) {
 			var paths = [], pathDef,
@@ -140,8 +117,7 @@ function svgCheckbox() {
 					pathDef = pathDefs.list;
 					animDef = animDefs.list;
 					break;
-			}
-			;
+			};
 
 			paths.push(document.createElementNS('http://www.w3.org/2000/svg', 'path'));
 
@@ -174,21 +150,43 @@ function svgCheckbox() {
 			}
 		}
 
-		function reset(el) {
-			Array.prototype.slice.call(el.parentNode.querySelectorAll('svg > path')).forEach(function (el) {
-				el.parentNode.removeChild(el);
+		function controlRadiobox(el, type) {
+			var svg = createSVGEl();
+			el.parentNode.appendChild(svg);
+			el.addEventListener('change', function () {
+				resetRadio(el);
+				draw(el, type);
 			});
+			if (el.checked) {
+				resetRadio(el);
+				draw(el, 'fill');
+			}
 		}
 
-		function resetRadio(el) {
-			Array.prototype.slice.call(document.querySelectorAll('input[type="radio"][name="' + el.getAttribute('name') + '"]')).forEach(function (el) {
-				var path = el.parentNode.querySelector('svg > path');
-				if (path) {
-					path.parentNode.removeChild(path);
-				}
-			});
-		}
-
+		checkbxsCross.forEach(function (el, i) {
+			controlCheckbox(el, 'cross');
+		});
+		radiobxsFill.forEach(function (el, i) {
+			controlRadiobox(el, 'fill');
+		});
+		checkbxsCheckmark.forEach(function (el, i) {
+			controlCheckbox(el, 'checkmark');
+		});
+		radiobxsCircle.forEach(function (el, i) {
+			controlRadiobox(el, 'circle');
+		});
+		checkbxsBoxfill.forEach(function (el, i) {
+			controlCheckbox(el, 'boxfill');
+		});
+		radiobxsSwirl.forEach(function (el, i) {
+			controlRadiobox(el, 'swirl');
+		});
+		checkbxsDiagonal.forEach(function (el, i) {
+			controlCheckbox(el, 'diagonal');
+		});
+		checkbxsList.forEach(function (el) {
+			controlCheckbox(el, 'list', {viewBox: '0 0 300 100', preserveAspectRatio: 'none'});
+		});
 
 	}
 }

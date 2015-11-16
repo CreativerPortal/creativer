@@ -268,8 +268,6 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
-                    serializer:
-                        groups: [getUser]
                 post_baraholka:
                     mappings:
                         id: ~
@@ -301,8 +299,6 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
-                    serializer:
-                        groups: [getPostById]
                 album:
                     mappings:
                         id: ~
@@ -343,8 +339,6 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
-                    serializer:
-                        groups: [getCatalogServiceAlbums]
                 images:
                     mappings:
                         id: ~
@@ -357,6 +351,8 @@ fos_elastica:
                             index_analyzer: custom_index_analyzer
                             type: string
                         path: ~
+                        date: ~
+                        likes: ~
                         id_album:
                             property_path: "album.id"
                         name_album:
@@ -375,6 +371,8 @@ fos_elastica:
                             property_path: "album.user.username"
                         lastname:
                             property_path: "album.user.lastname"
+                        avatar:
+                            property_path: "album.user.avatar"
                         album:
                             type: "nested"
                             properties:
@@ -409,8 +407,6 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
-                    serializer:
-                        groups: [getCatalogProductAlbums]
                 events:
                     mappings:
                         id: ~
@@ -426,10 +422,6 @@ fos_elastica:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
                             type: string
-                        users_attend:
-                            type: "object"
-                            properties:
-                                id: ~
 #                        event_section:
 #                            type: "object"
 #                            properties:
@@ -442,8 +434,6 @@ fos_elastica:
                             batch_size: 100
                         listener: ~
                         finder: ~
-                    serializer:
-                        groups: [getEvent]
 #                images:
 #                    mappings:
 #                        id:
