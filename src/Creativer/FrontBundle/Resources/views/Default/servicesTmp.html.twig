@@ -49,16 +49,14 @@
                     <a ng-show="news_events[0]" class="text-gray event_link" href="#/event/[[ news_events[0].id ]]">
                         <time class="slid__news__time" datetime="2015-02-14">[[ news_events[0].date | date: "dd MMM yyyy" ]]</time>
                         <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[0].name.slice(0,28) ]]...</h5>
-                        <p id="new_event_1">
-                        </p>
+                        <p id="new_event_1" parse-description ng-model="text_first"></p>
                         <div><span class="text-blue center-block text-right text-underline_hover" href="#/event/[[ news_events[0].id ]]">Далее </span></div>
                     </a>
 
                     <a ng-show="news_events[1]" class="text-gray event_link" href="#/event/[[ news_events[1].id ]]">
                         <time class="slid__news__time" datetime="2015-02-14">[[ news_events[1].date | date: "dd MMM yyyy" ]]</time>
                         <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[1].name.slice(0,28) ]]...</h5>
-                        <p id="new_event_2">
-                        </p>
+                        <p id="new_event_2" parse-description ng-model="text_second"></p>
                         <div><span class="text-blue center-block text-right text-underline_hover" href="#/event/[[ news_events[1].id ]]">Далее </span></div>
                     </a>
                 </div>
@@ -68,7 +66,7 @@
 
             <form class="row  slid__get__news margin-top_40 margin-left_10">
                 <input type="text" class="slid__get__news__element" placeholder="Ваш E-mail">
-                <button class="slid__get__news__element-buttom " type="submit">Ok</button>
+                <button class="slid__get__news__element-buttom text-gray" type="submit">Ok</button>
             </form>
 
         </div>

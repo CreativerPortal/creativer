@@ -125,6 +125,10 @@ body{
     bottom: 10px;
 }
 
+.container_image_events_big_text:hover{
+    color: #d3003e;
+}
+
 .container_image_events img, .container_image_events_big img{
     border: 1px dashed #c5c3b4;
     border-radius: 7px;
@@ -394,13 +398,13 @@ body{
     height: 76px;
 }
 
+.previous_event:before{
+    line-height: 4em;
+}
+
 
 .previous_event:hover{
     color: gold;
-}
-
-.glyphicon-chevron-left:before, .glyphicon-chevron-right:before{
-    line-height: 4em;
 }
 
 .arrow{

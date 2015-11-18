@@ -25,9 +25,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 }
             }
             $scope.$watch("svg", function () {
-                setTimeout(function(){
-                    svgCheckbox();
-                },3000)
+                svgCheckbox();
             });
         })
     }
@@ -161,7 +159,8 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         var result = JSON.stringify(json, '', 1);
 
         personalService.saveField(result).success(function (data) {
-            $scope.user = data.user;
+            $rootScope.user = $scope.user = data.user;
+            angular.element(event.target).attr('disabled', '');
         });
     }
 

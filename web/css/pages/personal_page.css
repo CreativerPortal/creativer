@@ -658,3 +658,29 @@ img-crop canvas {
     text-align: center;
     background-repeat: no-repeat;
 }
+
+.share{
+}
+
+.ico_vk{
+    background-image: url('/var/www/creativer/web/img/socials_icons.png');
+    display: inline-block;
+    width: 31px;
+    height: 29px;
+    background-position: -31px 0px;
+}
+
+.ico_facebook{
+    background-image: url('/var/www/creativer/web/img/socials_icons.png');
+    display: inline-block;
+    width: 31px;
+    height: 29px;
+}
+
+.ico_twitter{
+    background-image: url('/var/www/creativer/web/img/socials_icons.png');
+    display: inline-block;
+    width: 31px;
+    height: 29px;
+    background-position: -62px 0px;
+}

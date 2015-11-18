@@ -57,7 +57,13 @@ class EventController extends Controller
         $other_date = $this->get('request')->request->get('date');
         $id_cat = $this->get('request')->request->get('id_cat');
         $target_date = $this->get('request')->request->get('target_date');
-        $city = $this->get('request')->request->get('city')?$this->get('request')->request->get('city')['id']:null;
+        $city = $this->get('request')->request->get('city')?$this->get('request')->request->get('city'):null;
+
+        if(!empty($city['id'])){
+            $city = $city['id'];
+        }else{
+            $city = null;
+        }
 
         if($target_date) {
             $target_date = $date = new \DateTime($target_date);

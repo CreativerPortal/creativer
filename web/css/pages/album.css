@@ -248,7 +248,7 @@ input {
 
 .name_album{
     height: 35px;
-    width: 535px;
+    width: 542px;
     font-size: 1.2em;
     padding-left: 10px;
 }
@@ -256,7 +256,7 @@ input {
 .album textarea {
     background-color: #eae9e3;
     border: 1px dashed #827972;
-    width: 535px;
+    width: 542px;
     overflow: hidden;
     word-wrap: break-word;
     resize: none;

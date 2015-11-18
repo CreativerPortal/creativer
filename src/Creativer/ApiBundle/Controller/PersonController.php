@@ -428,13 +428,30 @@ class PersonController extends Controller
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
 
+
         foreach($field as $key => $val){
             $metadata->setFieldValue($user, $key, $val);
         }
 
         $em->flush();
 
-        return array('user' => $user);
+        $posts = $user->getWall()->getPosts()->slice(0, 5);
+
+        $user = array('user' => $user, 'posts' => $posts);
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $user,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**

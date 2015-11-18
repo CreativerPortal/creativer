@@ -450,7 +450,6 @@ class DefaultController extends Controller
     }
 
     public function layout_frontAction(){
-
         return $this->render('CreativerFrontBundle::layout_front.html.twig', array());
     }
 
@@ -1640,4 +1639,57 @@ class DefaultController extends Controller
 
     }
 
+
+    public function albumSocialRedirectAction($id,$name){
+
+        $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->findBy(array('name'=>$name))[0];
+
+        $id = $image->getId();
+        $name = $image->getName();
+        $id_album = $image->getAlbum()->getId();
+        $path = $image->getPath();
+        $text = $image->getText();
+
+        return $this->render('CreativerFrontBundle::album_social_redirect.html.twig', array(
+            'id' => $id,
+            'name' => $name,
+            'id_album' => $id_album,
+            'path' => $path,
+            'text' => $text));
+    }
+
+    public function eventRedirectAction($id){
+
+        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findBy(array('id'=>$id))[0];
+
+        $id = $event->getId();
+        $name = $event->getName();
+        $path = $event->getPath();
+        $img = $event->getImg();
+
+        return $this->render('CreativerFrontBundle::event_redirect.html.twig', array(
+            'id' => $id,
+            'name' => $name,
+            'path' => $path,
+            'img' => $img));
+    }
+
+    public function userRedirectAction($id){
+
+        $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$id))[0];
+
+        $id = $event->getId();
+        $name = $event->getUsername();
+        $lastname = $event->getLastname();
+        $info = $event->getInfo();
+        $avatar = $event->getAvatar();
+
+        return $this->render('CreativerFrontBundle::user_redirect.html.twig', array(
+            'id' => $id,
+            'name' => $name,
+            'lastname' => $lastname,
+            'info' => $info,
+            'avatar' => $avatar
+            ));
+    }
 }

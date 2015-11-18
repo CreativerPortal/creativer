@@ -186,3 +186,15 @@ creativer_save_post_documents:
     path:     /save_post_documents
     defaults: { _controller: CreativerFrontBundle:Default:savePostDocuments }
     methods:  [POST]
+creativer_album_social_redirect:
+    path:     /album/{id}/{name}/{key}
+    defaults: { _controller: CreativerFrontBundle:Default:albumSocialRedirect, id: null, name: null, key: null }
+    methods:  [GET]
+creativer_event_redirect:
+    path:     /event/{id}
+    defaults: { _controller: CreativerFrontBundle:Default:eventRedirect, id: null }
+    methods:  [GET]
+creativer_user_redirect:
+    path:     /{id}
+    defaults: { _controller: CreativerFrontBundle:Default:userRedirect, id: null }
+    methods:  [GET]

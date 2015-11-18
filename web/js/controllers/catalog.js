@@ -1,18 +1,11 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
     .controller('catalogCtrl',['$state', '$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
-    if(!$scope.news_events){
+    if(!$scope.text_first || !$scope.text_second){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
-            var text_first = data[0]?data[0].description:null;
-            var text_second = data[1]?data[1].description:null;
-
-            if(text_first != undefined){
-                angular.element('#new_event_1').text(text_first.replace(/<[^>]+>|&nbsp;/g,'').slice(0,50)+" ...");
-            }
-            if(text_second != undefined){
-                angular.element('#new_event_2').text(text_second.replace(/<[^>]+>|&nbsp;/g,'').slice(0,50)+" ...");
-            }
+            $scope.text_first = data[0]?data[0].description:null;
+            $scope.text_second = data[1]?data[1].description:null;
         })
     }
 
@@ -213,6 +206,32 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     $window.onfocus = function(){
         socket.emit("new message",{id_user: $scope.id_user})
     }
+
+
+        if ($state.current.name != 'products_search'){
+            $rootScope.title = "123";
+            $rootScope.description = "321";
+            $rootScope.image_src = "";
+        }
+
+        $scope.facebook = function(purl, ptitle, path, pname, text) {
+            url  = 'http://www.facebook.com/sharer.php?s=100';
+            url += '&p[title]='     + encodeURIComponent(ptitle);
+            url += '&p[summary]='   + encodeURIComponent(text);
+            url += '&p[url]='       + encodeURIComponent(purl);
+            url += '&p[images][0]=' + 'http://creativer.ml/home/album/thums/' + encodeURIComponent(path) + encodeURIComponent(pname);
+            $scope.popup(url);
+        };
+        $scope.twitter = function(purl, ptitle) {
+            url  = 'http://twitter.com/share?';
+            url += 'text='      + encodeURIComponent(ptitle);
+            url += '&url='      + encodeURIComponent(purl);
+            url += '&counturl=' + encodeURIComponent(purl);
+            $scope.popup(url);
+        };
+        $scope.popup = function(url) {
+            window.open(url,'','toolbar=0,status=0,width=626,height=436');
+        }
 
 
     $scope.math = window.Math;

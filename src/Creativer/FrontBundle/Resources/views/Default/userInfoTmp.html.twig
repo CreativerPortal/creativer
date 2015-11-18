@@ -86,31 +86,31 @@
 
     <div class="row margin-top_40 col-sm-12 user__text">
         <div class="text-left user__text_bold">О себе:</div>
-        <input class="text_info" ng-blur="saveField($event,'info')" obj="user" value="[[ user.info ]]" placeholder="Пожалуйста, заполните это поле." disabled>
+        <textarea msd-elastic="" ng-model="user.info" class="text_info" ng-blur="saveField($event,'info')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.info ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="info"></span>
     </div>
 
     <div class="row margin-top_20 col-sm-12 user__text">
         <div class="text-left user__text_bold">Специализация:</div>
-        <input class="text_info" ng-blur="saveField($event,'specialization')" obj="user" value="[[ user.specialization ]]" placeholder="Пожалуйста, заполните это поле." disabled>
+        <textarea msd-elastic="" ng-model="user.specialization" class="text_info" ng-blur="saveField($event,'specialization')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.specialization ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="specialization"></span>
     </div>
 
     <div class="row margin-top_20 col-sm-12 user__text">
         <div class="text-left user__text_bold">Работал в:</div>
-        <input class="text_info" ng-blur="saveField($event,'worked')" obj="user" value="[[ user.worked ]]" placeholder="Пожалуйста, заполните это поле." disabled>
+        <textarea msd-elastic="" ng-model="user.worked" class="text_info" ng-blur="saveField($event,'worked')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.worked ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="worked"></span>
     </div>
 
     <div class="row margin-top_20 col-sm-12 user__text">
         <div class="text-left user__text_bold">Ссылки:</div>
-        <input class="text_info" ng-blur="saveField($event,'links')" obj="user" value="[[ user.links ]]" placeholder="Пожалуйста, заполните это поле." disabled>
+        <textarea msd-elastic="" ng-model="user.links" class="text_info" ng-blur="saveField($event,'links')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.links ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="links"></span>
     </div>
 
     <div class="row margin-top_20 col-sm-12 user__text">
         <div class="text-left user__text_bold">Контакты:</div>
-        <input class="text_info" ng-blur="saveField($event,'contacts')" obj="user" value="[[ user.contacts ]]" placeholder="Пожалуйста, заполните это поле." disabled>
+        <textarea msd-elastic="" ng-model="user.contacts" class="text_info" ng-blur="saveField($event,'contacts')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.contacts ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit"  edit-pain="contacts"></span>
     </div>
 
@@ -119,15 +119,21 @@
         <time class="text_info" >[[ user.date | date: "dd MMMM yyyy" ]]</time>
     </div>
 
+    <div class="row col-sm-12 share padding-right_0 text-left margin-top_10">
+        <a href="http://vk.com/share.php?url=http://creativer.by/[[ user.id ]]&title=[[ user.username ]] [[ user.lastname ]]&description=[[ user.info ]]&image=http://creativer.by[[ user.avatar ]]$noparse=true" class="ico_vk pointer" ></a>
+        <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/[[ user.id ]]&p[title]=[[ user.username ]] [[ user.lastname ]]&p[summary]=[[ user.info ]]&p[images][0]=http://creativer.by[[ user.avatar ]]" class="ico_facebook pointer"></a>
+        <a href="http://twitter.com/share?text=[[ user.username ]] [[ user.lastname ]]&url=http://creativer.by/%23/[[ user.id ]]" class="ico_twitter pointer" ></a>
+    </div>
+
     <div class="row margin-top_20 col-sm-12 user__text">
         <div class="text-left col-sm-6 padding-left_0">Вы используете пакет:</div>
         <div class="package_person_name text-white col-sm-6 padding-left_0 padding-right_0" style="background-image: url([[ user.tariff.image ]])" >  [[ user.tariff.name ]]</div>
     </div>
 
-
     <div class="row margin-top_20 col-sm-12 user__text">
         <div ng-if="user.tariff.cost_day > 0" class="text-left col-sm-8 padding-left_0">Срок действия вашего пакета истекает через <span class="text-blue fs_1-2">[[ user.balance/user.tariff.cost_day | number:0 ]]</span> дней.</div>
     </div>
+
 
 {% elseif(is_granted('ROLE_USER') and id != app.security.getToken().getUser().getId()) %}
     <div class="margin-top_20 col-sm-12 user__text">
@@ -169,5 +175,11 @@
     <div class="row margin-top_20 col-sm-12 user__text">
         <div class="text-left user__text_bold">Присоединился:</div>
         <time class="text_info" >[[ user.date | date: "dd MMMM yyyy" ]]</time>
+    </div>
+
+    <div class="row col-sm-12 share padding-right_0 text-left margin-top_10">
+        <a href="http://vk.com/share.php?url=http://creativer.by/[[ user.id ]]&title=[[ user.username ]] [[ user.lastname ]]&description=[[ user.info ]]&image=http://creativer.by[[ user.avatar ]]$noparse=true" class="ico_vk pointer" ></a>
+        <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/[[ user.id ]]&p[title]=[[ user.username ]] [[ user.lastname ]]&p[summary]=[[ user.info ]]&p[images][0]=http://creativer.by[[ user.avatar ]]" class="ico_facebook pointer"></a>
+        <a href="http://twitter.com/share?text=[[ user.username ]] [[ user.lastname ]]&url=http://creativer.by/%23/[[ user.id ]]" class="ico_twitter pointer" ></a>
     </div>
 {% endif %}

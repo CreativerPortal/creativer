@@ -9,7 +9,7 @@
   user-select: none;
   white-space:normal;
   min-height: 35px;
-  width: 535px;
+  width: 542px;
   font-size: 1.2em;
   padding-left: 10px;
   padding: 2px;
@@ -70,7 +70,7 @@ span.selected-items {
   border-radius: 4px;
   -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
-  min-width:533px;
+  min-width:544px;
   margin-right: 30px;
   max-height: 300px;
   overflow: auto;

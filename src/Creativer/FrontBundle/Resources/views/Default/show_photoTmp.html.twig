@@ -102,6 +102,11 @@
                             <span class="text-blue left pointer" ng-show="$root.id_user == user.id" ng-click="delete = true">Удалить</span><br>
                         {% endif %}
                     </nav>
+                    <div class="share padding-right_0 text-left margin-top_10">
+                        <a href="http://vk.com/share.php?url=http://creativer.by/album/[[ user.albums[album_key].id ]]/[[ user.albums[album_key].images[key_img].name ]]/0&title=[[ user.albums[album_key].images[key_img].text ]]&description=[[ user.albums[album_key].description ]]&image=http://creativer.by/home/album/original/[[ user.albums[album_key].images[key_img].path ]][[user.albums[album_key].images[key_img].name]]$noparse=true" class="ico_vk pointer" ></a>
+                        <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/album/[[ user.albums[album_key].id ]]/[[ user.albums[album_key].images[key_img].name ]]/0&p[title]=[[ user.albums[album_key].images[key_img].text ]]&p[summary]=[[ user.albums[album_key].description ]]&p[images][0]=http://creativer.by/home/album/original/[[ user.albums[album_key].images[key_img].path ]][[user.albums[album_key].images[key_img].name]]" class="ico_facebook pointer"></a>
+                        <a href="http://twitter.com/share?text=[[ user.albums[album_key].images[key_img].text ]]&url=http://creativer.by/album/[[ user.albums[album_key].id ]]/[[ user.albums[album_key].images[key_img].name ]]/0" class="ico_twitter pointer" ></a>
+                    </div>
                 </div>
 
             </div>

@@ -20,7 +20,7 @@
 
             <div class="col-sm-7 album" ng-init="count_albums=3">
                <div class="col-sm-12 padding-left_0">
-                    <a ng-if="user.id == $root.id_user" href="#/create_album" class="add_photo button_message early-message text-center text-white right pointer margin-right_5">
+                    <a ng-if="user.id == $root.id_user" href="#/create_album" class="add_photo button_message early-message text-center text-white right pointer margin-right_5 text-underline_none_hover">
                         <span class="glyphicon glyphicon-picture"></span>
                             <span class="fs_0-9">Создать альбом</span>
                     </a>
@@ -249,7 +249,7 @@
                                 <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                             </div>
 
-                            <div class="user__text col-sm-12">[[comment.text]]</div>
+                            <div class="user__text col-sm-12" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
                             <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
 
                         </div>
@@ -279,7 +279,7 @@
                                 <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                             </div>
 
-                            <div class="user__text col-sm-12">[[comment.text]]</div>
+                            <div class="user__text col-sm-12" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
                             <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
 
                         </div>

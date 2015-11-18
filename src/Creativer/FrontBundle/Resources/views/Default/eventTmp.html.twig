@@ -57,17 +57,24 @@
                     <div class="row">
                         <div class="col-sm-6 padding-left_0 text-gray"><time class="comment_time">[[ event.start_date | date: "dd.MM.yyyy" ]]</time></div>
                         {% if is_granted('ROLE_USER') %}
-                            <div class="col-sm-6 text-blue fs_0-8 text-right padding-right_0" ng-if="event.user.id == $root.id_user"><a href="#/edit_event/[[ event.id ]]">Редактировать</a></div>
+                            <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="event.user.id == $root.id_user"><a href="#/edit_event/[[ event.id ]]">Редактировать</a></div>
                         {% endif %}
                     </div>
                     <div class="row description margin-top_10">
                     </div>
-                    <div class="row text-right" ng-show="!event_attend">
-                        {#Идёт [[ event.users_attend.length ]] человек. #}
-                        <span class="pointer text-blue" ng-click="eventAttend()">Пойду!</span>
-                    </div>
-                    <div class="row text-right" ng-show="event_attend">
-                        Идёт [[ event.users_attend.length ]] человек. <span class="pointer text-blue" ng-click="eventAttend()">Не пойду!</span>
+                    <div class="row padding-right_0 padding-left_0">
+                        <div class="share padding-right_0 padding-left_0 text-left col-sm-6">
+                            <a href="http://vk.com/share.php?url=http://creativer.ml/event/[[ event.id ]]&title=Событие&description=[[ event.name ]]&image=http://creativer.ml/home/event/original/[[ event.path ]][[ event.img ]]$noparse=true" class="ico_vk pointer" ></a>
+                            <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.ml/event/[[ event.id ]]&p[title]=Событие&p[summary]=[[ event.name ]]&p[images][0]=http://creativer.ml/home/event/original/[[ event.path ]][[ event.img ]]" class="ico_facebook pointer"></a>
+                            <a href="http://twitter.com/share?text=[[ event.name ]]&url=http://creativer.ml/event/[[ event.id ]]" class="ico_twitter pointer" ></a>
+                        </div>
+                        <div class="row text-right padding-right_0 padding-left_0 col-sm-6" ng-show="!event_attend">
+                            {#Идёт [[ event.users_attend.length ]] человек. #}
+                            <span class="pointer text-blue" ng-click="eventAttend()">Пойду!</span>
+                        </div>
+                        <div class="row text-right padding-right_0 padding-left_0 col-sm-6" ng-show="event_attend">
+                            Идёт [[ event.users_attend.length ]] человек. <span class="pointer text-blue" ng-click="eventAttend()">Не пойду!</span>
+                        </div>
                     </div>
 
 
