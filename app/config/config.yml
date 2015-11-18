@@ -373,6 +373,19 @@ fos_elastica:
                             property_path: "album.user.lastname"
                         avatar:
                             property_path: "album.user.avatar"
+                        image_comments:
+                            type: "nested"
+                            properties:
+                                id: ~
+                                date: ~
+                                text: ~
+                                user:
+                                    type: "object"
+                                    properties:
+                                        id: ~
+                                        username: ~
+                                        lastname: ~
+                                        avatar: ~
                         album:
                             type: "nested"
                             properties:
