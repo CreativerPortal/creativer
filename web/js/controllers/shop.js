@@ -171,6 +171,13 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             }
         });
 
+        uploader.filters.push({
+            name: 'enforceMaxFileSize',
+            fn: function (item) {
+                return item.size <= 10485760; // 10 mb
+            }
+        });
+
         // CALLBACKS
 
         uploader.onCompleteItem = function(fileItem, response, status, headers) {

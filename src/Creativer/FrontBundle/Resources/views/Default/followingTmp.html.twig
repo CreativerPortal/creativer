@@ -23,7 +23,7 @@
 
             <div class="padding-bottom_30">
                 <a href="#/[[ favorit.id ]]" ng-click="removeUser()" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
-                    <div class="user__avatar-favorit" style="background-color: [[ favorit.color ]];">
+                    <div class="user__avatar-favorit" ng-class="{'user__avatar-favorit-online':favorit.connection_status == '-0001-11-30T00:00:00+0150'}" style="background-color: [[ favorit.color ]];">
                         <img ng-src="[[ favorit.avatar ]]">
                     </div>
                     <div class="text-center fs_0-9 lobster">[[ favorit.username ]]</div>

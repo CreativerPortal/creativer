@@ -459,9 +459,16 @@ body{
     width: 60px;
     height: 60px;
     overflow: hidden;
-    border: 3px solid #ffffff;
+    border-top: 3px solid #ffffff;
+    border-left: 3px solid #ffffff;
+    border-right: 3px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
     border-radius: 100px;
     display: block;
+}
+
+.user__avatar-super-mini_online{
+    border-bottom: 3px solid #6fb110;
 }
 
 .user__avatar img, .user__avatar-mini img, .user__avatar-super-mini img{

@@ -83,6 +83,13 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
         }
     });
 
+    uploader.filters.push({
+        name: 'enforceMaxFileSize',
+        fn: function (item) {
+            return item.size <= 10485760; // 10 mb
+        }
+    });
+
     // CALLBACKS
 
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {

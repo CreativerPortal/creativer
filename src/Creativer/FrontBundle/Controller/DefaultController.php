@@ -195,7 +195,6 @@ class DefaultController extends Controller
     }
 
     public function uploadAlbumAction(){
-
         $request = $this->getRequest();
         if ($request->getMethod() == 'POST') {
             $image = $request->files->get('file');
@@ -210,10 +209,10 @@ class DefaultController extends Controller
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 10000000)) {
+                if (($image->getSize() < 10485760)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
-                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
                         //Start Uploading File
                         $userId = $this->get('security.context')->getToken()->getUser()->getId();
@@ -344,10 +343,10 @@ class DefaultController extends Controller
             $id_album = $request->get('id_album');
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 10000000)) {
+                if (($image->getSize() < 10485760)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
-                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
                         //Start Uploading File
                         $userId = $this->get('security.context')->getToken()->getUser()->getId();
@@ -667,10 +666,10 @@ class DefaultController extends Controller
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 10000000)) {
+                if (($image->getSize() < 10485760)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
-                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
 
                         try {
@@ -802,10 +801,10 @@ class DefaultController extends Controller
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 10000000)) {
+                if (($image->getSize() < 10485760)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
-                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
 
 
@@ -923,7 +922,7 @@ class DefaultController extends Controller
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 10000000)) {
+                if (($image->getSize() < 10485760)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
                     $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
@@ -1049,7 +1048,7 @@ class DefaultController extends Controller
 
             if (($file instanceof UploadedFile) && ($file->getError() == '0')) {
                 $size = $file->getSize();
-                if (($size < 10000000)) {
+                if (($size < 10485760)) {
                     $originalName = $file->getClientOriginalName();
                     $file_type = $file->getMimeType();
 
@@ -1295,10 +1294,10 @@ class DefaultController extends Controller
             $image = $request->files->get('file');
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 10000000)) {
+                if (($image->getSize() < 10485760)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
-                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
                         //Start Uploading File
                         $user = $this->get('security.context')->getToken()->getUser();
@@ -1411,10 +1410,10 @@ class DefaultController extends Controller
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 10000000)) {
+                if (($image->getSize() < 10485760)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
-                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
                         //Start Uploading File
                         $userId = $this->get('security.context')->getToken()->getUser()->getId();
@@ -1553,10 +1552,10 @@ class DefaultController extends Controller
 
 
             if (($image instanceof UploadedFile) && ($image->getError() == '0')) {
-                if (($image->getSize() < 10000000)) {
+                if (($image->getSize() < 10485760)) {
                     $originalName = $image->getClientOriginalName();
                     $file_type = $image->getMimeType();
-                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png');
+                    $valid_filetypes = array('image/jpg', 'image/jpeg', 'image/bmp', 'image/png', 'image/gif');
                     if (in_array(strtolower($file_type), $valid_filetypes)) {
 
 

@@ -36,10 +36,10 @@
                 <div class="col-sm-9 text-left" >
                     <div ng-if="items.items[key_img][0]" class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img][0].image_comments">
                         <div class="col-sm-2">
-                            <a href="#/[[ comment.user.id ]]" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
+                            <a href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '-0001-11-30T00:00:00+0150'}" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
                             </a>
-                            <a href="#/[[ user.id ]]" class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
+                            <a href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '-0001-11-30T00:00:00+0150'}" class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
                                 <img ng-src="[[ user.avatar ]]">
                             </a>
                         </div>
@@ -55,8 +55,8 @@
                                     </div>
                                     <div ng-if="comment.remove_comment == true" class="col-sm-12 padding-right_0 text-right">
                                         Удалить ?
-                                        <span class="text-blue pointer" ng-click="removeComment(key_img,comment.id,key)">??</span> |
-                                        <span ng-click="comment.remove_comment = false" class="text-blue pointer">???</span>
+                                        <span class="text-blue pointer" ng-click="removeComment(key_img,comment.id,key)">Да</span> |
+                                        <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                                     </div>
                                 </div>
                             </div>
@@ -69,10 +69,10 @@
 
                     <div ng-if="!items.items[key_img][0]" class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img].image_comments">
                         <div class="col-sm-2">
-                            <a href="#/[[ comment.user.id ]]" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
+                            <a href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '-0001-11-30T00:00:00+0150'}" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
                             </a>
-                            <a href="#/[[ user.id ]]" class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
+                            <a href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '-0001-11-30T00:00:00+0150'}" class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
                                 <img ng-src="[[ user.avatar ]]">
                             </a>
                         </div>
@@ -88,8 +88,8 @@
                                     </div>
                                     <div ng-if="comment.remove_comment == true" class="col-sm-12 padding-right_0 text-right">
                                         Удалить ?
-                                        <span class="text-blue pointer" ng-click="removeComment(key_img,comment.id,key)">??</span> |
-                                        <span ng-click="comment.remove_comment = false" class="text-blue pointer">???</span>
+                                        <span class="text-blue pointer" ng-click="removeComment(key_img,comment.id,key)">Да</span> |
+                                        <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                                     </div>
                                 </div>
                             </div>
@@ -112,7 +112,7 @@
 
                     <div class="row">
                         <div class="col-sm-5">
-                            <a href="#/[[ items.items[key_img].id_user ]]" class="user__avatar-super-mini left" style="background-color: [[ items.items[key_img].color ]]">
+                            <a href="#/[[ items.items[key_img].id_user ]]" ng-class="{'user__avatar-super-mini_online':items.items[key_img].connection_status == '-0001-11-30T00:00:00+0150'}" class="user__avatar-super-mini left" style="background-color: [[ items.items[key_img].color ]]">
                                 <img ng-src="[[ items.items[key_img].avatar ]]">
                             </a>
                         </div>

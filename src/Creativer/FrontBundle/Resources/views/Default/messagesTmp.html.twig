@@ -38,7 +38,7 @@
                 </div>
                 <div class="row">
                     <div class="col-sm-2">
-                        <div class="user__avatar-mini" style="margin-top: -10px; background-color: [[ message.color ]]"><img ng-src="[[ message.avatar ]]" /></div>
+                        <div class="user__avatar-mini" ng-class="{'user__avatar-mini_online':message.connection_status == '0000-00-00 00:00:00'}" style="margin-top: -10px; background-color: [[ message.color ]]"><img ng-src="[[ message.avatar ]]" /></div>
                     </div>
                     <div class="col-sm-9">
 

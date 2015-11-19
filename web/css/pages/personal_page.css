@@ -147,20 +147,19 @@ body{
     width: 100px;
     height: 100px;
     overflow: hidden;
-    border: 1px dashed #696360;
+    border-top: 5px solid #ffffff;
+    border-right: 5px solid #ffffff;
+    border-left: 5px solid #ffffff;
+    border-bottom: 5px solid #ffffff;
     border-radius: 100px;
+}
+
+.user__avatar-favorit-online{
+    border-bottom: 5px solid #6fb110;
 }
 
 .user__avatar-favorit img{
     width: 100%;
-}
-
-.user__avatar-super-mini{
-    width: 60px;
-    height: 60px;
-    overflow: hidden;
-    border: 3px solid #ffffff;
-    border-radius: 100px;
 }
 
 .edit__avatar{

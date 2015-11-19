@@ -67,15 +67,6 @@ body{
     color: #6096b9;
 }
 
-.user__avatar-mini{
-    width: 70px;
-    height: 70px;
-    overflow: hidden;
-    border: 5px solid #ffffff;
-    border-radius: 100px;
-}
-
-
 .message-textareas .message__field{
     margin-left: -12px;
     border-color: #b0aea8!important;
@@ -130,14 +121,6 @@ body{
     color: #ffffff;
     vertical-align: middle;
     line-height: 1.6em;
-}
-
-.user__avatar-mini {
-    width: 70px;
-    height: 70px;
-    overflow: hidden;
-    border: 5px solid #ffffff;
-    border-radius: 100px;
 }
 
 .new__messages{

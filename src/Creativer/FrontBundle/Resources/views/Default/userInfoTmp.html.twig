@@ -76,7 +76,7 @@
         <div class="row text-left user__text_bold"><a class="text-gray" href="#/following/[[ user.id ]]">Избранные:</a></div>
 
         <a href="#/[[ favorit.id ]]" ng-click="removeUser()" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
-            <div class="user__avatar-mini" style="background-color: [[ favorit.color ]]">
+            <div class="user__avatar-mini" ng-class="{'user__avatar-mini_online':favorit.connection_status == '-0001-11-30T00:00:00+0150'}" style="background-color: [[ favorit.color ]]">
                 <img ng-src="[[ favorit.avatar ]]">
             </div>
             <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>
@@ -139,7 +139,7 @@
     <div class="margin-top_20 col-sm-12 user__text">
         <div class="row text-left user__text_bold"><a class="text-gray" href="#/following/[[ user.id ]]">Избранные:</a></div>
         <a href="#/[[ favorit.id ]]" ng-click="removeUser()" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
-            <div class="user__avatar-mini" style="background-color: [[ favorit.color ]]">
+            <div class="user__avatar-mini" ng-class="{'user__avatar-mini_online':favorit.connection_status == '-0001-11-30T00:00:00+0150'}" style="background-color: [[ favorit.color ]]">
                 <img ng-src="[[ favorit.avatar ]]">
             </div>
             <div class="text-center fs_0-8 lobster">[[ favorit.username ]]</div>

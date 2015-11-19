@@ -312,6 +312,13 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             }
         });
 
+        uploader.filters.push({
+            name: 'enforceMaxFileSize',
+            fn: function (item) {
+                return item.size <= 10485760; // 10 mb
+            }
+        });
+
         // CALLBACKS
 
         uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {

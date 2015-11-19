@@ -350,6 +350,13 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             }
         });
 
+        uploader.filters.push({
+            name: 'enforceMaxFileSize',
+            fn: function (item) {
+                return item.size <= 10485760; // 10 mb
+            }
+        });
+
         // CALLBACKS
 
         uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {

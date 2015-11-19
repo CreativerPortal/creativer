@@ -134,9 +134,16 @@ textarea {
     width: 70px;
     height: 70px;
     overflow: hidden;
-    border: 5px solid #ffffff;
+    border-top: 5px solid #ffffff;
+    border-left: 5px solid #ffffff;
+    border-right: 5px solid #ffffff;
+    border-bottom: 5px solid #ffffff;
     border-radius: 100px;
     display: block;
+}
+
+.user__avatar-mini_online{
+    border-bottom: 5px solid #6fb110;
 }
 
 .user__avatar-mini-2 {

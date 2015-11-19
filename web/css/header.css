@@ -193,6 +193,7 @@ input:focus,textarea:focus,select:focus{
     margin: auto;
 }
 
+
 .user__avatar img, .user__avatar-mini img, .user__avatar-super-mini img{
     width: 100%;
 }

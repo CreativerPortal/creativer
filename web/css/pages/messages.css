@@ -73,16 +73,6 @@ body{
     color: #6096b9;
 }
 
-
-.user__avatar-mini{
-    width: 70px;
-    height: 70px;
-    overflow: hidden;
-    border: 5px solid #ffffff;
-    border-radius: 100px;
-}
-
-
 .edit{
     position: absolute;
     right: -5px;
@@ -129,13 +119,6 @@ body{
     line-height: 30px;
 }
 
-.user__avatar-mini {
-    width: 70px;
-    height: 70px;
-    overflow: hidden;
-    border: 5px solid #ffffff;
-    border-radius: 100px;
-}
 
 .chat__link{
     display: block;

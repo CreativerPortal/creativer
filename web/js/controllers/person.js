@@ -392,6 +392,13 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }
     });
 
+        uploader.filters.push({
+            name: 'enforceMaxFileSize',
+            fn: function (item) {
+                return item.size <= 10485760; // 10 mb
+            }
+        });
+
     uploaderDoc.filters.push({
         name: 'documentFilter',
         fn: function(item /*{File|FileLikeObject}*/, options) {

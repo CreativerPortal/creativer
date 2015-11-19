@@ -43,7 +43,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             }
         }
 
-        if($scope.user.albums[key_album] && $scope.user.albums[key_album].images[0].image_comments == undefined) {
+        if($scope.user.albums[key_album] && $scope.user.albums[key_album].images[0] && $scope.user.albums[key_album].images[0].image_comments == undefined) {
             for (var key in $scope.user.albums) {
                 if ($scope.user.albums[key].id == id_album && $scope.user.albums[key].images[0].image_comments == undefined) {
                     albumService.getAlbumComments({id_album: id_album}).success(function (data) {
@@ -363,6 +363,13 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     var uploader = $scope.uploader = new FileUploader({
         url: 'upload_edit_album',
         queueLimit: 10
+    });
+
+    uploader.filters.push({
+        name: 'enforceMaxFileSize',
+        fn: function (item) {
+            return item.size <= 10485760; // 10 mb
+        }
     });
 
     $rootScope.images = [];
