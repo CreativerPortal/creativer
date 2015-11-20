@@ -60,7 +60,7 @@
             <div class="row margin-top_25">
                 <div class="col-sm-2 padding-left_0"><a href="#/[[ post.user.id ]]">
                         [[ post.user.username ]] [[ post.user.lastname ]]
-                        <div class="user__avatar-mini margin-top_10">
+                        <div class="user__avatar-mini margin-top_10" ng-class="{'user__avatar-mini_online':post.user.connection_status == '-0001-11-30T00:00:00+0150'}">
                             <img src="[[ post.user.avatar ]]">
                         </div>
                     </a></div>
@@ -90,7 +90,7 @@
                     <div class="col-sm-11 col-sm-offset-1 padding-left_0 comm">
 
                         <div class="user__avatar__viewtopic col-sm-1">
-                            <div class="user__avatar-mini-2" style="background-color: [[ comment.user.color ]]">
+                            <div class="user__avatar-mini-2" ng-class="{'user__avatar-mini-2_online':comment.user.connection_status == '-0001-11-30T00:00:00+0150'}" style="background-color: [[ comment.user.color ]]">
                                 <img ng-show="[[ comment.user.avatar ]]" src="[[ comment.user.avatar ]]">
                             </div>
                         </div>

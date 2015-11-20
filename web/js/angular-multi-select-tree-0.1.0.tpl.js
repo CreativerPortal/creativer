@@ -39,7 +39,7 @@ angular.module('multi-select-tree').run(['$templateCache', function($templateCac
 
   $templateCache.put('src/tree-item.tpl.html',
     "<li>\n" +
-    "    <div class=\"item-container\" ng-class=\"{active: item.isActive, selected: item.selected}\"\n" +
+    "    <div class=\"item-container\" ng-class=\"{active: item.isActive, selected: item.selected, color: item.color}\"\n" +
     "         ng-click=\"clickSelectItem(item, $event); onExpandClicked(item, $event)\" ng-mouseover=\"onMouseOver(item, $event)\">\n" +
     "        <span ng-if=\"showExpand(item)\" class=\"expand\" ng-class=\"{'expand-opened': item.isExpanded}\"\n" +
     "              ></span>\n" +

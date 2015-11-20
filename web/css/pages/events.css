@@ -423,10 +423,17 @@ body{
     width: 50px;
     height: 50px;
     overflow: hidden;
-    border: 3px solid #ffffff;
+    border-top: 3px solid #ffffff;
+    border-right: 3px solid #ffffff;
+    border-left: 3px solid #ffffff;
+    border-bottom: 3px solid #ffffff;
     border-radius: 100px;
     margin-right: 10px;
     display: block;
+}
+
+.user__avatar-mini-2_online {
+    border-bottom: 3px solid #6fb110!important;
 }
 
 .user__avatar {

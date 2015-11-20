@@ -225,11 +225,11 @@ input:focus,textarea:focus,select:focus{
     margin-top: 15px;
 }
 
-#checkbox-menu-person{
-    position: absolute;
-    left: -1000px;
-    top: -1000px;
-}
+/*#checkbox-menu-person{*/
+    /*position: absolute;*/
+    /*left: -1000px;*/
+    /*top: -1000px;*/
+/*}*/
 
 .personal{
     position: relative;
@@ -272,7 +272,20 @@ input:focus,textarea:focus,select:focus{
     border: none;
 }
 
-#checkbox-menu-person:checked + .menu-personal{
+/*#checkbox-menu-person:checked + .menu-personal{*/
+    /*width: 138px;*/
+    /*height: 210px;*/
+    /*position: absolute;*/
+    /*background-image: url("../var/www/creativer/web/img/menu_person.png");*/
+    /*z-index: 1;*/
+    /*top: 40px;*/
+    /*left: -6px;*/
+    /*display: block;*/
+    /*background-repeat: no-repeat;*/
+/*}*/
+
+
+.personal:hover > .menu-personal{
     width: 138px;
     height: 210px;
     position: absolute;
