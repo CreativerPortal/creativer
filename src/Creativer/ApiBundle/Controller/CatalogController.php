@@ -194,7 +194,11 @@ class CatalogController extends Controller
             ->select('COUNT(s)')
             ->getQuery()
             ->getResult()[0][1];
-        $offset = rand(0, $count - 4 - 1);
+        if($count > 8){
+            $offset = rand(0, $count - 5);
+        }else{
+            $offset = 0;
+        }
         $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
             ->createQueryBuilder('s')
             ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
@@ -294,7 +298,11 @@ class CatalogController extends Controller
             ->select('COUNT(s)')
             ->getQuery()
             ->getResult()[0][1];
-        $offset = rand(0, $count - 4 - 1);
+        if($count > 8){
+            $offset = rand(0, $count - 5);
+        }else{
+            $offset = 0;
+        }
         $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
             ->createQueryBuilder('s')
             ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
@@ -472,7 +480,7 @@ class CatalogController extends Controller
 
 
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $nested);
-        $posts = $products->findHybrid($filteredQuery);
+        $posts = $products->findHybrid($filteredQuery, 40);
 
 
         foreach ($posts as $hybridResult) {
@@ -532,7 +540,7 @@ class CatalogController extends Controller
 
 
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $nested);
-        $posts = $products->findHybrid($filteredQuery);
+        $posts = $products->findHybrid($filteredQuery, 40);
 
 
         foreach ($posts as $hybridResult) {

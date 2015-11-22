@@ -186,6 +186,18 @@ creativer_save_post_documents:
     path:     /save_post_documents
     defaults: { _controller: CreativerFrontBundle:Default:savePostDocuments }
     methods:  [POST]
+creativer_rate:
+    path:     /rate
+    defaults: { _controller: CreativerFrontBundle:Default:rate }
+    methods:  [GET]
+creativer_rules:
+    path:     /rules
+    defaults: { _controller: CreativerFrontBundle:Default:rules }
+    methods:  [GET]
+creativer_agreement:
+    path:     /agreement
+    defaults: { _controller: CreativerFrontBundle:Default:agreement }
+    methods:  [GET]
 creativer_album_social_redirect:
     path:     /album/{id}/{name}/{key}
     defaults: { _controller: CreativerFrontBundle:Default:albumSocialRedirect, id: null, name: null, key: null }

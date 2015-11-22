@@ -14,8 +14,11 @@ angular.module('service.chat', ['service.socket'])
         socket.on('message', function(data){
             $rootScope.message_button = true;
             var data = data[0];
-            $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
+            var id_user_chat = parseInt($stateParams.id_user_chat);
+            var id_user = parseInt($rootScope.id_user);
+            $rootScope.ids = [id_user_chat, id_user];
             $rootScope.ids = $rootScope.ids.sort();
+            $rootScope.id_user = parseInt($rootScope.id_user);
             if(data.reviewed == false && ($stateParams.id_user_chat == data.sender || $stateParams.id_user_chat == data.receiver)){
                 $rootScope.messages_history.unshift({sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar, color: data.color});
 
@@ -24,16 +27,54 @@ angular.module('service.chat', ['service.socket'])
                 }else{
                     socket.emit('reviewed', {ids: $rootScope.ids, id_user: $rootScope.id_user});
                 }
-            }else{
+            }
+            if(!$rootScope.focus){
                 soundClick();
                 $rootScope.new_messages.unshift(data);
             }
+
+            $rootScope.pause = false;
+            $rootScope.writing = false;
+            $rootScope.$apply();
+        });
+
+        socket.on('old messages', function(data){
+            $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
+            $rootScope.ids = $rootScope.ids.sort();
+            $rootScope.messages_history = $rootScope.messages_history.concat(data.messages);
+            $rootScope.loader_message = false;
+        });
+
+        socket.on('end old messages', function(data){
+            $rootScope.loader_message = false;
+        });
+
+        $rootScope.pause = false;
+
+        $rootScope.$watch("text_message", function () {
+            if($rootScope.text_message && $rootScope.text_message.length > 0 && !$rootScope.pause){
+                $rootScope.pause = true;
+                $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
+                $rootScope.ids = $rootScope.ids.sort();
+                socket.emit('writing', {ids: $rootScope.ids, id_user: $rootScope.id_user});
+                setTimeout(function(){
+                    $rootScope.pause = false;
+                }, 5000);
+            }
+        });
+
+        socket.on('writing', function(data){
+            $rootScope.writing = true;
+            setTimeout(function(){
+                $rootScope.writing = false;
+                $rootScope.$apply();
+            },5000);
         });
 
         var init = function(){
             socket.on("new message", function(data) {
                 //if($state.current.name != 'chat'){}
-                    $rootScope.new_messages = data;
+                $rootScope.new_messages = data;
             });
         }
 

@@ -295,17 +295,17 @@
 
     <div class="row">
         <div class="col-sm-3 col-sm-offset-1 fiveMinuts padding-left_0">
-            <a href="#/{% if app.user %}{{app.user.id}}{% endif %}" class="btn button_header_09 text-left">
-                <span>Моя страница</span>
+            <a href="#/products/1000" class="btn button_header_09 text-left">
+                <span>Товары</span>
             </a>
-            <a href="#/baraholka" ng-click="$root.searchInBaraholka = null" class="btn button_header_05 right">
-                <span>Барахолка</span>
+            <a href="#/services/1001" ng-click="$root.searchInBaraholka = null" class="btn button_header_05 right">
+                <span>Услуги</span>
             </a>
         </div>
 
         <div class="col-sm-4 col-sm-offset-3 fiveMinuts">
-            <a href="#/feedback" class="btn button_header_09 right">
-                <span>Обратная связь</span>
+            <a href="#/baraholka" class="btn button_header_09 right">
+                <span>Барахолка</span>
             </a>
             <a href="#/events" class="btn button_header_07 right">
                 <span>События</span>
@@ -554,11 +554,11 @@
 <footer class="footer wrapper">
     <nav class="footer__menu col-sm-12 fiveMinuts">
         <ul>
-            <li><a href="{{ path('person') }}#/">Соцсеть</a></li>
+            <li><a href="{{ path('person') }}#/{% if app.user %}{{app.user.id}}{% endif %}">Соцсеть</a></li>
             <li><a href="#/baraholka">Барахолка</a></li>
-            <li><a href="#">События</a></li>
             <li><a href="#/feedback">Обратная связь</a></li>
-            <li><a href="#">Правовая информация</a></li>
+            <li><a href="#/agreement">Правила</a></li>
+            <li><a href="#/rules">Правовая информация</a></li>
         </ul>
     </nav>
 

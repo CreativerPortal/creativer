@@ -156,7 +156,6 @@ io.on('connection', function(socket){
                     var users = [];
                     users.push(id_users[0]);
                     users.push(id_users[1]);
-                    //connection.connect();
                     connection.connect(function(err){
                     });
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color, u.connection_status FROM app_users AS u WHERE u.id IN ("+ users.join(',') +")";
@@ -177,6 +176,9 @@ io.on('connection', function(socket){
                         }
                     );
                 } else {
+                }
+                if(result.length == 0){
+                    socket.emit('end old messages', err);
                 }
             });
         });
@@ -215,7 +217,7 @@ io.on('connection', function(socket){
                             result.ops[0].avatar = rows[0].avatar;
                             result.ops[0].color = rows[0].color;
                             result.ops[0].connection_status = rows[0].connection_status;
-                                for (var key in data.ids) {
+                            for (var key in data.ids) {
                                 var id = data.ids[key];
                                 for (var k in sockets[id]) {
                                     sockets[id][k].emit('message', result.ops);
@@ -244,8 +246,39 @@ io.on('connection', function(socket){
                 }else{
                     var id = parseInt(socket.handshake.query.id_user);
                     collection.find({ receiver: id_recipient, reviewed: false}).toArray(function (err, result) {
-                        socket.emit('new message', result);
-                        db.close();
+                        if (err) {
+                            //console.log(err);
+                        } else {
+                            var companion = [];
+                            for(var key in result){
+                                if(result[key].id_users[0] != data.id_user){
+                                    var id_users_0 = parseInt(result[key].id_users[0]);
+                                    companion.push(id_users_0);
+                                    result[key].other_user = id_users_0;
+                                }else{
+                                    var id_users_1 = parseInt(result[key].id_users[1]);
+                                    companion.push(id_users_1);
+                                    result[key].other_user = id_users_1;
+                                }
+                            }
+                            var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color, u.connection_status FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
+                            connection.query(queryText, companion, function(err, rows) {
+                                    for(var row_key in result){
+                                        for(var r_key in  rows){
+                                            if(result[row_key].other_user == rows[r_key].id){
+                                                result[row_key].username = rows[r_key].username;
+                                                result[row_key].lastname = rows[r_key].lastname;
+                                                result[row_key].avatar = rows[r_key].avatar;
+                                                result[row_key].color = rows[r_key].color;
+                                                result[row_key].connection_status = rows[r_key].connection_status;
+                                            }
+                                        }
+                                    }
+                                    socket.emit('new message', result);
+                                    db.close();
+                                }
+                            );
+                        }
                     })
                 }
             });
@@ -257,7 +290,6 @@ io.on('connection', function(socket){
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
             var id_recipient = parseInt(data.id_user);
-
             collection.find({ receiver: id_recipient, reviewed: false}).sort({_id: -1}).toArray(function (err, result) {
                 if (err) {
                     //console.log(err);
@@ -265,11 +297,13 @@ io.on('connection', function(socket){
                     var companion = [];
                     for(var key in result){
                         if(result[key].id_users[0] != data.id_user){
-                            companion.push(result[key].id_users[0]);
-                            result[key].other_user = result[key].id_users[0];
+                            var id_users_0 = parseInt(result[key].id_users[0]);
+                            companion.push(id_users_0);
+                            result[key].other_user = id_users_0;
                         }else{
-                            companion.push(result[key].id_users[1]);
-                            result[key].other_user = result[key].id_users[1];
+                            var id_users_1 = parseInt(result[key].id_users[1]);
+                            companion.push(id_users_1);
+                            result[key].other_user = id_users_1;
                         }
                     }
                     var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color, u.connection_status FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
@@ -286,8 +320,6 @@ io.on('connection', function(socket){
                             }
                         }
                         socket.emit('new message', result);
-                            console.log(result);
-
                             db.close();
                         }
                     );
@@ -297,14 +329,25 @@ io.on('connection', function(socket){
     })
 
 
-        mongo.connect(db_connect, function (err, db) {
-        var collection = db.collection('messages');
-        var id = parseInt(socket.handshake.query.id_user);
-        collection.find({ receiver: id, reviewed: false}).sort({_id: -1}).toArray(function (err, result) {
-            socket.emit('new message', result);
-            db.close();
-        })
-        })
+    socket.on('writing', function (data) {
+        for (var key in data.ids) {
+            var id = data.ids[key];
+            for (var k in sockets[id]) {
+                if(id !=  data.id_user){
+                    sockets[id][k].emit('writing', {});
+                }
+            }
+        }
+    });
+
+    mongo.connect(db_connect, function (err, db) {
+    var collection = db.collection('messages');
+    var id = parseInt(socket.handshake.query.id_user);
+    collection.find({ receiver: id, reviewed: false}).sort({_id: -1}).toArray(function (err, result) {
+        socket.emit('new message', result);
+        db.close();
+    })
+    })
 
 });
 

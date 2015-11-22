@@ -1212,7 +1212,7 @@ class PersonController extends Controller
             $keywordQuery->setQuery("username:".$search_people." OR lastname:".$search_people);
         }
 
-        $people = $users->find($keywordQuery);
+        $people = $users->find($keywordQuery, '40');
         $people = array('people' => $people);
 
         return $people;

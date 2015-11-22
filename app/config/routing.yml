@@ -1,3 +1,6 @@
+elfinder:
+     resource: "@FMElfinderBundle/Resources/config/routing.yml"
+
 creativer_background:
     resource: "@CreativerBackgroundBundle/Controller/"
     type:     annotation
@@ -16,5 +19,3 @@ app:
     resource: "@AppBundle/Controller/"
     type:     annotation
 
-elfinder:
-     resource: "@FMElfinderBundle/Resources/config/routing.yml"

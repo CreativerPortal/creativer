@@ -111,7 +111,13 @@ class ShopsController extends Controller
 
         $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
 
-        $category_id = $shop->getCategories()[0]->getId();
+        $catt = $shop->getCategories()[0];
+
+        if($catt){
+            $category_id = $shop->getCategories()[0]->getId();
+        }else{
+            $category_id = null;
+        }
 
         $images = $shop->getImages();
         $fs = new Filesystem();

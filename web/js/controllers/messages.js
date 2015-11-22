@@ -74,18 +74,11 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     }
 
     $scope.oldMessages = function(){
-        $scope.loader_message = true;
+        $rootScope.loader_message = true;
         var length = $rootScope.messages_history.length;
         socket.emit("old messages",{id_user:$scope.user.id, ids:$scope.ids, length:length});
     }
 
-
-    socket.on('old messages', function(data){
-        $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
-        $rootScope.ids = $rootScope.ids.sort();
-        $rootScope.messages_history = $rootScope.messages_history.concat(data.messages);
-        $scope.loader_message = false;
-    });
 
 
     chat.init();
@@ -103,16 +96,16 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     }
 
 
-        $window.onfocus = function(){
-            if($state.current.name != 'messages'){
-                $scope.focus = true;
-                socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
-            }
-        };
-
+    $window.onfocus = function(){
+        if($state.current.name != 'messages'){
+            $rootScope.focus = true;
+            socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
+        }
+    };
 
     $window.onblur = function(){
-        $scope.focus = false;
+        $rootScope.focus = false;
+        socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
     }
 
     $scope.go = function ( path ) {

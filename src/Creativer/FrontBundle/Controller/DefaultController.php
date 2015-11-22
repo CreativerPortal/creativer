@@ -1638,6 +1638,17 @@ class DefaultController extends Controller
 
     }
 
+    public function rateAction(){
+        return $this->render('CreativerFrontBundle:Default:rate.html.twig', array());
+    }
+
+    public function rulesAction(){
+        return $this->render('CreativerFrontBundle:Default:rules.html.twig', array());
+    }
+
+    public function agreementAction(){
+        return $this->render('CreativerFrontBundle:Default:agreement.html.twig', array());
+    }
 
     public function albumSocialRedirectAction($id,$name){
 

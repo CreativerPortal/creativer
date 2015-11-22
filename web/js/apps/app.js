@@ -247,6 +247,24 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'albumCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('rates', {
+            url: '/rates',
+            templateUrl: '/rates',
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('rules', {
+            url: '/rules',
+            templateUrl: '/rules',
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('agreement', {
+            url: '/agreement',
+            templateUrl: '/agreement',
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('id', {
             url: '/:id',
             templateUrl: function ($stateParams){
@@ -265,6 +283,7 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'personCtrl',
             reloadOnSearch: true
         });
+
 
         $momentProvider
             .asyncLoading(false)

@@ -13,6 +13,6 @@ class ResponseListener
 {
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        $event->getResponse()->headers->set('X-Frame-Options', 'SAMEORIGIN');
+       // $event->getResponse()->headers->set('X-Frame-Options', 'SAMEORIGIN');
     }
 }
