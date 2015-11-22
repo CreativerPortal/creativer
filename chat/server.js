@@ -334,7 +334,7 @@ io.on('connection', function(socket){
             var id = data.ids[key];
             for (var k in sockets[id]) {
                 if(id !=  data.id_user){
-                    sockets[id][k].emit('writing', {});
+                    sockets[id][k].emit('writing', data);
                 }
             }
         }

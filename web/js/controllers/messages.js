@@ -95,12 +95,11 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         });
     }
 
+    $rootScope.focus = true;
 
     $window.onfocus = function(){
-        if($state.current.name != 'messages'){
-            $rootScope.focus = true;
-            socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
-        }
+        $rootScope.focus = true;
+        socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
     };
 
     $window.onblur = function(){
