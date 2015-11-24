@@ -266,6 +266,10 @@
     text-decoration: none;
 }
 
+.highlighted {
+    background: rgba(154, 113, 110, 0.30);
+}
+
 .horizontal_line_dashed{
     background-image: url("/var/www/creativer/web/img/horizontal_line.png");
     background-repeat: repeat-x;

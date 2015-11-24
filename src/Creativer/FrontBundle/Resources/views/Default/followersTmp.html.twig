@@ -5,10 +5,10 @@
                 <div class="col-sm-7 padding-left_0" >
                     <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
                 </div>
-                <div ng-if="user.connection_status != '-0001-11-30T00:00:00+0150' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
+                <div ng-if="user.connection_status != '{{ date_online }}' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
                     [[ user.connection_status | date: "dd MMM HH:mm" ]]
                 </div>
-                <div ng-if="user.connection_status == '-0001-11-30T00:00:00+0150' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
+                <div ng-if="user.connection_status == '{{ date_online }}' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
                     Online
                 </div>
             </div>
@@ -23,7 +23,7 @@
 
             <div class="padding-bottom_30">
                 <a ng-click="removeUser()" href="#/[[ favorit.id ]]" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.favorits_with_me">
-                    <div class="user__avatar-favorit" ng-class="{'user__avatar-favorit-online':favorit.connection_status == '-0001-11-30T00:00:00+0150'}" style="background-color: [[ favorit.color ]];">
+                    <div class="user__avatar-favorit" ng-class="{'user__avatar-favorit-online':favorit.connection_status == '{{ date_online }}'}" style="background-color: [[ favorit.color ]];">
                         <img ng-src="[[ favorit.avatar ]]">
                     </div>
                     <div class="text-center fs_0-9 lobster">[[ favorit.username ]]</div>

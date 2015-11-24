@@ -16,3 +16,12 @@
         display: none;
     }
 }
+
+
+@media screen and (min-width: 1200px) {
+    .click_class:before{ /*likes*/
+        -webkit-animation: blink1 0.4s linear infinite;
+        animation: blink1 0.4s linear infinite;
+        animation-iteration-count: 1;
+    }
+}

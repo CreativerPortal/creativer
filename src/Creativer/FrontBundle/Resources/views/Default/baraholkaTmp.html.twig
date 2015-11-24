@@ -3,10 +3,10 @@
 
         <div class="row">
             <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a  ng-click="$root.searchInBaraholka = null" class="text-black" href="#/baraholka">Барахолка</a></h3></div>
-            <div class="col-sm-3 slid__search padding-left_0 padding-right_5 margin-top_20">
+            <form class="col-sm-3 slid__search padding-left_0 padding-right_5 margin-top_20">
                 <input placeholder="Поиск по барахолке" ng-model="$root.searchInBaraholka">
                 <a href="#/viewforum" class="right margin-top_3"><button class="slid__slider-button"></button></a>
-            </div>
+            </form>
             {% if is_granted('ROLE_USER') %}
                 <a href="#/fleamarketposting" class="col-sm-5 col-sm-offset-2 advert_button margin-top_20">Разместить объявление</a>
             {% endif %}

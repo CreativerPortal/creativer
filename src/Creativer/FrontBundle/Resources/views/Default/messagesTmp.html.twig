@@ -20,10 +20,47 @@
 
         <div class="col-sm-7 album">
 
-            <textarea rows="2" placeholder="Найти сообшение" class="search__message"></textarea>
+            <form class="row col-sm-12 padding-right_0">
+                <input rows="2" placeholder=" Поиск в сообщениях ..." class="search__message" ng-model="search_text">
+                <button class="true right fs_0-9 " ng-class="{'loader': loader_comment}" ng-click="searchByReports(search_text); res_serch_text=search_text">Искать</button>
+            </form>
+
+            <div class="row col-sm-12 margin-top_20 text-blue text-italic pointer" ng-click="search_messages = false" ng-show="search_messages">назад к сообщениям</div>
+
+            <div class="row margin-top_20"></div>
+
+            <div class="row margin-top_20 lobster fs_2-0 text-center text-gray" ng-model="res_serch_text" ng-if="search_messages && search_messages.length == 0">Ничего не найдено по запросу "[[ res_serch_text ]]"</div>
+
+            <div class="margin-top_15" ng-repeat="message in search_messages">
+                <div class="row">
+                    <div class="col-sm-2">
+
+                    </div>
+                    <div class="col-sm-5 padding-left_3">
+                        <a ng-click="removeUser()" class="text-blue padding-left_0 chat__link" ng-if="message.sender != $root.id_user" href="#/[[ message.sender ]]">[[ message.username ]] [[ message.lastname ]]</a>
+                        <a ng-click="removeUser()" class="text-blue padding-left_0 chat__link" ng-if="message.receiver != $root.id_user" href="#/[[ message.receiver ]]">[[ message.username ]] [[ message.lastname ]]</a>
+                    </div>
+                    <div class="col-sm-4 margin-left_25">
+                        <div class="text-left fs_0-8 text-right"><time class="text-gray">[[ message.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-sm-2">
+                        <div class="user__avatar-mini" ng-class="{'user__avatar-mini_online':message.connection_status == '0000-00-00 00:00:00'}" style="margin-top: -10px; background-color: [[ message.color ]]"><img ng-src="[[ message.avatar ]]" /></div>
+                    </div>
+                    <div class="col-sm-9">
+
+                        <div class="row text-gray pointer">
+                            <div class="col-sm-12 fs_0-8 padding-left_3 padding-right_0 background__text-reviewed" ng-bind-html="message.text | highlight:search_text" ng-class="{background__text: message.reviewed == false && message.sender != user.id}" ng-click="go('chat/'+ message.other_user+'/'+message._id)">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="horizontal_line"></div>
+            </div>
 
 
-            <div class="margin-top_15" ng-repeat="message in messages">
+            <div class="margin-top_15" ng-if="!search_messages" ng-repeat="message in messages">
                 <div class="row">
                     <div class="col-sm-2">
 

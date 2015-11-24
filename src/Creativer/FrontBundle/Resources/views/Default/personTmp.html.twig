@@ -5,10 +5,10 @@
                     <div class="col-sm-7 padding-left_0" >
                         <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
                     </div>
-                    <div ng-if="user.connection_status != '-0001-11-30T00:00:00+0150' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
+                    <div ng-if="user.connection_status != '{{ date_online }}' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
                         [[ user.connection_status | date: "dd MMM HH:mm" ]]
                     </div>
-                    <div ng-if="user.connection_status == '-0001-11-30T00:00:00+0150' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
+                    <div ng-if="user.connection_status == '{{ date_online }}' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
                         Online
                     </div>
                 </div>
@@ -133,10 +133,10 @@
                 <div class="row margin-top_10 one_post" ng-init="post.remove_post = false" ng-repeat="(key, post) in user.wall.posts">
 
                     <div class="col-sm-2">
-                        <a href="#/[[ post.user.id ]]" ng-click="removeUser()" ng-if="post.user" ng-class="{'user__avatar-mini_online':post.user.connection_status == '-0001-11-30T00:00:00+0150'}" class="user__avatar-mini" style="background-color: [[ post.user.color ]]">
+                        <a href="#/[[ post.user.id ]]" ng-click="removeUser()" ng-if="post.user" ng-class="{'user__avatar-mini_online':post.user.connection_status == '{{ date_online }}'}" class="user__avatar-mini" style="background-color: [[ post.user.color ]]">
                             <img ng-if="post.user.avatar" ng-src="[[ post.user.avatar ]]">
                         </a>
-                        <a href="#/[[ user.id ]]" ng-if="!post.user" class="user__avatar-mini" ng-class="{'user__avatar-mini_online':post.user.connection_status == '-0001-11-30T00:00:00+0150'}" style="background-color: [[ user.color ]]">
+                        <a href="#/[[ user.id ]]" ng-if="!post.user" class="user__avatar-mini" ng-class="{'user__avatar-mini_online':post.user.connection_status == '{{ date_online }}'}" style="background-color: [[ user.color ]]">
                             <img  ng-src="[[ user.avatar ]]">
                         </a>
                     </div>
@@ -227,10 +227,10 @@
                     <div class="row margin-left_60 col-sm-11 one_comment" ng-if="post.comments_all_show == true" ng-repeat="(key,comment) in post.comments">
                         <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
-                            <a ng-href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '-0001-11-30T00:00:00+0150'}" ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
+                            <a ng-href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
                                 <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
                             </a>
-                            <a ng-href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '-0001-11-30T00:00:00+0150'}" ng-if="!comment.user" class="user__avatar-super-mini" style="background-color: [[ user.color ]]">
+                            <a ng-href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" ng-if="!comment.user" class="user__avatar-super-mini" style="background-color: [[ user.color ]]">
                                 <img  ng-src="[[ user.avatar ]]">
                             </a>
                         </div>
@@ -257,10 +257,10 @@
                     <div class="row margin-left_60 col-sm-11 one_comment" ng-if="post.comments_all_show == false" ng-repeat="(key,comment) in post.comments.slice(post.comments.length-2,post.comments.length)">
                         <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
-                            <a ng-href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '-0001-11-30T00:00:00+0150'}" ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
+                            <a ng-href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
                                 <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
                             </a>
-                            <a href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '-0001-11-30T00:00:00+0150'}" ng-if="!comment.user" class="user__avatar-super-mini" style="background-color: [[ user.color ]]">
+                            <a href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" ng-if="!comment.user" class="user__avatar-super-mini" style="background-color: [[ user.color ]]">
                                 <img  ng-src="[[ user.avatar ]]">
                             </a>
                         </div>

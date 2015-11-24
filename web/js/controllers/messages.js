@@ -23,12 +23,19 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     $scope.$watch('user', function() {
 
-        if($stateParams.id_user_chat && $scope.user){
+        if($stateParams.id_user_chat && !$stateParams.id_message && $scope.user){
             var id_user_chat = parseInt($stateParams.id_user_chat);
             $scope.ids = [id_user_chat,$scope.user.id];
             $scope.ids = $scope.ids.sort();
             socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
             socket.emit("history",{id_user:$scope.user.id, ids:$scope.ids});
+        }
+
+        if($stateParams.id_message && $scope.user){
+            var id_user_chat = parseInt($stateParams.id_user_chat);
+            $scope.ids = [id_user_chat,$scope.user.id];
+            $scope.ids = $scope.ids.sort();
+            socket.emit("near messages",{id_user:$scope.user.id, ids:$scope.ids, id_message: $stateParams.id_message});
         }
 
         if($scope.id_user_chat == undefined && $scope.user != undefined){
@@ -40,13 +47,16 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         socket.on("all messages", function(data) {
             $scope.messages = data;
         });
-    }else{
+    }else {
         socket.on("history", function(data) {
             $rootScope.messages_history = data.messages;
             $scope.companion = data.companion;
         });
     }
 
+    socket.on("near messages", function(data) {
+        $rootScope.messages_history = data;
+    });
 
     $scope.uncheck = function (event) {
         if ($scope.previous_checked == event.target.value){
@@ -79,7 +89,13 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         socket.emit("old messages",{id_user:$scope.user.id, ids:$scope.ids, length:length});
     }
 
+    $scope.searchByReports = function(search_text){
+        socket.emit("search by reports",{id_user: $scope.id_user, search_text: search_text})
+    }
 
+    socket.on("search by reports", function(data) {
+        $scope.search_messages = data;
+    });
 
     chat.init();
     socket.emit("new message",{id_user: $scope.id_user})
@@ -104,7 +120,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     $window.onblur = function(){
         $rootScope.focus = false;
-        socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
+        //socket.emit('reviewed', {ids: $scope.ids, id_user: $scope.user.id});
     }
 
     $scope.go = function ( path ) {

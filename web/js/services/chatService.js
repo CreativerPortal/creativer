@@ -28,7 +28,7 @@ angular.module('service.chat', ['service.socket'])
                     socket.emit('reviewed', {ids: $rootScope.ids, id_user: $rootScope.id_user});
                 }
             }
-            if($state.current.name != 'chat' || !$rootScope.focus || ($stateParams.id_user_chat != data.sender && $rootScope.id_user != data.sender || $stateParams.id_user_chat != data.receiver && $rootScope.id_user != data.receiver)){
+            if(($state.current.name != 'chat' || !$rootScope.focus || ($stateParams.id_user_chat != data.sender && $rootScope.id_user != data.sender || $stateParams.id_user_chat != data.receiver && $rootScope.id_user != data.receiver)) && $rootScope.id_user != data.sender){
                 soundClick();
                 $rootScope.new_messages.unshift(data);
             }

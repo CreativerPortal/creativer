@@ -2,6 +2,7 @@ var app = require('express')();
 var http = require('http').Server(app);
 var io = require('socket.io')(http);
 var mongo = require('mongodb').MongoClient;
+var ObjectID = require('mongodb').ObjectID;
 var mysql = require('mysql');
 var fs = require('fs');
 
@@ -145,6 +146,57 @@ io.on('connection', function(socket){
     });
 
 
+    socket.on('near messages', function (data) {
+        mongo.connect(db_connect, function (err, db) {
+            var collection = db.collection('messages');
+            var id_users = data.ids.sort();
+
+            var id_message = ObjectID(data.id_message);
+
+            collection.find({id_users:id_users, _id: { $gt: id_message}}).sort({_id: 1}).limit(4).toArray(function (err, result1) {
+                collection.find({id_users:id_users, _id: { $lte: id_message}}).sort({_id: -1}).limit(5).toArray(function (err, result2) {
+                    result1.reverse();
+                    var result = result1.concat(result2);
+                    if (err) {
+                        //console.log(err);
+                    } else {
+                        var companion = [];
+                        for(var key in result){
+                            if(result[key].id_users[0] != data.id_user){
+                                var id_users_0 = parseInt(result[key].id_users[0]);
+                                companion.push(id_users_0);
+                                result[key].other_user = id_users_0;
+                            }else{
+                                var id_users_1 = parseInt(result[key].id_users[1]);
+                                companion.push(id_users_1);
+                                result[key].other_user = id_users_1;
+                            }
+                        }
+                        var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color, u.connection_status FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
+                        connection.query(queryText, companion, function(err, rows) {
+                                for(var row_key in result){
+                                    for(var r_key in  rows){
+                                        if(result[row_key].other_user == rows[r_key].id){
+                                            result[row_key].username = rows[r_key].username;
+                                            result[row_key].lastname = rows[r_key].lastname;
+                                            result[row_key].avatar = rows[r_key].avatar;
+                                            result[row_key].color = rows[r_key].color;
+                                            result[row_key].connection_status = rows[r_key].connection_status;
+                                        }
+                                    }
+                                }
+                                socket.emit('near messages', result)
+                                db.close();
+                            }
+                        );
+                    }
+
+                });
+            });
+        });
+    });
+
+
     socket.on('old messages', function (data) {
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('messages');
@@ -183,7 +235,6 @@ io.on('connection', function(socket){
             });
         });
     });
-
 
     socket.on('message', function (data) {
         mongo.connect(db_connect, function (err, db) {
@@ -328,6 +379,48 @@ io.on('connection', function(socket){
         });
     })
 
+    socket.on('search by reports', function (data) {
+        mongo.connect(db_connect, function (err, db) {
+            var collection = db.collection('messages');
+            var id_user = parseInt(data.id_user);
+            var search_text = data.search_text;
+            collection.find({ $or : [{"receiver": id_user, 'text': {'$regex': search_text}}, {"sender": id_user, 'text': {'$regex': search_text}}] }).sort({_id: -1}).limit(50).toArray(function (err, result) {
+                if (err) {
+                    //console.log(err);
+                } else {
+                    var companion = [];
+                    for(var key in result){
+                        if(result[key].id_users[0] != data.id_user){
+                            var id_users_0 = parseInt(result[key].id_users[0]);
+                            companion.push(id_users_0);
+                            result[key].other_user = id_users_0;
+                        }else{
+                            var id_users_1 = parseInt(result[key].id_users[1]);
+                            companion.push(id_users_1);
+                            result[key].other_user = id_users_1;
+                        }
+                    }
+                    var queryText = "SELECT u.id, u.username, u.lastname, u.avatar, u.color, u.connection_status FROM app_users AS u WHERE u.id IN ("+ companion.join(',') +")";
+                    connection.query(queryText, companion, function(err, rows) {
+                            for(var row_key in result){
+                                for(var r_key in  rows){
+                                    if(result[row_key].other_user == rows[r_key].id){
+                                        result[row_key].username = rows[r_key].username;
+                                        result[row_key].lastname = rows[r_key].lastname;
+                                        result[row_key].avatar = rows[r_key].avatar;
+                                        result[row_key].color = rows[r_key].color;
+                                        result[row_key].connection_status = rows[r_key].connection_status;
+                                    }
+                                }
+                            }
+                            socket.emit('search by reports', result);
+                            db.close();
+                        }
+                    );
+                }
+            })
+        });
+    })
 
     socket.on('writing', function (data) {
         for (var key in data.ids) {

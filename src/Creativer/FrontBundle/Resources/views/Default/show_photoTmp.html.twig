@@ -39,10 +39,10 @@
                 <div class="col-sm-9 text-left padding-right_0" >
                     <div class="row col-sm-12 comm padding-right_0" ng-repeat="(key,comment) in user.albums[album_key].images[key_img].image_comments">
                         <div class="col-sm-2">
-                            <a href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '-0001-11-30T00:00:00+0150'}"  class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
+                            <a href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
                             </a>
-                            <a href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '-0001-11-30T00:00:00+0150'}"  class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
+                            <a href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
                                 <img ng-src="[[ user.avatar ]]">
                             </a>
                         </div>
@@ -59,9 +59,9 @@
                                         </span>
                                     </div>
                                     <div ng-if="comment.remove_comment == true" class="col-sm-12 padding-right_0 text-right">
-                                        Удалить ?
-                                        <span class="text-blue pointer" ng-click="removeComment(album_key,key_img,comment.id,key)">Да</span> |
-                                        <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
+                                        ??????? ?
+                                        <span class="text-blue pointer" ng-click="removeComment(album_key,key_img,comment.id,key)">??</span> |
+                                        <span ng-click="comment.remove_comment = false" class="text-blue pointer">???</span>
                                     </div>
                                 </div>
                             </div>
@@ -74,16 +74,16 @@
                     </div>
 
                     {% if is_granted('ROLE_USER') %}
-                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="55" rows="1" placeholder="Написать комментарий" style="width: 400px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
+                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="55" rows="1" placeholder="???????? ???????????" style="width: 400px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
                         <div ng-show="text_comment" class="margin-top_5 text-right padding-right_15">
-                            <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)" ng-class="{'loader':loader_album_comment}">Отправить</button>
+                            <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)" ng-class="{'loader':loader_album_comment}">?????????</button>
                         </div>
                     {% endif %}
                 </div>
                 <div class="col-sm-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <a href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '-0001-11-30T00:00:00+0150'}"  class="user__avatar-super-mini left" style="background-color: [[ user.albums[album_key].color ]]">
+                            <a href="#/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini left" style="background-color: [[ user.albums[album_key].color ]]">
                                 <img ng-src="[[ user.avatar ]]">
                             </a>
                         </div>

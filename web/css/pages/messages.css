@@ -145,6 +145,12 @@ body{
     top: -10px;
 }
 
+.search__message{
+    height: 30px;
+    background-color: #eae9e3;
+    border: 1px dashed #827972;
+    width: 430px;
+}
 
 .folders__menu__top-down{
     background-image: url('/var/www/creativer/web/img/top_background_folders.png');

@@ -205,6 +205,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'messagesCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('chat_by_message', {
+            url: '/chat/:id_user_chat/:id_message',
+            templateUrl: '/chat_tmp',
+            controller: 'messagesCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('shops', {
             url: '/shops/:id_category',
             templateUrl: '/shops_tmp',
@@ -840,7 +846,14 @@ app.filter('filterByTags', function () {
                 return (href) ? match : "<img width='300' src=\"" + proxify(match) + "\">"
             })
         }
-    })
+    }).filter('highlight', function($sce) {
+        return function(text, phrase) {
+            if (phrase) text = text.replace(new RegExp('('+phrase+')', 'gi'),
+                '<span class="highlighted">$1</span>')
+
+            return $sce.trustAsHtml(text)
+        }
+})
 
 app.config(function($interpolateProvider) {
     $interpolateProvider.startSymbol('[[');
