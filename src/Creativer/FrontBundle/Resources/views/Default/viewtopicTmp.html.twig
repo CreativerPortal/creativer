@@ -132,11 +132,10 @@
 
             <div class="row">
                 <div class="margin-top_80">
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                    {% if banners_v1.url %}<a href="{{ banners_v1.link }}"><img class="margin-top_20" src="{{ banners_v1.url }}" alt="{{ banners_v1.name }}" /></a>{% endif %}
+                    {% if banners_v2.url %}<a href="{{ banners_v2.link }}"><img class="margin-top_20" src="{{ banners_v2.url }}" alt="{{ banners_v2.name }}" /></a>{% endif %}
+                    {% if banners_v3.url %}<a href="{{ banners_v3.link }}"><img class="margin-top_20" src="{{ banners_v3.url }}" alt="{{ banners_v3.name }}" /></a>{% endif %}
                 </div>
-
             </div>
 
         </div>

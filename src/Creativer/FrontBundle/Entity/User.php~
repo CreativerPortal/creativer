@@ -226,6 +226,7 @@ class User implements UserInterface, \Serializable
      * @var \DateTime $date
      * @JMS\Groups({"getUser"})
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $connection_status;
 

@@ -36,9 +36,9 @@
 
             <div class="row">
                 <div class="margin-top_80">
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                    {% if banner_v1.url %}<a href="{{ banner_v1.link }}"><img class="margin-top_20" src="{{ banner_v1.url }}" alt="{{ banner_v1.name }}" /></a>{% endif %}
+                    {% if banner_v2.url %}<a href="{{ banner_v2.link }}"><img class="margin-top_20" src="{{ banner_v2.url }}" alt="{{ banner_v2.name }}" /></a>{% endif %}
+                    {% if banner_v3.url %}<a href="{{ banner_v3.link }}"><img class="margin-top_20" src="{{ banner_v3.url }}" alt="{{ banner_v3.name }}" /></a>{% endif %}
                 </div>
 
             </div>

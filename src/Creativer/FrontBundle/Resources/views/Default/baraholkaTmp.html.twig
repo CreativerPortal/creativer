@@ -69,4 +69,6 @@
     </div>
 
 
-    <div class="banner-horizontal margin-top_40 text-center"><img src="/var/www/creativer/web/banner/banner_list.png" /></div>
+    <div class="banner-horizontal margin-top_40 text-center">
+        {% if banners_g.url %}<a href="{{ banners_g.link }}"><img src="{{ banners_g.url }}" alt="{{ banners_g.name }}" /></a>{% endif %}
+    </div>

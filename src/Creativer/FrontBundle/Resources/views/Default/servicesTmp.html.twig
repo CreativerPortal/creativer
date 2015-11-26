@@ -39,7 +39,7 @@
             <div class="slid__services__bottom"></div>
 
             <div class="row margin-left_15">
-                <img src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                {% if banner_v.url %}<a href="{{ banner_v.link }}"><img src="{{ banner_v.url }}" alt="{{ banner_v.name }}" /></a>{% endif %}
             </div>
 
             <div class="row margin-left_15 slid__news margin-top_40">
@@ -140,7 +140,9 @@
 
             <div class="row">
                 <div class="col-sm-7">
-                    <div class="banner-horizontal margin-top_40"><img src="/var/www/creativer/web/banner/banner_list.png" /></div>
+                    <div class="banner-horizontal margin-top_40">
+                        {% if banner_g.url %}<a href="{{ banner_g.link }}"><img src="{{ banner_g.url }}" alt="{{ banner_g.name }}" /></a>{% endif %}
+                    </div>
                 </div>
             </div>
         </div>

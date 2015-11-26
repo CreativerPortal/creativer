@@ -126,7 +126,7 @@ class Events
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\Events")
-     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="EventComments", mappedBy="event", cascade={"remove"})
      * @JMS\MaxDepth(3)
      * @JMS\Groups({"getEvent", "elastica"})
      **/

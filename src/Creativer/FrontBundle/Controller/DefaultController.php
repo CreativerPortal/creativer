@@ -454,7 +454,8 @@ class DefaultController extends Controller
 
     public function mainTmpAction()
     {
-        return $this->render('CreativerFrontBundle:Default:mainTmp.html.twig', array());
+        $banners = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findBy(array('branch'=>1));
+        return $this->render('CreativerFrontBundle:Default:mainTmp.html.twig', array('banners' => $banners));
     }
 
     public function personTmpAction($id)
@@ -473,18 +474,22 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:albumTmp.html.twig', array('id' => $user_id));
     }
 
-    public function baraholkaTmpAction(){
-
-        return $this->render('CreativerFrontBundle:Default:baraholkaTmp.html.twig', array());
+    public function baraholkaTmpAction()
+    {
+        $banners_g = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(8)[0];
+        return $this->render('CreativerFrontBundle:Default:baraholkaTmp.html.twig', array('banners_g' => $banners_g));
     }
 
     public function eventsTmpAction(){
+        $banners_t = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(1)[0];
+        $banners_b = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(2)[0];
+        $banners_v = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(3)[0];
 
-        return $this->render('CreativerFrontBundle:Default:eventsTmp.html.twig', array());
+        return $this->render('CreativerFrontBundle:Default:eventsTmp.html.twig', array('banners_t' => $banners_t, 'banners_b' => $banners_b, 'banners_v' => $banners_v));
     }
 
-    public function eventTmpAction(){
-
+    public function eventTmpAction()
+    {
         return $this->render('CreativerFrontBundle:Default:eventTmp.html.twig', array());
     }
 
@@ -599,18 +604,22 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:editFleamarketpostingTmp.html.twig', array('post_id' => $post_id));
     }
 
-    public function viewforumTmpAction(){
+    public function viewforumTmpAction()
+    {
+        $banners_v1 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(9)[0];
+        $banners_v2 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(10)[0];
+        $banners_v3 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(11)[0];
 
-        $user = $this->get('security.context')->getToken()->getUser();
-
-        return $this->render('CreativerFrontBundle:Default:viewforumTmp.html.twig', array());
+        return $this->render('CreativerFrontBundle:Default:viewforumTmp.html.twig', array('banners_v1' => $banners_v1, 'banners_v2' => $banners_v2, 'banners_v3' => $banners_v3));
     }
 
-    public function viewtopicTmpAction(){
+    public function viewtopicTmpAction()
+    {
+        $banners_v1 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(9)[0];
+        $banners_v2 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(10)[0];
+        $banners_v3 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(11)[0];
 
-        $user = $this->get('security.context')->getToken()->getUser();
-
-        return $this->render('CreativerFrontBundle:Default:viewtopicTmp.html.twig', array());
+        return $this->render('CreativerFrontBundle:Default:viewtopicTmp.html.twig', array('banners_v1' => $banners_v1, 'banners_v2' => $banners_v2, 'banners_v3' => $banners_v3));
     }
 
     public function createPostBaraholkaAction(){
@@ -1145,13 +1154,18 @@ class DefaultController extends Controller
 
     public function productsTmpAction(){
 
-        return $this->render('CreativerFrontBundle:Default:productsTmp.html.twig', array());
+        $banner_g = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(6)[0];
+        $banner_v = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(7)[0];
+
+        return $this->render('CreativerFrontBundle:Default:productsTmp.html.twig', array('banner_g' => $banner_g, 'banner_v' => $banner_v));
     }
 
     public function servicesTmpAction(){
 
+        $banner_g = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(4)[0];
+        $banner_v = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(5)[0];
 
-        return $this->render('CreativerFrontBundle:Default:servicesTmp.html.twig', array());
+        return $this->render('CreativerFrontBundle:Default:servicesTmp.html.twig', array('banner_g' => $banner_g, 'banner_v' => $banner_v));
     }
 
     public function messagesTmpAction(){
@@ -1240,10 +1254,13 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle::cache_manifest.html.twig');
     }
 
-    public function shopsTmpAction(){
+    public function shopsTmpAction()
+    {
+        $banner_v1 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(17)[0];
+        $banner_v2 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(18)[0];
+        $banner_v3 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(19)[0];
 
-
-        return $this->render('CreativerFrontBundle:Default:shopsTmp.html.twig');
+        return $this->render('CreativerFrontBundle:Default:shopsTmp.html.twig', array('banner_v1' => $banner_v1, 'banner_v2' => $banner_v2, 'banner_v3' => $banner_v3));
     }
 
     public function shopTmpAction(){

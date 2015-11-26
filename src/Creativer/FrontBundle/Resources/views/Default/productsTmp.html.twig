@@ -38,7 +38,7 @@
             <div class="slid__products__bottom"></div>
 
             <div class="row margin-left_15">
-                <img src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                {% if banner_v.url %}<a href="{{ banner_v.link }}"><img src="{{ banner_v.url }}" alt="{{ banner_g.name }}" /></a>{% endif %}
             </div>
 
             <div class="row margin-left_15 slid__news margin-top_40">
@@ -127,6 +127,14 @@
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages.length > 1">
                     <a ng-href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-7">
+                    <div class="banner-horizontal margin-top_40">
+                        {% if banner_g.url %}<a href="{{ banner_g.link }}" ><img src="{{ banner_g.url }}" alt="{{ banner_g.name }}" /></a>{% endif %}
+                    </div>
                 </div>
             </div>
         </div>

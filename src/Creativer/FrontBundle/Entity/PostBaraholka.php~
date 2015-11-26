@@ -142,7 +142,7 @@ class PostBaraholka
     /**
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
-     * @ORM\OneToMany(targetEntity="PostComments", mappedBy="post_baraholka")
+     * @ORM\OneToMany(targetEntity="PostComments", mappedBy="post_baraholka", cascade={"remove"})
      * @JMS\Groups({"getUser", "getPostById"})
      **/
     private $post_comments;

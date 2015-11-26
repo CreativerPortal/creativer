@@ -1,0 +1,85 @@
+<?php
+namespace Creativer\FrontBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+use JMS\Serializer\Annotation as JMS;
+use Gedmo\Mapping\Annotation as Gedmo;
+use Doctrine\Common\Collections\ArrayCollection;
+
+
+
+/**
+ * @ORM\Entity()
+ * @ORM\Table(name="banners")
+ * @JMS\ExclusionPolicy("all")
+ */
+class Banners
+{
+    /**
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getShopById"})
+     * @JMS\Expose
+     */
+    private $id;
+
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"getBanner"})
+     * @JMS\Expose
+     */
+    private $url;
+
+    /**
+     * @ORM\Column(type="text")
+     * @JMS\Expose
+     * @JMS\Groups({"getBanner"})
+     */
+    private $link;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"getBanner"})
+     * @JMS\Expose
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     * @JMS\Groups({"getBanner"})
+     * @JMS\Expose
+     */
+    private $description;
+
+
+    /**
+     * @ORM\Column(type="integer")
+     * @JMS\Expose
+     * @JMS\Groups({"getBanner"})
+     */
+    private $branch;
+
+
+    /**
+     * @JMS\Expose
+     * @var \DateTime $date
+     *
+     * @Gedmo\Timestampable(on="create")
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="integer", name="is_active")
+     */
+    private $isActive = 0;
+
+
+    public function __construct()
+    {
+        $this->date = new \DateTime();
+    }
+
+}

@@ -53,7 +53,7 @@ private $id;
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
      * @ORM\ManyToOne(targetEntity="PostBaraholka", inversedBy="post_comments")
-     * @ORM\JoinColumn(name="post_baraholka_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="post_baraholka_id", referencedColumnName="id", nullable=true, onDelete="SET NULL")
      */
     private $post_baraholka;
 

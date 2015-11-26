@@ -44,7 +44,9 @@
                     <div class="padding-left_0 text-gray"><h3 class="lobster margin-top_40 margin-left_0">[[ children.name ]]</h3></div>
                     <div ng-repeat="child in children.children"><a class="link_event" href="#/events/[[ child.id ]]">[[ child.name ]]</a></div>
                 </div>
-
+                {% if banners_v.url %}
+                    <a href="{{ banners_v.link }}"><img class="margin-top_20" src="{{ banners_v.url }}" alt="{{ banners_v.name }}" /></a>
+                {% endif %}
 
             </div>
             <div class="col-sm-10">
@@ -99,9 +101,11 @@
                     </div>
 
                 </div>
-                <div class="banner-horizontal margin-top_20 text-center"><img src="/var/www/creativer/web/banner/banner_event.png" /></div>
-
-
+                <div class="banner-horizontal margin-top_20 text-center">
+                    {% if banners_t.url %}
+                        <a href="{{ banners_t.link }}"><img src="{{ banners_t.url }}" alt="{{ banners_t.name }}" /></a>
+                    {% endif %}
+                </div>
 
 
                 <div ng-repeat="event in events">
@@ -255,7 +259,11 @@
 
                 </div>
 
-                <div class="banner-horizontal margin-top_40 text-center"><img src="/var/www/creativer/web/banner/banner_list.png" /></div>
+                <div class="banner-horizontal margin-top_40 text-center">
+                    {% if banners_b.url %}
+                        <a href=" {{ banners_b.link }}"><img src="{{ banners_b.url }}" alt="{{ banners_b.name }}" /></a>
+                    {% endif %}
+                </div>
             </div>
         </div>
 

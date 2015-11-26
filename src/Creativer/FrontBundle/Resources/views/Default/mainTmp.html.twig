@@ -6,11 +6,10 @@
     <div class="row slid">
 
         <div class="slid__slider">
-            <ul id="wi-el" class="wi-container">
-                <li style="display: list-item;" ng-init="wi_container=true" ><img src="/var/www/creativer/web/img/img_slider.png" alt="image1"/></li>
-                <li><img src="/var/www/creativer/web/img/img_slider.png" alt="image2"/></li>
-                <li><img src="/var/www/creativer/web/img/img_slider.png" alt="image3"/></li>
-                <li><img src="/var/www/creativer/web/img/img_slider.png" alt="image4"/></li>
+            <ul id="wi-el" class="wi-container" ng-init="wi_container=true">
+                {% for banner in banners %}
+                    <li style="display: list-item;"  ><img src="{{ banner.url }}" alt="banner.name"/></li>
+                {% endfor %}
             </ul>
             <nav>
                 <span id="nav-prev"></span>
