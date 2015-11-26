@@ -2,6 +2,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     .controller('personCtrl',['$state','$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
     // init controller
+    $rootScope.$on('$stateChangeSuccess', function() {
+        document.body.scrollTop = document.documentElement.scrollTop = 0;
+    });
 
     if($stateParams.id && !$stateParams.key_post){
         personalService.getUser({id: $stateParams.id}).success(function (data) {

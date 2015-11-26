@@ -5,6 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1045">
     <title>{% block title %}Welcome!{% endblock %}</title>
+
+    <meta http-equiv="content-type" content="text/html; charset=utf-8" />
+
+    <meta property="og:title" content="Здесь креатив"/>
+    <meta property="og:description" content="Портал для креативных людей"/>
+    <meta property="og:image" content="http://creativer.by/var/www/creativer/web/img/share_img.jpg">
+
+    <meta name="title" content="Здесь креатив" />
+    <meta name="description" content="Портал для креативных людей" />
+    <link rel="image_src" href="http://creativer.by/var/www/creativer/web/img/share_img.jpg" />
+
     {% block stylesheets %}{% endblock %}
     <script src="/js/angular.min.js"></script>
     <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
@@ -20,19 +31,19 @@
 
         <div class="row">
             <div class="col-sm-3 col-sm-offset-1 fiveMinuts padding-left_0">
-                <a href="{{ path('creativer_front_main') }}" class="btn button_header_09 text-left">
-                    <span>На главную</span>
+                <a href="/#/products/1000" class="btn button_header_09 text-left">
+                    <span>Товары</span>
                 </a>
-                <a href="{{ path('creativer_front_main') }}#/baraholka" class="btn button_header_05 right">
-                    <span>Барахолка</span>
+                <a href="/#/products/1001" class="btn button_header_05 right">
+                    <span>Услуги</span>
                 </a>
             </div>
 
             <div class="col-sm-4 col-sm-offset-3 fiveMinuts">
-                <a href="{{ path('creativer_front_main') }}#/feedback" class="btn button_header_09 right">
-                    <span>Обратная связь</span>
+                <a href="/#/baraholka" class="btn button_header_09 right">
+                    <span>Барахолка</span>
                 </a>
-                <a href="{{ path('creativer_front_main') }}#/events" class="btn button_header_07 right">
+                <a href="/#/events" class="btn button_header_07 right">
                     <span>События</span>
                 </a>
             </div>
@@ -113,18 +124,20 @@
 <footer class="footer wrapper">
     <nav class="footer__menu col-sm-12 fiveMinuts">
         <ul>
-            <li><a href="{{ path('creativer_front_main') }}#/">Соцсеть</a></li>
-            <li><a href="{{ path('creativer_front_main') }}#/baraholka">Барахолка</a></li>
-            <li><a href="#">События</a></li>
-            <li><a href="#/feedback">Обратная связь</a></li>
-            <li><a href="#">Правовая информация</a></li>
+            <li><a href="{{ path('person') }}#/{% if app.user %}{{app.user.id}}{% endif %}">Соцсеть</a></li>
+            <li><a href="/#/feedback">Обратная связь</a></li>
+            <li><a href="/#/">Правовая информация</a></li>
+            <li><a href="/#/agreement">Публичный договор</a></li>
+            <li><a href="/#/rules">Правила сайта</a></li>
         </ul>
     </nav>
 
     <div class="row col-sm-12">
-        <div class="col-sm-6">
-            <div class="row  padding-5-15-5-15">&copy; 2015 Creativer. Все права защищены.</div>
-
+        <div class="row  padding-5-15-5-15 padding-right_0">&copy; 2015 Creativer. Все права защищены.</div>
+        <div class="col-sm-2 right padding-right_0">
+            <a href="http://twitter.com/share?text=Здесь креатив&url=http://creativer.by" class="ico_twitter pointer right" ></a>
+            <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/&p[title]=Здесь креатив&p[summary]=Портал для креативных людей&p[images][0]=http://creativer.by/var/www/creativer/web/img/share_img.jpg" class="ico_facebook pointer right"></a>
+            <a href="http://vk.com/share.php?url=http://creativer.by/&title=Здесь креатив&description=Портал для креативных людей&image=http://creativer.by/var/www/creativer/web/img/share_img.jpg$noparse=true" class="ico_vk pointer right" ></a>
         </div>
     </div>
 </footer>

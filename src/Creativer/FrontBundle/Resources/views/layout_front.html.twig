@@ -8,13 +8,13 @@
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
 
-    <meta property="og:title" content="creativer.by"/>
+    <meta property="og:title" content="Здесь креатив"/>
     <meta property="og:description" content="Портал для креативных людей."/>
-    <meta property="og:image" content="http://creativer.ml/home/album/original/2015/10/12/1444600879_c1dc3ff7a75b2a5ab4053c2a17300f92.jpg">
+    <meta property="og:image" content="http://creativer.by/var/www/creativer/web/img/share_img.jpg">
 
-    <meta name="title" content="creativer.by" />
+    <meta name="title" content="Здесь креатив" />
     <meta name="description" content="Портал для креативных людей." />
-    <link rel="image_src" href="http://creativer.ml/home/album/original/2015/10/12/1444600879_c1dc3ff7a75b2a5ab4053c2a17300f92.jpg" />
+    <link rel="image_src" href="http://creativer.by/var/www/creativer/web/img/share_img.jpg" />
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -472,6 +472,7 @@
         {#<div ng-view class="view-animate"></div>#}
         <div ui-view></div>
 
+
         <input ng-init="initCrop()" type="file" id="fileInput" style="display: none;" />
         <div ng-show="$root.myImage" class="background__viewer-avatar">
             <div class="border__viewer-avatar margin-top_100">
@@ -563,9 +564,13 @@
     </nav>
 
     <div class="row col-sm-12">
-        <div class="col-sm-6">
-            <div class="row  padding-5-15-5-15">&copy; 2015 Creativer. Все права защищены.</div>
-
+        <div class="row padding-5-15-5-15  padding-right_0">
+            <div class="col-sm-10">&copy; 2015 Creativer. Все права защищены.</div>
+            <div class="col-sm-2 right padding-right_0">
+                <a href="http://twitter.com/share?text=Здесь креатив&url=http://creativer.by" class="ico_twitter pointer right" ></a>
+                <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/&p[title]=Здесь креатив&p[summary]=Портал для креативных людей&p[images][0]=http://creativer.by/var/www/creativer/web/img/share_img.jpg" class="ico_facebook pointer right"></a>
+                <a href="http://vk.com/share.php?url=http://creativer.by/&title=Здесь креатив&description=Портал для креативных людей&image=http://creativer.by/var/www/creativer/web/img/share_img.jpg$noparse=true" class="ico_vk pointer right" ></a>
+            </div>
         </div>
     </div>
 </footer>
