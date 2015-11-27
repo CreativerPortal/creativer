@@ -324,6 +324,8 @@ fos_elastica:
                                 id: ~
                                 username: ~
                                 lastname: ~
+                                avatar:
+                                    type: string
                         images:
                             type: "nested"
                             properties:
@@ -376,6 +378,7 @@ fos_elastica:
                             property_path: "album.user.lastname"
                         avatar:
                             property_path: "album.user.avatar"
+                            type: string
                         image_comments:
                             type: "nested"
                             properties:
@@ -388,9 +391,10 @@ fos_elastica:
                                         id: ~
                                         username: ~
                                         lastname: ~
-                                        avatar: ~
+                                        avatar:
+                                            type: string
                         album:
-                            type: "nested"
+                            type: "object"
                             properties:
                                 id: ~
                                 name:
@@ -409,8 +413,16 @@ fos_elastica:
                                     type: "object"
                                     properties:
                                         id: ~
-                                        username: ~
-                                        lastname: ~
+                                        username:
+                                            search_analyzer: custom_search_analyzer
+                                            index_analyzer: custom_index_analyzer
+                                            type: string
+                                        lastname:
+                                            search_analyzer: custom_search_analyzer
+                                            index_analyzer: custom_index_analyzer
+                                            type: string
+                                        avatar:
+                                            type: string
                     _parent:
                         type: album
                         property: album
@@ -421,7 +433,8 @@ fos_elastica:
                         identifier: id
                         provider:
                             batch_size: 100
-                        listener: ~
+                        listener:
+                            immediate: ~
                         finder: ~
                 events:
                     mappings:

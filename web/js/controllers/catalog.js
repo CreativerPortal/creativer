@@ -1,7 +1,7 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
     .controller('catalogCtrl',['$state', '$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
-    if(!$scope.text_first || !$scope.text_second){
+    if(!$scope.text_first){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
             $scope.text_first = data[0]?data[0].description:null;
@@ -209,8 +209,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
 
         if ($state.current.name != 'products_search'){
-            $rootScope.title = "123";
-            $rootScope.description = "321";
+            $rootScope.title = "";
+            $rootScope.description = "";
             $rootScope.image_src = "";
         }
 
@@ -238,46 +238,47 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
     if($stateParams.products_search_text){
         $rootScope.condition = 2;
-        catalogService.getProducts({id:$stateParams.id_products}).success(function (data) {
-            $rootScope.products = data.products[0].children;
-            $rootScope.product = data.product[0];
-        });
-        catalogService.searchProducts({search_text:$stateParams.products_search_text}).success(function (data) {
 
-            $rootScope.items = $scope.items = data.products;
-            for(var key in $scope.items.items){
-                if($scope.items.items[key].name == $stateParams.url_img){
-                    $location.path("/products/"+$stateParams.id_products+'/'+$scope.page+'/'+$stateParams.url_img+'/'+key);
-                }
-            }
-
-            var images_id = new Array();
-            for(var key in $scope.items.items){
-                images_id.push($scope.items.items[key].id);
-            }
-            catalogService.getLikesByImagesId({images_id:images_id}).success(function (data) {
-                $scope.items.images_likes = data.likes;
+        if(!$rootScope.products){
+            catalogService.getProducts({id:$stateParams.id_products}).success(function (data) {
+                $rootScope.products = data.products[0].children;
+                $rootScope.product = data.product[0];
             });
+        }
 
-            $rootScope.id_products = $stateParams.id_products;
-            $rootScope.pages = [];
-            $rootScope.pages[0] = $scope.items.currentPageNumber;
-            $rootScope.currentPage = $scope.currentPage = $scope.items.currentPageNumber;
-            var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
-            length--;
-            while (length > 0) {
-                if ($rootScope.pages[0] > 1) {
-                    $rootScope.pages.unshift($rootScope.pages[0] - 1)
-                    length = length - 1;
-                } else {
-                    var p = parseInt($rootScope.pages[$rootScope.pages.length - 1]) + 1;
-                    $rootScope.pages.push(p);
-                    length = length - 1;
+        if(!$scope.items || $stateParams.products_search_text != $scope.products_search_text) {
+            $scope.products_search_text = $stateParams.products_search_text;
+            catalogService.searchProducts({search_text: $stateParams.products_search_text}).success(function (data) {
+                $rootScope.items = $scope.items = data.products;
+
+                var images_id = new Array();
+                for (var key in $scope.items.items) {
+                    images_id.push($scope.items.items[key].id);
                 }
-            }
 
 
-        });
+                catalogService.getLikesByImagesId({images_id: images_id}).success(function (data) {
+                    $scope.items.images_likes = data.likes;
+                });
+
+                $rootScope.id_products = $stateParams.id_products;
+                $rootScope.pages = [];
+                $rootScope.pages[0] = $scope.items.currentPageNumber;
+                $rootScope.currentPage = $scope.currentPage = $scope.items.currentPageNumber;
+                var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
+                length--;
+                while (length > 0) {
+                    if ($rootScope.pages[0] > 1) {
+                        $rootScope.pages.unshift($rootScope.pages[0] - 1)
+                        length = length - 1;
+                    } else {
+                        var p = parseInt($rootScope.pages[$rootScope.pages.length - 1]) + 1;
+                        $rootScope.pages.push(p);
+                        length = length - 1;
+                    }
+                }
+            });
+        }
     }else if($stateParams.services_search_text){
         $rootScope.condition = 3;
         catalogService.getServices({id:$stateParams.id_services}).success(function (data) {

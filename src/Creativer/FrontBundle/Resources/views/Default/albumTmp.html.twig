@@ -12,7 +12,6 @@
                     Online
                 </div>
             </div>
-            <h4 class="col-sm-6 lobster text-gray margin-top_30 padding-left_0">Альбом "[[ user.albums[album_key].name ]]"</h4>
         </div>
 
          <div class="col-sm-5 user padding-left_0">
@@ -20,7 +19,18 @@
          </div>
 
         <div class="col-sm-7 album" ng-if="album_key" ng-init="res = user.albums[album_key].images.length/3">
-            <div class="row album__cards col-sm-12" ng-init="k=0">
+
+            <div class="row">
+                <h4 class="col-sm-6 lobster text-gray">Альбом "[[ user.albums[album_key].name ]]"</h4>
+                <div class="col-sm-6 padding-right_30">
+                    <a ng-if="user.id == $root.id_user" href="#/edit_album/[[id_album]]" class="right add_photo button_message early-message text-center text-white pointer margin-right_5 text-underline_none_hover">
+                        <span class="glyphicon glyphicon-wrench"></span>
+                        <span class="fs_0-9">Редактировать альбом</span>
+                    </a>
+                </div>
+            </div>
+
+            <div class="row album__cards col-sm-12 padding-right_0" ng-init="k=0">
                 <div class="col-sm-4 text-center">
                     <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(0, res)">
                         <div class="padding__1">

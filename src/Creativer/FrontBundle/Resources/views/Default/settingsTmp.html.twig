@@ -56,7 +56,7 @@
 
 
          <div class="col-sm-7 padding-left_0">
-             <h4 class="margin-left_25" ng-if="replace_password == undefined">Изменить пароль</h4>
+             <h4 class="margin-left_25" ng-if="replace_password == undefined">Сохранить пароль</h4>
              <h4 class="margin-left_25 alert-success" ng-if="replace_password == 'true'"><span class="glyphicon glyphicon-ok"></span> Пароль изменён успешно</h4>
              <h4 class="margin-left_25 alert-danger" ng-if="replace_password == 'false'"><span class="glyphicon glyphicon-remove"></span> Ошибка изменения пароля</h4>
 
@@ -76,7 +76,7 @@
              <div class="row margin-top_20">
                  <div class="col-sm-5 text-right"></div>
                  <div class="col-sm-7">
-                     <button class="true fs_0-9" ng-class="{'loader': loader_password}" ng-click="replacePassword(oldPassword,newPassword,repeatPassword); loader_password=true;">Изменить</button>
+                     <button class="true fs_0-9" ng-class="{'loader': loader_password}" ng-click="replacePassword(oldPassword,newPassword,repeatPassword); loader_password=true;">Сохранить</button>
                  </div>
              </div>
          </div>
@@ -123,7 +123,7 @@
              <div class="row margin-top_20">
                  <div class="col-sm-5 text-right"></div>
                  <div class="col-sm-7">
-                     <button class="true fs_0-9" ng-class="{'loader': loader_tariff}" ng-click="changeTariff(user.tariff.id)">Изменить</button>
+                     <button class="true fs_0-9" ng-class="{'loader': loader_tariff}" ng-click="changeTariff(user.tariff.id)">Сохранить</button>
                  </div>
              </div>
          </div>
@@ -172,7 +172,7 @@
              <div class="row margin-top_20">
                  <div class="col-sm-5 text-right"></div>
                  <div class="col-sm-7">
-                     <button class="true fs_0-9" ng-class="{'loader': loader_username}" ng-click="saveName(username,lastname); loader_username=true;">Изменить</button>
+                     <button class="true fs_0-9" ng-class="{'loader': loader_username}" ng-click="saveName(username,lastname); loader_username=true;">Сохранить</button>
                  </div>
              </div>
          </form>

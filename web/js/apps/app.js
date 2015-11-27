@@ -33,12 +33,6 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'personCtrl',
             reloadOnSearch: true
         });
-        $stateProvider.state('products_search', {
-            url: '/products/search/:products_search_text',
-            templateUrl: '/products_tmp',
-            controller: 'catalogCtrl',
-            reloadOnSearch: true
-        });
         $stateProvider.state('services_search', {
             url: '/services/search/:services_search_text',
             templateUrl: '/services_tmp',
@@ -60,6 +54,18 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         $stateProvider.state('products', {
             url:'/products/:id_products',
             templateUrl: '/products_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('products_search', {
+            url: '/products/search/:products_search_text',
+            templateUrl: '/search_products_tmp',
+            controller: 'catalogCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('products_search.state2', {
+            url: '/:url_img/:key_img',
+            templateUrl: '/show_search_product_photo_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });
@@ -143,7 +149,11 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         });
         $stateProvider.state('fleamarketposting', {
             url: '/fleamarketposting',
-            templateUrl: '/fleamarketposting_tmp',
+            templateUrl: function (){
+                var date = new Date();
+                var url = "/fleamarketposting_tmp/" + date;
+                return url;
+            },
             controller: 'baraholkaCtrl',
             reloadOnSearch: true
         });

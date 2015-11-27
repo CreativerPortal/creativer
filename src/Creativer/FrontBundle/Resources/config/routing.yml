@@ -37,6 +37,9 @@ creativer_mainTmp:
 creativer_productsTmp:
     path:     /products_tmp
     defaults: { _controller: CreativerFrontBundle:Default:productsTmp }
+creativer_search_productsTmp:
+    path:     /search_products_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:searchProductsTmp }
     methods:  [GET]
 creativer_servicesTmp:
     path:     /services_tmp
@@ -57,6 +60,10 @@ creativer_showPostPhotoTmp:
 creativer_showProductPhotoTmp:
     path:     /show_product_photo_tmp
     defaults: { _controller: CreativerFrontBundle:Default:showProductPhotoTmp }
+    methods:  [GET]
+creativer_showSearchProductPhotoTmp:
+    path:     /show_search_product_photo_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:showSearchProductPhotoTmp }
     methods:  [GET]
 creativer_baraholkaTmp:
     path:     /baraholka_tmp
@@ -79,8 +86,8 @@ creativer_edit_eventTmp:
     defaults: { _controller: CreativerFrontBundle:Default:editEventTmp }
     methods:  [GET]
 creativer_fleamarketpostingTmp:
-    path:     /fleamarketposting_tmp
-    defaults: { _controller: CreativerFrontBundle:Default:fleamarketpostingTmp }
+    path:     /fleamarketposting_tmp/{date}
+    defaults: { _controller: CreativerFrontBundle:Default:fleamarketpostingTmp, date: null  }
     methods:  [GET]
 creativer_editFleamarketpostingTmp:
     path:     /edit_fleamarketposting_tmp

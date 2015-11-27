@@ -74,9 +74,9 @@
                     </div>
 
                     {% if is_granted('ROLE_USER') %}
-                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="55" rows="1" placeholder="???????? ???????????" style="width: 400px; overflow: hidden; word-wrap: break-word; resize: none; height: 46px;"></textarea>
+                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="55" rows="1" placeholder="Оставить комментарий" style="width: 400px; overflow: hidden; word-wrap: break-word; resize: none; height: 77px;"></textarea>
                         <div ng-show="text_comment" class="margin-top_5 text-right padding-right_15">
-                            <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)" ng-class="{'loader':loader_album_comment}">?????????</button>
+                            <button class="true fs_0-9" ng-click="saveImageComment(user.albums[album_key].images[key_img],text_comment)" ng-class="{'loader':loader_album_comment}">Отправить</button>
                         </div>
                     {% endif %}
                 </div>

@@ -329,6 +329,20 @@ class PersonController extends Controller
             $em->persist($this->get('security.context')->getToken()->getUser());
             $em->flush();
 
+            $persister = $this->get('fos_elastica.object_persister.app.images');
+
+            $id = $this->get('security.context')->getToken()->getUser();
+            $images = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')
+                ->createQueryBuilder('e')
+                ->leftJoin('e.album', 'album')
+                ->leftJoin('album.user', 'user')
+                ->where('user.id = :items')
+                ->setParameter('items', $id)
+                ->getQuery()
+                ->getResult();
+
+            $persister->replaceMany($images);
+
             $array = array('success' => true);
             $response = new Respon(json_encode($array), 200);
             $response->headers->set('Content-Type', 'application/json');
@@ -859,6 +873,20 @@ class PersonController extends Controller
                     ->enableMaxDepthChecks()
                     ->setGroups(array('getUser'))
             );
+
+
+        $persister = $this->get('fos_elastica.object_persister.app.images');
+
+        $images = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')
+            ->createQueryBuilder('e')
+            ->leftJoin('e.album', 'album')
+            ->leftJoin('album.user', 'user')
+            ->where('user.id = :items')
+            ->setParameter('items', $id)
+            ->getQuery()
+            ->getResult();
+
+        $persister->replaceMany($images);
 
         $response = new Respon($response);
         $response->headers->set('Content-Type', 'application/json');

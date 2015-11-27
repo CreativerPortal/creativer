@@ -544,7 +544,7 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:searchEventsTmp.html.twig', array());
     }
 
-    public function fleamarketpostingTmpAction(){
+    public function fleamarketpostingTmpAction($date){
 
         $user = $this->get('security.context')->getToken()->getUser();
 
@@ -1160,6 +1160,14 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:productsTmp.html.twig', array('banner_g' => $banner_g, 'banner_v' => $banner_v));
     }
 
+    public function searchProductsTmpAction(){
+
+        $banner_g = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(6)[0];
+        $banner_v = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(7)[0];
+
+        return $this->render('CreativerFrontBundle:Default:searchProductsTmp.html.twig', array('banner_g' => $banner_g, 'banner_v' => $banner_v));
+    }
+
     public function servicesTmpAction(){
 
         $banner_g = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(4)[0];
@@ -1240,6 +1248,12 @@ class DefaultController extends Controller
 
 
         return $this->render('CreativerFrontBundle:Default:show_product_photoTmp.html.twig');
+    }
+
+    public function showSearchProductPhotoTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:show_search_product_photoTmp.html.twig');
     }
 
     public function showPostPhotoTmpAction(){
