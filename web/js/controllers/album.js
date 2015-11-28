@@ -237,7 +237,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                 text: text,
                 id: $rootScope.id_user
             }).success(function (data) {
-                $scope.text_comment = undefined;
+                $scope.user.text_comment = undefined;
                 image.image_comments.push(data);
                 $scope.loader_album_comment = false;
             });

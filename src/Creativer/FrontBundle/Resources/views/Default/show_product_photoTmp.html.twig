@@ -109,8 +109,8 @@
                     {% if is_granted('ROLE_USER') %}
                         <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="55" rows="1" placeholder="Оставить комментарий" style="width: 400px; overflow: hidden; word-wrap: break-word; resize: none; height: 77px;"></textarea>
                         <div ng-show="text_comment" class="margin-top_5 text-right">
-                            <button ng-if="items.items[key_img][0]" class="true fs_0-9" ng-click="saveImageComment(items.items[key_img][0],text_comment)" ng-class="{'loader':loader}">Отправить</button>
-                            <button ng-if="!items.items[key_img][0]" class="true fs_0-9" ng-click="saveImageComment(items.items[key_img],text_comment)" ng-class="{'loader':loader}">Отправить</button>
+                            <button ng-show="items.items[key_img][0]" class="true fs_0-9" ng-click="saveImageComment(items.items[key_img][0],text_comment)" ng-class="{'loader':loader}">Отправить</button>
+                            <button ng-show="!items.items[key_img][0]" class="true fs_0-9" ng-click="saveImageComment(items.items[key_img],text_comment)" ng-class="{'loader':loader}">Отправить</button>
                         </div>
                     {% endif %}
                 </div>

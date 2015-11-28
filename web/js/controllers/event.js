@@ -274,7 +274,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                 $scope.loader_event = true;
                 eventService.saveComment({event_id: $scope.event.id, text: text}).success(function (data) {
                     $scope.event.event_comments.push(data);
-                    $scope.text_comment = undefined;
+                    $scope.event.text_comment = undefined;
                     $scope.loader_event = false;
                 });
             }

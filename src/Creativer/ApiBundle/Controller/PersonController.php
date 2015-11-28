@@ -202,6 +202,12 @@ class PersonController extends Controller
         $em->persist($imageComment);
         $em->flush();
 
+
+        if($image){
+            $persister = $this->get('fos_elastica.object_persister.app.images');
+            $persister->replaceOne($image);
+        }
+
         return $imageComment;
     }
 
@@ -949,6 +955,11 @@ class PersonController extends Controller
             $liked = false;
         }
 
+        if($image){
+            $persister = $this->get('fos_elastica.object_persister.app.images');
+            $persister->replaceOne($image);
+        }
+
         $response = new Respon(json_encode(array('likes' => $likes, 'likes_album' => $likes_album, 'likes_user' => $likes_user, 'liked' => $liked)), 200);
         $response->headers->set('Content-Type', 'application/json');
 
@@ -1298,9 +1309,17 @@ class PersonController extends Controller
         $comment_id = $this->get('request')->request->get('id');
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $comment = $this->getDoctrine()->getRepository('CreativerFrontBundle:ImageComments')->find($comment_id);
+        $image = $comment->getImage();
+
 
         $em->remove($comment);
         $em->flush();
+
+
+        if($image){
+            $persister = $this->get('fos_elastica.object_persister.app.images');
+            $persister->replaceOne($image);
+        }
 
         $array = array('success' => true);
         $response = new Respon(json_encode($array), 200);

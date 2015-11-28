@@ -171,7 +171,11 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
     $scope.removeComment = function(key_img,id,key){
         albumService.removeComment({id: id}).success(function (data) {
-            $scope.items.items[key_img][0].image_comments.splice(key,1);
+            if($scope.items.items[key_img][0]){
+                $scope.items.items[key_img][0].image_comments.splice(key,1);
+            }else{
+                $scope.items.items[key_img].image_comments.splice(key,1);
+            }
         });
     }
 
@@ -194,9 +198,10 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     }
 
     $scope.saveImageComment = function(image,text){
+        $scope.loader = true;
         albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
             image.image_comments.push(data);
-            $scope.text_comment = undefined;
+            $scope.user.text_comment = undefined;
             $scope.loader = false;
         });
     }

@@ -228,6 +228,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }
 
     $scope.removeComment = function(key,comments,id){
+        console.log(comments);
         personalService.removeComment({id: id}).success(function (data) {
             comments.splice(key,1);
         });

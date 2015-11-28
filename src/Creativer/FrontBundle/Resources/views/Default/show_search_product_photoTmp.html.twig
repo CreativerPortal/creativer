@@ -101,16 +101,19 @@
                             </div>
 
                             <div class="row col-sm-12"><p class="user__text left">[[ comment.text ]]</p></div>
-                            <div class="row col-sm-12 text-left"><time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time></div>
+                            <div class="col-sm-12 padding-left_0 padding-right_0">
+                                <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
+                                <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="user.text_comment = comment.user.username+', '">Ответить</span>
+                            </div>
                         </div>
                         <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                     </div>
 
                     {% if is_granted('ROLE_USER') %}
-                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="text_comment" cols="55" rows="1" placeholder="Оставить комментарий" style="width: 400px; overflow: hidden; word-wrap: break-word; resize: none; height: 77px;"></textarea>
-                        <div ng-show="text_comment" class="margin-top_5 text-right">
-                            <button ng-if="items.items[key_img][0]" class="true fs_0-9" ng-click="saveImageComment(items.items[key_img][0],text_comment)" ng-class="{'loader':loader}">Отправить</button>
-                            <button ng-if="!items.items[key_img][0]" class="true fs_0-9" ng-click="saveImageComment(items.items[key_img],text_comment)" ng-class="{'loader':loader}">Отправить</button>
+                        <textarea msd-elastic="" class="text-gray margin-left_25 margin-top_10 ng-pristine ng-valid ng-touched" ng-model="user.text_comment" cols="55" rows="1" placeholder="Оставить комментарий" style="width: 400px; overflow: hidden; word-wrap: break-word; resize: none; height: 77px;"></textarea>
+                        <div ng-show="user.text_comment" class="margin-top_5 text-right">
+                            <button ng-if="items.items[key_img][0]" class="true fs_0-9" ng-click="saveImageComment(items.items[key_img][0],user.text_comment)" ng-class="{'loader':loader}">Отправить</button>
+                            <button ng-if="!items.items[key_img][0]" class="true fs_0-9" ng-click="saveImageComment(items.items[key_img],user.text_comment)" ng-class="{'loader':loader}">Отправить</button>
                         </div>
                     {% endif %}
                 </div>

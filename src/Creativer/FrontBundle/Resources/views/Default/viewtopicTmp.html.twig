@@ -76,11 +76,11 @@
 
                 {% if is_granted('ROLE_USER') %}
                     <div class="row margin-top_30 text-right padding-5-15-5-15">
-                            <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 70px; width: 687px"></textarea>
+                            <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="post.text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 70px; width: 687px"></textarea>
                     </div>
-                    <div ng-show="text_comment" class="margin-top_15 margin-left_20 text-right">
-                        <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(text_comment)">Отправить</button>
-                        <button class="false fs_0-9" ng-click="text_comment=''">Отменить</button>
+                    <div ng-show="post.text_comment" class="margin-top_15 margin-left_20 text-right">
+                        <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(post.text_comment)">Отправить</button>
+                        <button class="false fs_0-9" ng-click="post.text_comment=''">Отменить</button>
                     </div>
                 {%  endif %}
 
@@ -95,7 +95,7 @@
                             </div>
                         </div>
 
-                        <div class="row col-sm-11 padd">
+                        <div class="row col-sm-11 padding-right_5">
                             <div class="text-blue row" ng-init="comment.remove_comment = false">
                                 <div class="col-sm-6">
                                     <a href="#/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
@@ -114,7 +114,10 @@
                                 </div>
                             </div>
                             <div class="margin-top_5"><p>[[ comment.text ]]</p></div>
-                            <div class="text-gray fs_0-8 left"><time datetime='[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]'>[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time></div>
+                            <div class="text-gray fs_0-8 col-sm-12 padding-left_0 padding-right_0">
+                                <time datetime='[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]'>[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
+                                <span class="right pointer text-blue text-right" ng-show="comment.user.id != id_user" ng-click="post.text_comment = comment.user.username+', '">Ответить</span>
+                            </div>
                             {# <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div> #}
                         </div>
 

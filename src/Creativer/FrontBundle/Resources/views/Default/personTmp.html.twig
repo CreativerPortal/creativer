@@ -250,8 +250,10 @@
                             </div>
 
                             <div class="user__text col-sm-12" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
-                            <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
-
+                            <div class="col-sm-12">
+                                <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
+                                <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="post.text_comment = comment.user.username+', '">Ответить</span>
+                            </div>
                         </div>
                     </div>
                     <div class="row margin-left_60 col-sm-11 one_comment" ng-if="post.comments_all_show == false" ng-repeat="(key,comment) in post.comments.slice(post.comments.length-2,post.comments.length)">
@@ -280,8 +282,10 @@
                             </div>
 
                             <div class="user__text col-sm-12" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
-                            <time class="text-gray comment_time col-sm-12">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
-
+                            <div class="col-sm-12">
+                                <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
+                                <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="post.text_comment = comment.user.username+', '">Ответить</span>
+                            </div>
                         </div>
                     </div>
                     <div class="row margin-left_60 col-sm-11" ng-show="post.comments[0] || com">

@@ -143,7 +143,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 baraholkaService.saveComment({post_id: $scope.post.id, text: text}).success(function (data) {
                     $scope.post.post_comments.push(data);
                     $scope.user = data.user;
-                    $scope.text_comment = undefined;
+                    $scope.post.text_comment = undefined;
                     $scope.loader = false;
                 });
             }
