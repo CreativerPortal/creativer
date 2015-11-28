@@ -341,7 +341,9 @@ class PersonController extends Controller
                 ->getQuery()
                 ->getResult();
 
-            $persister->replaceMany($images);
+            if($images){
+                $persister->replaceMany($images);
+            }
 
             $array = array('success' => true);
             $response = new Respon(json_encode($array), 200);
@@ -886,7 +888,9 @@ class PersonController extends Controller
             ->getQuery()
             ->getResult();
 
-        $persister->replaceMany($images);
+        if($images){
+            $persister->replaceMany($images);
+        }
 
         $response = new Respon($response);
         $response->headers->set('Content-Type', 'application/json');

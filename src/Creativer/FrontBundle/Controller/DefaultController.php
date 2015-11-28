@@ -26,6 +26,7 @@ use Creativer\FrontBundle\Entity\PostDocuments;
 use Creativer\FrontBundle\Entity\PostCategory;
 use Creativer\FrontBundle\Entity\PostCity;
 use Creativer\FrontBundle\Entity\Posts;
+use Creativer\FrontBundle\Entity\Tariffs;
 use Creativer\FrontBundle\Entity\Events;
 use Symfony\Component\Filesystem\Filesystem;
 use Creativer\FrontBundle\Services\ImageServices;
@@ -91,6 +92,9 @@ class DefaultController extends Controller
             $factory = $this->get('security.encoder_factory');
             $user = new User();
             $wall = new Wall();
+            $tariff = $this->getDoctrine()->getRepository('CreativerFrontBundle:Tariffs')->findOneById($request->get('form')['r1']);
+
+
             $encoder = $factory->getEncoder($user);
             $password = $encoder->encodePassword($request->get('form')['password']['first'], $user->getSalt());
             $user->setAvatar($img);
@@ -102,7 +106,9 @@ class DefaultController extends Controller
             $user->setWall($wall);
             $user->setColor($color);
             $user->setAutoscroll(0);
+            $user->setTariff($tariff);
             $wall->setUser($user);
+
 
 
             $em = $this->getDoctrine()->getManager();

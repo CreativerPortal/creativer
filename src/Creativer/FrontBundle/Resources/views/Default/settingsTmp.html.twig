@@ -4,7 +4,7 @@
     .ac-custom input[type="checkbox"], .ac-custom input[type="radio"], .ac-custom label::before {
         width: 20px;
         height: 20px;
-        bottom: auto;
+        bottom: 2px;
         right: auto;
         margin-top: 0px;
         position: absolute;
@@ -14,8 +14,8 @@
         position: absolute;
         width: 20px;
         height: 20px;
-        bottom: auto;
-        margin-top: auto;
+        bottom: 2px;
+        margin-top: 0px;
         pointer-events: none;
         right: auto;
     }
@@ -89,31 +89,31 @@
 
                  <div class="line_package margin-left_20">
                      <div class="col-sm-4 tariff_block">
+                         <input id="r1" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[0].id }}">
                          <label class="start" for="r1">
                              <span class="text-white">{{ tariffs[0].name }}</span><br>
                              <span class="text-white fs_0-7">
                                  {{ tariffs[0].text }}
                              </span>
                          </label>
-                         <input id="r1" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[0].id }}">
                      </div>
                      <div class="col-sm-4 tariff_block">
+                         <input id="r2" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[1].id  }}">
                          <label class="standard" for="r2">
                              <span class="text-white">{{ tariffs[1].name }}</span><br>
                              <span class="text-white fs_0-7">
                                  {{ tariffs[1].text }}
                              </span>
                          </label>
-                         <input id="r2" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[1].id  }}">
                      </div>
                      <div class="col-sm-4 tariff_block">
+                         <input id="r3" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[2].id }}">
                          <label class="unlimited" for="r3">
                              <span class="text-white">{{ tariffs[2].name  }}</span><br>
                              <span class="text-white fs_0-7">
                                  {{  tariffs[2].text }}
                              </span>
                          </label>
-                         <input id="r3" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[2].id }}">
                      </div>
                  </div>
              </form>

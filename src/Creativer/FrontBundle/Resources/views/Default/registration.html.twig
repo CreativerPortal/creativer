@@ -26,52 +26,44 @@
         <script src="/js/controllers/registration.js"></script>
         <script src="/js/svgcheckbx.js"></script>
 
-
-        {#<script>#}
-            {#var polyfilter_scriptpath = '/js/';#}
-        {#</script>#}
-
-        {#<script src="/js/cssParser.js"></script>#}
-        {#<script src="/js/css-filters-polyfill.js"></script>#}
     {% endblock %}
 
 {% block body %}
 
     <div class="row slid">
 
-        <form class="ac-custom ac-radio ac-fill" autocomplete="off">
+        <form action="{{ path('creativer_front_registration') }}" method="post" class="row form-registration ac-custom ac-radio ac-fill" autocomplete="off" name="registration"  ng-app="app" ng-controller="Ctrl">
+
             <div class="row"><h3 class="lobster margin-left_0">Пакеты:</h3></div>
 
             <div class="row line_package">
                 <div class="col-sm-4">
-                        <label class="start" for="r1">
-                            <div class="lobster text-white fs_1-5 margin-top_60">Начальный</div>
-                            <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> До 10 фото ваших работ 0 руб / мес</p>
-                        </label>
-                        <input id="r1" name="r1" type="radio">
+                    <input style="display: none;" id="r1" name="form[r1]" type="radio" value="1">
+                    <label class="start" for="r1">
+                        <div class="lobster text-white fs_1-5 margin-top_60">Начальный</div>
+                        <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> До 10 фото ваших работ 0 руб / мес</p>
+                    </label>
                 </div>
                 <div class="col-sm-4">
-                        <label class="standard" for="r2">
-                            <div class="lobster text-white fs_1-5 margin-top_60">Стандартный</div>
-                            <p class="col-sm-10 col-sm-offset-1 text-white"> до 50 фото ваших работ 50.000 руб / мес или 250.000 руб / 6 мес</p>
+                    <input style="display: none;" id="r2" name="form[r1]" type="radio" value="2">
+                    <label class="standard" for="r2">
+                        <div class="lobster text-white fs_1-5 margin-top_60">Стандартный</div>
+                        <p class="col-sm-10 col-sm-offset-1 text-white"> до 50 фото ваших работ 50.000 руб / мес или 250.000 руб / 6 мес</p>
 
-                        </label>
-                        <input id="r2" name="r1" type="radio">
+                    </label>
                 </div>
                 <div class="col-sm-4">
-                        <label class="unlimited" for="r3">
-                            <div class="lobster text-white fs_1-5 margin-top_60 margin-left_10">Безлимитный</div>
-                            <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> неограниченное количество фото ваших работ 100.000 руб / мес ил</p>
+                    <input style="display: none;" id="r3" name="form[r1]" type="radio" value="3" checked>
+                    <label class="unlimited" for="r3">
+                        <div class="lobster text-white fs_1-5 margin-top_60 margin-left_10">Безлимитный</div>
+                        <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> неограниченное количество фото ваших работ 100.000 руб / мес ил</p>
 
-                        </label>
-                        <input id="r3" name="r1" type="radio">
+                    </label>
                 </div>
             </div>
-        </form>
 
         <div class="row"><h3 class="lobster margin-left_0">Регистрация</h3></div>
 
-        <form action="{{ path('creativer_front_registration') }}" method="post" class="row form-registration" name="registration"  ng-app="app" ng-controller="Ctrl">
             <div class="row">
                 <div class="col-sm-6">
                     <div class="row col-sm-12">
@@ -139,16 +131,18 @@
 
 
 
-
-
-
-                        <div class="margin-top_40 form-registration__text form-registration__text-blue">
-                            <span class="md-trigger md-setperspective" data-toggle="modal" data-target="#myModal">Прочтите условия соглашения</span>
-                        </div>
-                        <div class="form-registration__text margin-top_10">
-                            <input style="position: absolute; top: -9999px; left: -9999px" id="condition" name="condition" type="checkbox" required="required" ng-model="checked">
+                        <style>
+                            .ac-custom  input[type="checkbox"] + label::before{
+                                border: none;
+                            }
+                        </style>
+                        {#<div class="margin-top_40 form-registration__text form-registration__text-blue">#}
+                            {#<span class="md-trigger md-setperspective" data-toggle="modal" data-target="#myModal">Прочтите условия соглашения</span>#}
+                        {#</div>#}
+                        <div class="form-registration__text margin-top_40">
+                            <input style="display: none;" id="condition" name="condition" type="checkbox" required="required" ng-model="checked">
                             <label class="condition left" for="condition"></label>
-                            <label class="margin-left_5 pointer" style="background: none; padding: 0px;" for="condition">Я согласен</label>
+                            <label class="margin-left_5 pointer" style="background: none; padding: 0px;" for="condition">Я согласен c <a target="_blank" href="/#/rules">правилами сайта</a> и <a target="_blank" href="/#/agreement">публичным договором</a></label>
                         </div>
 
                         <div class="row">
@@ -159,7 +153,7 @@
                             </ul>
                         </div>
 
-                        <div class="margin-top_40">
+                        <div class="margin-top_30">
                             <button type="submit" class="form-registration__submit" id="send" ng-disabled="!checked" ng-click="(submitted = true)">Отправить</button>
                             <button type="reset" class="form-registration__reset">Отменить</button>
                         </div>
