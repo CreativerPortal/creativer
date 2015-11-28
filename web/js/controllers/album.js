@@ -63,6 +63,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             for (key in $scope.user.favorits_with_me) {
                 if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
                     $scope.favorit = true;
+                    break;
                 } else {
                     $scope.favorit = false;
                 }
