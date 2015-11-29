@@ -118,6 +118,7 @@ body{
     cursor: pointer;
     width: 504px;
     overflow: hidden;
+    height: 100%;
 }
 
 .container_image_events_big_text{

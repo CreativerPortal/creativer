@@ -274,7 +274,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                 $scope.loader_event = true;
                 eventService.saveComment({event_id: $scope.event.id, text: text}).success(function (data) {
                     $scope.event.event_comments.push(data);
-                    $scope.event.text_comment = undefined;
+                    $scope.text_comment = undefined;
                     $scope.loader_event = false;
                 });
             }
@@ -308,7 +308,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         $scope.tinymceOptions = {
             file_browser_callback : function(field_name, url, type, win){
                                         tinymce.activeEditor.windowManager.open({
-                                            file: 'http://creativer.ml:8080/elfinder',// use an absolute path!
+                                            file: 'http://creativer.ml/elfinder',// use an absolute path!
                                             title: 'Проводник',
                                             width: 1350,
                                             height: 560,
