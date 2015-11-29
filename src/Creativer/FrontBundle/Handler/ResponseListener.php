@@ -13,7 +13,7 @@ class ResponseListener
 {
     public function onKernelResponse(FilterResponseEvent $event)
     {
-        $event->getResponse()->headers->set('X-Frame-Options', 'ALLOWALL');
+        //$event->getResponse()->headers->set('X-Frame-Options', 'ALLOWALL');
         //$event->getResponse()->headers->set('Access-Control-Allow-Origin', '*');
 
     }

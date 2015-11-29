@@ -201,6 +201,10 @@ creativer_rules:
     path:     /rules
     defaults: { _controller: CreativerFrontBundle:Default:rules }
     methods:  [GET]
+creativer_about:
+    path:     /about
+    defaults: { _controller: CreativerFrontBundle:Default:about }
+    methods:  [GET]
 creativer_agreement:
     path:     /agreement
     defaults: { _controller: CreativerFrontBundle:Default:agreement }

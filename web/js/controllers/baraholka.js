@@ -373,13 +373,13 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             $scope.id_post_baraholka = response.id;
             if($stateParams.id_fleamarketposting){
                 $scope.post.images_baraholka.push({"id": response.id, "name": response.name, "path": response.path});
-                uploader.queue = [];
             }
         };
         uploader.onCompleteAll = function(fileItem, response, status, headers) {
             if(!$stateParams.id_fleamarketposting) {
                 $location.path("/viewtopic/" + $scope.id_post_baraholka);
             }
+            uploader.queue = [];
         };
 
         chat.init();

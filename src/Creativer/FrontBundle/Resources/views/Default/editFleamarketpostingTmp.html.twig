@@ -130,11 +130,13 @@
                 </div>
             </div>
 
-            <div class="row margin-top_10 margin-left_0">
-                <div ng-show="uploader.isHTML5" style="height: 30px;">
-                    <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
-                        <div class="progress_edit" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
-                            <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>
+            <div class="col-sm-12 margin-top_20 padding-right_0 padding-left_0">
+                <div class="col-sm-12 padding-left_0 padding-right_0">
+                    <div ng-show="uploader.isHTML5" style="height: 30px;">
+                        <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
+                            <div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class">
+                                <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }">[[ uploader.progress ]] %</div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -142,7 +144,7 @@
 
             </div>
 
-            <div class="bg-warning text-center">
+            <div class="col-sm-12 bg-warning text-center">
                     <h5 class="text-danger">Увеличьте продажи: оплатите выделение объявления через банкомат, инфокиоск, интернет-банкинг!</h5>
                     Варианты выделения всего от 3000 рублей. Заметное объявление — активные продажи! <a href="/price.php" target="_blank">Посмотреть цены</a>
             </div>

@@ -5,10 +5,16 @@
 
     <div class="row slid">
 
+        <style>
+            .wi-container li:first-child {
+                display: list-item;
+            }
+        </style>
+
         <div class="slid__slider">
             <ul id="wi-el" class="wi-container" ng-init="wi_container=true">
                 {% for banner in banners %}
-                    <li style="display: list-item;"  ><img src="{{ banner.url }}" alt="banner.name"/></li>
+                    <li><img src="{{ banner.url }}" alt="banner.name"/></li>
                 {% endfor %}
             </ul>
             <nav>
