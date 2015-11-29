@@ -117,6 +117,7 @@ body{
     color: inherit;
     cursor: pointer;
     width: 504px;
+    overflow: hidden;
 }
 
 .container_image_events_big_text{
@@ -136,6 +137,7 @@ body{
 
 .trio_events{
     height: 433px;
+    overflow: hidden;
 }
 
 .link_event{
