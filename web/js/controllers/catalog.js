@@ -179,7 +179,23 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         });
     }
 
+    if(!$rootScope.image_previews){
+        $rootScope.image_previews = [];
+    }
+
+    if($stateParams.key_img && $scope.items){
+        if(!$rootScope.image_previews[$scope.items.items[$stateParams.key_img].id_album]){
+            $rootScope.image_previews[$scope.items.items[$stateParams.key_img].id_album] = [];
+        }
+        if($rootScope.image_previews.indexOf($scope.items.items[$stateParams.key_img].id) == -1){
+            $rootScope.image_previews[$scope.items.items[$stateParams.key_img].id_album].push($scope.items.items[$stateParams.key_img].id);
+        }
+    }
+
     $scope.closeImg = function(){
+        albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
+            $rootScope.image_previews = [];
+        });
         $rootScope.overflow = false;
     }
 

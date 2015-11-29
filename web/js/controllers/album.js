@@ -22,6 +22,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                 for (key in $scope.user.favorits_with_me) {
                     if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
                         $scope.favorit = true;
+                        break;
                     } else {
                         $scope.favorit = false;
                     }
@@ -37,6 +38,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             for (key in $scope.user.favorits_with_me) {
                 if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
                     $scope.favorit = true;
+                    break;
                 } else {
                     $scope.favorit = false;
                 }
@@ -216,9 +218,11 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
 
     $scope.closeImg = function(){
-        albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
-            $rootScope.image_previews = [];
-        });
+        if($rootScope.image_previews.length > 0){
+            albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
+                $rootScope.image_previews = [];
+            });
+        }
         $rootScope.overflow = false;
     }
 

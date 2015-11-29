@@ -22,7 +22,7 @@
         <div class="col-sm-7 album" ng-init="res = user.albums[id].images.length/3">
 
             <div class="padding-bottom_30">
-                <a href="#/[[ favorit.id ]]" ng-click="removeUser()" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
+                <a href="#/[[ favorit.id ]]" ng-click="removeUser(favorit.id)" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
                     <div class="user__avatar-favorit" ng-class="{'user__avatar-favorit-online':favorit.connection_status == '{{ date_online }}'}" style="background-color: [[ favorit.color ]];">
                         <img ng-src="[[ favorit.avatar ]]">
                     </div>

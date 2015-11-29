@@ -21,8 +21,10 @@ angular.module('app.ctr.header', ['service.header'])
         }
     }
 
-    $rootScope.removeUser = function(){
-        $rootScope.user = null;
+    $rootScope.removeUser = function(new_user_id){
+        if(new_user_id != $rootScope.user.id){
+            $rootScope.user = null;
+        }
     }
 
 }]);

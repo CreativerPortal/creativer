@@ -35,7 +35,6 @@ angular.module('service.chat', ['service.socket'])
 
             $rootScope.pause = false;
             $rootScope.writing = false;
-            $rootScope.$apply();
         });
 
         socket.on('old messages', function(data){

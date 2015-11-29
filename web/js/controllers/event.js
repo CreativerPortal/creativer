@@ -308,7 +308,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         $scope.tinymceOptions = {
             file_browser_callback : function(field_name, url, type, win){
                                         tinymce.activeEditor.windowManager.open({
-                                            file: 'http://creativer.ml:8080/elfinder',// use an absolute path!
+                                            file: 'http://creativer.by:8080/elfinder',// use an absolute path!
                                             title: 'Проводник',
                                             width: 1350,
                                             height: 560,
