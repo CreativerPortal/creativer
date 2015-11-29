@@ -164,7 +164,7 @@ parameters:
     jms_serializer.doctrine_proxy_subscriber.class: Creativer\ApiBundle\Event\DoctrineProxySubscriber
     category_products: 1000
     category_services: 1001
-    date_online: "-0001-11-30T00:00:00+0150"
+    date_online: "-0001-11-30T00:00:00+0230"
 
 knp_paginator:
     page_range: 4                      # default page range used in pagination control
