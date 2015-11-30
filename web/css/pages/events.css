@@ -127,8 +127,8 @@ body{
     bottom: 10px;
 }
 
-.container_image_events_big_text:hover{
-    color: #d3003e;
+.container_image_events_big_text:hover .text-white, .container_image_events_big_text:hover{
+    color: #d3003e!important;
 }
 
 .container_image_events img, .container_image_events_big img{

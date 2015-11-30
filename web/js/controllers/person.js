@@ -87,9 +87,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     }
 
     $scope.closeImg = function(){
-        albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
-            $rootScope.image_previews = [];
-        });
+        //albumService.imagePreviews({image_previews:$rootScope.image_previews}).success(function (data) {
+        //    $rootScope.image_previews = [];
+        //});
         $rootScope.overflow = false;
     }
 
