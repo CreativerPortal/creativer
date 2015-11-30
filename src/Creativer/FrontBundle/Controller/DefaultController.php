@@ -1686,6 +1686,10 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:about.html.twig', array());
     }
 
+    public function helpAction(){
+        return $this->render('CreativerFrontBundle:Default:help.html.twig', array());
+    }
+
     public function rulesAction(){
         return $this->render('CreativerFrontBundle:Default:rules.html.twig', array());
     }

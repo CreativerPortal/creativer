@@ -281,6 +281,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'personCtrl',
             reloadOnSearch: true,
         });
+        $stateProvider.state('help', {
+            url: '/help',
+            templateUrl: '/help',
+            controller: 'personCtrl',
+            reloadOnSearch: true,
+        });
         $stateProvider.state('agreement', {
             url: '/agreement',
             templateUrl: '/agreement',
