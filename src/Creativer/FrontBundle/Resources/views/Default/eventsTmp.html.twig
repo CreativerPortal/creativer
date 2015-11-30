@@ -68,7 +68,7 @@
                     <div class="glyphicon glyphicon-chevron-right text-white previous_event right margin-right_10 arrow pointer" ng-click="nextMonth()"></div>
                     <div class="body__datapicker">
                         <div ng-repeat="day in days" ng-if="day.day" class="number_date_31" ng-switch-when="31" ng-click="getEventsByDate(day.day)">
-                            <div class="circle">
+                            <div class="circle" style="color: #000000">
                                 <div ng-class="{'target_day':day.day == target_day, 'datapicker_circle':day.action == 1}">
                                     [[ day.day ]]
                                 </div>
@@ -76,7 +76,7 @@
                         </div>
 
                         <div ng-repeat="day in days" ng-if="day.day" class="number_date_30" ng-switch-when="30" ng-click="getEventsByDate(day.day)">
-                            <div class="circle">
+                            <div class="circle" style="color: #000000">
                                 <div ng-class="{'target_day':day.day == target_day, 'datapicker_circle':day.action == 1}">
                                     [[ day.day ]]
                                 </div>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div ng-repeat="day in days" ng-if="day.day" class="number_date_29" ng-switch-when="29" ng-click="getEventsByDate(day.day)">
-                            <div class="circle">
+                            <div class="circle" style="color: #000000">
                                 <div ng-class="{'target_day':day.day == target_day, 'datapicker_circle':day.action == 1}">
                                     [[ day.day ]]
                                 </div>
@@ -92,7 +92,7 @@
                         </div>
 
                         <div ng-repeat="day in days" ng-if="day.day" class="number_date_28" ng-switch-when="28" ng-click="getEventsByDate(day.day)">
-                            <div class="circle">
+                            <div class="circle" style="color: #000000">
                                 <div ng-class="{'target_day':day.day == target_day, 'datapicker_circle':day.action == 1}">
                                     [[ day.day ]]
                                 </div>
@@ -147,7 +147,7 @@
                                         <img ng-if="item.img" class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ item.path ]][[ item.img ]]" />
                                         <div ng-if="!item.img" class="glyphicon glyphicon-picture text-gray-light fs_3-2 default_img_event"></div>
                                         <div class="container_image_events_big_text col-sm-10 col-sm-offset-1">
-                                            <div class="fs_1-5 text-underline">[[ item.name ]]</div>
+                                            <div class="fs_2-0 text-underline">[[ item.name ]]</div>
                                             <div class="margin-top_30 col-sm-6">
                                                 <span class="glyphicon glyphicon-eye-open text-white middle"></span>
                                                 <span class="fs_0-7 text-white"> [[ item.viewed ]]</span>
@@ -235,7 +235,7 @@
                                     <img ng-if="item.img" class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ item.path ]][[ item.img ]]" />
                                     <div ng-if="!item.img" class="glyphicon glyphicon-picture text-gray-light fs_3-2 default_img_event"></div>
                                     <div class="container_image_events_big_text col-sm-10 col-sm-offset-1">
-                                        <div class="fs_1-5 text-underline">[[ item.name ]]</div>
+                                        <div class="fs_2-0 text-underline">[[ item.name ]]</div>
                                         <div class="margin-top_30 col-sm-6">
                                             <span class="glyphicon glyphicon-eye-open text-white middle"></span>
                                             <span class="fs_0-7 text-white"> [[ item.viewed ]]</span>

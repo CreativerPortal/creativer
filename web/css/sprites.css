@@ -106,7 +106,7 @@
 }
 
 
-.accessories_active, .accessories, .bijouterie_active, .bijouterie, .design_active, .design,
+.accessories_active, .accessories, .bijouterie_active, .bijouterie, .holiday_active, .holiday, .design,
 .animal_active, .animal, .pictures_active, .pictures, .books_active, .books, .makeup_active, .makeup, .manicure_active, .manicure,
 .shoes_active, .shoes, .clothing_active, .clothing, .hairstyles_active, .hairstyles, .sweetness_active, .sweetness, .sports_massage_active, .sports_massage, .toys_souvenirs_active,
 .toys_souvenirs, .bags_belts_active, .bags_belts, .tattoo_active, .tattoo, .products, .services, .foto_active, .foto{
@@ -144,12 +144,27 @@
 }
 
 .design:hover{
+	background-position: -139px -3158.971558px;
+	width: 128px;
+	height: 72px;
+}
+
+.design{
+	background-position: -11px -3158.971558px;
+	width: 128px;
+	height: 72px;
+	top: 542px;
+	left: 49px;
+	z-index: 4;
+}
+
+.holiday:hover{
 	background-position: -238px -1062.9346313476562px ;
 	width: 242px;
 	height: 265px;
 }
 
-.design{
+.holiday{
 	background-position: 0 -1062.9715576171875px ;
 	width: 242px;
 	height: 265px;

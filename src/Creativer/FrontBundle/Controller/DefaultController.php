@@ -1137,7 +1137,7 @@ class DefaultController extends Controller
                     return $response;
                 }
             } else {
-                $response = new Respon("Error UploadObject", 500);
+                $response = new Respon("Error UploadObject ".$file->getError(), 500);
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
             }
@@ -1345,7 +1345,10 @@ class DefaultController extends Controller
                             $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->find($id);
                             $path_img_event_original = $this->container->getParameter('path_img_event_original');
                             $fs = new Filesystem();
-                            $fs->remove(array($path_img_event_original.$event->getPath().$event->getImg()));
+                            $path = $path_img_event_original.$event->getPath();
+                            $img = $event->getImg();
+                            if (file_exists($path.$img) && !empty($path) && !empty($img))
+                                $fs->remove(array($path.$img));
                         }else{
                             $event = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')->findBy(array('user'=>$user,'isActive'=>0))[0];
                         }

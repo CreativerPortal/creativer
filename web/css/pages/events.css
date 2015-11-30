@@ -376,6 +376,7 @@ body{
 .circle{
     border-radius: 10px;
     cursor: pointer;
+    color: #000000!important;
 }
 
 .datapicker_circle{
@@ -420,6 +421,7 @@ body{
     width: 690px;
     margin-left: 22px;
     text-align: center;
+    color: #000000;
 }
 
 .user__avatar-mini-2 {
