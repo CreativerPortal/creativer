@@ -205,6 +205,10 @@ creativer_about:
     path:     /about
     defaults: { _controller: CreativerFrontBundle:Default:about }
     methods:  [GET]
+creativer_legal_information:
+    path:     /legal_information
+    defaults: { _controller: CreativerFrontBundle:Default:legalInformation }
+    methods:  [GET]
 creativer_help:
     path:     /help
     defaults: { _controller: CreativerFrontBundle:Default:help }

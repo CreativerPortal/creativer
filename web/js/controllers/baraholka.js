@@ -1,6 +1,7 @@
 angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.socket', 'service.chat'])
     .controller('baraholkaCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'baraholkaService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,baraholkaService,$stateParams, FileUploader, socket, chat) {
 
+        $rootScope.title = "Барахолка";
 
         if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
             if($rootScope.baraholka && $rootScope.post_category && $rootScope.post_city){
@@ -18,6 +19,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         if($stateParams.id_post){
             baraholkaService.getPostById({"post_id": $stateParams.id_post}).success(function (data) {
+                $rootScope.title = data.post.name;
                 $scope.post = data.post;
             });
         }else if($stateParams.id_fleamarketposting){

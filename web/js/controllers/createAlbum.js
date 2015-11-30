@@ -1,7 +1,7 @@
 angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
     .controller('createAlbumCtrl',['$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
-    // init controller
+    $rootScope.title = "Создать альбом!";
 
     personalService.getUser({id: $rootScope.id_user}).success(function (data) {
         $rootScope.user = $scope.user = data.user;

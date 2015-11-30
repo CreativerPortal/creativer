@@ -4,7 +4,7 @@
             <a href="./#/products/1000">
                 <div class="slid__products__top"></div>
             </a>
-            <nav class="font_product fiveMinuts">
+            <nav class="font_product fiveMinuts" ng-init="$root.product.name='Товары'">
                 <ul>
                     <li ng-repeat="product_one in $root.products">
                         <a ng-class="{menu_action_black: product_one.id == $root.product_id}" href="#/products/[[ product_one.id ]]/1">[[ product_one.name ]]</a>
@@ -35,7 +35,7 @@
                     </li>
                 </ul>
             </nav>
-            <div class="slid__products__bottom"></div>
+            <div class="slid__products__bottom" ng-init="$root.title = $root.product.name"></div>
 
             <div class="row margin-left_15">
                 {% if banner_v.url %}<a href="{{ banner_v.link }}"><img src="{{ banner_v.url }}" alt="{{ banner_g.name }}" /></a>{% endif %}

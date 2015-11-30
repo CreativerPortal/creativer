@@ -1,6 +1,8 @@
 angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.socket', 'service.chat', 'service.header', 'angular-momentjs'])
     .controller('eventCtrl',['$state','$window', '$scope', '$timeout', '$rootScope', '$location', 'headerService', 'eventService','$stateParams', 'FileUploader', 'socket', 'chat', '$moment', function($state,$window,$scope,$timeout,$rootScope,$location,headerService,eventService,$stateParams, FileUploader, socket, chat, $moment) {
 
+        $rootScope.title = "События";
+
         $scope.myDatetimeRange = {
             "date": {},
             "hasTimeSliders": false,
@@ -218,6 +220,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
 
         if($stateParams.id){
             eventService.getEvent({id:$stateParams.id}).success(function (data) {
+                $rootScope.title = data.name;
                 $scope.event = data;
                 $scope.users_attend = false;
                 for(var key in $scope.event.users_attend){

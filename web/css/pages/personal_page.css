@@ -81,7 +81,7 @@ body{
 
 .text_info{
     float: left;
-    white-space: pre;
+    /*white-space: pre;*/
     background: transparent;
     border: none;
     width: 100%;

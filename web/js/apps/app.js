@@ -273,13 +273,19 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             url: '/rules',
             templateUrl: '/rules',
             controller: 'personCtrl',
-            reloadOnSearch: true,
+            reloadOnSearch: true
+        });
+        $stateProvider.state('legal_information', {
+            url: '/legal_information',
+            templateUrl: '/legal_information',
+            controller: 'personCtrl',
+            reloadOnSearch: true
         });
         $stateProvider.state('about', {
             url: '/about',
             templateUrl: '/about',
             controller: 'personCtrl',
-            reloadOnSearch: true,
+            reloadOnSearch: true
         });
         $stateProvider.state('help', {
             url: '/help',

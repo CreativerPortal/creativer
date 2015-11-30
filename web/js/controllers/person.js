@@ -1,11 +1,10 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
     .controller('personCtrl',['$state','$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
-    // init controller
-
 
     if($stateParams.id && !$stateParams.key_post){
         personalService.getUser({id: $stateParams.id}).success(function (data) {
+            $rootScope.title = data.user.username+' '+data.user.lastname;
             $rootScope.user = $scope.user = data.user;
             $scope.user.wall.posts = data.posts;
             $scope.favorit = false;
@@ -17,6 +16,11 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         })
     }else if(!$stateParams.key_post){
         personalService.getUser({id: $rootScope.id_user}).success(function (data) {
+            if($state.current.name == 'feedback'){
+                $rootScope.title = "Обратная связь";
+            }else{
+                $rootScope.title = data.user.username+' '+data.user.lastname;
+            }
             $rootScope.user = $scope.user = data.user;
             $scope.user.wall.posts = data.posts;
             $scope.favorit = false;
@@ -33,6 +37,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     if($stateParams.id_album && !$scope.user){
         personalService.getUserByAlbumId({id: $stateParams.id_album}).success(function (data) {
+            $rootScope.title = data.user.username+' '+data.user.lastname;
             $scope.$apply(function () {
                 $scope.user = data.user;
             });
@@ -160,7 +165,8 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         var result = JSON.stringify(json, '', 1);
 
         personalService.saveField(result).success(function (data) {
-            $rootScope.user = $scope.user = data.user;
+            //$rootScope.user = $scope.user = data.user;
+            //$rootScope.user.wall.posts = $scope.user.wall.posts = data.posts;
             angular.element(event.target).attr('disabled', '');
         });
     }
@@ -361,6 +367,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             $rootScope.user = $scope.user = undefined;
         }
     });
+
 
     // ALBUM
 

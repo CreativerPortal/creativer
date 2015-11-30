@@ -1,7 +1,9 @@
 angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'service.album',  'service.socket', 'service.chat', 'angularFileUpload'])
     .controller('catalogCtrl',['$state', '$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
-    if(!$scope.text_first){
+        $rootScope.title = "Портал для креативных людей!";
+
+    if(!$scope.text_first && $state.current.name != 'main'){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
             $scope.text_first = data[0]?data[0].description:null;
@@ -26,6 +28,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         catalogService.getServices({id:$stateParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
+            console.log($rootScope.service);
         });
     }
 
@@ -229,11 +232,11 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     }
 
 
-        if ($state.current.name != 'products_search'){
-            $rootScope.title = "";
-            $rootScope.description = "";
-            $rootScope.image_src = "";
-        }
+        //if ($state.current.name != 'products_search'){
+        //    $rootScope.title = "";
+        //    $rootScope.description = "";
+        //    $rootScope.image_src = "";
+        //}
 
         $scope.facebook = function(purl, ptitle, path, pname, text) {
             url  = 'http://www.facebook.com/sharer.php?s=100';
@@ -284,20 +287,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
                 $rootScope.id_products = $stateParams.id_products;
                 $rootScope.pages = [];
-                $rootScope.pages[0] = $scope.items.currentPageNumber;
-                $rootScope.currentPage = $scope.currentPage = $scope.items.currentPageNumber;
-                var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
-                length--;
-                while (length > 0) {
-                    if ($rootScope.pages[0] > 1) {
-                        $rootScope.pages.unshift($rootScope.pages[0] - 1)
-                        length = length - 1;
-                    } else {
-                        var p = parseInt($rootScope.pages[$rootScope.pages.length - 1]) + 1;
-                        $rootScope.pages.push(p);
-                        length = length - 1;
-                    }
-                }
+                $rootScope.currentPage = 0;
             });
         }
     }else if($stateParams.services_search_text){
@@ -307,6 +297,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             $rootScope.service = data.service[0];
         });
         catalogService.searchServices({search_text:$stateParams.services_search_text}).success(function (data) {
+            $rootScope.pages = [];
+            $rootScope.currentPage = 0;
             $scope.items_services = data.products;
         });
     }

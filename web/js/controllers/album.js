@@ -18,6 +18,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
         }
         if(!exists_album){
             albumService.getUserByAlbumId({id: id_album}).success(function (data) {
+                $rootScope.title = data.user.username+' '+data.user.lastname;
                 $rootScope.user = $scope.user = data.user;
                 for (key in $scope.user.favorits_with_me) {
                     if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
@@ -61,6 +62,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     }else{
         var id_album = $stateParams.id_album?$stateParams.id_album:$stateParams.id_album_edit;
         albumService.getUserByAlbumId({id: id_album}).success(function (data) {
+            $rootScope.title = data.user.username+' '+data.user.lastname;
             $rootScope.user = $scope.user = data.user;
             for (key in $scope.user.favorits_with_me) {
                 if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
@@ -90,6 +92,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
 
     if($stateParams.id_album_edit){
         albumService.getAlbumById({id_album:$stateParams.id_album_edit}).success(function (data) {
+            $rootScope.title = data.name;
             $scope.edit_album = data.album;
             $scope.edit_album.remove_post = false;
             $scope.res = $scope.edit_album.images.length/3;
