@@ -57,6 +57,8 @@ io.on('connection', function(socket){
                 sockets[socket.handshake.query.id_user].slice(key,1)
             };
         }
+
+        connection.destroy();
     });
 
 
