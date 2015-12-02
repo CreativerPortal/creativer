@@ -17,6 +17,17 @@
                         data: data
                     });
                 },
+                getNews: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_news',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                },
                 replacePassword: function (data) {
                     return $http({
                         method: 'POST',

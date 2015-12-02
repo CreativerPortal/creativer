@@ -242,7 +242,6 @@ input:focus,textarea:focus,select:focus{
 .menu-personal>ul{
     position: absolute;
     left: -20px;
-    top: 10px;
 }
 
 .menu-personal a{

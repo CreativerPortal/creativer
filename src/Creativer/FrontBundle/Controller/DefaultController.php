@@ -469,6 +469,12 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:personTmp.html.twig', array('id' => $id));
     }
 
+    public function newsTmpAction()
+    {
+        $id = $this->get('security.context')->getToken()->getUser()->getId();
+        return $this->render('CreativerFrontBundle:Default:newsTmp.html.twig', array('id' => $id));
+    }
+
     public function albumTmpAction($id_album){
 
         $em = $this->getDoctrine()->getEntityManager();
@@ -574,11 +580,14 @@ class DefaultController extends Controller
             $em->flush();
         }
 
+        $banners_v1 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(9)[0];
+        $banners_v2 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(10)[0];
+        $banners_v3 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(11)[0];
 
         //die(\Doctrine\Common\Util\Debug::dump($post_baraholka));
         $post_id = $post_baraholka->getId();
 
-        return $this->render('CreativerFrontBundle:Default:fleamarketpostingTmp.html.twig', array('post_id' => $post_id));
+        return $this->render('CreativerFrontBundle:Default:fleamarketpostingTmp.html.twig', array('post_id' => $post_id, 'banners_v1' => $banners_v1, 'banners_v2' => $banners_v2, 'banners_v3' => $banners_v3));
     }
 
     public function editFleamarketpostingTmpAction(){
@@ -1266,6 +1275,12 @@ class DefaultController extends Controller
 
 
         return $this->render('CreativerFrontBundle:Default:show_post_photoTmp.html.twig');
+    }
+
+    public function showPostPhotoNewsTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:show_post_photo_newsTmp.html.twig');
     }
 
     public function cacheAction(){

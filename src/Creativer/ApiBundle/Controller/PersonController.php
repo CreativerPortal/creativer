@@ -245,6 +245,49 @@ class PersonController extends Controller
     }
 
     /**
+     * @Post("/v1/get_news")
+     * @View(serializerGroups={"getNews"})
+     */
+    public function getNewsAction()
+    {
+        if(!$this->get('request')->request->get('id'))
+        {
+            $id = $this->get('security.context')->getToken()->getUser()->getId();
+        }else{
+            $id = $this->get('request')->request->get('id');
+        }
+        //$user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findBy(array('id'=>$id))[0];
+
+        $em = $this->getDoctrine()->getManager();
+        $query = $em->createQueryBuilder();
+        $query
+            ->select('e')
+            ->from('CreativerFrontBundle:Posts', 'e')
+            ->leftJoin('e.wall', 'wall')
+            ->leftJoin('wall.user', 'user')
+            ->leftJoin('user.favoritsWithMe', 'favoritsWithMe')
+            ->orderBy("e.date", 'DESC')
+            ->where('favoritsWithMe.id = :id')
+            ->setParameter('id', $id);
+        $results = $query->getQuery()->getResult();
+
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $results,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
      * @Post("/v1/previous_posts")
      * @View(serializerGroups={"getUser"})
      */

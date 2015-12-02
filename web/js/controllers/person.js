@@ -2,11 +2,21 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     .controller('personCtrl',['$state','$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
 
+
     if($stateParams.id && !$stateParams.key_post){
+        if($state.current.name == 'news' && $scope.user) {
+            $scope.user.wall.posts = null;
+        }
         personalService.getUser({id: $stateParams.id}).success(function (data) {
             $rootScope.title = data.user.username+' '+data.user.lastname;
             $rootScope.user = $scope.user = data.user;
-            $scope.user.wall.posts = data.posts;
+            if($state.current.name == 'news') {
+                personalService.getNews().success(function (data) {
+                    $scope.user.wall.posts = data;
+                })
+            }else{
+                $scope.user.wall.posts = data.posts;
+            }
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
                 if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -15,6 +25,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             }
         })
     }else if(!$stateParams.key_post){
+        if($state.current.name == 'news' && $scope.user) {
+            $scope.user.wall.posts = null;
+        }
         personalService.getUser({id: $rootScope.id_user}).success(function (data) {
             if($state.current.name == 'feedback'){
                 $rootScope.title = "Обратная связь";
@@ -22,7 +35,13 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 $rootScope.title = data.user.username+' '+data.user.lastname;
             }
             $rootScope.user = $scope.user = data.user;
-            $scope.user.wall.posts = data.posts;
+            if($state.current.name == 'news') {
+                personalService.getNews().success(function (data) {
+                    $scope.user.wall.posts = data;
+                })
+            }else{
+                $scope.user.wall.posts = data.posts;
+            }
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
                 if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){

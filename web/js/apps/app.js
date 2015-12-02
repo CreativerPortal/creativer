@@ -299,6 +299,21 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'personCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('news', {
+            url: '/news',
+            templateUrl: '/news_tmp',
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
+        $stateProvider.state('news.state2', {
+            url: '/:key_post/:key_post_img',
+            templateUrl: function ($stateParams){
+                var url = "/show_post_photo_news_tmp";
+                return url;
+            },
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('id', {
             url: '/:id',
             templateUrl: function ($stateParams){

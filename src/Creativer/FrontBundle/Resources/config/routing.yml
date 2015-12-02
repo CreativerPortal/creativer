@@ -49,6 +49,10 @@ creativer_personTmp:
     path:     /person_tmp/{id}
     defaults: { _controller: CreativerFrontBundle:Default:personTmp, id: null }
     methods:  [GET]
+creativer_newsTmp:
+    path:     /news_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:newsTmp }
+    methods:  [GET]
 creativer_showPhotoTmp:
     path:     /show_photo_tmp
     defaults: { _controller: CreativerFrontBundle:Default:showPhotoTmp }
@@ -56,6 +60,10 @@ creativer_showPhotoTmp:
 creativer_showPostPhotoTmp:
     path:     /show_post_photo_tmp
     defaults: { _controller: CreativerFrontBundle:Default:showPostPhotoTmp }
+    methods:  [GET]
+creativer_showPostPhotoNewsTmp:
+    path:     /show_post_photo_news_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:showPostPhotoNewsTmp }
     methods:  [GET]
 creativer_showProductPhotoTmp:
     path:     /show_product_photo_tmp

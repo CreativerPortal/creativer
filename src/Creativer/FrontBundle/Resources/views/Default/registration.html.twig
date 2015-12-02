@@ -34,31 +34,37 @@
 
         <form action="{{ path('creativer_front_registration') }}" method="post" class="row form-registration ac-custom ac-radio ac-fill" autocomplete="off" name="registration"  ng-app="app" ng-controller="Ctrl">
 
-            <div class="row"><h3 class="lobster margin-left_0">Пакеты:</h3></div>
+            <div class="row"><h3 class="lobster margin-left_0">Выберите удобный вариант размещения:</h3></div>
 
-            <p class="row fs_1-2 text-gray margin-left_10">Мы дарим Вам <span class="text-bold text-blue">600 000</span> белорусских рублей на покупку безлимитного пакета! Пол года бесплатного пользования! Спасибо, что теперь Вы с нами!</p>
-
+            <p class="row fs_1-2 text-gray margin-left_10">Мы дарим вам <span class="text-bold text-blue">600 000</span> белорусских рублей на ваш личный счет на покупку безлимитного пакета! Получите полгода бесплатного пользования сайтом. Спасибо, что теперь вы с нами!</p>
+			
             <div class="row line_package">
                 <div class="col-sm-4">
                     <input style="display: none;" id="r1" name="form[r1]" type="radio" value="1">
                     <label class="start" for="r1">
+					 <p>&nbsp</p>
                         <div class="lobster text-white fs_1-5 margin-top_60">Начальный</div>
-                        <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> До 10 фото ваших работ 0 руб / мес</p>
+                        <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> до 10 фото ваших работ </p>
+						<p class="lobster text-white fs_1-5">бесплатно</p>
                     </label>
                 </div>
                 <div class="col-sm-4">
                     <input style="display: none;" id="r2" name="form[r1]" type="radio" value="2">
                     <label class="standard" for="r2">
+					<p>&nbsp</p>
                         <div class="lobster text-white fs_1-5 margin-top_60">Стандартный</div>
-                        <p class="col-sm-10 col-sm-offset-1 text-white"> до 50 фото ваших работ 50.000 руб / мес или 250.000 руб / 6 мес</p>
+                        <p class="col-sm-10 col-sm-offset-1 text-white"> до 50 фото ваших работ </p>
+						<p class="lobster text-white fs_1-5">50.000 руб/мес</p>
 
                     </label>
                 </div>
                 <div class="col-sm-4">
                     <input style="display: none;" id="r3" name="form[r1]" type="radio" value="3" checked>
                     <label class="unlimited" for="r3">
+					<p>&nbsp</p>
                         <div class="lobster text-white fs_1-5 margin-top_60 margin-left_10">Безлимитный</div>
-                        <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> неограниченное количество фото ваших работ 100.000 руб / мес ил</p>
+                        <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> неограниченное количество фото ваших работ </p>
+						<p class="lobster text-white fs_1-5"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp100.000 руб/мес </p>
 
                     </label>
                 </div>
@@ -144,7 +150,7 @@
                         <div class="form-registration__text margin-top_40">
                             <input style="display: none;" id="condition" name="condition" type="checkbox" required="required" ng-model="checked">
                             <label class="condition left" for="condition"></label>
-                            <label class="margin-left_5 pointer" style="background: none; padding: 0px;" for="condition">Я согласен c <a target="_blank" href="/#/rules">правилами сайта</a> и <a target="_blank" href="/#/agreement">публичным договором</a></label>
+                            <label class="margin-left_5 pointer" style="background: none; padding: 0px;" for="condition">Я согласен c <a target="_blank" href="/#/rules">Правилами сайта</a> и <a target="_blank" href="/#/agreement">Публичным договором</a></label>
                         </div>
 
                         <div class="row">
