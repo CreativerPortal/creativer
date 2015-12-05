@@ -1,25 +1,25 @@
 <div ng-if="user.wall.posts[key_post].post_images[key_post_img].path" class="background__viewer">
-    <a ng-show="user.wall.posts[key_post].post_images[previous_key_post_img].path" href="#/news/[[ key_post ]]/[[ previous_key_post_img ]]" class="right background__viewer__link__previous">
+    <a ng-show="user.wall.posts[key_post].post_images[previous_key_post_img].path" href="#!/news/[[ key_post ]]/[[ previous_key_post_img ]]" class="right background__viewer__link__previous">
         <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
     </a>
-    <a ng-click="closeImg()" ng-show="!user.wall.posts[key_post].post_images[previous_key_post_img].path" href="#/news" class="right background__viewer__link__previous">
+    <a ng-click="closeImg()" ng-show="!user.wall.posts[key_post].post_images[previous_key_post_img].path" href="#!/news" class="right background__viewer__link__previous">
         <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
     </a>
     <div class="border__viewer">
         <div class="border__viewer__wrapper">
             <div class="wrapper__background">
-                <a ng-show="user.wall.posts[key_post].post_images[next_key_post_img].path" href="#/news/[[ key_post ]]/[[ next_key_post_img ]]">
+                <a ng-show="user.wall.posts[key_post].post_images[next_key_post_img].path" href="#!/news/[[ key_post ]]/[[ next_key_post_img ]]">
                     <img class="margin-top_10 viewer__image" src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[key_post_img].name ]]" />
                     <img style="display: none;" src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[next_key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[next_key_post_img].name ]]" />
                     <img style="display: none;" src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[previous_key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[previous_key_post_img].name ]]" />
                 </a>
-                <a ng-show="!user.wall.posts[key_post].post_images[next_key_post_img].path" href="#/news" ng-click="closeImg()">
+                <a ng-show="!user.wall.posts[key_post].post_images[next_key_post_img].path" href="#!/news" ng-click="closeImg()">
                     <img class="margin-top_10 viewer__image" src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[key_post_img].name ]]" />
                 </a>
             </div>
         </div>
     </div>
-    <a href="#/news" ng-click="closeImg()" class="text-white right background__viewer__link__next">
+    <a href="#!/news" ng-click="closeImg()" class="text-white right background__viewer__link__next">
         <span class="glyphicon glyphicon-remove text-white close_img"></span>
     </a>
 </div>

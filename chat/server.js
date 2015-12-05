@@ -257,6 +257,7 @@ io.on('connection', function(socket){
                     receiver: receiver,
                     text: data.text,
                     reviewed: false,
+                    likes: [],
                     date: data.date
                 }, function (err, result) {
                     if (err) {
@@ -433,6 +434,42 @@ io.on('connection', function(socket){
                 }
             }
         }
+    });
+
+    socket.on('like msg', function (data) {
+        mongo.connect(db_connect, function (err, db) {
+            var id_message = ObjectID(data.id_msg);
+            var collection = db.collection('messages');
+            var id_user = parseInt(data.id_user);
+
+            collection.aggregate([{$match:{_id:id_message}},{$match:{"likes":{$in:[id_user]}}}]).toArray(function (err, result) {
+                if(result.length > 0){
+                    collection.update({_id: id_message},{ $pull : {likes: id_user}}, function(err, result) {
+                        collection.find({_id: id_message}).toArray(function (err, result) {
+                            for (var key in data.ids) {
+                                var id = data.ids[key];
+                                for (var k in sockets[id]) {
+                                    sockets[id][k].emit('like msg', result);
+                                }
+                            }
+                        })
+                    })
+                }else{
+                    collection.update({_id: id_message},{ $addToSet : {likes: id_user}}, function(err, result) {
+                        collection.find({_id: id_message}).toArray(function (err, result) {
+                            for (var key in data.ids) {
+                                var id = data.ids[key];
+                                for (var k in sockets[id]) {
+                                    sockets[id][k].emit('like msg', result);
+                                }
+                            }
+                        })
+                    })
+                }
+            })
+
+
+        })
     });
 
     mongo.connect(db_connect, function (err, db) {

@@ -11,6 +11,12 @@ angular.module('service.chat', ['service.socket'])
             audio.autoplay = true;
         }
 
+        function soundLikeChat() {
+            var audio = new Audio();
+            audio.src = '/sound/Squeaky-toy-noise.mp3';
+            audio.autoplay = true;
+        }
+
         socket.on('message', function(data){
             $rootScope.message_button = true;
             var data = data[0];
@@ -20,7 +26,7 @@ angular.module('service.chat', ['service.socket'])
             $rootScope.ids = $rootScope.ids.sort();
             $rootScope.id_user = parseInt($rootScope.id_user);
             if(data.reviewed == false && ($stateParams.id_user_chat == data.sender || $stateParams.id_user_chat == data.receiver)){
-                $rootScope.messages_history.unshift({sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar, color: data.color});
+                $rootScope.messages_history.unshift({_id: data._id, likes:data.likes, sender: data.sender, text: data.text, date: data.date, username: data.username, lastname: data.lastname, other_user: data.id, avatar: data.avatar, color: data.color});
 
                 if($rootScope.id_user == data.sender){
                     $rootScope.text_message = null;
@@ -71,6 +77,21 @@ angular.module('service.chat', ['service.socket'])
                 },5000);
             }
         });
+
+
+        socket.on("like msg", function(data) {
+            for(var key in $rootScope.messages_history){
+                if($rootScope.messages_history[key]._id == data[0]._id){
+                    var id = parseInt($stateParams.id_user_chat);
+                    var v_old = $rootScope.messages_history[key].likes.indexOf(id);
+                    var v_new = data[0].likes.indexOf(id);
+                    if(v_old == -1 && v_new != -1){
+                        soundLikeChat();
+                    }
+                    $rootScope.messages_history[key] = data[0];
+                }
+            }
+        })
 
         var init = function(){
             socket.on("new message", function(data) {

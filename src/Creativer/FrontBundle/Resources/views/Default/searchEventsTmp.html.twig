@@ -2,7 +2,7 @@
     <div class="row slid">
 
         <div class="row margin-top_15">
-            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a class="text-black" href="#/event" >События</a></h3></div>
+            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a class="text-black" href="#!/event" >События</a></h3></div>
 
             <div class="col-sm-2 padding-left_0 margin-top_10">
                 <span>Регион</span>
@@ -27,7 +27,7 @@
                 <button class="slid__slider-button right margin-top_3" ng-click="searchEvent()"></button>
             </div>
             {% if is_granted('ROLE_USER') %}
-                <a href="#/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
+                <a href="#!/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
             {% endif %}
         </div>
 
@@ -38,7 +38,7 @@
 
                 <div ng-repeat="children in section">
                     <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">[[ children.name ]]</h3></div>
-                    <div ng-repeat="child in children.children"><a href="#/events/[[ child.id ]]">[[ child.name ]]</a></div>
+                    <div ng-repeat="child in children.children"><a href="#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
                 </div>
 
 
@@ -50,11 +50,11 @@
                     <div class="row margin-top_10">
                         <div class="col-sm-4 trio_events" ng-repeat="item in events">
                             <div class="container_image_events block left text-gray">
-                                <a href="#/events/[[ item.event_sections.id ]]" class="name_category">[[ item.event_sections.name ]]</a>
-                                <a href="#/event/[[ item.id ]]">
+                                <a href="#!/events/[[ item.event_sections.id ]]" class="name_category">[[ item.event_sections.name ]]</a>
+                                <a href="#!/event/[[ item.id ]]">
                                     <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ item.path ]][[ item.img ]]" />
                                 </a>
-                                <a href="#/event/[[ item.id ]]" class="margin-top_5">
+                                <a href="#!/event/[[ item.id ]]" class="margin-top_5">
                                     <div class="col-sm-6 padding-left_3">
                                         <span class="glyphicon glyphicon-eye-open text-gray-light middle"></span> <span class="fs_0-7 text-gray-light"> 12341</span>
                                     </div>
@@ -66,10 +66,10 @@
                                         <time>[[ item.start_date | date: "dd.MM.yyyy" ]]</time><br>
                                     </div>
                                 </a>
-                                <a href="#/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-black text-bold text-underline_hover">
+                                <a href="#!/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-black text-bold text-underline_hover">
                                     [[ item.name ]]
                                 </a>
-                                <a href="#/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-gray text-underline_none_hover" parse-description ng-model="item.description"></a>
+                                <a href="#!/event/[[ item.id ]]" class="row col-sm-12 margin-top_5 text-gray text-underline_none_hover" parse-description ng-model="item.description"></a>
                             </div>
                         </div>
 

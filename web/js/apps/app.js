@@ -1,6 +1,7 @@
 var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.ctr.album', 'app.ctr.catalog', 'app.ctr.baraholka', 'app.ctr.messages', 'app.ctr.header', 'app.ctr.shop', 'app.ctr.album.create', 'app.ctr.people', 'app.ctr.event', 'monospaced.elastic', 'ngImgCrop','ui.tinymce','ngSanitize', 'ngTouch', 'rgkevin.datetimeRangePicker', 'ui.bootstrap', 'angular-momentjs'])
-    .config(['$routeProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', '$momentProvider', function ($routeProvider, $httpProvider, $stateProvider, $urlRouterProvider, $momentProvider) {
+    .config(['$routeProvider', '$locationProvider', '$httpProvider', '$stateProvider', '$urlRouterProvider', '$momentProvider', function ($routeProvider, $locationProvider, $httpProvider, $stateProvider, $urlRouterProvider, $momentProvider) {
 
+        $locationProvider.hashPrefix('!');
 
         $urlRouterProvider.otherwise("/");
         $stateProvider.state('create_album', {

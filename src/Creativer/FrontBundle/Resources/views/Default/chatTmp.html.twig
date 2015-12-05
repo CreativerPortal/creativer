@@ -7,7 +7,7 @@
 
                     <div class="col-sm-5">
                         <h4 class="lobster text-gray margin-left_15 left">Диалог</h4><span class="lobster text-gray">&nbsp с</span>
-                        <a class=" fs_0-8 text-underline slid__back-link margin-left_5 text-blue" href="#/[[ companion.id ]]">[[ companion.username ]] [[ companion.lastname ]]</a>
+                        <a class=" fs_0-8 text-underline slid__back-link margin-left_5 text-blue" href="#!/[[ companion.id ]]">[[ companion.username ]] [[ companion.lastname ]]</a>
                     </div>
 
                     {#<div class="col-sm-6 col-sm-offset-1">#}
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class="col-sm-2 ">
-                    <a class="user__avatar-mini left" ng-class="{'user__avatar-mini_online':companion.connection_status == '0000-00-00 00:00:00'}" href="#/[[ companion.id ]]" style="background-color: [[ companion.color ]]"><img ng-src="[[ companion.avatar ]]"></a>
+                    <a class="user__avatar-mini left" ng-class="{'user__avatar-mini_online':companion.connection_status == '0000-00-00 00:00:00'}" href="#!/[[ companion.id ]]" style="background-color: [[ companion.color ]]"><img ng-src="[[ companion.avatar ]]"></a>
                 </div>
             </div>
 
@@ -60,25 +60,35 @@
             <div class="row margin-top_15" ng-class="{'old__messages': !msg.reviewed && (msg.sender != user.id) && focus, 'new__messages': !msg.reviewed  && (msg.sender != user.id) && !focus}" ng-repeat="msg in $root.messages_history">
                 <span ng-if="focus && !msg.reviewed" ng-init="review(msg)"></span>
                 <div class="col-sm-2">
-                    <a style="background-color: [[ user.color ]]" class="user__avatar-mini block" ng-if="user.id == msg.sender" href="#/[[ user.id ]]">
+                    <a style="background-color: [[ user.color ]]" class="user__avatar-mini block" ng-if="user.id == msg.sender" href="#!/[[ user.id ]]">
                         <img ng-src="[[ user.avatar ]]">
                     </a>
-                    <a style="background-color: [[ companion.color ]]" class="user__avatar-mini block" ng-if="companion.id == msg.sender" href="#/[[ companion.id ]]">
+                    <a style="background-color: [[ companion.color ]]" class="user__avatar-mini block" ng-if="companion.id == msg.sender" href="#!/[[ companion.id ]]">
                         <img  ng-src="[[ companion.avatar ]]">
                     </a>
                 </div>
                 <div class="col-sm-10 padding-left_0">
                     <div class="row">
                         <div class=" col-sm-6 text-left">
-                            <a ng-if="user.id == msg.sender" ng-href="#/[[ user.id ]]" class="text-blue" href="">[[ user.username ]] [[ user.lastname ]]</a>
-                            <a ng-if="companion.id == msg.sender" ng-href="#/[[ companion.id ]]" class="text-blue" href="">[[ companion.username ]] [[ companion.lastname ]]</a>
+                            <a ng-if="user.id == msg.sender" ng-href="#!/[[ user.id ]]" class="text-blue" href="">[[ user.username ]] [[ user.lastname ]]</a>
+                            <a ng-if="companion.id == msg.sender" ng-href="#!/[[ companion.id ]]" class="text-blue" href="">[[ companion.username ]] [[ companion.lastname ]]</a>
                         </div>
 
                         <div class="col-sm-6 text-right fs_0-8"><time class="text-gray">[[ msg.date | date: "hh:mm dd.MM.yyyy" ]]</time></div>
                     </div>
                     <div class="text-gray">
-                        <p ng-if="user.id == msg.sender" class="fs_0-8 margin-top_10" ng-bind-html="msg.text | linky:'_blank' | imagey"></p>
-                        <p ng-if="companion.id == msg.sender" class="fs_0-8 margin-top_10" ng-bind-html="msg.text | linky:'_blank' | imagey"></p>
+                        <div ng-if="user.id == msg.sender" class="fs_0-8 margin-top_10 col-sm-10 padding-left_0" ng-bind-html="msg.text | linky:'_blank' | imagey">
+
+                        </div>
+                        <div ng-if="companion.id == msg.sender" class="fs_0-8 margin-top_10 col-sm-10 padding-left_0" ng-bind-html="msg.text | linky:'_blank' | imagey">
+
+                        </div>
+                        <div class="col-sm-2 fs_1-5 text-right text-gray">
+                            <div class="glyphicon glyphicon-heart pointer no_active_like_message" ng-click="likeMsg(msg._id)" ng-class="{'active_like_message':msg.likes.length}">
+                                <div style="position: absolute; top: 4px; left: 7px;" class="fs_0-5 text-blue" ng-if="msg.likes.length">[[ msg.likes.length ]]</div>
+                                <div style="position: absolute; top: 4px; left: 7px;" class="fs_0-5" ng-if="!msg.likes.length"></div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

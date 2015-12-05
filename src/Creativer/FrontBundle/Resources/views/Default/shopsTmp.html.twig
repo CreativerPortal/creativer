@@ -13,11 +13,11 @@
                     </td>
                     <td class="shops__table__right" ng-init="post.remove_post = false">
                         <div class="col-sm-10 text-left">
-                            <a href="#/shop/[[ post.id ]]">[[ post.name ]]</a>
+                            <a href="#!/shop/[[ post.id ]]">[[ post.name ]]</a>
                             <p class="text-gray">[[ post.description ]]</p>
                         </div>
                         {% if is_granted('ROLE_ADMIN') %}
-                            <a href="#/edit_shop/[[ post.id ]]">
+                            <a href="#!/edit_shop/[[ post.id ]]">
                                 <span ng-if="post.remove_post == false" class="glyphicon glyphicon-pencil close_image_shop ng-isolate-scope" ng-click="post.remove_post = true"></span>
                             </a>
                         {% endif %}
@@ -32,7 +32,7 @@
 
         <div class="col-sm-2">
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="#/create_shop" class="col-sm-5 advert_button margin-top_20">Добавить магазин</a>
+                <a href="#!/create_shop" class="col-sm-5 advert_button margin-top_20">Добавить магазин</a>
             {% endif %}
 
 

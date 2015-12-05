@@ -4,6 +4,7 @@
     <meta http-equiv="content-type" content="text/html; charset=UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=1045">
+    <meta name="fragment" content="!" />
     <title ng-init="$root.title = 'Портал для креативных людей'" ng-bind-html="$root.title">Портал для креативных людей</title>
 
     <meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -295,19 +296,19 @@
 
     <div class="row">
         <div class="col-sm-3 col-sm-offset-1 fiveMinuts padding-left_0">
-            <a href="#/products/1000" class="btn button_header_09 text-left">
+            <a href="#!/products/1000" class="btn button_header_09 text-left">
                 <span>Товары</span>
             </a>
-            <a href="#/services/1001" ng-click="$root.searchInBaraholka = null" class="btn button_header_05 right">
+            <a href="#!/services/1001" ng-click="$root.searchInBaraholka = null" class="btn button_header_05 right">
                 <span>Услуги</span>
             </a>
         </div>
 
         <div class="col-sm-4 col-sm-offset-3 fiveMinuts">
-            <a href="#/baraholka" class="btn button_header_09 right">
+            <a href="#!/baraholka" class="btn button_header_09 right">
                 <span>Барахолка</span>
             </a>
-            <a href="#/events" class="btn button_header_07 right">
+            <a href="#!/events" class="btn button_header_07 right">
                 <span>События</span>
             </a>
         </div>
@@ -354,7 +355,7 @@
         </div>
 
         <div class="col-sm-4">
-            <a href="{{ path('creativer_front_main') }}#/" class="logo">
+            <a href="{{ path('creativer_front_main') }}#!/" class="logo">
                 <img src="/var/www/creativer/web/img/logo.png" />
             </a>
         </div>
@@ -366,7 +367,7 @@
 
                 <div class="events__curtain" ng-if="events_attend.length">
                     <div class="events__curtain__wrapper" scrollbar>
-                        <a ng-href="#/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in events_attend">
+                        <a ng-href="#!/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in events_attend">
                                 <div class="col-sm-4 text-right padding-top_10">
                                     <div class="event__avatar-mini right">
                                         <img ng-src="{{ path_img_event_original }}/[[ event.path ]][[ event.img ]]" class="text-left">
@@ -399,7 +400,7 @@
                 <div class="messages__curtain">
                     <div class="messages__curtain-angle"></div>
                     <div class="messages__curtain-body">
-                        <a href="#/messages" ng-click="removeUser()" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10 padding-left_0">Перейти в сообщения</a>
+                        <a href="#!/messages" ng-click="removeUser()" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10 padding-left_0">Перейти в сообщения</a>
                         <div class="margin-left_15 col-sm-11 padding-left_0 horizontal_line margin-bottom_5"></div>
                         <div class="text-gray lobster" ng-show="!$root.new_messages[0]"><h4>пусто</h4></div>
                         <div class="row margin-top_10 text-left" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
@@ -411,10 +412,10 @@
                             <div class="col-sm-9 padding-left_0 padding-right_0">
                                 <div class="row">
                                     <div class=" col-sm-10 text-left">
-                                        <a ng-href="#/[[ new_message.other_user ]]" class="text-blue">[[ new_message.username ]] [[ new_message.lastname ]]</a>
+                                        <a ng-href="#!/[[ new_message.other_user ]]" class="text-blue">[[ new_message.username ]] [[ new_message.lastname ]]</a>
                                     </div>
                                 </div>
-                                <a ng-href="#/chat/[[ new_message.other_user ]]" class="row col-sm-12 padding-right_0">
+                                <a ng-href="#!/chat/[[ new_message.other_user ]]" class="row col-sm-12 padding-right_0">
                                     <div class="row col-sm-12 text-gray">
                                         <p class="fs_0-8 left">[[ new_message.text ]]</p>
                                     </div>
@@ -440,11 +441,11 @@
 
                 <nav class="menu-personal">
                     <ul class="margin-top_20">
-                        <li><a href="{{ path('person') }}#/{{ app.user.id }}">Моя страница</a></li>
-                        <li><a href="{{ path('person') }}#/create_album">Создать альбом</a></li>
-                        <li><a ng-click="removeUser($root.id_user)" href="{{ path('person') }}#/messages">Сообщения</a></li>
-                        <li><a href="{{ path('person') }}#/news">Новости</a></li>
-                        <li><a href="{{ path('person') }}#/settings">Настройки</a></li>
+                        <li><a href="{{ path('person') }}#!/{{ app.user.id }}">Моя страница</a></li>
+                        <li><a href="{{ path('person') }}#!/create_album">Создать альбом</a></li>
+                        <li><a ng-click="removeUser($root.id_user)" href="{{ path('person') }}#!/messages">Сообщения</a></li>
+                        <li><a href="{{ path('person') }}#!/news">Новости</a></li>
+                        <li><a href="{{ path('person') }}#!/settings">Настройки</a></li>
                         <li><a href="{{ path("logout") }}">Выход</a></li>
                     </ul>
                 </nav>
@@ -556,12 +557,12 @@
 <footer class="footer wrapper">
     <nav class="footer__menu col-sm-12 fiveMinuts">
         <ul>
-            <li><a href="/#/about">О нас</a></li>
-            <li><a href="/#/help">Помощь</a></li>
-            <li><a href="/#/feedback">Обратная связь</a></li>
-            <li><a href="/#/legal_information">Правовая информация</a></li>
-            <li><a href="/#/agreement">Публичный договор</a></li>
-            <li><a href="/#/rules">Правила сайта</a></li>
+            <li><a href="/#!/about">О нас</a></li>
+            <li><a href="/#!/help">Помощь</a></li>
+            <li><a href="/#!/feedback">Обратная связь</a></li>
+            <li><a href="/#!/legal_information">Правовая информация</a></li>
+            <li><a href="/#!/agreement">Публичный договор</a></li>
+            <li><a href="/#!/rules">Правила сайта</a></li>
         </ul>
     </nav>
 

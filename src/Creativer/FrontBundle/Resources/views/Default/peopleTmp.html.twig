@@ -2,7 +2,7 @@
 
      <div class="col-sm-8">
         <div class="padding-bottom_30">
-            <a href="#/[[ man.id ]]" ng-click="removeUser(man.id)" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="man in people">
+            <a href="#!/[[ man.id ]]" ng-click="removeUser(man.id)" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="man in people">
                 <div class="user__avatar-favorit text-center" ng-class="{'user__avatar-favorit-online':man.connection_status == '{{ date_online }}'}" style="margin: auto; background-color: [[ man.color ]]">
                     <img ng-src="[[ man.avatar ]]">
                 </div>

@@ -536,6 +536,17 @@ p[contenteditable]{
     color: #6096b9!important;
 }
 
+.no_active_like_message:before{
+    text-shadow: #938d8a 1px 0px, #938d8a 1px 1px, #938d8a 0px 1px, #938d8a -1px 1px, #938d8a -1px 0px, #938d8a -1px -1px, #938d8a 0px -1px, #938d8a 1px -1px, #938d8a 0 0 1px, #938d8a 0 0 1px, #938d8a 0 0 1px, #938d8a 0 0 1px, #938d8a 0 0 1px, #938d8a 0 0 1px, #938d8a 0 0 1px, #938d8a 0 0 1px;
+    color: #EAE9E3;
+    font-size: 0.9em;
+}
+
+.active_like_message:before{
+    text-shadow: #6096b9 1px 0px, #6096b9 1px 1px, #6096b9 0px 1px, #6096b9 -1px 1px, #6096b9 -1px 0px, #6096b9 -1px -1px, #6096b9 0px -1px, #6096b9 1px -1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px;
+    color: #EAE9E3;
+    font-size: 0.9em;
+}
 
 .no_like:before{
     text-shadow: #6096b9 1px 0px, #6096b9 1px 1px, #6096b9 0px 1px, #6096b9 -1px 1px, #6096b9 -1px 0px, #6096b9 -1px -1px, #6096b9 0px -1px, #6096b9 1px -1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px, #6096b9 0 0 1px;

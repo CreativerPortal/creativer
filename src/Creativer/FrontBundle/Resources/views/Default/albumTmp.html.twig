@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-5 padding-left_0">
                 <div class="col-sm-7 padding-left_0" >
-                    <h3 class="lobster name__user"><a href="#/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
+                    <h3 class="lobster name__user"><a href="#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
                 </div>
                 <div ng-if="user.connection_status != '{{ date_online }}' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
                     [[ user.connection_status | date: "dd MMM HH:mm" ]]
@@ -23,7 +23,7 @@
             <div class="row">
                 <h4 class="col-sm-6 lobster text-gray">Альбом "[[ user.albums[album_key].name ]]"</h4>
                 <div class="col-sm-6 padding-right_30">
-                    <a ng-if="user.id == $root.id_user" href="#/edit_album/[[id_album]]" class="right add_photo button_message early-message text-center text-white pointer margin-right_5 text-underline_none_hover">
+                    <a ng-if="user.id == $root.id_user" href="#!/edit_album/[[id_album]]" class="right add_photo button_message early-message text-center text-white pointer margin-right_5 text-underline_none_hover">
                         <span class="glyphicon glyphicon-wrench"></span>
                         <span class="fs_0-9">Редактировать альбом</span>
                     </a>
@@ -71,14 +71,14 @@
             <div class="padding-bottom_30">
                 <h4 class="lobster text-gray margin-left_15" ng-init="count_albums=3">Альбомы</h4>
                 <div class="album__element" ng-repeat="album in user.albums.slice(0, count_albums)">
-                    <a href="#/album/[[album.id]]" class="album__link"></a>
+                    <a href="#!/album/[[album.id]]" class="album__link"></a>
                     <div class="frame__img">
                         <img class="album_img" ng-show="album.img" ng-src="{{ path_img_album_thums }}[[ album.img ]]" />
                         <img class="album_img" ng-show="!album.img" ng-src="{{ path_img_album_thums }}[[ album.images[0].path ]][[ album.images[0].name ]]" />
                     </div>
                     <img class="frame" src="/var/www/creativer/web/img/frame.png" />
                     <div class="album__element-block">
-                        <a href="#/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
+                        <a href="#!/album/[[album.id]]" class="album__element-name">[[ album.name ]]</a>
                         <div class="left-info__album user__text-gray margin-left_10"><span class="glyphicon glyphicon-eye-open"></span> <span class="fs_0-9">[[ album.views || 0 ]]</span></div>
                         <div class="right-info__album user__text-gray margin-right_10"><span class="glyphicon glyphicon-thumbs-up"></span> <span class="fs_0-9">[[ album.likes ]]</span></div>
                     </div>

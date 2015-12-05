@@ -29,6 +29,7 @@ class AppKernel extends Kernel
             new FM\ElfinderBundle\FMElfinderBundle(),
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Creativer\BackgroundBundle\CreativerBackgroundBundle(),
+            new Yucca\PrerenderBundle\YuccaPrerenderBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'prod'))) {

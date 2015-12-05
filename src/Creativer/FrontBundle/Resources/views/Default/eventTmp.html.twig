@@ -3,7 +3,7 @@
     <div class="row slid">
 
         <div class="row margin-top_15">
-            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a class="text-black" href="#/event" >События</a></h3></div>
+            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a class="text-black" href="#!/event" >События</a></h3></div>
 
             <div class="col-sm-2 padding-left_0 margin-top_10">
                 <span>Регион</span>
@@ -33,7 +33,7 @@
                 <button class="slid__slider-button right margin-top_3" ng-click="searchEvent()"></button>
             </div>
             {% if is_granted('ROLE_USER') %}
-                <a href="#/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
+                <a href="#!/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
             {% endif %}
         </div>
 
@@ -44,7 +44,7 @@
 
                 <div ng-repeat="children in section">
                     <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">[[ children.name ]]</h3></div>
-                    <div ng-repeat="child in children.children"><a href="#/events/[[ child.id ]]">[[ child.name ]]</a></div>
+                    <div ng-repeat="child in children.children"><a href="#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
                 </div>
 
 
@@ -52,12 +52,12 @@
             <div class="col-sm-10">
 
                 <div class="col-sm-12 margin-top_25">
-                    <div class="row"><a class="text-blue text-italic" href="#/events">Вернуться к списку</a></div>
+                    <div class="row"><a class="text-blue text-italic" href="#!/events">Вернуться к списку</a></div>
                     <div class="row"><h2 class="lobster margin-left_0">[[ event.name ]]</h2></div>
                     <div class="row">
                         <div class="col-sm-6 padding-left_0 text-gray"><time class="comment_time">[[ event.start_date | date: "dd.MM.yyyy" ]]</time></div>
                         {% if is_granted('ROLE_USER') %}
-                            <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="event.user.id == $root.id_user"><a href="#/edit_event/[[ event.id ]]">Редактировать</a></div>
+                            <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="event.user.id == $root.id_user"><a href="#!/edit_event/[[ event.id ]]">Редактировать</a></div>
                         {% endif %}
                     </div>
                     <div class="row description margin-top_10">
@@ -94,12 +94,12 @@
                         <div class="col-sm-12 padding-left_0 padding-right_0">
 
                             <div class="user__avatar_event left col-sm-1" >
-                                <a href="#/[[ comment.user.id ]]" ng-class="{'user__avatar-mini-2_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-mini-2" style="background-color: [[ comment.user.color ]]"><img ng-show="comment.user.avatar" src="[[ comment.user.avatar ]]"></a>
+                                <a href="#!/[[ comment.user.id ]]" ng-class="{'user__avatar-mini-2_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-mini-2" style="background-color: [[ comment.user.color ]]"><img ng-show="comment.user.avatar" src="[[ comment.user.avatar ]]"></a>
                             </div>
 
                             <div class="col-sm-11 padding-right_0">
                                 <div class="col-sm-12 padding-right_0 padding-left_0">
-                                    <div class="text-blue col-sm-5 padding-left_0" ng-init="comment.remove_comment = false"><a href="#/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
+                                    <div class="text-blue col-sm-5 padding-left_0" ng-init="comment.remove_comment = false"><a href="#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
                                     {% if is_granted('ROLE_USER') %}
                                         <div ng-if="id_user == comment.user.id && comment.remove_comment == false"  class="right text-right edit_post">
                                             <span ng-click="comment.remove_comment = true">

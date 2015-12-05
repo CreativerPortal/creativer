@@ -1,30 +1,30 @@
     <div class="row slid padding-right_0">
 
         <div class="col-sm-3 padding-left_0 ">
-            <a href="./#/products/1000">
+            <a href="./#!/products/1000">
                 <div class="slid__products__top"></div>
             </a>
             <nav class="font_product fiveMinuts" ng-init="$root.product.name='Товары'">
                 <ul>
                     <li ng-repeat="product_one in $root.products">
-                        <a ng-class="{menu_action_black: product_one.id == $root.product_id}" href="#/products/[[ product_one.id ]]/1">[[ product_one.name ]]</a>
+                        <a ng-class="{menu_action_black: product_one.id == $root.product_id}" href="#!/products/[[ product_one.id ]]/1">[[ product_one.name ]]</a>
                         <ul ng-show="product_one.id == $root.product_id || product_one.child == true">
                             <span ng-if="product_one.id == $root.product_id" ng-init="product_one.child=true; $root.product.name=product_one.name;"></span>
                             <li ng-repeat="product_two in product_one.children">
-                                <a ng-if="product_two.branch == 0" ng-class="{menu_action_black: product_two.id == $root.product_id, font_product_dropdown: product_two.children.length}" href="#/products/[[ product_two.id ]]/1">[[ product_two.name ]]</a>
-                                <a ng-if="product_two.branch == 1" ng-class="{menu_action_black: product_two.id == $root.product_id, font_product_dropdown: product_two.children.length}" href="#/shops/[[ product_two.id ]]">[[ product_two.name ]]</a>
+                                <a ng-if="product_two.branch == 0" ng-class="{menu_action_black: product_two.id == $root.product_id, font_product_dropdown: product_two.children.length}" href="#!/products/[[ product_two.id ]]/1">[[ product_two.name ]]</a>
+                                <a ng-if="product_two.branch == 1" ng-class="{menu_action_black: product_two.id == $root.product_id, font_product_dropdown: product_two.children.length}" href="#!/shops/[[ product_two.id ]]">[[ product_two.name ]]</a>
                                 <ul ng-show="product_two.children.length || product_one.child == true">
                                     <span ng-if="product_two.id == $root.product_id" ng-init="product_one.child=true; $root.product.name=product_two.name;"></span>
                                     <li ng-repeat="product_three in product_two.children" >
                                         <span ng-if="product_three.id == $root.product_id" ng-init="product_one.child=true; $root.product.name=product_three.name;"></span>
-                                        <a ng-if="product_two.branch == 0" ng-class="{menu_action_black: product_three.id == $root.product_id}" href="#/products/[[ product_three.id ]]/1">[[ product_three.name ]]</a>
-                                        <a ng-if="product_two.branch == 1" ng-class="{menu_action_black: product_three.id == $root.product_id}" href="#/shops/[[ product_three.id ]]/1">[[ product_three.name ]]</a>
+                                        <a ng-if="product_two.branch == 0" ng-class="{menu_action_black: product_three.id == $root.product_id}" href="#!/products/[[ product_three.id ]]/1">[[ product_three.name ]]</a>
+                                        <a ng-if="product_two.branch == 1" ng-class="{menu_action_black: product_three.id == $root.product_id}" href="#!/shops/[[ product_three.id ]]/1">[[ product_three.name ]]</a>
 
                                         <ul ng-show="product_three.children.length || product_one.child == true">
                                             <span ng-if="product_three.id == $root.product_id" ng-init="product_one.child=true; $root.product.name=product_three.name;"></span>
                                             <li ng-repeat="product_four in product_three.children" >
                                                 <span ng-if="product_four.id == $root.product_id" ng-init="product_one.child=true; $root.product.name=product_four.name;"></span>
-                                                <a ng-class="{menu_action_black: product_four.id == $root.product_id}" href="#/products/[[ product_four.id ]]/1">[[ product_four.name ]]</a>
+                                                <a ng-class="{menu_action_black: product_four.id == $root.product_id}" href="#!/products/[[ product_four.id ]]/1">[[ product_four.name ]]</a>
                                             </li>
                                         </ul>
 
@@ -45,22 +45,22 @@
                 <div class="text-center text-white">События</div>
 
                 <div class="events_catalog">
-                    <a ng-show="news_events[0]" class="text-gray event_link" ng-href="#/event/[[ news_events[0].id ]]">
+                    <a ng-show="news_events[0]" class="text-gray event_link" ng-href="#!/event/[[ news_events[0].id ]]">
                         <time class="slid__news__time" datetime="2015-02-14">[[ news_events[0].date | date: "dd MMM yyyy" ]]</time>
                         <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[0].name.slice(0,28) ]]...</h5>
                         <p id="new_event_1" parse-description ng-model="text_first"></p>
-                        <div><span class="text-blue center-block text-right text-underline_hover" href="#/event/[[ news_events[0].id ]]">Далее </span></div>
+                        <div><span class="text-blue center-block text-right text-underline_hover" href="#!/event/[[ news_events[0].id ]]">Далее </span></div>
                     </a>
 
-                    <a ng-show="news_events[1]" class="text-gray event_link" ng-href="#/event/[[ news_events[1].id ]]">
+                    <a ng-show="news_events[1]" class="text-gray event_link" ng-href="#!/event/[[ news_events[1].id ]]">
                         <time class="slid__news__time" datetime="2015-02-14">[[ news_events[1].date | date: "dd MMM yyyy" ]]</time>
                         <h5 class="text-bold margin-bottom_5 margin-top_5">[[ news_events[1].name.slice(0,28) ]]...</h5>
                         <p id="new_event_2" parse-description ng-model="text_second"></p>
-                        <div><span class="text-blue center-block text-right text-underline_hover" ng-href="#/event/[[ news_events[1].id ]]">Далее </span></div>
+                        <div><span class="text-blue center-block text-right text-underline_hover" ng-href="#!/event/[[ news_events[1].id ]]">Далее </span></div>
                     </a>
                 </div>
 
-                <a class="menu_action_still" href="#/events">Ещё</a>
+                <a class="menu_action_still" href="#!/events">Ещё</a>
             </div>
 
             <form class="row  slid__get__news margin-top_40 margin-left_10">
@@ -92,7 +92,7 @@
                 </div>#}
 
                 <div class="col-sm-3 col-sm-offset-4 slid__pagination fiveMinuts padding-left_0" ng-show="pages.length > 1">
-                    <a ng-href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a ng-href="#!/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
 
             </div>
@@ -100,11 +100,11 @@
             <div class="row slid__card slid__card__first">
 
                 <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.items">
-                    <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="#/products/[[ product_id ]]/[[ currentPage ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' >
+                    <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="#!/products/[[ product_id ]]/[[ currentPage ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' >
                         {#<span class="slid__card__price">[[ item.price ]] руб.</span>#}
                     </a>
-                    <a ng-href="#/album/[[ item.id_album ]]" class="slid__card__name">[[ item.name_album ]]</a>
-                    <a ng-href="#/[[ item.id_user ]]" class="slid__card__name_user">[[ item.username ]] [[ item.lastname ]]</a>
+                    <a ng-href="#!/album/[[ item.id_album ]]" class="slid__card__name">[[ item.name_album ]]</a>
+                    <a ng-href="#!/[[ item.id_user ]]" class="slid__card__name_user">[[ item.username ]] [[ item.lastname ]]</a>
                 </div>
 
                 <div ng-show="items.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">каталог заполняется</div>
@@ -114,11 +114,11 @@
             <div class="row slid__card slid__card__first">
 
                 <div class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.shops">
-                    <a ng-href="#/shop/[[ item.id ]]" class="shop-mini-header auto block">
+                    <a ng-href="#!/shop/[[ item.id ]]" class="shop-mini-header auto block">
                         <img ng-if="item.img" ng-src="{{ path_img_shop }}[[ item.path ]][[ item.img ]]" />
                         <img ng-if="!item.img" ng-src="{{ path_img_shop }}[[ item[0].images[0].path ]][[ item[0].images[0].name ]]" />
                     </a>
-                    <a ng-href="#/shops/[[ item.id ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>
+                    <a ng-href="#!/shops/[[ item.id ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>
                 </div>
 
             </div>
@@ -126,7 +126,7 @@
 
             <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages.length > 1">
-                    <a ng-href="#/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a ng-href="#!/products/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
             </div>
 

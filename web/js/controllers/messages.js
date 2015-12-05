@@ -79,6 +79,10 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         }
     }
 
+    $scope.likeMsg = function(id_msg){
+        socket.emit('like msg', {id_msg: id_msg, id_user: $scope.id_user, ids: $scope.ids});
+    };
+
     $scope.review = function(mes){
         $timeout( function(){
             mes.reviewed = true;

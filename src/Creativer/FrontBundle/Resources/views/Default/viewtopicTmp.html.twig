@@ -2,10 +2,10 @@
 
         <div class="col-sm-10 padding-left_0">
             <div class="row">
-                <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a  ng-click="$root.searchInBaraholka = null" class="text-black" href="#/baraholka">Барахолка</a></h3></div>
+                <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a  ng-click="$root.searchInBaraholka = null" class="text-black" href="#!/baraholka">Барахолка</a></h3></div>
                 <div class="col-sm-3 slid__search padding-left_0 padding-right_5 margin-top_20">
                     <input placeholder="Поиск по барахолке" ng-model="$root.searchInBaraholka">
-                    <a href="#/viewforum" class="right margin-top_3"><button class="slid__slider-button" ng-click="searchPostsBaraholkaByText()"></button></a>
+                    <a href="#!/viewforum" class="right margin-top_3"><button class="slid__slider-button" ng-click="searchPostsBaraholkaByText()"></button></a>
                 </div>
             </div>
 
@@ -47,18 +47,18 @@
                 </div>
             </nav>
 
-            <div class="row"><a class="text-blue text-italic" href="#/viewforum/[[ post.categories_baraholka.id ]]">Вернуться к объявлениям</a></div>
+            <div class="row"><a class="text-blue text-italic" href="#!/viewforum/[[ post.categories_baraholka.id ]]">Вернуться к объявлениям</a></div>
             <div class="row"><h2 class="lobster margin-left_0">[[ post.name ]]</h2></div>
             <div class="row">
                 <div class="col-sm-6 padding-left_0 fs_0-8"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
                 {% if is_granted('ROLE_USER') %}
-                    <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="post.user.id == $root.id_user"><a href="#/edit_fleamarketposting/[[ post.id ]]">Редактировать</a></div>
+                    <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="post.user.id == $root.id_user"><a href="#!/edit_fleamarketposting/[[ post.id ]]">Редактировать</a></div>
                 {% endif %}
 
             </div>
 
             <div class="row margin-top_25">
-                <div class="col-sm-2 padding-left_0"><a href="#/[[ post.user.id ]]">
+                <div class="col-sm-2 padding-left_0"><a href="#!/[[ post.user.id ]]">
                         [[ post.user.username ]] [[ post.user.lastname ]]
                         <div class="user__avatar-mini margin-top_10" ng-class="{'user__avatar-mini_online':post.user.connection_status == '{{ date_online }}'}">
                             <img src="[[ post.user.avatar ]]">
@@ -98,7 +98,7 @@
                         <div class="row col-sm-11 padding-right_5">
                             <div class="text-blue row" ng-init="comment.remove_comment = false">
                                 <div class="col-sm-6">
-                                    <a href="#/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
+                                    <a href="#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
                                 </div>
                                 <div class="col-sm-6 padding-right_0">
                                     <div ng-if="id_user == comment.user.id && comment.remove_comment == false" class="right text-right edit_post">
@@ -130,7 +130,7 @@
 
         <div class="col-sm-2">
             {% if is_granted('ROLE_USER') %}
-                <a href="#/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+                <a href="#!/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
             {% endif %}
 
             <div class="row">
