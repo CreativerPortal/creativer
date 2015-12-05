@@ -32,7 +32,7 @@
 
             <div class="row album__cards col-sm-12 padding-right_0" ng-init="k=0">
                 <div class="col-sm-4 text-center">
-                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(0, res)">
+                    <a ng-href="#!/album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(0, res)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.path ]][[ image.name ]]" /></div>
                         </div>
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(res, res*2)">
+                    <a ng-href="#!/album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(res, res*2)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.path ]][[ image.name ]]" /></div>
                         </div>
@@ -56,7 +56,7 @@
                 </div>
 
                 <div class="col-sm-4 text-center">
-                    <a ng-href="#album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(res*2, res*3)">
+                    <a ng-href="#!/album/[[id_album]]/[[ image.name ]]/[[ key+math.floor(res*2) ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(res*2, res*3)">
                         <div class="padding__1">
                             <div class="album__element__view__top"><img ng-src="{{ path_img_album_thums }}/[[ image.path ]][[ image.name ]]" /></div>
                         </div>

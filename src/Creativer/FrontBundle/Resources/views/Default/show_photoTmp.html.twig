@@ -1,18 +1,18 @@
 <div ng-show="url_img" class="background__viewer">
-    <a ng-show="user.albums[album_key].images[key_img-1].name" href="#album/[[id_album]]/[[ user.albums[album_key].images[key_img-1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
+    <a ng-show="user.albums[album_key].images[key_img-1].name" href="#!/album/[[id_album]]/[[ user.albums[album_key].images[key_img-1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
         <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
     </a>
-    <a ng-show="!user.albums[album_key].images[key_img-1].name" ng-click="closeImg()" href="#album/[[id_album]]" class="right background__viewer__link__previous">
+    <a ng-show="!user.albums[album_key].images[key_img-1].name" ng-click="closeImg()" href="#!/album/[[id_album]]" class="right background__viewer__link__previous">
         <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
     </a>
     <div class="border__viewer">
         <div class="border__viewer__wrapper">
             <div class="wrapper__background">
-                <a ng-show="user.albums[album_key].images[next_key_img].name" href="#album/[[id_album]]/[[ user.albums[album_key].images[next_key_img].name ]]/[[next_key_img]]">
+                <a ng-show="user.albums[album_key].images[next_key_img].name" href="#!/album/[[id_album]]/[[ user.albums[album_key].images[next_key_img].name ]]/[[next_key_img]]">
                     <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ user.albums[album_key].images[key_img].path ]][[url_img]]" />
                     <img style="display: none;" src="{{ path_img_album_original }}/[[ user.albums[album_key].images[next_key_img].path ]][[ user.albums[album_key].images[next_key_img].name ]]" />
                 </a>
-                <a ng-show="!user.albums[album_key].images[next_key_img].name" ng-click="closeImg()" href="#album/[[id_album]]">
+                <a ng-show="!user.albums[album_key].images[next_key_img].name" ng-click="closeImg()" href="#!/album/[[id_album]]">
                     <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ user.albums[album_key].images[key_img].path ]][[url_img]]" />
                 </a>
             </div>
@@ -123,7 +123,7 @@
             </div>
         </div>
     </div>
-    <a href="#album/[[id_album]]" ng-click="closeImg()" class="right background__viewer__link__next">
+    <a href="#!/album/[[id_album]]" ng-click="closeImg()" class="right background__viewer__link__next">
         <span class="glyphicon glyphicon-remove text-white close_img"></span>
     </a>
 </div>
