@@ -20,7 +20,15 @@ services:
             -  { name: twig.extension }
     google.client:
         class: Creativer\FrontBundle\Handler\Google
-        arguments: ['https://www.googleapis.com/auth/calendar.readonly'] # ?????? ??? ????? ?????? ????? ?? ?????? ?????????
+        arguments: ['https://www.googleapis.com/auth/calendar.readonly']
+    ib_user.oauth_user_provider:
+        class: Creativer\FrontBundle\Handler\Provider
+        arguments: ['@doctrine','@service_container']
+#    my_user_provider:
+#        class: HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider
+#        arguments:
+#            userManager: "@fos_user.user_manager"
+#            arguments: [ @fos_user.user_manager, { facebook: facebook_id, vkontakte: vkontakte_id } ]
 #    instant_mailer:
 #        class: %swiftmailer.class%
 #        arguments: ["@?swiftmailer.transport.real"]

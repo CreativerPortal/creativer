@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new Creativer\ApiBundle\CreativerApiBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
+            new FOS\UserBundle\FOSUserBundle(),
             new Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle(),
             new Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new Snc\RedisBundle\SncRedisBundle(),
@@ -30,6 +31,7 @@ class AppKernel extends Kernel
             new Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle(),
             new Creativer\BackgroundBundle\CreativerBackgroundBundle(),
             new Yucca\PrerenderBundle\YuccaPrerenderBundle(),
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'prod'))) {

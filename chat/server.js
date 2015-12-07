@@ -240,7 +240,7 @@ io.on('connection', function(socket){
 
     socket.on('message', function (data) {
         mongo.connect(db_connect, function (err, db) {
-            if (data.ids[0] != "null" && data.ids[1] != "null" && data.ids[0] != data.ids[1] && data.sender != "null") {
+            if (data.ids[0] != null && data.ids[1] != null && data.ids[0] != data.ids[1] && data.sender != null) {
                 data.ids[0] = parseInt(data.ids[0]);
                 data.ids[1] = parseInt(data.ids[1]);
                 data.sender = parseInt(data.sender);

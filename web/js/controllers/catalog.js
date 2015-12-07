@@ -100,7 +100,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
         $stateParams.page = $stateParams.page?$stateParams.page:1;
 
-        if((!$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services || $state.current.name == 'services_all'){
+        if(($stateParams.page == 1 || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services || $state.current.name == 'services_all'){
             $rootScope.$watch('filterConditionServices', function() {
                 catalogService.getCatalogServiceAlbums({
                     id: $stateParams.id_services,
@@ -108,11 +108,11 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                     filter: $rootScope.filterConditionServices
                 }).success(function (data) {
                     $rootScope.items_services = $scope.items_services = data.services;
-
                     $rootScope.id_services = $stateParams.id_services;
                     $rootScope.pages_services = [];
                     $rootScope.pages_services[0] = $scope.items_services.currentPageNumber;
                     $rootScope.currentPage = $scope.currentPage = $scope.items_services.currentPageNumber;
+
                     var length = ($scope.items_services.totalCount / $scope.items_services.numItemsPerPage < 5) ? $scope.items_services.totalCount / $scope.items_services.numItemsPerPage : 5;
                     length--;
                     while (length > 0) {
@@ -129,7 +129,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
-        if((!$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products || $state.current.name == 'products_all'){
+        if(($stateParams.page == 1 || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products || $state.current.name == 'products_all'){
             $rootScope.page = $stateParams.page;
             $rootScope.$watch('filterCondition', function() {
                 catalogService.getCatalogProductAlbums({

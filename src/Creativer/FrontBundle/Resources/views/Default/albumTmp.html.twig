@@ -30,6 +30,10 @@
                 </div>
             </div>
 
+            <div class="row col-sm-12 padding-right_0 text-gray-light lobster">
+                [[ user.albums[album_key].description ]]
+            </div>
+
             <div class="row album__cards col-sm-12 padding-right_0" ng-init="k=0">
                 <div class="col-sm-4 text-center">
                     <a ng-href="#!/album/[[id_album]]/[[ image.name ]]/[[ key ]]" class="album__element__view" ng-repeat="(key,image) in user.albums[album_key].images.slice(0, res)">

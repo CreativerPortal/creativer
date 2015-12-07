@@ -73,7 +73,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         if($scope.ids[0] == $scope.ids[1]){
             $location.path('messages');
         }
-        if($rootScope.message_button == true && text != undefined && text != '' && $scope.ids && $scope.user && $scope.ids[0] != $scope.ids[1]){
+        if($rootScope.message_button == true && text != undefined && text != '' && $scope.ids && $scope.user && $scope.ids[0] != $scope.ids[1] && ($scope.ids[0] ^ 0) === $scope.ids[0] && ($scope.ids[1] ^ 0) === $scope.ids[1]){
             socket.emit('message', {ids: $scope.ids, sender: $scope.user.id, text: text});
             $rootScope.message_button = false;
         }

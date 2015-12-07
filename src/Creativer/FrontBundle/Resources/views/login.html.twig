@@ -13,14 +13,18 @@
                 }, 5000)
     }
 </script>
-<form class="col-sm-3 col-sm-offset-4 form-auth" action="{{ path('security_check') }}" method="post">
+<form class="col-sm-4 col-sm-offset-4 form-auth" action="{{ path('security_check') }}" method="post">
     <input class="form-auth__input fiveMinuts left margin-left_10" type="text" id="username" name="email" value="{{ last_username }}" placeholder="Email"/>
     <input class="form-auth__input fiveMinuts left margin-left_15" type="password" id="password" name="password" placeholder="Пароль"/>
     <button type="submit" name="login" class="form-auth__buttom margin-left_5" id="login" data-placement="bottom" data-content="Пароль или email неверны"></button>
     <div class="col-sm-12 fiveMinuts padding-left_0 padding-right_0">
-        <a href="{{ path('creativer_front_registration') }}" class="margin-left_10 fs_1-1 text-style">Регистрация</a>
-        <a href="{{ path('creativer_front_forgot_password') }}" class="margin-left_25 fs_1-1 text-style">Забыли пароль</a>
+        <a href="{{ path('creativer_front_registration') }}" class="margin-left_10 fs_1-1 left text-style">Регистрация</a>
+        <a href="{{ path('creativer_front_forgot_password') }}" class="margin-left_25 fs_1-1 left text-style">Забыли пароль</a>
+        <a class="left margin-left_10" href="http://creativer.ml/app_dev.php/connect/vkontakte"><img src="/var/www/creativer/web/img/vk_2.png" /></a>
+        <a class="left margin-left_5" href="http://creativer.ml/app_dev.php/connect/facebook"><img src="/var/www/creativer/web/img/facebook_2.png" ></a>
     </div>
+
+
     {% if error %}
         <div id="fail_auth" class="fail_auth"><span>пароль или email неверны</span></div>
     {% endif %}

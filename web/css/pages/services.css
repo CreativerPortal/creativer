@@ -226,6 +226,8 @@ body{
     font-size: 1.2em;
     color:#64554a;
     cursor: pointer;
+    height: 22px;
+    overflow: hidden;
 }
 
 .slid__card__name_user{

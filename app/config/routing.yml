@@ -15,6 +15,20 @@ creativer_api:
     type:     annotation
     prefix:   /
 
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+hwi_oauth_login:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix:   /login
+
+vkontakte_login:
+    path: /login/check-vkontakte
+
+facebook_login:
+    path: /login/check-facebook
+
 app:
     resource: "@AppBundle/Controller/"
     type:     annotation

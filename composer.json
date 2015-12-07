@@ -38,7 +38,9 @@
         "helios-ag/fm-elfinder-bundle": "~5",
         "beberlei/DoctrineExtensions": "*",
         "google/apiclient": "^1.1",
-        "yucca/prerender-bundle": "0.1.*@dev"
+        "yucca/prerender-bundle": "0.1.*@dev",
+        "hwi/oauth-bundle": "^0.4.0",
+        "friendsofsymfony/user-bundle": "~2.0@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3"

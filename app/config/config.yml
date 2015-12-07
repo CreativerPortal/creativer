@@ -24,6 +24,34 @@ framework:
     fragments:       ~
     http_method_override: true
 
+hwi_oauth:
+#    connect:
+#        account_connector: my_user_provider
+    firewall_names: [secured_area]
+#    fosub:
+#        username_iterations: 30
+#        properties:
+#            vkontakte: vkontakte_id
+#            facebook: facebook_id
+    resource_owners:
+        vkontakte:
+            type:                vkontakte
+            client_id:           5176512
+            client_secret:       SIHqw1pOv9qe3vNI2BV8
+            infos_url:           "https://api.vk.com/method/users.get?fields=photo_50,city,verified&version=4.0"
+        facebook:
+            type:                facebook
+            client_id:           1528247934152163
+            client_secret:       234bf894d81a27e2131d68e6325e8363
+            scope:               "email"
+            infos_url:          "https://graph.facebook.com/me?fields=id,name,email,picture.type(square),first_name,last_name"
+            paths:
+                email:          email
+                profilepicture: picture.data.url
+                username: first_name
+                lastname: last_name
+                id: id
+
 # Twig Configuration
 twig:
     debug:            "%kernel.debug%"
@@ -147,6 +175,11 @@ fos_rest:
             - { path: ^/v1/, priorities: [json], fallback_format: json, prefer_extension: false}
     view:
         view_response_listener: true
+
+fos_user:
+    db_driver: orm # other valid values are 'mongodb', 'couchdb' and 'propel'
+    firewall_name: main
+    user_class: Creativer\FrontBundle\Entity\User
 
 parameters:
     path_img_avatar: "/home/avatar/"
