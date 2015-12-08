@@ -131,6 +131,7 @@ class Provider extends OAuthUserProvider
             try{
                 $this->doctrine->getManager()->persist($wall);
                 $this->doctrine->getManager()->persist($user);
+                $this->doctrine->getManager()->persist($role);
                 $this->doctrine->getManager()->flush();
             }catch (Exception $e) {
                 die("Пользователь с таким email уже зарегестрирован попробуйте зайти под свои аккаунтом через форму входа.");

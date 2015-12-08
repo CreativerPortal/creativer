@@ -100,7 +100,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
         $stateParams.page = $stateParams.page?$stateParams.page:1;
 
-        if(($stateParams.page == 1 || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services || $state.current.name == 'services_all'){
+        if(($stateParams.page == 1 && $state.current.name == 'services' || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services || $state.current.name == 'services_all'){
             $rootScope.$watch('filterConditionServices', function() {
                 catalogService.getCatalogServiceAlbums({
                     id: $stateParams.id_services,
@@ -129,7 +129,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
-        if(($stateParams.page == 1 || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products || $state.current.name == 'products_all'){
+        if(($stateParams.page == 1 && $state.current.name == 'products' || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products || $state.current.name == 'products_all'){
             $rootScope.page = $stateParams.page;
             $rootScope.$watch('filterCondition', function() {
                 catalogService.getCatalogProductAlbums({
