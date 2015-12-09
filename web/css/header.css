@@ -521,6 +521,13 @@ p[contenteditable]{
     animation: error 3s linear infinite;
 }
 
+.fail_social_network{
+    position: absolute;
+    top: 50px;
+    left: auto;
+    right: 72px;
+}
+
 @-webkit-keyframes error {
     0% { color: rgba(255, 255, 255, 1); }
     50% { color: rgba(255, 255, 255, 0.2); }

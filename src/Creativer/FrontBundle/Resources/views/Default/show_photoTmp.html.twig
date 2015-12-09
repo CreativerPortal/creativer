@@ -1,18 +1,18 @@
 <div ng-show="url_img" class="background__viewer">
-    <a ng-show="user.albums[album_key].images[key_img-1].name" href="#!/album/[[id_album]]/[[ user.albums[album_key].images[key_img-1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
+    <a ng-show="user.albums[album_key].images[key_img-1].name" href="/#!/album/[[id_album]]/[[ user.albums[album_key].images[key_img-1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
         <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
     </a>
-    <a ng-show="!user.albums[album_key].images[key_img-1].name" ng-click="closeImg()" href="#!/album/[[id_album]]" class="right background__viewer__link__previous">
+    <a ng-show="!user.albums[album_key].images[key_img-1].name" ng-click="closeImg()" href="/#!/album/[[id_album]]" class="right background__viewer__link__previous">
         <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
     </a>
     <div class="border__viewer">
         <div class="border__viewer__wrapper">
             <div class="wrapper__background">
-                <a ng-show="user.albums[album_key].images[next_key_img].name" href="#!/album/[[id_album]]/[[ user.albums[album_key].images[next_key_img].name ]]/[[next_key_img]]">
+                <a ng-show="user.albums[album_key].images[next_key_img].name" href="/#!/album/[[id_album]]/[[ user.albums[album_key].images[next_key_img].name ]]/[[next_key_img]]">
                     <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ user.albums[album_key].images[key_img].path ]][[url_img]]" />
                     <img style="display: none;" src="{{ path_img_album_original }}/[[ user.albums[album_key].images[next_key_img].path ]][[ user.albums[album_key].images[next_key_img].name ]]" />
                 </a>
-                <a ng-show="!user.albums[album_key].images[next_key_img].name" ng-click="closeImg()" href="#!/album/[[id_album]]">
+                <a ng-show="!user.albums[album_key].images[next_key_img].name" ng-click="closeImg()" href="/#!/album/[[id_album]]">
                     <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ user.albums[album_key].images[key_img].path ]][[url_img]]" />
                 </a>
             </div>
@@ -47,18 +47,18 @@
                 <div class="col-sm-9 text-left padding-right_0" >
                     <div class="row col-sm-12 comm padding-right_0" ng-repeat="(key,comment) in user.albums[album_key].images[key_img].image_comments">
                         <div class="col-sm-2">
-                            <a href="#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
+                            <a href="/#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
                             </a>
-                            <a href="#!/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
+                            <a href="/#!/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini" ng-if="!comment.user" style="background-color: [[ user.color ]]">
                                 <img ng-src="[[ user.avatar ]]">
                             </a>
                         </div>
                         <div class="col-sm-10 padding-left_10 padding-right_0">
 
                             <div class="col-sm-12 padding-left_0 padding-right_0" ng-init="comment.remove_comment = false">
-                                <a href="#!/[[ comment.user.id ]]" class="row col-sm-6 user__text_bold text-left text-gray" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
-                                <a href="#!/[[ user.id ]]" class="row col-sm-6 user__text_bold text-left text-gray" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</a>
+                                <a href="/#!/[[ comment.user.id ]]" class="row col-sm-6 user__text_bold text-left text-gray" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
+                                <a href="/#!/[[ user.id ]]" class="row col-sm-6 user__text_bold text-left text-gray" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</a>
 
                                 <div class="col-sm-6 padding-right_0">
                                     <div ng-if="id_user == comment.user.id && comment.remove_comment == false" class="right text-right edit_post">
@@ -94,15 +94,15 @@
                 <div class="col-sm-3">
                     <div class="row">
                         <div class="col-sm-5">
-                            <a href="#!/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini left" style="background-color: [[ user.albums[album_key].color ]]">
+                            <a href="/#!/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '{{ date_online }}'}"  class="user__avatar-super-mini left" style="background-color: [[ user.albums[album_key].color ]]">
                                 <img ng-src="[[ user.avatar ]]">
                             </a>
                         </div>
                         <div class="col-sm-7">
-                            <a href="#!/[[ user.id ]]" class="text-gray">
+                            <a href="/#!/[[ user.id ]]" class="text-gray">
                                 <span class="fs_0-8">[[ user.username ]] [[ user.lastname ]]</span>
                             </a>
-                            <a href="#!/album/[[ user.albums[album_key].id ]]">
+                            <a href="/#!/album/[[ user.albums[album_key].id ]]">
                                 <span class="text-blue fs_0-8">[[ user.albums[album_key].name ]]</span>
                             </a>
                         </div>
@@ -123,7 +123,7 @@
             </div>
         </div>
     </div>
-    <a href="#!/album/[[id_album]]" ng-click="closeImg()" class="right background__viewer__link__next">
+    <a href="/#!/album/[[id_album]]" ng-click="closeImg()" class="right background__viewer__link__next">
         <span class="glyphicon glyphicon-remove text-white close_img"></span>
     </a>
 </div>

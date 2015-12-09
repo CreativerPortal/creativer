@@ -300,6 +300,10 @@
     cursor: pointer;
 }
 
+.relative{
+    position: relative;
+}
+
 .loader:before,
 .loader:after{
     border-radius: 30%;

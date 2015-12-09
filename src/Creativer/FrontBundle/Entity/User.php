@@ -246,6 +246,7 @@ class User implements UserInterface, \Serializable
      * @JMS\Groups({"getUser"})
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $date;
 

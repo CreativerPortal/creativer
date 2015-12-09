@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-sm-5 padding-left_0">
                 <div class="col-sm-7 padding-left_0" >
-                    <h3 class="lobster name__user"><a href="#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
+                    <h3 class="lobster name__user"><a href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
                 </div>
                 <div ng-if="user.connection_status != '{{ date_online }}' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
                     [[ user.connection_status | date: "dd MMM HH:mm" ]]
@@ -22,7 +22,7 @@
         <div class="col-sm-7 album" ng-init="res = user.albums[id].images.length/3">
 
             <div class="padding-bottom_30">
-                <a href="#!/[[ favorit.id ]]" ng-click="removeUser(favorit.id)" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
+                <a href="/#!/[[ favorit.id ]]" ng-click="removeUser(favorit.id)" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="favorit in user.my_favorits">
                     <div class="user__avatar-favorit" ng-class="{'user__avatar-favorit-online':favorit.connection_status == '{{ date_online }}'}" style="background-color: [[ favorit.color ]];">
                         <img ng-src="[[ favorit.avatar ]]">
                     </div>

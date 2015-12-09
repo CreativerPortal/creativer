@@ -134,14 +134,19 @@ class Provider extends OAuthUserProvider
                 $this->doctrine->getManager()->persist($role);
                 $this->doctrine->getManager()->flush();
             }catch (Exception $e) {
-                die("Пользователь с таким email уже зарегестрирован попробуйте зайти под свои аккаунтом через форму входа.");
+                $this->container->get('request')->getSession()->invalidate();
+                header('Location: http://creativer.ml?social_email=true');
+                exit;
+                //die("Пользователь с таким email уже зарегестрирован попробуйте зайти под свои аккаунтом через форму входа.");
             }
             $user_id=$user->getId();
         }else if($user){
             $user_id=$user->getId();
         }
         else if(!empty($user_by_email)){
-            die("Пользователь с email как в вашем акакунте соц. сети уже зарегистрирован");
+            $this->container->get('request')->getSession()->invalidate();
+            header('Location: http://creativer.ml?social_email=true');
+            exit;
         }
 
         if(!$user_id){

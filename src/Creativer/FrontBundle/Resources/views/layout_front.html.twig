@@ -296,19 +296,19 @@
 
     <div class="row">
         <div class="col-sm-3 col-sm-offset-1 fiveMinuts padding-left_0">
-            <a href="#!/products/1000" class="btn button_header_09 text-left">
+            <a href="/#!/products/1000" class="btn button_header_09 text-left">
                 <span>Товары</span>
             </a>
-            <a href="#!/services/1001" ng-click="$root.searchInBaraholka = null" class="btn button_header_05 right">
+            <a href="/#!/services/1001" ng-click="$root.searchInBaraholka = null" class="btn button_header_05 right">
                 <span>Услуги</span>
             </a>
         </div>
 
         <div class="col-sm-4 col-sm-offset-3 fiveMinuts">
-            <a href="#!/baraholka" class="btn button_header_09 right">
+            <a href="/#!/baraholka" class="btn button_header_09 right">
                 <span>Барахолка</span>
             </a>
-            <a href="#!/events" class="btn button_header_07 right">
+            <a href="/#!/events" class="btn button_header_07 right">
                 <span>События</span>
             </a>
         </div>
@@ -323,7 +323,7 @@
         {% endif %}
     </div>
 
-    <div class="row margin-top_5">
+    <div class="row margin-top_5 relative">
         <div class="col-sm-3 col-sm-offset-1">
             <div class="row">
                 <div class="header__search-border left"><input class="header__search fiveMinuts" placeholder="Что ищем?" ng-model="searchText" ng-click="bySearch = true" ng-keyup="$event.keyCode == 13 && search()"/></div>
@@ -452,6 +452,11 @@
             </div>
         {% else %}
             {{ render(controller('CreativerFrontBundle:Default:login')) }}
+
+            {% if social_email %}
+                <div id="fail_auth" class="fail_auth fs_0-7 fail_social_network"><span>пользователь с таким email уже существует</span></div>
+            {% endif %}
+
             <div class="col-sm-1">
                 {#<img src="/var/www/creativer/web/img/flag_bel.png" alt="русский">#}
             </div>

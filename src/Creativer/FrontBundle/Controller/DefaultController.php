@@ -158,6 +158,7 @@ class DefaultController extends Controller
         $request = $this->getRequest();
         $session = $request->getSession();
 
+
         // получить ошибки логина, если таковые имеются
         if ($request->attributes->has(SecurityContext::AUTHENTICATION_ERROR)) {
             $error = $request->attributes->get(SecurityContext::AUTHENTICATION_ERROR);
@@ -168,7 +169,7 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle::login.html.twig', array(
             // имя, введённое пользователем в последний раз
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
-            'error'         => $error,
+            'error'         => $error
         ));
     }
 
@@ -455,7 +456,8 @@ class DefaultController extends Controller
     }
 
     public function layout_frontAction(){
-        return $this->render('CreativerFrontBundle::layout_front.html.twig', array());
+        $social_email = $this->container->get('request')->get('social_email');
+        return $this->render('CreativerFrontBundle::layout_front.html.twig', array('social_email' => $social_email));
     }
 
     public function mainTmpAction()
