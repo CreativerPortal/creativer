@@ -135,7 +135,7 @@ class Provider extends OAuthUserProvider
                 $this->doctrine->getManager()->flush();
             }catch (Exception $e) {
                 $this->container->get('request')->getSession()->invalidate();
-                header('Location: http://creativer.ml?social_email=true');
+                header('Location: http://creativer.by?social_email=true');
                 exit;
                 //die("Пользователь с таким email уже зарегестрирован попробуйте зайти под свои аккаунтом через форму входа.");
             }
@@ -145,7 +145,7 @@ class Provider extends OAuthUserProvider
         }
         else if(!empty($user_by_email)){
             $this->container->get('request')->getSession()->invalidate();
-            header('Location: http://creativer.ml?social_email=true');
+            header('Location: http://creativer.by?social_email=true');
             exit;
         }
 
