@@ -39,9 +39,8 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
         json[field] = text;
 
         var result = JSON.stringify(json, '', 1);
-
         personalService.saveField(result).success(function (data) {
-            $scope.user = data.user;
+            angular.element(event.target).attr('disabled', '');
         });
     }
 

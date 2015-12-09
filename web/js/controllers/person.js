@@ -182,10 +182,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         json[field] = text;
 
         var result = JSON.stringify(json, '', 1);
-
         personalService.saveField(result).success(function (data) {
-            //$rootScope.user = $scope.user = data.user;
-            //$rootScope.user.wall.posts = $scope.user.wall.posts = data.posts;
             angular.element(event.target).attr('disabled', '');
         });
     }

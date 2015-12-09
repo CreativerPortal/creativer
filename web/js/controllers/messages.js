@@ -17,6 +17,18 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
     })
 
 
+    $scope.saveField = function(event,field){
+        var text = angular.element(event.target).val();
+        var json = {};
+        json[field] = text;
+
+        var result = JSON.stringify(json, '', 1);
+        personalService.saveField(result).success(function (data) {
+            angular.element(event.target).attr('disabled', '');
+        });
+    }
+
+
     if(!$scope.companion){
         messagesService.getUser({id:$stateParams.id_user_chat}).success(function (data) {
             $scope.companion = data.user;

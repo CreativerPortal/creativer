@@ -179,7 +179,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                 });
         }
 
-        if($scope.user && $scope.user.albums[key_album].images[$stateParams.key_img].viewed == false && $scope.user.id == $rootScope.id_user){
+        if($scope.user && $stateParams.key_img && $scope.user.albums[key_album].images[$stateParams.key_img].viewed == false && $scope.user.id == $rootScope.id_user){
             albumService.setViewed({id:$scope.user && $scope.user.albums[key_album].images[$stateParams.key_img]}).success(function (data) {
                 $scope.user.albums[key_album].images[$stateParams.key_img].viewed = true;
             });
@@ -269,11 +269,14 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     }
 
     $scope.addFavorits = function(id){
-        $scope.loader = true;
+        $scope.loader_favorit = true;
         personalService.addFavorits({id:id}).success(function (data) {
-            $scope.loader = false;
-            $rootScope.user = $scope.user = data.user;
-            $scope.$apply();
+            $scope.loader_favorit = false;
+            if(data.user){
+                $rootScope.user = $scope.user = data.user;
+            }else{
+                $rootScope.user = $scope.user = data;
+            }
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
                 if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -285,11 +288,14 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     }
 
     $scope.removeFavorits = function(id){
-        $scope.loader = true;
+        $scope.loader_favorit = true;
         personalService.removeFavorits({id:id}).success(function (data) {
-            $scope.loader = false;
-            $rootScope.user = $scope.user = data.user;
-            $scope.$apply();
+            $scope.loader_favorit = false;
+            if(data.user){
+                $rootScope.user = $scope.user = data.user;
+            }else{
+                $rootScope.user = $scope.user = data;
+            }
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
                 if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -354,6 +360,17 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             }, 1000)
         }
     })
+
+    $scope.saveField = function(event,field){
+        var text = angular.element(event.target).val();
+        var json = {};
+        json[field] = text;
+
+        var result = JSON.stringify(json, '', 1);
+        personalService.saveField(result).success(function (data) {
+            angular.element(event.target).attr('disabled', '');
+        });
+    }
 
     $rootScope.updateAvatar = function(image){
         $rootScope.loader = true;
