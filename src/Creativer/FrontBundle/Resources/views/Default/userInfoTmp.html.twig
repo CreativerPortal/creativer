@@ -10,7 +10,9 @@
 
         <div class="col-sm-8 user__text">
             <div class="row col-sm-12 padding-left_0">
-                <input class="text_info margin-top_20" ng-blur="saveField($event,'status')" obj="user" value="[[ user.status ]]" placeholder="Статус" disabled>
+                <textarea msd-elastic="" ng-model="user.status" class="text_info margin-top_20" ng-blur="saveField($event,'status')" obj="user" placeholder="Статус" disabled>
+                    [[ user.status ]]
+                </textarea>
                 <span class="glyphicon glyphicon-pencil edit" edit-pain="status"></span>
             </div>
             <div class="row col-sm-12 padding-left_0">
