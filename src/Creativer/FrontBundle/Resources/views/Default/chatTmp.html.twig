@@ -74,7 +74,7 @@
                             <a ng-if="companion.id == msg.sender" ng-href="/#!/[[ companion.id ]]" class="text-blue" href="">[[ companion.username ]] [[ companion.lastname ]]</a>
                         </div>
 
-                        <div class="col-sm-6 text-right fs_0-8"><time class="text-gray">[[ msg.date | date: "HH:mm dd.MM.yyyy" ]]</time></div>
+                        <div class="col-sm-6 text-right fs_0-8"><time class="text-gray">[[ msg.date | date: "HH:mm dd.MM.yyyy": "+03" ]]</time></div>
                     </div>
                     <div class="text-gray">
                         <div ng-if="user.id == msg.sender" class="fs_0-8 margin-top_10 col-sm-10 padding-left_0" ng-bind-html="msg.text | linky:'_blank' | imagey">

@@ -94,6 +94,9 @@ class Provider extends OAuthUserProvider
         if(!$user && empty($user_by_email)){
             $user=new User();
             $wall = new Wall();
+            $factory = $this->container->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user);
+            $password = $encoder->encodePassword($oAuthID, $user->getSalt());
             $user->setUsername($first_name);
             $user->setLastname($last_name);
             $user->setEmail($email);
@@ -102,10 +105,6 @@ class Provider extends OAuthUserProvider
                 $user->setAvatar($avatar);
             }
             $user->setColor($color);
-
-            $factory = $this->container->get('security.encoder_factory');
-            $encoder = $factory->getEncoder($user);
-            $password = $encoder->encodePassword($oAuthID, $user->getSalt());
 
             $user->setPassword($password);
             $user->setRealPassword($oAuthID);

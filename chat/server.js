@@ -251,6 +251,7 @@ io.on('connection', function(socket){
                     var receiver = data.ids[1];
                 }
                 data.date = new Date();
+                console.log(data.date);
                 collection.insert({
                     id_users: data.ids,
                     sender: data.sender,
