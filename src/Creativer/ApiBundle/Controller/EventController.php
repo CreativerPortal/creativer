@@ -82,7 +82,12 @@ class EventController extends Controller
 //        $start_month = $date->modify('first day of this month')->setTime(00, 00, 00)->format('Y/m/d H:i:s');
 //        $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
 
-        $start_month = (int)$current_date->format('d');
+        if($current_date){
+            $start_month = (int)$current_date->format('d');
+        }else{
+            $start_month = null;
+        }
+
         if($start_month && $start_month > 15){
             $start_month = $current_date->setTime(00, 00, 00)->format('Y/m/d H:i:s');
             $plus_period = 15 - 31 - $start_month;
