@@ -76,13 +76,9 @@ class Provider extends OAuthUserProvider
 
         $color = sprintf( '#%02X%02X%02X', rand(0, 255), rand(0, 255), rand(0, 255) );
 
-        if(empty($email)){
-            throw new UsernameNotFoundException('Вы не идентифицированы т.к. не получен Email-адрес');
-        }
-
         $em = $this->doctrine->getManager();
         $user_by_email = $em->getRepository('CreativerFrontBundle:User')->findOneByEmail($email);
-
+        $facebook_id = $em->getRepository('CreativerFrontBundle:User')->findOneBy(array('facebook_id' => $oAuthID, 'email' => $email));
 
         $user=$this->getUserByWindowsLive($oAuthID);// находим пользователя
 
@@ -91,7 +87,7 @@ class Provider extends OAuthUserProvider
         }
 
         // если пользователя нет в базе данных - добавим его
-        if(!$user && empty($user_by_email)){
+        if(!$user && empty($user_by_email) && empty($facebook_id)){
             $user=new User();
             $wall = new Wall();
             $factory = $this->container->get('security.encoder_factory');
@@ -136,24 +132,15 @@ class Provider extends OAuthUserProvider
                 $this->container->get('request')->getSession()->invalidate();
                 header('Location: http://creativer.by?social_email=true');
                 exit;
-                //die("Пользователь с таким email уже зарегестрирован попробуйте зайти под свои аккаунтом через форму входа.");
             }
             $user_id=$user->getId();
-        }else if($user){
-            $user_id=$user->getId();
-        }
-        else if(!empty($user_by_email)){
+        }else if(!empty($user_by_email) && empty($facebook_id)){
             $this->container->get('request')->getSession()->invalidate();
             header('Location: http://creativer.by?social_email=true');
             exit;
         }
 
-        if(!$user_id){
-            throw new UsernameNotFoundException('Возникла проблема добавления или определения пользователя');
-        }
-
         return $this->loadUserByUsername($oAuthID);
-
     }
 
     public function refreshUser(UserInterface $user)
