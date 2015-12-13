@@ -70,7 +70,6 @@ class EventController extends Controller
             $target_date = $target_date->setTime(10, 00, 00)->format('Y/m/d H:i:s');
         }elseif($other_date){
             $current_date = $date = new \DateTime($other_date);
-            $current_date = $current_date->setTime(10, 00, 00)->format('Y/m/d H:i:s');
         }else{
             $current_date = $date = new \DateTime();
         }
@@ -83,7 +82,7 @@ class EventController extends Controller
 //        $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
 
         if(!empty($current_date)){
-            $start_month = $other_date?(int)$current_date:(int)$current_date->format('d');
+            $start_month = (int)$current_date->format('d');
         }else{
             $start_month = null;
         }
