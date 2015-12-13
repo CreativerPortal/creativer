@@ -324,7 +324,7 @@ class DefaultController extends Controller
                     return $response;
                 }
             } else {
-                $response = new Respon("Error UploadObject", 500);
+                $response = new Respon(json_encode(array('status' => 'error')), 500);
                 $response->headers->set('Content-Type', 'application/json');
                 return $response;
             }

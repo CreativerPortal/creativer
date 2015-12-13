@@ -94,6 +94,7 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
     uploader.onWhenAddingFileFailed = function(item /*{File|FileLikeObject}*/, filter, options) {
        // console.info('onWhenAddingFileFailed', item, filter, options);
     };
+
     uploader.onAfterAddingFile = function(fileItem) {
         $scope.res = uploader.queue.length/3;
     };
@@ -116,7 +117,9 @@ angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload',
        // console.info('onCancelItem', fileItem, response, status, headers);
     };
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
-       // console.info('onCompleteItem', fileItem, response, status, headers);
+        if(fileItem.isError){
+            $scope.error = true;
+        }
         $scope.id_album = response.id;
     };
     uploader.onCompleteAll = function(response) {
