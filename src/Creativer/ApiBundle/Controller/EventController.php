@@ -79,8 +79,18 @@ class EventController extends Controller
         $year = (int)$date->format('Y');
 
 
-        $start_month = $date->modify('first day of this month')->setTime(00, 00, 00)->format('Y/m/d H:i:s');
-        $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
+//        $start_month = $date->modify('first day of this month')->setTime(00, 00, 00)->format('Y/m/d H:i:s');
+//        $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
+
+        $start_month = (int)$current_date->format('d');
+        if($start_month > 15){
+            $start_month = $current_date->setTime(00, 00, 00)->format('Y/m/d H:i:s');
+            $plus_period = 15 - 31 - $start_month;
+            $end_month = $date->modify('last day of this month')->modify('+'.$plus_period.' day')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
+        }else{
+            $start_month = $current_date->setTime(00, 00, 00)->format('Y/m/d H:i:s');
+            $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
+        }
 
         if($id_cat != null) {
 
