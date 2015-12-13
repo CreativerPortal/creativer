@@ -38,6 +38,7 @@
                     </multi-select-tree>
                     <textarea class="description_album" ng-blur="editDescriptionAlbum(edit_album.id,edit_album.description)" ng-model="edit_album.description" placeholder="Короткое описание альбома"></textarea>
 
+                    <h4 class="alert-danger fs_0-9 text-center" ng-if="error == true" >Ошибка загрузки возможно файл слишком велик или формат файла не поддерживается </h4>
 
                     <div class="row margin-top_20">
 

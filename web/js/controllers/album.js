@@ -445,6 +445,9 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
     uploader.onCompleteItem = function(fileItem, response, status, headers) {
         // console.info('onCompleteItem', fileItem, response, status, headers);
         //$scope.id_post_baraholka = response.id;
+        if(fileItem.isError){
+            $scope.error = true;
+        }
         $scope.edit_album.images.unshift(response);
         $scope.res = $scope.edit_album.images.length/3;
     };
