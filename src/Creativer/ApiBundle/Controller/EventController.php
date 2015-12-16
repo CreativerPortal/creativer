@@ -151,7 +151,7 @@ class EventController extends Controller
                                   $query->andWhere('e.end_date >= :date AND e.start_date <= :date')
                                   ->setParameter('date', $target_date);
                           }else{
-                              $query->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month')
+                            $query->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month OR e.start_date <= :start_month AND e.end_date >= :start_month')
                                   ->setParameter('start_month', $start_month)
                                   ->setParameter('end_month', $end_month);
                           }
