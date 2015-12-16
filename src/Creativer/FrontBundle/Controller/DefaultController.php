@@ -1279,6 +1279,12 @@ class DefaultController extends Controller
         return $this->render('CreativerFrontBundle:Default:show_post_photoTmp.html.twig');
     }
 
+    public function showPersonPostTmpAction(){
+
+
+        return $this->render('CreativerFrontBundle:Default:show_person_postTmp.html.twig');
+    }
+
     public function showPostPhotoNewsTmpAction(){
 
 

@@ -291,6 +291,16 @@
                         },
                         data: data
                     })
+                },
+                getPostById: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'get_person_post_by_id',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    })
                 }
             };
         }]);

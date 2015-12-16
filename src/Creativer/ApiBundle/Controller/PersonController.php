@@ -1438,4 +1438,30 @@ class PersonController extends Controller
         $response->headers->set('Content-Type', 'application/json');
         return $response;
     }
+
+    /**
+     * @Post("/v1/get_person_post_by_id")
+     * @View(serializerGroups={"getUser"})
+     */
+    public function getPersonPostByIdAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->find($id);
+
+        $post = array('post' => $post);
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $post,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
 }

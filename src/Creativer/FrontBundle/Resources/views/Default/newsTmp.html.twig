@@ -81,9 +81,9 @@
                             <document_post id_document="[[ document.id ]]"></document_post>
                         </div>
 
-                        <div class="col-sm-12 padding-left_0">
+                        <a disabled-link="!edits" data-ng-class="{'disabled': edits}" href="/#!/[[ post.user.id ]]/post/[[ post.id ]]" class="col-sm-12 padding-left_0">
                             <p class="user__text text-left col-sm-12 padding-left_0 user__text__post" placeholder="Текст">[[post.text]]</p>
-                        </div>
+                        </a>
 
                         <div class="row">
                             <div class="col-sm-10 col-sm-offset_2 attacher">
@@ -96,10 +96,10 @@
 
                         <div class="row" ng-init="post.comments_all_show = false;">
                             {% if is_granted('ROLE_USER') %}
-                                <div class="col-sm-6 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
-                                <div class="col-sm-6 text-right"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></div>
+                                <div class="col-sm-4 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
+                                <a class="col-sm-8 text-right text-underline_none_hover" href="/#!/[[ post.user.id ]]/post/[[ post.id ]]"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></a>
                             {%  else %}
-                                <div class="col-sm-6 col-sm-offset-6 text-right"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></div>
+                                <a class="col-sm-12 col-sm-offset-6 text-right text-underline_none_hover" href="/#!/[[ post.user.id ]]/post/[[ post.id ]]"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></a>
                             {% endif %}
                         </div>
                     </div>
@@ -130,7 +130,7 @@
 
                             <div ng-if="comment.remove_comment == true" class="col-sm-6 text-right">
                                 Удалить ?
-                                <span class="text-blue pointer" ng-click="removeComment(key,post.comments,comment.id)">Да</span> |
+                                <span class="text-blue pointer" ng-click="removeComment(post,comment)">Да</span> |
                                 <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                             </div>
 
@@ -162,7 +162,7 @@
 
                             <div ng-if="comment.remove_comment == true" class="col-sm-6 text-right">
                                 Удалить ?
-                                <span class="text-blue pointer" ng-click="removeComment(key,post.comments,comment.id)">Да</span> |
+                                <span class="text-blue pointer" ng-click="removeComment(post,comment)">Да</span> |
                                 <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                             </div>
 

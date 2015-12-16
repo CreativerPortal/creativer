@@ -1,0 +1,86 @@
+<div class="background__viewer">
+    <div class="border__viewer">
+        <div class="border__viewer__wrapper">
+            <div class="row">
+                <div class="col-sm-5">
+                    <a href="/#!/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':user.connection_status == '{{ date_online }}'}" class="user__avatar-super-mini left" style="background-color: [[ user.color ]]">
+                        <img ng-src="[[ user.avatar ]]">
+                    </a>
+                    <a href="/#!/[[ user.id ]]" class="text-gray left margin-left_15 text-underline_none_hover">
+                        <span class="lobster">[[ user.username ]] [[ user.lastname ]]</span><br>
+                        <span class="margin-top_30"><time class="text-gray fs_0-7">[[ full_post.date  | date: "dd MMM yyyy" ]]</time></span>
+                    </a><br>
+                </div>
+            </div>
+            <div class="wrapper__background">
+                <div class="text-left margin-top_15">[[ full_post.text ]]</div>
+                <img class="margin-top_10 viewer__image block auto" ng-repeat="img in full_post.post_images" src="{{ path_img_post_original }}/[[ img.path ]]/[[ img.name ]]" /><br>
+
+                <div class="col-sm-12 margin-top_10 padding-left_0 padding-right_0">
+                    <div style="margin: auto" class="img_post" ng-repeat="(key,video) in full_post.post_videos">
+                        <video_post id_video="[[ video.id ]]"></video_post>
+                        <iframe width="604" height="384" ng-src="[[ full_post.post_videos[key].url | trustAsResourceUrl ]]" frameborder="0" allowfullscreen></iframe>
+                    </div>
+                </div>
+
+                <div class="upload__element_person row col-sm-11 col-sm-offset-1 margin-top_5 line-height_1" ng-repeat="(key,document) in full_post.post_documents">
+                    <a href="{{ path_documents }}[[ full_post.post_documents[key].path ]][[ full_post.post_documents[key].name ]]" class="text-blue col-sm-11 text-underline_none_hover">
+                        <span class="glyphicon glyphicon-open-file fs_2-0 left"></span>
+                        <span class="fs_0-9 left">[[ full_post.post_documents[key].real_name ]]</span><br />
+                        <span class="text-gray left fs_0-8">[[ full_post.post_documents[key].size | bytes ]]</span>
+                    </a>
+                    <document_post id_document="[[ document.id ]]"></document_post>
+                </div>
+
+                <textarea msd-elastic="" class="text-gray margin-top_10"  ng-model="full_post.text_comment" rows="3" placeholder="Комментировать" style="width: 608px;"></textarea>
+                <div ng-show="full_post.text_comment" class="margin-top_5 text-right" style="margin: auto; width: 608px;">
+                    <button class="true fs_0-9" ng-class="{'loader': loader_comment}" ng-click="saveComment(full_post,full_post.id,full_post.text_comment)">Отправить</button>
+                    <button class="false fs_0-9" ng-click="full_post.text_comment=''">Отмена</button>
+                </div>
+
+                <div class="row margin-left_60 col-sm-11 one_comment" ng-repeat="(key,comment) in full_post.comments">
+                    <div class="col-sm-1">
+                        <a ng-href="/#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" ng-if="comment.user" class="user__avatar-super-mini left" style="background-color: [[ comment.user.color ]]">
+                            <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
+                        </a>
+                        <a ng-href="/#!/[[ user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" ng-if="!comment.user" class="user__avatar-super-mini" style="background-color: [[ user.color ]]">
+                            <img  ng-src="[[ user.avatar ]]">
+                        </a>
+                    </div>
+                    <div class="col-sm-10 ">
+                        <a ng-href="/#!/[[ comment.user.id ]]" ng-click="removeUser(comment.user.id)" class="col-sm-6 user__text_bold text-left" ng-if="comment.user">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
+                        <a ng-href="/#!/[[ user.id ]]" class="col-sm-6 user__text_bold text-left" ng-if="!comment.user">[[ user.username ]] [[ user.lastname ]]</a>
+                        <div ng-if="((user.id == id_user) || (comment.user.id == id_user)) && !comment.remove_comment"  class="col-sm-6 text-right edit_comment">
+                                <span ng-click="comment.remove_comment = true">
+                                    <span class="text-gray glyphicon glyphicon-remove pointer"></span>
+                                </span>
+                        </div>
+
+                        <div ng-if="comment.remove_comment == true" class="col-sm-6 text-right">
+                            Удалить ?
+                            <span class="text-blue pointer" ng-click="removeComment(full_post,comment)">Да</span> |
+                            <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
+                        </div>
+
+                        <div class="user__text col-sm-12 text-left" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
+                        <div class="col-sm-12 text-left">
+                            <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
+                            <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="full_post.text_comment = comment.user.username+', '">Ответить</span>
+                        </div>
+                    </div>
+                    <div style="width: 608px" class="col-sm-12 margin-left_20 margin-top_10 slid__comment__line"></div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+    <a href="/#!/[[ user.id ]]" ng-click="updatePost(full_post); closeImg();" class="text-white right background__viewer__link__next">
+        <span class="glyphicon glyphicon-remove text-white close_img"></span>
+    </a>
+</div>
+
+<div ng-if="!user.wall.posts[key_post].post_images[key_post_img]">
+    <span ng-init="$root.overflow = false"></span>
+</div>

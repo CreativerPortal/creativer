@@ -324,6 +324,15 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'personCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('id.state3', {
+            url: '/post/:id_post',
+            templateUrl: function ($stateParams){
+                var url = "/show_person_post_tmp";
+                return url;
+            },
+            controller: 'personCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('id.state2', {
             url: '/:key_post/:key_post_img',
             templateUrl: function ($stateParams){
@@ -656,8 +665,7 @@ app.directive('editPain', function () {
         "</label>" +
         "</li>" +
         "<li>Документ</li>" +
-        "<li>Видеозапись</li>" +
-        "<li>Аудиозапись</li>" +
+        "<li ng-click='addVideo(post)'>Видеозапись</li>" +
         "</ul>" +
         "</div>" +
         "</label>"+
@@ -682,6 +690,18 @@ app.directive('editPain', function () {
         template: "<span class='glyphicon glyphicon-remove close_image_post' ng-click='removeVideoPost(id_video,id_post)'></span>",
         link: function(scope, element, attrs){
             scope.id_video = attrs.idVideo;
+            scope.id_post = scope.post.id;
+        }
+    }
+}).directive('videoPostAdd', function(){
+    return{
+        restrict: "A",
+        scope: true,
+        template: "<div class='row col-sm-12 padding-right_0 margin-top_5 margin-bottom_5' ng-repeat='(k,v) in videos track by $index'>" +
+                  "<input type='text' class='text_video' ng-model='videos[k]' placeholder='Cсылка на Youtube, Rutube, Vimeo или др.'>" +
+                  "</div>",
+        link: function(scope, element, attrs){
+            scope.id_document = attrs.idDocument;
             scope.id_post = scope.post.id;
         }
     }
@@ -833,6 +853,20 @@ app.directive('editPain', function () {
                     });
                 }, 2000)
             })
+        }
+    };
+}).directive('disabledLink', function() {
+    return {
+        restrict: 'A',
+        scope: {
+            enabled: '=disabledLink'
+        },
+        link: function(scope, element, attrs) {
+            element.bind('click', function(event) {
+                if(!scope.enabled) {
+                    event.preventDefault();
+                }
+            });
         }
     };
 });

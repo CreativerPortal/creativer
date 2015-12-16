@@ -1,7 +1,12 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
     .controller('personCtrl',['$state','$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
-
+    if($stateParams.id_post){
+        personalService.getPostById({id: $stateParams.id_post}).success(function (data) {
+            $scope.full_post = data.post;
+            $rootScope.overflow = true;
+        })
+    }
 
     if($stateParams.id && !$stateParams.key_post){
         if($state.current.name == 'news' && $scope.user) {
@@ -157,12 +162,17 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 }
             });
         }
+        $scope.post_attach = false;
     }
 
     $scope.videos = [];
 
-    $scope.addVideo = function(){
-        $scope.videos.push("");
+    $scope.addVideo = function(post){
+        if(post){
+            post.videos.push("");
+        }else{
+            $scope.videos.push("");
+        }
     }
 
     $scope.saveComment = function(post, post_id, text){
@@ -191,7 +201,8 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.loader_favorit = true;
         personalService.addFavorits({id:id}).success(function (data) {
             $scope.loader_favorit = false;
-            $scope.user = data;
+            $scope.user.favorits_with_me = data.favorits_with_me;
+            $scope.user.my_favorits = data.my_favorits;
                 $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){
                     if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
@@ -202,12 +213,21 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
+    $scope.updatePost = function(full_post){
+        for(var key in $scope.user.wall.posts){
+            if($scope.user.wall.posts[key].id == full_post.id){
+                $scope.$parent.user.wall.posts[key] = full_post;
+            }
+        }
+    }
+
     $scope.removeFavorits = function(id){
         $scope.loader_favorit = true;
         personalService.removeFavorits({id:id}).success(function (data) {
             $scope.loader_favorit = false;
-            $scope.user = data;
-                $scope.favorit = false;
+            $scope.user.favorits_with_me = data.favorits_with_me;
+            $scope.user.my_favorits = data.my_favorits;
+            $scope.favorit = false;
                 for(key in $scope.user.favorits_with_me){
                     if($scope.user.favorits_with_me[key].id ==  $rootScope.id_user){
                         $scope.favorit = true;
@@ -249,10 +269,13 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         });
     }
 
-    $scope.removeComment = function(key,comments,id){
-        console.log(comments);
-        personalService.removeComment({id: id}).success(function (data) {
-            comments.splice(key,1);
+    $scope.removeComment = function(post,comment){
+        personalService.removeComment({id: comment.id}).success(function (data) {
+            for(var key in post.comments){
+                if(post.comments[key].id == comment.id){
+                    post.comments.splice(key,1);
+                }
+            }
         });
     }
 

@@ -61,6 +61,10 @@ creativer_showPostPhotoTmp:
     path:     /show_post_photo_tmp
     defaults: { _controller: CreativerFrontBundle:Default:showPostPhotoTmp }
     methods:  [GET]
+creativer_showPersonPostTmp:
+    path:     /show_person_post_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:showPersonPostTmp }
+    methods:  [GET]
 creativer_showPostPhotoNewsTmp:
     path:     /show_post_photo_news_tmp
     defaults: { _controller: CreativerFrontBundle:Default:showPostPhotoNewsTmp }

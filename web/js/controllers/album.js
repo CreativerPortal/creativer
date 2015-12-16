@@ -273,9 +273,11 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
         personalService.addFavorits({id:id}).success(function (data) {
             $scope.loader_favorit = false;
             if(data.user){
-                $rootScope.user = $scope.user = data.user;
+                $scope.user.favorits_with_me = data.user.favorits_with_me;
+                $scope.user.my_favorits = data.user.my_favorits;
             }else{
-                $rootScope.user = $scope.user = data;
+                $scope.user.favorits_with_me = data.favorits_with_me;
+                $scope.user.my_favorits = data.my_favorits;
             }
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
@@ -292,9 +294,11 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
         personalService.removeFavorits({id:id}).success(function (data) {
             $scope.loader_favorit = false;
             if(data.user){
-                $rootScope.user = $scope.user = data.user;
+                $scope.user.favorits_with_me = data.user.favorits_with_me;
+                $scope.user.my_favorits = data.user.my_favorits;
             }else{
-                $rootScope.user = $scope.user = data;
+                $scope.user.favorits_with_me = data.favorits_with_me;
+                $scope.user.my_favorits = data.my_favorits;
             }
             $scope.favorit = false;
             for(key in $scope.user.favorits_with_me){
