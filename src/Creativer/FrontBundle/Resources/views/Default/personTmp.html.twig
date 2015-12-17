@@ -152,7 +152,7 @@
                            </div>
 
                             <div ng-if="edits" class="col-sm-6 text-right">
-                                <span class="text-blue pointer" complete_edit>Завершить</span>
+                                <span class="text-blue pointer" complete_edit ng-click="sendDataPost(post)">Завершить</span>
                             </div>
 
 
@@ -200,6 +200,7 @@
                             <p class="user__text text-left col-sm-12 padding-left_0 user__text__post" placeholder="Текст">[[post.text]]</p>
                         </a>
 
+                        <video_post_add></video_post_add>
 
                         <div class="row">
                             <div class="col-sm-10 col-sm-offset_2 attacher">

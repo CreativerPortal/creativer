@@ -242,6 +242,16 @@
                         data: data
                     })
                 },
+                sendDataPost: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'send_data_post',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    })
+                },
                 removeImgPost: function (data) {
                     return $http({
                         method: 'POST',

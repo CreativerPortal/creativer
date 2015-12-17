@@ -618,15 +618,18 @@ app.directive('editPain', function () {
                 var images = element.parent().parent().find("img_post");
                 var videos = element.parent().parent().find("video_post");
                 var documents = element.parent().parent().find("document_post");
-
+                var videoPostAdd = element.parent().parent().find("video_post_add")[0];
 
 
                 attache.setAttribute('attache-post', '');
                 text.setAttribute('contenteditable', '');
                 progress.setAttribute('progress-wrapper', 'editUploaderPost');
+                videoPostAdd.setAttribute('video_post_add', '');
                 $compile(attache)(scope);
                 $compile(text)(scope);
                 $compile(progress)(scope);
+                $compile(videoPostAdd)(scope);
+
                 for(var key in images){
                     if(!isNaN(key)){
                         images[key].setAttribute('remove_img_post', '');
@@ -697,8 +700,9 @@ app.directive('editPain', function () {
     return{
         restrict: "A",
         scope: true,
-        template: "<div class='row col-sm-12 padding-right_0 margin-top_5 margin-bottom_5' ng-repeat='(k,v) in videos track by $index'>" +
-                  "<input type='text' class='text_video' ng-model='videos[k]' placeholder='Cсылка на Youtube, Rutube, Vimeo или др.'>" +
+        template: "<span class='text-blue text-bold' ng-show='post.videos_add.length'>Добавить видео</span>" +
+                  "<div class='row col-sm-12 padding-right_0 margin-top_5 margin-bottom_5' ng-repeat='(k,v) in post.videos_add track by $index'>" +
+                  "<input type='text' class='text_video' ng-model='post.videos_add[k]' placeholder='Cсылка на Youtube, Rutube, Vimeo или др.'>" +
                   "</div>",
         link: function(scope, element, attrs){
             scope.id_document = attrs.idDocument;
@@ -769,6 +773,12 @@ app.directive('editPain', function () {
                             remove_document[key].removeAttribute("remove_document_post");
                         }
                     }
+                }
+
+                if(document.querySelectorAll("[video_post_add]")[0]){
+                    var video_post_add_remove = document.querySelectorAll("[video_post_add]")[0];
+                    video_post_add_remove.removeAttribute("video_post_add");
+                    video_post_add_remove.innerHTML = "";
                 }
 
                 scope.$parent.$parent.edits = false;

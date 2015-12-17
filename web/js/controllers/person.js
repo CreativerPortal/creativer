@@ -169,9 +169,25 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     $scope.addVideo = function(post){
         if(post){
-            post.videos.push("");
+            if(!post.videos_add)
+                post.videos_add = [];
+            post.videos_add.push("");
         }else{
             $scope.videos.push("");
+        }
+    }
+
+    $scope.sendDataPost = function(post){
+        if(post.videos_add){
+            personalService.sendDataPost({id: post.id, video: post.videos_add}).success(function (data) {
+                post.videos_add = [];
+                for(var key in $scope.user.wall.posts){
+                    if(post.id == $scope.user.wall.posts[key].id){
+                        $scope.user.wall.posts[key] = data;
+                    }
+                }
+                post = data;
+            });
         }
     }
 

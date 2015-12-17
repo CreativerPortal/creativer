@@ -1189,6 +1189,44 @@ class PersonController extends Controller
 
     /**
      * @return array
+     * @Post("/v1/send_data_post")
+     * @View()
+     */
+    public function sendDataPostAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $video = $this->get('request')->request->get('video');
+
+        $em = $this->getDoctrine()->getManager();
+        $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->find($id);
+
+        foreach($video as $key=>$val){
+            $post_video = new PostVideos();
+            $post_video->setUrl($val);
+            $post_video->setPost($post);
+            $post->addPostVideo($post_video);
+            $em->persist($post_video);
+        }
+
+        $em->flush();
+
+        $serializer = $this->container->get('jms_serializer');
+        $response = $serializer
+            ->serialize(
+                $post,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+                    ->setGroups(array('getUser'))
+            );
+
+        $response = new Respon($response);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
+    }
+
+    /**
+     * @return array
      * @Post("/v1/remove_img_post")
      * @View()
      */
