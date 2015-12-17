@@ -1201,11 +1201,13 @@ class PersonController extends Controller
         $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->find($id);
 
         foreach($video as $key=>$val){
-            $post_video = new PostVideos();
-            $post_video->setUrl($val);
-            $post_video->setPost($post);
-            $post->addPostVideo($post_video);
-            $em->persist($post_video);
+            if(!empty($val)){
+                $post_video = new PostVideos();
+                $post_video->setUrl($val);
+                $post_video->setPost($post);
+                $post->addPostVideo($post_video);
+                $em->persist($post_video);
+            }
         }
 
         $em->flush();

@@ -179,6 +179,11 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
 
     $scope.sendDataPost = function(post){
         if(post.videos_add){
+            for(var key in post.videos_add){
+                if (post.videos_add[key] == "" || post.videos_add[key] == " ") {
+                    post.videos_add.splice(key,1);
+                }
+            }
             personalService.sendDataPost({id: post.id, video: post.videos_add}).success(function (data) {
                 post.videos_add = [];
                 for(var key in $scope.user.wall.posts){
