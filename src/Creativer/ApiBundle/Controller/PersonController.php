@@ -1488,8 +1488,6 @@ class PersonController extends Controller
         $id = $this->get('request')->request->get('id');
         $post = $this->getDoctrine()->getRepository('CreativerFrontBundle:Posts')->find($id);
 
-        $post = array('post' => $post);
-
         $serializer = $this->container->get('jms_serializer');
         $response = $serializer
             ->serialize(
@@ -1498,6 +1496,9 @@ class PersonController extends Controller
                 SerializationContext::create()
                     ->setGroups(array('getUser'))
             );
+
+        $response = array('post' => $response);
+
 
         $response = new Respon($response);
         $response->headers->set('Content-Type', 'application/json');
