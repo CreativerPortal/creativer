@@ -93,6 +93,7 @@ angular.module('service.chat', ['service.socket'])
             }
         })
 
+
         var init = function(){
             socket.on("new message", function(data) {
                 //if($state.current.name != 'chat'){}

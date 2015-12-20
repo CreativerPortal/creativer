@@ -656,3 +656,25 @@ p[contenteditable]{
 .video-js .rem-logo img{
     opacity: 0!important;
 }
+
+.icon_notification{
+    width: 21px;
+    height: 21px;
+    border: 50px;
+    text-align: center;
+    border-radius: 10px;
+    font-size: 10px;
+    line-height: 22px;
+}
+
+.icon_notification-blue{
+    background-color: #00A4FF;
+}
+
+.icon_notification-green{
+    background-color: #0bd600;
+}
+
+.icon_notification-orange{
+    background-color: #d69617;
+}

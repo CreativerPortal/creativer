@@ -1,5 +1,5 @@
-angular.module('app.ctr.header', ['service.header'])
-    .controller('headerCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$stateParams', function($window,$scope,$rootScope,$location,headerService,$stateParams) {
+angular.module('app.ctr.header', ['service.header', 'service.socket'])
+    .controller('headerCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$stateParams', 'socket',  function($window,$scope,$rootScope,$location,headerService,$stateParams,socket) {
 
     $scope.date = new Date();
 
@@ -26,6 +26,47 @@ angular.module('app.ctr.header', ['service.header'])
             $rootScope.user = null;
         }
     }
+
+
+    function soundNotification() {
+        var audio = new Audio();
+        audio.src = '/sound/whistle.mp3';
+        audio.autoplay = true;
+    }
+
+
+    socket.on("set notification", function(data) {
+        if(data.length > $rootScope.notification.length){
+            soundNotification();
+        }
+        $rootScope.notification = data;
+    });
+
+    socket.emit("get notification",{id_user: $rootScope.id_user});
+    socket.on("get notification", function(data) {
+        $rootScope.notification = data;
+    });
+
+ /*   $rootScope.$watch("notification", function () {
+        var path = $location.path();
+        for(var key in $rootScope.notification){
+            if($rootScope.notification[key].url == path){
+                socket.emit("remove notification",{id: $rootScope.notification[key]._id, id_user: $rootScope.id_user});
+            }
+        }
+    });
+    */
+
+    $rootScope.$on('$stateChangeStart', function(next, current) {
+        var path = $location.path();
+        for(var key in $rootScope.notification){
+            if($rootScope.notification[key].url == path){
+                socket.emit("remove notification",{id: $rootScope.notification[key]._id, id_user: $rootScope.id_user});
+            }
+        }
+    });
+
+
 
 }]);
 

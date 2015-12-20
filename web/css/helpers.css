@@ -1,5 +1,9 @@
 .background__envelope{
-    background-color: #b6dafa;
+    background-color: #b6dafa!important;
+}
+
+.background__envelope__yellow{
+    background-color: #fae535;
 }
 
 .middle{

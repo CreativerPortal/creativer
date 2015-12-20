@@ -137,6 +137,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             $scope.loader_post = true;
             $scope.count_elment = (uploader.queue.length != 0 && uploaderDoc.queue.length != 0)?2:1;
             personalService.savePost({wall_id:wall_id,text:$scope.text_post,id: $stateParams.id,videos:$scope.videos}).success(function (data) {
+                if($scope.user.id != $rootScope.id_user){
+                    socket.emit("set notification",{id_user: $rootScope.id_user, receiver: $scope.user.id, type: "post", url: '/'+$scope.user.id})
+                }
                 if(!uploader.queue.length){
                     $scope.text_post = '';
                     $scope.videos = [];
@@ -203,6 +206,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 post.comments.push(data.comment);
                 post.text_comment = '';
                 $scope.loader_comment = false;
+                if($scope.user.id != $rootScope.id_user){
+                    socket.emit("set notification",{id_user: $rootScope.id_user, receiver: $scope.user.id, type: "post_comment", url: '/'+$scope.user.id+'/'+'post'+'/'+post_id})
+                }
             });
         }
     }

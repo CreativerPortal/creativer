@@ -393,9 +393,9 @@
                     </div>
                 </div>
             </div>
-            <div class="messages col-sm-1 padding-right_10 padding-left_0 margin-top_5 text-center pointer">
-                <img class="margin-left_20" ng-class="{background__envelope: $root.new_messages.length }" ng-src="/var/www/creativer/web/img/message_ico.png" alt="сообщения"/>
-                    <span class="text-white fiveMinuts margin-left_5 fs_0-9" >([[ $root.new_messages.length ]])</span><br>
+            <div class="messages col-sm-1 padding-right_5 padding-left_0 margin-top_5 text-center pointer">
+                <img class="margin-left_20" ng-class="{background__envelope: $root.new_messages.length, background__envelope__yellow: $root.notification.length }" ng-src="/var/www/creativer/web/img/message_ico.png" alt="сообщения"/>
+                    <span class="text-white fiveMinuts margin-left_3 fs_0-8" >([[ $root.new_messages.length ]],[[ $root.notification.length ]])</span><br>
                 <span class="text-white fiveMinuts">Сообщения</span>
                 <div class="messages__curtain">
                     <div class="messages__curtain-angle"></div>
@@ -403,7 +403,7 @@
                         <a href="#!/messages" ng-click="removeUser()" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10 padding-left_0">Перейти в сообщения</a>
                         <div class="margin-left_15 col-sm-11 padding-left_0 horizontal_line margin-bottom_5"></div>
                         <div class="text-gray lobster" ng-show="!$root.new_messages[0]"><h4>пусто</h4></div>
-                        <div class="row margin-top_10 text-left" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
+                        <div ng-href="/#![[ notification.url ]]" class="row margin-top_10 text-left" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
                             <div class="col-sm-2 col-sm-offset-1 padding-right_0 padding-left_0">
                                 <div class="user__avatar-mini-header text-left" style="background-color: [[ new_message.color ]];">
                                     <img ng-src="[[ new_message.avatar ]]" class="text-left">
@@ -425,8 +425,40 @@
                                 </a>
                             </div>
                             <div class="row col-sm-10 col-sm-offset-1 horizontal_line"></div>
-
                         </div>
+
+                        <div class="margin-left_15 col-sm-11 padding-left_0 horizontal_line margin-bottom_5"></div>
+
+                        <div class="row margin-top_10 text-left block" ng-show="$root.notification[0]" ng-repeat="notification in $root.notification">
+                            <a ng-href="/#![[ notification.url ]]" class="col-sm-1 col-sm-offset-1 padding-right_0 padding-left_0">
+                                <div ng-if="notification.type == 'post_comment'" class="text-left icon_notification icon_notification-blue">
+                                    <span class="glyphicon glyphicon-comment text-white"></span>
+                                </div>
+                                <div ng-if="notification.type == 'post'" class="text-left icon_notification icon_notification-green">
+                                    <span class="glyphicon glyphicon-record text-white"></span>
+                                </div>
+                                <div ng-if="notification.type == 'post_baraholka_comment'" class="text-left icon_notification icon_notification-orange">
+                                    <span class="glyphicon glyphicon-transfer text-white"></span>
+                                </div>
+                            </a>
+                            <a ng-href="/#![[ notification.url ]]" class="col-sm-9 padding-left_0 padding-right_0">
+                                <div class="row">
+                                    <div class="col-sm-11 text-center">
+                                        <span ng-if="notification.type == 'post_comment'" class="text-blue fs_0-8 text-underline_hover">
+                                            Вашу запись прокомментировали
+                                        </span>
+                                        <span ng-if="notification.type == 'post'" class="text-blue fs_0-8 text-underline_hover">
+                                            У вас на стене оставили запись
+                                        </span>
+                                        <span ng-if="notification.type == 'post_baraholka_comment'" class="text-blue fs_0-8 text-underline_hover">
+                                            Вашим объявлением интересуются
+                                        </span>
+                                    </div>
+                                </div>
+                            </a>
+                            <div class="row col-sm-10 col-sm-offset-1 horizontal_line"></div>
+                        </div>
+
                     </div>
                 </div>
             </div>
