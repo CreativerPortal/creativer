@@ -473,6 +473,72 @@ io.on('connection', function(socket){
         })
     });
 
+
+    socket.on('set notification', function (data) {
+
+        mongo.connect(db_connect, function (err, db) {
+            var collection = db.collection('notification');
+            var id_user = parseInt(data.id_user);
+            var receiver = parseInt(data.receiver);
+
+            collection.insert({
+                id_user: id_user,
+                receiver: receiver,
+                url: data.url,
+                type: data.type
+            }, function (err, result) {
+                if (err) {
+                }
+                else {
+                    collection.find({receiver:receiver}).toArray(function(err, result){
+                        for (var k in sockets[data.receiver]) {
+                            sockets[data.receiver][k].emit('set notification', result);
+                        }
+                    })
+                }
+            });
+
+        })
+    });
+
+    socket.on('get notification', function (data) {
+
+        mongo.connect(db_connect, function (err, db) {
+            var collection = db.collection('notification');
+            var id_user = parseInt(data.id_user);
+            console.log(id_user);
+
+            collection.find({receiver:id_user}).toArray(function(err, result){
+                for (var k in sockets[id_user]) {
+                    sockets[id_user][k].emit('get notification', result);
+                }
+            })
+
+        })
+    });
+
+    socket.on('remove notification', function (data) {
+
+        mongo.connect(db_connect, function (err, db) {
+            var collection = db.collection('notification');
+            var id_user = parseInt(data.id_user);
+            console.log(data.id);
+            collection.remove({_id: ObjectID(data.id)}, function (err, result) {
+                if (err) {
+                }
+                else {
+                    collection.find({receiver:id_user}).toArray(function(err, result){
+                        for (var k in sockets[data.id_user]) {
+                            sockets[data.id_user][k].emit('set notification', result);
+                        }
+                    })
+                }
+            });
+
+        })
+    });
+
+
     mongo.connect(db_connect, function (err, db) {
     var collection = db.collection('messages');
     var id = parseInt(socket.handshake.query.id_user);
