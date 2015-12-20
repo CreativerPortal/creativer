@@ -1481,7 +1481,7 @@ class PersonController extends Controller
 
     /**
      * @Post("/v1/get_person_post_by_id")
-     * @View(serializerGroups={"getUser"})
+     * @View()
      */
     public function getPersonPostByIdAction()
     {
@@ -1496,7 +1496,6 @@ class PersonController extends Controller
                 $post,
                 'json',
                 SerializationContext::create()
-                    ->enableMaxDepthChecks()
                     ->setGroups(array('getUser'))
             );
 
