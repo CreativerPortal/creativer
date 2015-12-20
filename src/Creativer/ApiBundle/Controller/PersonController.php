@@ -1496,10 +1496,7 @@ class PersonController extends Controller
                 SerializationContext::create()
                     ->setGroups(array('getUser'))
             );
-
-        $response = array('post' => $response);
-
-
+        
         $response = new Respon($response);
         $response->headers->set('Content-Type', 'application/json');
         return $response;
