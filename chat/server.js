@@ -494,10 +494,10 @@ io.on('connection', function(socket){
                         for (var k in sockets[data.receiver]) {
                             sockets[data.receiver][k].emit('set notification', result);
                         }
+                        db.close();
                     })
                 }
             });
-
         })
     });
 
@@ -506,14 +506,12 @@ io.on('connection', function(socket){
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('notification');
             var id_user = parseInt(data.id_user);
-            console.log(id_user);
-
             collection.find({receiver:id_user}).toArray(function(err, result){
                 for (var k in sockets[id_user]) {
                     sockets[id_user][k].emit('get notification', result);
                 }
+                db.close();
             })
-
         })
     });
 
@@ -522,7 +520,6 @@ io.on('connection', function(socket){
         mongo.connect(db_connect, function (err, db) {
             var collection = db.collection('notification');
             var id_user = parseInt(data.id_user);
-            console.log(data.id);
             collection.remove({_id: ObjectID(data.id)}, function (err, result) {
                 if (err) {
                 }
@@ -531,10 +528,10 @@ io.on('connection', function(socket){
                         for (var k in sockets[data.id_user]) {
                             sockets[data.id_user][k].emit('set notification', result);
                         }
+                        db.close();
                     })
                 }
             });
-
         })
     });
 

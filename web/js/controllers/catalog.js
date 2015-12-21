@@ -116,8 +116,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                     var length = ($scope.items_services.totalCount / $scope.items_services.numItemsPerPage < 5) ? $scope.items_services.totalCount / $scope.items_services.numItemsPerPage : 5;
                     length--;
                     while (length > 0) {
-                        if ($rootScope.pages_services[0] > 1) {
-                            $rootScope.pages_services.unshift($rootScope.pages_services[0] - 1)
+                        if (($rootScope.pages_services[0] > 1 && $rootScope.pages_services[0] != $rootScope.currentPage - 2) || ($rootScope.pages_services[0] > 1 && $rootScope.pages_services[$rootScope.pages_services.length - 1] > $scope.items.totalCount / $scope.items.numItemsPerPage )) {
+                                $rootScope.pages_services.unshift($rootScope.pages_services[0] - 1)
                             length = length - 1;
                         } else {
                             var p = parseInt($rootScope.pages_services[$rootScope.pages_services.length - 1]) + 1;
@@ -159,7 +159,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                     var length = ($scope.items.totalCount / $scope.items.numItemsPerPage < 5) ? $scope.items.totalCount / $scope.items.numItemsPerPage : 5;
                     length--;
                     while (length > 0) {
-                        if ($rootScope.pages[0] > 1) {
+                        if (($rootScope.pages[0] > 1 && $rootScope.pages[0] != $rootScope.currentPage - 2) || ($rootScope.pages[0] > 1 && $rootScope.pages[$rootScope.pages.length - 1] > $scope.items.totalCount / $scope.items.numItemsPerPage )) {
                             $rootScope.pages.unshift($rootScope.pages[0] - 1)
                             length = length - 1;
                         } else {

@@ -175,8 +175,8 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                     var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
                     length--;
                     while(length > 0){
-                        if($scope.pages[0] > 1){
-                            $scope.pages.unshift($scope.pages[0]-1)
+                        if (($scope.pages[0] > 1 && $scope.pages[0] != $scope.currentPage - 2) || ($scope.pages[0] > 1 && $scope.pages[$scope.pages.length - 1] > $scope.posts_page.totalCount / $scope.posts_page.numItemsPerPage )) {
+                                $scope.pages.unshift($scope.pages[0]-1)
                             length = length - 1;
                         }else{
                             var p = parseInt($scope.pages[$scope.pages.length-1]) + 1;
@@ -207,7 +207,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
                 length--;
                 while(length > 0){
-                    if($scope.pages[0] > 1){
+                    if (($scope.pages[0] > 1 && $scope.pages[0] != $scope.currentPage - 2) || ($scope.pages[0] > 1 && $scope.pages[$scope.pages.length - 1] > $scope.posts_page.totalCount / $scope.posts_page.numItemsPerPage )) {
                         $scope.pages.unshift($scope.pages[0]-1)
                         length = length - 1;
                     }else{
@@ -248,7 +248,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 var length = ($scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage<5)?$scope.posts_page.totalCount/$scope.posts_page.numItemsPerPage:5;
                 length--;
                 while(length > 0){
-                    if($scope.pages[0] > 1){
+                    if(($scope.pages[0] > 1 && $scope.pages[0] != $scope.currentPage - 2) || ($scope.pages[0] > 1 && $scope.pages[$scope.pages.length - 1] > $scope.posts_page.totalCount / $scope.posts_page.numItemsPerPage )) {
                         $scope.pages.unshift($scope.pages[0]-1)
                         length = length - 1;
                     }else{
