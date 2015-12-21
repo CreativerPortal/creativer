@@ -216,7 +216,7 @@
                                 <div class="col-sm-4 user__text-blue"><span class="text-blue pointer" ng-show="!post.comments[0]" ng-click="com='true'">Комментировать</span></div>
                                 <a class="col-sm-8 text-right text-underline_none_hover" href="/#!/[[ user.id ]]/post/[[ post.id ]]"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></a>
                             {%  else %}
-                                <a class="col-sm-12 col-sm-offset-6 text-right text-underline_none_hover" href="/#!/[[ user.id ]]/post/[[ post.id ]]"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></a>
+                                <a class="col-sm-12 text-right text-underline_none_hover" href="/#!/[[ user.id ]]/post/[[ post.id ]]"><time class="comment_time padding-right_15">[[ post.date | date: "dd MMM yyyy" ]]</time></a>
                             {% endif %}
                         </div>
                     </div>
