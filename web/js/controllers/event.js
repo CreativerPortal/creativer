@@ -204,7 +204,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                     eventService.getEvent({id:$stateParams.id_edit}).success(function (data) {
                         $scope.myDatetimeRange.date.from = data.start_date;
                         $scope.myDatetimeRange.date.to = data.end_date;
-                        $scope.title = data.name;
+                        $scope.name_title = data.name;
                         $scope.selectSection = data.event_sections.id;
                         $scope.selectCity = data.event_city.id;
                         $scope.id_edit = data.id;
@@ -236,7 +236,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
         $scope.saveEvent = function(){
             $scope.loader = true;
             var tinymceModel = tinymce.editors[0].getContent();
-            eventService.saveEventService({start_date:$scope.myDatetimeRange.date.from, end_date:$scope.myDatetimeRange.date.to, title:$scope.title, content:tinymceModel, city:$scope.selectCity, section:$scope.selectSection}).success(function (data) {
+            eventService.saveEventService({start_date:$scope.myDatetimeRange.date.from, end_date:$scope.myDatetimeRange.date.to, title:$scope.name_title, content:tinymceModel, city:$scope.selectCity, section:$scope.selectSection}).success(function (data) {
                 $location.path("/event/" + data.id);
             });
         };
@@ -247,7 +247,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             eventService.saveEditEvent({
                 "id": $scope.id_edit,
                 "description": description,
-                "name": $scope.title,
+                "name": $scope.name_title,
                 "event_city_id": $scope.selectCity,
                 "event_sections_id": $scope.selectSection,
                 "start_date": $scope.myDatetimeRange.date.from,

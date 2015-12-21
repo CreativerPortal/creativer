@@ -797,8 +797,10 @@ app.directive('editPain', function () {
         },
         link: function compile(scope, element, attrs, controller) {
             scope.$watch('ngModel', function (value) {
-                var html = value.replace(/<[^>]+>|&nbsp;|&laquo;|&amp;|&raquo;|&ndash;/g,'').slice(0,60)+" ...";
-                element.html(html);
+                if(value){
+                    var html = value.replace(/<[^>]+>|&nbsp;|&laquo;|&amp;|&raquo;|&ndash;/g,'').slice(0,60)+" ...";
+                    element.html(html);
+                }
             });
         }
     };

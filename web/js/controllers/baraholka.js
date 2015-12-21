@@ -67,8 +67,8 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             }
         })
 
-        $scope.editTitle = function(title){
-            baraholkaService.editTitle({"id": $scope.post.id, "title": title}).success(function (data) {
+        $scope.editTitle = function(name_title){
+            baraholkaService.editTitle({"id": $scope.post.id, "title": name_title}).success(function (data) {
             });
         }
 
@@ -121,7 +121,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             data.post_id = $scope.post_id;
             data.post_category = $scope.post_category.id;
             data.section = $scope.section;
-            data.title = $scope.title;
+            data.title = $scope.name_title;
             data.city = $scope.city;
             data.description = $scope.description;
             data.full_description = $scope.full_description;
@@ -167,7 +167,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 }).success(function (data) {
                     $scope.old_posts = $scope.posts = data.posts.items;
                     $scope.old_posts_page = $scope.posts_page = data.posts;
-                    $scope.old_nameCategory = $scope.nameCategory = data.posts.nameCategory;
+                    $scope.old_nameCategory = $rootScope.title = $scope.nameCategory = data.posts.nameCategory;
 
                     $scope.old_pages = $scope.pages = [];
                     $scope.old_pages[0] = $scope.pages[0] = $scope.posts_page.currentPageNumber;
@@ -345,7 +345,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 item.formData.push({post_id: $scope.post_id});
                 item.formData.push({post_category: $scope.post_category.id});
                 item.formData.push({section: $scope.section});
-                item.formData.push({title: $scope.title});
+                item.formData.push({title: $scope.name_title});
                 item.formData.push({city: $scope.city});
                 item.formData.push({description: $scope.description});
                 item.formData.push({full_description: $scope.full_description});
