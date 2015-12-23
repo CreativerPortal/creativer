@@ -127,14 +127,14 @@
         <a href="http://twitter.com/share?text=[[ user.username ]] [[ user.lastname ]]&url=http://creativer.by/%23/[[ user.id ]]" class="ico_twitter pointer" ></a>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text">
-        <div class="text-left col-sm-6 padding-left_0">Вы используете пакет:</div>
-        <div class="package_person_name text-white col-sm-6 padding-left_0 padding-right_0" style="background-image: url([[ user.tariff.image ]])" >  [[ user.tariff.name ]]</div>
-    </div>
+    {#<div class="row margin-top_20 col-sm-12 user__text">#}
+        {#<div class="text-left col-sm-6 padding-left_0">Вы используете пакет:</div>#}
+        {#<div class="package_person_name text-white col-sm-6 padding-left_0 padding-right_0" style="background-image: url([[ user.tariff.image ]])" >  [[ user.tariff.name ]]</div>#}
+    {#</div>#}
 
-    <div class="row margin-top_20 col-sm-12 user__text">
-        <div ng-if="user.tariff.cost_day > 0" class="text-left col-sm-8 padding-left_0">Срок действия вашего пакета истекает через <span class="text-blue fs_1-2">[[ user.balance/user.tariff.cost_day | number:0 ]]</span> дней.</div>
-    </div>
+    {#<div class="row margin-top_20 col-sm-12 user__text">#}
+        {#<div ng-if="user.tariff.cost_day > 0" class="text-left col-sm-8 padding-left_0">Срок действия вашего пакета истекает через <span class="text-blue fs_1-2">[[ user.balance/user.tariff.cost_day | number:0 ]]</span> дней.</div>#}
+    {#</div>#}
 
 
 {% else %}

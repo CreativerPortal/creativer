@@ -209,6 +209,11 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 if($scope.user.id != $rootScope.id_user){
                     socket.emit("set notification",{id_user: $rootScope.id_user, receiver: $scope.user.id, type: "post_comment", url: '/'+$scope.user.id+'/'+'post'+'/'+post_id})
                 }
+
+                var res = text.indexOf(post.answer_username);
+                if(res == 0 && post.answer_id){
+                    socket.emit("set notification",{id_user: $rootScope.id_user, receiver: post.answer_id, type: "answer", url: '/'+$scope.user.id+'/'+'post'+'/'+post_id})
+                }
             });
         }
     }

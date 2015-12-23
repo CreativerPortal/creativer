@@ -267,13 +267,18 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             });
         }
 
-        $scope.saveComment = function(text){
+        $scope.saveComment = function(event,text){
             if($scope.loader_event == false || $scope.loader_event == undefined) {
                 $scope.loader_event = true;
                 eventService.saveComment({event_id: $scope.event.id, text: text}).success(function (data) {
                     $scope.event.event_comments.push(data);
                     $scope.event.text_comment = undefined;
                     $scope.loader_event = false;
+
+                    var res = text.indexOf(event.answer_username);
+                    if(res == 0 && event.answer_id){
+                        socket.emit("set notification",{id_user: $rootScope.id_user, receiver: event.answer_id, type: "answer", url: '/event/'+event.id})
+                    }
                 });
             }
         }

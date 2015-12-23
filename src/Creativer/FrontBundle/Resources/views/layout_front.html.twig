@@ -427,7 +427,7 @@
                             <div class="row col-sm-10 col-sm-offset-1 horizontal_line"></div>
                         </div>
 
-                        <div class="margin-left_15 col-sm-11 padding-left_0 horizontal_line margin-bottom_5"></div>
+                        <div ng-show="$root.notification[0]" class="margin-left_15 col-sm-11 padding-left_0 horizontal_line margin-bottom_5"></div>
 
                         <div class="row margin-top_10 text-left block" ng-show="$root.notification[0]" ng-repeat="notification in $root.notification">
                             <a ng-href="/#![[ notification.url ]]" class="col-sm-1 col-sm-offset-1 padding-right_0 padding-left_0">
@@ -440,18 +440,24 @@
                                 <div ng-if="notification.type == 'post_baraholka_comment'" class="text-left icon_notification icon_notification-orange">
                                     <span class="glyphicon glyphicon-transfer text-white"></span>
                                 </div>
+                                <div ng-if="notification.type == 'answer'" class="text-left icon_notification icon_notification-red">
+                                    <span class="glyphicon glyphicon-send text-white"></span>
+                                </div>
                             </a>
                             <a ng-href="/#![[ notification.url ]]" class="col-sm-9 padding-left_0 padding-right_0">
                                 <div class="row">
                                     <div class="col-sm-11 text-center">
-                                        <span ng-if="notification.type == 'post_comment'" class="text-blue fs_0-8 text-underline_hover">
+                                        <span ng-if="notification.type == 'post_comment'" class="text-gray text-underline_hover lobster">
                                             Вашу запись прокомментировали
                                         </span>
-                                        <span ng-if="notification.type == 'post'" class="text-blue fs_0-8 text-underline_hover">
+                                        <span ng-if="notification.type == 'post'" class="text-gray text-underline_hover lobster">
                                             У вас на стене оставили запись
                                         </span>
-                                        <span ng-if="notification.type == 'post_baraholka_comment'" class="text-blue fs_0-8 text-underline_hover">
+                                         <span ng-if="notification.type == 'post_baraholka_comment'" class="text-gray text-underline_hover lobster">
                                             Вашим объявлением интересуются
+                                        </span>
+                                        <span ng-if="notification.type == 'answer'" class="text-gray text-underline_hover lobster">
+                                            Вам ответили на комметарий
                                         </span>
                                     </div>
                                 </div>

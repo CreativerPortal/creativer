@@ -84,7 +84,7 @@
                             <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="event.text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 50px; width: 749px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
                         </div>
                         <div ng-show="event.text_comment" class="margin-top_15 margin-left_20 text-right">
-                            <button class="true fs_0-9" ng-class="{'loader':loader_event}" ng-click="saveComment(event.text_comment)">Отправить</button>
+                            <button class="true fs_0-9" ng-class="{'loader':loader_event}" ng-click="saveComment(event,event.text_comment)">Отправить</button>
                             <button class="false fs_0-9" ng-click="event.text_comment=''">Отменить</button>
                         </div>
                     {%  endif %}
@@ -121,7 +121,7 @@
 
                                 <div class="col-sm-11 col-sm-offset-1 text-gray fs_0-8 padding-right_0">
                                     <time datetime="2014:12:12">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time>
-                                    <span class="right pointer text-blue" ng-show="comment.user.id != id_user" ng-click="event.text_comment = comment.user.username+', '">Ответить</span>
+                                    <span class="right pointer text-blue" ng-show="comment.user.id != id_user" ng-click="event.text_comment = comment.user.username+', '; event.answer_id = comment.user.id; event.answer_username = comment.user.username;">Ответить</span>
                                 </div>
                                 {# <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div> #}
                             </div>

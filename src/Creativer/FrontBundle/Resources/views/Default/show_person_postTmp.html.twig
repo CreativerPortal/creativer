@@ -65,7 +65,7 @@
                         <div class="user__text col-sm-12 text-left" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
                         <div class="col-sm-12 text-left">
                             <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
-                            <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="full_post.text_comment = comment.user.username+', '">Ответить</span>
+                            <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="full_post.text_comment = comment.user.username+', '; full_post.answer_id = comment.user.id; full_post.answer_username = comment.user.username;">Ответить</span>
                         </div>
                     </div>
                     <div style="width: 608px" class="col-sm-12 margin-left_20 margin-top_10 slid__comment__line"></div>

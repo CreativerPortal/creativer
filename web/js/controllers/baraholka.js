@@ -139,7 +139,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             $location.path("/viewtopic/" + $stateParams.id_fleamarketposting);
         }
 
-        $scope.saveComment = function(text){
+        $scope.saveComment = function(post,text){
             if($scope.loader == false || $scope.loader == undefined) {
                 $scope.loader = true;
                 baraholkaService.saveComment({post_id: $scope.post.id, text: text}).success(function (data) {
@@ -149,6 +149,10 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                     $scope.loader = false;
                     if($scope.post.user.id != $rootScope.id_user){
                         socket.emit("set notification",{id_user: $rootScope.id_user, receiver: $scope.post.user.id, type: "post_baraholka_comment", url: '/viewtopic/'+$scope.post.id})
+                    }
+                    var res = text.indexOf(post.answer_username);
+                    if(res == 0 && post.answer_id){
+                        socket.emit("set notification",{id_user: $rootScope.id_user, receiver: post.answer_id, type: "answer", url: '/viewtopic/'+$scope.post.id})
                     }
                 });
             }

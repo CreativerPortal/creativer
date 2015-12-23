@@ -81,52 +81,52 @@
              </div>
          </div>
 
-         <div class="col-sm-7 padding-left_0">
-             <h4 class="margin-left_25">Пакеты</h4>
-             <div class="row margin-left_25 slid__comment__line"></div>
+         {#<div class="col-sm-7 padding-left_0">#}
+             {#<h4 class="margin-left_25">??????</h4>#}
+             {#<div class="row margin-left_25 slid__comment__line"></div>#}
 
-             <form class="ac-custom ac-radio ac-fill tariff" autocomplete="off">
+             {#<form class="ac-custom ac-radio ac-fill tariff" autocomplete="off">#}
 
-                 <div class="line_package margin-left_20">
-                     <div class="col-sm-4 tariff_block">
-                         <input id="r1" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[0].id }}">
-                         <label class="start" for="r1">
-                             <span class="text-white">{{ tariffs[0].name }}</span><br>
-                             <span class="text-white fs_0-7">
-                                 {{ tariffs[0].text }}
-                             </span>
-                         </label>
-                     </div>
-                     <div class="col-sm-4 tariff_block">
-                         <input id="r2" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[1].id  }}">
-                         <label class="standard" for="r2">
-                             <span class="text-white">{{ tariffs[1].name }}</span><br>
-                             <span class="text-white fs_0-7">
-                                 {{ tariffs[1].text }}
-                             </span>
-                         </label>
-                     </div>
-                     <div class="col-sm-4 tariff_block">
-                         <input id="r3" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[2].id }}">
-                         <label class="unlimited" for="r3">
-                             <span class="text-white">{{ tariffs[2].name  }}</span><br>
-                             <span class="text-white fs_0-7">
-                                 {{  tariffs[2].text }}
-                             </span>
-                         </label>
-                     </div>
-                 </div>
-             </form>
+                 {#<div class="line_package margin-left_20">#}
+                     {#<div class="col-sm-4 tariff_block">#}
+                         {#<input id="r1" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[0].id }}">#}
+                         {#<label class="start" for="r1">#}
+                             {#<span class="text-white">{{ tariffs[0].name }}</span><br>#}
+                             {#<span class="text-white fs_0-7">#}
+                                 {#{{ tariffs[0].text }}#}
+                             {#</span>#}
+                         {#</label>#}
+                     {#</div>#}
+                     {#<div class="col-sm-4 tariff_block">#}
+                         {#<input id="r2" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[1].id  }}">#}
+                         {#<label class="standard" for="r2">#}
+                             {#<span class="text-white">{{ tariffs[1].name }}</span><br>#}
+                             {#<span class="text-white fs_0-7">#}
+                                 {#{{ tariffs[1].text }}#}
+                             {#</span>#}
+                         {#</label>#}
+                     {#</div>#}
+                     {#<div class="col-sm-4 tariff_block">#}
+                         {#<input id="r3" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[2].id }}">#}
+                         {#<label class="unlimited" for="r3">#}
+                             {#<span class="text-white">{{ tariffs[2].name  }}</span><br>#}
+                             {#<span class="text-white fs_0-7">#}
+                                 {#{{  tariffs[2].text }}#}
+                             {#</span>#}
+                         {#</label>#}
+                     {#</div>#}
+                 {#</div>#}
+             {#</form>#}
 
-             <div class="row col-sm-11 col-sm-offset-1 padding-left_0">Ваш баланс <span class="text-blue">[[ user.balance | number : 0 ]]</span> руб.</div>
+             {#<div class="row col-sm-11 col-sm-offset-1 padding-left_0">??? ?????? <span class="text-blue">[[ user.balance | number : 0 ]]</span> ???.</div>#}
 
-             <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right"></div>
-                 <div class="col-sm-7">
-                     <button class="true fs_0-9" ng-class="{'loader': loader_tariff}" ng-click="changeTariff(user.tariff.id)">Сохранить</button>
-                 </div>
-             </div>
-         </div>
+             {#<div class="row margin-top_20">#}
+                 {#<div class="col-sm-5 text-right"></div>#}
+                 {#<div class="col-sm-7">#}
+                     {#<button class="true fs_0-9" ng-class="{'loader': loader_tariff}" ng-click="changeTariff(user.tariff.id)">Сохранить</button>#}
+                 {#</div>#}
+             {#</div>#}
+         {#</div>#}
 
          <form class="col-sm-7 padding-left_0 ac-custom ac-checkbox ac-checkmark" autocomplete="off">
              <h4 class="margin-left_25">Оповещения</h4>
