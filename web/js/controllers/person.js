@@ -439,6 +439,15 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }
     });
 
+    //$rootScope.$on('keypress', function (evt, obj, key) {
+    //    console.log(evt);
+    //    if(obj.keyCode == 37){
+    //        alert();
+    //        $window.location.href = '/#!/'+$scope.user.id+'/'+$scope.key_post+'/'+$scope.previous_key_post_img;
+    //    }else if(obj.keyCode == 39){
+    //        $window.location.href = '/#!/'+$scope.user.id+'/'+$scope.key_post+'/'+$scope.next_key_post_img;
+    //    }
+    //})
 
     // ALBUM
 

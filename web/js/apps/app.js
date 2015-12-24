@@ -881,7 +881,32 @@ app.directive('editPain', function () {
             });
         }
     };
-});
+}).directive('keypressEvents',
+
+    function ($document, $rootScope) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                $document.bind('keydown', function (e) {
+                    if(e.keyCode == 39){
+                        var tr = document.querySelectorAll("[next_photo]")[0]
+                        if(tr){
+                            var next = tr.getAttribute("next");
+                            window.location = next;
+                        }
+                    }else if(e.keyCode == 37){
+                        var tr = document.querySelectorAll("[prev_photo]")[0]
+                        if(tr){
+                            var prev = tr.getAttribute("prev");
+                            window.location = prev;
+                        }
+                    }
+                    e.stopPropagation();
+                    $rootScope.$broadcast('keypress', e, String.fromCharCode(e));
+                });
+            }
+        }
+    });
 
 
 app.filter('filterByTags', function () {

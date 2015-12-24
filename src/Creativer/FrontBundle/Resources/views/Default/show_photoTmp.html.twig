@@ -8,6 +8,8 @@
     <div class="border__viewer">
         <div class="border__viewer__wrapper">
             <div class="wrapper__background">
+                <span next_photo next="/#!/album/[[id_album]]/[[ user.albums[album_key].images[next_key_img].name ]]/[[next_key_img]]" ng-if="user.albums[album_key].images[next_key_img].name"></span>
+                <span prev_photo prev="/#!/album/[[id_album]]/[[ user.albums[album_key].images[key_img-1].name ]]/[[key_img-1]]" ng-if="user.albums[album_key].images[key_img-1].name"></span>
                 <a ng-show="user.albums[album_key].images[next_key_img].name" href="/#!/album/[[id_album]]/[[ user.albums[album_key].images[next_key_img].name ]]/[[next_key_img]]">
                     <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ user.albums[album_key].images[key_img].path ]][[url_img]]" />
                     <img style="display: none;" src="{{ path_img_album_original }}/[[ user.albums[album_key].images[next_key_img].path ]][[ user.albums[album_key].images[next_key_img].name ]]" />

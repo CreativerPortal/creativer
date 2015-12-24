@@ -12,12 +12,22 @@ angular.module('app.ctr.header', ['service.header', 'service.socket'])
     })
 
     $rootScope.search = function(){
-        if($rootScope.condition == 1){
-            $location.path("/people/search/"+$scope.searchText);
-        }else if($rootScope.condition == 2){
-            $location.path("/products/search/"+$scope.searchText);
-        }else if($rootScope.condition == 3){
-            $location.path("/services/search/"+$scope.searchText);
+        if($scope.searchText == undefined || $scope.searchText == ""){
+            if($rootScope.condition == 1){
+                $location.path("/people/search/*");
+            }else if($rootScope.condition == 2){
+                $location.path("/products/search/*");
+            }else if($rootScope.condition == 3){
+                $location.path("/services/search/*");
+            }
+        }else{
+            if($rootScope.condition == 1){
+                $location.path("/people/search/"+$scope.searchText);
+            }else if($rootScope.condition == 2){
+                $location.path("/products/search/"+$scope.searchText);
+            }else if($rootScope.condition == 3){
+                $location.path("/services/search/"+$scope.searchText);
+            }
         }
     }
 
@@ -46,6 +56,7 @@ angular.module('app.ctr.header', ['service.header', 'service.socket'])
     socket.on("get notification", function(data) {
         $rootScope.notification = data;
     });
+
 
  /*   $rootScope.$watch("notification", function () {
         var path = $location.path();
