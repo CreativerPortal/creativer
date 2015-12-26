@@ -31,7 +31,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
 
     if(!$scope.companion){
         messagesService.getUser({id:$stateParams.id_user_chat}).success(function (data) {
-            $scope.companion = data.user;
+            $rootScope.companion = data.user;
         })
     }
 

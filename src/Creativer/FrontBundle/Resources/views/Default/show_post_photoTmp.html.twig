@@ -8,9 +8,9 @@
                 <span next_photo next="/#!/[[ user.id ]]/[[ key_post ]]/[[ next_key_post_img ]]"></span>
                 <span prev_photo prev="/#!/[[ user.id ]]/[[ key_post ]]/[[ previous_key_post_img ]]"></span>
                 <a href="/#!/[[ user.id ]]/[[ key_post ]]/[[ next_key_post_img ]]" next="/#!/[[ user.id ]]/[[ key_post ]]/[[ next_key_post_img ]]" prev="/#!/[[ user.id ]]/[[ key_post ]]/[[ previous_key_post_img ]]">
-                    <img class="margin-top_10 viewer__image" src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[key_post_img].name ]]" />
-                    <img style="display: none;" src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[next_key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[next_key_post_img].name ]]" />
-                    <img style="display: none;" src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[previous_key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[previous_key_post_img].name ]]" />
+                    <img class="margin-top_10 viewer__image" ng-src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[key_post_img].name ]]" />
+                    <img style="display: none;" ng-src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[next_key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[next_key_post_img].name ]]" />
+                    <img style="display: none;" ng-src="{{ path_img_post_original }}/[[ user.wall.posts[key_post].post_images[previous_key_post_img].path ]]/[[ user.wall.posts[key_post].post_images[previous_key_post_img].name ]]" />
                 </a>
             </div>
         </div>

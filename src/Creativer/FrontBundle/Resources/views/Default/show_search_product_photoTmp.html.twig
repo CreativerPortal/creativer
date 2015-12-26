@@ -11,12 +11,12 @@
                 <span next_photo next="/#!/products/search/[[ products_search_text ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]" ng-if="items.items[next_key_img]"></span>
                 <span prev_photo prev="/#!/products/search/[[ products_search_text ]]/[[ items.items[key_img -1].name ]]/[[key_img-1]]" ng-if="items.items[key_img -1]"></span>
                 <a ng-show="items.items[next_key_img]" href="/#!/products/search/[[ products_search_text ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]">
-                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ items.items[key_img].path ]][[url_img]]" />
-                    <img style="display: none;" src="{{ path_img_album_original }}/[[ items.items[next_key_img].path ]][[ items.items[next_key_img].name ]]" />
-                    <img style="display: none;" src="{{ path_img_album_original }}/[[ items.items[key_img-1].path ]][[ items.items[key_img-1].name ]]" />
+                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}/[[ items.items[key_img].path ]][[url_img]]" />
+                    <img style="display: none;" ng-src="{{ path_img_album_original }}/[[ items.items[next_key_img].path ]][[ items.items[next_key_img].name ]]" />
+                    <img style="display: none;" ng-src="{{ path_img_album_original }}/[[ items.items[key_img-1].path ]][[ items.items[key_img-1].name ]]" />
                 </a>
                 <a ng-show="!items.items[next_key_img]" ng-click="closeImg()" href="/#!/products/search/[[ products_search_text ]]">
-                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" src="{{ path_img_album_original }}/[[ items.items[key_img].path ]][[url_img]]" />
+                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}/[[ items.items[key_img].path ]][[url_img]]" />
                 </a>
             </div>
             <div class="margin-top_10 row wrapper__comment">
@@ -127,7 +127,7 @@
                                 <img ng-src="[[ items.items[key_img].avatar ]]">
                             </a>
                         </div>
-                        <div class="col-sm-7">
+                        <div class="col-sm-7 padding-right_0">
                             <a href="/#!/[[ items.items[key_img].id_user ]]" class="text-gray">
                                 <span class="fs_0-8">[[ items.items[key_img].username ]] [[ items.items[key_img].lastname ]]</span>
                             </a><br>
