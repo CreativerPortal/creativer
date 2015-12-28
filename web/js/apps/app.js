@@ -561,17 +561,22 @@ app.directive('editPain', function () {
     return {
         restrict: "A",
         link: function(scope, element, attrs) {
-
-            function read() {
-                element.html(element.text());
+            if(scope.post){
+                function read() {
+                    var html = element.html();
+                    html = html.replace(/\<(?!img src="img\/blank.gif"|br).*?\>/g, "");
+                    scope.post.text = html;
+                    scope.editTextPost(scope.post.id, html);
+                }
+                element.bind("blur change", function() {
+                    scope.$apply(read);
+                });
+                element.bind("blur", function(){
+                   // var html = element.html();
+                   // html = html.replace(/\<(?!img|br).*?\>/g, "");
+                   // scope.post.text = html;
+                })
             }
-
-            element.bind("blur keyup change", function() {
-                scope.$apply(read);
-            });
-            element.bind("blur", function(){
-                scope.editTextPost(scope.post.id, element.text());
-            })
         }
     };
 }).directive("editerPost", function($compile) {
@@ -584,8 +589,9 @@ app.directive('editPain', function () {
                     document.querySelectorAll("[attache-post]")[0].innerHTML = '';
                     document.querySelectorAll("[attache-post]")[0].removeAttribute("attache-post");
                 }
-                if(document.querySelectorAll("[contenteditable]")[0])
-                    document.querySelectorAll("[contenteditable]")[0].removeAttribute("contenteditable");
+                var contenteditable = element.parent().parent().find("[contenteditable]")[0];
+                if(contenteditable)
+                    contenteditable.removeAttribute("contenteditable");
                 if(document.querySelectorAll("[progress-wrapper]")[0]){
                     document.querySelectorAll("[progress-wrapper]")[0].innerHTML = '';
                     document.querySelectorAll("[progress-wrapper]")[0].removeAttribute("progress-wrapper");
@@ -661,14 +667,14 @@ app.directive('editPain', function () {
         template: "<label class='text-blue glyphicon glyphicon-paperclip add__files ng-isolate-scope pointer'>" +
         "<input type='checkbox' class='hidden'>" +
         "<div class='add__files__menu text-white'>" +
-        "<ul class='margin-top_10 padding-left_0 margin-left_30'>" +
+        "<ul class='margin-top_20 padding-left_0 margin-left_30'>" +
         "<li>" +
         "<label for='editUploaderPost'>" +
-        "Фото" +
+        "Изображение" +
         "</label>" +
         "</li>" +
-        "<li>Документ</li>" +
-        "<li ng-click='addVideo(post)'>Видеозапись</li>" +
+        "<li ng-click='addVideo(post)'><label>Видеозапись</label></li>" +
+        "<li><label>Документ</label></li>" +
         "</ul>" +
         "</div>" +
         "</label>"+
@@ -734,13 +740,15 @@ app.directive('editPain', function () {
         restrict: "A",
         scope: true,
         link: function(scope, element, attrs){
-            element.bind("click", function() {
+            element.bind("click", function(event) {
                 if(document.querySelectorAll("[attache-post]")[0]){
                     document.querySelectorAll("[attache-post]")[0].innerHTML = '';
                     document.querySelectorAll("[attache-post]")[0].removeAttribute("attache-post");
                 }
-                if(document.querySelectorAll("[contenteditable]")[0])
-                    document.querySelectorAll("[contenteditable]")[0].removeAttribute("contenteditable");
+
+                var contenteditable = element.parent().parent().find("[contenteditable]")[0];
+                if(contenteditable)
+                    contenteditable.removeAttribute("contenteditable");
                 if(document.querySelectorAll("[progress-wrapper]")[0]){
                     document.querySelectorAll("[progress-wrapper]")[0].innerHTML = '';
                     document.querySelectorAll("[progress-wrapper]")[0].removeAttribute("progress-wrapper");

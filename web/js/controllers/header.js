@@ -1,6 +1,7 @@
 angular.module('app.ctr.header', ['service.header', 'service.socket'])
     .controller('headerCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$stateParams', 'socket',  function($window,$scope,$rootScope,$location,headerService,$stateParams,socket) {
 
+
     $scope.date = new Date();
 
     if(!$rootScope.condition){

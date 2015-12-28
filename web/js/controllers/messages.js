@@ -35,6 +35,19 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         })
     }
 
+    $scope.watch =  function () {
+        if(!$rootScope.pause){
+            console.log($scope.emojiMessage);
+            $rootScope.pause = true;
+            $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
+            $rootScope.ids = $rootScope.ids.sort();
+            socket.emit('writing', {ids: $rootScope.ids, id_user: $rootScope.id_user});
+            setTimeout(function(){
+                $rootScope.pause = false;
+            }, 5000);
+        }
+    };
+
     $scope.$watch('user', function() {
 
         if($stateParams.id_user_chat && !$stateParams.id_message && $scope.user){
@@ -88,6 +101,7 @@ angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'servi
         if($rootScope.message_button == true && text != undefined && text != '' && $scope.ids && $scope.user && $scope.ids[0] != $scope.ids[1] && ($scope.ids[0] ^ 0) === $scope.ids[0] && ($scope.ids[1] ^ 0) === $scope.ids[1]){
             socket.emit('message', {ids: $scope.ids, sender: $scope.user.id, text: text});
             $rootScope.message_button = false;
+            $scope.emojiMessage.rawhtml = '';
         }
     }
 

@@ -54,6 +54,22 @@ body{
     border: 1px dashed #827972;
 }
 
+.emoji-wysiwyg-editor {
+    background-color: #eae9e3;
+    border: 1px dashed #827972!important;
+}
+
+.emoji-wysiwyg-editor:focus{
+    border: 0px!important;
+    outline: 2px solid #b29f81!important;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}
+
+.emoji-wysiwyg-editor:empty:before{
+    color: #827972!important;
+}
+
 ::-webkit-input-placeholder {color:#827972;}
 ::-moz-placeholder          {color:#827972;}/* Firefox 19+ */
 :-moz-placeholder           {color:#827972;}/* Firefox 18- */

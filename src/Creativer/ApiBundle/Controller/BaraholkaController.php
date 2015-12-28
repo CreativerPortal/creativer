@@ -693,6 +693,13 @@ class BaraholkaController extends Controller
         $search_text = $this->get('request')->request->get('search_text');
         $searchInCategory = $this->get('request')->request->get('searchInCategory');
 
+        if(empty($search_text)){
+            $search_text = '*';
+        }
+
+        if(empty($category_id)){
+            $category_id = 1000;
+        }
 
         $post_baraholka = $this->container->get('fos_elastica.finder.app.post_baraholka');
         $boolQuery = new \Elastica\Query\Bool();
@@ -718,7 +725,9 @@ class BaraholkaController extends Controller
             $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $categoryQuery);
             $results = $post_baraholka->find($filteredQuery);
         }else{
-            $results = $post_baraholka->find($fieldQuery);
+            $keywordQuery = new \Elastica\Query\QueryString();
+            $keywordQuery->setQuery("full_description:".$search_text." OR description:".$search_text." OR name:".$search_text);
+            $results = $post_baraholka->find($keywordQuery, '80');
         }
 
 

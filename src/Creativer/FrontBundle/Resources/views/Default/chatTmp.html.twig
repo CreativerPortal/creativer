@@ -25,33 +25,29 @@
             {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
         </div>
 
-        <div class="col-sm-7">
+        <div class="col-sm-7" ng-keyup="watch()">
 
-            <div class="row">
+            <div class="row" ng-keyup="$event.keyCode == 13 && send_message(text_message)">
                 <div class="col-sm-2">
                     <div class="user__avatar-mini" style="background-color: [[ $root.color ]]"><img ng-src="[[ $root.img ]]"></div>
                 </div>
 
-                <div class="col-sm-7 message-textareas padding-right_0">
+                <div class="col-sm-7 message-textareas padding-right_0" emoji-form emoji-message="emojiMessage">
                     <textarea style="width: 320px;" rows="5" placeholder=" Введите текст..." class="message__field" ng-init="text_message" ng-model="$root.text_message" ng-keyup="$event.keyCode == 13 && send_message(text_message)"></textarea>
                     <div class="tail_message"></div>
-
+                    <div class="col-sm-6 padding-left_0">
+                        <span id="emojibtn" class="pointer">
+                            <i class="icon icon-emoji"></i>
+                        </span>
+                        <span class="text-gray-light fiveMinuts" ng-show="$root.writing">Пишет...</span>
+                    </div>
+                    <div class="col-sm-6 padding-right_0 text-right">
+                        <button class="true fs_0-9" ng-click="send_message(text_message)" ng-disabled="!user && !companion">Отправить</button>
+                    </div>
                 </div>
 
                 <div class="col-sm-2 ">
                     <a class="user__avatar-mini left" ng-class="{'user__avatar-mini_online':companion.connection_status == '0000-00-00 00:00:00'}" href="/#!/[[ companion.id ]]" style="background-color: [[ companion.color ]]"><img ng-src="[[ companion.avatar ]]"></a>
-                </div>
-            </div>
-
-            <div class="row margin-top_5">
-                <div class="col-sm-offset-2 col-sm-3">
-                    {#<span class="glyphicon glyphicon-picture text-blue margin-left_5"></span>#}
-                    {#<span class="glyphicon glyphicon-paperclip text-blue margin-left_10"></span>#}
-                    {#<span class="glyphicon glyphicon-menu-down text-blue fs_0-8"></span>#}
-                    <span class="text-gray-light fiveMinuts" ng-show="$root.writing">Пишет...</span>
-                </div>
-                <div class="col-sm-3 col-sm-offset-2 padding-left_0">
-                    <button class="true fs_0-9" ng-click="send_message(text_message)" ng-disabled="!user && !companion">Отправить</button>
                 </div>
             </div>
 
@@ -77,10 +73,10 @@
                         <div class="col-sm-6 text-right fs_0-8"><time class="text-gray">[[ msg.date | date: "HH:mm dd.MM.yyyy": "+03" ]]</time></div>
                     </div>
                     <div class="text-gray">
-                        <div ng-if="user.id == msg.sender" class="fs_0-8 margin-top_10 col-sm-10 padding-left_0" ng-bind-html="msg.text | linky:'_blank' | imagey">
+                        <div ng-if="user.id == msg.sender" class="fs_0-8 margin-top_10 col-sm-10 padding-left_0" ng-bind-html="msg.text | linky:'_blank' | imagey | colonToSmiley">
 
                         </div>
-                        <div ng-if="companion.id == msg.sender" class="fs_0-8 margin-top_10 col-sm-10 padding-left_0" ng-bind-html="msg.text | linky:'_blank' | imagey">
+                        <div ng-if="companion.id == msg.sender" class="fs_0-8 margin-top_10 col-sm-10 padding-left_0" ng-bind-html="msg.text | linky:'_blank' | imagey | colonToSmiley">
 
                         </div>
                         <div class="col-sm-2 fs_1-5 text-right text-gray">

@@ -225,12 +225,10 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             $timeout(function() {
                 if(($scope.searchInCategory == text && text != undefined && text != '') || (text && text.length > 0 && $scope.searchInCategory == 0)){
                     baraholkaService.searchPostsBaraholkaByText({category_id:$stateParams.id_category, search_text: $scope.searchInCategory}).success(function (data) {
-                        if(text == $scope.searchInCategory) {
                             $scope.search = true;
                             $scope.posts = data.posts;
                             $scope.posts_page = null;
                             $scope.pages = [];
-                        }
                     });
                 }
             }, 1000);
@@ -266,12 +264,10 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             $timeout(function() {
                 if(($scope.searchInBaraholka == text && text != undefined && text != '') || (text && text.length > 0 && $scope.searchInBaraholka == 0)){
                     baraholkaService.searchPostsBaraholkaByText({category_id:1000, search_text: $scope.searchInBaraholka}).success(function (data) {
-                        if(text == $scope.searchInBaraholka){
                             $scope.search = true;
                             $scope.posts = data.posts;
                             $scope.posts_page = null;
                             $scope.pages = [];
-                        }
                     });
                 }
             }, 1000);
@@ -280,21 +276,17 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
 
         $scope.searchPostsBaraholkaByText = function(){
             baraholkaService.searchPostsBaraholkaByText({category_id:$stateParams.id_category, search_text: $scope.searchInCategory}).success(function (data) {
-                if(text == $scope.searchInCategory) {
                     $scope.search = true;
                     $scope.posts = data.posts;
                     $scope.posts_page = null;
                     $scope.pages = [];
-                }
             });
 
             baraholkaService.searchPostsBaraholkaByText({category_id:1000, search_text: $scope.searchInBaraholka}).success(function (data) {
-                if(text == $scope.searchInBaraholka){
                     $scope.search = true;
                     $scope.posts = data.posts;
                     $scope.posts_page = null;
                     $scope.pages = [];
-                }
             });
         }
 

@@ -56,18 +56,6 @@ angular.module('service.chat', ['service.socket'])
 
         $rootScope.pause = false;
 
-        $rootScope.$watch("text_message", function () {
-            if($rootScope.text_message && $rootScope.text_message.length > 0 && !$rootScope.pause){
-                $rootScope.pause = true;
-                $rootScope.ids = [$stateParams.id_user_chat, $rootScope.id_user];
-                $rootScope.ids = $rootScope.ids.sort();
-                socket.emit('writing', {ids: $rootScope.ids, id_user: $rootScope.id_user});
-                setTimeout(function(){
-                    $rootScope.pause = false;
-                }, 5000);
-            }
-        });
-
         socket.on('writing', function(data){
             if(data.ids[0] == $stateParams.id_user_chat && data.ids[1] == $rootScope.id_user || data.ids[0] == $rootScope.id_user && data.ids[1] == $stateParams.id_user_chat){
                 $rootScope.writing = true;

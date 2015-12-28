@@ -1,7 +1,10 @@
-angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
+angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat', 'ngSanitize', 'emojiApp'])
     .controller('personCtrl',['$state','$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
-    if($stateParams.id_post){
+        $scope.emojiMessage={};
+
+
+        if($stateParams.id_post){
         personalService.getPostById({id: $stateParams.id_post}).success(function (data) {
             $scope.full_post = data.post;
             $rootScope.overflow = true;
@@ -142,6 +145,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
                 }
                 if(!uploader.queue.length){
                     $scope.text_post = '';
+                    $scope.emojiMessage.rawhtml = '';
                     $scope.videos = [];
                 }
                 $scope.new_post_id = data.post.id;

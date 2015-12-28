@@ -12,8 +12,8 @@
                     </a><br>
                 </div>
             </div>
-            <div class="wrapper__background">
-                <div class="text-left margin-top_15">[[ full_post.text ]]</div>
+            <div>
+                <div class="text-left margin-top_15" ng-bind-html="full_post.text | colonToSmiley"></div>
                 <img class="margin-top_10 viewer__image block auto" ng-repeat="img in full_post.post_images" ng-src="{{ path_img_post_original }}/[[ img.path ]]/[[ img.name ]]" /><br>
 
                 <div class="col-sm-12 margin-top_10 padding-left_0 padding-right_0">
@@ -62,7 +62,7 @@
                             <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                         </div>
 
-                        <div class="user__text col-sm-12 text-left" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
+                        <div class="user__text col-sm-12 text-left" ng-bind-html="comment.text | linky:'_blank' | imagey | colonToSmiley"></div>
                         <div class="col-sm-12 text-left">
                             <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
                             <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="full_post.text_comment = comment.user.username+', '; full_post.answer_id = comment.user.id; full_post.answer_username = comment.user.username;">Ответить</span>

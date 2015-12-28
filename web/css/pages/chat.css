@@ -74,23 +74,27 @@ body{
 
 .tail_message{
     float: left;
-    margin-left: -32px;
-    margin-top: 55px;
+    margin-left: -22px;
+    margin-top: -63px;
     position: relative;
     z-index: 1;
     background-position: 0 0;
-    width: 22px;
-    height: 33px;
+    width: 24px;
+    height: 38px;
 }
 
 .message-textareas .message__field:focus{
     outline: 1px solid #b29f81;
-    border: 1px solid #b29f81!important;
 }
 
-.message-textareas .message__field:focus~.tail_message{
-    background-position: -24px 0;
-    width: 24px;
+.message-textareas > .emoji-wysiwyg-editor{
+    min-height: 118px;
+    border: 1px dashed rgba(154, 154, 154, 0.71)!important;
+}
+
+.message-textareas .emoji-wysiwyg-editor:focus~.tail_message{
+    background-position: -25px 0;
+    width: 30px;
     height: 33px;
     border: 0px!important;
 }

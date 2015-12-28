@@ -308,6 +308,16 @@
     position: relative;
 }
 
+.inline_block{
+    display: inline-block;
+}
+
+.hidden_behind_border{
+    position: absolute;
+    z-index: -1111;
+    visibility: hidden;
+}
+
 .loader:before,
 .loader:after{
     border-radius: 30%;
