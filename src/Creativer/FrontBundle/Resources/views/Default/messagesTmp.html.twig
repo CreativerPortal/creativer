@@ -80,8 +80,7 @@
                     <div class="col-sm-9">
 
                             <div class="row text-gray pointer">
-                                <div class="col-sm-12 fs_0-8 padding-left_3 padding-right_0 background__text-reviewed" ng-class="{background__text: message.reviewed == false && message.sender != user.id}" ng-click="go('chat/'+ message.other_user)">
-                                    [[ message.text ]]
+                                <div class="col-sm-12 fs_0-8 padding-left_3 padding-right_0 background__text-reviewed" ng-class="{background__text: message.reviewed == false && message.sender != user.id}" ng-click="go('chat/'+ message.other_user)" ng-bind-html="message.text | linky:'_blank' | imagey | colonToSmiley">
                                 </div>
                             </div>
                     </div>
