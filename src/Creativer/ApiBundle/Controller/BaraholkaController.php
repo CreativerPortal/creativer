@@ -98,10 +98,13 @@ class BaraholkaController extends Controller
             ->createQueryBuilder('e')
             ->leftJoin('e.post_category', 'post_categ')
             ->addSelect('post_categ')
-            ->leftJoin('e.categories_baraholka', 'cat')
-            ->leftJoin('e.images_baraholka', 'images')
-            ->where('cat IN (:items)')
-            ->setParameter('items', $category_id);
+            ->leftJoin('e.images_baraholka', 'images');
+            if($category_id != 'last'){
+                $query->leftJoin('e.categories_baraholka', 'cat')
+                ->where('cat IN (:items)')
+                ->setParameter('items', $category_id);
+            }
+
 
         if($city > 0 and $city != false){
             $query->join('e.post_city', 'city')
@@ -151,8 +154,13 @@ class BaraholkaController extends Controller
         $posts = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
-            'totalCount' => $pagination->getTotalItemCount(),
-            'nameCategory' => $nameCategory->getName());
+            'totalCount' => $pagination->getTotalItemCount());
+
+        if($category_id != 'last'){
+            $posts['nameCategory'] = $nameCategory->getName();
+        }else{
+            $posts['nameCategory'] = 'Все объявления барахолки';
+        }
 
         $posts = array('posts' => $posts);
 

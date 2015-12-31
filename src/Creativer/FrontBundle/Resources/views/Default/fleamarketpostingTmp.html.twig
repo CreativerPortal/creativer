@@ -4,16 +4,10 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Категория:</div>
                 <div class="col-sm-10">
-                    <div class="row baraholka__filter">
-                        <div class="wrapper__filter__element" ng-repeat="p_category in post_category">
-                            <label>
-                                <input type="radio" name="post_category" ng-model="post_category.id" value="[[ p_category.id ]]" required="">
-                                <div class="baraholka__filter__element">
-                                    [[ p_category.name ]]
-                                </div>
-                            </label>
-                        </div>
-                    </div>
+                    <select focus-if="submitted && baraholka_form.post_category.$error.required" name="post_category" class="selectForumId" ng-model="post_category.id" required>
+                        <option ng-repeat="p_category in post_category" value="[[ p_category.id ]]">[[ p_category.name ]]</option>
+                    </select>
+                    <br>
                     <span class="text-danger" ng-show="submitted && baraholka_form.post_category.$error.required">Категория не выбрана</span>
                 </div>
             </div>
@@ -25,7 +19,7 @@
                     {#<select name="section" class="selectForumId" ng-model="section" ng-options="children.id as children.name for children in baraholka">#}
                     {#</select>#}
 
-                    <select name="section" class="selectForumId" ng-model="section" required>
+                    <select focus-if="submitted && baraholka_form.section.$error.required" name="section" class="selectForumId" ng-model="section" required>
                         <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]">
                             <option ng-repeat="child in children.children" value="[[ child.id ]]">[[ child.name ]]</option>
                         </optgroup>
@@ -38,7 +32,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Заголовок:</div>
                 <div class="col-sm-10">
-                    <input type="text" name="tit" ng-model="name_title" ng-required="true" required="">
+                    <input focus-if="submitted && baraholka_form.tit.$error.required" type="text" name="tit" ng-model="name_title" ng-required="true" required="">
                     <span class="text-danger" ng-show="submitted && baraholka_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -57,14 +51,15 @@
             <div class="row margin-top_20">
                 <div class="col-sm-12">
                     <h4>Подробно опишите товар или услугу</h4>
-                    <textarea class="margin-top_10" ng-model="full_description" name="full_description"></textarea>
+                    <textarea focus-if="submitted && baraholka_form.full_description.$error.required" class="margin-top_10" ng-model="full_description" name="full_description" required=""></textarea>
+                    <span class="text-danger" ng-show="submitted && baraholka_form.full_description.$error.required">Описание не может быть пустым</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-12">
                     Краткое описание
-                    <textarea ng-model="description" name="description" required=""></textarea>
+                    <textarea focus-if="submitted && baraholka_form.description.$error.required" ng-model="description" name="description" required=""></textarea>
                     <span class="text-danger" ng-show="submitted && baraholka_form.description.$error.required">Краткое описание не может быть пустым</span>
                 </div>
             </div>
@@ -75,7 +70,7 @@
                 <div class="col-sm-12">
                     <h4>Обязательно указывайте реальную цену</h4>
                     <div>
-                        <input type="number" ng-model="price" name="price" style="width: 100px;" required=""> руб.<br/>
+                        <input focus-if="submitted && baraholka_form.price.$error.required" type="number" ng-model="price" name="price" style="width: 100px;" required=""> руб.<br/>
 
                         <span class="text-danger" ng-show="submitted && baraholka_form.price.$error.required">Цена не указана</span>
 
@@ -147,6 +142,8 @@
                 <button type="button" ng-show="uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && uploader.uploadAll()" >
                     Продолжить
                 </button>
+                <br>
+                <span class="text-danger" ng-show="submitted && baraholka_form.$error.required">Не все поля заполнены</span>
             </div>
 
         </form>

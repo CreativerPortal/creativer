@@ -22,36 +22,6 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
             })
         }
 
-        if(!$rootScope.datapicker || !$rootScope.events) {
-            //eventService.getDatapicker({}).success(function (data) {
-            //    $rootScope.datapicker = data;
-            //    $rootScope.events = data.events;
-            //    $rootScope.datapicker.current_date = $moment($rootScope.datapicker.current_date).format('YYYY-MM-DD');
-            //    $rootScope.datapicker.next_date = $moment($rootScope.datapicker.current_date).add('months', 1).format('YYYY-MM-DD');
-            //    $rootScope.datapicker.previous_date = $moment($rootScope.datapicker.current_date).subtract('months', 1).format('YYYY-MM-DD');
-            //
-            //    var count_dayes = 32 - new Date(data.year, data.month - 1, 32).getDate();
-            //    $rootScope.count_dayes = new Array(count_dayes);
-            //    $rootScope.days = new Array();
-            //    var current_date = new Date($scope.datapicker.current_date);
-            //
-            //    for (var i = 1; i <= count_dayes; i++) {
-            //        $scope.days[i] = {'action': 0, 'day': i};
-            //        for (var k in data.events) {
-            //            for (var key in data.events[k].events) {
-            //                var sd = $moment(data.events[k].events[key].start_date).format('YYYY-MM-DD');
-            //                var ed = $moment(data.events[k].events[key].end_date).format('YYYY-MM-DD');
-            //                var cd = $moment(current_date).date(i).format('YYYY/MM/DD');
-            //                if (cd >= sd && cd <= ed) {
-            //                    $rootScope.days[i] = {'action': 1, 'day': i};
-            //                    break;
-            //                }
-            //            }
-            //        }
-            //    }
-            //});
-        }
-
         $scope.nextMonth = function(){
             $rootScope.target_day = undefined;
             var id_cat = $stateParams.id_cat?$stateParams.id_cat:null;
@@ -273,6 +243,7 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
                 eventService.saveComment({event_id: $scope.event.id, text: text}).success(function (data) {
                     $scope.event.event_comments.push(data);
                     $scope.event.text_comment = undefined;
+                    $scope.emojiMessage.rawhtml = undefined;
                     $scope.loader_event = false;
 
                     var res = text.indexOf(event.answer_username);

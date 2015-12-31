@@ -25,6 +25,6 @@
     "angular-animate": "~1.4.4",
     "angular-date-range-picker": "~0.4.15",
     "angular-momentjs": "~0.2.2",
-    "angular-emoji-popup": "*"
+    "ng-focus-if": "~1.0.2"
   }
 }

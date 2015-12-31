@@ -15,7 +15,7 @@
                         <ul class="text-white cities__menu fs_1-1 padding-left_0 text-center">
                             <li>
                                 <label class="pointer">Беларусь
-                                    <input type="radio" class="city-radio" name="city" ng-value="Беларусь" ng-model="$root.city" ng-click="uncheck(null)" />
+                                    <input type="radio" class="city-radio" name="city" value="Беларусь" ng-model="$root.city" ng-click="uncheck(null)" />
                                 </label>
                             </li>
                             <li ng-repeat="city in cities" class="pointer">
@@ -80,12 +80,17 @@
 
 
                     {% if is_granted('ROLE_USER') %}
-                        <div class="row margin-top_30 text-right padding-5-15-5-15">
-                            <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="event.text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 50px; width: 749px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
-                        </div>
-                        <div ng-show="event.text_comment" class="margin-top_15 margin-left_20 text-right">
-                            <button class="true fs_0-9" ng-class="{'loader':loader_event}" ng-click="saveComment(event,event.text_comment)">Отправить</button>
-                            <button class="false fs_0-9" ng-click="event.text_comment=''">Отменить</button>
+                        <div class="row margin-top_30 padding-5-15-5-15" emoji-form emoji-message="emojiMessage">
+                            <textarea class="text-gray right margin-top_10" ng-model="event.text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 50px; width: 749px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
+                            <div class="col-sm-6 padding-left_0">
+                                <span id="emojibtn" class="pointer">
+                                    <i class="icon icon-emoji"></i>
+                                </span>
+                            </div>
+                            <div ng-show="event.text_comment || emojiMessage.rawhtml" class="col-sm-6 padding-right_0 text-right">
+                                <button class="true fs_0-9" ng-class="{'loader':loader_event}" ng-click="saveComment(event,event.text_comment)">Отправить</button>
+                                <button class="false fs_0-9" ng-click="event.text_comment=''; emojiMessage.rawhtml=''">Отменить</button>
+                            </div>
                         </div>
                     {%  endif %}
 
@@ -94,7 +99,7 @@
                         <div class="col-sm-12 padding-left_0 padding-right_0">
 
                             <div class="user__avatar_event left col-sm-1" >
-                                <a href="#!/[[ comment.user.id ]]" ng-class="{'user__avatar-mini-2_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-mini-2" style="background-color: [[ comment.user.color ]]"><img ng-show="comment.user.avatar" src="[[ comment.user.avatar ]]"></a>
+                                <a href="#!/[[ comment.user.id ]]" ng-class="{'user__avatar-mini-2_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-mini-2" style="background-color: [[ comment.user.color ]]"><img ng-show="comment.user.avatar" ng-src="[[ comment.user.avatar ]]"></a>
                             </div>
 
                             <div class="col-sm-11 padding-right_0">
@@ -115,7 +120,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="margin-top_5 col-sm-12"><p>[[ comment.text ]]</p></div>
+                                    <div class="margin-top_5 col-sm-12" ng-bind-html="comment.text | colonToSmiley"></div>
                                 </div>
                                 </div>
 
