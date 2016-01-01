@@ -146,6 +146,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                     $scope.post.post_comments.push(data);
                     $scope.user = data.user;
                     $scope.post.text_comment = undefined;
+                    $scope.emojiMessage.rawhtml = undefined;
                     $scope.loader = false;
                     if($scope.post.user.id != $rootScope.id_user){
                         socket.emit("set notification",{id_user: $rootScope.id_user, receiver: $scope.post.user.id, type: "post_baraholka_comment", url: '/viewtopic/'+$scope.post.id})

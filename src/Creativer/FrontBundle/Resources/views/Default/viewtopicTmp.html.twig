@@ -75,12 +75,17 @@
             </div>
 
                 {% if is_granted('ROLE_USER') %}
-                    <div class="row margin-top_30 text-right padding-5-15-5-15">
-                            <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="post.text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 70px; width: 687px"></textarea>
-                    </div>
-                    <div ng-show="post.text_comment" class="margin-top_15 margin-left_20 text-right">
-                        <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(post,post.text_comment)">Отправить</button>
-                        <button class="false fs_0-9" ng-click="post.text_comment=''">Отменить</button>
+                    <div class="row col-sm-11 padding-right_5 col-sm-offset-1 margin-top_30 padding-5-15-5-15" emoji-form emoji-message="emojiMessage">
+                        <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="post.text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 70px; width: 687px"></textarea>
+                        <div class="col-sm-6 padding-left_0">
+                            <span id="emojibtn" class="pointer">
+                                <i class="icon icon-emoji"></i>
+                            </span>
+                        </div>
+                        <div ng-show="post.text_comment || emojiMessage.rawhtml" class="col-sm-6 text-right padding-right_0">
+                            <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(post,post.text_comment)">Отправить</button>
+                            <button class="false fs_0-9" ng-click="emojiMessage.rawhtml=''">Отменить</button>
+                        </div>
                     </div>
                 {%  endif %}
 
@@ -100,7 +105,7 @@
                                 <div class="col-sm-6">
                                     <a href="/#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
                                 </div>
-                                <div class="col-sm-6 padding-right_0">
+                                <div class="col-sm-6">
                                     <div ng-if="id_user == comment.user.id && comment.remove_comment == false" class="right text-right edit_post">
                                         <span ng-click="comment.remove_comment = true">
                                             <span class="text-gray glyphicon glyphicon-remove pointer"></span>
@@ -113,15 +118,15 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="margin-top_5"><p>[[ comment.text ]]</p></div>
+                            <div class="margin-top_5" ng-bind-html="comment.text | colonToSmiley"></div>
                             <div class="text-gray fs_0-8 col-sm-12 padding-left_0 padding-right_0">
                                 <time datetime='[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]'>[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
-                                <span class="right pointer text-blue text-right" ng-show="comment.user.id != id_user" ng-click="post.text_comment = comment.user.username+', '; post.answer_id = comment.user.id; post.answer_username = comment.user.username;">Ответить</span>
+                                <span class="right pointer text-blue text-right" ng-show="comment.user.id != id_user" ng-click="emojiMessage.rawhtml = comment.user.username+', '; post.answer_id = comment.user.id; post.answer_username = comment.user.username;">Ответить</span>
                             </div>
                             {# <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div> #}
                         </div>
 
-                        <div class="col-sm-12 slid__comment__line"></div>
+                        <div class="col-sm-11 col-sm-offset-1 slid__comment__line"></div>
                     </div>
                 </div>
 
