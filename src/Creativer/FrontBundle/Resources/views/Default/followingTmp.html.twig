@@ -2,13 +2,13 @@
 
         <div class="row">
             <div class="col-sm-5 padding-left_0">
-                <div class="col-sm-7 padding-left_0" >
+                <div class="col-sm-9 padding-left_0" >
                     <h3 class="lobster name__user"><a href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
                 </div>
-                <div ng-if="user.connection_status != '{{ date_online }}' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
+                <div ng-if="user.connection_status != '{{ date_online }}' && user.id != $root.id_user" class="col-sm-3 padding-left_0 padding-right_5 connection_status line-height_1 margin-top_25 text-right">
                     [[ user.connection_status | date: "dd MMM HH:mm" ]]
                 </div>
-                <div ng-if="user.connection_status == '{{ date_online }}' && user.id != $root.id_user" class="col-sm-5 connection_status line-height_1 margin-top_25 padding-right_15 text-right">
+                <div ng-if="user.connection_status == '{{ date_online }}' && user.id != $root.id_user" class="col-sm-3 padding-left_0 padding-right_5 connection_status line-height_1 margin-top_25 text-right">
                     Online
                 </div>
             </div>

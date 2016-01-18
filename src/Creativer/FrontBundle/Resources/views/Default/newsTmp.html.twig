@@ -82,7 +82,7 @@
                         </div>
 
                         <a disabled-link="!edits" data-ng-class="{'disabled': edits}" href="/#!/[[ post.user.id ]]/post/[[ post.id ]]" class="col-sm-12 padding-left_0">
-                            <p class="user__text text-left col-sm-12 padding-left_0 user__text__post" placeholder="Текст">[[post.text]]</p>
+                            <p class="user__text text-left col-sm-12 padding-left_0 user__text__post" ng-bind-html="post.text | colonToSmiley"></p>
                         </a>
 
                         <div class="row">
@@ -134,7 +134,7 @@
                                 <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                             </div>
 
-                            <div class="user__text col-sm-12" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
+                            <div class="user__text col-sm-12" ng-bind-html="comment.text | linky:'_blank' | imagey | colonToSmiley"></div>
                             <div class="col-sm-12">
                                 <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
                                 <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="post.text_comment = comment.user.username+', '">Ответить</span>
@@ -166,7 +166,7 @@
                                 <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
                             </div>
 
-                            <div class="user__text col-sm-12" ng-bind-html="comment.text | linky:'_blank' | imagey"></div>
+                            <div class="user__text col-sm-12" ng-bind-html="comment.text | linky:'_blank' | imagey | colonToSmiley"></div>
                             <div class="col-sm-12">
                                 <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
                                 <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="post.text_comment = comment.user.username+', '">Ответить</span>

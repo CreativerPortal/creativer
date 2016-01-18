@@ -4,11 +4,15 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         $scope.emojiMessage={};
 
 
-        if($stateParams.id_post){
+    if($stateParams.id_post){
         personalService.getPostById({id: $stateParams.id_post}).success(function (data) {
             $scope.full_post = data.post;
             $rootScope.overflow = true;
         })
+    }
+
+    if($stateParams.id && $rootScope.user && $stateParams.id != $rootScope.user.id){
+        $rootScope.user = $scope.user = null;
     }
 
     if($stateParams.id && !$stateParams.key_post){

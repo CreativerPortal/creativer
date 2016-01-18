@@ -41,6 +41,10 @@ creativer_search_productsTmp:
     path:     /search_products_tmp
     defaults: { _controller: CreativerFrontBundle:Default:searchProductsTmp }
     methods:  [GET]
+creativer_search_servicesTmp:
+    path:     /search_services_tmp
+    defaults: { _controller: CreativerFrontBundle:Default:searchServicesTmp }
+    methods:  [GET]
 creativer_servicesTmp:
     path:     /services_tmp
     defaults: { _controller: CreativerFrontBundle:Default:servicesTmp }

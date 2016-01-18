@@ -281,7 +281,6 @@ body{
     width: 165px;
     height: 200px;
     margin-left: 10px;
-    margin-top: 20px;
     border-radius: 7px 14px 15px 14px;
     padding: 6px 6px 12px 6px;
     font-size: 0.89em;
@@ -316,6 +315,8 @@ body{
     letter-spacing: -0.1px;
     position: absolute;
     color: #7d7066;
+    height: 37px;
+    overflow: hidden;
 }
 
 .album__element-name:hover{

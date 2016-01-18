@@ -36,7 +36,7 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
         });
         $stateProvider.state('services_search', {
             url: '/services/search/:services_search_text',
-            templateUrl: '/services_tmp',
+            templateUrl: '/search_services_tmp',
             controller: 'catalogCtrl',
             reloadOnSearch: true
         });

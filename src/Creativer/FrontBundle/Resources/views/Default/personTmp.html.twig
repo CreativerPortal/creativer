@@ -48,11 +48,11 @@
 
 
 
-                <div class="row margin-top_40 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums < user.albums.length" ng-click="count_albums = user.albums.length">
+                <div class="row margin-top_10 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums < user.albums.length" ng-click="count_albums = user.albums.length">
                     Показать остальные альбомы <span class="glyphicon glyphicon-menu-down"></span>
                 </div>
 
-                <div class="row margin-top_40 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums == user.albums.length" ng-click="count_albums = 3">
+                <div class="row margin-top_10 text-center user__text pointer" ng-show="user.albums.length > 3 && count_albums == user.albums.length" ng-click="count_albums = 3">
                     Скрыть альбомы <span class="glyphicon glyphicon-menu-up"></span>
                 </div>
 
@@ -65,7 +65,7 @@
                     Пусто
                 </div>
 
-                <h4 class="lobster margin-top_20 text-gray">Стена</h4>
+                <h4 class="lobster padding-top_20 text-gray">Стена</h4>
 
                 <div ng-click="attache = true" style="width: 535px;" class="create_post">
                     {% if is_granted('ROLE_USER') %}
@@ -116,7 +116,7 @@
                     <div class="col-sm-12 padding-right_0 padding-left_0 margin-top_5 margin-bottom_5" ng-repeat="(k,v) in videos track by $index">
                         <input type="text" class="text_video" ng-model="videos[k]" placeholder="Cсылка на Youtube, Rutube, Vimeo или др.">
                     </div>
-                    <div class="row col-sm-12 padding-right_0 margin-top_5" style="width: 570px;">
+                    <div class="row col-sm-12 padding-right_0 margin-top_20" style="width: 570px;">
                         <div class=" upload__element_person" ng-repeat="(key, item) in uploader.queue">
                             <span class="glyphicon glyphicon-remove close_image_post ng-isolate-scope" ng-click="removeImg(key); item.remove();"></span>
                             <div ng-show="uploader.isHTML5" ng-thumbperson="{ file: item._file, height: 100 }" class="text-center margin-left_1 margin-right_1 left">
@@ -236,7 +236,7 @@
                         </div>
                     </div>
                     <div class="row margin-left_60 col-sm-11 one_comment" ng-if="post.comments_all_show == true" ng-repeat="(key,comment) in post.comments">
-                        <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
+                        <div class="col-sm-11 margin-left_20 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
                             <a ng-href="/#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
                                 <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
@@ -268,7 +268,7 @@
                         </div>
                     </div>
                     <div class="row margin-left_60 col-sm-11 one_comment" ng-if="post.comments_all_show == false" ng-repeat="(key,comment) in post.comments.slice(post.comments.length-2,post.comments.length)">
-                        <div class="col-sm-11 margin-left_25 margin-top_10 slid__comment__line"></div>
+                        <div class="col-sm-11 margin-left_20 margin-top_10 slid__comment__line"></div>
                         <div class="col-sm-2">
                             <a ng-href="/#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" ng-if="comment.user" class="user__avatar-super-mini" style="background-color: [[ comment.user.color ]]">
                                 <img ng-if="comment.user" ng-src="[[ comment.user.avatar ]]">
@@ -301,7 +301,7 @@
                     </div>
                     <div class="row margin-left_60 col-sm-11" ng-show="post.comments[0] || com">
                         {% if is_granted('ROLE_USER') %}
-                            <textarea msd-elastic="" class="text-gray margin-left_20 margin-top_10"  ng-model="post.text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px;"></textarea>
+                            <textarea msd-elastic="" class="text-gray margin-left_20 margin-top_10"  ng-model="post.text_comment" cols="63" rows="1" placeholder="Комментировать" style="width: 455px; height: 28px;"></textarea>
                             <div ng-show="post.text_comment" class="margin-top_5 margin-left_20 text-right" style="margin-right: 15px;">
                                 <button class="true fs_0-9" ng-class="{'loader': loader_comment}" ng-click="saveComment(post,post.id,post.text_comment)">Отправить</button>
                                 <button class="false fs_0-9" ng-click="post.text_comment=''">Отмена</button>

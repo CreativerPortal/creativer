@@ -423,7 +423,7 @@
                                 </div>
                                 <a ng-href="#!/chat/[[ new_message.other_user ]]" class="row col-sm-12 padding-right_0">
                                     <div class="row col-sm-12 text-gray">
-                                        <p class="fs_0-8 left">[[ new_message.text ]]</p>
+                                        <p class="fs_0-8 left" ng-bind-html="new_message.text | colonToSmiley"></p>
                                     </div>
                                     <div class="row text-gray">
                                         <div class="col-sm-10 text-right padding-right_0 fs_0-8"><time class="text-gray fs_0-8">[[ new_message.date | date: "hh:mm dd.MM" ]]</time></div>

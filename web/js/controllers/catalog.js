@@ -24,7 +24,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             $rootScope.products = data.products[0].children;
             $rootScope.product = data.product[0];
         });
-    }else if(($stateParams.id_services && !$rootScope.services) || $state.current.name == 'services_all'){
+    }else if(($stateParams.id_services && !$rootScope.services) || $state.current.name == 'services_all' || $rootScope.service == undefined){
         catalogService.getServices({id:$stateParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
@@ -172,6 +172,16 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             })
         }
 
+    $rootScope.removeProducts = function(){
+            $rootScope.items = $scope.items = null;
+            $rootScope.pages = null;
+    }
+
+    $rootScope.removeServices = function(){
+            $rootScope.items_services = $scope.items_services = null;
+            $rootScope.pages_services = null;
+    }
+
     $scope.removeComment = function(key_img,id,key){
         albumService.removeComment({id: id}).success(function (data) {
             if($scope.items.items[key_img][0]){
@@ -262,6 +272,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
     if($stateParams.products_search_text){
         $rootScope.condition = 2;
+        $rootScope.pages = null;
+        $scope.items = null;
 
         if(!$rootScope.products){
             catalogService.getProducts({id:$stateParams.id_products}).success(function (data) {
@@ -292,12 +304,14 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         }
     }else if($stateParams.services_search_text){
         $rootScope.condition = 3;
+        $rootScope.pages_services = null;
+        $scope.items_services = null;
         catalogService.getServices({id:$stateParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
         });
         catalogService.searchServices({search_text:$stateParams.services_search_text}).success(function (data) {
-            $rootScope.pages = [];
+            $rootScope.pages_services = [];
             $rootScope.currentPage = 0;
             $scope.items_services = data.products;
         });
