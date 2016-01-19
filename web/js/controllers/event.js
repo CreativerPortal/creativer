@@ -281,18 +281,18 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
 
         $scope.tinymceOptions = {
             file_browser_callback : function(field_name, url, type, win){
-                                        tinymce.activeEditor.windowManager.open({
-                                            file: 'http://creativer.by/elfinder',// use an absolute path!
-                                            title: 'Проводник',
-                                            width: 1350,
-                                            height: 560,
-                                            resizable: 'yes'
-                                        }, {
-                                            setUrl: function (url) {
-                                                win.document.getElementById(field_name).value = url;
-                                            }
-                                        });
-                                        return false;
+                tinymce.activeEditor.windowManager.open({
+                    file: 'http://creativer.by/elfinder',// use an absolute path!
+                    title: 'Проводник',
+                    width: 1350,
+                    height: 560,
+                    resizable: 'yes'
+                }, {
+                    setUrl: function (url) {
+                        win.document.getElementById(field_name).value = url;
+                    }
+                });
+                return false;
             },
             height: '350px',
             width: '750px',

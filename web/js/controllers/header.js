@@ -59,7 +59,7 @@ angular.module('app.ctr.header', ['service.header', 'service.socket'])
     });
 
 
- /*   $rootScope.$watch("notification", function () {
+    /*$rootScope.$watch("notification", function () {
         var path = $location.path();
         for(var key in $rootScope.notification){
             if($rootScope.notification[key].url == path){

@@ -1,7 +1,7 @@
 angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat', 'ngSanitize', 'emojiApp'])
     .controller('personCtrl',['$state','$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
-        $scope.emojiMessage={};
+    $scope.emojiMessage={};
 
 
     if($stateParams.id_post){

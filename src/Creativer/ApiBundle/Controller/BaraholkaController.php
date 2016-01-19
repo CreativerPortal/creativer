@@ -98,10 +98,12 @@ class BaraholkaController extends Controller
             ->createQueryBuilder('e')
             ->leftJoin('e.post_category', 'post_categ')
             ->addSelect('post_categ')
-            ->leftJoin('e.images_baraholka', 'images');
-            if($category_id != 'last'){
+            ->leftJoin('e.images_baraholka', 'images')
+            ->where('e.isActive = :active')
+            ->setParameter('active', 1);
+        if($category_id != 'last'){
                 $query->leftJoin('e.categories_baraholka', 'cat')
-                ->where('cat IN (:items)')
+                ->andWhere('cat IN (:items)')
                 ->setParameter('items', $category_id);
             }
 
