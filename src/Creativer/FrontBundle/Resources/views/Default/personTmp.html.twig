@@ -24,7 +24,7 @@
                         <span class="glyphicon glyphicon-picture"></span>
                             <span class="fs_0-9">Создать альбом</span>
                     </a>
-                    <h4 class="lobster text-gray">Альбомы</h4>
+                    <h4 class="lobster text-gray" ng-if="(user.albums.length != 0) || (user.id == $root.id_user)">Альбомы</h4>
                </div>
                 <div class="album__element" ng-repeat="album in user.albums.slice(0,count_albums)">
 
@@ -61,9 +61,9 @@
                 </div>
 
 
-                <div class="row margin-top_25 text-center user__text fs_1-2 lobster" ng-if="(user.albums.length == 0) && (user.id != $root.id_user)">
-                    Пусто
-                </div>
+                {#<div class="row margin-top_25 text-center user__text fs_1-2 lobster" ng-if="(user.albums.length == 0) && (user.id != $root.id_user)">#}
+                    {#Пусто#}
+                {#</div>#}
 
                 <h4 class="lobster padding-top_20 text-gray">Стена</h4>
 

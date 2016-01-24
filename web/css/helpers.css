@@ -345,7 +345,7 @@
     animation: load7 0.72s infinite ease-in-out;
 }
 .loader {
-    font-size: 7px;
+    /*font-size: 7px;*/
     position: relative;
     text-indent: -9999em;
 }
