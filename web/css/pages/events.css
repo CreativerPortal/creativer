@@ -102,7 +102,7 @@ body{
     position: relative;
     color: inherit;
     cursor: pointer;
-    max-height: 150px;
+    max-height: 125px;
     border: 1px dashed #c5c3b4;
     border-radius: 7px;
 }
