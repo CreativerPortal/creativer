@@ -1,7 +1,7 @@
     <div class="row slid">
 
         <div class="row margin-top_15">
-            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a class="text-black" href="/#!/events" >События</a></h3></div>
+            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0" ng-click="section.at = 0"><a class="text-black" href="/#!/events" >События</a></h3></div>
 
             <div class="col-sm-2 padding-left_0 margin-top_10">
                 <span>Регион</span>
@@ -40,9 +40,11 @@
         <div class="row margin-top_10">
             <div class="col-sm-2 padding-left_0">
 
-                <div ng-repeat="children in section">
-                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-top_40 margin-left_0">[[ children.name ]]</h3></div>
-                    <div ng-repeat="child in children.children"><a class="link_event" href="/#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
+                <div ng-repeat="children in section" class="margin-bottom_10">
+                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-top_0 margin-left_0" ng-if="children.attached_datapicker == true" ng-click="section.at = 1"><a class="text-gray-light" href="/#!/events/[[ children.id ]]">[[ children.name ]]</a></h3></div>
+                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-top_0 margin-left_0" ng-if="children.attached_datapicker == false" ng-click="section.at = 2"><a class="text-gray-light" href="/#!/events/[[ children.id ]]">[[ children.name ]]</a></h3></div>
+                    <div ng-repeat="child in children.children" ng-if="child.attached_datapicker == true" ng-click="section.at = 1"><a class="link_event" href="/#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
+                    <div ng-repeat="child in children.children" ng-if="child.attached_datapicker == false" ng-click="section.at = 2"><a class="link_event" href="/#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
                 </div>
                 {% if banners_v.url %}
                     <a href="{{ banners_v.link }}"><img class="margin-top_20" src="{{ banners_v.url }}" alt="{{ banners_v.name }}" /></a>
@@ -51,7 +53,54 @@
             </div>
             <div class="col-sm-10">
 
-                <div class="calendar fiveMinuts" ng-switch on="days.length-1">
+
+                <div class="padding-left_0 text-gray" ng-show="news.length"><h3 class="lobster margin-left_0 margin-top_0">Новости</h3></div>
+                <div class="horizontal_line_dashed" ng-show="news.length"></div>
+                <div class="row margin-top_10 margin-bottom_20" ng-show="news.length">
+                    <div class="col-sm-12 h_350">
+                        <div class="col-sm-3 static">
+                            <div class="row">
+                                <a href="#!/event/[[ news[0].id ]]" class="overflow-hidden container_image_events block">
+                                    <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ news[0].path ]][[ news[0].img ]]" />
+                                </a>
+                                <a href="#!/event/[[ news[0].id ]]" class="fs_0-9 text-left text-gray">[[ news[0].name ]]</a><br>
+                            </div>
+                            <div class="row absolut_bottom">
+                                <a href="#!/event/[[ news[1].id ]]" class="overflow-hidden container_image_events block">
+                                    <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ news[1].path ]][[ news[1].img ]]" />
+                                </a>
+                                <a href="#!/event/[[ news[1].id ]]" class="fs_0-9 text-left text-gray">[[ news[1].name ]]</a><br>
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <a href="#!/event/[[ news[2].id ]]" class="overflow-hidden container_image_product_center block">
+                                <img ng-src="{{  path_img_event_original }}[[ news[2].path ]][[ news[2].img ]]" />
+                            </a>
+                            <div class="padding-left_0">
+                                <a href="#!/event/[[ news[2].id ]]" class="fs_0-9 text-left text-gray">[[ news[2].name ]]</a><br>
+                            </div>
+                        </div>
+                        <div class="col-sm-3 static">
+                            <div class="row right">
+                                <a href="#!/event/[[ news[3].id ]]" class="overflow-hidden container_image_events">
+                                    <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ news[3].path ]][[ news[3].img ]]">
+                                </a>
+                                <a href="#!/event/[[ news[3].id ]]" class="fs_0-9 text-left text-gray">[[ news[3].name ]]</a><br>
+                            </div>
+                            <div class="row right absolut_bottom">
+                                <a href="#!/event/[[ news[4].id ]]" class="overflow-hidden container_image_events">
+                                    <img class="main_small_img_event" ng-src="{{  path_img_event_original }}[[ news[4].path ]][[ news[4].img ]]" >
+                                </a>
+                                <a href="#!/event/[[ news[4].id ]]" class="fs_0-9 text-left text-gray">[[ news[4].name ]]</a><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="padding-left_0 text-gray" ng-show="section.at != 2"><h3 class="lobster margin-left_0 margin-top_0">События</h3></div>
+                <div class="horizontal_line_dashed" ng-show="section.at != 2"></div>
+
+                <div class="calendar fiveMinuts margin-top_20" ng-switch on="days.length-1" ng-show="section.at != 2">
                     <div class="head_datapicker text-white col-sm-12">
                         <div class="left year fs_1-5">[[ datapicker.current_date | date:'yyyy' ]]</div>
                         <div class="text-center fs_1-5" style="text-transform: capitalize;">
@@ -108,12 +157,10 @@
                 </div>
 
 
-                <div ng-repeat="event in events">
-                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">[[ event.name ]]</h3></div>
-                    <div class="horizontal_line_dashed"></div>
+                <div>
                     <div class="lobster text-gray text-center fs_3-2 margin-top_20" ng-if="event.events.length == 0">Нет событий</div>
-                    <div class="row" ng-if="(event.events.length % 2) == 0">
-                        <div  ng-class="{'col-sm-4':((key % 2) == 0), 'col-sm-8':((key % 2) != 0), 'right':((key % 2) == 0) && ((key/2 % 2) != 0)}" class="margin-bottom_10 margin-top_10 trio_events" ng-repeat="(key,item) in event.events">
+                    <div class="row" ng-if="(events.length % 2) == 0">
+                        <div  ng-class="{'col-sm-4':((key % 2) == 0), 'col-sm-8':((key % 2) != 0), 'right':((key % 2) == 0) && ((key/2 % 2) != 0)}" class="margin-bottom_10 margin-top_10 trio_events" ng-repeat="(key,item) in events">
 
                                 <div ng-if="(key % 2) == 0" ng-class="{'container_image_events':(key % 2) == 0}" class="block left text-gray">
                                     <a href="/#!/events/[[ item.id_cat ]]" class="name_category">[[ item.name_cat ]]</a>
@@ -170,8 +217,8 @@
 
 
 
-                    <div class="row margin-top_10" ng-if="(event.events.length % 2) != 0">
-                        <div class="col-sm-4 trio_events" ng-repeat="item in event.events.slice(0, 3)">
+                    <div class="row margin-top_10" ng-if="(events.length % 2) != 0">
+                        <div class="col-sm-4 trio_events" ng-repeat="item in events.slice(0, 3)">
                             <div class="container_image_events block left text-gray">
                                 <a href="/#!/events/[[ item.id_cat ]]" class="name_category">[[ item.name_cat ]]</a>
                                 <a href="/#!/event/[[ item.id ]]">
@@ -200,7 +247,7 @@
                         </div>
 
 
-                        <div  ng-class="{'col-sm-4':((key % 2) == 0), 'col-sm-8':((key % 2) != 0), 'right':((key % 2) == 0) && ((key/2 % 2) != 0)}" class="margin-bottom_10 margin-top_10 trio_events" ng-repeat="(key,item) in event.events.slice(3, event.events.length)">
+                        <div  ng-class="{'col-sm-4':((key % 2) == 0), 'col-sm-8':((key % 2) != 0), 'right':((key % 2) == 0) && ((key/2 % 2) != 0)}" class="margin-bottom_10 margin-top_10 trio_events" ng-repeat="(key,item) in events.slice(3, events.length)">
 
                             <div ng-if="(key % 2) == 0" ng-class="{'container_image_events':(key % 2) == 0}" class="block left text-gray">
                                 <a href="/#!/events/[[ item.id_cat ]]" class="name_category">[[ item.name_cat ]]</a>

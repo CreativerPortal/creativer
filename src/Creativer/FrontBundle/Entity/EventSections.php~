@@ -66,6 +66,13 @@ class EventSections
     private $date;
 
     /**
+     * @ORM\Column(type="integer", name="attached_datapicker")
+     * @JMS\Expose
+     * @JMS\Groups({"getEventSections", "getEvent", "getCityAndSections", "elastica"})
+     */
+    private $attached_datapicker = 0;
+
+    /**
      * @ORM\Column(type="integer", name="is_active")
      */
     private $isActive = 1;

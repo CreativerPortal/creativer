@@ -43,7 +43,7 @@
 }
 
 .fs_0-9{
-    font-size: 0.9em;
+    font-size: 0.9em!important;
 }
 
 .fs_0-8{
@@ -187,6 +187,10 @@
 
 .margin-bottom_10{
     margin-bottom: 10px!important;
+}
+
+.margin-bottom_20{
+    margin-bottom: 20px!important;
 }
 
 .margin-bottom_5{

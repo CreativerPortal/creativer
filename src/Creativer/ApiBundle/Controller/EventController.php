@@ -37,23 +37,6 @@ class EventController extends Controller
      */
     public function getDatapickerAction(){
 
-//            /* @var $start \DateTime */
-//            $start = new \DateTime('2015-11-07T20:59:59.000Z');
-//
-//            /* @var $end \DateTime */
-//            $end = new \DateTime('2015-11-15T20:59:59.000Z');
-//
-//            $google = $this->get('google.client');
-//
-//            $google->setCredentialsJson();
-//
-//            $events = $google->getCalendar()->events->listEvents('infocreativer@gmail.com', [
-//                'timeMin' => $start->format('c'),
-//                'timeMax' => $end->format('c'),
-//            ]);
-//
-//            die(var_dump($events));
-
         $other_date = $this->get('request')->request->get('date');
         $id_cat = $this->get('request')->request->get('id_cat');
         $target_date = $this->get('request')->request->get('target_date');
@@ -78,9 +61,6 @@ class EventController extends Controller
         $year = (int)$date->format('Y');
 
 
-//        $start_month = $date->modify('first day of this month')->setTime(00, 00, 00)->format('Y/m/d H:i:s');
-//        $end_month = $date->modify('last day of this month')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
-
         if(!empty($current_date)){
             $start_month = (int)$current_date->format('d');
         }else{
@@ -92,7 +72,7 @@ class EventController extends Controller
             $plus_period = 15 - (31 - (int)$start_month);
             $cr = clone $current_date;
             $end_month = $cr->modify('last day of this month')->modify('+ '.$plus_period.' day')->setTime(23, 59, 59)->format('Y/m/d H:i:s');
-            $start_month = $current_date->setTime(01, 00, 00)->format('Y/m/d H:i:s');
+            $start_month = $current_date->modify('first day of this month')->setTime(01, 00, 00)->format('Y/m/d H:i:s');
         }else{
             $current_date = $date = new \DateTime($other_date);
             $start_month = $current_date->setTime(01, 00, 00)->format('Y/m/d H:i:s');
@@ -101,30 +81,57 @@ class EventController extends Controller
 
         if($id_cat != null) {
 
-            $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+            $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:EventSections')->findBy(array('parent' => $id_cat));
+
+            $event = [];
+            if(isset($items[0])) {
+                $childs = $items;
+                foreach ($childs as $k => $v) {
+                    array_push($event, $childs[$k]);
+                }
+            }else{
+                $event = $id_cat;
+            }
+
+           // die(\Doctrine\Common\Util\Debug::dump($event));
+
+            $query_events = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
                 ->createQueryBuilder('e')
-                ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date','e.viewed as viewed','e.count_comment as count_comment')
+                ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date','e.viewed as viewed','e.count_comment as count_comment', 'cat.attached_datapicker')
                 ->leftJoin('e.event_sections', 'cat')
                 ->leftJoin('e.event_city', 'city')
-                ->where('cat IN (:items)');
-                if($target_date){
-                    $query->andWhere('e.end_date >= :date AND e.start_date <= :date')
+                ->where('cat IN (:items)')
+                ->andWhere('cat.attached_datapicker = :at')
+                ->setParameter('at', 1);
+            if($target_date){
+                $query_events->andWhere('e.end_date >= :date AND e.start_date <= :date')
                     ->setParameter('date', $target_date);
                 }else{
-                    $query->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month')
+                $query_events->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month')
                     ->setParameter('start_month', $start_month)
                     ->setParameter('end_month', $end_month);
                 }
-                $query->groupBy('e.id')
+            $query_events->groupBy('e.id')
                 ->orderBy('e.id', 'DESC');
                 if($city){
-                    $query->andWhere('city.id = :city')
+                    $query_events->andWhere('city.id = :city')
                         ->setParameter('city', $city);
                 }
-                $query->setParameter('items', $id_cat);
-                $query = $query->getQuery()->getResult();
+            $query_events->setParameter('items', $event);
+            $query_events = $query_events->getQuery()->getResult();
 
-            $mass[0]['events'] = $query;
+
+            $query_news = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+                ->createQueryBuilder('e')
+                ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date','e.viewed as viewed','e.count_comment as count_comment', 'cat.attached_datapicker')
+                ->leftJoin('e.event_sections', 'cat')
+                ->where('cat IN (:items)')
+                ->andWhere('cat.attached_datapicker = :at')
+                ->setParameter('at', 0)
+                ->setParameter('items', $event)
+                ->setMaxResults(5)
+                ->getQuery()->getResult();
+
 
         }else{
 
@@ -132,45 +139,61 @@ class EventController extends Controller
 
             $i = 0;
             $mass = [];
+            $event = [];
             while(isset($items[$i])){
                 $name = $items[$i]->getName();
                 $mass[$i] = array('name'=>$name);
                 if(!$items[$i]->getChildren()->isEmpty()){
                     $childs = $items[$i]->getChildren();
-                    $event = [];
                     foreach($childs as $k => $v) {
                         array_push($event, $childs[$k]);
                     }
 
-                    $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+                    $query_events = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
                         ->createQueryBuilder('e')
-                        ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date','e.viewed as viewed','e.count_comment as count_comment')
+                        ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date','e.viewed as viewed','e.count_comment as count_comment', 'cat.attached_datapicker')
                         ->leftJoin('e.event_sections', 'cat')
                         ->leftJoin('e.event_city', 'city')
-                        ->where('cat IN (:items)');
-                        if($target_date){
-                                  $query->andWhere('e.end_date >= :date AND e.start_date <= :date')
+                        ->where('cat IN (:items)')
+                        ->andWhere('cat.attached_datapicker = :at')
+                        ->setParameter('at', 1);
+                    if($target_date){
+                        $query_events->andWhere('e.end_date >= :date AND e.start_date <= :date')
                                   ->setParameter('date', $target_date);
                           }else{
-                              $query->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month')
+                        $query_events->andWhere('e.start_date <= :end_month AND e.end_date >= :start_month')
                                   ->setParameter('start_month', $start_month)
                                   ->setParameter('end_month', $end_month);
                           }
-                        $query->groupBy('e.id')
+                        $query_events->groupBy('e.id')
                         ->orderBy('e.id', 'DESC');
                         if($city){
-                            $query->andWhere('city.id = :city')
+                            $query_events->andWhere('city.id = :city')
                                   ->setParameter('city', $city);
                         }
-                    $query->setParameter('items', $event);
-                    $query = $query->getQuery()->getResult();
+                    $query_events->setParameter('items', $event);
+                    $query_events = $query_events->getQuery()->getResult();
 
-                    $mass[$i]['events'] = $query;
                 }
                 $i++;
             }
 
+
+            $query_news = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
+                ->createQueryBuilder('e')
+                ->select('cat.id as id_cat','cat.name as name_cat','e.id','e.name','e.description','e.path','e.img','e.start_date','e.end_date','e.viewed as viewed','e.count_comment as count_comment', 'cat.attached_datapicker')
+                ->leftJoin('e.event_sections', 'cat')
+                ->where('cat IN (:items)')
+                ->andWhere('cat.attached_datapicker = :at')
+                ->setParameter('at', 0)
+                ->setParameter('items', $event)
+                ->setMaxResults(5)
+                ->getQuery()->getResult();
+
+
         }
+
+
 
         $next_date = $date->modify('first day of next month')->format('Y/m/d');
         $previous_date = $date->modify('first day of -1 month')->format('Y/m/d');
@@ -178,7 +201,7 @@ class EventController extends Controller
             $current_date = $target_date;
         }
 
-        $result = array('year' => $year, 'month' => $month, 'events' => $mass, 'current_date' => $current_date, 'next_date' => $next_date, 'previous_date' => $previous_date);
+        $result = array('year' => $year, 'month' => $month, 'news' => $query_news, 'events' => $query_events, 'current_date' => $current_date, 'next_date' => $next_date, 'previous_date' => $previous_date);
 
         $serializer = $this->container->get('jms_serializer');
         $categories = $serializer

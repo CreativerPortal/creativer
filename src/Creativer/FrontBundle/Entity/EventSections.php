@@ -66,6 +66,13 @@ class EventSections
     private $date;
 
     /**
+     * @ORM\Column(type="integer", name="attached_datapicker")
+     * @JMS\Expose
+     * @JMS\Groups({"getEventSections", "getEvent", "getCityAndSections", "elastica"})
+     */
+    private $attached_datapicker = 0;
+
+    /**
      * @ORM\Column(type="integer", name="is_active")
      */
     private $isActive = 1;
@@ -244,5 +251,28 @@ class EventSections
     public function getParent()
     {
         return $this->parent;
+    }
+
+    /**
+     * Set attached_datapicker
+     *
+     * @param integer $attachedDatapicker
+     * @return EventSections
+     */
+    public function setAttachedDatapicker($attachedDatapicker)
+    {
+        $this->attached_datapicker = $attachedDatapicker;
+
+        return $this;
+    }
+
+    /**
+     * Get attached_datapicker
+     *
+     * @return integer 
+     */
+    public function getAttachedDatapicker()
+    {
+        return $this->attached_datapicker;
     }
 }

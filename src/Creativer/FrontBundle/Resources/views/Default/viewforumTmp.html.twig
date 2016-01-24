@@ -2,7 +2,10 @@
 
         <div class="col-sm-10 padding-left_0">
             <div class="row">
-                <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a  ng-click="$root.searchInBaraholka = null" class="text-black" href="/#!/baraholka">Барахолка</a></h3></div>
+                <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">
+                    <a ng-click="$root.searchInBaraholka = null" class="text-black" href="/#!/baraholka">Барахолка</a></h3>
+                    <div class="fs_0-8 text-gray-light"><a href="/#!/baraholka">Список категории</a></div>
+                </div>
                 <div class="col-sm-3 slid__search padding-left_0 padding-right_5 margin-top_20">
                     <input placeholder="Поиск по барахолке" ng-model="$root.searchInBaraholka">
                     <button class="slid__slider-button right margin-top_3" ng-click="searchPostsBaraholkaByText()"></button>
