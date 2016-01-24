@@ -1,5 +1,5 @@
 angular.module('app.ctr.header', ['service.header', 'service.socket'])
-    .controller('headerCtrl',['$window', '$scope', '$rootScope', '$location', 'headerService', '$stateParams', 'socket',  function($window,$scope,$rootScope,$location,headerService,$stateParams,socket) {
+    .controller('headerCtrl',['$window', '$scope', '$http', '$rootScope', '$location', 'headerService', '$stateParams', 'socket',  function($window,$scope,$http,$rootScope,$location,headerService,$stateParams,socket) {
 
 
     $scope.date = new Date();
@@ -57,17 +57,17 @@ angular.module('app.ctr.header', ['service.header', 'service.socket'])
     socket.on("get notification", function(data) {
         $rootScope.notification = data;
     });
-
-
-    /*$rootScope.$watch("notification", function () {
-        var path = $location.path();
-        for(var key in $rootScope.notification){
-            if($rootScope.notification[key].url == path){
-                socket.emit("remove notification",{id: $rootScope.notification[key]._id, id_user: $rootScope.id_user});
-            }
+        
+    $rootScope.$watch(function() {
+        return $http.pendingRequests.length;
+    },function(hasPending) {
+        if (hasPending) {
+            $rootScope.isLoading = true;
+        }
+        else {
+            $rootScope.isLoading = false;
         }
     });
-    */
 
     $rootScope.$on('$stateChangeStart', function(next, current) {
         var path = $location.path();

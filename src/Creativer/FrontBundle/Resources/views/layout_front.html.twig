@@ -476,7 +476,7 @@
             </div>
             <div class="personal col-sm-1 padding-left_0">
                 <label class="still_label-person" for="checkbox-menu-person">
-                    <div class="user__avatar-mini-header" ng-class="{spinner: !user}" ng-init="$root.color = '{{app.user.color}}'" style="background-color: [[ $root.color ]];">
+                    <div class="user__avatar-mini-header" ng-class="{spinner: isLoading}" ng-init="$root.color = '{{app.user.color}}'" style="background-color: [[ $root.color ]];">
                         <img ng-src="[[ $root.avatar ]]" ng-init="$root.avatar = '{{app.user.avatar}}'">
                     </div>
                 </label>
