@@ -57,7 +57,7 @@ angular.module('app.ctr.header', ['service.header', 'service.socket'])
     socket.on("get notification", function(data) {
         $rootScope.notification = data;
     });
-        
+
     $rootScope.$watch(function() {
         return $http.pendingRequests.length;
     },function(hasPending) {
