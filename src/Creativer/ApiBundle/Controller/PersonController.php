@@ -1328,6 +1328,11 @@ class PersonController extends Controller
     public function searchPeopleAction()
     {
         $search_people = $this->get('request')->request->get('people_search');
+        $page = $this->get('request')->request->get('page');
+
+        if(empty($page)){
+            $page = 1;
+        }
 
         $users = $this->container->get('fos_elastica.finder.app.user');
         $keywordQuery = new \Elastica\Query\QueryString();
@@ -1338,9 +1343,17 @@ class PersonController extends Controller
             $keywordQuery->setQuery("username:".$search_people." OR lastname:".$search_people);
         }
 
+        $paginator = $this->get('knp_paginator');
+        $results = $users->createPaginatorAdapter($keywordQuery);
+        $pagination = $paginator->paginate($results, $page, 40);
 
-        $people = $users->find($keywordQuery, '80');
-        $people = array('people' => $people);
+
+        $result = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
+            'numItemsPerPage' => $pagination->getItemNumberPerPage(),
+            'items' => $pagination->getItems(),
+            'totalCount' => $pagination->getTotalItemCount());
+
+        $people = array('people' => $result);
 
         return $people;
     }

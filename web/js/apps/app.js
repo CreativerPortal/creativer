@@ -46,6 +46,12 @@ var app = angular.module('app', ['ngRoute', 'ui.router', 'app.ctr.person', 'app.
             controller: 'peopleCtrl',
             reloadOnSearch: true
         });
+        $stateProvider.state('people_page', {
+            url: '/people/search/:people_search/:page',
+            templateUrl: '/people_tmp',
+            controller: 'peopleCtrl',
+            reloadOnSearch: true
+        });
         $stateProvider.state('products_all', {
             url:'/products',
             templateUrl: '/products_tmp',

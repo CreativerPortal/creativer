@@ -1,7 +1,7 @@
  <div class="row slid margin-top_25 padding-right_0">
 
      <div class="col-sm-8">
-        <div class="padding-bottom_30">
+        <div class="row padding-bottom_30">
             <a href="/#!/[[ man.id ]]" ng-click="removeUser(man.id)" class="col-sm-3 text-center margin-top_20 block favorit__card pointer" ng-repeat="man in people">
                 <div class="user__avatar-favorit text-center" ng-class="{'user__avatar-favorit-online':man.connection_status == '{{ date_online }}'}" style="margin: auto; background-color: [[ man.color ]]">
                     <img ng-src="[[ man.avatar ]]">
@@ -10,7 +10,13 @@
                 <div class="text-center fs_0-9 lobster">[[ man.lastname ]]</div>
             </a>
         </div>
+         <div class="row">
+             <div class="col-sm-3 col-sm-offset-6 slid__pagination fiveMinuts padding-left_0">
+                 <a ng-href="/#!/people/search/[[ people_search ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+             </div>
+         </div>
     </div>
+
 
 
     <div class="col-sm-4 filters padding-bottom_30">
