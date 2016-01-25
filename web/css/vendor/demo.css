@@ -405,7 +405,7 @@ h1 {
 .glyphicon-chevron-left{
     float: left;
     top:50%;
-    margin-top: -45px;
+    /*margin-top: -45px;*/
 }
 
 .gridder-expanded-content {
