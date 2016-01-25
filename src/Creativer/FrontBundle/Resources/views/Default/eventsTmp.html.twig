@@ -1,7 +1,7 @@
     <div class="row slid">
 
         <div class="row margin-top_15">
-            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0" ng-click="section.at = 0"><a class="text-black" href="/#!/events" >События</a></h3></div>
+            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0" ng-click="$root.full_page = 0"><a class="text-black" href="/#!/events" >События</a></h3></div>
 
             <div class="col-sm-2 padding-left_0 margin-top_10">
                 <span>Регион</span>
@@ -41,10 +41,10 @@
             <div class="col-sm-2 padding-left_0">
 
                 <div ng-repeat="children in section" class="margin-bottom_10">
-                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-top_0 margin-left_0" ng-if="children.attached_datapicker == true" ng-click="section.at = 1"><a class="text-gray-light" href="/#!/events/[[ children.id ]]">[[ children.name ]]</a></h3></div>
-                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-top_0 margin-left_0" ng-if="children.attached_datapicker == false" ng-click="section.at = 2"><a class="text-gray-light" href="/#!/events/[[ children.id ]]">[[ children.name ]]</a></h3></div>
-                    <div ng-repeat="child in children.children" ng-if="child.attached_datapicker == true" ng-click="section.at = 1"><a class="link_event" href="/#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
-                    <div ng-repeat="child in children.children" ng-if="child.attached_datapicker == false" ng-click="section.at = 2"><a class="link_event" href="/#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
+                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-top_0 margin-left_0" ng-if="children.attached_datapicker == true" ng-click="$root.full_page = 1"><a class="text-gray-light" href="/#!/events/[[ children.id ]]">[[ children.name ]]</a></h3></div>
+                    <div class="padding-left_0 text-gray"><h3 class="lobster margin-top_0 margin-left_0" ng-if="children.attached_datapicker == false" ng-click="$root.full_page = 2"><a class="text-gray-light" href="/#!/events/[[ children.id ]]">[[ children.name ]]</a></h3></div>
+                    <div ng-repeat="child in children.children" ng-if="child.attached_datapicker == true" ng-click="$root.full_page = 1"><a class="link_event" href="/#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
+                    <div ng-repeat="child in children.children" ng-if="child.attached_datapicker == false" ng-click="$root.full_page = 2"><a class="link_event" href="/#!/events/[[ child.id ]]">[[ child.name ]]</a></div>
                 </div>
                 {% if banners_v.url %}
                     <a href="{{ banners_v.link }}"><img class="margin-top_20" src="{{ banners_v.url }}" alt="{{ banners_v.name }}" /></a>
@@ -97,10 +97,10 @@
                     </div>
                 </div>
 
-                <div class="padding-left_0 text-gray" ng-show="section.at != 2"><h3 class="lobster margin-left_0 margin-top_0">События</h3></div>
-                <div class="horizontal_line_dashed" ng-show="section.at != 2"></div>
+                <div class="padding-left_0 text-gray" ng-show="$root.full_page != 2"><h3 class="lobster margin-left_0 margin-top_0">События</h3></div>
+                <div class="horizontal_line_dashed" ng-show="$root.full_page != 2"></div>
 
-                <div class="calendar fiveMinuts margin-top_20" ng-switch on="days.length-1" ng-show="section.at != 2">
+                <div class="calendar fiveMinuts margin-top_20" ng-switch on="days.length-1" ng-show="$root.full_page != 2">
                     <div class="head_datapicker text-white col-sm-12">
                         <div class="left year fs_1-5">[[ datapicker.current_date | date:'yyyy' ]]</div>
                         <div class="text-center fs_1-5" style="text-transform: capitalize;">

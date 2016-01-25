@@ -3,6 +3,9 @@ angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.
 
         $rootScope.title = "События";
 
+        //$rootScope.full_page = 0;
+
+
         $scope.myDatetimeRange = {
             "date": {},
             "hasTimeSliders": false,
