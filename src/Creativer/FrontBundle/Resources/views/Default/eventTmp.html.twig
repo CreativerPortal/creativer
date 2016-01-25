@@ -68,11 +68,11 @@
                             <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/event/[[ event.id ]]&p[title]=[[ event.name ]]&p[summary]=[[ event.name ]]&p[images][0]=http://creativer.by/home/event/original/[[ event.path ]][[ event.img ]]" class="ico_facebook pointer"></a>
                             <a href="http://twitter.com/share?text=[[ event.name ]]&url=http://creativer.by/event/[[ event.id ]]" class="ico_twitter pointer" ></a>
                         </div>
-                        <div class="row text-right padding-right_0 padding-left_0 col-sm-6" ng-show="!event_attend">
+                        <div class="row text-right padding-right_0 padding-left_0 col-sm-6" ng-show="!event_attend && event.event_sections.attached_datapicker != 0">
                             {#Идёт [[ event.users_attend.length ]] человек. #}
                             <span class="pointer text-blue" ng-click="eventAttend()">Пойду!</span>
                         </div>
-                        <div class="row text-right padding-right_0 padding-left_0 col-sm-6" ng-show="event_attend">
+                        <div class="row text-right padding-right_0 padding-left_0 col-sm-6" ng-show="event_attend && event.event_sections.attached_datapicker != 0">
                             Идёт [[ event.users_attend.length ]] человек. <span class="pointer text-blue" ng-click="eventAttend()">Не пойду!</span>
                         </div>
                     </div>
