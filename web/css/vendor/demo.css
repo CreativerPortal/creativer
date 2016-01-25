@@ -394,7 +394,7 @@ h1 {
 .glyphicon-chevron-right{
     float: right;
     top:50%;
-    margin-top: -45px;
+    /*margin-top: -45px;*/
 }
 
 .hidden_shop{
