@@ -3,7 +3,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
     $rootScope.title = "Портал для креативных людей!";
 
-    if(!$scope.text_first && $state.current.name != 'main'){
+    if(!$rootScope.news_events || $state.current.name == 'main'){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
             $scope.text_first = data[0]?data[0].description:null;
