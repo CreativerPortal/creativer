@@ -193,7 +193,7 @@ class CatalogController extends Controller
             ->createQueryBuilder('s')
             ->select('COUNT(s)')
             ->getQuery()
-            ->getResult()[0][1];
+            ->getSingleScalarResult();
         if($count > 8){
             $offset = rand(0, $count - 5);
         }else{
@@ -297,12 +297,13 @@ class CatalogController extends Controller
             ->createQueryBuilder('s')
             ->select('COUNT(s)')
             ->getQuery()
-            ->getResult()[0][1];
+            ->getSingleScalarResult();
         if($count > 8){
             $offset = rand(0, $count - 5);
         }else{
             $offset = 0;
         }
+
         $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
             ->createQueryBuilder('s')
             ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
