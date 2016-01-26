@@ -194,16 +194,17 @@ class CatalogController extends Controller
             ->select('COUNT(s)')
             ->getQuery()
             ->getSingleScalarResult();
-        if($count > 8){
-            $offset = rand(0, $count - 6);
-        }else{
-            $offset = 0;
+
+        $offset = 0;
+        if($count > 8) {
+            $offset = rand(0, $count - 5);
         }
+
         $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
             ->createQueryBuilder('s')
             ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
             ->leftJoin('s.categories', 'cat')
-            ->setMaxResults(4)
+            ->setMaxResults(5)
             ->setFirstResult($offset);
         $shops = $shops->getQuery()->getResult();
 
@@ -221,7 +222,7 @@ class CatalogController extends Controller
             'totalCount' => $pagination->getTotalItemCount(),
             'shops' => $shops);
 
-        $products = array('products' => $products);
+        $products = array('products' => $products, 'shops' => $shops);
 
 
         return $products;
@@ -298,17 +299,17 @@ class CatalogController extends Controller
             ->select('COUNT(s)')
             ->getQuery()
             ->getSingleScalarResult();
+
+        $offset = 0;
         if($count > 8){
-            $offset = rand(0, $count - 5);
-        }else{
-            $offset = 0;
+            $offset = rand(0, $count-5);
         }
 
         $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
             ->createQueryBuilder('s')
             ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
             ->leftJoin('s.categories', 'cat')
-            ->setMaxResults(4)
+            ->setMaxResults(5)
             ->setFirstResult($offset);
         $shops = $shops->getQuery()->getResult();
 
@@ -319,6 +320,7 @@ class CatalogController extends Controller
             $page,
             12
         );
+        //die(\Doctrine\Common\Util\Debug::dump($shops));
 
         $services = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
@@ -326,9 +328,8 @@ class CatalogController extends Controller
             'totalCount' => $pagination->getTotalItemCount(),
             'shops' => $shops);
 
-        $services = array('services' => $services);
+        $services = array('services' => $services, 'shops' => $shops);
 
-        //die(\Doctrine\Common\Util\Debug::dump($pagination));
         return $services;
     }
 
