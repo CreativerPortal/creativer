@@ -195,7 +195,7 @@ class CatalogController extends Controller
             ->getQuery()
             ->getSingleScalarResult();
         if($count > 8){
-            $offset = rand(0, $count - 5);
+            $offset = rand(0, $count - 6);
         }else{
             $offset = 0;
         }
