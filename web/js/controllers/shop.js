@@ -236,7 +236,7 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             if($scope.full_description != undefined) {
                 item.formData.push({full_description: $scope.full_description});
             }
-            if($scope.address[0] != undefined) {
+            if($scope.address && $scope.address[0] != undefined) {
                 var address = JSON.stringify($scope.address);
                 item.formData.push({address: address});
             }

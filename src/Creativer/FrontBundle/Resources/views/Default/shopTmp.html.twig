@@ -5,7 +5,7 @@
 
 <div class="container container-big">
 
-    <ul class="gridder hidden_shop margin-top_20" id="hasSelectedItem">
+    <ul class="gridder hidden_shop margin-top_20" id="hasSelectedItem" ng-show="shop.images.length > 1">
 
         <li class="gridder-list" ng-show="shop.img != image.name" data-griddercontent="#gridder-content-10[[ key ]]" ng-repeat="(key,image) in shop.images">
             <div class="image" style="background-image: url('{{ path_img_shop }}[[ image.path ]][[ image.name ]]');">
