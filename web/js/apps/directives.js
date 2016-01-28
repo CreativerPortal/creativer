@@ -462,24 +462,23 @@ app.directive('scrollbar', function($timeout) {
         },
         link: function compile(scope, element, attrs, controller) {
             scope.$watch('ngModel', function (value) {
-                console.log(value);
-                setTimeout(function () {
+                setTimeout(function (value) {
                     geocoder = new google.maps.Geocoder();
                     var mapOptions = {
                         center: new google.maps.LatLng(53.884107, 27.719879),
                         zoom: 18,
                         mapTypeId: google.maps.MapTypeId.ROADMAP
                     };
-                    var map = new google.maps.Map(document.getElementById("map_canvas"),
-                        mapOptions);
-                    var address = "Минск "+value[0].address;
+                    var map = new google.maps.Map(document.getElementById("map_canvas"), mapOptions);
+                    if(value){
+                        var address = "Минск "+value[0].address;
+                    }else{
+                        var address = "Минск";
+                    }
                     geocoder.geocode({'address': address}, function (results, status) {
                         if (status == google.maps.GeocoderStatus.OK) {
                             map.setCenter(results[0].geometry.location);
-                            new google.maps.Marker({
-                                map: map,
-                                position: results[0].geometry.location
-                            });
+                            new google.maps.Marker({map: map, position: results[0].geometry.location});
                         } else {
                             console.log("Адрес не найден: " + status);
                         }
