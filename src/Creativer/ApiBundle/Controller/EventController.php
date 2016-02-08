@@ -708,9 +708,7 @@ class EventController extends Controller
     {
 
         $user = $this->get('security.context')->getToken()->getUser();
-        $id = $user->getId();
         $date = new \DateTime();
-
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Events')
             ->createQueryBuilder('e')

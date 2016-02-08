@@ -473,21 +473,21 @@ class CatalogController extends Controller
             $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
             $boolQuery->addShould($keywordQuery);
         }
-        $optionKeyTerm = new \Elastica\Filter\Terms();
-        $optionKeyTerm->setTerms('album.categories.id',  array($items_id));
-        $nested = new \Elastica\Filter\Nested();
-        $nested->setFilter($optionKeyTerm);
-        $nested->setPath('album.categories');
-        $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $nested);
+//        $optionKeyTerm = new \Elastica\Filter\Terms();
+//        $optionKeyTerm->setTerms('album.categories.id',  array($items_id));
+//        $nested = new \Elastica\Filter\Nested();
+//        $nested->setFilter($optionKeyTerm);
+//        $nested->setPath('album.categories');
+//        $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $nested);
 //        foreach ($posts as $hybridResult) {
 //            $results[] = $hybridResult->getResult()->getHit()["_source"];
 //        }
 
-        $query->setQuery($filteredQuery);
+       // $query->setQuery($filteredQuery);
         $sort = array('id' => array('order' => 'desc'));
         $query->setSort(array($sort))
             ->setLimit(40)
-            ->setSize(1000000);
+            ->setSize(400);
 
 
 
