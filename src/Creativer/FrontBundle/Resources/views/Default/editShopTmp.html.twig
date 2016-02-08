@@ -54,7 +54,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Сайт:</div>
                 <div class="col-sm-10">
-                    <input name="site" ng-blur="editSite(shop.site)" ng-model="shop.site" value="shop.site">
+                    <input name="site" ng-blur="editSite(shop.site)" ng-model="shop.site" ng-value="shop.site">
                 </div>
             </div>
 
@@ -62,29 +62,29 @@
                 <div class="col-sm-2">
                     <span>Адрес: <span class="glyphicon glyphicon-plus-sign pointer" style="top: 3px;" ng-click="add()"></span></span>
                 </div>
-                <div class="col-sm-10 right" ng-repeat="ad in shop.address">
-                    <input class="margin-top_5" ng-blur="editAddress(ad.id,ad.address)" name="address" ng-model="ad.address" ng-value="[[ ad.address ]]">
+                <div class="col-sm-10 right" ng-repeat="(key,ad) in shop.address track by $index">
+                    <input class="margin-top_5" ng-blur="editAddress(shop.address[key].id,shop.address[key].address)" name="address" ng-model="shop.address[key].address" ng-value="shop.address[key].address">
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Телефон:</div>
                 <div class="col-sm-10">
-                    <input name="address" ng-blur="editTelephone(shop.telephone)" ng-model="shop.telephone" value="shop.telephone">
+                    <input name="address" ng-blur="editTelephone(shop.telephone)" ng-model="shop.telephone" ng-value="shop.telephone">
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">E-mail:</div>
                 <div class="col-sm-10">
-                    <input name="address" ng-blur="editEmail(shop.email)" ng-model="shop.email" value="shop.email">
+                    <input name="address" ng-blur="editEmail(shop.email)" ng-model="shop.email" ng-value="shop.email">
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Время работы:</div>
                 <div class="col-sm-10">
-                    <input name="address" ng-blur="editWorkingTime(shop.working_time)" ng-model="shop.working_time" value="shop.working_time">
+                    <input name="address" ng-blur="editWorkingTime(shop.working_time)" ng-model="shop.working_time" ng-value="shop.working_time">
                 </div>
             </div>
 

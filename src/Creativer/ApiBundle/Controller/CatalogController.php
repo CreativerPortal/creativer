@@ -443,18 +443,22 @@ class CatalogController extends Controller
     public function searchProductsAction()
     {
         $search_text = $this->get('request')->request->get('search_text');
+        $page = $this->get('request')->request->get('page');
+
+        if(empty($page)){
+            $page = 1;
+        }
 
         $products = $this->container->get('fos_elastica.finder.app.images');
+        $keywordQuery = new \Elastica\Query\QueryString();
         $boolQuery = new \Elastica\Query\Bool();
-
+        $query = new \Elastica\Query();
         $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>1000));
         $items_id = [];
-
         $i = 0;
         while(isset($items[$i])){
             if(!$items[$i]->getChildren()->isEmpty()){
                 $childs = $items[$i]->getChildren();
-
                 foreach($childs as $k => $v) {
                     array_push($items, $childs[$k]);
                     array_push($items_id, $childs[$k]->getId());
@@ -462,35 +466,42 @@ class CatalogController extends Controller
             }
             $i++;
         }
-
         if($search_text == 'undefined'){
-            $keywordQuery = new \Elastica\Query\QueryString();
             $keywordQuery->setQuery("id:"."*");
             $boolQuery->addShould($keywordQuery);
         }else{
-            $keywordQuery = new \Elastica\Query\QueryString();
             $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
             $boolQuery->addShould($keywordQuery);
         }
-
-
         $optionKeyTerm = new \Elastica\Filter\Terms();
         $optionKeyTerm->setTerms('album.categories.id',  array($items_id));
         $nested = new \Elastica\Filter\Nested();
         $nested->setFilter($optionKeyTerm);
         $nested->setPath('album.categories');
-
-
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $nested);
-        $posts = $products->findHybrid($filteredQuery, 40);
+//        foreach ($posts as $hybridResult) {
+//            $results[] = $hybridResult->getResult()->getHit()["_source"];
+//        }
+
+        $query->setQuery($filteredQuery);
+        $sort = array('id' => array('order' => 'desc'));
+        $query->setSort(array($sort))
+            ->setLimit(40)
+            ->setSize(1000000);
 
 
-        foreach ($posts as $hybridResult) {
 
-            $results[] = $hybridResult->getResult()->getHit()["_source"];
-        }
+        $paginator = $this->get('knp_paginator');
+        $query = $products->findHybrid($query);
+        $pagination = $paginator->paginate($query, $page, 40);
+
+
+        $results = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
+            'numItemsPerPage' => $pagination->getItemNumberPerPage(),
+            'items' => $pagination->getItems(),
+            'totalCount' => $pagination->getTotalItemCount());
+
         $products = array('products' => array('items' => $results));
-
         return $products;
     }
 

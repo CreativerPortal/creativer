@@ -73,38 +73,21 @@
         <div class="col-sm-9 fs_0-8">
             <div class="row"><h2 class="lobster">Поиск</h2></div>
             <div class="row">
-                {#<div class="col-sm-4 padding-left_0">
-                    Сортировать по:
-                    <select class="slid__order-by" ng-model="$root.filterCondition">
-                        <option ng-selected="[[ filter.value == $root.filterCondition ]]"
-                                ng-repeat="filter in filters"
-                                value="[[ filter.value ]]">
-                        </option>
-                        <option value="likes" ng-selected="$root.filter == 'likes'">рейтингу</option>
-                        <option value="views">кол-ву просмотров</option>
-                        <option value="date">дате добавления</option>
-                    </select>
-                </div>#}
-                {#<div class="col-sm-3 extended__search">
-                    <label for="search">Расширенный поиск</label>
-                    <input id="search" class="extended__search__element" type="checkbox" >
-                    <span></span>
-                </div>#}
 
-                {#<div class="col-sm-3 col-sm-offset-4 slid__pagination fiveMinuts padding-left_0" ng-show="pages.length > 1">
-                    <a ng-href="/#!/products/search/[[ products_search_text ]]/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
-                </div>#}
+                <div class="col-sm-3 col-sm-offset-8 slid__pagination fiveMinuts padding-left_0" ng-show="pages.length > 1">
+                    <a ng-href="/#!/products/search/[[ products_search_text ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                </div>
 
             </div>
 
             <div class="row slid__card slid__card__first">
 
-                <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.items">
-                    <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="/#!/products/search/[[ products_search_text ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' >
-                        {#<span class="slid__card__price">[[ item.price ]] руб.</span>#}
+                <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0 margin-bottom_10" ng-repeat="(key, item) in items.items">
+
+                    <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ item.result._hit._source.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.result._hit._source.path ]][[ item.result._hit._source.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.result._hit._source.path ]][[ item.result._hit._source.name ]]") top left no-repeat;' >
                     </a>
-                    <a ng-href="/#!/album/[[ item.id_album ]]" class="slid__card__name">[[ item.name_album ]]</a>
-                    <a ng-href="/#!/[[ item.id_user ]]" class="slid__card__name_user">[[ item.username ]] [[ item.lastname ]]</a>
+                    <a ng-href="/#!/album/[[ item.result._hit._source.id_album ]]" class="slid__card__name">[[ item.result._hit._source.name_album ]]</a>
+                    <a ng-href="/#!/[[ item.result._hit._source.id_user ]]" class="slid__card__name_user">[[ item.result._hit._source.username ]] [[ item.result._hit._source.lastname ]]</a>
                 </div>
 
                 <div ng-show="items.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">каталог заполняется</div>
@@ -124,11 +107,11 @@
             </div>
 
 
-            {#<div class="row">
+            <div class="row">
                 <div class="col-sm-5 col-sm-offset-5 slid__pagination fiveMinuts margin-top_30" ng-show="pages.length > 1">
-                    <a ng-href="/#!/products/search/[[ products_search_text ]]/[[ product_id ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
+                    <a ng-href="/#!/products/search/[[ products_search_text ]]/[[ page ]]" ng-repeat="page in pages" ng-class="{slid__pagination__element_active: page == currentPage}">[[ page ]]</a>
                 </div>
-            </div>#}
+            </div>
 
             <div class="row">
                 <div class="col-sm-7">
@@ -138,8 +121,6 @@
                 </div>
             </div>
         </div>
-
-        {#{{ render(controller('CreativerFrontBundle:Default:showProductPhotoTmp')) }}#}
 
         <div ui-view>
         </div>

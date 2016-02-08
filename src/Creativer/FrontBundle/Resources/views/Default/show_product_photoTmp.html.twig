@@ -11,12 +11,12 @@
                 <span next_photo next="/#!/products/[[ product_id ]]/[[ page ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]" ng-if="items.items[next_key_img].name"></span>
                 <span prev_photo prev="/#!/products/[[ product_id ]]/[[ page ]]/[[ items.items[key_img -1].name ]]/[[key_img-1]]" ng-if="items.items[key_img -1].name"></span>
                 <a ng-show="items.items[next_key_img].name" href="/#!/products/[[ product_id ]]/[[ page ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]">
-                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}/[[ items.items[key_img].path ]][[url_img]]" />
-                    <img style="display: none;" ng-src="{{ path_img_album_original }}/[[ items.items[next_key_img].path ]][[ items.items[next_key_img].name ]]" />
-                    <img style="display: none;" ng-src="{{ path_img_album_original }}/[[ items.items[key_img-1].path ]][[ items.items[key_img-1].name ]]" />
+                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}[[ items.items[key_img].path ]][[url_img]]" />
+                    <img style="display: none;" ng-src="{{ path_img_album_original }}[[ items.items[next_key_img].path ]][[ items.items[next_key_img].name ]]" />
+                    <img style="display: none;" ng-src="{{ path_img_album_original }}[[ items.items[key_img-1].path ]][[ items.items[key_img-1].name ]]" />
                 </a>
                 <a ng-show="!items.items[next_key_img].name" ng-click="closeImg()" href="/#!/products/[[ product_id ]]/[[ page ]]">
-                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}/[[ items.items[key_img].path ]][[url_img]]" />
+                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}[[ items.items[key_img].path ]][[url_img]]" />
                 </a>
             </div>
             <div class="margin-top_10 row wrapper__comment">

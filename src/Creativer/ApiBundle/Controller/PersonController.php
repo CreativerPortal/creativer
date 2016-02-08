@@ -1336,6 +1336,7 @@ class PersonController extends Controller
 
         $users = $this->container->get('fos_elastica.finder.app.user');
         $keywordQuery = new \Elastica\Query\QueryString();
+        $query = new \Elastica\Query();
 
         if($search_people == 'undefined'){
             $keywordQuery->setQuery("id:"."*");
@@ -1343,9 +1344,18 @@ class PersonController extends Controller
             $keywordQuery->setQuery("username:".$search_people." OR lastname:".$search_people);
         }
 
+        $query->setQuery($keywordQuery);
+
+        $sort = array('id' => array('order' => 'desc'));
+        $query->setSort(array($sort))
+            ->setLimit(40)
+            ->setSize(1000000)
+            ->setMinScore(1);
+
+
         $paginator = $this->get('knp_paginator');
-        $results = $users->createPaginatorAdapter($keywordQuery);
-        $pagination = $paginator->paginate($results, $page, 40);
+        $query = $users->find($query);
+        $pagination = $paginator->paginate($query, $page, 40);
 
 
         $result = array('currentPageNumber' => $pagination->getCurrentPageNumber(),

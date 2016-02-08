@@ -223,10 +223,10 @@ body{
 
 .slid__card__name{
     display: block;
-    font-size: 1.2em;
+    font-size: 1.1em;
     color:#64554a;
     cursor: pointer;
-    height: 22px;
+    height: 16px;
     overflow: hidden;
 }
 

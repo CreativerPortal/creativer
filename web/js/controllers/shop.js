@@ -163,6 +163,11 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             });
         }
 
+        $scope.redirectShop = function(){
+            $scope.loader = true;
+            $location.path("/shop/" + $stateParams.edit_id);
+        }
+
         // FILTERS
 
         uploader.filters.push({
