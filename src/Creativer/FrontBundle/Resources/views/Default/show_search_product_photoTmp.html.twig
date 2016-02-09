@@ -1,5 +1,5 @@
 <div ng-show="url_img" class="background__viewer">
-    <a ng-show="items.items[key_img -1]" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ items.items[key_img -1].result._hit._source.name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
+    <a ng-show="items.items[key_img -1]" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ items.items[key_img -1].name ]]/[[key_img-1]]" class="right background__viewer__link__previous">
         <span class="glyphicon glyphicon-chevron-left text-white previous"></span>
     </a>
     <a ng-show="!items.items[key_img -1]" href="/#!/products/search/[[ products_search_text ]]" ng-click="closeImg()" class="right background__viewer__link__previous">
@@ -8,31 +8,31 @@
     <div class="border__viewer">
         <div class="border__viewer__wrapper">
             <div class="wrapper__background">
-                <span next_photo next="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ items.items[next_key_img].result._hit._source.name ]]/[[next_key_img]]" ng-if="items.items[next_key_img]"></span>
-                <span prev_photo prev="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ items.items[key_img -1].result._hit._source.name ]]/[[key_img-1]]" ng-if="items.items[key_img -1]"></span>
-                <a ng-show="items.items[next_key_img]" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ items.items[next_key_img].result._hit._source.name ]]/[[next_key_img]]">
-                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}[[ items.items[key_img].result._hit._source.path ]][[url_img]]" />
-                    <img style="display: none;" ng-src="{{ path_img_album_original }}[[ items.items[next_key_img].result._hit._source.path ]][[ items.items[next_key_img].result._hit._source.name ]]" />
-                    <img style="display: none;" ng-src="{{ path_img_album_original }}[[ items.items[key_img-1].result._hit._source.path ]][[ items.items[key_img-1].result._hit._source.name ]]" />
+                <span next_photo next="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]" ng-if="items.items[next_key_img]"></span>
+                <span prev_photo prev="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ items.items[key_img -1].name ]]/[[key_img-1]]" ng-if="items.items[key_img -1]"></span>
+                <a ng-show="items.items[next_key_img]" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ items.items[next_key_img].name ]]/[[next_key_img]]">
+                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}[[ items.items[key_img].path ]][[url_img]]" />
+                    <img style="display: none;" ng-src="{{ path_img_album_original }}[[ items.items[next_key_img].path ]][[ items.items[next_key_img].name ]]" />
+                    <img style="display: none;" ng-src="{{ path_img_album_original }}[[ items.items[key_img-1].path ]][[ items.items[key_img-1].name ]]" />
                 </a>
                 <a ng-show="!items.items[next_key_img]" ng-click="closeImg()" href="/#!/products/search/[[ products_search_text ]]">
-                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}[[ items.items[key_img].result._hit._source.path ]][[url_img]]" />
+                    <img class="margin-top_10 viewer__image" style="max-height: [[ height ]]px;" ng-src="{{ path_img_album_original }}[[ items.items[key_img].path ]][[url_img]]" />
                 </a>
             </div>
             <div class="margin-top_10 row wrapper__comment">
                 <div class="col-sm-9 padding-left_0 overflow-hidden text-left">
-                    <span class="left user__text">[[ items.items[key_img].result._hit._source.text_img ]]</span>
+                    <span class="left user__text">[[ items.items[key_img].text_img ]]</span>
                 </div>
                 <div class="col-sm-3 padding-right_0 padding-left_0 text-right">
-                    <time class="text-gray ng-binding">[[ items.items[key_img].result._hit._source.date  | date: "dd MMM yyyy" ]]</time> |
+                    <time class="text-gray ng-binding">[[ items.items[key_img].date  | date: "dd MMM yyyy" ]]</time> |
 
                     {% if is_granted('ROLE_USER') %}
-                        <span ng-class="{'click_class':(click_class === 'true' && items.images_likes[items.items[key_img].result._hit._source.id].result._hit._source.liked), 'yes_like':items.images_likes[items.items[key_img].result._hit._source.id].result._hit._source.liked}"  ng-if="items.items[key_img].result._hit._source.likes != undefined" class="text-blue glyphicon glyphicon-heart pointer no_like" style="top: 2px;" ng-click="like(items.items[key_img].result._hit._source.id,key_img); click_class = 'true'">
-                            <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ items.items[key_img].result._hit._source.likes ]]</span>
+                        <span ng-class="{'click_class':(click_class === 'true' && items.images_likes[items.items[key_img].id].liked), 'yes_like':items.images_likes[items.items[key_img].id].liked}"  ng-if="items.items[key_img].likes != undefined" class="text-blue glyphicon glyphicon-heart pointer no_like" style="top: 2px;" ng-click="like(items.items[key_img].id,key_img); click_class = 'true'">
+                            <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ items.items[key_img].likes ]]</span>
                         </span>
                     {% else %}
                         <span class="text-blue glyphicon glyphicon-heart no_like" style="top: 2px;">
-                            <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ items.items[key_img].result._hit._source.likes ]]</span>
+                            <span class="fs_1-1 lobster" style="font-weight: bold; margin-left: -4px;">[[ items.items[key_img].likes ]]</span>
                         </span>
                     {% endif %}
                 </div>
@@ -42,7 +42,7 @@
             <div class="row margin-top_10 wrapper__comment">
 
                 <div class="col-sm-9 text-left" >
-                    <div ng-if="items.items[key_img][0]" class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img][0].result._hit._source.image_comments">
+                    <div ng-if="items.items[key_img][0]" class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img][0].image_comments">
                         <div class="col-sm-2">
                             <a href="/#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
@@ -75,7 +75,7 @@
                         <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                     </div>
 
-                    <div ng-if="!items.items[key_img][0]" class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img].result._hit._source.image_comments">
+                    <div ng-if="!items.items[key_img][0]" class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img].image_comments">
                         <div class="col-sm-2">
                             <a href="/#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
@@ -123,26 +123,26 @@
 
                     <div class="row">
                         <div class="col-sm-5">
-                            <a href="/#!/[[ items.items[key_img].result._hit._source.id_user ]]" ng-class="{'user__avatar-super-mini_online':items.items[key_img].result._hit._source.connection_status == '{{ date_online }}'}" class="user__avatar-super-mini left" style="background-color: [[ items.items[key_img].color ]]">
-                                <img ng-src="[[ items.items[key_img].result._hit._source.avatar ]]">
+                            <a href="/#!/[[ items.items[key_img].album.user.id ]]" ng-class="{'user__avatar-super-mini_online':items.items[key_img].connection_status == '{{ date_online }}'}" class="user__avatar-super-mini left" style="background-color: [[ items.items[key_img].album.user.color ]]">
+                                <img ng-src="[[ items.items[key_img].album.user.avatar ]]">
                             </a>
                         </div>
                         <div class="col-sm-7 padding-right_0">
-                            <a href="/#!/[[ items.items[key_img].result._hit._source.id_user ]]" class="text-gray">
-                                <span class="fs_0-8">[[ items.items[key_img].result._hit._source.username ]] [[ items.items[key_img].result._hit._source.lastname ]]</span>
+                            <a href="/#!/[[ items.items[key_img].album.user.id ]]" class="text-gray">
+                                <span class="fs_0-8">[[ items.items[key_img].album.user.username ]] [[ items.items[key_img].album.user.lastname ]]</span>
                             </a><br>
-                            <a href="/#!/album/[[ items.items[key_img].result._hit._source.id_album ]]">
-                                <span class="text-blue fs_0-8">[[ items.items[key_img].result._hit._source.name_album ]]</span>
+                            <a href="/#!/album/[[ items.items[key_img].album.id ]]">
+                                <span class="text-blue fs_0-8">[[ items.items[key_img].album.name ]]</span>
                             </a>
                         </div>
                     </div>
                     <nav class="margin-top_10">
-                        <a target="_blank" href="/home/album/original/[[ items.items[key_img].result._hit._source.path ]][[ items.items[key_img].result._hit._source.name ]]"><span class="text-blue left">Увеличить</span></a><br>
+                        <a target="_blank" href="/home/album/original/[[ items.items[key_img].path ]][[ items.items[key_img].name ]]"><span class="text-blue left">Увеличить</span></a><br>
                     </nav>
                     <div class="share padding-right_0 text-left margin-top_10">
-                        <a href="http://vk.com/share.php?url=http://creativer.by/album/[[ items.items[key_img].result._hit._source.id_album ]]/[[ items.items[key_img].result._hit._source.name ]]/0&title=[[ items.items[key_img].result._hit._source.text_img ]]&description=[[ items.items[key_img].result._hit._source.description ]]&image=http://creativer.by/home/album/original/[[ items.items[key_img].result._hit._source.path ]][[url_img]]$noparse=true" class="ico_vk pointer" ></a>
-                        <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/album/[[ items.items[key_img].result._hit._source.id_album ]]/[[ items.items[key_img].result._hit._source.name ]]/0&p[title]=[[ items.items[key_img].result._hit._source.text_img ]]&p[summary]=[[ items.items[key_img].result._hit._source.description ]]&p[images][0]=http://creativer.by/home/album/original/[[ items.items[key_img].result._hit._source.path ]][[url_img]]" class="ico_facebook pointer"></a>
-                        <a href="http://twitter.com/share?text=[[ items.items[key_img].result._hit._source.text_img ]]&url=http://creativer.by/album/[[ items.items[key_img].result._hit._source.id_album ]]/[[ items.items[key_img].result._hit._source.name ]]/0" class="ico_twitter pointer" ></a>
+                        <a href="http://vk.com/share.php?url=http://creativer.by/album/[[ items.items[key_img].album.id ]]/[[ items.items[key_img].name ]]/0&title=[[ items.items[key_img].text_img ]]&description=[[ items.items[key_img].description ]]&image=http://creativer.by/home/album/original/[[ items.items[key_img].path ]][[url_img]]$noparse=true" class="ico_vk pointer" ></a>
+                        <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/album/[[ items.items[key_img].album.id ]]/[[ items.items[key_img].name ]]/0&p[title]=[[ items.items[key_img].text_img ]]&p[summary]=[[ items.items[key_img].description ]]&p[images][0]=http://creativer.by/home/album/original/[[ items.items[key_img].path ]][[url_img]]" class="ico_facebook pointer"></a>
+                        <a href="http://twitter.com/share?text=[[ items.items[key_img].text_img ]]&url=http://creativer.by/album/[[ items.items[key_img].album.id ]]/[[ items.items[key_img].name ]]/0" class="ico_twitter pointer" ></a>
                     </div>
                 </div>
 

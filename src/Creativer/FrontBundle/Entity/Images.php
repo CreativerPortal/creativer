@@ -20,7 +20,7 @@ class Images
      * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
-     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumComments", "getAlbumById", "getCatalogProductAlbums", "uploadEditAlbum", "elastica"})
+     * @JMS\Groups({"idUserByIdImage", "getUser", "getAlbumComments", "getAlbumById", "getCatalogProductAlbums", "searchProducts", "uploadEditAlbum", "elastica"})
      * @JMS\Expose
      */
     private $id;
@@ -32,7 +32,7 @@ class Images
      * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
      * @JMS\MaxDepth(2)
-     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "elastica"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums", "searchProducts",  "getCatalogServiceAlbums", "elastica"})
      **/
     private $album;
 
@@ -40,21 +40,21 @@ class Images
      * @JMS\Expose
      * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
      * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image", cascade={"remove"})
-     * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "elastica"})
+     * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums", "searchProducts",  "getCatalogServiceAlbums", "elastica"})
      **/
     private $image_comments;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums", "uploadEditAlbum", "elastica"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "searchProducts", "getCatalogServiceAlbums", "uploadEditAlbum", "elastica"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", nullable=true, length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "uploadEditAlbum", "elastica"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "searchProducts",  "getCatalogServiceAlbums", "uploadEditAlbum", "elastica"})
      */
     private $path;
 
@@ -75,7 +75,7 @@ class Images
 
     /**
      * @ORM\Column(type="text", nullable=true)
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "uploadEditAlbum", "elastica"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "searchProducts",  "getCatalogServiceAlbums", "uploadEditAlbum", "elastica"})
      * @JMS\Expose
      */
     private $text;
@@ -83,14 +83,14 @@ class Images
     /**
      * @ORM\Column(type="integer", name="likes", nullable=false)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getCatalogProductAlbums", "elastica"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getCatalogProductAlbums", "searchProducts", "elastica"})
      */
     private $likes = 0;
 
     /**
      * @ORM\Column(type="boolean")
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "uploadEditAlbum"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "searchProducts",  "getCatalogServiceAlbums", "uploadEditAlbum"})
      */
     private $viewed=1;
 
@@ -100,7 +100,7 @@ class Images
      *
      * @Gedmo\Timestampable(on="create")
      * @ORM\Column(type="datetime")
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getCatalogProductAlbums",  "getCatalogServiceAlbums"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getUser", "getCatalogProductAlbums", "searchProducts",  "getCatalogServiceAlbums"})
      */
     private $date;
 

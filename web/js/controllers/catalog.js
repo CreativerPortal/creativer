@@ -280,19 +280,17 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         if(!$scope.items || $stateParams.products_search_text != $scope.products_search_text) {
             $scope.products_search_text = $stateParams.products_search_text;
             catalogService.searchProducts({search_text: $stateParams.products_search_text, page: $scope.page}).success(function (data) {
-                $rootScope.items = $scope.items = data.products.items;
+                $rootScope.items = $scope.items = data.products;
 
                 var images_id = new Array();
                 for (var key in $scope.items.items) {
                     images_id.push($scope.items.items[key].id);
                 }
 
-
                 catalogService.getLikesByImagesId({images_id: images_id}).success(function (data) {
                     $scope.items.images_likes = data.likes;
                 });
 
-                $scope.id_products = $stateParams.id_products;
                 $scope.pages = [];
                 $scope.pages[0] = $scope.items.currentPageNumber;
                 $scope.currentPage = $scope.currentPage = $scope.items.currentPageNumber;
@@ -310,18 +308,35 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                 }
             });
         }
-    }else if($stateParams.services_search_text){
-        $rootScope.condition = 3;
-        $rootScope.pages_services = null;
+    }else if($stateParams.services_search_text && $scope.services_search_text != $stateParams.services_search_text){
+        $scope.services_search_text = $stateParams.services_search_text;
+        $scope.condition = 3;
         $scope.items_services = null;
+        $scope.pages_services = null;
+        $scope.pages_services = $stateParams.page;
+
         catalogService.getServices({id:$stateParams.id_services}).success(function (data) {
             $rootScope.services = data.services[0].children;
             $rootScope.service = data.service[0];
         });
-        catalogService.searchServices({search_text:$stateParams.services_search_text}).success(function (data) {
-            $rootScope.pages_services = [];
-            $rootScope.currentPage = 0;
-            $scope.items_services = data.products;
+        catalogService.searchServices({search_text:$stateParams.services_search_text, page: $scope.pages_services}).success(function (data) {
+            $scope.items_services = data.services;
+
+            $scope.pages_services = [];
+            $scope.pages_services[0] = $scope.items_services.currentPageNumber;
+            $scope.currentPage = $scope.currentPage = $scope.items_services.currentPageNumber;
+            var length = ($scope.items_services.totalCount / $scope.items_services.numItemsPerPage < 5) ? $scope.items_services.totalCount / $scope.items_services.numItemsPerPage : 5;
+            length--;
+            while (length > 0) {
+                if (($scope.pages_services[0] > 1 && $scope.pages_services[0] != $scope.currentPage - 2) || ($scope.pages_services[0] > 1 && $scope.pages_services[$scope.pages_services.length - 1] > $scope.items_services.totalCount / $scope.items_services.numItemsPerPage )) {
+                    $scope.pages_services.unshift($scope.pages_services[0] - 1)
+                    length = length - 1;
+                } else {
+                    var p = parseInt($scope.pages_services[$scope.pages_services.length - 1]) + 1;
+                    $scope.pages_services.push(p);
+                    length = length - 1;
+                }
+            }
         });
     }
 

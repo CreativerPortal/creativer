@@ -100,6 +100,7 @@
             <div class="row slid__card slid__card__first">
 
                 <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0 margin-bottom_10" ng-repeat="(key, item) in items.items">
+
                     <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="/#!/products/[[ product_id ]]/[[ currentPage ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' >
                         {#<span class="slid__card__price">[[ item.price ]] руб.</span>#}
                     </a>

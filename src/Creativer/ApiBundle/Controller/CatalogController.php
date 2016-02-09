@@ -438,7 +438,7 @@ class CatalogController extends Controller
     /**
      * @return array
      * @Post("/v1/search_products")
-     * @View()
+     * @View(serializerGroups={"searchProducts"})
      */
     public function searchProductsAction()
     {
@@ -479,43 +479,41 @@ class CatalogController extends Controller
         $nested->setFilter($optionKeyTerm);
         $nested->setPath('album.categories');
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $nested);
-//        foreach ($posts as $hybridResult) {
-//            $results[] = $hybridResult->getResult()->getHit()["_source"];
-//        }
 
         $query->setQuery($filteredQuery);
-        $sort = array('id' => array('order' => 'desc'));
-        $query->setSort($sort)
-            ->setSize(123);
-
-
+        $query->setSize(1000);
 
         $paginator = $this->get('knp_paginator');
-        $query = $products->findHybrid($query);
-       // $query = $products->createPaginatorAdapter($query);
+        $query = $products->find($query);
         $pagination = $paginator->paginate($query, $page, 40);
-
 
         $results = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
             'totalCount' => $pagination->getTotalItemCount());
 
-        $products = array('products' => array('items' => $results));
+        $products = array('products' => $results);
         return $products;
     }
 
     /**
      * @return array
      * @Post("/v1/search_services")
-     * @View()
+     * @View(serializerGroups={"searchProducts"})
      */
     public function searchServicesAction()
     {
         $search_text = $this->get('request')->request->get('search_text');
+        $page = $this->get('request')->request->get('page');
 
-        $products = $this->container->get('fos_elastica.finder.app.album');
+        if(empty($page)){
+            $page = 1;
+        }
+
+        $services = $this->container->get('fos_elastica.finder.app.album');
         $boolQuery = new \Elastica\Query\Bool();
+        $keywordQuery = new \Elastica\Query\QueryString();
+        $query = new \Elastica\Query();
 
         $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>1001));
         $items_id = [];
@@ -534,15 +532,12 @@ class CatalogController extends Controller
         }
 
         if($search_text == 'undefined'){
-            $keywordQuery = new \Elastica\Query\QueryString();
             $keywordQuery->setQuery("id:"."*");
             $boolQuery->addShould($keywordQuery);
         }else{
-            $keywordQuery = new \Elastica\Query\QueryString();
             $keywordQuery->setQuery("name:".$search_text." OR description:".$search_text." OR images.text:".$search_text);
             $boolQuery->addShould($keywordQuery);
         }
-
 
 
         $optionKeyTerm = new \Elastica\Filter\Terms();
@@ -550,18 +545,23 @@ class CatalogController extends Controller
         $nested = new \Elastica\Filter\Nested();
         $nested->setFilter($optionKeyTerm);
         $nested->setPath('categories');
-
-
         $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $nested);
-        $posts = $products->findHybrid($filteredQuery, 40);
 
+        $query->setQuery($filteredQuery);
+        $query->setSize(1000);
 
-        foreach ($posts as $hybridResult) {
-            $results[] = $hybridResult->getResult()->getHit()["_source"];
-        }
-        $products = array('products' => array('items' => $results));
+        $paginator = $this->get('knp_paginator');
+        $query = $services->find($query);
+        $pagination = $paginator->paginate($query, $page, 12);
 
-        return $products;
+        $results = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
+            'numItemsPerPage' => $pagination->getItemNumberPerPage(),
+            'items' => $pagination->getItems(),
+            'totalCount' => $pagination->getTotalItemCount());
+
+        $services = array('services' => $results);
+
+        return $services;
     }
 
     /**

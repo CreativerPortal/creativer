@@ -84,10 +84,10 @@
 
                 <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0 margin-bottom_10" ng-repeat="(key, item) in items.items">
 
-                    <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ item.result._hit._source.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.result._hit._source.path ]][[ item.result._hit._source.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.result._hit._source.path ]][[ item.result._hit._source.name ]]") top left no-repeat;' >
+                    <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' >
                     </a>
-                    <a ng-href="/#!/album/[[ item.result._hit._source.id_album ]]" class="slid__card__name">[[ item.result._hit._source.name_album ]]</a>
-                    <a ng-href="/#!/[[ item.result._hit._source.id_user ]]" class="slid__card__name_user">[[ item.result._hit._source.username ]] [[ item.result._hit._source.lastname ]]</a>
+                    <a ng-href="/#!/album/[[ item.album.id ]]" class="slid__card__name">[[ item.album.name ]]</a>
+                    <a ng-href="/#!/[[ item.album.user.id ]]" class="slid__card__name_user">[[ item.album.user.username ]] [[ item.album.user.lastname ]]</a>
                 </div>
 
                 <div ng-show="items.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">каталог заполняется</div>
@@ -96,13 +96,13 @@
 
             <div class="row slid__card slid__card__first">
 
-                <div class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.shops">
-                    <a ng-href="/#!/shop/[[ item.id ]]" class="shop-mini-header auto block">
-                        <img ng-if="item.img" ng-src="{{ path_img_shop }}[[ item.path ]][[ item.img ]]" />
-                        <img ng-if="!item.img" ng-src="{{ path_img_shop }}[[ item[0].images[0].path ]][[ item[0].images[0].name ]]" />
-                    </a>
-                    <a ng-href="/#!/shops/[[ item.id ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>
-                </div>
+                {#<div class="col-sm-3 padding-left_0" ng-repeat="(key, item) in items.shops">#}
+                    {#<a ng-href="/#!/shop/[[ item.id ]]" class="shop-mini-header auto block">#}
+                        {#<img ng-if="item.img" ng-src="{{ path_img_shop }}[[ item.path ]][[ item.img ]]" />#}
+                        {#<img ng-if="!item.img" ng-src="{{ path_img_shop }}[[ item[0].images[0].path ]][[ item[0].images[0].name ]]" />#}
+                    {#</a>#}
+                    {#<a ng-href="/#!/shops/[[ item.id ]]" class="text-blue block margin-top_10 fs_1-2 text-center">[[ item.name ]]</a>#}
+                {#</div>#}
 
             </div>
 

@@ -25,7 +25,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      * @JMS\Expose
-     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "eventAttend"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "searchProducts", "getCatalogServiceAlbums", "eventAttend"})
      */
     private $id;
 
@@ -43,7 +43,7 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
      * @Assert\NotBlank(message="Имя пользователя не может быть пустым")
-     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums",  "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums", "searchProducts", "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $username;
 
@@ -51,14 +51,14 @@ class User implements UserInterface, \Serializable
      * @ORM\Column(type="string", length=25)
      * @JMS\Expose
      * @Assert\NotBlank(message="Фамилия пользователя не может быть пустым")
-     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums", "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
+     * @JMS\Groups({"getUser", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getCatalogProductAlbums", "searchProducts", "getCatalogServiceAlbums", "getPostsByCategory", "getPostById", "getEvent"})
      */
     private $lastname;
 
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "searchProducts", "getCatalogServiceAlbums"})
      */
     private $avatar=" ";
 
@@ -66,7 +66,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="string", length=255)
      * @JMS\Expose
-     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"getImageComments", "getAlbumComments", "getCommentBaraholka", "getComments", "getPost", "searchPeople", "getUser", "getPostsByCategory", "getPostById", "getEvent", "getCatalogProductAlbums", "searchProducts", "getCatalogServiceAlbums"})
      */
     private $color;
 
