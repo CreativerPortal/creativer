@@ -391,27 +391,6 @@ fos_elastica:
                         path: ~
                         date: ~
                         likes: ~
-                        id_album:
-                            property_path: "album.id"
-                        name_album:
-                            property_path: "album.name"
-                            search_analyzer: custom_search_analyzer
-                            index_analyzer: custom_index_analyzer
-                            type: string
-                        album.description:
-                            property_path: "album.description"
-                            search_analyzer: custom_search_analyzer
-                            index_analyzer: custom_index_analyzer
-                            type: string
-                        id_user:
-                            property_path: "album.user.id"
-                        username:
-                            property_path: "album.user.username"
-                        lastname:
-                            property_path: "album.user.lastname"
-                        avatar:
-                            property_path: "album.user.avatar"
-                            type: string
                         image_comments:
                             type: "nested"
                             properties:
@@ -427,7 +406,7 @@ fos_elastica:
                                         avatar:
                                             type: string
                         album:
-                            type: "nested"
+                            type: "object"
                             properties:
                                 id: ~
                                 name: ~
@@ -437,7 +416,7 @@ fos_elastica:
                                     properties:
                                         id: ~
                                 user:
-                                    type: "nested"
+                                    type: "object"
                                     properties:
                                         id: ~
                                         username: ~
