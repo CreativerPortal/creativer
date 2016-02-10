@@ -107,7 +107,7 @@ class Albums
      * @JMS\Type("Creativer\FrontBundle\Entity\Images")
      * @ORM\OneToMany(targetEntity="Images", mappedBy="album")
      * @ORM\OrderBy({"id" = "DESC"})
-     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "getCatalogServiceAlbums"})
+     * @JMS\Groups({"idUserByIdImage", "getAlbumComments", "getUser", "getAlbumById", "getCatalogProductAlbums", "searchProducts", "getCatalogServiceAlbums"})
      **/
     private $images;
 
