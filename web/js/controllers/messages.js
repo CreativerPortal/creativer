@@ -1,7 +1,8 @@
 angular.module('app.ctr.messages', ['service.messages', 'service.socket', 'service.chat', 'service.personal', 'angularFileUpload', 'ngImgCrop', 'multi-select-tree'])
     .controller('messagesCtrl',['$state', '$window', '$scope', '$rootScope', '$location', '$timeout', 'messagesService', 'personalService', '$stateParams', 'FileUploader', 'socket', 'chat', function($state, $window, $scope,$rootScope,$location,$timeout,messagesService,personalService,$stateParams, FileUploader, socket, chat) {
 
-    $rootScope.title = "Сообщения";
+    $rootScope.title = "Creativer - Мои сообщения";
+    $rootScope.description = "Личные сообщения. Чат. Общение с друзьями. Связь с мастерами.";
 
     $rootScope.message_button = true;
     $rootScope.messages_history = [];

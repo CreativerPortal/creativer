@@ -1,7 +1,8 @@
 angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', 'service.socket', 'service.chat', 'focus-if'])
     .controller('baraholkaCtrl',['$window', '$scope', '$timeout', '$rootScope', '$location', 'baraholkaService','$stateParams', 'FileUploader', 'socket', 'chat', function($window,$scope,$timeout,$rootScope,$location,baraholkaService,$stateParams, FileUploader, socket, chat) {
 
-        $rootScope.title = "Барахолка";
+        $rootScope.title = "Creativer - Барахолка";
+        $rootScope.description = "Продажа и обмен необычных и уникальных вещей, полезных инструментов и материалов для творчества. Размещайте свои объявления.";
 
         if($scope.baraholka == undefined || $scope.post_category == undefined || $scope.post_city == undefined){
             if($rootScope.baraholka && $rootScope.post_category && $rootScope.post_city){

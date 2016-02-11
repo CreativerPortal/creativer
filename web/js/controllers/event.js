@@ -1,7 +1,9 @@
 angular.module('app.ctr.event', ['service.event', 'angularFileUpload', 'service.socket', 'service.chat', 'service.header', 'angular-momentjs'])
     .controller('eventCtrl',['$state','$window', '$scope', '$timeout', '$rootScope', '$location', 'headerService', 'eventService','$stateParams', 'FileUploader', 'socket', 'chat', '$moment', function($state,$window,$scope,$timeout,$rootScope,$location,headerService,eventService,$stateParams, FileUploader, socket, chat, $moment) {
 
-        $rootScope.title = "События";
+        $rootScope.title = "Creativer - Новости и события";
+        $rootScope.description = "Интервью с мастерами, полезные советы, обзоры, афиша творческих мероприятий и просто важных событий.";
+
 
         //$rootScope.full_page = 0;
 

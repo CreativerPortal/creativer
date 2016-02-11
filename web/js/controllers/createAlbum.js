@@ -1,7 +1,9 @@
 angular.module('app.ctr.album.create', ['service.personal', 'angularFileUpload', 'service.socket', 'ngImgCrop', 'multi-select-tree', 'service.chat'])
     .controller('createAlbumCtrl',['$window', '$scope', '$rootScope', '$timeout', '$location', 'personalService','$stateParams', 'FileUploader', 'socket', 'chat', function($window, $scope,$rootScope,$timeout,$location,personalService,$stateParams, FileUploader, socket, chat) {
 
-        $rootScope.title = "Создать альбом!";
+        $rootScope.title = "Creativer - Размещение работ";
+        $rootScope.description = "Создавайте альбомы, делитесь фотографиями, размещайте работы. Удобный и просто способ разместить свою работы и поместить их в каталог Creativer!";
+
 
         personalService.getUser({id: $rootScope.id_user}).success(function (data) {
             $rootScope.user = $scope.user = data.user;

@@ -77,7 +77,6 @@ class CatalogController extends Controller
         $id = $this->get('request')->request->get('id');
         $category = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
         $parentId = $this->container->getParameter('category_products');
-
         //$query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->searchCatalogProduct();
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
@@ -126,6 +125,7 @@ class CatalogController extends Controller
         }
 
         $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
+        $category_name = $items[0]->getName();
 
         $i = 0;
         while(isset($items[$i])){
@@ -220,7 +220,8 @@ class CatalogController extends Controller
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
             'totalCount' => $pagination->getTotalItemCount(),
-            'shops' => $shops);
+            'shops' => $shops,
+            'category_name' => $category_name);
 
         $products = array('products' => $products, 'shops' => $shops);
 
@@ -244,6 +245,8 @@ class CatalogController extends Controller
         }
 
         $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
+        $category_name = $items[0]->getName();
+
 
         $i = 0;
         while(isset($items[$i])){
@@ -326,7 +329,8 @@ class CatalogController extends Controller
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
             'totalCount' => $pagination->getTotalItemCount(),
-            'shops' => $shops);
+            'shops' => $shops,
+            'category_name' => $category_name);
 
         $services = array('services' => $services, 'shops' => $shops);
 

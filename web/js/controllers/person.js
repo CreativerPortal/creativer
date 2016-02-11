@@ -41,10 +41,11 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
             $scope.user.wall.posts = null;
         }
         personalService.getUser({id: $rootScope.id_user}).success(function (data) {
-            if($state.current.name == 'feedback'){
-                $rootScope.title = "Обратная связь";
+            $rootScope.title = data.user.username+' '+data.user.lastname;
+            if(data.user.info != ' ' || data.user.info != '' || data.user.info != undefined){
+                $rootScope.description = data.user.info;
             }else{
-                $rootScope.title = data.user.username+' '+data.user.lastname;
+                $rootScope.description = 'Creativer – это площадка для размещения и поиска уникальных вещей. Размещайте свои работы, презентуйте своё мастерство, ищите подарки и не только, общайтесь с друзьями, следите за самыми важными событиями!';
             }
             $rootScope.user = $scope.user = data.user;
             if($state.current.name == 'news') {
@@ -69,6 +70,9 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     if($stateParams.id_album && !$scope.user){
         personalService.getUserByAlbumId({id: $stateParams.id_album}).success(function (data) {
             $rootScope.title = data.user.username+' '+data.user.lastname;
+
+
+
             $scope.$apply(function () {
                 $scope.user = data.user;
             });
@@ -690,6 +694,27 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }
         uploaderDoc.uploadAll();
     };
+
+
+    if($state.current.name == 'about'){
+        $rootScope.title = "Creativer - О нас";
+        $rootScope.description = "Creativer – это площадка для размещения и поиска уникальных вещей. Размещайте свои работы, презентуйте своё мастерство, ищите подарки и не только, общайтесь с друзьями, следите за самыми важными событиями!";
+    }else if($state.current.name == 'help'){
+        $rootScope.title = "Creativer - Помощь";
+        $rootScope.description = "Раздел помощь – описание функций и возможностей портала Creativer. Пошаговое руководство. Помощь в регистрации, размещении товаров и услуг. Часто задаваемые вопросы. FAQ.";
+    }else if($state.current.name == 'feedback'){
+        $rootScope.title = "Creativer - Обратная связь";
+        $rootScope.description = "Обратная связь. Свяжись с нами! Будем рады замечаниям и пожеланиям. Мы благодарны за стремление помочь нам улучшить портал Creativer!";
+    }else if($state.current.name == 'rules'){
+        $rootScope.title = "Creativer - Правила сайта";
+        $rootScope.description = "Сайт Creativer (далее — Сайт), размещается по адресу http://creativer.by. На Сайте предоставляется возможность создавать уникальные страницы физических и юридических лиц c информацией о себе, своём творчестве и ремесле. Права и обязанности. Требования при использовании Сайта.";
+    }else if($state.current.name == 'news'){
+        $rootScope.title = "Лента новостей Creativer.by";
+        $rootScope.description = "Новостная лента Creativer. Добавляй друзей, следи за их новостями, комментируй, ставь лайки!";
+    }else if($state.current.name == 'settings'){
+        $rootScope.title = "Creativer - Настройки";
+        $rootScope.description = "Личный кабинет Creativer. Изменение данных профиля, настройки оповещения, смена пароля.";
+    }
 
 }]);
 

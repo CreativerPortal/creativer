@@ -3,21 +3,14 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
     $rootScope.title = "Портал для креативных людей!";
 
-    if(!$scope.text_first || $state.current.name == 'main'){
+
+        if(!$scope.text_first || $state.current.name == 'main'){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
             $scope.text_first = data[0]?data[0].description:null;
             $scope.text_second = data[1]?data[1].description:null;
         })
     }
-
-    //if(!$rootScope.my_user){
-    //    personalService.getUser().success(function (data) {
-    //        $rootScope.user = $scope.user = $rootScope.my_user = data.user;
-    //    })
-    //}else{
-    //    $scope.user = $rootScope.my_user;
-    //}
         
     if(($stateParams.id_products && !$rootScope.products) || $state.current.name == 'products_all'){
         catalogService.getProducts({id:$stateParams.id_products}).success(function (data) {
@@ -100,12 +93,16 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     $stateParams.page = $stateParams.page?$stateParams.page:1;
 
     if(($state.current.name == 'services_page' || $state.current.name == 'services' || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services || $state.current.name == 'services_all'){
+        $rootScope.title = "Creativer - Каталог услуг";
+        $rootScope.description = "Каталог услуг Creativer – это удобный способ размещения и поиска мастеров по маникюру и педикюру, макияжу и косметологии, визажу и татуировке, фотографии и дизайну!";
         $rootScope.$watch('filterConditionServices', function() {
             catalogService.getCatalogServiceAlbums({
                 id: $stateParams.id_services,
                 page: $stateParams.page,
                 filter: $rootScope.filterConditionServices
             }).success(function (data) {
+                $rootScope.title = data.services.category_name;
+                $rootScope.description = "Услуги " + data.services.category_name + " на Creativer";
                 $rootScope.items_services = $scope.items_services = data.services;
                 $rootScope.id_services = $stateParams.id_services;
                 $rootScope.pages_services = [];
@@ -130,12 +127,16 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
     if(($state.current.name == 'products_page' || $state.current.name == 'products' || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products || $state.current.name == 'products_all'){
         $rootScope.page = $stateParams.page;
+        $rootScope.title = "Creativer - Каталог товаров";
+        $rootScope.description = "Каталог товаров Creativer – это удобный способ размещения и поиска уникальных вещей, товаров ручной работы и не только. Всевозможные разделы – игрушки, сувениры, всё для дома, бижутерия, картины, одежда, сладости и многое другое!";
         $rootScope.$watch('filterCondition', function() {
             catalogService.getCatalogProductAlbums({
                 id: $stateParams.id_products,
                 page: $stateParams.page,
                 filter: $rootScope.filterCondition
             }).success(function (data) {
+                $rootScope.title = data.products.category_name;
+                $rootScope.description = "Покупай " + data.products.category_name + " ручной работы";
                 $rootScope.items = $scope.items = data.products;
                 for(var key in $scope.items.items){
                     if($scope.items.items[key].name == $stateParams.url_img){
@@ -271,6 +272,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     $scope.math = window.Math;
 
     if($stateParams.products_search_text && $scope.products_search_text != $stateParams.products_search_text){
+        $rootScope.title = "Creativer - Поиск товаров";
+        $rootScope.description = "Удобный поиск уникальных вещей, товаров ручной работы и не только. Всевозможные разделы – игрушки, сувениры, всё для дома, бижутерия, картины, одежда, сладости и многое другое!";
         $scope.products_search_text = $stateParams.products_search_text;
         $scope.condition = 2;
         $scope.pages = null;
@@ -316,6 +319,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
             });
         }
     }else if($stateParams.services_search_text && $scope.services_search_text != $stateParams.services_search_text){
+        $rootScope.title = "Поиск услуг на Creativer.by";
+        $rootScope.description = "Удобный поиск мастеров по маникюру и педикюру, макияжу и косметологии, визажу и татуировке, фотографии и дизайну!";
         $scope.services_search_text = $stateParams.services_search_text;
         $scope.condition = 3;
         $scope.items_services = null;
