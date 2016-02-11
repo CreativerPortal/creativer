@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation\MaxDepth;
 
 
 /**
- * @ORM\Entity(repositoryClass="Creativer\FrontBundle\Repository\ImagesRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="images")
  * @JMS\ExclusionPolicy("all")
  */
@@ -28,11 +28,10 @@ class Images
 
     /**
      * @JMS\Expose
-     * @JMS\Type("Creativer\FrontBundle\Entity\Albums")
-     * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images")
+     * @ORM\ManyToOne(targetEntity="Albums", inversedBy="images", fetch="EAGER")
      * @ORM\JoinColumn(name="album_id", referencedColumnName="id")
+     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums", "searchProducts", "getCatalogServiceAlbums", "elastica"})
      * @JMS\MaxDepth(2)
-     * @JMS\Groups({"idUserByIdImage", "getAlbumById", "getCatalogProductAlbums", "searchProducts",  "getCatalogServiceAlbums", "elastica"})
      **/
     private $album;
 
@@ -41,6 +40,7 @@ class Images
      * @JMS\Type("Creativer\FrontBundle\Entity\ImageComments")
      * @ORM\OneToMany(targetEntity="ImageComments", mappedBy="image", cascade={"remove"})
      * @JMS\Groups({"getAlbumComments", "getCatalogProductAlbums", "searchProducts",  "getCatalogServiceAlbums", "elastica"})
+     * @JMS\MaxDepth(3)
      **/
     private $image_comments;
 

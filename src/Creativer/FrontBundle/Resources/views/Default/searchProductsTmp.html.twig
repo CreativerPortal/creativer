@@ -84,10 +84,10 @@
 
                 <div ng-show="items.items.length >= 1" class="col-sm-3 padding-left_0 margin-bottom_10" ng-repeat="(key, item) in items.items">
 
-                    <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ item.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.path ]][[ item.name ]]") top left no-repeat;' >
+                    <a ng-class="{animation: autoscroll == true}" class="container_image_product" href="/#!/products/search/[[ products_search_text ]]/[[ page ]]/[[ item.transformed.name ]]/[[ key ]]" animation-image img="{{ path_img_album_thums }}[[ item.transformed.path ]][[ item.transformed.name ]]" style='background:url("{{ path_img_album_thums }}[[ item.transformed.path ]][[ item.transformed.name ]]") top left no-repeat;' >
                     </a>
-                    <a ng-href="/#!/album/[[ item.album.id ]]" class="slid__card__name">[[ item.album.name ]]</a>
-                    <a ng-href="/#!/[[ item.album.user.id ]]" class="slid__card__name_user">[[ item.album.user.username ]] [[ item.album.user.lastname ]]</a>
+                    <a ng-href="/#!/album/[[ item.album.id ]]" class="slid__card__name">[[ item.transformed.album.name ]]</a>
+                    <a ng-href="/#!/[[ item.album.user.id ]]" class="slid__card__name_user">[[ item.transformed.album.user.username ]] [[ item.transformed.album.user.lastname ]]</a>
                 </div>
 
                 <div ng-show="items.items.length < 1" class="lobster fs_1-2 text-center text-gray empty_catalog">каталог заполняется</div>

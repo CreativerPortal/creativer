@@ -280,7 +280,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         if(!$scope.items || $stateParams.products_search_text != $scope.products_search_text) {
             $scope.products_search_text = $stateParams.products_search_text;
             catalogService.searchProducts({search_text: $stateParams.products_search_text, page: $scope.page}).success(function (data) {
-                $rootScope.items = $scope.items = data.products;
+                $rootScope.items = $scope.items = data;
 
                 var images_id = new Array();
                 for (var key in $scope.items.items) {

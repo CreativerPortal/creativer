@@ -438,7 +438,7 @@ class CatalogController extends Controller
     /**
      * @return array
      * @Post("/v1/search_products")
-     * @View(serializerGroups={"searchProducts"})
+     * @View()
      */
     public function searchProductsAction()
     {
@@ -470,7 +470,7 @@ class CatalogController extends Controller
             $keywordQuery->setQuery("id:"."*");
             $boolQuery->addShould($keywordQuery);
         }else{
-            $keywordQuery->setQuery("name_album:".$search_text." OR text:".$search_text." OR album.description:".$search_text);
+            $keywordQuery->setQuery("album_name:".$search_text." OR text:".$search_text." OR album_description:".$search_text);
             $boolQuery->addShould($keywordQuery);
         }
         $optionKeyTerm = new \Elastica\Filter\Terms();
@@ -484,16 +484,27 @@ class CatalogController extends Controller
         $query->setSize(1000);
 
         $paginator = $this->get('knp_paginator');
-        $query = $products->find($query);
+        $query = $products->findHybrid($query);
         $pagination = $paginator->paginate($query, $page, 40);
+
 
         $results = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
             'numItemsPerPage' => $pagination->getItemNumberPerPage(),
             'items' => $pagination->getItems(),
             'totalCount' => $pagination->getTotalItemCount());
 
-        $products = array('products' => $results);
-        return $products;
+        $serializer = $this->container->get('jms_serializer');
+        $results = $serializer
+            ->serialize(
+                $results,
+                'json',
+                SerializationContext::create()
+                    ->enableMaxDepthChecks()
+            );
+
+        $response = new Respon($results);
+        $response->headers->set('Content-Type', 'application/json');
+        return $response;
     }
 
     /**
