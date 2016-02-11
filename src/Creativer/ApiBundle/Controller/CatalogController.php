@@ -521,7 +521,7 @@ class CatalogController extends Controller
             $page = 1;
         }
 
-        $services = $this->container->get('fos_elastica.finder.app.album');
+        $services = $this->container->get('fos_elastica.finder.app.albums');
         $boolQuery = new \Elastica\Query\Bool();
         $keywordQuery = new \Elastica\Query\QueryString();
         $query = new \Elastica\Query();

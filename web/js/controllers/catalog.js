@@ -185,6 +185,8 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         albumService.removeComment({id: id}).success(function (data) {
             if($scope.items.items[key_img][0]){
                 $scope.items.items[key_img][0].image_comments.splice(key,1);
+            }else if($scope.items.items[key_img].transformed){
+                $scope.items.items[key_img].transformed.image_comments.splice(key,1);
             }else{
                 $scope.items.items[key_img].image_comments.splice(key,1);
             }
@@ -215,13 +217,18 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         if($scope.items.images_likes[id].liked){
             $scope.items.items[image_key].likes = $scope.items.items[image_key].likes - 1;
             $scope.items.images_likes[id].liked = !$scope.items.images_likes[id].liked;
+            $scope.items.items[image_key].transformed.likes = $scope.items.items[image_key].transformed.likes - 1;
         }else{
             $scope.items.items[image_key].likes = $scope.items.items[image_key].likes + 1;
             $scope.items.images_likes[id].liked = !$scope.items.images_likes[id].liked;
+            $scope.items.items[image_key].transformed.likes = $scope.items.items[image_key].transformed.likes + 1;
         }
         albumService.like({image_id:id}).success(function (data) {
-            $scope.items.items[image_key].likes = data.likes;
-            $scope.items.images_likes[id].liked = data.liked;
+            if($scope.items.items[image_key].transformed){
+                $scope.items.items[image_key].transformed.likes = data.likes;
+            }else{
+                $scope.items.items[image_key].likes = data.likes;
+            }
         });
     }
 
@@ -229,7 +236,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         $scope.loader = true;
         albumService.saveImageComment({image_id:image.id,text:text,id: $rootScope.id_user}).success(function (data) {
             image.image_comments.push(data);
-            $scope.user.text_comment = undefined;
+            $scope.items.text_comment = undefined;
             $scope.loader = false;
         });
     }
@@ -284,7 +291,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
                 var images_id = new Array();
                 for (var key in $scope.items.items) {
-                    images_id.push($scope.items.items[key].id);
+                    images_id.push($scope.items.items[key].transformed.id);
                 }
 
                 catalogService.getLikesByImagesId({images_id: images_id}).success(function (data) {
