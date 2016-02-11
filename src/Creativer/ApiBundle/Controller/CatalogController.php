@@ -78,7 +78,7 @@ class CatalogController extends Controller
         $category = $items = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')->findBy(array('id'=>$id));
         $parentId = $this->container->getParameter('category_products');
 
-        $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->searchCatalogProduct();
+        //$query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Images')->searchCatalogProduct();
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
             ->createQueryBuilder('e')
