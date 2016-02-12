@@ -24,6 +24,8 @@ services:
     ib_user.oauth_user_provider:
         class: Creativer\FrontBundle\Handler\Provider
         arguments: ['@doctrine','@service_container']
+    fos_user.doctrine_registry:
+        alias: doctrine
 #    my_user_provider:
 #        class: HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider
 #        arguments:
