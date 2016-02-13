@@ -218,11 +218,13 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         if($scope.items.images_likes[id].liked){
             $scope.items.items[image_key].likes = $scope.items.items[image_key].likes - 1;
             $scope.items.images_likes[id].liked = !$scope.items.images_likes[id].liked;
-            $scope.items.items[image_key].transformed.likes = $scope.items.items[image_key].transformed.likes - 1;
+            if($scope.items.items[image_key].transformed)
+                $scope.items.items[image_key].transformed.likes = $scope.items.items[image_key].transformed.likes - 1;
         }else{
             $scope.items.items[image_key].likes = $scope.items.items[image_key].likes + 1;
             $scope.items.images_likes[id].liked = !$scope.items.images_likes[id].liked;
-            $scope.items.items[image_key].transformed.likes = $scope.items.items[image_key].transformed.likes + 1;
+            if($scope.items.items[image_key].transformed)
+                $scope.items.items[image_key].transformed.likes = $scope.items.items[image_key].transformed.likes + 1;
         }
         albumService.like({image_id:id}).success(function (data) {
             if($scope.items.items[image_key].transformed){
