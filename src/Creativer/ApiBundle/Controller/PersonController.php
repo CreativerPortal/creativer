@@ -1353,6 +1353,7 @@ class PersonController extends Controller
             ->setMinScore(1);
 
 
+
         $paginator = $this->get('knp_paginator');
         $query = $users->find($query);
         $pagination = $paginator->paginate($query, $page, 40);
