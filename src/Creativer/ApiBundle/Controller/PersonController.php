@@ -1348,7 +1348,7 @@ class PersonController extends Controller
 
         $sort = array('id' => array('order' => 'desc'));
         $query->setSort(array($sort))
-            ->setLimit(40)
+            ->setLimit(42)
             ->setSize(1000000)
             ->setMinScore(1);
 
@@ -1356,7 +1356,7 @@ class PersonController extends Controller
 
         $paginator = $this->get('knp_paginator');
         $query = $users->find($query);
-        $pagination = $paginator->paginate($query, $page, 40);
+        $pagination = $paginator->paginate($query, $page, 42);
 
 
         $result = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
