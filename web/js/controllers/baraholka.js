@@ -73,13 +73,13 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             });
         }
 
-        $scope.editFullDescription = function(full_description){
-            baraholkaService.editFullDescription({"id": $scope.post.id, "full_description": full_description}).success(function (data) {
+        $scope.editFulldescription = function(full_description){
+            baraholkaService.editFulldescription({"id": $scope.post.id, "full_description": full_description}).success(function (data) {
             });
         }
 
-        $scope.editDescription = function(description){
-            baraholkaService.editDescription({"id": $scope.post.id, "description": description}).success(function (data) {
+        $scope.editdescription = function(description_short){
+            baraholkaService.editdescription({"id": $scope.post.id, "description": description_short}).success(function (data) {
             });
         }
 
@@ -124,7 +124,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
             data.section = $scope.section;
             data.title = $scope.name_title;
             data.city = $scope.city;
-            data.description = $scope.description;
+            data.description = $scope.description_short;
             data.full_description = $scope.full_description;
             data.full_price = $scope.price;
             data.auction = $scope.auction;
@@ -345,7 +345,7 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
                 item.formData.push({section: $scope.section});
                 item.formData.push({title: $scope.name_title});
                 item.formData.push({city: $scope.city});
-                item.formData.push({description: $scope.description});
+                item.formData.push({description: $scope.description_short});
                 item.formData.push({full_description: $scope.full_description});
                 item.formData.push({full_price: $scope.price});
                 item.formData.push({auction: $scope.auction});

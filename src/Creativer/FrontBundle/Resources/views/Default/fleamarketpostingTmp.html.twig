@@ -51,7 +51,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-12">
                     <h4>Подробно опишите товар или услугу</h4>
-                    <textarea focus-if="submitted && baraholka_form.full_description.$error.required" class="margin-top_10" ng-model="full_description" name="full_description" required=""></textarea>
+                    <textarea focus-if="submitted && baraholka_form.full_description_short.$error.required" class="margin-top_10" ng-model="full_description" name="full_description_short" required=""></textarea>
                     <span class="text-danger" ng-show="submitted && baraholka_form.full_description.$error.required">Описание не может быть пустым</span>
                 </div>
             </div>
@@ -59,8 +59,8 @@
             <div class="row margin-top_20">
                 <div class="col-sm-12">
                     Краткое описание
-                    <textarea focus-if="submitted && baraholka_form.description.$error.required" ng-model="description" name="description" required=""></textarea>
-                    <span class="text-danger" ng-show="submitted && baraholka_form.description.$error.required">Краткое описание не может быть пустым</span>
+                    <textarea focus-if="submitted && baraholka_form.description_short.$error.required" ng-model="description_short" name="description_short" required=""></textarea>
+                    <span class="text-danger" ng-show="submitted && baraholka_form.description_short.$error.required">Краткое описание не может быть пустым</span>
                 </div>
             </div>
 
