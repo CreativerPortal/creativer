@@ -5,7 +5,7 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             $location.path("/album/"+$stateParams.id_album);
         }
 
-        var key_album;
+        var key_album, name_album;
 
     if(($stateParams.id_album_edit || $stateParams.id_album) && $scope.user) {
         var exists_album = false;
@@ -14,11 +14,13 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
             if(id_album == $scope.user.albums[key].id){
                 exists_album = true;
                 key_album = key;
+                name_album = $scope.user.albums[key].title;
             }
         }
         if(!exists_album){
             albumService.getUserByAlbumId({id: id_album}).success(function (data) {
                 $rootScope.title = data.user.username+' '+data.user.lastname;
+                $rootScope.description = name_album;
                 $rootScope.user = $scope.user = data.user;
                 for (key in $scope.user.favorits_with_me) {
                     if ($scope.user.favorits_with_me[key].id == $rootScope.id_user) {
@@ -77,8 +79,10 @@ angular.module('app.ctr.album', ['service.album', 'angularFileUpload', 'service.
                     if($scope.user.albums[key].images[0].image_comments == undefined) {
                         albumService.getAlbumComments({id_album: id_album}).success(function (data) {
                             for (var key in $scope.user.albums) {
-                                if ($scope.user.albums[key].id == $stateParams.id_album)
+                                if ($scope.user.albums[key].id == $stateParams.id_album){
                                     $scope.user.albums[key].images = data.images;
+                                    $rootScope.description = $scope.user.albums[key].name;
+                                }
                             }
                         });
                         break;
