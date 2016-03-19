@@ -202,8 +202,7 @@ class CatalogController extends Controller
 
         $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
             ->createQueryBuilder('s')
-            ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
-            ->leftJoin('s.categories', 'cat')
+            ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description')
             ->setMaxResults(5)
             ->setFirstResult($offset);
         $shops = $shops->getQuery()->getResult();
@@ -310,8 +309,7 @@ class CatalogController extends Controller
 
         $shops = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')
             ->createQueryBuilder('s')
-            ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description', 'cat.id as id_cat')
-            ->leftJoin('s.categories', 'cat')
+            ->addSelect('s.id', 's.path', 's.img', 's.name', 's.description')
             ->setMaxResults(5)
             ->setFirstResult($offset);
         $shops = $shops->getQuery()->getResult();
