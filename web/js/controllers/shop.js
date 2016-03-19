@@ -3,22 +3,6 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
 
         $rootScope.title = "Магазины";
 
-
-        shopService.getCtegoriesShops({}).success(function (data) {
-            $rootScope.data = $scope.data = data.catagories_shops;
-            for(var key in $scope.data){
-                $scope.data[key].name = $scope.data[key].parent.name+' :: '+$scope.data[key].name;
-            }
-            $rootScope.data = $scope.data;
-            $scope.selectOnly1Or2 = function(item, selectedItems) {
-                if (selectedItems  !== undefined && selectedItems.length >= 20) {
-                    return false;
-                } else {
-                    return true;
-                }
-            };
-        });
-
         if($stateParams.id_shop){
             shopService.getShopById({id:$stateParams.id_shop}).success(function (data) {
                 $rootScope.title = data.name;
@@ -26,21 +10,23 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             });
         }
 
-        if($stateParams.edit_id){
-            shopService.getShopById({id:$stateParams.edit_id}).success(function (data) {
+        if ($stateParams.edit_id) {
+            shopService.getShopById({id: $stateParams.edit_id}).success(function (data) {
                 $scope.shop = data;
                 $scope.shop.remove_shop = false;
                 var categories = [];
-                for(var key in data.categories){
+                for (var key in data.categories) {
                     categories.push(data.categories[key]);
                 }
 
                 shopService.getCtegoriesShops({}).success(function (data) {
                     $rootScope.data = $scope.data = data.catagories_shops;
-                    for(var key in $scope.data){
-                        $scope.data[key].name = $scope.data[key].parent.name+' :: '+$scope.data[key].name;
+                    for (var key in $scope.data) {
+                        $scope.data[key].name = $scope.data[key].parent.name + ' :: ' + $scope.data[key].name;
                     }
-                    var search_tree = SearchTree();
+
+                    var data = $scope.data;
+
                     $scope.selectOnly1Or2 = function (item, selectedItems) {
                         if (selectedItems !== undefined && selectedItems.length >= 20) {
                             return false;
@@ -50,10 +36,27 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
                     };
 
                     for (var cat in categories) {
-                        $scope.data = search_tree({id: categories[cat].id},$scope.data);
+                        data = SearchTree()({id: categories[cat].id}, data);
+                        console.log('s');
                     }
 
+                    $scope.data = data;
                 });
+            });
+        } else {
+            shopService.getCtegoriesShops({}).success(function (data) {
+                $rootScope.data = $scope.data = data.catagories_shops;
+                for (var key in $scope.data) {
+                    $scope.data[key].name = $scope.data[key].parent.name + ' :: ' + $scope.data[key].name;
+                }
+                $rootScope.data = $scope.data;
+                $scope.selectOnly1Or2 = function (item, selectedItems) {
+                    if (selectedItems !== undefined && selectedItems.length >= 20) {
+                        return false;
+                    } else {
+                        return true;
+                    }
+                };
             });
         }
 
@@ -99,10 +102,10 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
         $scope.createShop = function(){
             var data = {};
             data.section = $scope.section;
-            data.title = $scope.title;
-            data.full_description = $scope.full_description;
+            data.title = $scope.shop_title;
+            data.description = $scope.shop_description;
+            data.full_description = $scope.shop_full_description;
         }
-
 
         $scope.editName = function(name){
             shopService.editName({id: $scope.shop.id, name: name}).success(function (data) {
@@ -150,7 +153,6 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             socket.emit("new message",{id_user: $scope.id_user})
         }
 
-
         if($stateParams.edit_id){
             var uploader = $scope.uploader = new FileUploader({
                 url: 'edit_images_shop',
@@ -164,11 +166,19 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
         }
 
         $scope.redirectShop = function(){
+            if($scope.selectedItem){
+                var selectCategories = [];
+                for(item in $scope.selectedItem){
+                    selectCategories.push($scope.selectedItem[item].id);
+                }
+            }
+            if(selectCategories != undefined) {
+                var selectCategories = selectCategories.join(',');
+                shopService.editCategories({"id": $scope.shop.id, "selectCategories": selectCategories});
+            }
             $scope.loader = true;
             $location.path("/shop/" + $stateParams.edit_id);
         }
-
-        // FILTERS
 
         uploader.filters.push({
             name: 'imageFilter',
@@ -185,20 +195,15 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             }
         });
 
-        // CALLBACKS
-
         uploader.onCompleteItem = function(fileItem, response, status, headers) {
             $scope.id_shop = response.id;
             if($stateParams.edit_id){
                 $scope.shop.images.push({id: response.id, name: response.name, path: response.path});
-                uploader.queue = [];
             }
         };
+
         uploader.onCompleteAll = function(response) {
-            var selectCategories = [];
-            for(var key in $scope.selectedItem){
-                selectCategories.push($scope.selectedItem[key].id);
-            }
+            uploader.queue = [];
             if(!$stateParams.edit_id){
                 $location.path("/shop/"+$scope.id_shop);
             }
@@ -217,8 +222,8 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
 
             count_shop_images = count_shop_images + 1;
 
-            if($scope.title != undefined) {
-                item.formData.push({title: $scope.title});
+            if($scope.shop_title != undefined) {
+                item.formData.push({title: $scope.shop_title});
             }
             if($scope.address != undefined) {
                 item.formData.push({address: $scope.address});
@@ -235,11 +240,11 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             if($scope.site != undefined) {
                 item.formData.push({site: $scope.site});
             }
-            if($scope.description != undefined) {
-                item.formData.push({description: $scope.description});
+            if($scope.shop_description != undefined) {
+                item.formData.push({description: $scope.shop_description});
             }
-            if($scope.full_description != undefined) {
-                item.formData.push({full_description: $scope.full_description});
+            if($scope.shop_full_description != undefined) {
+                item.formData.push({full_description: $scope.shop_full_description});
             }
             if($scope.address && $scope.address[0] != undefined) {
                 var address = JSON.stringify($scope.address);
@@ -251,7 +256,6 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
             if(item.main == 1) {
                 item.formData.push({main: 1});
             }
-
 
             var selectCategories = [];
             for(var i in $scope.selectedItem){

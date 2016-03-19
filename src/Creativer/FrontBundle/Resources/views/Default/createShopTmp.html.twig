@@ -19,7 +19,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Заголовок:</div>
                 <div class="col-sm-10">
-                    <input type="text" name="tit" ng-model="title" ng-required="true" required="">
+                    <input type="text" name="tit" ng-model="shop_title" ng-required="true" required="">
                     <span class="text-danger" ng-show="submitted && shop_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -27,7 +27,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Краткое описание:</div>
                 <div class="col-sm-10">
-                    <input type="text" name="description" ng-model="description" ng-required="true" required="">
+                    <input type="text" name="description" ng-model="shop_description" ng-required="true" required="">
                     <span class="text-danger" ng-show="submitted && shop_form.description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -35,7 +35,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Полное описание:</div>
                 <div class="col-sm-10">
-                    <textarea name="full_description" ng-model="full_description" ng-required="true" required=""></textarea>
+                    <textarea name="full_description" ng-model="shop_full_description" ng-required="true" required=""></textarea>
                     <span class="text-danger" ng-show="submitted && shop_form.full_description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -123,18 +123,5 @@
             </div>
 
         </form>
-
-        <div class="col-sm-2">
-
-            <div class="row">
-                <div class="margin-top_80">
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                </div>
-
-            </div>
-
-        </div>
 
     </div>

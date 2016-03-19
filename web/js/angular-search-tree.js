@@ -3,7 +3,6 @@ angular.module('angularSearchTree', [])
 
 
         function SearchTree(){
-
             var main_obj;
 
             function tree(keyObj,obj) {
@@ -22,6 +21,11 @@ angular.module('angularSearchTree', [])
                     if (p == key) {
                         if (obj[p] == val) {
                             obj.selected = true;
+                            for(kk in main_obj){
+                                if(main_obj[kk][p] == obj[p]){
+                                    main_obj[kk] = obj;
+                                }
+                            }
                             return main_obj;
                         }
                     } else if (obj[p] instanceof Object) {

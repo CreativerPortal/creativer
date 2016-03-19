@@ -175,7 +175,18 @@ angular
                         },
                         data: data
                     });
-                }
+                },
 
+                editCategories: function (data) {
+                    return $http({
+                        method: 'POST',
+                        url: url + 'edit_categories',
+                        headers: {
+                            'Accept': 'application/json',
+                            'Content-Type': 'application/json'
+                        },
+                        data: data
+                    });
+                }
             };
         }]);

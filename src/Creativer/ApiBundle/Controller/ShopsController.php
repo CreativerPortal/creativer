@@ -34,7 +34,6 @@ class ShopsController extends Controller
      */
     public function getCtegoriesShopsAction()
     {
-
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:Categories')
             ->createQueryBuilder('e')
             ->addSelect('parent')
@@ -43,9 +42,7 @@ class ShopsController extends Controller
             ->setParameter('branch', 1);
         $catagoriesShops = $query->getQuery()->getResult();
 
-
         $categories = array('catagories_shops' => $catagoriesShops);
-
 
         return $categories;
     }
@@ -108,7 +105,6 @@ class ShopsController extends Controller
 
         $path_img_shop = $this->container->getParameter('path_img_shop');
 
-
         $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
 
         $catt = $shop->getCategories()[0];
@@ -134,7 +130,6 @@ class ShopsController extends Controller
         $image = $shop->getImg();
         $path = $shop->getPath();
 
-
         if(!empty($image)){
             $fs = new Filesystem();
             if(file_exists($path_img_shop.$path.$image) && !empty($path) && !empty($image)){
@@ -142,10 +137,8 @@ class ShopsController extends Controller
             }
         }
 
-
         $em->remove($shop);
         $em->flush();
-
 
         $response = new Respon(json_encode(array('id' => $category_id)), 200);
         $response->headers->set('Content-Type', 'application/json');
@@ -174,7 +167,6 @@ class ShopsController extends Controller
 
         $shop = $this->getDoctrine()->getRepository('CreativerFrontBundle:Shops')->find($id);
         $image = $this->getDoctrine()->getRepository('CreativerFrontBundle:ImagesShops')->find($id_image);
-
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($image);
@@ -223,11 +215,9 @@ class ShopsController extends Controller
         $shops->setImg($image->getName());
         $shops->setPath($image->getPath());
 
-
         $em = $this->getDoctrine()->getManager();
         $em->persist($shops);
         $em->flush();
-
 
         $array = array('success' => true);
         $response = new Respon(json_encode($array), 200);
@@ -478,6 +468,36 @@ class ShopsController extends Controller
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
+    }
+
+
+    /**
+     * @return array
+     * @Post("/v1/edit_categories")
+     * @View()
+     */
+    public function editCategoriesAction()
+    {
+        $id = $this->get('request')->request->get('id');
+        $selectCategories = $this->get('request')->request->get('selectCategories');
+        $selectCategories = explode(",", $selectCategories);
+        $em = $this->getDoctrine()->getEntityManager();
+        $shop = $em->getRepository("CreativerFrontBundle:Shops")->find($id);
+        $oldCategories = $shop->getCategories();
+        if(!empty($shop)){
+            foreach($oldCategories as $cat){
+                $shop->removeCategory($cat);
+            }
+        }
+
+        $categories = $em->getRepository("CreativerFrontBundle:Categories")->findBy(array('id' => $selectCategories));
+
+        if(!empty($shop)){
+            foreach($categories as $cat){
+                $shop->addCategory($cat);
+            }
+            $em->flush($shop);
+        }
     }
 
     /**
