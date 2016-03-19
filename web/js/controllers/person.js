@@ -21,6 +21,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }
         personalService.getUser({id: $stateParams.id}).success(function (data) {
             $rootScope.title = data.user.username+' '+data.user.lastname;
+            $rootScope.description = data.user.info;
             $rootScope.user = $scope.user = data.user;
             if($state.current.name == 'news') {
                 personalService.getNews().success(function (data) {
@@ -70,9 +71,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     if($stateParams.id_album && !$scope.user){
         personalService.getUserByAlbumId({id: $stateParams.id_album}).success(function (data) {
             $rootScope.title = data.user.username+' '+data.user.lastname;
-
-
-
+            $rootScope.description = data.user.info;
             $scope.$apply(function () {
                 $scope.user = data.user;
             });
