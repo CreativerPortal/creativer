@@ -139,6 +139,8 @@ class BaraholkaController extends Controller
             $query->leftJoin('e.user', 'u');
         }
 
+        $query->orderBy("e.id", 'DESC');
+
         $query = $query->getQuery();
 
 

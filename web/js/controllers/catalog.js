@@ -50,10 +50,10 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         {value: 'date', displayName: 'дате добавления'},
     ];
     if(!$rootScope.filterCondition){
-        $rootScope.filterCondition = 'likes';
+        $rootScope.filterCondition = 'date';
     }
     if(!$rootScope.filterConditionServices){
-        $rootScope.filterConditionServices = 'likes';
+        $rootScope.filterConditionServices = 'date';
     }
 
 
