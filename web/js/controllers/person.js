@@ -21,7 +21,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         }
         personalService.getUser({id: $stateParams.id}).success(function (data) {
             $rootScope.title = data.user.username+' '+data.user.lastname;
-            $rootScope.description = data.user.info;
+            $rootScope.description = data.user.info?data.user.info.substr(0,120):'';
             $rootScope.user = $scope.user = data.user;
             if($state.current.name == 'news') {
                 personalService.getNews().success(function (data) {
@@ -44,7 +44,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
         personalService.getUser({id: $rootScope.id_user}).success(function (data) {
             $rootScope.title = data.user.username+' '+data.user.lastname;
             if(data.user.info != ' ' || data.user.info != '' || data.user.info != undefined){
-                $rootScope.description = data.user.info;
+                $rootScope.description = data.user.info?data.user.info.substr(0,120):'';
             }else{
                 $rootScope.description = 'Creativer – это площадка для размещения и поиска уникальных вещей. Размещайте свои работы, презентуйте своё мастерство, ищите подарки и не только, общайтесь с друзьями, следите за самыми важными событиями!';
             }
@@ -71,7 +71,7 @@ angular.module('app.ctr.person', ['service.personal', 'angularFileUpload', 'serv
     if($stateParams.id_album && !$scope.user){
         personalService.getUserByAlbumId({id: $stateParams.id_album}).success(function (data) {
             $rootScope.title = data.user.username+' '+data.user.lastname;
-            $rootScope.description = data.user.info;
+            $rootScope.description = data.user.info?data.user.info.substr(0,120):'';
             $scope.$apply(function () {
                 $scope.user = data.user;
             });

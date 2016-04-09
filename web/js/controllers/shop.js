@@ -1,11 +1,12 @@
 angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.socket', 'service.chat', 'angularSearchTree'])
     .controller('shopCtrl',['$state', '$window', '$scope', '$timeout', '$rootScope', '$location', 'shopService', '$stateParams', 'FileUploader', 'socket', 'chat', 'searchTree', function($state, $window,$scope,$timeout,$rootScope,$location,shopService,$stateParams, FileUploader, socket, chat, SearchTree) {
 
-        $rootScope.title = "Магазины";
+        $rootScope.title = "Магазины на Creativer";
 
         if($stateParams.id_shop){
             shopService.getShopById({id:$stateParams.id_shop}).success(function (data) {
                 $rootScope.title = data.name;
+                $rootScope.description = data.full_description.substr(0,120);
                 $scope.shop = data;
             });
         }
@@ -37,7 +38,6 @@ angular.module('app.ctr.shop', ['service.shop', 'angularFileUpload', 'service.so
 
                     for (var cat in categories) {
                         data = SearchTree()({id: categories[cat].id}, data);
-                        console.log('s');
                     }
 
                     $scope.data = data;

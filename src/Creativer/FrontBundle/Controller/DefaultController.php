@@ -618,7 +618,11 @@ class DefaultController extends Controller
 
         $post_id = $post_baraholka->getId();
 
-        return $this->render('CreativerFrontBundle:Default:editFleamarketpostingTmp.html.twig', array('post_id' => $post_id));
+        $banners_v1 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(9)[0];
+        $banners_v2 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(10)[0];
+        $banners_v3 = $this->getDoctrine()->getRepository('CreativerFrontBundle:Banners')->findById(11)[0];
+
+        return $this->render('CreativerFrontBundle:Default:editFleamarketpostingTmp.html.twig', array('post_id' => $post_id, 'banners_v1' => $banners_v1, 'banners_v2' => $banners_v2, 'banners_v3' => $banners_v3));
     }
 
     public function viewforumTmpAction()
@@ -875,10 +879,8 @@ class DefaultController extends Controller
                                 $image->resize(new Box(158, $height), ImageInterface::FILTER_LANCZOS);
                             }
 
-
                             $image->save($this->container->getParameter('path_img_baraholka_thums').$originalName);
                             rename($this->container->getParameter('path_img_baraholka_thums').$originalName,$this->container->getParameter('path_img_baraholka_thums').$name_path.$image_name);
-
 
                             $im = new ImagesBaraholka();
                             $im->setName($image_name);
@@ -887,7 +889,6 @@ class DefaultController extends Controller
                             $im->setPostBaraholka($PostBaraholka);
                             $em->persist($im);
                             $em->flush();
-
 
                             $serializer = $this->container->get('jms_serializer');
                             $categories = $serializer

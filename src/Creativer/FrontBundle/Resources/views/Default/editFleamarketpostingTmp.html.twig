@@ -2,20 +2,14 @@
 
         <form class="col-sm-10 padding-left_0 form_create_post" name="baraholka_form">
 
-            <div class="row col-sm-12 margin-top_20 padding-right_0">
+            <div class="row margin-top_20 padding-right_0">
 
-                <div class="col-sm-2 padding-left_0">Категория:</div>
+                <div class="col-sm-2">Категория:</div>
                 <div class="col-sm-7">
-                    <div class="row baraholka__filter">
-                        <div class="wrapper__filter__element" ng-repeat="p_category in post_category">
-                            <label>
-                                <input type="radio" name="post_category" ng-model="post.post_category.id" value="[[ p_category.id ]]" ng-checked="post.post_category.id == p_category.id" required="">
-                                <div class="baraholka__filter__element" ng-click="checkPostCategory(p_category.id)">
-                                    [[ p_category.name ]]
-                                </div>
-                            </label>
-                        </div>
-                    </div>
+                    <select ng-change="checkPostCategory(post_category.id)" focus-if="submitted && baraholka_form.post_category.$error.required" name="post_category" class="selectForumId" ng-model="post_category.id" required>
+                        <option ng-selected="post.post_category.id == p_category.id" ng-repeat="p_category in post_category" value="[[ p_category.id ]]">[[ p_category.name ]]</option>
+                    </select>
+                    <br>
                     <span class="text-danger" ng-show="submitted && baraholka_form.post_category.$error.required">Категория не выбрана</span>
                 </div>
 
@@ -27,18 +21,13 @@
                         <span class="text-blue pointer" ng-click="deletePostBaraholka(post.id)">Да</span> |
                         <span ng-click="remove_post = false" class="text-blue pointer">Нет</span>
                     </div>
-
                 </div>
-
             </div>
-
-
 
             <div class="row margin-top_20">
                 <div class="col-sm-2">Разделы:</div>
                 <div class="col-sm-10">
-
-                    <select name="section" class="selectForumId" ng-model="section" required>
+                    <select ng-change="checkCategoryBaraholka(section)" name="section" class="selectForumId" ng-model="section" required>
                         <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]" value="[[ child.id ]]">
                             <option ng-repeat="child in children.children" value="[[ child.id ]]" ng-selected="post.categories_baraholka.id == child.id">[[ child.name ]]</option>
                         </optgroup>
@@ -49,7 +38,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Заголовок:</div>
                 <div class="col-sm-10">
-                    <input type="text" name="tit" ng-blur="editTitle(post.name)" ng-model="post.name" ng-required="true" required="">
+                    <input type="text" name="tit" ng-blur="editTitle(post.name,$event)" ng-model="post.name" ng-required="true" required="">
                     <span class="text-danger" ng-show="submitted && baraholka_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
@@ -57,7 +46,7 @@
             <div class="row margin-top_20">
                 <div class="col-sm-2">Местонахождения:</div>
                 <div class="col-sm-10">
-                    <select name="city" class="selectForumId" ng-model="city">
+                    <select ng-change="checkCity(city)" name="city" class="selectForumId" ng-model="city">
                         <option value="[[ p_city.id ]]" ng-repeat="p_city in post_city" ng-selected="post.post_city.id == p_city.id">[[ p_city.name ]]</option>
                     </select>
                 </div>
@@ -68,14 +57,14 @@
             <div class="row margin-top_20">
                 <div class="col-sm-12">
                     <h4>Подробно опишите товар или услугу</h4>
-                    <textarea class="margin-top_10" ng-blur="editFullDescription(post.full_description)" ng-model="post.full_description" name="full_description"></textarea>
+                    <textarea class="margin-top_10" ng-blur="editFullDescription(post.full_description,$event)" name="full_description" ng-model="post.full_description"></textarea>
                 </div>
             </div>
 
             <div class="row margin-top_20">
                 <div class="col-sm-12">
                     Краткое описание
-                    <textarea ng-blur="editDescription(post.description)" ng-model="post.description" name="description" required=""></textarea>
+                    <textarea ng-blur="editDescription(post.description,$event)" ng-model="post.description" name="description" required=""></textarea>
                     <span class="text-danger" ng-show="submitted && baraholka_form.description.$error.required">Краткое описание не может быть пустым</span>
                 </div>
             </div>
@@ -86,13 +75,13 @@
                 <div class="col-sm-12">
                     <h4>Обязательно указывайте реальную цену</h4>
                     <div>
-                        <input ng-blur="editPrice(post.price)" type="number" ng-model="post.price" name="price" style="width: 100px;" required=""> руб.<br/>
+                        <input ng-blur="editPrice(post.price,$event)" type="number" ng-model="post.price" name="price" style="width: 100px;" required=""> руб.<br/>
 
                         <span class="text-danger" ng-show="submitted && baraholka_form.price.$error.required">Цена не указана</span>
 
-                        <div class="margin-top_5" ng-click="editAuction(post.auction)">
+                        <div class="margin-top_5">
                                 <label for="search">Торг уместен</label>
-                                <input id="search" class="extended__search__element" ng-model="post.auction" ng-checked="post.auction" type="checkbox">
+                                <input id="search" class="extended__search__element" ng-change="editAuction(post.auction)" ng-true-value="1" ng-false-value="0" ng-model="post.auction" type="checkbox" name="checkbox">
                                 <span></span>
                             </div>
                     </div>
@@ -124,7 +113,7 @@
                         </div>
                     </label>
 
-                    <img src="{{ path_img_baraholka_thums }}[[ item.path ]][[ item.name ]]" height="100" />
+                    <img ng-src="{{ path_img_baraholka_thums }}[[ item.path ]][[ item.name ]]" height="100" />
 
                     {# <div ng-show="uploader.isHTML5" ng-thumb="{ file: item._file, height: 100 }" class="text-center thumb__upload"></div> #}
                 </div>
@@ -144,17 +133,12 @@
 
             </div>
 
-            {#<div class="col-sm-12 bg-warning text-center">#}
-                    {#<h5 class="text-danger">Увеличьте продажи: оплатите выделение объявления через банкомат, инфокиоск, интернет-банкинг!</h5>#}
-                    {#Варианты выделения всего от 3000 рублей. Заметное объявление — активные продажи! <a href="/price.php" target="_blank">Посмотреть цены</a>#}
-            {#</div>#}
-
             <div class="row text-center">
                 <button type="button" ng-class="{'loader':loader}" ng-show="!uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && redirectPostBaraholka()" >
-                    В объявление
+                    Назад
                 </button>
                 <button type="button" ng-class="{'loader':loader}" ng-show="uploader.queue.length" class="button_message early-message text-center text-white pointer margin-top_10" ng-click="(submitted = true) && !baraholka_form.$error.required && uploader.uploadAll()" >
-                    В объявление
+                    Назад
                 </button>
             </div>
 
@@ -164,11 +148,10 @@
 
             <div class="row">
                 <div class="margin-top_80">
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
-                    <img class="margin-top_20" src="/var/www/creativer/web/banner/reclama.png" alt="реклама" />
+                    {% if banners_v1.url %}<a href="{{ banners_v1.link }}"><img class="margin-top_20" src="{{ banners_v1.url }}" alt="{{ banners_v1.name }}" /></a>{% endif %}
+                    {% if banners_v2.url %}<a href="{{ banners_v2.link }}"><img class="margin-top_20" src="{{ banners_v2.url }}" alt="{{ banners_v2.name }}" /></a>{% endif %}
+                    {% if banners_v3.url %}<a href="{{ banners_v3.link }}"><img class="margin-top_20" src="{{ banners_v3.url }}" alt="{{ banners_v3.name }}" /></a>{% endif %}
                 </div>
-
             </div>
 
         </div>

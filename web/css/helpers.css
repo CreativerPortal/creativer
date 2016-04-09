@@ -387,3 +387,11 @@
         box-shadow: 0 2.5em 0 0 #ebeae2;
     }
 }
+
+.border_success{
+    border-color: #2e9c1d !important;
+}
+
+.border_error{
+    border-color: #9c253c !important;
+}

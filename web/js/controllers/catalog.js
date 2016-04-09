@@ -2,9 +2,10 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
     .controller('catalogCtrl',['$state', '$window', '$scope', '$rootScope', '$location', 'catalogService', 'personalService', 'albumService', '$stateParams', '$stateParams', 'FileUploader', 'socket', 'chat', function($state,$window,$scope,$rootScope,$location,catalogService,personalService,albumService,$stateParams,$stateParams, FileUploader, socket, chat) {
 
     $rootScope.title = "Портал для креативных людей!";
+    $rootScope.description = "Площадка для ремесленников, общайся, выкладывай свои работы, ищи вдохновение.";
 
 
-        if(!$scope.text_first || $state.current.name == 'main'){
+    if(!$scope.text_first || $state.current.name == 'main'){
         catalogService.getNewsEvents().success(function (data) {
             $rootScope.news_events = $scope.news_events = data;
             $scope.text_first = data[0]?data[0].description:null;
@@ -102,7 +103,7 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
                 filter: $rootScope.filterConditionServices
             }).success(function (data) {
                 $rootScope.title = data.services.category_name;
-                $rootScope.description = "Услуги " + data.services.category_name + " на Creativer";
+                $rootScope.description = data.services.category_name + " на Creativer";
                 $rootScope.items_services = $scope.items_services = data.services;
                 $rootScope.id_services = $stateParams.id_services;
                 $rootScope.pages_services = [];

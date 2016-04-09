@@ -25,7 +25,6 @@ use Symfony\Component\HttpFoundation\Response as Respon;
 use Symfony\Component\HttpFoundation\Request;
 
 
-
 class BaraholkaController extends Controller
 {
     /**
@@ -81,17 +80,17 @@ class BaraholkaController extends Controller
         $city = $this->get('request')->request->get('city');
         $my_singboard = $this->get('request')->request->get('my_singboard');
         $new24 = $this->get('request')->request->get('new24');
-        $post_category_id = $this->get('request')->request->get('post_category_id')?$this->get('request')->request->get('post_category_id'):0;
+        $post_category_id = $this->get('request')->request->get('post_category_id') ? $this->get('request')->request->get('post_category_id') : 0;
         $singboard_participate = $this->get('request')->request->get('singboard_participate');
 
-        if($this->get('security.context')->isGranted('ROLE_USER')){
+        if ($this->get('security.context')->isGranted('ROLE_USER')) {
             $userId = $this->get('security.context')->getToken()->getUser()->getId();
-        }else{
+        } else {
             $userId = null;
         }
 
 
-        $page = $this->get('request')->request->get('page')?$this->get('request')->request->get('page'):1;
+        $page = $this->get('request')->request->get('page') ? $this->get('request')->request->get('page') : 1;
 
 
         $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
@@ -101,42 +100,42 @@ class BaraholkaController extends Controller
             ->leftJoin('e.images_baraholka', 'images')
             ->where('e.isActive = :active')
             ->setParameter('active', 1);
-        if($category_id != 'last'){
-                $query->leftJoin('e.categories_baraholka', 'cat')
+        if ($category_id != 'last') {
+            $query->leftJoin('e.categories_baraholka', 'cat')
                 ->andWhere('cat IN (:items)')
                 ->setParameter('items', $category_id);
-            }
+        }
 
 
-        if($city > 0 and $city != false){
+        if ($city > 0 and $city != false) {
             $query->join('e.post_city', 'city')
                 ->andWhere('city = :city_id')
                 ->setParameter('city_id', $city['id']);
         }
-        if($post_category_id > 0){
+        if ($post_category_id > 0) {
             $query->andWhere('post_categ = :post_categ_id')
                 ->setParameter('post_categ_id', $post_category_id);
         }
-        if($new24 == true){
+        if ($new24 == true) {
             $query->andWhere('e.date >= :dat')
                 ->setParameter('dat', new \DateTime('-24 hours'));
         }
-        if($my_singboard == true and $singboard_participate == true and $userId){
+        if ($my_singboard == true and $singboard_participate == true and $userId) {
             $query->leftJoin('e.user', 'u')
                 ->leftJoin('e.post_comments', 'pc')
                 ->leftJoin('pc.user', 'userre')
                 ->andWhere('u.id = :id or userre.id = :id')
                 ->setParameter('id', $userId);
-        }else if($my_singboard == true and $userId){
+        } else if ($my_singboard == true and $userId) {
             $query->leftJoin('e.user', 'u')
                 ->andWhere('u = :id')
                 ->setParameter('id', $userId);
-        }else if($singboard_participate == true and $userId){
+        } else if ($singboard_participate == true and $userId) {
             $query->leftJoin('e.post_comments', 'ps')
                 ->leftJoin('ps.user', 'userr')
                 ->andWhere('userr.id = :idd')
                 ->setParameter('idd', $userId);
-        }else{
+        } else {
             $query->leftJoin('e.user', 'u');
         }
 
@@ -146,7 +145,7 @@ class BaraholkaController extends Controller
         $nameCategory = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find($category_id);
 
 
-        $paginator  = $this->get('knp_paginator');
+        $paginator = $this->get('knp_paginator');
         $pagination = $paginator->paginate(
             $query,
             $page,
@@ -158,9 +157,9 @@ class BaraholkaController extends Controller
             'items' => $pagination->getItems(),
             'totalCount' => $pagination->getTotalItemCount());
 
-        if($category_id != 'last'){
+        if ($category_id != 'last') {
             $posts['nameCategory'] = $nameCategory->getName();
-        }else{
+        } else {
             $posts['nameCategory'] = 'Все объявления барахолки';
         }
 
@@ -193,7 +192,7 @@ class BaraholkaController extends Controller
         $user = $this->get('security.context')->getToken()->getUser();
         $post_id = $this->get('request')->request->get('post_id');
 
-        if($post_id == 'undefined'){
+        if ($post_id == 'undefined') {
             $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
                 ->createQueryBuilder('e')
                 ->where('e.user = :user')
@@ -202,7 +201,7 @@ class BaraholkaController extends Controller
                 ->orderBy("e.id", 'DESC')
                 ->getQuery()
                 ->getResult()[0];
-        }else{
+        } else {
             $query = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')
                 ->createQueryBuilder('e')
                 ->where('e.id = :id')
@@ -210,7 +209,6 @@ class BaraholkaController extends Controller
                 ->getQuery()
                 ->getResult()[0];
         }
-
 
 
         $post = array('post' => $query);
@@ -291,8 +289,6 @@ class BaraholkaController extends Controller
         $postCategory = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostCategory')->find($id_check_post_category);
         $postBaraholka->setPostCategory($postCategory);
 
-
-
         $em = $this->getDoctrine()->getManager();
         $em->persist($postBaraholka);
         $em->flush();
@@ -327,7 +323,6 @@ class BaraholkaController extends Controller
         $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
         $categoriesBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:CategoriesBaraholka')->find($id_check_category_baraholka);
         $postBaraholka->setCategoriesBaraholka($categoriesBaraholka);
-
 
 
         $em = $this->getDoctrine()->getManager();
@@ -531,13 +526,11 @@ class BaraholkaController extends Controller
         $id = $this->get('request')->request->get('id');
         $auction = $this->get('request')->request->get('auction');
 
-        if($auction == 1){
-            $auction = 0;
-        }else{
+        if ($auction == true) {
             $auction = 1;
+        } else {
+            $auction = 0;
         }
-
-        $user = $this->get('security.context')->getToken()->getUser();
 
         $postBaraholka = $this->getDoctrine()->getRepository('CreativerFrontBundle:PostBaraholka')->find($id);
         $postBaraholka->setAuction($auction);
@@ -632,7 +625,7 @@ class BaraholkaController extends Controller
 
         $fs = new Filesystem();
 
-        foreach($images as $key=>$image){
+        foreach ($images as $key => $image) {
             $path = $image->getPath();
             $name = $image->getName();
 
@@ -703,11 +696,11 @@ class BaraholkaController extends Controller
         $search_text = $this->get('request')->request->get('search_text');
         $searchInCategory = $this->get('request')->request->get('searchInCategory');
 
-        if(empty($search_text)){
+        if (empty($search_text)) {
             $search_text = '*';
         }
 
-        if(empty($category_id)){
+        if (empty($category_id)) {
             $category_id = 1000;
         }
 
@@ -727,19 +720,17 @@ class BaraholkaController extends Controller
         $boolQuery->addShould($fieldQuery);
 
 
-
-        if($category_id != 1000){
+        if ($category_id != 1000) {
             $categoryQuery = new \Elastica\Filter\Terms();
             $categoryQuery->setTerms('categories_baraholka.id', array($category_id));
 
             $filteredQuery = new \Elastica\Query\Filtered($boolQuery, $categoryQuery);
             $results = $post_baraholka->find($filteredQuery);
-        }else{
+        } else {
             $keywordQuery = new \Elastica\Query\QueryString();
-            $keywordQuery->setQuery("full_description:".$search_text." OR description:".$search_text." OR name:".$search_text);
+            $keywordQuery->setQuery("full_description:" . $search_text . " OR description:" . $search_text . " OR name:" . $search_text);
             $results = $post_baraholka->find($keywordQuery, '80');
         }
-
 
 
         $results = array('posts' => $results, 'searchInCategory' => $searchInCategory);

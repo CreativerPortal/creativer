@@ -71,7 +71,7 @@ angular
                 checkPostCategory: function (data) {
                     return $http({
                         method: 'POST',
-                        url: url + 'check_post_category',
+                        url: url + 'id_check_post_category',
                         headers: {
                             'Accept': 'application/json',
                             'Content-Type': 'application/json'

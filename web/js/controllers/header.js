@@ -1,6 +1,8 @@
 angular.module('app.ctr.header', ['service.header', 'service.socket'])
     .controller('headerCtrl',['$window', '$scope', '$http', '$rootScope', '$location', 'headerService', '$stateParams', 'socket',  function($window,$scope,$http,$rootScope,$location,headerService,$stateParams,socket) {
 
+    $rootScope.title = "Портал для креативных людей";
+    $rootScope.description = "Площадка для ремесленников, общайся, выкладывай свои работы, ищи вдохновение.";
 
     $scope.date = new Date();
 
@@ -33,7 +35,7 @@ angular.module('app.ctr.header', ['service.header', 'service.socket'])
     }
 
     $rootScope.removeUser = function(new_user_id){
-        if(new_user_id != $rootScope.user.id){
+        if($rootScope.user && new_user_id != $rootScope.user.id){
             $rootScope.user = null;
         }
     }
@@ -77,8 +79,6 @@ angular.module('app.ctr.header', ['service.header', 'service.socket'])
             }
         }
     });
-
-
 
 }]);
 

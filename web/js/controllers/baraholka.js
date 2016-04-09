@@ -50,42 +50,71 @@ angular.module('app.ctr.baraholka', ['service.baraholka', 'angularFileUpload', '
         }
 
         $scope.checkPostCategory = function(id_check_post_category){
-            baraholkaService.checkPostCategory({"id": $scope.post.id, "id_check_post_category": id_check_post_category}).success(function (data) {
-            });
-        }
-
-        $scope.$watch("section", function(){
-            if($scope.section){
-                baraholkaService.checkCategoryBaraholka({"id": $scope.post.id, "id_check_category_baraholka": $scope.section}).success(function (data) {
+            baraholkaService.checkPostCategory({"id": $scope.post.id, "id_check_post_category": id_check_post_category})
+                .success(function (data) {
+                })
+                .error(function (data) {
                 });
-            }
-        })
+        }
 
-        $scope.$watch("city", function(){
-            if($scope.city){
-                baraholkaService.editCity({city: $scope.city}).success(function (data) {
+        $scope.checkCategoryBaraholka = function(id_category_baraholka) {
+            baraholkaService.checkCategoryBaraholka({
+                "id": $scope.post.id,
+                "id_check_category_baraholka": id_category_baraholka
+            })
+            .success(function (data) {
+            })
+            .error(function (data) {
+            });
+        }
+
+        $scope.checkCity = function(id_city,event) {
+            baraholkaService.editCity({id: $scope.post.id, city: id_city})
+                .success(function (data) {
+                })
+                .error(function (data) {
                 });
-            }
-        })
-
-        $scope.editTitle = function(name_title){
-            baraholkaService.editTitle({"id": $scope.post.id, "title": name_title}).success(function (data) {
-            });
         }
 
-        $scope.editFulldescription = function(full_description){
-            baraholkaService.editFulldescription({"id": $scope.post.id, "full_description": full_description}).success(function (data) {
-            });
+
+        $scope.editTitle = function(name_title,event){
+            baraholkaService.editTitle({"id": $scope.post.id, "title": name_title})
+                .success(function (data) {
+                    angular.element(event.target).addClass('border_success');
+                })
+                .error(function (data) {
+                    angular.element(event.target).addClass('border_error');
+                });
         }
 
-        $scope.editdescription = function(description_short){
-            baraholkaService.editdescription({"id": $scope.post.id, "description": description_short}).success(function (data) {
-            });
+        $scope.editFullDescription = function(full_description,event){
+            baraholkaService.editFullDescription({"id": $scope.post.id, "full_description": full_description})
+                .success(function (data) {
+                    angular.element(event.target).addClass('border_success');
+                })
+                .error(function (data) {
+                    angular.element(event.target).addClass('border_error');
+                });
         }
 
-        $scope.editPrice = function(price){
-            baraholkaService.editPrice({"id": $scope.post.id, "price": price}).success(function (data) {
-            });
+        $scope.editDescription = function(description_short,event){
+            baraholkaService.editDescription({"id": $scope.post.id, "description": description_short})
+                .success(function (data) {
+                    angular.element(event.target).addClass('border_success');
+                })
+                .error(function (data) {
+                    angular.element(event.target).addClass('border_error');
+                });
+        }
+
+        $scope.editPrice = function(price,event){
+            baraholkaService.editPrice({"id": $scope.post.id, "price": price})
+                .success(function (data) {
+                    angular.element(event.target).addClass('border_success');
+                })
+                .error(function (data) {
+                    angular.element(event.target).addClass('border_error');
+                });
         }
 
         $scope.editAuction = function(auction){
