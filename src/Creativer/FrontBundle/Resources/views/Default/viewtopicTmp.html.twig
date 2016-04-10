@@ -12,15 +12,15 @@
             <nav class="row slid__menu margin-top_20">
                 <div class="col-sm-3 padding-left_0 padding-right_0" style="width: 21%;">
                     <span>Регион</span>
-                    <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Беларусь' ]]</span></label>
+                    <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Все' ]]</span></label>
                     <input type="checkbox" class="cities-checkbox" id="all_cities">
                     <div class="cities__menu__main">
                         <div class="cities__background-top"></div>
                         <div class="cities__background-body">
                             <ul class="text-white cities__menu fs_1-1 padding-left_0 text-center">
                                 <li>
-                                    <label>Беларусь
-                                        <input type="radio" class="city-radio" name="city" value="Беларусь" ng-model="$root.city" ng-click="uncheck(null)" />
+                                    <label>Все
+                                        <input type="radio" class="city-radio" name="city" value="Все" ng-model="$root.city" ng-click="uncheck(null)" />
                                     </label>
                                 </li>
                                 <li ng-repeat="city in post_city">

@@ -7,15 +7,15 @@
 
             <div class="col-sm-2 padding-left_0 margin-top_10">
                 <span>Регион</span>
-                <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Беларусь' ]]</span></label>
+                <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Все' ]]</span></label>
                 <input type="checkbox" class="cities-checkbox" id="all_cities">
                 <div class="cities__menu__main">
                     <div class="cities__background-top"></div>
                     <div class="cities__background-body">
                         <ul class="text-white cities__menu fs_1-1 padding-left_0 text-center">
                             <li>
-                                <label class="pointer">Беларусь
-                                    <input type="radio" class="city-radio" name="city" value="Беларусь" ng-model="$root.city" ng-click="uncheck(null)" />
+                                <label class="pointer">Все
+                                    <input type="radio" class="city-radio" name="city" value="Все" ng-model="$root.city" ng-click="uncheck(null)" />
                                 </label>
                             </li>
                             <li ng-repeat="city in cities" class="pointer">

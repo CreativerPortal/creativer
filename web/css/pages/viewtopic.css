@@ -256,7 +256,6 @@ textarea {
     position: absolute;
     z-index: 100;
     top: 37px;
-    right: -20px;
 }
 
 .comm:hover .edit_post{

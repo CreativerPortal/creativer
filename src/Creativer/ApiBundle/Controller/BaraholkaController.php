@@ -151,7 +151,7 @@ class BaraholkaController extends Controller
         $pagination = $paginator->paginate(
             $query,
             $page,
-            6
+            10
         );
 
         $posts = array('currentPageNumber' => $pagination->getCurrentPageNumber(),
