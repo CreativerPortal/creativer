@@ -23,6 +23,11 @@ AddType text/cache-manifest .manifest
     RewriteCond %{HTTP_HOST} ^icreativer\.ru$ [NC]
     RewriteRule ^(.*)$ http://icreativer.com/$1 [L,R=301]
 
+    RewriteCond %{HTTP_HOST} ^www\.creativer\.by$ [NC]
+    RewriteRule ^(.*)$ http://icreativer.com/$1 [L,R=301]
+    RewriteCond %{HTTP_HOST} ^creativer\.by$ [NC]
+    RewriteRule ^(.*)$ http://icreativer.com/$1 [L,R=301]
+
     RewriteCond %{HTTP_HOST} ^www\.(.*)$
     RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
 
