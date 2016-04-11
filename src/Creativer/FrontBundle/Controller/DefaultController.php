@@ -986,10 +986,10 @@ class DefaultController extends Controller
 
                             $image->save($this->container->getParameter('path_img_post_original').$originalName);
                             rename($this->container->getParameter('path_img_post_original').$originalName,$this->container->getParameter('path_img_post_original').$name_path.$image_name);
-                            if($w > 260){
+                            if($w > 360){
                                 $width = $image->getSize()->getWidth();
-                                $count = $width / 260;
-                                $width = 260;
+                                $count = $width / 360;
+                                $width = 360;
                                 $height = $image->getSize()->getHeight() / $count;
                                 $image->resize(new Box($width, $height), ImageInterface::FILTER_LANCZOS);
                             }else{
