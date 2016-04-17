@@ -262,15 +262,15 @@ class DefaultController extends Controller
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
-                            if($w >= 1280 or $h >= 872){
+                            if($w >= 980 or $h >= 720){
                                 if($w > $h){
-                                    $count = $image->getSize()->getHeight() / 872;
+                                    $count = $image->getSize()->getHeight() / 720;
                                     $width = $image->getSize()->getWidth() / $count;
-                                    $image->resize(new Box($width, 872), ImageInterface::FILTER_LANCZOS);
+                                    $image->resize(new Box($width, 720), ImageInterface::FILTER_LANCZOS);
                                 }else{
-                                    $count = $image->getSize()->getWidth() / 1280;
+                                    $count = $image->getSize()->getWidth() / 980;
                                     $height = $image->getSize()->getHeight() / $count;
-                                    $image->resize(new Box(1280, $height), ImageInterface::FILTER_LANCZOS);
+                                    $image->resize(new Box(980, $height), ImageInterface::FILTER_LANCZOS);
                                 }
                             }
 
@@ -377,15 +377,15 @@ class DefaultController extends Controller
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
-                            if($w >= 1280 or $h >= 872){
+                            if($w >= 980 or $h >= 720){
                                 if($w > $h){
-                                    $count = $image->getSize()->getHeight() / 872;
+                                    $count = $image->getSize()->getHeight() / 720;
                                     $width = $image->getSize()->getWidth() / $count;
-                                    $image->resize(new Box($width, 872), ImageInterface::FILTER_LANCZOS);
+                                    $image->resize(new Box($width, 720), ImageInterface::FILTER_LANCZOS);
                                 }else{
-                                    $count = $image->getSize()->getWidth() / 1280;
+                                    $count = $image->getSize()->getWidth() / 980;
                                     $height = $image->getSize()->getHeight() / $count;
-                                    $image->resize(new Box(1280, $height), ImageInterface::FILTER_LANCZOS);
+                                    $image->resize(new Box(980, $height), ImageInterface::FILTER_LANCZOS);
                                 }
                             }
 
@@ -1401,15 +1401,15 @@ class DefaultController extends Controller
                             $w = $image->getSize()->getWidth();
                             $h = $image->getSize()->getHeight();
 
-                            if($w >= 800 or $h >= 600){
+                            if($w >= 640 or $h >= 480){
                                 if($w > $h){
-                                    $count = $image->getSize()->getHeight() / 600;
+                                    $count = $image->getSize()->getHeight() / 480;
                                     $width = $image->getSize()->getWidth() / $count;
-                                    $image->resize(new Box($width, 600), ImageInterface::FILTER_LANCZOS);
+                                    $image->resize(new Box($width, 480), ImageInterface::FILTER_LANCZOS);
                                 }else{
-                                    $count = $image->getSize()->getWidth() / 600;
+                                    $count = $image->getSize()->getWidth() / 480;
                                     $height = $image->getSize()->getHeight() / $count;
-                                    $image->resize(new Box(600, $height), ImageInterface::FILTER_LANCZOS);
+                                    $image->resize(new Box(480, $height), ImageInterface::FILTER_LANCZOS);
                                 }
                             }
 
