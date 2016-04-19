@@ -190,7 +190,7 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser", "searchPeople"})
+     * @JMS\Groups({"getUser"})
      */
     private $worked;
 

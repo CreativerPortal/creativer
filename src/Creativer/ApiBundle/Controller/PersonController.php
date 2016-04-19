@@ -1341,7 +1341,7 @@ class PersonController extends Controller
         if($search_people == 'undefined'){
             $keywordQuery->setQuery("id:"."*");
         }else{
-            $keywordQuery->setQuery("username:".$search_people." OR lastname:".$search_people." OR info:".$search_people." OR position:".$search_people." OR specialization:".$search_people." OR worked:".$search_people);
+            $keywordQuery->setQuery("username:".$search_people." OR lastname:".$search_people." OR info:".$search_people." OR position:".$search_people." OR specialization:".$search_people);
         }
 
         $query->setQuery($keywordQuery);
