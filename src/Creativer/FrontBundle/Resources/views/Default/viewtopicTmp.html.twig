@@ -61,7 +61,7 @@
                 <div class="col-sm-2 padding-left_0"><a href="/#!/[[ post.user.id ]]">
                         [[ post.user.username ]] [[ post.user.lastname ]]
                         <div class="user__avatar-mini margin-top_10" ng-class="{'user__avatar-mini_online':post.user.connection_status == '{{ date_online }}'}">
-                            <img src="[[ post.user.avatar ]]">
+                            <img ng-src="[[ post.user.avatar ]]">
                         </div>
                     </a></div>
                 <article class="col-sm-10 slid_article">
@@ -140,9 +140,9 @@
 
             <div class="row">
                 <div class="margin-top_80">
-                    {% if banners_v1.url %}<a href="{{ banners_v1.link }}"><img class="margin-top_20" src="{{ banners_v1.url }}" alt="{{ banners_v1.name }}" /></a>{% endif %}
-                    {% if banners_v2.url %}<a href="{{ banners_v2.link }}"><img class="margin-top_20" src="{{ banners_v2.url }}" alt="{{ banners_v2.name }}" /></a>{% endif %}
-                    {% if banners_v3.url %}<a href="{{ banners_v3.link }}"><img class="margin-top_20" src="{{ banners_v3.url }}" alt="{{ banners_v3.name }}" /></a>{% endif %}
+                    {% if banners_v1.url %}<a href="{{ banners_v1.link }}"><img class="margin-top_20" ng-src="{{ banners_v1.url }}" alt="{{ banners_v1.name }}" /></a>{% endif %}
+                    {% if banners_v2.url %}<a href="{{ banners_v2.link }}"><img class="margin-top_20" ng-src="{{ banners_v2.url }}" alt="{{ banners_v2.name }}" /></a>{% endif %}
+                    {% if banners_v3.url %}<a href="{{ banners_v3.link }}"><img class="margin-top_20" ng-src="{{ banners_v3.url }}" alt="{{ banners_v3.name }}" /></a>{% endif %}
                 </div>
             </div>
 
