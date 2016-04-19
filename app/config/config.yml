@@ -350,7 +350,9 @@ fos_elastica:
                 user:
                     mappings:
                         id:
-                            type: integer
+                          search_analyzer: custom_search_analyzer
+                          index_analyzer: custom_index_analyzer
+                          type: integer
                         username:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
