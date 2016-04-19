@@ -18,7 +18,7 @@
     </ul>
 
     <div id="gridder-content-10[[ key ]]" class="gridder-content" ng-repeat="(key,image) in shop.images">
-        <img src="{{ path_img_shop }}[[ image.path ]][[ image.name ]]">
+        <img ng-src="{{ path_img_shop }}[[ image.path ]][[ image.name ]]">
         <div class="description">
 
         </div>
@@ -33,8 +33,8 @@
         <div class="col-sm-5">
             <table class="table table-striped">
                 <tr ng-show="shop.name">
-                    <td ng-if="shop.img" class="logo_shop"><img src="{{ path_img_shop }}[[ shop.path ]][[ shop.img ]]" /></td>
-                    <td ng-if="!shop.img" class="logo_shop"><img src="{{ path_img_shop }}[[ shop.images[0].path ]][[ shop.images[0].name ]]" /></td>
+                    <td ng-if="shop.img" class="logo_shop"><img ng-src="{{ path_img_shop }}[[ shop.path ]][[ shop.img ]]" /></td>
+                    <td ng-if="!shop.img" class="logo_shop"><img ng-src="{{ path_img_shop }}[[ shop.images[0].path ]][[ shop.images[0].name ]]" /></td>
                     <td>[[ shop.name ]]</td>
                 </tr>
                 <tr ng-show="shop.site">
