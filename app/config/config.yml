@@ -362,7 +362,15 @@ fos_elastica:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
                             type: string
+                        position:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
                         specialization:
+                            search_analyzer: custom_search_analyzer
+                            index_analyzer: custom_index_analyzer
+                            type: string
+                        worked:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
                             type: string

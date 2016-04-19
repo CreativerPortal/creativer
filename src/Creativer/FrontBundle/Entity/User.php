@@ -169,28 +169,28 @@ class User implements UserInterface, \Serializable
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "searchPeople"})
      */
     private $position;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser", "searchPeople",})
+     * @JMS\Groups({"getUser", "searchPeople"})
      */
     private $info;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser", "searchPeople",})
+     * @JMS\Groups({"getUser", "searchPeople"})
      */
     private $specialization;
 
     /**
      * @ORM\Column(type="text", nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getUser"})
+     * @JMS\Groups({"getUser", "searchPeople"})
      */
     private $worked;
 
