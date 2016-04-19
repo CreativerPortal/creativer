@@ -349,10 +349,7 @@ fos_elastica:
                         finder: ~
                 user:
                     mappings:
-                        id:
-                          search_analyzer: custom_search_analyzer
-                          index_analyzer: custom_index_analyzer
-                          type: string
+                        id: ~
                         username:
                             search_analyzer: custom_search_analyzer
                             index_analyzer: custom_index_analyzer
