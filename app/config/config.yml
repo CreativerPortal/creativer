@@ -258,11 +258,11 @@ fos_elastica:
                             custom_index_analyzer:
                                 type: custom
                                 tokenizer: standard
-                                filter   : [lowercase, snowball, 'russian_morphology', 'english_morphology']
+                                filter   : [lowercase, snowball, russian_morphology, english_morphology]
                             custom_search_analyzer:
                                 type: custom
                                 tokenizer: standard
-                                filter   : [lowercase, snowball, 'russian_morphology', 'english_morphology']
+                                filter   : [lowercase, snowball, russian_morphology, english_morphology]
             types:
                 images:
                     mappings:
