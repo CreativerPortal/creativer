@@ -257,31 +257,12 @@ fos_elastica:
                         analyzer:
                             custom_index_analyzer:
                                 type: custom
-                                tokenizer: nGram
-                                filter   : [stopwords, app_ngram, asciifolding, lowercase, snowball, worddelimiter, 'russian_morphology', 'english_morphology']
+                                tokenizer: standard
+                                filter   : [lowercase, snowball, 'russian_morphology', 'english_morphology']
                             custom_search_analyzer:
                                 type: custom
                                 tokenizer: standard
-                                filter   : [stopwords, app_ngram, asciifolding, lowercase, snowball, worddelimiter, 'russian_morphology', 'english_morphology']
-                        tokenizer:
-                            nGram:
-                                type:     "nGram"
-                                min_gram: 2
-                                max_gram: 20
-                        filter:
-                            snowball:
-                                type:     snowball
-                                language: English
-                            app_ngram:
-                                type: "nGram"
-                                min_gram: 2
-                                max_gram: 20
-                            worddelimiter :
-                                 type: word_delimiter
-                            stopwords:
-                                 type:      stop
-                                 stopwords: [_french_]
-                                 ignore_case : true
+                                filter   : [lowercase, snowball, 'russian_morphology', 'english_morphology']
             types:
                 images:
                     mappings:
