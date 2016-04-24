@@ -131,7 +131,6 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         $rootScope.title = "Creativer - Каталог товаров";
         $rootScope.description = "Каталог товаров Creativer – это удобный способ размещения и поиска уникальных вещей, товаров ручной работы и не только. Всевозможные разделы – игрушки, сувениры, всё для дома, бижутерия, картины, одежда, сладости и многое другое!";
         $scope.$watch('filterCondition', function() {
-            alert($rootScope.filterCondition);
             catalogService.getCatalogProductAlbums({
                 id: $stateParams.id_products,
                 page: $stateParams.page,
