@@ -457,7 +457,8 @@ class DefaultController extends Controller
 
     public function layout_frontAction(){
         $social_email = $this->container->get('request')->get('social_email');
-        return $this->render('CreativerFrontBundle::layout_front.html.twig', array('social_email' => $social_email));
+        $social_email_not_found = $this->container->get('request')->get('social_email_not_found');
+        return $this->render('CreativerFrontBundle::layout_front.html.twig', array('social_email' => $social_email, 'social_email_not_found' => $social_email_not_found));
     }
 
     public function mainTmpAction()
