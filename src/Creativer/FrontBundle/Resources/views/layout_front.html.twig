@@ -500,8 +500,8 @@
             {% if social_email %}
                 <div id="fail_auth" class="fail_auth fs_0-7 fail_social_network"><span>пользователь с таким email уже существует</span></div>
             {% endif %}
-            {% if social_email_message %}
-                <div id="fail_auth" class="fail_auth fs_0-7 fail_social_network"><span>{{ social_email_message }}</span></div>
+            {% if social_email_not_found %}
+                <div id="fail_auth" class="fail_auth fs_0-7 fail_social_network"><span>email не был обнаружен</span></div>
             {% endif %}
 
             <div class="col-sm-1">

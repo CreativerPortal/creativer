@@ -83,7 +83,7 @@ class Provider extends OAuthUserProvider
         $user=$this->getUserByWindowsLive($oAuthID);// находим пользователя
 
         if(!$email){
-            header('Location: http://creativer.by?social_email_message=email не был обнаружен');
+            header('Location: http://creativer.by?social_email_not_found=true');
             exit;
         }
 
