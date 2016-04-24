@@ -83,7 +83,8 @@ class Provider extends OAuthUserProvider
         $user=$this->getUserByWindowsLive($oAuthID);// находим пользователя
 
         if(!$email){
-            die("Для регистрации необходимо вписать свой email в аккаунте социальной сети");
+            header('Location: http://creativer.by?social_email_message=email не был обнаружен');
+            exit;
         }
 
         // если пользователя нет в базе данных - добавим его
