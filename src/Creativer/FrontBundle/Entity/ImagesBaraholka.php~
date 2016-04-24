@@ -44,7 +44,7 @@ class ImagesBaraholka
      * @JMS\Type("Creativer\FrontBundle\Entity\ImagesBaraholka")
      * @ORM\ManyToOne(targetEntity="PostBaraholka", inversedBy="images_baraholka")
      * @ORM\JoinColumn(name="post_baraholka_id", referencedColumnName="id")
-     * @JMS\Groups({"getPostsByCategory", "getPostById"})
+     * @JMS\MaxDepth(2)
      **/
     private $post_baraholka;
 

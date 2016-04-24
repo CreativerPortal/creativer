@@ -17,6 +17,7 @@ use Creativer\FrontBundle\Entity\Wall;
 use Creativer\FrontBundle\Entity\Posts;
 use Creativer\FrontBundle\Entity\PostVideos;
 use Creativer\FrontBundle\Entity\Comments;
+use Creativer\FrontBundle\Entity\Links;
 use Creativer\FrontBundle\Entity\Tariffs;
 use Creativer\FrontBundle\Entity\ImageComments;
 use Symfony\Component\BrowserKit\Response;
@@ -493,9 +494,44 @@ class PersonController extends Controller
         $id = $this->get('security.context')->getToken()->getUser()->getId();
         $user = $this->getDoctrine()->getRepository('CreativerFrontBundle:User')->findOneById($id);
 
-
         foreach($field as $key => $val){
             $metadata->setFieldValue($user, $key, $val);
+//            if ($key == 'links') {
+//                preg_match_all("/((http|https):\/\/[^\s]+)/", $val, $links);
+//                $links = $links[0];
+//                if (!empty($links)) {
+//                    $html = new \DOMDocument();
+//
+//                    foreach($links as $k => $v){
+//
+//                        $text = file_get_contents("http://graph.facebook.com/100001335626438/photos");
+//                        die(var_dump($text));
+//                        if ($text) {
+//                            @$html->loadHTML(mb_convert_encoding($text, 'HTML-ENTITIES', 'UTF-8'));
+//                        }
+//
+//                        $links = new Links();
+//
+//                        foreach ($html->getElementsByTagName('meta') as $meta) {
+//                            if ($meta->getAttribute('property') == 'og:image') {
+//                                $links->setImg($meta->getAttribute('content'));
+//                            } else {
+//
+//                            }
+//                            if ($meta->getAttribute('property') == 'og:title') {
+//                                $links->setName($meta->getAttribute('content'));
+//                            }
+//                        }
+//
+//
+//                        $user = $this->get('security.context')->getToken()->getUser();
+//                        $links->setUrl($v)->setUser($user);
+//
+//                        $em = $this->getDoctrine()->getManager();
+//                        $em->persist($links);
+//                    }
+//                }
+//            }
         }
 
         $em->flush();

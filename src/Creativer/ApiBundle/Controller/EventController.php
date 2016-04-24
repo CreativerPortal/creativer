@@ -129,6 +129,7 @@ class EventController extends Controller
                 ->andWhere('cat.attached_datapicker = :at')
                 ->setParameter('at', 0)
                 ->setParameter('items', $event)
+                ->orderBy('e.id', 'DESC')
                 ->setMaxResults(5)
                 ->getQuery()->getResult();
 
@@ -187,6 +188,7 @@ class EventController extends Controller
                 ->andWhere('cat.attached_datapicker = :at')
                 ->setParameter('at', 0)
                 ->setParameter('items', $event)
+                ->orderBy('e.id', 'DESC')
                 ->setMaxResults(5)
                 ->getQuery()->getResult();
 
@@ -684,6 +686,7 @@ class EventController extends Controller
         $query->select('e')
             ->from('CreativerFrontBundle:Events', 'e')
             ->where('e.end_date >= :date')
+            ->orderBy('e.id', 'DESC')
             ->setParameter('date',$date);
         $events = $query->getQuery()->getResult();
 

@@ -252,4 +252,27 @@ class EventSections
     {
         return $this->parent;
     }
+
+    /**
+     * Set attached_datapicker
+     *
+     * @param integer $attachedDatapicker
+     * @return EventSections
+     */
+    public function setAttachedDatapicker($attachedDatapicker)
+    {
+        $this->attached_datapicker = $attachedDatapicker;
+
+        return $this;
+    }
+
+    /**
+     * Get attached_datapicker
+     *
+     * @return integer 
+     */
+    public function getAttachedDatapicker()
+    {
+        return $this->attached_datapicker;
+    }
 }

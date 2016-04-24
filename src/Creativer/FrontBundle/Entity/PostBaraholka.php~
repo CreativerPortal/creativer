@@ -39,7 +39,7 @@ class PostBaraholka
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      * @JMS\Expose
-     * @JMS\Groups({"getPostsByCategory"})
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      */
     private $img;
 
@@ -81,7 +81,7 @@ class PostBaraholka
 
 
     /**
-     * @ORM\Column(type="integer", name="auction")
+     * @ORM\Column(type="integer", nullable=true)
      * @JMS\Expose
      * @JMS\Groups({"getPostById", "getPostsByCategory"})
      */
@@ -107,7 +107,7 @@ class PostBaraholka
      * @JMS\Type("Creativer\FrontBundle\Entity\PostBaraholka")
      * @ORM\ManyToOne(targetEntity="CategoriesBaraholka", inversedBy="post_baraholka")
      * @ORM\JoinColumn(name="categories_baraholka_id", referencedColumnName="id")
-     * @JMS\Groups({"getPostById"})
+     * @JMS\Groups({"getPostsByCategory", "getPostById"})
      **/
     private $categories_baraholka;
 

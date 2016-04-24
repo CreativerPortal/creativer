@@ -501,9 +501,7 @@ app.directive('scrollbar', function($timeout) {
             });
         }
     };
-}).directive('keypressEvents',
-
-    function ($document, $rootScope) {
+}).directive('keypressEvents', function ($document, $rootScope) {
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
@@ -524,6 +522,44 @@ app.directive('scrollbar', function($timeout) {
                     e.stopPropagation();
                     $rootScope.$broadcast('keypress', e, String.fromCharCode(e));
                 });
+            }
+        }
+}).directive('links', function ($document, $rootScope) {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            replace: true,
+            scope: {
+                ngModel: '=ngModel'
+            },
+            link: function (scope, element, attrs) {
+                //scope.$watch('ngModel', function (value) {
+                //
+                //    value = new String(value);
+                //
+                //
+                //    console.log(value.match(/(?:(?:http|https):\/\/)?(?:www.)?facebook.com\/(?:(?:\w)*#!\/)?(?:pages\/)?(?:[?\w\-]*\/)?(?:profile.php\?id=(?=\d.*))?([\w\-]*)?/ig));
+                //
+                //    window.vkAsyncInit = function () {
+                //        VK.init({
+                //            apiId: 5176512
+                //        });
+                //        VK.Api.call('users.get', {user_ids: 'slaqyui'}, function (r) {
+                //            if (r.response) {
+                //                alert('Привет, ' + r.response[0].first_name);
+                //            }
+                //        });
+                //    };
+                //
+                //    setTimeout(function () {
+                //        var el = document.createElement("script");
+                //        el.type = "text/javascript";
+                //        el.src = "//vk.com/js/api/openapi.js";
+                //        el.async = true;
+                //        document.getElementById("vk_api_transport").appendChild(el);
+                //    }, 0);
+                //
+                //})
             }
         }
 });
