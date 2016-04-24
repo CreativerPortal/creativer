@@ -93,10 +93,10 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
 
     $stateParams.page = $stateParams.page?$stateParams.page:1;
 
-    if(($state.current.name == 'services_page' || $state.current.name == 'services' || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services || $state.current.name == 'services_all' && $state.current.name != 'services_search'){
+    if(($state.current.name == 'services_page' || $state.current.name == 'services' || $rootScope.currentPage != $stateParams.page || $stateParams.id_services != $rootScope.id_services) && $stateParams.id_services || $state.current.name == 'services_all' && $state.current.name != 'services_search'){
         $rootScope.title = "Creativer - Каталог услуг";
         $rootScope.description = "Каталог услуг Creativer – это удобный способ размещения и поиска мастеров по маникюру и педикюру, макияжу и косметологии, визажу и татуировке, фотографии и дизайну!";
-        $rootScope.$watch('filterConditionServices', function() {
+        $scope.$watch('filterConditionServices', function() {
             catalogService.getCatalogServiceAlbums({
                 id: $stateParams.id_services,
                 page: $stateParams.page,
@@ -126,11 +126,12 @@ angular.module('app.ctr.catalog', ['service.catalog', 'service.personal', 'servi
         })
     }
 
-    if(($state.current.name == 'products_page' || $state.current.name == 'products' || !$rootScope.currentPage || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products || $state.current.name == 'products_all' && $state.current.name != 'products_search'){
+    if(($state.current.name == 'products_page' || $state.current.name == 'products' || $rootScope.currentPage != $stateParams.page || $stateParams.id_products != $rootScope.id_products) && $stateParams.id_products || $state.current.name == 'products_all' && $state.current.name != 'products_search'){
         $rootScope.page = $stateParams.page;
         $rootScope.title = "Creativer - Каталог товаров";
         $rootScope.description = "Каталог товаров Creativer – это удобный способ размещения и поиска уникальных вещей, товаров ручной работы и не только. Всевозможные разделы – игрушки, сувениры, всё для дома, бижутерия, картины, одежда, сладости и многое другое!";
-        $rootScope.$watch('filterCondition', function() {
+        $scope.$watch('filterCondition', function() {
+            alert($rootScope.filterCondition);
             catalogService.getCatalogProductAlbums({
                 id: $stateParams.id_products,
                 page: $stateParams.page,
