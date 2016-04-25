@@ -330,7 +330,7 @@
     </div>
 
     <div class="row margin-top_5 relative">
-        <div class="col-sm-3 col-sm-offset-1">
+        <div class="col-sm-2 col-sm-offset-1">
             <div class="row">
                 <div class="header__search-border left"><input class="header__search fiveMinuts" placeholder="Что ищем?" ng-model="searchText" ng-click="bySearch = true" ng-keyup="$event.keyCode == 13 && search()"/></div>
                 <div class="header__search-button left" ng-click="search()">
@@ -359,6 +359,12 @@
 
             </div>
         </div>
+
+        <div id="m_jquery_jplayer" style="width: 0px; height: 0px;"></div>
+            <div class="col-sm-1 margin-top_10 margin-left_15">
+                <i id="play" class="glyphicon glyphicon-play pointer"></i>
+                <i id="pause" class="glyphicon glyphicon-pause pointer"></i>
+            </div>
 
         <div class="col-sm-4">
             <a href="{{ path('creativer_front_main') }}#!/" class="logo">
@@ -586,8 +592,45 @@
 
     <script src="//cdn.jsdelivr.net/jquery.mcustomscrollbar/3.0.6/jquery.mCustomScrollbar.concat.min.js"></script>
 
-    {#<script type="text/javascript" src="/vendor/moment/min/moment.min.js"></script>#}
-    {#<script type="text/javascript" src="/vendor/moment-range/lib/moment-range.bare.min.js"></script>#}
+    <script src="/vendor/jPlayer/dist/jplayer/jquery.jplayer.min.js"></script>
+    <script>
+        jQuery(function($){
+
+            $("#m_jquery_jplayer").jPlayer({
+                ready: function () {
+                    $(this).jPlayer("setMedia", {
+                        title: 'Streaming Demo',
+                        mp3: 'http://194.58.96.22:8000/radio',
+                    });
+                },
+                play: function() { // To avoid multiple jPlayers playing together.
+                    $(this).jPlayer("pauseOthers");
+                },
+                swfPath: "/vendor/jPlayer/dist/jplayer",
+                supplied: "mp3",
+                cssSelectorAncestor: "",
+                cssSelector: {
+
+                    play: "#play",
+                    pause: "#pause",
+                    volumeBar: "#VolumeBarEmpty",
+                    volumeBarValue: "#VolumeBarFull",
+                    volumeMax: "#VolumeButtonMax",
+                    mute: "#VolumeButtonMin",
+                    unmute: "#VolumeButtonMax",
+                    repeat: "#Reload",
+                    title: "#Text"
+                },
+                globalVolume: true,
+                useStateClassSkin: true,
+                autoBlur: false,
+                smoothPlayBar: true,
+                keyEnabled: true
+            });
+
+
+        })
+    </script>
 
     <script type="text/javascript" src="/vendor/angular-touch/angular-touch.js"></script>
     <script type="text/javascript" src="/vendor/venturocket-angular-slider/build/angular-slider.js"></script>

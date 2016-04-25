@@ -25,6 +25,7 @@
     "angular-animate": "~1.4.4",
     "angular-date-range-picker": "~0.4.15",
     "angular-momentjs": "~0.2.2",
-    "ng-focus-if": "~1.0.2"
+    "ng-focus-if": "~1.0.2",
+    "jPlayer": "jplayer#~2.9.2"
   }
 }
