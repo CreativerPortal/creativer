@@ -330,11 +330,17 @@
     </div>
 
     <div class="row margin-top_5 relative">
-        <div class="col-sm-2 col-sm-offset-1">
+        <div class="col-sm-3 col-sm-offset-1">
             <div class="row">
                 <div class="header__search-border left"><input class="header__search fiveMinuts" placeholder="Что ищем?" ng-model="searchText" ng-click="bySearch = true" ng-keyup="$event.keyCode == 13 && search()"/></div>
                 <div class="header__search-button left" ng-click="search()">
                     <img  src="/var/www/creativer/web/img/search_button.png" alt="поиск" />
+                </div>
+
+                <div id="m_jquery_jplayer" style="width: 0px; height: 0px;"></div>
+                <div class="right margin-top_10 padding-right_30">
+                    <i id="play" class="glyphicon glyphicon-play pointer"></i>
+                    <i id="pause" class="glyphicon glyphicon-pause pointer"></i>
                 </div>
             </div>
             <div class="row fiveMinuts fs_1-2" ng-init="condition=2" ng-show="bySearch">
@@ -359,12 +365,6 @@
 
             </div>
         </div>
-
-        <div id="m_jquery_jplayer" style="width: 0px; height: 0px;"></div>
-            <div class="col-sm-1 margin-top_10 margin-left_15">
-                <i id="play" class="glyphicon glyphicon-play pointer"></i>
-                <i id="pause" class="glyphicon glyphicon-pause pointer"></i>
-            </div>
 
         <div class="col-sm-4">
             <a href="{{ path('creativer_front_main') }}#!/" class="logo">
