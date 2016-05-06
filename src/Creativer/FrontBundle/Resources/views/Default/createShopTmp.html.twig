@@ -1,11 +1,11 @@
     <div class="row slid">
 
-        <form class="col-sm-10 padding-left_0 form_create_post" name="shop_form">
+        <form class="col-xs-10 padding-left_0 form_create_post" name="shop_form">
 
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Разделы:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Разделы:</div>
+                <div class="col-xs-10">
                     <multi-select-tree data-input-model="data" multi-select="true"
                                        data-output-model="selectedItem" data-default-label="  Выберите категорию магазина"
                                        data-callback="selectOnly1Or2(item, selectedItems)"
@@ -17,24 +17,24 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Заголовок:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Заголовок:</div>
+                <div class="col-xs-10">
                     <input type="text" name="tit" ng-model="shop_title" ng-required="true" required="">
                     <span class="text-danger" ng-show="submitted && shop_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Краткое описание:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Краткое описание:</div>
+                <div class="col-xs-10">
                     <input type="text" name="description" ng-model="shop_description" ng-required="true" required="">
                     <span class="text-danger" ng-show="submitted && shop_form.description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Полное описание:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Полное описание:</div>
+                <div class="col-xs-10">
                     <textarea name="full_description" ng-model="shop_full_description" ng-required="true" required=""></textarea>
                     <span class="text-danger" ng-show="submitted && shop_form.full_description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
@@ -43,31 +43,31 @@
             <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Сайт:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Сайт:</div>
+                <div class="col-xs-10">
                     <input name="site" ng-model="site">
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">
+                <div class="col-xs-2">
                     <span>Адрес: <span class="glyphicon glyphicon-plus-sign pointer" style="top: 3px;" ng-click="add()"></span></span>
                 </div>
-                <div class="col-sm-10 right" ng-repeat="(key,ad) in address track by $index">
+                <div class="col-xs-10 right" ng-repeat="(key,ad) in address track by $index">
                     <input class="margin-top_5" name="address" ng-model="address[key]">
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Телефон:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Телефон:</div>
+                <div class="col-xs-10">
                     <textarea name="address" ng-model="telephone"></textarea>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">E-mail:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">E-mail:</div>
+                <div class="col-xs-10">
                     <input name="address" ng-model="email">
                 </div>
             </div>
@@ -103,7 +103,7 @@
             </div>
 
             <div class="row">
-                <div class="col-sm-12" ng-show="uploader.isHTML5">
+                <div class="col-xs-12" ng-show="uploader.isHTML5">
                     <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
                         <div class="progress" style="height: 10px;" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                             <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>

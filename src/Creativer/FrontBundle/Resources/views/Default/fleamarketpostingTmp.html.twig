@@ -1,9 +1,9 @@
     <div class="row slid" ng-init="post_id = {{ post_id }}">
 
-        <form class="col-sm-10 padding-left_0 form_create_post" name="baraholka_form">
+        <form class="col-xs-10 padding-left_0 form_create_post" name="baraholka_form">
             <div class="row margin-top_20">
-                <div class="col-sm-2">Категория:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Категория:</div>
+                <div class="col-xs-10">
                     <select focus-if="submitted && baraholka_form.post_category.$error.required" name="post_category" class="selectForumId" ng-model="post_category.id" required>
                         <option ng-repeat="p_category in post_category" value="[[ p_category.id ]]">[[ p_category.name ]]</option>
                     </select>
@@ -13,8 +13,8 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Разделы:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Разделы:</div>
+                <div class="col-xs-10">
 
                     {#<select name="section" class="selectForumId" ng-model="section" ng-options="children.id as children.name for children in baraholka">#}
                     {#</select>#}
@@ -30,16 +30,16 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Заголовок:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Заголовок:</div>
+                <div class="col-xs-10">
                     <input focus-if="submitted && baraholka_form.tit.$error.required" type="text" name="tit" ng-model="name_title" ng-required="true" required="">
                     <span class="text-danger" ng-show="submitted && baraholka_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Местонахождения:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Местонахождения:</div>
+                <div class="col-xs-10">
                     <select name="city" class="selectForumId" ng-model="city">
                         <option value="[[ p_city.id ]]" ng-repeat="p_city in post_city">[[ p_city.name ]]</option>
                     </select>
@@ -49,7 +49,7 @@
             <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-12">
+                <div class="col-xs-12">
                     <h4>Подробно опишите товар или услугу</h4>
                     <textarea focus-if="submitted && baraholka_form.full_description_short.$error.required" class="margin-top_10" ng-model="full_description" name="full_description" required=""></textarea>
                     <span class="text-danger" ng-show="submitted && baraholka_form.full_description.$error.required">Описание не может быть пустым</span>
@@ -57,7 +57,7 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-12">
+                <div class="col-xs-12">
                     Краткое описание
                     <textarea focus-if="submitted && baraholka_form.description_short.$error.required" ng-model="description_short" name="description_short" required=""></textarea>
                     <span class="text-danger" ng-show="submitted && baraholka_form.description_short.$error.required">Краткое описание не может быть пустым</span>
@@ -67,7 +67,7 @@
             <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-12">
+                <div class="col-xs-12">
                     <h4>Обязательно указывайте реальную цену</h4>
                     <div>
                         <input focus-if="submitted && baraholka_form.price.$error.required" type="number" ng-model="price" name="price" style="width: 100px;" required=""> руб.<br/>
@@ -118,8 +118,8 @@
                 </div>
             </div>
 
-            <div class="row col-sm-12 margin-top_20">
-                <div class="col-sm-12 padding-left_0 padding-right_0">
+            <div class="row col-xs-12 margin-top_20">
+                <div class="col-xs-12 padding-left_0 padding-right_0">
                     <div ng-show="uploader.isHTML5" style="height: 30px;">
                         <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
                             <div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class">
@@ -129,7 +129,7 @@
                     </div>
                 </div>
 
-                {#<div class="col-sm-12 bg-warning text-center">#}
+                {#<div class="col-xs-12 bg-warning text-center">#}
                         {#<h5 class="text-danger">Увеличьте продажи: оплатите выделение объявления через банкомат, инфокиоск, интернет-банкинг!</h5>#}
                         {#Варианты выделения всего от 3000 рублей. Заметное объявление — активные продажи! <a href="/price.php" target="_blank">Посмотреть цены</a>#}
                 {#</div>#}
@@ -148,7 +148,7 @@
 
         </form>
 
-        <div class="col-sm-2">
+        <div class="col-xs-2">
 
             <div class="row">
                 <div class="margin-top_80">

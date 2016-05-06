@@ -20,10 +20,10 @@
                 </a>
             </div>
             <div class="margin-top_10 row wrapper__comment">
-                <div class="col-sm-9 padding-left_0 overflow-hidden text-left">
+                <div class="col-xs-9 padding-left_0 overflow-hidden text-left">
                     <span class="left user__text">[[ items.items[key_img].text_img ]]</span>
                 </div>
-                <div class="col-sm-3 padding-right_0 padding-left_0 text-right">
+                <div class="col-xs-3 padding-right_0 padding-left_0 text-right">
                     <time class="text-gray ng-binding">[[ items.items[key_img].date  | date: "dd MMM yyyy" ]]</time> |
 
                     {% if is_granted('ROLE_USER') %}
@@ -41,9 +41,9 @@
 
             <div class="row margin-top_10 wrapper__comment">
 
-                <div class="col-sm-9 text-left" >
-                    <div ng-if="items.items[key_img][0]" class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img][0].image_comments">
-                        <div class="col-sm-2">
+                <div class="col-xs-9 text-left" >
+                    <div ng-if="items.items[key_img][0]" class="row col-xs-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img][0].image_comments">
+                        <div class="col-xs-2">
                             <a href="/#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
                             </a>
@@ -51,17 +51,17 @@
                                 <img ng-src="[[ user.avatar ]]">
                             </a>
                         </div>
-                        <div class="col-sm-10 padding-left_10 padding-right_0 comm" ng-init="comment.remove_comment = false">
+                        <div class="col-xs-10 padding-left_10 padding-right_0 comm" ng-init="comment.remove_comment = false">
                             <div class="row">
-                                <div class="col-sm-6 user__text_bold text-left" ng-if="comment.user"><a class="text-gray" href="/#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
-                                <div class="col-sm-6 user__text_bold text-left" ng-if="!comment.user"><a class="text-gray" href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></div>
-                                <div class="col-sm-6 padding-right_0">
+                                <div class="col-xs-6 user__text_bold text-left" ng-if="comment.user"><a class="text-gray" href="/#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
+                                <div class="col-xs-6 user__text_bold text-left" ng-if="!comment.user"><a class="text-gray" href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></div>
+                                <div class="col-xs-6 padding-right_0">
                                     <div ng-if="id_user == comment.user.id && comment.remove_comment == false" class="right text-right edit_post">
                                             <span ng-click="comment.remove_comment = true">
                                                 <span class="text-gray glyphicon glyphicon-remove pointer"></span>
                                             </span>
                                     </div>
-                                    <div ng-if="comment.remove_comment == true" class="col-sm-12 padding-right_0 text-right">
+                                    <div ng-if="comment.remove_comment == true" class="col-xs-12 padding-right_0 text-right">
                                         Удалить ?
                                         <span class="text-blue pointer" ng-click="removeComment(key_img,comment.id,key)">Да</span> |
                                         <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
@@ -69,17 +69,17 @@
                                 </div>
                             </div>
 
-                            <div class="row col-sm-12"><p class="user__text left">[[ comment.text ]]</p></div>
-                            <div class="row col-sm-12 text-left padding-right_0">
+                            <div class="row col-xs-12"><p class="user__text left">[[ comment.text ]]</p></div>
+                            <div class="row col-xs-12 text-left padding-right_0">
                                 <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
                                 <span class="right pointer fs_0-8 text-blue" ng-show="comment.user.id != id_user" ng-click="user.text_comment = comment.user.username+', '">Ответить</span>
                             </div>
                         </div>
-                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
+                        <div class="col-xs-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                     </div>
 
-                    <div ng-if="!items.items[key_img][0]" class="row col-sm-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img].image_comments">
-                        <div class="col-sm-2">
+                    <div ng-if="!items.items[key_img][0]" class="row col-xs-12 padding-right_0" ng-repeat="(key,comment) in items.items[key_img].image_comments">
+                        <div class="col-xs-2">
                             <a href="/#!/[[ comment.user.id ]]" ng-class="{'user__avatar-super-mini_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-super-mini" ng-if="comment.user" style="background-color: [[ comment.user.color ]]">
                                 <img  ng-src="[[ comment.user.avatar ]]">
                             </a>
@@ -87,17 +87,17 @@
                                 <img ng-src="[[ user.avatar ]]">
                             </a>
                         </div>
-                        <div class="col-sm-10 padding-left_10 padding-right_0 comm" ng-init="comment.remove_comment = false">
+                        <div class="col-xs-10 padding-left_10 padding-right_0 comm" ng-init="comment.remove_comment = false">
                             <div class="row">
-                                <div class="col-sm-6 user__text_bold text-left" ng-if="comment.user"><a class="text-gray" href="/#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
-                                <div class="col-sm-6 user__text_bold text-left" ng-if="!comment.user"><a class="text-gray" href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></div>
-                                <div class="col-sm-6 padding-right_0">
+                                <div class="col-xs-6 user__text_bold text-left" ng-if="comment.user"><a class="text-gray" href="/#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
+                                <div class="col-xs-6 user__text_bold text-left" ng-if="!comment.user"><a class="text-gray" href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></div>
+                                <div class="col-xs-6 padding-right_0">
                                     <div ng-if="id_user == comment.user.id && comment.remove_comment == false" class="right text-right edit_post">
                                             <span ng-click="comment.remove_comment = true">
                                                 <span class="text-gray glyphicon glyphicon-remove pointer"></span>
                                             </span>
                                     </div>
-                                    <div ng-if="comment.remove_comment == true" class="col-sm-12 padding-right_0 text-right">
+                                    <div ng-if="comment.remove_comment == true" class="col-xs-12 padding-right_0 text-right">
                                         Удалить ?
                                         <span class="text-blue pointer" ng-click="removeComment(key_img,comment.id,key)">Да</span> |
                                         <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
@@ -105,12 +105,12 @@
                                 </div>
                             </div>
 
-                            <div class="row col-sm-12"><p class="user__text left">[[ comment.text ]]</p></div>
-                            <div class="row col-sm-12 text-left">
+                            <div class="row col-xs-12"><p class="user__text left">[[ comment.text ]]</p></div>
+                            <div class="row col-xs-12 text-left">
                                 <time class="text-gray comment_time">[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
                             </div>
                         </div>
-                        <div class="col-sm-12 margin-left_25 margin-top_10 slid__comment__line"></div>
+                        <div class="col-xs-12 margin-left_25 margin-top_10 slid__comment__line"></div>
                     </div>
 
                     {% if is_granted('ROLE_USER') %}
@@ -121,15 +121,15 @@
                         </div>
                     {% endif %}
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xs-3">
 
                     <div class="row">
-                        <div class="col-sm-5">
+                        <div class="col-xs-5">
                             <a href="/#!/[[ items.items[key_img].id_user ]]" ng-class="{'user__avatar-super-mini_online':items.items[key_img].connection_status == '{{ date_online }}'}" class="user__avatar-super-mini left" style="background-color: [[ items.items[key_img].color ]]">
                                 <img ng-src="[[ items.items[key_img].avatar ]]">
                             </a>
                         </div>
-                        <div class="col-sm-7 padding-right_0">
+                        <div class="col-xs-7 padding-right_0">
                             <a href="/#!/[[ items.items[key_img].id_user ]]" class="text-gray">
                                 <span class="fs_0-8">[[ items.items[key_img].username ]] [[ items.items[key_img].lastname ]]</span>
                             </a><br>

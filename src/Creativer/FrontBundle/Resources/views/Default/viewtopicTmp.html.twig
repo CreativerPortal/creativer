@@ -1,16 +1,16 @@
     <div class="row slid">
 
-        <div class="col-sm-10 padding-left_0">
+        <div class="col-xs-10 padding-left_0">
             <div class="row">
-                <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a  ng-click="$root.searchInBaraholka = null" class="text-black" href="/#!/baraholka">Барахолка</a></h3></div>
-                <div class="col-sm-3 slid__search padding-left_0 padding-right_5 margin-top_20">
+                <div class="col-xs-2 padding-left_0"><h3 class="lobster margin-left_0"><a  ng-click="$root.searchInBaraholka = null" class="text-black" href="/#!/baraholka">Барахолка</a></h3></div>
+                <div class="col-xs-3 slid__search padding-left_0 padding-right_5 margin-top_20">
                     <input placeholder="Поиск по барахолке" ng-model="$root.searchInBaraholka">
                     <a href="/#!/viewforum" class="right margin-top_3"><button class="slid__slider-button" ng-click="searchPostsBaraholkaByText()"></button></a>
                 </div>
             </div>
 
             <nav class="row slid__menu margin-top_20">
-                <div class="col-sm-3 padding-left_0 padding-right_0" style="width: 21%;">
+                <div class="col-xs-3 padding-left_0 padding-right_0" style="width: 21%;">
                     <span>Страна</span>
                     <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Все' ]]</span></label>
                     <input type="checkbox" class="cities-checkbox" id="all_cities">
@@ -33,15 +33,15 @@
                     </div>
                 </div>
 
-                <div class="col-sm-2 padding-left_0" style="width: 19%;">
+                <div class="col-xs-2 padding-left_0" style="width: 19%;">
                     <input type="checkbox" class="baraholka__checkbox" id="my_singboard" ng-model="$root.my_singboard">
                     <label class="text-blue baraholka__label" for="my_singboard">Мои объявления</label>
                 </div>
-                <div class="col-sm-4 padding-right_0 padding-left_0">
+                <div class="col-xs-4 padding-right_0 padding-left_0">
                     <input type="checkbox" class="baraholka__checkbox" id="singboard_participate" ng-model="$root.singboard_participate">
                     <label class="text-blue baraholka__label" for="singboard_participate">Объявления, в которых я участвую</label>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xs-3">
                     <input type="checkbox" class="baraholka__checkbox" id="new24" ng-model="$root.new24">
                     <label class="text-blue baraholka__label" for="new24">Новое за 24 часа</label>
                 </div>
@@ -50,21 +50,21 @@
             <div class="row"><a class="text-blue text-italic" href="/#!/viewforum/[[ post.categories_baraholka.id ]]">Вернуться к объявлениям</a></div>
             <div class="row"><h2 class="lobster margin-left_0">[[ post.name ]]</h2></div>
             <div class="row">
-                <div class="col-sm-6 padding-left_0 fs_0-8"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
+                <div class="col-xs-6 padding-left_0 fs_0-8"><time class="comment_time">[[ post.date | date: "dd.MM.yyyy" ]]</time></div>
                 {% if is_granted('ROLE_USER') %}
-                    <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="post.user.id == $root.id_user"><a href="/#!/edit_fleamarketposting/[[ post.id ]]">Редактировать</a></div>
+                    <div class="col-xs-6 text-blue fs_0-8 text-right" ng-if="post.user.id == $root.id_user"><a href="/#!/edit_fleamarketposting/[[ post.id ]]">Редактировать</a></div>
                 {% endif %}
 
             </div>
 
             <div class="row margin-top_25">
-                <div class="col-sm-2 padding-left_0"><a href="/#!/[[ post.user.id ]]">
+                <div class="col-xs-2 padding-left_0"><a href="/#!/[[ post.user.id ]]">
                         [[ post.user.username ]] [[ post.user.lastname ]]
                         <div class="user__avatar-mini margin-top_10" ng-class="{'user__avatar-mini_online':post.user.connection_status == '{{ date_online }}'}">
                             <img ng-src="[[ post.user.avatar ]]">
                         </div>
                     </a></div>
-                <article class="col-sm-10 slid_article">
+                <article class="col-xs-10 slid_article">
                     <p class="text-gray">
                         [[ post.full_description ]]
                         <div class="text-center">
@@ -75,14 +75,14 @@
             </div>
 
                 {% if is_granted('ROLE_USER') %}
-                    <div class="row col-sm-11 padding-right_5 col-sm-offset-1 margin-top_30 padding-5-15-5-15" emoji-form emoji-message="emojiMessage">
+                    <div class="row col-xs-11 padding-right_5 col-xs-offset-1 margin-top_30 padding-5-15-5-15" emoji-form emoji-message="emojiMessage">
                         <textarea msd-elastic="" class="text-gray right margin-top_10"  ng-model="post.text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 70px; width: 687px"></textarea>
-                        <div class="col-sm-6 padding-left_0">
+                        <div class="col-xs-6 padding-left_0">
                             <span id="emojibtn" class="pointer">
                                 <i class="icon icon-emoji"></i>
                             </span>
                         </div>
-                        <div ng-show="post.text_comment || emojiMessage.rawhtml" class="col-sm-6 text-right padding-right_0">
+                        <div ng-show="post.text_comment || emojiMessage.rawhtml" class="col-xs-6 text-right padding-right_0">
                             <button class="true fs_0-9" ng-class="{'loader':loader}" ng-click="saveComment(post,post.text_comment)">Отправить</button>
                             <button class="false fs_0-9" ng-click="emojiMessage.rawhtml=''">Отменить</button>
                         </div>
@@ -92,26 +92,26 @@
 
 
                 <div class="row slid__comment margin-top_20 comm" ng-repeat="(key,comment) in post.post_comments">
-                    <div class="col-sm-11 col-sm-offset-1 padding-left_0 comm">
+                    <div class="col-xs-11 col-xs-offset-1 padding-left_0 comm">
 
-                        <div class="user__avatar__viewtopic col-sm-1">
+                        <div class="user__avatar__viewtopic col-xs-1">
                             <div class="user__avatar-mini-2" ng-class="{'user__avatar-mini-2_online':comment.user.connection_status == '{{ date_online }}'}" style="background-color: [[ comment.user.color ]]">
                                 <img ng-show="[[ comment.user.avatar ]]" ng-src="[[ comment.user.avatar ]]">
                             </div>
                         </div>
 
-                        <div class="row col-sm-11 padding-right_5">
+                        <div class="row col-xs-11 padding-right_5">
                             <div class="text-blue row" ng-init="comment.remove_comment = false">
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <a href="/#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div ng-if="id_user == comment.user.id && comment.remove_comment == false" class="right text-right edit_post">
                                         <span ng-click="comment.remove_comment = true">
                                             <span class="text-gray glyphicon glyphicon-remove pointer"></span>
                                         </span>
                                     </div>
-                                    <div ng-if="comment.remove_comment == true" class="col-sm-12 padding-right_0 text-right text-gray">
+                                    <div ng-if="comment.remove_comment == true" class="col-xs-12 padding-right_0 text-right text-gray">
                                         Удалить ?
                                         <span class="text-blue pointer" ng-click="removeComment(key,comment.id)">Да</span> |
                                         <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
@@ -119,23 +119,23 @@
                                 </div>
                             </div>
                             <div class="margin-top_5" ng-bind-html="comment.text | colonToSmiley"></div>
-                            <div class="text-gray fs_0-8 col-sm-12 padding-left_0 padding-right_0">
+                            <div class="text-gray fs_0-8 col-xs-12 padding-left_0 padding-right_0">
                                 <time datetime='[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]'>[[ comment.date | date: "dd MMM yyyy HH:mm" ]]</time>
                                 <span class="right pointer text-blue text-right" ng-show="comment.user.id != id_user" ng-click="emojiMessage.rawhtml = comment.user.username+', '; post.answer_id = comment.user.id; post.answer_username = comment.user.username;">Ответить</span>
                             </div>
                             {# <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div> #}
                         </div>
 
-                        <div class="col-sm-11 col-sm-offset-1 slid__comment__line"></div>
+                        <div class="col-xs-11 col-xs-offset-1 slid__comment__line"></div>
                     </div>
                 </div>
 
 
         </div>
 
-        <div class="col-sm-2">
+        <div class="col-xs-2">
             {% if is_granted('ROLE_USER') %}
-                <a href="/#!/fleamarketposting" class="col-sm-5 advert_button margin-top_20">Разместить объявление</a>
+                <a href="/#!/fleamarketposting" class="col-xs-5 advert_button margin-top_20">Разместить объявление</a>
             {% endif %}
 
             <div class="row">

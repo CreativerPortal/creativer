@@ -46,49 +46,49 @@
 <div class="row slid  padding-right_0" ng-show="user">
 
         <div class="row">
-            <h3 class="col-sm-5 lobster name__user"><a href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
-            <h4 class="col-sm-6 lobster text-gray margin-top_30 padding-left_0">Настройки</h4>
+            <h3 class="col-xs-5 lobster name__user"><a href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
+            <h4 class="col-xs-6 lobster text-gray margin-top_30 padding-left_0">Настройки</h4>
         </div>
 
-         <div class="col-sm-5 user padding-left_0">
+         <div class="col-xs-5 user padding-left_0">
              {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
          </div>
 
 
-         <div class="col-sm-7 padding-left_0">
+         <div class="col-xs-7 padding-left_0">
              <h4 class="margin-left_25" ng-if="replace_password == undefined">Сохранить пароль</h4>
              <h4 class="margin-left_25 alert-success" ng-if="replace_password == 'true'"><span class="glyphicon glyphicon-ok"></span> Пароль изменён успешно</h4>
              <h4 class="margin-left_25 alert-danger" ng-if="replace_password == 'false'"><span class="glyphicon glyphicon-remove"></span> Ошибка изменения пароля</h4>
 
              <div class="row margin-left_25 slid__comment__line"></div>
              <div class="row margin-top_20">
-                <div class="col-sm-5 text-right">Старый пароль:</div>
-                <div class="col-sm-7"><input class="" type="password" ng-model="oldPassword"></div>
+                <div class="col-xs-5 text-right">Старый пароль:</div>
+                <div class="col-xs-7"><input class="" type="password" ng-model="oldPassword"></div>
              </div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right">Новый пароль:</div>
-                 <div class="col-sm-7"><input class="" type="password" ng-model="newPassword"></div>
+                 <div class="col-xs-5 text-right">Новый пароль:</div>
+                 <div class="col-xs-7"><input class="" type="password" ng-model="newPassword"></div>
              </div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right">Повторите пароль:</div>
-                 <div class="col-sm-7"><input class="" type="password" ng-model="repeatPassword"></div>
+                 <div class="col-xs-5 text-right">Повторите пароль:</div>
+                 <div class="col-xs-7"><input class="" type="password" ng-model="repeatPassword"></div>
              </div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right"></div>
-                 <div class="col-sm-7">
+                 <div class="col-xs-5 text-right"></div>
+                 <div class="col-xs-7">
                      <button class="true fs_0-9" ng-class="{'loader': loader_password}" ng-click="replacePassword(oldPassword,newPassword,repeatPassword); loader_password=true;">Сохранить</button>
                  </div>
              </div>
          </div>
 
-         {#<div class="col-sm-7 padding-left_0">#}
+         {#<div class="col-xs-7 padding-left_0">#}
              {#<h4 class="margin-left_25">??????</h4>#}
              {#<div class="row margin-left_25 slid__comment__line"></div>#}
 
              {#<form class="ac-custom ac-radio ac-fill tariff" autocomplete="off">#}
 
                  {#<div class="line_package margin-left_20">#}
-                     {#<div class="col-sm-4 tariff_block">#}
+                     {#<div class="col-xs-4 tariff_block">#}
                          {#<input id="r1" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[0].id }}">#}
                          {#<label class="start" for="r1">#}
                              {#<span class="text-white">{{ tariffs[0].name }}</span><br>#}
@@ -97,7 +97,7 @@
                              {#</span>#}
                          {#</label>#}
                      {#</div>#}
-                     {#<div class="col-sm-4 tariff_block">#}
+                     {#<div class="col-xs-4 tariff_block">#}
                          {#<input id="r2" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[1].id  }}">#}
                          {#<label class="standard" for="r2">#}
                              {#<span class="text-white">{{ tariffs[1].name }}</span><br>#}
@@ -106,7 +106,7 @@
                              {#</span>#}
                          {#</label>#}
                      {#</div>#}
-                     {#<div class="col-sm-4 tariff_block">#}
+                     {#<div class="col-xs-4 tariff_block">#}
                          {#<input id="r3" name="r1" type="radio" ng-model="user.tariff.id" value="{{ tariffs[2].id }}">#}
                          {#<label class="unlimited" for="r3">#}
                              {#<span class="text-white">{{ tariffs[2].name  }}</span><br>#}
@@ -118,36 +118,36 @@
                  {#</div>#}
              {#</form>#}
 
-             {#<div class="row col-sm-11 col-sm-offset-1 padding-left_0">??? ?????? <span class="text-blue">[[ user.balance | number : 0 ]]</span> ???.</div>#}
+             {#<div class="row col-xs-11 col-xs-offset-1 padding-left_0">??? ?????? <span class="text-blue">[[ user.balance | number : 0 ]]</span> ???.</div>#}
 
              {#<div class="row margin-top_20">#}
-                 {#<div class="col-sm-5 text-right"></div>#}
-                 {#<div class="col-sm-7">#}
+                 {#<div class="col-xs-5 text-right"></div>#}
+                 {#<div class="col-xs-7">#}
                      {#<button class="true fs_0-9" ng-class="{'loader': loader_tariff}" ng-click="changeTariff(user.tariff.id)">Сохранить</button>#}
                  {#</div>#}
              {#</div>#}
          {#</div>#}
 
-         <form class="col-sm-7 padding-left_0 ac-custom ac-checkbox ac-checkmark" autocomplete="off">
+         <form class="col-xs-7 padding-left_0 ac-custom ac-checkbox ac-checkmark" autocomplete="off">
              <h4 class="margin-left_25">Оповещения</h4>
              <div class="row margin-left_25 slid__comment__line"></div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right">О сообщениях:</div>
-                 <div class="col-sm-7">
+                 <div class="col-xs-5 text-right">О сообщениях:</div>
+                 <div class="col-xs-7">
                      <input id="cb7" name="cb7" type="checkbox" ng-click="notificationMessage()" ng-model="user.notification_message" ng-checked="user.notification_message == true">
                      <label for="cb7"></label>
                  </div>
              </div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right">О комментариях:</div>
-                 <div class="col-sm-7">
+                 <div class="col-xs-5 text-right">О комментариях:</div>
+                 <div class="col-xs-7">
                      <input id="cb7" name="cb7" type="checkbox" ng-click="notificationComment()" ng-model="user.notification_comment" ng-checked="user.notification_comment == true">
                      <label for="cb7"></label>
                  </div>
              </div>
          </form>
 
-         <form class="col-sm-7 padding-left_0 ac-custom ac-checkbox ac-checkmark">
+         <form class="col-xs-7 padding-left_0 ac-custom ac-checkbox ac-checkmark">
              <h4 class="margin-left_25" ng-if="username_lastname == undefined">Дополнительно</h4>
              <h4 class="margin-left_25 alert-success" ng-if="username_lastname == 'true'"><span class="glyphicon glyphicon-ok"></span> Имя изменено успешно</h4>
              <h4 class="margin-left_25 alert-danger" ng-if="username_lastname == 'false'"><span class="glyphicon glyphicon-remove"></span> Ошибка изменения имени</h4>
@@ -155,23 +155,23 @@
 
              <div class="row margin-left_25 slid__comment__line"></div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right">Автопрокрутка изображений в каталоге:</div>
-                 <div class="col-sm-7">
+                 <div class="col-xs-5 text-right">Автопрокрутка изображений в каталоге:</div>
+                 <div class="col-xs-7">
                      <input id="cb7" name="cb7" type="checkbox" ng-click="changeAutoScroll()" ng-model="user.autoscroll" ng-checked="user.autoscroll == true">
                      <label for="cb7"></label>
                  </div>
              </div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right">Имя:</div>
-                 <div class="col-sm-7"><input class="" type="text" ng-model="username" ng-value="user.username"></div>
+                 <div class="col-xs-5 text-right">Имя:</div>
+                 <div class="col-xs-7"><input class="" type="text" ng-model="username" ng-value="user.username"></div>
              </div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right">Фамилия:</div>
-                 <div class="col-sm-7"><input class="" type="text" ng-model="lastname" ng-value="user.lastname"></div>
+                 <div class="col-xs-5 text-right">Фамилия:</div>
+                 <div class="col-xs-7"><input class="" type="text" ng-model="lastname" ng-value="user.lastname"></div>
              </div>
              <div class="row margin-top_20">
-                 <div class="col-sm-5 text-right"></div>
-                 <div class="col-sm-7">
+                 <div class="col-xs-5 text-right"></div>
+                 <div class="col-xs-7">
                      <button class="true fs_0-9" ng-class="{'loader': loader_username}" ng-click="saveName(username,lastname); loader_username=true;">Сохранить</button>
                  </div>
              </div>

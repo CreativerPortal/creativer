@@ -118,7 +118,7 @@
     {#.height-resize .time-count-container{#}
         {#margin-top: 20px !important;#}
     {#}#}
-    {#.height-resize .team-container .col-sm-4{#}
+    {#.height-resize .team-container .col-xs-4{#}
         {#padding-top:20px !important;#}
     {#}#}
     {#.container{#}
@@ -297,7 +297,7 @@
 <header class="header" ng-controller="headerCtrl">
 
     <div class="row">
-        <div class="col-sm-3 col-sm-offset-1 fiveMinuts padding-left_0">
+        <div class="col-xs-3 col-xs-offset-1 fiveMinuts padding-left_0">
             <a href="/#!/products/1000" class="btn button_header_09 text-left">
                 <span>Товары</span>
             </a>
@@ -306,7 +306,7 @@
             </a>
         </div>
 
-        <div class="col-sm-4 col-sm-offset-3 fiveMinuts">
+        <div class="col-xs-4 col-xs-offset-3 fiveMinuts">
             <a href="/#!/viewforum/last" class="btn button_header_09 right">
                 <span>Барахолка</span>
             </a>
@@ -316,17 +316,17 @@
         </div>
 
         {% if is_granted('ROLE_USER') %}
-            <div class="col-sm-1">
+            <div class="col-xs-1">
             </div>
         {% else %}
-            <div class="col-sm-1">
+            <div class="col-xs-1">
                 {#<img src="/var/www/creativer/web/img/flag_rus.png"  alt="русский"/>#}
             </div>
         {% endif %}
     </div>
 
     <div class="row margin-top_5 relative">
-        <div class="col-sm-3 col-sm-offset-1">
+        <div class="col-xs-3 col-xs-offset-1">
             <div class="row">
                 <div class="header__search-border left"><input class="header__search fiveMinuts" placeholder="Что ищем?" ng-model="searchText" ng-click="bySearch = true" ng-keyup="$event.keyCode == 13 && search()"/></div>
                 <div class="header__search-button left" ng-click="search()">
@@ -362,36 +362,36 @@
             </div>
         </div>
 
-        <div class="col-sm-4">
+        <div class="col-xs-4">
             <a href="{{ path('creativer_front_main') }}#!/" class="logo">
                 <img src="/var/www/creativer/web/img/logo.png" />
             </a>
         </div>
 
         {% if is_granted('ROLE_USER') %}
-            <div class="messages col-sm-1 padding-right_0 text-center">
+            <div class="messages col-xs-1 padding-right_0 text-center">
                 <div class="text-white fiveMinuts black_ball pointer" >[[ events_attend.length ]]</div>
                 <span class="text-white fiveMinuts pointer">События</span>
 
                 <div class="events__curtain" ng-if="events_attend.length">
                     <div class="events__curtain__wrapper" scrollbar>
                         <a ng-href="#!/event/[[ event.id ]]" class="events__curtain-body margin-left_10" ng-repeat="event in events_attend">
-                                <div class="col-sm-4 text-right padding-top_10">
+                                <div class="col-xs-4 text-right padding-top_10">
                                     <div class="event__avatar-mini right">
                                         <img ng-src="{{ path_img_event_original }}/[[ event.path ]][[ event.img ]]" class="text-left">
                                     </div>
                                 </div>
-                                <div class="col-sm-8 padding-left_0 padding-right_0 padding-top_5">
+                                <div class="col-xs-8 padding-left_0 padding-right_0 padding-top_5">
                                     <div class="row">
-                                        <div class=" col-sm-10 text-left">
+                                        <div class=" col-xs-10 text-left">
                                             <span class="text-white fs_0-8 lobster">[[ event.name ]]</span>
                                         </div>
                                     </div>
-                                    <div class="row col-sm-12">
+                                    <div class="row col-xs-12">
                                         <p class="fs_0-8 left text-white">[[ event.start_date | date: "dd.MM.yyyy" ]] - [[ event.end_date | date: "dd.MM.yyyy" ]]</p>
                                     </div>
                                 </div>
-                                <div class="row col-sm-10 col-sm-offset-1"></div>
+                                <div class="row col-xs-10 col-xs-offset-1"></div>
                         </a>
                     </div>
                 </div>
@@ -401,44 +401,44 @@
                     </div>
                 </div>
             </div>
-            <div class="messages col-sm-1 padding-right_5 padding-left_0 margin-top_5 text-center pointer">
+            <div class="messages col-xs-1 padding-right_5 padding-left_0 margin-top_5 text-center pointer">
                 <img class="margin-left_20" ng-class="{background__envelope: $root.new_messages.length, background__envelope__yellow: $root.notification.length }" ng-src="/var/www/creativer/web/img/message_ico.png" alt="сообщения"/>
                     <span class="text-white fiveMinuts margin-left_3 fs_0-8" >([[ $root.new_messages.length ]],[[ $root.notification.length ]])</span><br>
                 <span class="text-white fiveMinuts">Сообщения</span>
                 <div class="messages__curtain">
                     <div class="messages__curtain-angle"></div>
                     <div class="messages__curtain-body">
-                        <a href="#!/messages" ng-click="removeUser()" class="text-blue text-left margin-top_10 margin-left_15 col-sm-10 padding-left_0">Перейти в сообщения</a>
-                        <div class="margin-left_15 col-sm-11 padding-left_0 horizontal_line margin-bottom_5"></div>
+                        <a href="#!/messages" ng-click="removeUser()" class="text-blue text-left margin-top_10 margin-left_15 col-xs-10 padding-left_0">Перейти в сообщения</a>
+                        <div class="margin-left_15 col-xs-11 padding-left_0 horizontal_line margin-bottom_5"></div>
                         <div class="text-gray lobster" ng-show="!$root.new_messages[0]"><h4>пусто</h4></div>
                         <div ng-href="/#![[ notification.url ]]" class="row margin-top_10 text-left" ng-show="$root.new_messages[0]" ng-repeat="new_message in $root.new_messages">
-                            <div class="col-sm-2 col-sm-offset-1 padding-right_0 padding-left_0">
+                            <div class="col-xs-2 col-xs-offset-1 padding-right_0 padding-left_0">
                                 <div class="user__avatar-mini-header text-left" style="background-color: [[ new_message.color ]];">
                                     <img ng-src="[[ new_message.avatar ]]" class="text-left">
                                 </div>
                             </div>
-                            <div class="col-sm-9 padding-left_0 padding-right_0">
+                            <div class="col-xs-9 padding-left_0 padding-right_0">
                                 <div class="row">
-                                    <div class=" col-sm-10 text-left">
+                                    <div class=" col-xs-10 text-left">
                                         <a ng-href="#!/[[ new_message.other_user ]]" class="text-blue">[[ new_message.username ]] [[ new_message.lastname ]]</a>
                                     </div>
                                 </div>
-                                <a ng-href="#!/chat/[[ new_message.other_user ]]" class="row col-sm-12 padding-right_0">
-                                    <div class="row col-sm-12 text-gray">
+                                <a ng-href="#!/chat/[[ new_message.other_user ]]" class="row col-xs-12 padding-right_0">
+                                    <div class="row col-xs-12 text-gray">
                                         <p class="fs_0-8 left" ng-bind-html="new_message.text | colonToSmiley"></p>
                                     </div>
                                     <div class="row text-gray">
-                                        <div class="col-sm-10 text-right padding-right_0 fs_0-8"><time class="text-gray fs_0-8">[[ new_message.date | date: "hh:mm dd.MM" ]]</time></div>
+                                        <div class="col-xs-10 text-right padding-right_0 fs_0-8"><time class="text-gray fs_0-8">[[ new_message.date | date: "hh:mm dd.MM" ]]</time></div>
                                     </div>
                                 </a>
                             </div>
-                            <div class="row col-sm-10 col-sm-offset-1 horizontal_line"></div>
+                            <div class="row col-xs-10 col-xs-offset-1 horizontal_line"></div>
                         </div>
 
-                        <div ng-show="$root.notification[0]" class="margin-left_15 col-sm-11 padding-left_0 horizontal_line margin-bottom_5"></div>
+                        <div ng-show="$root.notification[0]" class="margin-left_15 col-xs-11 padding-left_0 horizontal_line margin-bottom_5"></div>
 
                         <div class="row margin-top_10 text-left block" ng-show="$root.notification[0]" ng-repeat="notification in $root.notification">
-                            <a ng-href="/#![[ notification.url ]]" class="col-sm-1 col-sm-offset-1 padding-right_0 padding-left_0">
+                            <a ng-href="/#![[ notification.url ]]" class="col-xs-1 col-xs-offset-1 padding-right_0 padding-left_0">
                                 <div ng-if="notification.type == 'post_comment'" class="text-left icon_notification icon_notification-blue">
                                     <span class="glyphicon glyphicon-comment text-white"></span>
                                 </div>
@@ -452,9 +452,9 @@
                                     <span class="glyphicon glyphicon-send text-white"></span>
                                 </div>
                             </a>
-                            <a ng-href="/#![[ notification.url ]]" class="col-sm-9 padding-left_0 padding-right_0">
+                            <a ng-href="/#![[ notification.url ]]" class="col-xs-9 padding-left_0 padding-right_0">
                                 <div class="row">
-                                    <div class="col-sm-11 text-center">
+                                    <div class="col-xs-11 text-center">
                                         <span ng-if="notification.type == 'post_comment'" class="text-gray text-underline_hover lobster">
                                             Вашу запись прокомментировали
                                         </span>
@@ -470,13 +470,13 @@
                                     </div>
                                 </div>
                             </a>
-                            <div class="row col-sm-10 col-sm-offset-1 horizontal_line"></div>
+                            <div class="row col-xs-10 col-xs-offset-1 horizontal_line"></div>
                         </div>
 
                     </div>
                 </div>
             </div>
-            <div class="personal col-sm-1 padding-left_0">
+            <div class="personal col-xs-1 padding-left_0">
                 <label class="still_label-person" for="checkbox-menu-person">
                     <div class="user__avatar-mini-header" ng-class="{spinner: isLoading}" ng-init="$root.color = '{{app.user.color}}'" style="background-color: [[ $root.color ]];">
                         <img ng-src="[[ $root.avatar ]]" ng-init="$root.avatar = '{{app.user.avatar}}'">
@@ -506,7 +506,7 @@
                 <div id="fail_auth" class="fail_auth fs_0-7 fail_social_network"><span>email не был обнаружен</span></div>
             {% endif %}
 
-            <div class="col-sm-1">
+            <div class="col-xs-1">
                 {#<img src="/var/www/creativer/web/img/flag_bel.png" alt="русский">#}
             </div>
         {% endif %}
@@ -517,7 +517,7 @@
         <div class="row">
 
 
-            <div class="col-sm-1">
+            <div class="col-xs-1">
                 {#<img src="/var/www/creativer/web/img/flag_eng.png"  alt="русский"/>#}
             </div>
         </div>
@@ -636,7 +636,7 @@
 
 </div>
 <footer class="footer wrapper">
-    <nav class="footer__menu col-sm-12 fiveMinuts">
+    <nav class="footer__menu col-xs-12 fiveMinuts">
         <ul>
             <li><a href="/#!/about">О нас</a></li>
             <li><a href="/#!/help">Помощь</a></li>
@@ -647,10 +647,10 @@
         </ul>
     </nav>
 
-    <div class="row col-sm-12">
+    <div class="row col-xs-12">
         <div class="row padding-5-15-5-15  padding-right_0">
-            <div class="col-sm-10">&copy; 2015 Creativer. Все права защищены.</div>
-            <div class="col-sm-2 right padding-right_0">
+            <div class="col-xs-10">&copy; 2015 Creativer. Все права защищены.</div>
+            <div class="col-xs-2 right padding-right_0">
                 <a href="http://twitter.com/share?text=Здесь креатив&url=http://creativer.by" class="ico_twitter pointer right" ></a>
                 <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/&p[title]=Здесь креатив&p[summary]=Портал для креативных людей&p[images][0]=http://creativer.by/var/www/creativer/web/img/share_img.jpg" class="ico_facebook pointer right"></a>
                 <a href="http://vk.com/share.php?url=http://creativer.by/&title=Здесь креатив&description=Портал для креативных людей&image=http://creativer.by/var/www/creativer/web/img/share_img.jpg$noparse=true" class="ico_vk pointer right" ></a>

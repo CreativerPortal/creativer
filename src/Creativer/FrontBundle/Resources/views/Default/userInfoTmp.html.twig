@@ -1,6 +1,6 @@
 {% if(is_granted('ROLE_USER') and ((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId())) ) %}
     <div class="row">
-        <div class="col-sm-4 padding-left_0">
+        <div class="col-xs-4 padding-left_0">
             <div class="user__avatar-border">
                 <label style="background-color: [[ user.color ]];" class="user__avatar" ng-class="{'edit__avatar':$root.id_user == user.id}" for="fileInput">
                     <img src="[[ user.avatar ]]" />
@@ -8,14 +8,14 @@
             </div>
         </div>
 
-        <div class="col-sm-8 user__text">
-            <div class="row col-sm-12 padding-left_0">
+        <div class="col-xs-8 user__text">
+            <div class="row col-xs-12 padding-left_0">
                 <textarea msd-elastic="" ng-model="user.status" class="text_info margin-top_20" ng-blur="saveField($event,'status')" obj="user" placeholder="Статус" disabled>
                     [[ user.status ]]
                 </textarea>
                 <span class="glyphicon glyphicon-pencil edit" edit-pain="status"></span>
             </div>
-            <div class="row col-sm-12 padding-left_0">
+            <div class="row col-xs-12 padding-left_0">
                 <div class="margin-top_20">
                     <input class="text_info" ng-blur="saveField($event,'position')" obj="user" value="[[ user.position ]]" placeholder="Мой город" disabled>
                 </div>
@@ -25,16 +25,16 @@
     </div>
 {% else %}
     <div class="row">
-        <div class="col-sm-5 padding-left_0">
+        <div class="col-xs-5 padding-left_0">
             <div class="user__avatar-border">
                 <div style="background-color: [[ user.color ]];" class="user__avatar"><img src="[[ user.avatar ]]" /></div>
             </div>
         </div>
-        <div class="col-sm-7 user__text">
-            <div class="row col-sm-12 margin-top_10 padding-left_0">
+        <div class="col-xs-7 user__text">
+            <div class="row col-xs-12 margin-top_10 padding-left_0">
                 <div class="text_info gelocation_icon__text_info" >[[ user.status ]]</div>
             </div>
-            <div class="row col-sm-12 margin-top_10 padding-left_0">
+            <div class="row col-xs-12 margin-top_10 padding-left_0">
                 <div class="text_info gelocation_icon__text_info" >[[ user.position ]]</div>
             </div>
         </div>
@@ -57,27 +57,27 @@
 {%  endif %}
 
 <div class="row margin-top_20">
-    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-eye-open"></span></div>
-    <div class="col-sm-2 user__text_bold padding-left_0">Просмотры</div>
-    <div class="col-sm-3 col-sm-offset-6 user__text_bold">[[ user.views || 0 ]]</div>
+    <div class="col-xs-1 icon-color"><span class="glyphicon glyphicon-eye-open"></span></div>
+    <div class="col-xs-2 user__text_bold padding-left_0">Просмотры</div>
+    <div class="col-xs-3 col-xs-offset-6 user__text_bold">[[ user.views || 0 ]]</div>
 </div>
 <div class="row margin-top_5">
-    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
-    <div class="col-sm-2 user__text_bold padding-left_0">Нравится</div>
-    <div class="col-sm-3 col-sm-offset-6 user__text_bold">[[ user.likes ]]</div>
+    <div class="col-xs-1 icon-color"><span class="glyphicon glyphicon-thumbs-up"></span></div>
+    <div class="col-xs-2 user__text_bold padding-left_0">Нравится</div>
+    <div class="col-xs-3 col-xs-offset-6 user__text_bold">[[ user.likes ]]</div>
 </div>
 <div class="row margin-top_5">
-    <div class="col-sm-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
-    <div class="col-sm-4 user__text_bold padding-left_0"><a class="text-gray" href="/#!/followers/[[ user.id ]]">В избранных у</a></div>
-    <div class="col-sm-3 col-sm-offset-4 user__text_bold"><a class="text-white badge" href="/#!/followers/[[ user.id ]]" >[[ user.favorits_with_me.length ]]</a></div>
+    <div class="col-xs-1 icon-color"><span class="glyphicon glyphicon-heart"></span></div>
+    <div class="col-xs-4 user__text_bold padding-left_0"><a class="text-gray" href="/#!/followers/[[ user.id ]]">В избранных у</a></div>
+    <div class="col-xs-3 col-xs-offset-4 user__text_bold"><a class="text-white badge" href="/#!/followers/[[ user.id ]]" >[[ user.favorits_with_me.length ]]</a></div>
 </div>
 
 {% if(is_granted('ROLE_USER') and  ((id == app.security.getToken().getUser().getId()) or (id == null and app.security.getToken().getUser().getId())) ) %}
 
-    <div class="margin-top_20 col-sm-12 user__text">
+    <div class="margin-top_20 col-xs-12 user__text">
         <div class="row text-left user__text_bold"><a class="text-gray" href="/#!/following/[[ user.id ]]">Избранные:</a></div>
 
-        <a href="/#!/[[ favorit.id ]]" ng-click="removeUser(favorit.id)" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
+        <a href="/#!/[[ favorit.id ]]" ng-click="removeUser(favorit.id)" class="col-xs-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
             <div class="user__avatar-mini" ng-class="{'user__avatar-mini_online':favorit.connection_status == '{{ date_online }}'}" style="background-color: [[ favorit.color ]]">
                 <img ng-src="[[ favorit.avatar ]]">
             </div>
@@ -86,61 +86,61 @@
         </a>
     </div>
 
-    <div class="row margin-top_40 col-sm-12 user__text">
+    <div class="row margin-top_40 col-xs-12 user__text">
         <div class="text-left user__text_bold">О себе:</div>
         <textarea msd-elastic="" ng-model="user.info" class="text_info" ng-blur="saveField($event,'info')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.info ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="info"></span>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text">
+    <div class="row margin-top_20 col-xs-12 user__text">
         <div class="text-left user__text_bold">Специализация:</div>
         <textarea msd-elastic="" ng-model="user.specialization" class="text_info" ng-blur="saveField($event,'specialization')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.specialization ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="specialization"></span>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text">
+    <div class="row margin-top_20 col-xs-12 user__text">
         <div class="text-left user__text_bold">Работал в:</div>
         <textarea msd-elastic="" ng-model="user.worked" class="text_info" ng-blur="saveField($event,'worked')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.worked ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="worked"></span>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text">
+    <div class="row margin-top_20 col-xs-12 user__text">
         <div class="text-left user__text_bold">Ссылки:</div>
         <textarea links msd-elastic="" ng-model="user.links" class="text_info" ng-blur="saveField($event,'links')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.links ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit" edit-pain="links"></span>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text">
+    <div class="row margin-top_20 col-xs-12 user__text">
         <div class="text-left user__text_bold">Контакты:</div>
         <textarea msd-elastic="" ng-model="user.contacts" class="text_info" ng-blur="saveField($event,'contacts')" obj="user" placeholder="Пожалуйста, заполните это поле." disabled>[[ user.contacts ]]</textarea>
         <span class="glyphicon glyphicon-pencil edit"  edit-pain="contacts"></span>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text">
+    <div class="row margin-top_20 col-xs-12 user__text">
         <div class="text-left user__text_bold">Присоединился:</div>
         <time class="text_info" >[[ user.date | date: "dd MMMM yyyy" ]]</time>
     </div>
 
-    <div class="row col-sm-12 share padding-right_0 text-left margin-top_10">
+    <div class="row col-xs-12 share padding-right_0 text-left margin-top_10">
         <a href="http://vk.com/share.php?url=http://creativer.by/[[ user.id ]]&title=[[ user.username ]] [[ user.lastname ]]&description=[[ user.info ]]&image=http://creativer.by[[ user.avatar ]]$noparse=true" class="ico_vk pointer" ></a>
         <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/[[ user.id ]]&p[title]=[[ user.username ]] [[ user.lastname ]]&p[summary]=[[ user.info ]]&p[images][0]=http://creativer.by[[ user.avatar ]]" class="ico_facebook pointer"></a>
         <a href="http://twitter.com/share?text=[[ user.username ]] [[ user.lastname ]]&url=http://creativer.by/%23/[[ user.id ]]" class="ico_twitter pointer" ></a>
     </div>
 
-    {#<div class="row margin-top_20 col-sm-12 user__text">#}
-        {#<div class="text-left col-sm-6 padding-left_0">Вы используете пакет:</div>#}
-        {#<div class="package_person_name text-white col-sm-6 padding-left_0 padding-right_0" style="background-image: url([[ user.tariff.image ]])" >  [[ user.tariff.name ]]</div>#}
+    {#<div class="row margin-top_20 col-xs-12 user__text">#}
+        {#<div class="text-left col-xs-6 padding-left_0">Вы используете пакет:</div>#}
+        {#<div class="package_person_name text-white col-xs-6 padding-left_0 padding-right_0" style="background-image: url([[ user.tariff.image ]])" >  [[ user.tariff.name ]]</div>#}
     {#</div>#}
 
-    {#<div class="row margin-top_20 col-sm-12 user__text">#}
-        {#<div ng-if="user.tariff.cost_day > 0" class="text-left col-sm-8 padding-left_0">Срок действия вашего пакета истекает через <span class="text-blue fs_1-2">[[ user.balance/user.tariff.cost_day | number:0 ]]</span> дней.</div>#}
+    {#<div class="row margin-top_20 col-xs-12 user__text">#}
+        {#<div ng-if="user.tariff.cost_day > 0" class="text-left col-xs-8 padding-left_0">Срок действия вашего пакета истекает через <span class="text-blue fs_1-2">[[ user.balance/user.tariff.cost_day | number:0 ]]</span> дней.</div>#}
     {#</div>#}
 
 
 {% else %}
-    <div class="margin-top_20 col-sm-12 user__text">
+    <div class="margin-top_20 col-xs-12 user__text">
         <div class="row text-left user__text_bold"><a class="text-gray" href="/#!/following/[[ user.id ]]">Избранные:</a></div>
-        <a href="/#!/[[ favorit.id ]]" ng-click="removeUser(favorit.id)" class="col-sm-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
+        <a href="/#!/[[ favorit.id ]]" ng-click="removeUser(favorit.id)" class="col-xs-2 padding-left_0 padding-right_0 block text-gray" ng-repeat="favorit in user.my_favorits.slice(0,5)">
             <div class="user__avatar-mini" ng-class="{'user__avatar-mini_online':favorit.connection_status == '{{ date_online }}'}" style="background-color: [[ favorit.color ]]">
                 <img ng-src="[[ favorit.avatar ]]">
             </div>
@@ -149,37 +149,37 @@
         </a>
     </div>
 
-    <div class="row margin-top_40 col-sm-12 user__text" ng-show="user.info">
+    <div class="row margin-top_40 col-xs-12 user__text" ng-show="user.info">
         <div class="text-left user__text_bold">О себе:</div>
         <div class="">[[ user.info ]]</div>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text" ng-show="user.specialization">
+    <div class="row margin-top_20 col-xs-12 user__text" ng-show="user.specialization">
         <div class="text-left user__text_bold">Специализация:</div>
         <div class="text_info">[[ user.specialization ]]</div>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text" ng-show="user.worked">
+    <div class="row margin-top_20 col-xs-12 user__text" ng-show="user.worked">
         <div class="text-left user__text_bold">Работал в:</div>
         <div class="text_info">[[ user.worked ]]</div>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text" ng-show="user.links">
+    <div class="row margin-top_20 col-xs-12 user__text" ng-show="user.links">
         <div class="text-left user__text_bold">Ссылки:</div>
         <div class="text_info">[[ user.links ]]</div>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text" ng-show="user.contacts">
+    <div class="row margin-top_20 col-xs-12 user__text" ng-show="user.contacts">
         <div class="text-left user__text_bold">Контакты:</div>
         <div class="text_info">[[ user.contacts ]]</div>
     </div>
 
-    <div class="row margin-top_20 col-sm-12 user__text">
+    <div class="row margin-top_20 col-xs-12 user__text">
         <div class="text-left user__text_bold">Присоединился:</div>
         <time class="text_info" >[[ user.date | date: "dd MMMM yyyy" ]]</time>
     </div>
 
-    <div class="row col-sm-12 share padding-right_0 text-left margin-top_10">
+    <div class="row col-xs-12 share padding-right_0 text-left margin-top_10">
         <a href="http://vk.com/share.php?url=http://creativer.by/[[ user.id ]]&title=[[ user.username ]] [[ user.lastname ]]&description=[[ user.info ]]&image=http://creativer.by[[ user.avatar ]]$noparse=true" class="ico_vk pointer" ></a>
         <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/[[ user.id ]]&p[title]=[[ user.username ]] [[ user.lastname ]]&p[summary]=[[ user.info ]]&p[images][0]=http://creativer.by[[ user.avatar ]]" class="ico_facebook pointer"></a>
         <a href="http://twitter.com/share?text=[[ user.username ]] [[ user.lastname ]]&url=http://creativer.by/%23/[[ user.id ]]" class="ico_twitter pointer" ></a>

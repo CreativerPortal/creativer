@@ -4,14 +4,14 @@
 
                 <h3 class="row lobster name__user"><a href="/#!/[[ user.id ]]">[[ user.username ]] [[ user.lastname ]]</a></h3>
 
-                <div class="col-sm-5 user padding-left_0">
+                <div class="col-xs-5 user padding-left_0">
                     {{ render(controller('CreativerFrontBundle:Default:userInfoTmp', {'id': id})) }}
                 </div>
 
-                <div class="col-sm-7 album">
+                <div class="col-xs-7 album">
                     <span class="text-blue pointer left" ng-if="edit_album.remove_post == false" ng-click="edit_album.remove_post = true">Удалить альбом</span>
 
-                    <div ng-if="edit_album.remove_post == true" class="col-sm-6 left padding-left_0">
+                    <div ng-if="edit_album.remove_post == true" class="col-xs-6 left padding-left_0">
                         Вы действително хотите удалить альбом ?
                         <span class="text-blue pointer" ng-click="deleteAlbum(edit_album.id)">Да</span> |
                         <span ng-click="edit_album.remove_post = false" class="text-blue pointer">Нет</span>
@@ -42,7 +42,7 @@
 
                     <div class="row margin-top_20">
 
-                            <div class="col-sm-4 text-center">
+                            <div class="col-xs-4 text-center">
                                 <div ng-repeat="(key,image) in edit_album.images.slice(0, res)" class="upload__element">
 
                                     <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
@@ -62,7 +62,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-4 text-center ">
+                            <div class="col-xs-4 text-center ">
                                 <div ng-repeat="(key,image) in edit_album.images.slice(res, res*2)" class="upload__element">
                                     <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
                                         <input type="checkbox" class="hidden">
@@ -81,7 +81,7 @@
                                 </div>
                             </div>
 
-                            <div class="col-sm-4 text-center ">
+                            <div class="col-xs-4 text-center ">
                                 <div ng-repeat="(key,image) in edit_album.images.slice(res*2, res*3)" class="upload__element">
                                     <label class="glyphicon glyphicon-pencil edit__album ng-isolate-scope pointer" edit-pain="info">
                                         <input type="checkbox" class="hidden">

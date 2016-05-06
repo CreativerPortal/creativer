@@ -1,9 +1,9 @@
     <div class="row slid">
 
         <div class="row margin-top_15">
-            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0"><a class="text-black" href="/#!/events" >События</a></h3></div>
+            <div class="col-xs-2 padding-left_0"><h3 class="lobster margin-left_0"><a class="text-black" href="/#!/events" >События</a></h3></div>
 
-            <div class="col-sm-2 padding-left_0 margin-top_10">
+            <div class="col-xs-2 padding-left_0 margin-top_10">
                 <span>Страна</span>
                 <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Все' ]]</span></label>
                 <input type="checkbox" class="cities-checkbox" id="all_cities">
@@ -26,19 +26,19 @@
                 </div>
             </div>
 
-            <div class="col-sm-2 slid__search__events padding-left_0 padding-right_5 margin-top_15">
+            <div class="col-xs-2 slid__search__events padding-left_0 padding-right_5 margin-top_15">
                 <input placeholder="Поиск в событиях" ng-model="searchEventText" ng-keyup="$event.keyCode == 13 && searchEvent()">
                 <button class="slid__slider-button right margin-top_3" ng-click="searchEvent()"></button>
             </div>
             {% if is_granted('ROLE_ADMIN') %}
-                <a href="/#!/create_event" class="col-sm-2 col-sm-offset-1 event_buttom margin-top_10">Создать событие</a>
+                <a href="/#!/create_event" class="col-xs-2 col-xs-offset-1 event_buttom margin-top_10">Создать событие</a>
             {% endif %}
         </div>
 
         <div class="horizontal_line_dashed"></div>
 
         <div class="row margin-top_10">
-            <div class="col-sm-2 padding-left_0">
+            <div class="col-xs-2 padding-left_0">
 
                 <div ng-repeat="children in section">
                     <div class="padding-left_0 text-gray"><h3 class="lobster margin-left_0">[[ children.name ]]</h3></div>
@@ -47,30 +47,30 @@
 
 
             </div>
-            <div class="col-sm-10">
+            <div class="col-xs-10">
 
-                <div class="col-sm-12 margin-top_25">
+                <div class="col-xs-12 margin-top_25">
                     <div class="row"><a class="text-blue text-italic" href="/#!/events">Вернуться к списку</a></div>
                     <div class="row"><h2 class="lobster margin-left_0">[[ event.name ]]</h2></div>
                     <div class="row">
-                        <div class="col-sm-6 padding-left_0 text-gray"><time class="comment_time">[[ event.start_date | date: "dd.MM.yyyy" ]]</time></div>
+                        <div class="col-xs-6 padding-left_0 text-gray"><time class="comment_time">[[ event.start_date | date: "dd.MM.yyyy" ]]</time></div>
                         {% if is_granted('ROLE_USER') %}
-                            <div class="col-sm-6 text-blue fs_0-8 text-right" ng-if="event.user.id == $root.id_user"><a href="/#!/edit_event/[[ event.id ]]">Редактировать</a></div>
+                            <div class="col-xs-6 text-blue fs_0-8 text-right" ng-if="event.user.id == $root.id_user"><a href="/#!/edit_event/[[ event.id ]]">Редактировать</a></div>
                         {% endif %}
                     </div>
                     <div class="row description margin-top_10">
                     </div>
                     <div class="row padding-right_0 padding-left_0">
-                        <div class="share padding-right_0 padding-left_0 text-left col-sm-6">
+                        <div class="share padding-right_0 padding-left_0 text-left col-xs-6">
                             <a href="http://vk.com/share.php?url=http://creativer.by/event/[[ event.id ]]&title=[[ event.name ]]&description=[[ event.name ]]&image=http://creativer.by/home/event/original/[[ event.path ]][[ event.img ]]$noparse=true" class="ico_vk pointer" ></a>
                             <a href="http://www.facebook.com/sharer.php?s=100&p[url]=http://creativer.by/event/[[ event.id ]]&p[title]=[[ event.name ]]&p[summary]=[[ event.name ]]&p[images][0]=http://creativer.by/home/event/original/[[ event.path ]][[ event.img ]]" class="ico_facebook pointer"></a>
                             <a href="http://twitter.com/share?text=[[ event.name ]]&url=http://creativer.by/event/[[ event.id ]]" class="ico_twitter pointer" ></a>
                         </div>
-                        <div class="row text-right padding-right_0 padding-left_0 col-sm-6" ng-show="!event_attend && event.event_sections.attached_datapicker != 0">
+                        <div class="row text-right padding-right_0 padding-left_0 col-xs-6" ng-show="!event_attend && event.event_sections.attached_datapicker != 0">
                             {#Идёт [[ event.users_attend.length ]] человек. #}
                             <span class="pointer text-blue" ng-click="eventAttend()">Пойду!</span>
                         </div>
-                        <div class="row text-right padding-right_0 padding-left_0 col-sm-6" ng-show="event_attend && event.event_sections.attached_datapicker != 0">
+                        <div class="row text-right padding-right_0 padding-left_0 col-xs-6" ng-show="event_attend && event.event_sections.attached_datapicker != 0">
                             Идёт [[ event.users_attend.length ]] человек. <span class="pointer text-blue" ng-click="eventAttend()">Не пойду!</span>
                         </div>
                     </div>
@@ -80,12 +80,12 @@
                     {% if is_granted('ROLE_USER') %}
                         <div class="row margin-top_30 padding-5-15-5-15" emoji-form emoji-message="emojiMessage">
                             <textarea class="text-gray right margin-top_10" ng-model="event.text_comment" ccols="97" rows="3" placeholder="Комментировать" style="height: 50px; width: 749px; overflow: hidden; word-wrap: break-word; resize: none;"></textarea>
-                            <div class="col-sm-6 padding-left_0">
+                            <div class="col-xs-6 padding-left_0">
                                 <span id="emojibtn" class="pointer">
                                     <i class="icon icon-emoji"></i>
                                 </span>
                             </div>
-                            <div ng-show="event.text_comment || emojiMessage.rawhtml" class="col-sm-6 padding-right_0 text-right">
+                            <div ng-show="event.text_comment || emojiMessage.rawhtml" class="col-xs-6 padding-right_0 text-right">
                                 <button class="true fs_0-9" ng-class="{'loader':loader_event}" ng-click="saveComment(event,event.text_comment)">Отправить</button>
                                 <button class="false fs_0-9" ng-click="event.text_comment=''; emojiMessage.rawhtml=''">Отменить</button>
                             </div>
@@ -94,22 +94,22 @@
 
 
                     <div class="row one_post slid__comment margin-top_20 padding-right_15" ng-repeat="(key,comment) in event.event_comments">
-                        <div class="col-sm-12 padding-left_0 padding-right_0">
+                        <div class="col-xs-12 padding-left_0 padding-right_0">
 
-                            <div class="user__avatar_event left col-sm-1" >
+                            <div class="user__avatar_event left col-xs-1" >
                                 <a href="#!/[[ comment.user.id ]]" ng-class="{'user__avatar-mini-2_online':comment.user.connection_status == '{{ date_online }}'}" class="user__avatar-mini-2" style="background-color: [[ comment.user.color ]]"><img ng-show="comment.user.avatar" ng-src="[[ comment.user.avatar ]]"></a>
                             </div>
 
-                            <div class="col-sm-11 padding-right_0">
-                                <div class="col-sm-12 padding-right_0 padding-left_0">
-                                    <div class="text-blue col-sm-5 padding-left_0" ng-init="comment.remove_comment = false"><a href="#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
+                            <div class="col-xs-11 padding-right_0">
+                                <div class="col-xs-12 padding-right_0 padding-left_0">
+                                    <div class="text-blue col-xs-5 padding-left_0" ng-init="comment.remove_comment = false"><a href="#!/[[ comment.user.id ]]">[[ comment.user.username ]] [[ comment.user.lastname ]]</a></div>
                                     {% if is_granted('ROLE_USER') %}
                                         <div ng-if="id_user == comment.user.id && comment.remove_comment == false"  class="right text-right edit_post">
                                             <span ng-click="comment.remove_comment = true">
                                                 <span class="text-gray glyphicon glyphicon-remove pointer"></span>
                                             </span>
                                         </div>
-                                        <div ng-if="comment.remove_comment == true" class="col-sm-6 col-sm-offset-1 text-right">
+                                        <div ng-if="comment.remove_comment == true" class="col-xs-6 col-xs-offset-1 text-right">
                                             Удалить ?
                                             <span class="text-blue pointer" ng-click="removeComment(comment.id,key)">Да</span> |
                                             <span ng-click="comment.remove_comment = false" class="text-blue pointer">Нет</span>
@@ -118,18 +118,18 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="margin-top_5 col-sm-12" ng-bind-html="comment.text | colonToSmiley"></div>
+                                    <div class="margin-top_5 col-xs-12" ng-bind-html="comment.text | colonToSmiley"></div>
                                 </div>
                                 </div>
 
-                                <div class="col-sm-11 col-sm-offset-1 text-gray fs_0-8 padding-right_0">
+                                <div class="col-xs-11 col-xs-offset-1 text-gray fs_0-8 padding-right_0">
                                     <time datetime="2014:12:12">[[ comment.date | date: "dd.MM.yyyy HH:mm" ]]</time>
                                     <span class="right pointer text-blue" ng-show="comment.user.id != id_user" ng-click="emojiMessage.rawhtml = comment.user.username+', '; event.answer_id = comment.user.id; event.answer_username = comment.user.username;">Ответить</span>
                                 </div>
                                 {# <div class="right fs_0-8"><a class="text-gray" href="">Ответить</a>  <a class="text-gray" href="">Спам</a></div> #}
                             </div>
 
-                            <div class="col-sm-12 padding-left_0 slid__comment__line"></div>
+                            <div class="col-xs-12 padding-left_0 slid__comment__line"></div>
                         </div>
                     </div>
 

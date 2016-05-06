@@ -1,11 +1,11 @@
     <div class="row slid" ng-init="post_id = {{ post_id }}">
 
-        <form class="col-sm-10 padding-left_0 form_create_post" name="baraholka_form">
+        <form class="col-xs-10 padding-left_0 form_create_post" name="baraholka_form">
 
             <div class="row margin-top_20 padding-right_0">
 
-                <div class="col-sm-2">Категория:</div>
-                <div class="col-sm-7">
+                <div class="col-xs-2">Категория:</div>
+                <div class="col-xs-7">
                     <select ng-change="checkPostCategory(post_category.id)" focus-if="submitted && baraholka_form.post_category.$error.required" name="post_category" class="selectForumId" ng-model="post_category.id" required>
                         <option ng-selected="post.post_category.id == p_category.id" ng-repeat="p_category in post_category" value="[[ p_category.id ]]">[[ p_category.name ]]</option>
                     </select>
@@ -13,7 +13,7 @@
                     <span class="text-danger" ng-show="submitted && baraholka_form.post_category.$error.required">Категория не выбрана</span>
                 </div>
 
-                <div class="col-sm-3 text-right padding-left_0 padding-right_0">
+                <div class="col-xs-3 text-right padding-left_0 padding-right_0">
                     <span class="text-blue pointer" ng-show="remove_post == false" ng-click="remove_post = true">Удалить ?</span>
 
                     <div ng-show="remove_post == true" class="padding-left_0">
@@ -25,8 +25,8 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Разделы:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Разделы:</div>
+                <div class="col-xs-10">
                     <select ng-change="checkCategoryBaraholka(section)" name="section" class="selectForumId" ng-model="section" required>
                         <optgroup ng-repeat="children in baraholka" label="[[ children.name ]]" value="[[ child.id ]]">
                             <option ng-repeat="child in children.children" value="[[ child.id ]]" ng-selected="post.categories_baraholka.id == child.id">[[ child.name ]]</option>
@@ -36,16 +36,16 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Заголовок:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Заголовок:</div>
+                <div class="col-xs-10">
                     <input type="text" name="tit" ng-blur="editTitle(post.name,$event)" ng-model="post.name" ng-required="true" required="">
                     <span class="text-danger" ng-show="submitted && baraholka_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Местонахождения:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Местонахождения:</div>
+                <div class="col-xs-10">
                     <select ng-change="checkCity(city)" name="city" class="selectForumId" ng-model="city">
                         <option value="[[ p_city.id ]]" ng-repeat="p_city in post_city" ng-selected="post.post_city.id == p_city.id">[[ p_city.name ]]</option>
                     </select>
@@ -55,14 +55,14 @@
             <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-12">
+                <div class="col-xs-12">
                     <h4>Подробно опишите товар или услугу</h4>
                     <textarea class="margin-top_10" ng-blur="editFullDescription(post.full_description,$event)" name="full_description" ng-model="post.full_description"></textarea>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-12">
+                <div class="col-xs-12">
                     Краткое описание
                     <textarea ng-blur="editDescription(post.description,$event)" ng-model="post.description" name="description" required=""></textarea>
                     <span class="text-danger" ng-show="submitted && baraholka_form.description.$error.required">Краткое описание не может быть пустым</span>
@@ -72,7 +72,7 @@
             <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-12">
+                <div class="col-xs-12">
                     <h4>Обязательно указывайте реальную цену</h4>
                     <div>
                         <input ng-blur="editPrice(post.price,$event)" type="number" ng-model="post.price" name="price" style="width: 100px;" required=""> руб.<br/>
@@ -119,8 +119,8 @@
                 </div>
             </div>
 
-            <div class="col-sm-12 margin-top_20 padding-right_0 padding-left_0">
-                <div class="col-sm-12 padding-left_0 padding-right_0">
+            <div class="col-xs-12 margin-top_20 padding-right_0 padding-left_0">
+                <div class="col-xs-12 padding-left_0 padding-right_0">
                     <div ng-show="uploader.isHTML5" style="height: 30px;">
                         <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
                             <div class="progress" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class">
@@ -144,7 +144,7 @@
 
         </form>
 
-        <div class="col-sm-2">
+        <div class="col-xs-2">
 
             <div class="row">
                 <div class="margin-top_80">

@@ -39,31 +39,31 @@
             <p style="display: none;" class="row fs_1-2 text-gray margin-left_10">Мы дарим вам <span class="text-bold text-blue">600 000</span> белорусских рублей на ваш личный счет на покупку безлимитного пакета! Получите полгода бесплатного пользования сайтом. Спасибо, что теперь вы с нами!</p>
 			
             <div style="display: none;" class="row line_package">
-                <div class="col-sm-4">
+                <div class="col-xs-4">
                     <input style="display: none;" id="r1" name="form[r1]" type="radio" value="1">
                     <label class="start" for="r1">
 					 <p>&nbsp</p>
                         <div class="lobster text-white fs_1-5 margin-top_60">Начальный</div>
-                        <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> до 10 фото ваших работ </p>
+                        <p class="col-xs-10 col-xs-offset-1 margin-left_30 text-white"> до 10 фото ваших работ </p>
 						<p class="lobster text-white fs_1-5">бесплатно</p>
                     </label>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-xs-4">
                     <input style="display: none;" id="r2" name="form[r1]" type="radio" value="2">
                     <label class="standard" for="r2">
 					<p>&nbsp</p>
                         <div class="lobster text-white fs_1-5 margin-top_60">Стандартный</div>
-                        <p class="col-sm-10 col-sm-offset-1 text-white"> до 50 фото ваших работ </p>
+                        <p class="col-xs-10 col-xs-offset-1 text-white"> до 50 фото ваших работ </p>
 						<p class="lobster text-white fs_1-5">50.000 руб/мес</p>
 
                     </label>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-xs-4">
                     <input style="display: none;" id="r3" name="form[r1]" type="radio" value="3" checked>
                     <label class="unlimited" for="r3">
 					<p>&nbsp</p>
                         <div class="lobster text-white fs_1-5 margin-top_60 margin-left_10">Безлимитный</div>
-                        <p class="col-sm-10 col-sm-offset-1 margin-left_30 text-white"> неограниченное количество фото ваших работ </p>
+                        <p class="col-xs-10 col-xs-offset-1 margin-left_30 text-white"> неограниченное количество фото ваших работ </p>
 						<p class="lobster text-white fs_1-5"> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp100.000 руб/мес </p>
 
                     </label>
@@ -73,8 +73,8 @@
         <div class="row"><h3 class="lobster margin-left_0">Регистрация</h3></div>
 
             <div class="row">
-                <div class="col-sm-6">
-                    <div class="row col-sm-12">
+                <div class="col-xs-6">
+                    <div class="row col-xs-12">
                                 {{ form_row(form._token) }}
                                 {% if form.vars.value %}
                                     {% set username = 'username="' ~ form.vars.value.username ~ '"' %}
@@ -87,51 +87,51 @@
                                 {% endif %}
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element"><label for="name">Имя:</label></div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element">{{  form_widget(form.username, {'attr': {'class': 'name','id': 'name','name': 'username', 'ng-model': 'username', 'ng-init': username, 'ng-required': 'true'}}) }}</div>
                                     <span class="text-danger ng-hide" ng-show="submitted && registration['form[username]'].$error.required">Имя пользователя не может быть пустым</span>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element"><label for="name">Фамилия:</label></div>
                                 </div>
 
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element">{{  form_widget(form.lastname, {'attr': {'class': 'name','id': 'name','name': 'lastname', 'ng-model': 'lastname', 'ng-init': lastname, 'ng-required': 'true'}}) }}</div>
                                     <span class="text-danger ng-hide" ng-show="submitted && registration['form[lastname]'].$error.required">Фамилия пользователя не может быть пустой</span>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element"><label for="email">E-mail:</label></div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element">{{  form_widget(form.email, {'attr': {'class': 'email','id': 'email','name': 'email', 'ng-model': 'email', 'ng-init': email, 'ng-required': 'true'}}) }}</div>
                                     <span class="text-danger ng-hide" ng-show="submitted && registration['form[email]'].$error.required">Email не может быть пустым</span>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element"><label for="password">Пароль:</label></div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element">{{  form_widget(form.password.first, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.first'}}) }}</div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element"><label for="password_repeat">Пароль ещё раз:</label></div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-xs-6">
                                     <div class="form-registration__element">{{  form_widget(form.password.second, {'attr': {'class': 'password','id': 'password','name': 'password', 'ng-model': 'password.second'}}) }}</div>
                                     <span class="text-danger ng-hide" ng-show="submitted && (password.first != password.second)">Паролт не совпадают</span>
                                 </div>
@@ -168,7 +168,7 @@
                     </div>
                 </div>
 
-                <div class="col-sm-6 padding-left_0">
+                <div class="col-xs-6 padding-left_0">
                     <div class="upload_img margin-left_0">
                         <span class="form-registration__img" ng-model="myImage">
                             <img src="[[myCroppedImage]]" ng-init="myImage = '{% if img is defined %}{{ img|escape  }}{% endif %}'" >

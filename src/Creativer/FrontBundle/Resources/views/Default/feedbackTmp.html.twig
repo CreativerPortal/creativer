@@ -2,29 +2,29 @@
 
     <div class="row slid" ng-init="$root.title = 'Обратная связь'">
         <div class="row margin-top_50">
-            <div class="col-sm-5 slid_mai_box text-right">
+            <div class="col-xs-5 slid_mai_box text-right">
                 <img src="/var/www/creativer/web/img/box_mail.png" alt="e-mail" />
             </div>
 
-            <div class="col-sm-7" ng-show="!sent_letter">
+            <div class="col-xs-7" ng-show="!sent_letter">
                 <h3 class="lobster margin-top_0">Обратная связь</h3>
                 <div class="form-feedback">
                     <form class="form-feedback-form text-brown" name="feedback_form" ng-model="feedback_form">
                         <div class="row">
-                            <div class="col-sm-6"><label for="name" class="text-brown fs_0-9">Как к вам обращаться:</label></div>
-                            <div class="col-sm-6"><input id="name" class="right" type="text" ng-model="nick" /></div>
+                            <div class="col-xs-6"><label for="name" class="text-brown fs_0-9">Как к вам обращаться:</label></div>
+                            <div class="col-xs-6"><input id="name" class="right" type="text" ng-model="nick" /></div>
                         </div>
                         <div class="row margin-top_5">
-                            <div class="col-sm-6"><label for="telephone" class="text-brown fs_0-9">Телефон:</label></div>
-                            <div class="col-sm-6"><input id="telephone" class="right" type="text" ng-model="telephone" /></div>
+                            <div class="col-xs-6"><label for="telephone" class="text-brown fs_0-9">Телефон:</label></div>
+                            <div class="col-xs-6"><input id="telephone" class="right" type="text" ng-model="telephone" /></div>
                         </div>
                         <div class="row margin-top_5">
-                            <div class="col-sm-6"><label for="password" class="text-brown fs_0-9">E-mail:</label></div>
-                            <div class="col-sm-6"><input id="password" class="right" type="email" ng-model="email" name="email" required=""/></div>
-                            <div class="text-danger text-right col-sm-11" ng-show="submitted && feedback_form.email.$error.required">Email обязтельное поле</div>
+                            <div class="col-xs-6"><label for="password" class="text-brown fs_0-9">E-mail:</label></div>
+                            <div class="col-xs-6"><input id="password" class="right" type="email" ng-model="email" name="email" required=""/></div>
+                            <div class="text-danger text-right col-xs-11" ng-show="submitted && feedback_form.email.$error.required">Email обязтельное поле</div>
                         </div>
                         <div class="row margin-top_5">
-                            <div class="col-sm-11 margin-top_5">
+                            <div class="col-xs-11 margin-top_5">
                                 <textarea cols="55" rows="4" class="text-brown fs_0-9" placeholder="Ваше сообщение" name="message" ng-model="message" required=""></textarea>
                                 <div class="text-danger right" ng-show="submitted && feedback_form.message.$error.required">Текст сообщения не может быть пустым</div>
                             </div>
@@ -32,7 +32,7 @@
                     </form>
                 </div>
 
-                <div class="margin-top_20 text-right col-sm-9">
+                <div class="margin-top_20 text-right col-xs-9">
                     <button type="button" class="form-registration__submit" ng-class="{'loader':loader}" ng-click="(submitted = true) && !feedback_form.$error.required && sendFeedBack()">Отправить</button>
                     <button type="reset" class="form-registration__reset">Отменить</button>
                 </div>

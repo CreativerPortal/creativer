@@ -1,11 +1,11 @@
     <div class="row slid">
 
-        <form class="col-sm-10 padding-left_0 form_create_post" name="shop_form">
+        <form class="col-xs-10 padding-left_0 form_create_post" name="shop_form">
 
             <div class="row margin-top_20 margin-left_0">
                 <span class="text-blue pointer left" ng-if="shop.remove_shop == false" ng-click="shop.remove_shop = true">Удалить магазин</span>
 
-                <div ng-if="shop.remove_shop == true" class="col-sm-6 left padding-left_0">
+                <div ng-if="shop.remove_shop == true" class="col-xs-6 left padding-left_0">
                     Вы действително хотите удалить магазин ?
                     <span class="text-blue pointer" ng-click="removeShop(shop.id)">Да</span> |
                     <span ng-click="shop.remove_shop = false" class="text-blue pointer">Нет</span>
@@ -13,8 +13,8 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Разделы:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Разделы:</div>
+                <div class="col-xs-10">
                     <multi-select-tree data-input-model="data" multi-select="true"
                                        data-output-model="selectedItem" data-default-label="  Выберите категорию магазина"
                                        data-callback="selectOnly1Or2(item, selectedItems)"
@@ -26,24 +26,24 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Заголовок:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Заголовок:</div>
+                <div class="col-xs-10">
                     <input type="text" name="name" ng-blur="editName(shop.name)" ng-model="shop.name" ng-required="true" required="" value="shop.name">
                     <span class="text-danger" ng-show="submitted && shop_form.tit.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Краткое описание:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Краткое описание:</div>
+                <div class="col-xs-10">
                     <input type="text" name="description" ng-blur="editDescription(shop.description)" ng-model="shop.description" ng-required="true" required="" value="shop.description">
                     <span class="text-danger" ng-show="submitted && shop_form.description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Полное описание:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Полное описание:</div>
+                <div class="col-xs-10">
                     <textarea name="full_description" ng-blur="editFullDescription(shop.full_description)" ng-model="shop.full_description" ng-required="true" required="">[[ shop.full_description ]]</textarea>
                     <span class="text-danger" ng-show="submitted && shop_form.full_description.$error.required">Заголовок не должен быть пустым</span>
                 </div>
@@ -52,38 +52,38 @@
             <div class="horizontal_line_baraholka"></div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Сайт:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Сайт:</div>
+                <div class="col-xs-10">
                     <input name="site" ng-blur="editSite(shop.site)" ng-model="shop.site" ng-value="shop.site">
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">
+                <div class="col-xs-2">
                     <span>Адрес: <span class="glyphicon glyphicon-plus-sign pointer" style="top: 3px;" ng-click="add()"></span></span>
                 </div>
-                <div class="col-sm-10 right" ng-repeat="(key,ad) in shop.address track by $index">
+                <div class="col-xs-10 right" ng-repeat="(key,ad) in shop.address track by $index">
                     <input class="margin-top_5" ng-blur="editAddress(shop.address[key].id,shop.address[key].address)" name="address" ng-model="shop.address[key].address" ng-value="shop.address[key].address">
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Телефон:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Телефон:</div>
+                <div class="col-xs-10">
                     <textarea name="address" ng-blur="editTelephone(shop.telephone)" ng-model="shop.telephone">[[ shop.telephone ]]</textarea>
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">E-mail:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">E-mail:</div>
+                <div class="col-xs-10">
                     <input name="address" ng-blur="editEmail(shop.email)" ng-model="shop.email" ng-value="shop.email">
                 </div>
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-2">Время работы:</div>
-                <div class="col-sm-10">
+                <div class="col-xs-2">Время работы:</div>
+                <div class="col-xs-10">
                     <input name="address" ng-blur="editWorkingTime(shop.working_time)" ng-model="shop.working_time" ng-value="shop.working_time">
                 </div>
             </div>
@@ -118,7 +118,7 @@
             </div>
 
             <div class="row margin-top_20">
-                <div class="col-sm-12" ng-show="uploader.isHTML5">
+                <div class="col-xs-12" ng-show="uploader.isHTML5">
                     <div nv-file-drop="" uploader="uploader" options="{ url: '/foo' }">
                         <div class="progress" style="height: 10px;" ng-show="uploader.progress" nv-file-over="" uploader="uploader" over-class="another-file-over-class" class="well my-drop-zone text-center">
                             <div class="progress-bar progress-bar-warning progress-bar-striped" role="progressbar" ng-style="{ 'width': uploader.progress + '%' }"></div>

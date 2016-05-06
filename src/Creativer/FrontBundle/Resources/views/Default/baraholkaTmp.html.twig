@@ -2,21 +2,21 @@
     <div class="row slid">
 
         <div class="row">
-            <div class="col-sm-2 padding-left_0"><h3 class="lobster margin-left_0">
+            <div class="col-xs-2 padding-left_0"><h3 class="lobster margin-left_0">
                 <a  ng-click="$root.searchInBaraholka = null" class="text-black" href="/#!/baraholka">Барахолка</a></h3>
                 <div class="fs_0-8 text-gray-light"><a href="/#!/viewforum/last">Последние объявления</a></div>
             </div>
-            <form class="col-sm-3 slid__search padding-left_0 padding-right_5 margin-top_20">
+            <form class="col-xs-3 slid__search padding-left_0 padding-right_5 margin-top_20">
                 <input placeholder="Поиск по барахолке" ng-model="$root.searchInBaraholka">
                 <a href="/#!/viewforum" class="right margin-top_3"><button class="slid__slider-button"></button></a>
             </form>
             {% if is_granted('ROLE_USER') %}
-                <a href="/#!/fleamarketposting" class="col-sm-5 col-sm-offset-2 advert_button margin-top_20">Разместить объявление</a>
+                <a href="/#!/fleamarketposting" class="col-xs-5 col-xs-offset-2 advert_button margin-top_20">Разместить объявление</a>
             {% endif %}
         </div>
 
         <nav class="row slid__menu margin-top_20">
-            <div class="col-sm-2 padding-left_0">
+            <div class="col-xs-2 padding-left_0">
                 <span>Страна</span>
                 <label class="open text-blue cities__select pointer" for="all_cities"><span>[[ city.name || 'Все' ]]</span></label>
                 <input type="checkbox" class="cities-checkbox" id="all_cities">
@@ -40,28 +40,28 @@
             </div>
 
 
-            <div class="col-sm-3 text-center">
+            <div class="col-xs-3 text-center">
                 <input type="checkbox" class="baraholka__checkbox" id="my_singboard" ng-model="$root.my_singboard">
                 <label class="text-blue baraholka__label" for="my_singboard">Мои объявления</label>
             </div>
-            <div class="col-sm-4">
+            <div class="col-xs-4">
                 <input type="checkbox" class="baraholka__checkbox" id="singboard_participate" ng-model="$root.singboard_participate">
                 <label class="text-blue baraholka__label" for="singboard_participate">Объявления, в которых я участвую</label>
             </div>
-            <div class="col-sm-3">
+            <div class="col-xs-3">
                 <input type="checkbox" class="baraholka__checkbox" id="new24" ng-model="$root.new24">
                 <label class="text-blue baraholka__label" for="new24">Новое за 24 часа</label>
             </div>
         </nav>
 
         <div class="row slid__list">
-            <div class="col-sm-6">
+            <div class="col-xs-6">
                 <div ng-repeat="children in baraholka.slice(0,baraholka.length/2)">
                     <h4 class="lobster">[[ children.name ]]</h4>
                     <a ng-repeat="child in children.children" href="/#!/viewforum/[[ child.id ]]">[[ child.name ]]</a>
                 </div>
             </div>
-            <div class="col-sm-6">
+            <div class="col-xs-6">
                 <div ng-repeat="children in baraholka.slice(baraholka.length/2,baraholka.length)">
                     <h4 class="lobster">[[ children.name ]]</h4>
                     <a ng-repeat="child in children.children" href="/#!/viewforum/[[ child.id ]]">[[ child.name ]]</a>
